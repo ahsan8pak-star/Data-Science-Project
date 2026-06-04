@@ -216,3 +216,37 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# C++ / MinGW / MSYS2 artifacts
+*.exe
+*.out
+*.dll
+*.dylib
+*.o
+*.obj
+*.a
+*.lib
+*.pdb
+bin/
+out/
+.vs/
+.vscode/ipch/
+
+# Database & Sensitive Configuration
+.env.local
+.env.development.local
+.env.test.local
+config/db_credentials.json
+*.pem
+*.key
+
+# Data Science Data Handling
+# It's common to ignore data files in version control, especially if they are large or generated from other sources 
+# However, you may want to include a README.md file or a sample_data directory to provide context and examples for the data.
+data/
+!data/README.md
+!data/sample_data/
+
+# OS (macOS, Windows, Linux)
+.DS_Store
+Thumbs.db
