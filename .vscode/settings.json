@@ -1,0 +1,46 @@
+{
+    "python.defaultInterpreterPath": "/usr/bin/python3",
+    "python.languageServer": "Pylance",
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.autoImportCompletions": true,
+    "python.terminal.activateEnvironment": true,
+    "editor.formatOnSave": true,
+    "editor.rulers": [88],
+    "[python]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true,
+        "editor.defaultFormatter": "ms-python.autopep8"
+    },
+    "[cpp]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true
+    },
+    "[sql]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true
+    },
+    "[markdown]": {
+        "editor.wordWrap": "on"
+    },
+    "files.associations": {
+        "*.sql": "sql",
+        "*.py": "python"
+    },
+    "files.autoSave": "onFocusChange",
+    "rainbow_csv.enable": true,
+    "C_Cpp.default.compilerPath": "/usr/bin/g++",
+    "C_Cpp.default.cStandard": "c17",
+    "C_Cpp.default.cppStandard": "c++17",
+    "cmake.configureOnOpen": false,
+    "sqltools.connections": [
+        {
+            "name": "PostgreSQL Local",
+            "driver": "PostgreSQL",
+            "server": "localhost",
+            "port": 5432,
+            "database": "postgres",
+            "username": "postgres",
+            "password": ""
+        }
+    ]
+}
