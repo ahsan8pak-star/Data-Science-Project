@@ -8,7 +8,7 @@ A personal project to advance my career in data science as a whole.
 
 | Phase | Week / Dates (2026) | Tools Used | Shift 1: Theory & Sandbox<br>(10:00 AM – 12:30 PM) | Shift 2 & Daily Commit: Local Application<br>(3:00 PM – 6:00 PM) | Friday Afternoon Career Sprint<br>(3:00 PM – 5:30 PM) | Weekly Hours |
 
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+|---|---|---|---|---|---|---|
 
 | **Phase 1:<br>Environment<br>& Pure Syntax<br>(June)** | **Week 1**<br>June 1 – June 7 | Windows CMD, VS Code, Boot.dev, TargetJobs | Complete command-line interface (CLI) navigation paradigms on Boot.dev to learn text-based routing. | **Mon–Thu:** Open Windows CMD. Master directory control without a mouse (`cd`, `mkdir`, `dir`, `cls`). Install Python 3 and VSC via terminal prompts.<br><br>**Daily Commit (5:30-6:00):** Verify local `.py` environment path executions. | **TargetJobs:** Build your undergraduate profile. Set automated tracking filters for "Data Analyst Placements" and log early pipeline opening windows. | 25 – 30 Hours |
 
