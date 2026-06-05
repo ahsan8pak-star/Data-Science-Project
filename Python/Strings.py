@@ -162,3 +162,9 @@ print(Name.isidentifier()) # checks if the string is a valid identifier (Duplica
 # Expected Output: False
 # Actual Output:   False
 # Reason: Confirms again that a string wrapped in spaces cannot function as a legal Python variable name.
+
+
+# Inputs 
+
+name = input("Name: ") # Allows the user to type/write down their name
+print("Hey there, " + name)
