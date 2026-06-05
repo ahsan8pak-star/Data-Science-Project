@@ -1,6 +1,5 @@
 import math # Investigate more at https://docs.python.org/3/library/math.html
 
-"""
 a = 1 # Integer
 b = 1.1 # Float
 c = 1 + 2j # Complex number - 1 + 2i, where i is the imaginary unit 
@@ -48,10 +47,9 @@ print(type(i))
 print(i)
 
 # Reason for these outputs:
-# type() can only determine float, int, and complex types. It cannot determine the base of the number (binary, octal, hexadecimal) or the use of underscores for readability. Therefore, all these numbers are classified as either int or float based on their value, not their representation.
+# type() can only determine float, int, and complex types. It cannot determine the base of the number (binary, octal, hexadecimal) or the use of underscores for readability. 
+# Therefore, all these numbers are classified as either int or float based on their value, not their representation.
 
-
-"""
 
 x = 10
 y = 3
@@ -159,4 +157,4 @@ print(math.lgamma(5)) # Logarithm of the absolute value of the gamma function of
 
 print(math.isclose(0.1 + 0.2, 0.3)) # Checks if two values are close to each other (returns True)
 
-math.nextafter(1.0, 2.0) # Returns the next floating-point value after x towards y (returns 1.0000000000000002)
+print(math.nextafter(1.0, 2.0)) # Returns the next floating-point value after x towards y (returns 1.0000000000000002)
