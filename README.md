@@ -1,6 +1,6 @@
-# Data-Science-Project
+# Data Science Project
 
-A Personal Project to advance my career in Data Science as a whole.
+A personal project to advance my career in Data Science as a whole.
 
 ---
 
