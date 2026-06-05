@@ -1,12 +1,2 @@
-Name = "A.I.M"
-print(len(Name))
-print(Name[0])
-print(Name[1])
-print(Name[2])
-print(Name[3])
-print(Name[4])
-print(Name[-1])
-print(Name[0:5])
-print(Name[0:])
-print(Name[:5])
-print(Name[:])
+Name = "A.I.M \'ACE\'"
+print(Name)
