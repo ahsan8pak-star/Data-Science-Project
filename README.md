@@ -54,13 +54,20 @@ A personal project to advance my career in data science as a whole.
 ```text
 Data-Science-Project/
 │
-├── .vscode/                 # IDE runtime environments
-│   ├── launch.json          # Python local debugger settings
-│   └── settings.json        # Path configurations & script rules
+├── .vscode/                 # IDE local runtime environments
+│   ├── launch.json          # Local debugger settings
+│   └── settings.json        # Path configurations, formatting, and script rules
+│
+├── C++/                     # High-performance source engine layer
+│   └── AIM.cc               # C++ logic for accelerated data processing/parsing
+│
+├── Data/                    # Storage layer for project datasets and assets
+│   └── AIM.csv              # Raw source data file (comma-separated values input)
 │
 ├── python/                  # Python modeling engines
-│   └── AIM.py
+│   └── AIM.py               # Main Python script for data ingestion and pipeline automation
 │
-├── postgresql/              # Analytical database engine scripts
+├── postgresql/              # Analytical Database engine scripts
+│   └── AIM.sql              # SQL scripts for relational tables, schemas, and queries
 │
-└── README.md                # Execution manifest
+└── README.md                # Main project documentation, architecture map, and roadmap
