@@ -1,5 +1,7 @@
 import math # Investigate more at https://docs.python.org/3/library/math.html
 
+# Numbers in Python can be of various types, including integers, floating-point numbers, and complex numbers.
+
 a = 1 # Integer
 b = 1.1 # Float
 c = 1 + 2j # Complex number - 1 + 2i, where i is the imaginary unit 
@@ -51,6 +53,8 @@ print(i)
 # Therefore, all these numbers are classified as either int or float based on their value, not their representation.
 
 
+# Basic arithmetic operations with numbers
+
 x = 10
 y = 3
 
@@ -70,7 +74,6 @@ print(x ** y) # Exponentiation (x raised to the power of y)
 
 print(-x) # Negation (returns the negative of x)
 
-
 print(+x) # Unary plus (returns x unchanged)
 
 print(abs(-x)) # Absolute value (returns the non-negative value of x)
@@ -88,6 +91,10 @@ print(float(10)) # Converts an integer to a float
 print(complex(1, 2)) # Creates a complex number with real part 1 and imaginary part 2
 
 print(round(2.71828)) # Rounds the number to the nearest integer
+
+
+# Using the math module for more advanced mathematical operations
+
 
 print(math.sqrt(16)) # Square root of 16
 
@@ -158,3 +165,18 @@ print(math.lgamma(5)) # Logarithm of the absolute value of the gamma function of
 print(math.isclose(0.1 + 0.2, 0.3)) # Checks if two values are close to each other (returns True)
 
 print(math.nextafter(1.0, 2.0)) # Returns the next floating-point value after x towards y (returns 1.0000000000000002)
+
+
+#Comparison operators for numbers
+
+print(x == y) # Equality (returns False)
+print(x != y) # Inequality (returns True)
+print(x > y) # Greater than (returns True)
+print(x < y) # Less than (returns False)
+print(x >= y) # Greater than or equal to (returns True)
+print(x <= y) # Less than or equal to (returns False)
+
+# Logical operators for numbers (using the results of comparison operators)
+print(x > 5 and y < 5) # Logical AND (returns True)
+print(x > 5 or y < 5) # Logical OR (returns True)
+print(not (x > 5)) # Logical NOT (returns False)
