@@ -21,8 +21,8 @@ else: # default / final condition
 
 for i in range(5): # Iterates through a sequence (like a range of numbers, a string, or a list)
     if i % 2 == 0: # Condition satisfied scenario
-        print(f"{i} is even") # f-string is used to format the output by embedding the value of i within the string.
-    else: 
+        print(f"{i} is even") 
+    else: # (f"") method is used to format the output by embedding the value of i within the string
         print(f"{i} is odd")
 
 # Expected Output:

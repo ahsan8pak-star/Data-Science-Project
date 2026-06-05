@@ -1,6 +1,5 @@
 import math # Investigate more at https://docs.python.org/3/library/math.html
 
-# Numbers in Python can be of various types, including integers, floating-point numbers, and complex numbers.
 
 a = 1 # Integer
 b = 1.1 # Float
@@ -12,45 +11,45 @@ g = 0xA # Hexadecimal representation for 10
 h = 1_000_000 # Underscores for readability, equivalent to 1000000
 i = 0.000_001 # Underscores in float, equivalent to 0.000001
 
-print(type(a)) 
+print(type(a)) # Integer
 
 print(a)
 
-print(type(b))
+print(type(b)) # Float
 
 print(b)
 
-print(type(c))
+print(type(c)) # Complex
 
 print(c)
 
-print(type(d))
+print(type(d)) # Float
 
 print(d)
 
-print(type(e))
+print(type(e)) # Float
 
 print(e)
 
-print(type(f))
+print(type(f)) # Float
 
 print(f)
 
-print(type(g))
+print(type(g)) # Float
 
 print(g)
 
-print(type(h))
+print(type(h)) # Float
 
 print(h)
 
-print(type(i))
+print(type(i)) # Float
 
 print(i)
 
 # Reason for these outputs:
-# type() can only determine float, int, and complex types. It cannot determine the base of the number (binary, octal, hexadecimal) or the use of underscores for readability. 
-# Therefore, all these numbers are classified as either int or float based on their value, not their representation.
+# type() can only determine float, int, and complex types of numbers
+# Meaning all these numbers are either int or float based on their value, not their representation.
 
 
 # Basic arithmetic operations with numbers
@@ -66,7 +65,7 @@ print(x * y) # Multiplication
 
 print(x / y) # Division (returns a float)
 
-print(x // y) # Floor division (returns an integer as the quotient without the remainder)
+print(x // y) # Floor division (returns an integer as the quotient/base)
 
 print(x % y) # Modulus (returns the remainder)
 
@@ -167,7 +166,7 @@ print(math.isclose(0.1 + 0.2, 0.3)) # Checks if two values are close to each oth
 print(math.nextafter(1.0, 2.0)) # Returns the next floating-point value after x towards y (returns 1.0000000000000002)
 
 
-#Comparison operators for numbers
+# Comparison operators for numbers
 
 print(x == y) # Equality (returns False)
 print(x != y) # Inequality (returns True)
