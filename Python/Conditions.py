@@ -231,3 +231,66 @@ if x > 5:
 # Expected Output: "x is exactly 10"
 # Actual Output:   "x is exactly 10"
 # Reason: The outer condition allows the code inside to run. The 'pass' statement acts as a placeholder doing nothing, allowing the inner nested condition to evaluate and run.
+
+# Nested Conditions and Loops
+for i in range(3):
+    for j in range(2):
+        if i == j:
+            print(f"i and j are equal: {i}")
+        else:
+            print(f"({i}, {j} are not equal)")
+# Expected Output:
+# "i and j are equal: 0"
+# "(0, 1 are not equal)"
+# "(1, 0 are not equal)"
+# "i and j are equal: 1"
+# "(2, 0 are not equal)"
+# "(2, 1 are not equal)"
+
+# Actual Output:
+# "i and j are equal: 0"
+# "(0, 1 are not equal)"
+# "(1, 0 are not equal)"
+# "i and j are equal: 1"
+# "(2, 0 are not equal)"
+# "(2, 1 are not equal)"
+
+# Reason: The outer loop iterates through values of 'i' (0, 1, 2) and the inner loop iterates through values of 'j' (0, 1).
+# The condition 'i == j' is only true when both 'i' and 'j' are 0 and when both are 1, resulting in the two print statements. When 'i' is 2, there is no match with 'j', so nothing is printed for that
+
+# Iterables
+
+fruits = ["apple", "banana", "cherry"]
+for fruit in fruits: # Iterating through a list
+    print(fruit)
+
+# Expected Output:
+# "apple"
+# "banana"
+# "cherry"
+
+# Actual Output:
+# "apple"
+# "banana"
+# "cherry"
+
+# Reason: The for loop goes through each element in the 'fruits' list one by one, assigning it to the variable 'fruit' and printing it vertically, not horizontally.
+
+# Infinite Loops (use with caution!)
+
+counter = 0
+while True: # This creates an infinite loop because the condition is always True
+    print("This will run forever!")
+    counter += 1
+    if counter >= 5: # Adding a break condition to prevent actual infinite loop during testing
+        break
+
+# Expected Output:
+# "This will run forever!"
+# (repeated indefinitely until counter reaches 5)
+
+# Actual Output:
+# "This will run forever!"
+# (repeated 5 times)
+
+# Reason: The while loop is designed to run indefinitely because the condition 'True' is always satisfied. However, we added a break condition to stop it after 5 iterations for testing purposes.
