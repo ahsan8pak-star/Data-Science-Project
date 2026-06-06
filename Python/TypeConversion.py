@@ -43,19 +43,19 @@ print(f)
 print(type(a)) # checks the type of variable a
 # Expected Output: <class 'str'>
 # Actual Output:   <class 'str'>
-# Reason: Variable a is a string, so the type() function returns <class 'str
+# Reason: Variable a is a string, so the type() function returns <class 'str>
 
 print(type(b)) # checks the type of variable b
 # Expected Output: <class 'int'>
 # Actual Output:   <class 'int'>
-# Reason: Variable b is an integer, so the type() function returns <class 'int
+# Reason: Variable b is an integer, so the type() function returns <class 'int>
 
 print(type(c)) # checks the type of variable c
 # Expected Output: <class 'float'>
 # Actual Output:   <class 'float'>
-# Reason: Variable c is a float, so the type() function returns <class 'float
+# Reason: Variable c is a float, so the type() function returns <class 'float>
 
 print(type(d)) # checks the type of variable d
 # Expected Output: <class 'bool'>
 # Actual Output:   <class 'bool'>
-# Reason: Variable d is a boolean, so the type() function returns <class 'bool
+# Reason: Variable d is a boolean, so the type() function returns <class 'bool>

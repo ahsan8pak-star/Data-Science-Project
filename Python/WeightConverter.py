@@ -1,5 +1,5 @@
 Weight = input("Weight: ")
-if len(Weight) < 0 or Weight == "0":
+if len(Weight) == 0 or Weight == "0":
     print("You must weigh something")
 else:
     try:
