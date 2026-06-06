@@ -127,10 +127,10 @@ print(matrix[2][2]) # row 3 column 3 -> 9
 # Identity Matrix
 
 for i in range(len(matrix)):
+    row_output = []
     for j in range(len(matrix[i])):
-        print(matrix[i][j], end = " ")
-    print()
-
+        row_output.append(matrix[i][j] if i == j else 0)
+    print(row_output)
 """
 Output:
 
@@ -161,11 +161,11 @@ Output:
 
 # Show matrix in a horizontal list
 
-list = []
+horizontal_list = []
 
 for row in matrix:
     for item in row:
-        list.append(item)
-print(list)
+        horizontal_list.append(item)
+print(horizontal_list)
 
 # [1, 2, 3, 4, 5, 6, 7, 8, 9]

@@ -166,7 +166,8 @@ for number in range(5):
 # 1
 # 2
 
-# Reason: The loop prints 0, 1, and 2. When 'number' equals 3, the break statement is triggered, forcing the entire loop to stop immediately before 3 can be printed.
+# Reason: The loop prints 0, 1, and 2. When 'number' equals 3
+# The break statement is triggered, forcing the entire loop to stop immediately before 3 can be printed.
 
 for number in range(4):
     if number == 2:
@@ -183,7 +184,8 @@ for number in range(4):
 # 1
 # 3
 
-# Reason: The loop prints 0 and 1. When 'number' equals 2, the continue statement forces Python to skip the rest of the loop block (skipping the print) and jump straight to the next iteration (3).
+# Reason: The loop prints 0 and 1. When 'number' equals 2 
+# The continue statement forces Python to skip the rest of the loop block (skipping the print) and jump straight to the next iteration (3).
 
 
 # Logical NOT (Reversing a boolean)
@@ -230,7 +232,8 @@ if x > 5:
 
 # Expected Output: "x is exactly 10"
 # Actual Output:   "x is exactly 10"
-# Reason: The outer condition allows the code inside to run. The 'pass' statement acts as a placeholder doing nothing, allowing the inner nested condition to evaluate and run.
+# Reason: The outer condition allows the code inside to run. 
+# The 'pass' statement acts as a placeholder doing nothing, allowing the inner nested condition to evaluate and run.
 
 # Nested Conditions and Loops
 for i in range(3):
@@ -256,7 +259,8 @@ for i in range(3):
 # "(2, 1 are not equal)"
 
 # Reason: The outer loop iterates through values of 'i' (0, 1, 2) and the inner loop iterates through values of 'j' (0, 1).
-# The condition 'i == j' is only true when both 'i' and 'j' are 0 and when both are 1, resulting in the two print statements. When 'i' is 2, there is no match with 'j', so nothing is printed for that
+# The condition 'i == j' is only true when both 'i' and 'j' are 0 and when both are 1, resulting in the two print statements. 
+# When 'i' is 2, there is no match with 'j', so the 'else' condition executes and prints that they are not equal.
 
 # Iterables
 
@@ -274,7 +278,8 @@ for fruit in fruits: # Iterating through a list
 # "banana"
 # "cherry"
 
-# Reason: The for loop goes through each element in the 'fruits' list one by one, assigning it to the variable 'fruit' and printing it vertically, not horizontally.
+# Reason: The for loop goes through each element in the 'fruits' list one by one
+# Assigning it to the variable 'fruit' and printing it vertically, not horizontally.
 
 # Infinite Loops (use with caution!)
 
@@ -293,4 +298,5 @@ while True: # This creates an infinite loop because the condition is always True
 # "This will run forever!"
 # (repeated 5 times)
 
-# Reason: The while loop is designed to run indefinitely because the condition 'True' is always satisfied. However, we added a break condition to stop it after 5 iterations for testing purposes.
+# Reason: The while loop is designed to run indefinitely because the condition 'True' is always satisfied. 
+# However, we added a break condition to stop it after 5 iterations for testing purposes.

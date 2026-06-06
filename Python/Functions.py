@@ -2,7 +2,9 @@ def name(): # def - define function
     print("A.I.M")
 
 
-name() # Must be 2 lines apart from the function to execute the function.
+name() # PEP 8 styling suggests being 2 lines apart from the function
+
+# but it is not required to execute the function.
 
 
 
