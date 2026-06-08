@@ -5,7 +5,7 @@
 
 version: 2
 updates:
-  - package-ecosystem: "" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: "pip" # Updated to explicitly target your Python environment
+    directory: "/" # Location of package manifests (looks for requirements.txt in root)
     schedule:
       interval: "weekly"
