@@ -45,3 +45,4 @@ x, y, z = coordinates # an alternative to the code above made as a multi line co
 print(x) # 1
 print(y) # 2
 print(z) # 3
+

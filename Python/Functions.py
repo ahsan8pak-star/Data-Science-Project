@@ -4,8 +4,7 @@ def name(): # def - define function
 
 name() # PEP 8 styling suggests being 2 lines apart from the function
 
-# but it is not required to execute the function.
-
+# Not required but a good practice for cleaner code
 
 
 def add(a, b): # Parameters - a and b are parameters of the function add.
@@ -24,7 +23,12 @@ def multiply(x, y):
 product = multiply(4, 6)
 print(product) # Output: 24
 
+def square(n):
+    return n ** 2
 
+
+result = square(4)
+print(result)
 
 def factorial(n):
     if n == 0 or n == 1:
@@ -44,7 +48,6 @@ message = greet("A.I.M")
 file = open("AIM.txt", "w") # Opens a file in write mode.
 file.write(message) # Writes the greeting message to the file.
 file.close() # Closes the file.
-
 
 
 def increment(number, by=1): # Default parameter - by has a default value of 1.
