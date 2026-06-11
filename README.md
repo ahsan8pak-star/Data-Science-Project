@@ -27,8 +27,6 @@ Git Version Control from **GitHub, GitLab (both of them synchronized with VSC as
 
 - Weight Converter Utility **(Conditional logic integration)**
 - Numerical Guessing Game **(While loop & break engine execution)**
-- Interactive Car Simulator Game **(State controller loops)**
-- Terminal Emoji Converter **(Dictionary key-value data mapping)**
 
 ---
 
