@@ -6,8 +6,8 @@ A personal project to advance my career in Data Science as a whole.
 
 # Completed Tasks
 
-CLI Commands from **Powershell/CMD (mainly used)** and **Ubuntu/Linux (eventually will come later on in main projects)**
-Git Version Control from **GitHub, GitLab (both of them synchronized with VSC as a 'middle man')** and **Git Bash (rarely used)**
+- CLI Commands from **Powershell/CMD (mainly used)** and **Ubuntu/Linux (eventually will come later on in main projects)**
+- Git Version Control from **GitHub, GitLab (both of them synchronized with VSC as a 'middle man')** and **Git Bash (rarely used)**
 
 **Python Fundamental Topics**:
 
