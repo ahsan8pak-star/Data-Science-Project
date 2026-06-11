@@ -6,13 +6,29 @@ A personal project to advance my career in Data Science as a whole.
 
 # Completed Tasks
 
-- CLI Comands from **Powershell/CMD (mainly used)** and **Ubuntu/Linux (eventually will come later on in main projects)**
-- Git Version Control from **GitHub, GitLab (both of them synchronized with VSC as a 'middle man')** and **Git Bash (rarely used)**
-- **Python fundemental topics** listed below:
-- Conditions **(if, elif, else)**
-- Functions **(def)**
-- Exceptions **(try, except)**
-- Lists **(Arrays, Matrices)**
+CLI Commands from **Powershell/CMD (mainly used)** and **Ubuntu/Linux (eventually will come later on in main projects)**
+Git Version Control from **GitHub, GitLab (both of them synchronized with VSC as a 'middle man')** and **Git Bash (rarely used)**
+
+**Python Fundamental Topics**:
+
+- Environment & Execution **(PyCharm installation, interpreter mechanics, print())**
+- Variables & Core Types **(Data declarations, interactive input(), type casting via int()/float())**
+- String Manipulation **(f-strings, index parsing, multi-line strings, string methods)**
+- Arithmetic & Math Operations **(Operators, PEMDAS operator precedence, math module functions)**
+- Conditions & Control Flow **(if, elif, else, logical and/or/not, comparison operators)**
+- Loops & State Control **(while loops, for loops, nested loops, break statements)**
+- Lists & Matrices **(Arrays, 2D Matrices, index modification, list methods like .append() and .sort())**
+- Tuples & Dictionaries **(Immutable sequences, tuple unpacking, key-value data structures)**
+- Functions **(def blocks, positional/keyword arguments, parameter passing, return statements)**
+- Exceptions **(try, except error handling structures)**
+- Reusable Logic & Code Style **(Function refactoring, # syntax comments documentation)**
+
+ **Applied Foundation Projects**:
+
+- Weight Converter Utility **(Conditional logic integration)**
+- Numerical Guessing Game **(While loop & break engine execution)**
+- Interactive Car Simulator Game **(State controller loops)**
+- Terminal Emoji Converter **(Dictionary key-value data mapping)**
 
 ---
 
