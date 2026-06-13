@@ -29,6 +29,7 @@ A personal project to advance my career in Data Science as a whole.
 - Numerical Guessing Game **(While loop & break engine execution)**
 - Phone Number Converter **(Case function & conditional loops)**
 - Annual Rate Calculator **(Exception functions & formatting within mathematical formulas)**
+- Word Guessing Game **(Conditional loops, input functions & list fundementals)**
 
 ---
 
