@@ -22,7 +22,7 @@ try: # A more accurate annual rate calculator with currency (£/$) and symbols l
     if len(currency) != 1:
         raise Exception("Single Symbols only") # Has to be an initial only
     
-    if income < 0:
+    if income <= 0:
         raise Exception("Enter a Valid Amount.") # Enter income greater than 0
 
     # The percentage rate formula 

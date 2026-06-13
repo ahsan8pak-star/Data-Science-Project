@@ -27,6 +27,8 @@ A personal project to advance my career in Data Science as a whole.
 
 - Weight Converter Utility **(Conditional logic integration)**
 - Numerical Guessing Game **(While loop & break engine execution)**
+- Phone Number Converter **(Case function & conditional loops)**
+- Annual Rate Calculator **(Exception functions & formatting within mathematical formulas)**
 
 ---
 
