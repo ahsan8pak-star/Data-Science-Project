@@ -30,6 +30,7 @@ A personal project to advance my career in Data Science as a whole.
 - Phone Number Converter **(Case function & conditional loops)**
 - Annual Rate Calculator **(Exception functions & formatting within mathematical formulas)**
 - Word Guessing Game **(Conditional loops, input functions & list fundementals)**
+- Roman Numerals Converter **(Conditional loops, input functions, case switch fundementals & exception rules)**
 
 ---
 
