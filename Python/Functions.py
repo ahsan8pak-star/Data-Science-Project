@@ -15,13 +15,13 @@ result = add(5, 3) # Arguments - 5 and 3 are arguments passed to the function ad
 print(result) # Output: 8
 
 
-
 def multiply(x, y):
     return x * y
 
 
 product = multiply(4, 6)
 print(product) # Output: 24
+
 
 def square(n):
     return n ** 2
@@ -52,13 +52,11 @@ print(increment(7, by=3)) # Output: 10
 print(increment(15)) # Output: 16 (uses default value of by)
 
 
-
 def divide(*numbers): # xArgs - *numbers allows the function to accept a variable number of arguments.
     total = 100
     for n in numbers:
         total /= n
     return total
 
+
 print(divide(5, 4, 2)) # Output: 2.5
-
-
