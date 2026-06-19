@@ -28,17 +28,7 @@ def square(n):
 
 
 result = square(4)
-print(result)
-
-
-def greet(name): 
-    return f"{name}"
-
-
-message = greet("A.I.M")
-file = open("AIM.txt", "w") # Opens a file in write mode.
-file.write(message) # Writes the greeting message to the file.
-file.close() # Closes the file.
+print(result) # Output: 16
 
 
 def increment(number, by=1): # Default parameter - by has a default value of 1.
