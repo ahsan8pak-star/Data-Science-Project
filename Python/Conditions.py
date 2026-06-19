@@ -1,4 +1,4 @@
-# If and Else Statements  
+"""If and Else Statements"""
 
 temperature = 25
 if temperature > 30: # Condition satisfied scenario
@@ -11,13 +11,15 @@ else: # default / final condition
     print("It's cold")
 
 # Expected Output: "It's a nice day"
+
 # Actual Output:   "It's a nice day"
+
 # Reason: temperature doesn't meet the first condition (temperature > 30) is false
 # It moves to the next condition (temperature > 20) which is true, and prints "It's a nice day".
 # The remaining conditions are not evaluated because one of the conditions has already been satisfied.
 
 
-# For Loops and While Loops
+"""For Loops and While Loops"""
 
 for i in range(5): # Iterates through a sequence (like a range of numbers, a string, or a list)
     if i % 2 == 0: # Condition satisfied scenario
@@ -69,14 +71,16 @@ print("You are an adult")
 # The normal code execution resumes after the loop terminates, printing "You are an adult".
 
 
-# Ternary Operators on all scenarios, including all data types
+"""Ternary Operators on all scenarios, including all data types"""
 
 is_raining = True
 weather = "rainy" if is_raining else "sunny" # Ternary operator assigns "rainy" to weather if is_raining is True, otherwise it assigns "sunny"
 print(weather)
 
 # Expected Output: "rainy"
+
 # Actual Output:   "rainy"
+
 # Reason: Since is_raining is True, the ternary operator evaluates to "rainy" and assigns it to the variable weather.
 
 age = 20
@@ -84,12 +88,14 @@ status = "Allowed" if age >= 21 else "Rejected" # Ternary operator
 print(status)
 
 # Expected Output: "Rejected"
+
 # Actual Output:   "Rejected"
+
 # Reason: Since age is 20, which is less than 21
 # The ternary operator evaluates to "Rejected".
 
 
-# Switch Case Statements
+"""Switch Case Statements"""
 
 def get_day_name(day):
     match day: # match statement is used to compare the value of day against multiple cases
@@ -126,7 +132,7 @@ print(get_day_name(0))
 # Reason: '0' does not match any of the defined cases (1 through 7), triggering the default 'case _'.
 
 
-# Logical Operators (and, or, not)
+"""Logical Operators (and, or, not)"""
 
 income = 50000
 has_good_credit = True
@@ -149,7 +155,7 @@ if is_weekend or on_vacation: # ONLY ONE needs to be true
 # Reason: Although 'is_weekend' is False, the 'or' operator allows execution because 'on_vacation' evaluates to True.
 
 
-# Loop Control Statements (Break, Continue)
+"""Loop Control Statements (Break, Continue)"""
 
 for number in range(5):
     if number == 3:
@@ -200,8 +206,7 @@ if not is_logged_in: # Reads as: "If is_logged_in is NOT True"
 # Reason: 'is_logged_in' is False. The 'not' operator flips it to True for the sake of the if-statement, allowing the code to run.
 
 
-# Membership Operators (in, not in)
-
+"""Membership Operators (in, not in)"""
 
 user_role = "Admin"
 valid_roles = ["Admin", "Editor", "Moderator"]
@@ -222,7 +227,7 @@ if "z" not in name: # Checks if the value is missing from the string
 # Reason: Python scans the string "A.I.M". Since "z" is nowhere to be found, the 'not in' condition evaluates to True.
 
 
-# The 'pass' Statement (Structural Placeholder)
+"""The 'pass' Statement (Structural Placeholder)"""
 
 x = 10
 if x > 5:
@@ -235,7 +240,8 @@ if x > 5:
 # Reason: The outer condition allows the code inside to run. 
 # The 'pass' statement acts as a placeholder doing nothing, allowing the inner nested condition to evaluate and run.
 
-# Nested Conditions and Loops
+"""Nested Conditions and Loops"""
+
 for i in range(3):
     for j in range(2):
         if i == j:
@@ -262,7 +268,7 @@ for i in range(3):
 # The condition 'i == j' is only true when both 'i' and 'j' are 0 and when both are 1, resulting in the two print statements. 
 # When 'i' is 2, there is no match with 'j', so the 'else' condition executes and prints that they are not equal.
 
-# Iterables
+"""Iterables"""
 
 fruits = ["apple", "banana", "cherry"]
 for fruit in fruits: # Iterating through a list
@@ -281,7 +287,7 @@ for fruit in fruits: # Iterating through a list
 # Reason: The for loop goes through each element in the 'fruits' list one by one
 # Assigning it to the variable 'fruit' and printing it vertically, not horizontally.
 
-# Infinite Loops (use with caution!)
+"""Infinite Loops (Extreme Caution!!!)"""
 
 counter = 0
 while True: # This creates an infinite loop because the condition is always True
