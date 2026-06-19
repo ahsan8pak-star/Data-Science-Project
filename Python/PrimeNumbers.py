@@ -34,3 +34,5 @@ try: # opens a safe execution zone to process user entries and catch typing erro
         
 except ValueError: # prevents a crash in the system if the user enters other than integers like floats for example
     print("Error: Invalid number format. Enter integers only (whole numbers).") # specifies the input rules to guide the operator
+
+

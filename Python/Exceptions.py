@@ -7,3 +7,4 @@ try: # Used for the actual executable code to be run underneath
 
 except ValueError: # Very common example
     print("Enter the age in integers (whole numbers).")
+

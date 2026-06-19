@@ -19,3 +19,4 @@ except TypeError:
 
 except KeyboardInterrupt:
     print("Unusual Crash Detected.")
+

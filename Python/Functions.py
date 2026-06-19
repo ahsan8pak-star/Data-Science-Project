@@ -50,3 +50,4 @@ def divide(*numbers): # xArgs - *numbers allows the function to accept a variabl
 
 
 print(divide(5, 4, 2)) # Output: 2.5
+

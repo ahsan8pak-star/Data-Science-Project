@@ -179,3 +179,4 @@ print(x <= y) # Less than or equal to (returns False)
 print(x > 5 and y < 5) # Logical AND (returns True)
 print(x > 5 or y < 5) # Logical OR (returns True)
 print(not (x > 5)) # Logical NOT (returns False)
+

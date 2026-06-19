@@ -43,3 +43,4 @@ for digit in phone: # Iterates through each validated digit in the string
     result += word + " " # Seperates the "words"
 
 print("Word:", result) # outputs the words of that phone number
+

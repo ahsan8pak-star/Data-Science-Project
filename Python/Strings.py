@@ -168,3 +168,5 @@ print(Name.isidentifier()) # checks if the string is a valid identifier (Duplica
 
 name = input("Name: ") # Allows the user to type/write down their name
 print("Hey there, " + name)
+
+
