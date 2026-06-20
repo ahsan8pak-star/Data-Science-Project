@@ -17,4 +17,3 @@ try:
 except ValueError: # Captures the main error when the user inputs their answer into this function
     print("Integers only")
 
-
