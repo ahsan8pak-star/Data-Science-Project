@@ -7,28 +7,12 @@ name() # PEP 8 styling suggests being 2 lines apart from the function
 # Not required but a good practice for cleaner code
 
 
-def add(a, b): # Parameters - a and b are parameters of the function add.
-    return a + b # Return - the value that the function gives back after execution.
+def decrement(a, b): # Parameters - a and b are parameters of the function decrement.
+    return a - b # Return - the value that the function gives back after execution.
 
 
-result = add(5, 3) # Arguments - 5 and 3 are arguments passed to the function add.
-print(result) # Output: 8
-
-
-def multiply(x, y):
-    return x * y
-
-
-product = multiply(4, 6)
-print(product) # Output: 24
-
-
-def square(n):
-    return n ** 2
-
-
-result = square(4)
-print(result) # Output: 16
+result = decrement (5, 3) # Arguments - 5 and 3 are arguments passed to the function add.
+print(result) # Output: 2
 
 
 def increment(number, by=1): # Default parameter - by has a default value of 1.
