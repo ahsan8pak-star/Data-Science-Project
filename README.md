@@ -33,6 +33,9 @@ A personal project to advance my career in Data Science as a whole.
 - Roman Numerals Converter **(Conditional loops, input functions, case switch fundementals & exception rules)**
 - Fahrenheit & Celcius **(Function fundementals with basic conditional loops)**
 - Time Coverter **(Fundemental switch cases, including error catching within conditional loops)**
+- Simple Grade Boundary Calculator **(Integers with conditional (if) loops)**
+- Simple Login Status **(User input and error catching, within the logical framework of boolean)**
+- Basic Distance Calculator **(Floats and user input demonstartion.)**
 
 ---
 
