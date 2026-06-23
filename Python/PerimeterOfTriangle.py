@@ -21,3 +21,4 @@ c = get_float_input("Enter side c (cm): ")
 
 if a and b and c:
     print(f"\nResult: Perimeter is {round(a + b + c, 2)} cm")
+

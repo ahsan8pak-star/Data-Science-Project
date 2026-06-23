@@ -48,3 +48,4 @@ else:
 
         else:
             print(f"\nResult: Side (b) is {round(math.sqrt(c**2 - a**2), 2)} cm")
+

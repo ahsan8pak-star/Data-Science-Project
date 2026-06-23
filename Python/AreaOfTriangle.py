@@ -20,3 +20,4 @@ h = get_float_input("Enter the perpendicular height (cm): ")
 
 if b and h:
     print(f"\nResult: Area is {round((b * h) / 2, 2)} cm^2")
+
