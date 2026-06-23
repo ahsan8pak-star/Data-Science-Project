@@ -60,24 +60,41 @@ if target == "side":
                 print("Invalid combination.")
 
 elif target == "angle":
+   
     print("To find an angle using Cosine Rule, you MUST know all three sides (a, b, c).")
+   
     a = get_float_input("Enter side a: ")
     b = get_float_input("Enter side b: ")
     c = get_float_input("Enter side c: ")
         
     if a and b and c:
-            find_ang = input("Which angle do you want to find? (A, B, or C): ").strip().upper()
-
-            match find_ang:
-
-                case "A":
-                    cos_A = ((b**2) + (c**2) - (a**2)) / (2 * b * c)
+        find_ang = input("Which angle do you want to find? (A, B, or C): ").strip().upper()
+        
+        match find_ang:
+   
+            case "A":
+                cos_A = ((b**2) + (c**2) - (a**2)) / (2 * b * c)
+   
+                if -1 <= cos_A <= 1:
                     print(f"\nResult: Angle A is {round(math.degrees(math.acos(cos_A)), 2)} degrees")
-
-                case "B":
-                    cos_B = ((a**2) + (c**2) - (b**2)) / (2 * a * c)
+   
+                else:
+                    print("Error: Impossible triangle. These sides cannot connect.")
+   
+            case "B":
+                cos_B = ((a**2) + (c**2) - (b**2)) / (2 * a * c)
+   
+                if -1 <= cos_B <= 1:
                     print(f"\nResult: Angle B is {round(math.degrees(math.acos(cos_B)), 2)} degrees")
-
-                case "C":
-                    cos_C = ((a**2) + (b**2) - (c**2)) / (2 * a * b)
+   
+                else:
+                    print("Error: Impossible triangle. These sides cannot connect.")
+   
+            case "C":
+                cos_C = ((a**2) + (b**2) - (c**2)) / (2 * a * b)
+   
+                if -1 <= cos_C <= 1:
                     print(f"\nResult: Angle C is {round(math.degrees(math.acos(cos_C)), 2)} degrees")
+   
+                else:
+                    print("Error: Impossible triangle. These sides cannot connect.")
