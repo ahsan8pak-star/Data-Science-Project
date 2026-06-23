@@ -23,19 +23,52 @@ A personal project to advance my career in Data Science as a whole.
 - Exceptions **(try, except error handling structures)**
 - Reusable Logic & Code Style **(Function refactoring, # syntax comments documentation)**
 
- **Applied Foundation Projects**:
+# Applied Foundation Projects:
 
-- Weight Converter Utility **(Conditional logic integration)**
-- Numerical Guessing Game **(While loop & break engine execution)**
-- Phone Number Converter **(Case function & conditional loops)**
+**Mathematical & Scientific Projects:**
+
+- Area & Volume Calculator **(Functions combining 2 basic files with advanced user input)**
+- Area **(Basic arithmetic functions with 2 values)**
+- Area of Circle **(Mathematical functions, including user input)**
+- Area of Triangle **(Basic mathematical functions, with a fundemental user input function)**
+- Circumference of Circle **(Mathematical functions, including user input)**
+- Cosine Rule **(Advanced Mathematical functions)**
+- Perimeter of Triangle **(Basic mathematical functions with user input)**
+- Pythagoras Theorm **(Advanced Mathematical functions)**
+- Sine Rule **(Advanced Mathematical functions)**
+- Triangle Calculator **(Functions combining 2 basic and 2 advanced files with advanced user input)**
+- Volume **(Basic arithmetic functions with 3 values)**
+
+**Algorithms & Data Converters:**
+
 - Annual Rate Calculator **(Exception functions & formatting within mathematical formulas)**
-- Word Guessing Game **(Conditional loops, input functions & list fundementals)**
-- Roman Numerals Converter **(Conditional loops, input functions, case switch fundementals & exception rules)**
 - Fahrenheit & Celcius **(Function fundementals with basic conditional loops)**
+- Phone Number Converter **(Case function & conditional loops)**
+- Roman Numerals Converter **(Conditional loops, input functions, case switch fundementals & exception rules)**
 - Time Coverter **(Fundemental switch cases, including error catching within conditional loops)**
+- Weight Converter Utility **(Conditional logic integration)**
+
+**Logic & Algorithmic Games:**
+
+- Haiku - Madlibs **(F-strings with lists and random import)**
+- Numerical Guessing Game **(While loop & break engine execution)**
 - Simple Grade Boundary Calculator **(Integers with conditional (if) loops)**
 - Simple Login Status **(User input and error catching, within the logical framework of boolean)**
+- Word Guessing Game **(Conditional loops, input functions & list fundementals)**
+
+**Syntax Fundementals:**
+
+- Add **(+)**
 - Basic Distance Calculator **(Floats and user input demonstartion.)**
+- Basic File Writer **(File I/O fundementals)**
+- Basic Shopping List **(User input and type conversions)**
+- Divide **(/)**
+- Fractorials **(Iterative Sequence Multiplication)**
+- LeapYear **(Basic Mathematical functions under conditional loops)**
+- Multiply **(*)**
+- Prime Numbers **(Iterative sequence filtration and identification)**
+- Square **(**)**
+- Subtract **(-)**
 
 ---
 
