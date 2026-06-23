@@ -15,3 +15,4 @@ elif quantity == 1:
 else:
     print(f"You bought {quantity} {item}s")
     print(f"Total: £{total:.2f}")
+
