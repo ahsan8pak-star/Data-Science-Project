@@ -11,7 +11,7 @@ def decrement(a, b): # Parameters - a and b are parameters of the function decre
     return a - b # Return - the value that the function gives back after execution.
 
 
-result = decrement (5, 3) # Arguments - 5 and 3 are arguments passed to the function add.
+result = decrement (5, 3) # Arguments - 5 and 3 are arguments passed to the function decrement.
 print(result) # Output: 2
 
 
