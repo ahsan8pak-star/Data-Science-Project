@@ -14,7 +14,7 @@ A personal project to advance my career in Data Science as a whole.
 - Environment & Execution **(PyCharm / Visual Studio Code installation, interpreter mechanics, print())**
 - Variables & Core Types **(Data declarations, interactive input(), type casting via int()/float())**
 - String Manipulation **(f-strings, index parsing, multi-line strings, string methods)**
-- Arithmetic & Math Operations **(Operators, PEMDAS operator precedence, math module functions)**
+- Arithmetic & Maths Operations **(Operators, BIDMAS operatortions, maths module functions)**
 - Conditions & Control Flow **(if, elif, else, logical and/or/not, comparison operators)**
 - Loops & State Control **(while loops, for loops, nested loops, break statements)**
 - Lists & Matrices **(Arrays, 2D Matrices, index modification, list methods like .append() and .sort())**
