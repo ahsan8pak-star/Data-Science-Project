@@ -31,6 +31,7 @@ A personal project to advance my career in Data Science as a whole.
 - Area **(Basic arithmetic functions with 2 values)**
 - Area of Circle **(Mathematical functions, including user input)**
 - Area of Triangle **(Basic mathematical functions, with a fundemental user input function)**
+- Arithmetic Calculator **(Basic switch cases with extensive conditional loops and f-strings with the inclusion of fundemental mathematical unit formatting)**
 - Circumference of Circle **(Mathematical functions, including user input)**
 - Cosine Rule **(Advanced Mathematical functions)**
 - Perimeter of Triangle **(Basic mathematical functions with user input)**
