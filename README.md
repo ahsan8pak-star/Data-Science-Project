@@ -11,7 +11,7 @@ A personal project to advance my career in Data Science as a whole.
 
 **Python Fundamental Topics**:
 
-- Environment & Execution **(PyCharm installation, interpreter mechanics, print())**
+- Environment & Execution **(PyCharm / Visual Studio Code installation, interpreter mechanics, print())**
 - Variables & Core Types **(Data declarations, interactive input(), type casting via int()/float())**
 - String Manipulation **(f-strings, index parsing, multi-line strings, string methods)**
 - Arithmetic & Math Operations **(Operators, PEMDAS operator precedence, math module functions)**
@@ -50,24 +50,24 @@ A personal project to advance my career in Data Science as a whole.
 
 **Logic & Algorithmic Games:**
 
+- Grade Boundary Calculator **(Integers with conditional (if) loops)**
 - Haiku - Madlibs **(F-strings with lists and random import)**
+- Login Status **(User input and error catching, within the logical framework of boolean)**
 - Numerical Guessing Game **(While loop & break engine execution)**
-- Simple Grade Boundary Calculator **(Integers with conditional (if) loops)**
-- Simple Login Status **(User input and error catching, within the logical framework of boolean)**
 - Word Guessing Game **(Conditional loops, input functions & list fundementals)**
 
 **Syntax Fundementals:**
 
 - Add **(+)**
-- Basic Distance Calculator **(Floats and user input demonstartion.)**
-- Basic File Writer **(File I/O fundementals)**
-- Basic Shopping List **(User input and type conversions)**
+- Distance Calculator **(Floats and user input demonstartion.)**
 - Divide **(/)**
-- Fractorials **(Iterative Sequence Multiplication)**
+- Factorials **(Iterative Sequence Multiplication)**
+- File Writer **(File I/O fundementals)**
 - LeapYear **(Basic Mathematical functions under conditional loops)**
 - Multiply **(*)**
 - Prime Numbers **(Iterative sequence filtration and identification)**
-- Square **(**)**
+- Shopping List **(User input and type conversions)**
+- Square **( pow(x, y) == ** )**
 - Subtract **(-)**
 
 ---
