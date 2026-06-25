@@ -321,3 +321,38 @@ while True: # This creates an infinite loop because the condition is always True
 # Reason: The while loop is designed to run indefinitely because the condition 'True' is always satisfied. 
 # However, we added a break condition to stop it after 5 iterations for testing purposes.
 
+"""Conditional Expressions"""
+
+num1 = 7
+num2 = 8
+
+print("Positive" if num1 > 0 else "Negative") # Similar to If-Else statements alone
+print("Even" if num2 % 2 == 0 else "Odd")
+
+a = 4
+b = 6
+
+max_num = a if num1 > num2 else b
+min_num = a if num1 < num2 else b # Even works for assignments
+
+print(max_num)
+print(min_num)
+
+age = 21
+
+status = "Adult" if age >= 18 else "Child"
+
+print(status)
+
+temperature = 30
+
+weather = "Hot" if temperature >= 20 else "Cold"
+
+print(weather)
+
+user_role = "admin"
+
+access_level = "Access Granted" if user_role == "admin" else "Access Denied"
+
+print(access_level)
+
