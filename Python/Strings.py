@@ -1,5 +1,7 @@
 Name = " AhSaN "
 
+print(help(str)) # Entire list of strings methods
+
 print(Name.lower()) # all letters in lower case 
 # Expected Output: " ahsan "
 # Actual Output:   " ahsan "
