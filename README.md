@@ -70,6 +70,7 @@ A personal project to advance my career in Data Science as a whole.
 - Shopping List **(User input and type conversions)**
 - Square **( pow(x, y) == ** )**
 - Subtract **(-)**
+- Username Excercise **(Fundemental conditional expressions with advanced string methods)**
 
 ---
 
