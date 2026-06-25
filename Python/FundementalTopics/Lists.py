@@ -1,4 +1,8 @@
-names = ["Ahsan", "Yahya", "Matthew", "Anaf", "Hamza"]
+"""Lists Indexing"""
+
+# [START : END : STEP]
+
+names = ["Ahsan", "Yahya", "Matthew", "Ahnaf", "Hamza"]
 # names = [0, 1, 2, 3, 4] -> [1st, 2nd, 3rd, 4th, 5th]
 # names = [-5, -4, -3, -2, -1] -> [1st, 2nd, 3rd, 4th, 5th]
 
@@ -9,41 +13,41 @@ print(names[3]) # Ahnaf
 print(names[4]) # Hamza
 
 print(names[-1]) # print(names[4]) -> Hamza
-print(names[-2]) # print(names[3]) -> Anaf
+print(names[-2]) # print(names[3]) -> Ahnaf
 print(names[-3]) # print(names[2]) -> Matthew
-print(names[-4]) # print(names[1]) -> Yayha
+print(names[-4]) # print(names[1]) -> Yahya
 print(names[-5]) # print(names[0]) -> Ahsan
 
-print(names[:]) # [Ahsan, Yahya, Matthew, Anaf, Hamza] 
+print(names[:]) # [Ahsan, Yahya, Matthew, Ahnaf, Hamza] 
 
-print(names[0:]) # [Ahsan, Yahya, Matthew, Anaf, Hamza] 
-print(names[1:]) # [Yahya, Matthew, Anaf, Hamza]
-print(names[2:]) # [Matthew, Anaf, Hamza]
-print(names[3:]) # [Anaf, Hamza]
+print(names[0:]) # [Ahsan, Yahya, Matthew, Ahnaf, Hamza] 
+print(names[1:]) # [Yahya, Matthew, Ahnaf, Hamza]
+print(names[2:]) # [Matthew, Ahnaf, Hamza]
+print(names[3:]) # [Ahnaf, Hamza]
 print(names[4:]) # [Hamza]
 print(names[5:]) # []
 
-print(names[-5:]) # [Ahsan, Yahya, Matthew, Anaf, Hamza] 
-print(names[-4:]) # [Yahya, Matthew, Anaf, Hamza]
-print(names[-3:]) # [Matthew, Anaf, Hamza]
-print(names[-2:]) # [Anaf, Hamza]
+print(names[-5:]) # [Ahsan, Yahya, Matthew, Ahnaf, Hamza] 
+print(names[-4:]) # [Yahya, Matthew, Ahnaf, Hamza]
+print(names[-3:]) # [Matthew, Ahnaf, Hamza]
+print(names[-2:]) # [Ahnaf, Hamza]
 print(names[-1:]) # [Hamza]
 
 print(names[:0]) # [] 
 print(names[:1]) # ['Ahsan']
 print(names[:2]) # ['Ahsan', 'Yahya']
 print(names[:3]) # ['Ahsan', 'Yahya', 'Matthew']
-print(names[:4]) # ['Ahsan', 'Yahya', 'Matthew', 'Anaf']
-print(names[:5]) # ['Ahsan', 'Yahya', 'Matthew', 'Anaf', 'Hamza']
+print(names[:4]) # ['Ahsan', 'Yahya', 'Matthew', 'Ahnaf']
+print(names[:5]) # ['Ahsan', 'Yahya', 'Matthew', 'Ahnaf', 'Hamza']
 
 print(names[:-5]) # []
 print(names[:-4]) # ['Ahsan']
 print(names[:-3]) # ['Ahsan', 'Yahya']
 print(names[:-2]) # ['Ahsan', 'Yahya', 'Matthew']
-print(names[:-1]) # ['Ahsan', 'Yahya', 'Matthew', 'Anaf']
+print(names[:-1]) # ['Ahsan', 'Yahya', 'Matthew', 'Ahnaf']
 print(names[:-0]) # [] 
 
-# List Methods
+"""List Methods"""
 
 numbers = [5, 2, 1, 7, 4]
 
@@ -56,7 +60,8 @@ numbers.pop() # [5, 2, 1, 7]
 numbers.index(1) # 2
 numbers.sort() # [1, 2, 4, 5, 7]
 numbers.reverse() # [4, 7, 1, 2, 5] 
-# With numbers.sort: [7, 5, 4, 2, 1] 
+numbers.sort() # [1, 2, 4, 5, 7] 
+# With numbers.sort() for numbers.reverse(): [7, 5, 4, 2, 1] 
 
 print(numbers) # Testing each function, can't do all at once
 print(numbers.index(1)) # 2
@@ -69,7 +74,7 @@ number = numbers.copy()
 print(number) # [5, 2, 1, 7, 4]
 # This when we can do whatever we do that new list (number)
 
-# Duplicates solution
+""" Duplicates solution """
 
 duplicates = [2, 2, 4, 6, 3, 4, 6, 1]
 
@@ -80,7 +85,7 @@ for duplicate in duplicates:
         uniques.append(duplicate)
 print(uniques)
 
-# Find Max iten in the list
+""" Find Max iten in the list """
 
 items = [3, 6, 2, 8, 4, 9]
 
@@ -93,7 +98,7 @@ print(max)
 
 # Output: 9
 
-# Find Min item in the list
+""" Find Min item in the list """
 
 items = [3, 6, 2, 8, 4, 9]
 
@@ -106,7 +111,7 @@ print(min)
 
 # Output: 2
 
-# 2D Lists / Matrices
+""" 2D Lists / Matrices """
 
 matrix = [
     [1, 2, 3],
@@ -124,7 +129,7 @@ print(matrix[2][0]) # row 3 column 1 -> 7
 print(matrix[2][1]) # row 3 column 2 -> 8
 print(matrix[2][2]) # row 3 column 3 -> 9
 
-# Identity Matrix
+""" Identity Matrix """
 
 for i in range(len(matrix)):
     row_output = []
@@ -140,7 +145,7 @@ Output:
 
 """
 
-# Show matrix in a vertical list
+""" Show matrix in a vertical list """
 
 for row in matrix:
     for item in row:
@@ -159,7 +164,7 @@ Output:
 9
 """
 
-# Show matrix in a horizontal list
+""" Show matrix in a horizontal list """
 
 horizontal_list = []
 
