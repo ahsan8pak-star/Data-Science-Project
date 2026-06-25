@@ -43,6 +43,11 @@ print(Name.find("s")) # finds the index of the first occurrence of lowercase "s"
 # Actual Output:   -1
 # Reason: Python string methods are strictly case-sensitive. The string contains an uppercase "S" at index 3, but lowercase "s" does not exist anywhere in the string, returning -1.
 
+print(Name.rfind("a")) # finds the index of the first occurrence of lowercase "a", starting on the left hand side (from 0) 
+# Expected Output: 4
+# Actual Output:   4
+# Reason: The string contains an lowercase "a" at index 4, starting from index 0 asceding order (far left) and goes to the right.
+
 print(Name.replace("A", "a")) # replaces all occurrences of "A" with "a" 
 # Expected Output: " ahSaN "
 # Actual Output:   " ahSaN "
