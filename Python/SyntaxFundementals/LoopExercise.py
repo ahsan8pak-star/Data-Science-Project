@@ -10,7 +10,7 @@ print ("We have " + str(count) + " even numbers")
 # Finding all odd numbers from the first 10 numbers
 
 count = 0
-for i in range 01, 11): 
+for i in range (0, 11): 
     if i % 2 == 1:
         print(i)
         count += 1
