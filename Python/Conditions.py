@@ -134,6 +134,8 @@ print(get_day_name(0))
 
 """Logical Operators (and, or, not)"""
 
+# AND
+
 income = 50000
 has_good_credit = True
 
@@ -143,6 +145,8 @@ if income >= 40000 and has_good_credit: # BOTH must be true
 # Expected Output: "Eligible for loan"
 # Actual Output:   "Eligible for loan"
 # Reason: Both the income requirement AND the credit requirement are met simultaneously.
+
+# OR
 
 is_weekend = False
 on_vacation = True
@@ -154,6 +158,8 @@ if is_weekend or on_vacation: # ONLY ONE needs to be true
 # Actual Output:   "You don't have to work!"
 # Reason: Although 'is_weekend' is False, the 'or' operator allows execution because 'on_vacation' evaluates to True.
 
+# NOT
+
 is_admin = True
 
 if is_admin != False: # NONE has to be true, meaning it's literally the opposite value
@@ -162,6 +168,17 @@ if is_admin != False: # NONE has to be true, meaning it's literally the opposite
 # Expected Output: "Access Granted!"
 # Actual Ouput:    "Access Granted!"
 # Reason: This means is_admin HAS to be True since NOT False == True
+
+# Logical NOT (Reversing a boolean)
+
+is_logged_in = False
+if not is_logged_in: # Reads as: "If is_logged_in is NOT True"
+    print("Please log in to continue.")
+
+# Expected Output: "Please log in to continue."
+# Actual Output:   "Please log in to continue."
+# Reason: 'is_logged_in' is False. The 'not' operator flips it to True for the sake of the if-statement, allowing the code to run.
+
 
 """Loop Control Statements (Break, Continue)"""
 
@@ -201,17 +218,6 @@ for number in range(4):
 # Reason: The loop prints 0 and 1. When 'number' equals 2 
 # The continue statement forces Python to skip the rest of the loop block (skipping the print) and jump straight to the next iteration (3).
 
-
-# Logical NOT (Reversing a boolean)
-
-
-is_logged_in = False
-if not is_logged_in: # Reads as: "If is_logged_in is NOT True"
-    print("Please log in to continue.")
-
-# Expected Output: "Please log in to continue."
-# Actual Output:   "Please log in to continue."
-# Reason: 'is_logged_in' is False. The 'not' operator flips it to True for the sake of the if-statement, allowing the code to run.
 
 
 """Membership Operators (in, not in)"""
