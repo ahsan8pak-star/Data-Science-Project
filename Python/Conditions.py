@@ -154,6 +154,14 @@ if is_weekend or on_vacation: # ONLY ONE needs to be true
 # Actual Output:   "You don't have to work!"
 # Reason: Although 'is_weekend' is False, the 'or' operator allows execution because 'on_vacation' evaluates to True.
 
+is_admin = True
+
+if is_admin != False: # NONE has to be true, meaning it's literally the opposite value
+    print("Access Granted!") 
+
+# Expected Output: "Access Granted!"
+# Actual Ouput:    "Access Granted!"
+# Reason: This means is_admin HAS to be True since NOT False == True
 
 """Loop Control Statements (Break, Continue)"""
 
