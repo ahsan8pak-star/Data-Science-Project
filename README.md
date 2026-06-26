@@ -62,6 +62,7 @@ A personal project to advance my career in Data Science as a whole.
 - Add **(+)**
 - Distance Calculator **(Floats and user input demonstartion.)**
 - Divide **(/)**
+- Email Slicer **(Index formtting fundementals)**
 - Even & Odd Loop Detector **(Fundemental conditional for loop and modulus operator)**
 - Factorials **(Iterative Sequence Multiplication)**
 - File Writer **(File I/O fundementals)**
