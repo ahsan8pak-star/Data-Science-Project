@@ -46,6 +46,29 @@ for i in range(5): # Iterates through a sequence (like a range of numbers, a str
 # If the condition is true, it prints that the number is even; otherwise, it prints that the number is odd.
 
 
+for num in range (1, 11, 2):
+    print(num)
+
+# Expected Output: 
+"""
+2
+4
+6
+8
+10
+"""
+# Actual Output:
+"""
+1
+3
+5
+7
+9
+"""
+# Reason: for num in range (1, 11, 2) -> (START, END, STEP) -> It goes theough every 2nd step / index of that range between 1 and 10.
+# It doesn't mean every number divisble by 2 i.e. even is shown, rather it's for odd numbers due to its starting point being odd (1).
+
+
 age = 15
 while age < 18: # Condition satisfied scenario
     print("You are a minor: " + str(age))
@@ -86,6 +109,7 @@ print(f"Username: {name}")
 # Reason: Since 'name' variable has been assigned by its string "A.I.M", it skips the while loop and directly prints out the name.
 # break was used to prevent a constant recurring message of "Enter your name", leading to memory overload i.e. program crashing.
 
+
 """Ternary Operators on all scenarios, including all data types"""
 
 is_raining = True
@@ -97,6 +121,7 @@ print(weather)
 # Actual Output:   "rainy"
 
 # Reason: Since is_raining is True, the ternary operator evaluates to "rainy" and assigns it to the variable weather.
+
 
 age = 20
 status = "Allowed" if age >= 21 else "Rejected" # Ternary operator
@@ -217,6 +242,7 @@ for number in range(5):
 # Reason: The loop prints 0, 1, and 2. When 'number' equals 3
 # The break statement is triggered, forcing the entire loop to stop immediately before 3 can be printed.
 
+
 for number in range(4):
     if number == 2:
         continue # Skips the current iteration, but keeps looping
@@ -249,6 +275,7 @@ if user_role in valid_roles: # Checks if the value exists inside the list
 # Actual Output:   "Access Granted"
 # Reason: Python checks the entire 'valid_roles' list and finds an exact match for "Admin".
 
+
 name = "A.I.M"
 if "z" not in name: # Checks if the value is missing from the string
     print("The letter 'z' is missing.")
@@ -271,6 +298,7 @@ if x > 5:
 # Reason: The outer condition allows the code inside to run. 
 # The 'pass' statement acts as a placeholder doing nothing, allowing the inner nested condition to evaluate and run.
 
+
 """Nested Conditions and Loops"""
 
 for i in range(3):
@@ -279,6 +307,7 @@ for i in range(3):
             print(f"i and j are equal: {i}")
         else:
             print(f"({i}, {j} are not equal)")
+
 # Expected Output:
 # "i and j are equal: 0"
 # "(0, 1 are not equal)"
@@ -299,6 +328,37 @@ for i in range(3):
 # The condition 'i == j' is only true when both 'i' and 'j' are 0 and when both are 1, resulting in the two print statements. 
 # When 'i' is 2, there is no match with 'j', so the 'else' condition executes and prints that they are not equal.
 
+
+for x in range (5): # for 5 times
+    for y in range(1, 11): # from 1 to 10 (11 exclusive)
+        print(y, end=" ") # print 1-10, 5 times. [ end=" " ] allows spaces in between numbers
+    print() #  Allows each interation done (y) under a single line, meaning the next one will go to a new line (x)
+
+# Expected Output:
+"""
+1 2 3 4 5 6 7 8 9 10
+1 2 3 4 5 6 7 8 9 10
+1 2 3 4 5 6 7 8 9 10
+1 2 3 4 5 6 7 8 9 10
+1 2 3 4 5 6 7 8 9 10
+"""
+
+# Actual Output:
+"""
+1 2 3 4 5 6 7 8 9 10
+1 2 3 4 5 6 7 8 9 10
+1 2 3 4 5 6 7 8 9 10
+1 2 3 4 5 6 7 8 9 10
+1 2 3 4 5 6 7 8 9 10
+"""
+# Reason: for x in range(5) -> every function underneath it, repeat it 5 times
+# for y in range (1, 11) -> from number 1 to 10 (11 is exclusive)
+# print(y, end=" ") # print 1-10 (function y). 
+# end=" " -> This is the most crucial bit since this prevents all numbers printed vertically
+# print() -> This means once the y function has been exceuted, repeat it under function x in a new line.
+# This means repeat number 1 to 10 being outputted 5 times under each new line.
+
+
 """Iterables"""
 
 fruits = ["apple", "banana", "cherry"]
@@ -317,6 +377,7 @@ for fruit in fruits: # Iterating through a list
 
 # Reason: The for loop goes through each element in the 'fruits' list one by one
 # Assigning it to the variable 'fruit' and printing it vertically, not horizontally.
+
 
 """Infinite Loops (Extreme Caution!!!)"""
 
@@ -337,6 +398,7 @@ while True: # This creates an infinite loop because the condition is always True
 
 # Reason: The while loop is designed to run indefinitely because the condition 'True' is always satisfied. 
 # However, we added a break condition to stop it after 5 iterations for testing purposes.
+
 
 """Conditional Expressions"""
 
