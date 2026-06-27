@@ -33,9 +33,13 @@ A personal project to advance my career in Data Science as a whole.
 - Area of Triangle **(Basic mathematical functions, with a fundemental user input function)**
 - Arithmetic Calculator **(Basic switch cases with extensive conditional loops and f-strings with the inclusion of fundemental mathematical unit formatting)**
 - Circumference of Circle **(Mathematical functions, including user input)**
+- Compound Debt Calculator **(Mathematical formulas in relation to its interest calculator, including fundemental conditional loops)**
+- Compound Interest Calculator **(Mathematical formulas, including fundemental conditional loops, try-except error catching and f-strings)**
 - Cosine Rule **(Advanced Mathematical functions)**
 - Perimeter of Triangle **(Basic mathematical functions with user input)**
 - Pythagoras Theorm **(Advanced Mathematical functions)**
+- Simple Debt Calculator **(Mathematical formulas in relation to its interest calculator, including fundemental conditional loops)**
+- Simple Interest Calculator **(Mathematical formulas, including fundemental conditional loops, try-except error catching and f-strings)**
 - Sine Rule **(Advanced Mathematical functions)**
 - Triangle Calculator **(Functions combining 2 basic and 2 advanced files with advanced user input)**
 - Volume **(Basic arithmetic functions with 3 values)**
