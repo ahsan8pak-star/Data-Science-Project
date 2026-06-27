@@ -1,0 +1,9 @@
+[project]
+name = "my_data_science_project"
+version = "0.1.0"
+dependencies = [
+    "pytest>=8.0.0",
+]
+
+[tool.ruff]
+line-length = 88
