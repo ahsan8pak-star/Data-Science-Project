@@ -10,13 +10,13 @@ try:
         p = float(input("Enter your amount (£): "))
         
         if p < 0:
-            print("Amount can't be negative.")
-            print("Go to Debt Calculator for these values.\n")
+            print("Amount can't be negative (-).")
+            print("Go to the Simple Debt Calculator for these values.\n")
             break 
             
         elif p == 0:
             print("Result will be 0, regardless of the interest and time.")
-            print("Give a non-zero (p > 0) amount.\n")
+            print("Give a positive (+) non-zero (p > 0) amount.\n")
             break
             
         else:
