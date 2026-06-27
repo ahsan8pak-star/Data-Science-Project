@@ -1,0 +1,93 @@
+# =============================================================================
+# CUSTOM DATA SCIENCE CI/CD PIPELINE TEMPLATE
+# =============================================================================
+# Core Stack: Python 3.11-slim | PostgreSQL Service | C++ Native Extension Build
+#
+# Pipeline Architecture:
+# 1. Lint (Ruff/Black) -> 2. Build (C++ Compilation) -> 3. Test (Pytest + Postgres)
+#
+# A pipeline is composed of independent jobs that run scripts, grouped into stages.
+# Stages run in sequential order, but jobs within stages can run in parallel.
+# =============================================================================
+
+default:
+  image: python:3.11-slim
+  cache:
+    key:
+      files:
+        - requirements.txt
+    paths:
+      - .cache/pip
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  # Environment variables to provision the cloud PostgreSQL instance
+  POSTGRES_DB: test_data_db
+  POSTGRES_USER: test_runner
+  POSTGRES_PASSWORD: secure_ci_password
+  POSTGRES_HOST_AUTH_METHOD: trust
+  # Connection string consumed by SQLAlchemy / psycopg2 data layers
+  DATABASE_URL: "postgresql://test_runner:secure_ci_password@postgres:5432/test_data_db"
+
+stages:
+  - lint
+  - build
+  - test
+
+# -----------------------------------------------------------------------------
+# Stage 1: Code Quality & Linting
+# -----------------------------------------------------------------------------
+lintcode:
+  stage: lint
+  before_script:
+    - pip install --upgrade pip
+    - pip install ruff black
+  script:
+    - echo "Running static analysis and code style compliance checks..."
+    - ruff check .
+    - black --check .
+  allow_failure: false  # Keeps the repository pristine by blocking broken styles
+
+# -----------------------------------------------------------------------------
+# Stage 2: Compile C++ Python Wrapper
+# -----------------------------------------------------------------------------
+compile_extension:
+  stage: build
+  before_script:
+    # Pulls down standard GNU compilers and Python developer headers for compilation
+    - apt-get update && apt-get install -y build-essential python3-dev
+    - pip install --upgrade pip
+    - pip install .  # Executes your pyproject.toml or setup.py compilation script
+  script:
+    - echo "Compiling high-performance native C++ source code..."
+    # Verification smoke-test to ensure the compiled module can be imported by Python
+    - python -c "import my_cpp_extension; print('C++ Extension compiled successfully!')"
+  artifacts:
+    paths:
+      # Securely forwards the generated shared object binaries (.so files) to Stage 3
+      - "*.so"
+      - "build/"
+    expire_in: 1 week
+
+# -----------------------------------------------------------------------------
+# Stage 3: Database Integration & Unit Testing
+# -----------------------------------------------------------------------------
+runtests:
+  stage: test
+  services:
+    # Attaches a live, clean PostgreSQL container adjacent to the primary test runner
+    - name: postgres:16-alpine
+      alias: postgres
+  before_script:
+    - apt-get update && apt-get install -y libpq-dev gcc
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+  script:
+    - echo "Executing full pytest suite against the cloud Postgres container..."
+    - pytest --maxfail=1 --disable-warnings
+  dependencies:
+    - compile_extension  # Downloads the compiled C++ artifacts from the build stage
+  only:
+    - main
+    - merge_requests
+
