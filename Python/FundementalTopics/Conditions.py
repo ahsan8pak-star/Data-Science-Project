@@ -71,6 +71,21 @@ print("You are an adult")
 # The normal code execution resumes after the loop terminates, printing "You are an adult".
 
 
+name = "A.I.M"
+while name == "": # while not name != ""
+    print("Enter your name")
+    break
+print(f"Username: {name}")
+
+# Expected Output:
+# "Username: A.I.M"
+
+# Actual Output:
+# "Username: A.I.M"
+
+# Reason: Since 'name' variable has been assigned by its string "A.I.M", it skips the while loop and directly prints out the name.
+# break was used to prevent a constant recurring message of "Enter your name", leading to memory overload i.e. program crashing.
+
 """Ternary Operators on all scenarios, including all data types"""
 
 is_raining = True
@@ -87,9 +102,11 @@ age = 20
 status = "Allowed" if age >= 21 else "Rejected" # Ternary operator
 print(status)
 
-# Expected Output: "Rejected"
+# Expected Output: 
+# "Rejected"
 
-# Actual Output:   "Rejected"
+# Actual Output:   
+# "Rejected"
 
 # Reason: Since age is 20, which is less than 21
 # The ternary operator evaluates to "Rejected".
