@@ -7,3 +7,10 @@ dependencies = [
 
 [tool.ruff]
 line-length = 88
+
+[tool.ruff.lint]
+# Ignore specific rules:
+# E701: multiple statements on one line (used in your match-case blocks)
+# E712: comparing booleans using == or != (used in your conditions playground)
+# F401: unused imports (like 'import math' when experimenting)
+ignore = ["E701", ["E712"], "F401"]
