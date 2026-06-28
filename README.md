@@ -70,9 +70,12 @@ A personal project to advance my career in Data Science as a whole.
 - Even & Odd Loop Detector **(Fundemental conditional for loop and modulus operator)**
 - Factorials **(Iterative Sequence Multiplication)**
 - File Writer **(File I/O fundementals)**
+- Hour Clock **(Fundemental [ " import time " ] and scaling it up to its real world resemblence through previous files made on such)**
 - LeapYear **(Basic Mathematical functions under conditional loops)**
+- Minute Time **(Fundemental [ " import time " ] and basic scaling from its previous file to test its functionality)**
 - Multiply **(*)**
 - Prime Numbers **(Iterative sequence filtration and identification)**
+- Seconds Countdown **(Fundemental [ " import time " ] under its essential (def) function including f string methods to present it accurately)**
 - Shopping List **(User input and type conversions)**
 - Square **( pow(x, y) == ** )**
 - Subtract **(-)**
