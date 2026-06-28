@@ -1,5 +1,5 @@
 pytest==8.2.2
-ruff==0.4.8
+ruff==0.15.20
 black==24.4.2
 sqlalchemy>=2.0.0
 psycopg2-binary>=2.9.0
