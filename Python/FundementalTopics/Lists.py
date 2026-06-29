@@ -175,3 +175,7 @@ print(horizontal_list)
 
 # [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
+""" List Methods """
+
+print(dir(names)) # Print all list methods as a help guide under ANY list variable name
+
