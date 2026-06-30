@@ -1,6 +1,6 @@
 """Lists Indexing"""
 
-# [START : END : STEP]
+# [START : END : STEP] -> Ordered, Changable and can include Duplicate items.
 
 names = ["Ahsan", "Yahya", "Matthew", "Ahnaf", "Hamza"]
 # names = [0, 1, 2, 3, 4] -> [1st, 2nd, 3rd, 4th, 5th]
