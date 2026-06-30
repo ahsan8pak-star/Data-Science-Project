@@ -13,14 +13,14 @@ A personal project to advance my career in Data Science as a whole.
 
 - Environment & Execution **(PyCharm / Visual Studio Code installation, interpreter mechanics, print())**
 - Variables & Core Types **(Data declarations, interactive input(), type casting via int()/float())**
-- String Manipulation **(f-strings, index parsing, multi-line strings, string methods)**
+- String Manipulation **(F-strings, index parsing, multi-line strings, string methods)**
 - Arithmetic & Maths Operations **(Operators, BIDMAS operatortions, maths module functions)**
-- Conditions & Control Flow **(if, elif, else, logical and/or/not, comparison operators)**
-- Loops & State Control **(while loops, for loops, nested loops, break statements)**
+- Conditions & Control Flow **(If, elif, else, logical and/or/not, comparison operators)**
+- Loops & State Control **(While loops, for loops, nested loops, break statements)**
 - Lists & Matrices **(Arrays, 2D Matrices, index modification, list methods like .append() and .sort())**
 - Tuples & Dictionaries **(Immutable sequences, tuple unpacking, key-value data structures)**
-- Functions **(def blocks, positional/keyword arguments, parameter passing, return statements)**
-- Exceptions **(try, except error handling structures)**
+- Functions **(Def blocks, positional/keyword arguments, parameter passing, return statements)**
+- Exceptions **(Try, except error handling structures)**
 - Reusable Logic & Code Style **(Function refactoring, # syntax comments documentation)**
 
 # Applied Foundation Projects:
@@ -64,6 +64,7 @@ A personal project to advance my career in Data Science as a whole.
 **Syntax Fundementals:**
 
 - Add **(+)**
+- Checkout System **(User input and type conversions)**
 - Distance Calculator **(Floats and user input demonstartion.)**
 - Divide **(/)**
 - Email Slicer **(Index formtting fundementals)**
@@ -76,11 +77,11 @@ A personal project to advance my career in Data Science as a whole.
 - Multiply **(*)**
 - Prime Numbers **(Iterative sequence filtration and identification)**
 - Seconds Countdown **(Fundemental [ " import time " ] under its essential (def) function including f string methods to present it accurately)**
-- Shopping List **(User input and type conversions)**
+- Shopping Cart **(Fundemental lists under a function within a for conditoinal loop, including try-except error catching and f string methods.)**
 - Square **( pow(x, y) == ** )**
 - Subtract **(-)**
 - Symbol Generator **(Fundemental nested loops with user inputs, try-except error cathcing and conditional loops.)**
-- Username Status **(Fundemental conditional expressions with advanced string methods)**
+- Username Status **(Fundemental conditional expressions with advanced string methods.)**
 
 ---
 
