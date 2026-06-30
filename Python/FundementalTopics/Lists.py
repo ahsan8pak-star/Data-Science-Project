@@ -47,6 +47,7 @@ print(names[:-2]) # ['Ahsan', 'Yahya', 'Matthew']
 print(names[:-1]) # ['Ahsan', 'Yahya', 'Matthew', 'Ahnaf']
 print(names[:-0]) # [] 
 
+
 """List Methods"""
 
 numbers = [5, 2, 1, 7, 4]
@@ -74,6 +75,7 @@ number = numbers.copy()
 print(number) # [5, 2, 1, 7, 4]
 # This when we can do whatever we do that new list (number)
 
+
 """ Duplicates solution """
 
 duplicates = [2, 2, 4, 6, 3, 4, 6, 1]
@@ -84,6 +86,7 @@ for duplicate in duplicates:
     if duplicate not in uniques:
         uniques.append(duplicate)
 print(uniques)
+
 
 """ Find Max iten in the list """
 
@@ -98,6 +101,7 @@ print(max)
 
 # Output: 9
 
+
 """ Find Min item in the list """
 
 items = [3, 6, 2, 8, 4, 9]
@@ -110,6 +114,7 @@ for item in items:
 print(min) 
 
 # Output: 2
+
 
 """ 2D Lists / Matrices """
 
@@ -129,6 +134,7 @@ print(matrix[2][0]) # row 3 column 1 -> 7
 print(matrix[2][1]) # row 3 column 2 -> 8
 print(matrix[2][2]) # row 3 column 3 -> 9
 
+
 """ Identity Matrix """
 
 for i in range(len(matrix)):
@@ -136,6 +142,7 @@ for i in range(len(matrix)):
     for j in range(len(matrix[i])):
         row_output.append(matrix[i][j] if i == j else 0)
     print(row_output)
+
 """
 Output:
 
@@ -144,6 +151,7 @@ Output:
 [0, 0, 9]
 
 """
+
 
 """ Show matrix in a vertical list """
 
@@ -164,6 +172,7 @@ Output:
 9
 """
 
+
 """ Show matrix in a horizontal list """
 
 horizontal_list = []
@@ -174,6 +183,7 @@ for row in matrix:
 print(horizontal_list)
 
 # [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
 
 """ List Methods """
 
