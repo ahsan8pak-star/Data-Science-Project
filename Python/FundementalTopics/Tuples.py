@@ -1,4 +1,6 @@
-# Tuples 
+""" Tuples """
+
+# Ordered and Unchangable, allowing duplicated items
 
 numbers = (1, 2, 3) # Immutable = can't be changed at all
 
@@ -27,7 +29,7 @@ print(numbers.count(2)) # Number of times item 2 has appeared
 print(numbers.count(3)) # Number of times item 3 has appeared
 print(numbers.count(4)) # Number of times item 4 has appeared
 
-# Unpacking
+""" Unpacking """
 
 coordinates = (1, 2, 3)
 
