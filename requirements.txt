@@ -1,6 +1,0 @@
-pytest==8.2.2
-ruff==0.4.8
-black==24.4.2
-sqlalchemy>=2.0.0
-psycopg2-binary>=2.9.0
-pybind11>=2.6.0
