@@ -6,9 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "my_data_science_project"
 version = "0.1.0"
 description = "A personal project to advance my career in data science as a whole"
-dependencies = [
-    "pytest>=8.0.0",
-]
+dependencies = ["pytest>=8.0.0",]
 
 [tool.ruff]
 line-length = 88
@@ -22,7 +20,7 @@ ignore = ["E701", "E712", "F401"]
 
 [tool.black]
 line-length = 88
-target-version = ["py311"]
+target-version = ["py314"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -30,3 +28,4 @@ python_files = "test_*.py"
 python_classes = "Test*"
 python_functions = "test_*"
 addopts = "--strict-markers --disable-warnings"
+
