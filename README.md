@@ -59,6 +59,7 @@ A personal project to advance my career in Data Science as a whole.
 - Haiku - Madlibs **(F-strings with lists and random import)**
 - Login Status **(User input and error catching, within the logical framework of boolean)**
 - Numerical Guessing Game **(While loop & break engine execution)**
+- Quiz Game **(Fundemental lists and conditional for loops, including basic mathematical operations i.e. percentage score)**
 - Word Guessing Game **(Conditional loops, input functions & list fundementals)**
 
 **Syntax Fundementals:**
