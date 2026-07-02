@@ -11,78 +11,88 @@ A personal project to advance my career in Data Science as a whole.
 
 **Python Fundamental Topics**:
 
-- Environment & Execution **(PyCharm / Visual Studio Code installation, interpreter mechanics, print())**
-- Variables & Core Types **(Data declarations, interactive input(), type casting via int()/float())**
-- String Manipulation **(F-strings, index parsing, multi-line strings, string methods)**
-- Arithmetic & Maths Operations **(Operators, BIDMAS operatortions, maths module functions)**
-- Conditions & Control Flow **(If, elif, else, logical and/or/not, comparison operators)**
-- Loops & State Control **(While loops, for loops, nested loops, break statements)**
-- Lists & Matrices **(Arrays, 2D Matrices, index modification, list methods like .append() and .sort())**
-- Tuples & Dictionaries **(Immutable sequences, tuple unpacking, key-value data structures)**
-- Functions **(Def blocks, positional/keyword arguments, parameter passing, return statements)**
-- Exceptions **(Try, except error handling structures)**
-- Reusable Logic & Code Style **(Function refactoring, # syntax comments documentation)**
+| File Name | Topics Covered |
+|---|---|
+| Environment & Execution | **(PyCharm / Visual Studio Code installation, interpreter mechanics, print())** |
+| Variables & Core Types | **(Data declarations, interactive input(), type casting via int()/float())** |
+| String Manipulation | **(F-strings, index parsing, multi-line strings, string methods)** |
+| Arithmetic & Maths Operations | **(Operators, BIDMAS operatortions, maths module functions)** |
+| Conditions & Control Flow | **(If, elif, else, logical and/or/not, comparison operators)** |
+| Loops & State Control | **(While loops, for loops, nested loops, break statements)** |
+| Lists & Matrices | **(Arrays, 2D Matrices, index modification, list methods like .append() and .sort())** |
+| Tuples & Dictionaries | **(Immutable sequences, tuple unpacking, key-value data structures)** |
+| Functions | **(Def blocks, positional/keyword arguments, parameter passing, return statements)** |
+| Exceptions | **(Try, except error handling structures)** |
+| Reusable Logic & Code Style | **(Function refactoring, # syntax comments documentation)** |
 
-# Applied Foundation Projects:
+# Applied Foundation Projects
 
 **Mathematical & Scientific Projects:**
 
-- Area & Volume Calculator **(Functions combining 2 basic files with advanced user input)**
-- Area **(Basic arithmetic functions with 2 values)**
-- Area of Circle **(Mathematical functions, including user input)**
-- Area of Triangle **(Basic mathematical functions, with a fundemental user input function)**
-- Arithmetic Calculator **(Basic switch cases with extensive conditional loops and f-strings with the inclusion of fundemental mathematical unit formatting)**
-- Circumference of Circle **(Mathematical functions, including user input)**
-- Compound Debt Calculator **(Mathematical formulas in relation to its interest calculator, including fundemental conditional loops)**
-- Compound Interest Rate **(Mathematical formulas, including fundemental conditional loops, try-except error catching and f-strings)**
-- Cosine Rule **(Advanced Mathematical functions)**
-- Perimeter of Triangle **(Basic mathematical functions with user input)**
-- Pythagoras Theorm **(Advanced Mathematical functions)**
-- Simple Debt Calculator **(Mathematical formulas in relation to its interest calculator, including fundemental conditional loops)**
-- Simple Interest Rate **(Mathematical formulas, including fundemental conditional loops, try-except error catching and f-strings)**
-- Sine Rule **(Advanced Mathematical functions)**
-- Triangle Calculator **(Functions combining 2 basic and 2 advanced files with advanced user input)**
-- Volume **(Basic arithmetic functions with 3 values)**
+| File Name | Topics Covered |
+|---|---|
+| Area & Volume Calculator | **(Functions combining 2 basic files with advanced user input)** |
+| Area | **(Basic arithmetic functions with 2 values)** |
+| Area of Circle | **(Mathematical functions, including user input)** |
+| Area of Triangle | **(Basic mathematical functions, with a fundemental user input function)** |
+| Arithmetic Calculator | **(Basic switch cases with extensive conditional loops and f-strings with the inclusion of fundemental mathematical unit formatting)** |
+| Circumference of Circle | **(Mathematical functions, including user input)** |
+| Compound Debt Calculator | **(Mathematical formulas in relation to its interest calculator, including fundemental conditional loops)** |
+| Compound Interest Rate | **(Mathematical formulas, including fundemental conditional loops, try-except error catching and f-strings)** |
+| Cosine Rule | **(Advanced Mathematical functions)** |
+| Perimeter of Triangle | **(Basic mathematical functions with user input)** |
+| Pythagoras Theorm | **(Advanced Mathematical functions)** |
+| Simple Debt Calculator | **(Mathematical formulas in relation to its interest calculator, including fundemental conditional loops)** |
+| Simple Interest Rate | **(Mathematical formulas, including fundemental conditional loops, try-except error catching and f-strings)** |
+| Sine Rule | **(Advanced Mathematical functions)** |
+| Triangle Calculator | **(Functions combining 2 basic and 2 advanced files with advanced user input)** |
+| Volume | **(Basic arithmetic functions with 3 values)** |
 
 **Algorithms & Data Converters:**
 
-- Annual Rate Calculator **(Exception functions & formatting within mathematical formulas)**
-- Fahrenheit & Celcius **(Function fundementals with basic conditional loops)**
-- Phone Number Converter **(Case function & conditional loops)**
-- Roman Numerals Converter **(Conditional loops, input functions, case switch fundementals & exception rules)**
-- Time Coverter **(Fundemental switch cases, including error catching within conditional loops)**
-- Weight Converter Utility **(Conditional logic integration)**
+| File Name | Topics Covered |
+|---|---|
+| Annual Rate Calculator | **(Exception functions & formatting within mathematical formulas)** |
+| Fahrenheit & Celcius | **(Function fundementals with basic conditional loops)** |
+| Phone Number Converter | **(Case function & conditional loops)** |
+| Roman Numerals Converter | **(Conditional loops, input functions, case switch fundementals & exception rules)** |
+| Time Coverter | **(Fundemental switch cases, including error catching within conditional loops)** |
+| Weight Converter Utility | **(Conditional logic integration)** |
 
 **Logic & Algorithmic Games:**
 
-- Grade Boundary Calculator **(Integers with conditional (if) loops)**
-- Haiku - Madlibs **(F-strings with lists and random import)**
-- Login Status **(User input and error catching, within the logical framework of boolean)**
-- Numerical Guessing Game **(While loop & break engine execution)**
-- Quiz Game **(Fundemental lists and conditional for loops, including basic mathematical operations i.e. percentage score)**
-- Word Guessing Game **(Conditional loops, input functions & list fundementals)**
+| File Name | Topics Covered |
+|---|---|
+| Grade Boundary Calculator | **(Integers with conditional (if) loops)** |
+| Haiku - Madlibs | **(F-strings with lists and random import)** |
+| Login Status Z | **(User input and error catching, within the logical framework of boolean)** |
+| Numerical Guessing Game | **(While loop & break engine execution)** |
+| Quiz Game | **(Fundemental lists and conditional for loops, including basic mathematical operations i.e. percentage score)** |
+| Word Guessing Game | **(Conditional loops, input functions & list fundementals)** |
 
 **Syntax Fundementals:**
 
-- Add **(+)**
-- Checkout System **(User input and type conversions)**
-- Distance Calculator **(Floats and user input demonstartion.)**
-- Divide **(/)**
-- Email Slicer **(Index formtting fundementals)**
-- Even & Odd Loop Detector **(Fundemental conditional for loop and modulus operator)**
-- Factorials **(Iterative Sequence Multiplication)**
-- File Writer **(File I/O fundementals)**
-- Hour Clock **(Fundemental [ " import time " ] and scaling it up to its real world resemblence through previous files made on such)**
-- LeapYear **(Basic Mathematical functions under conditional loops)**
-- Minute Time **(Fundemental [ " import time " ] and basic scaling from its previous file to test its functionality)**
-- Multiply **(*)**
-- Prime Numbers **(Iterative sequence filtration and identification)**
-- Seconds Countdown **(Fundemental [ " import time " ] under its essential (def) function including f string methods to present it accurately)**
-- Shopping Cart **(Fundemental lists under a function within a for conditoinal loop, including try-except error catching and f string methods.)**
-- Square **( pow(x, y) == ** )**
-- Subtract **(-)**
-- Symbol Generator **(Fundemental nested loops with user inputs, try-except error cathcing and conditional loops.)**
-- Username Status **(Fundemental conditional expressions with advanced string methods.)**
+| File Name | Topics Covered |
+|---|---|
+| Add | **(+)** |
+| Checkout System | **(User input and type conversions)** |
+| Distance Calculator | **(Floats and user input demonstartion.)** |
+| Divide | **(/)** |
+| Email Slicer | **(Index formtting fundementals)** |
+| Even & Odd Loop Detector | **(Fundemental conditional for loop and modulus operator)** |
+| Factorials | **(Iterative Sequence Multiplication)** |
+| File Writer | **(File I/O fundementals)** |
+| Hour Clock | **(Fundemental [ " import time " ] and scaling it up to its real world resemblence through previous files made on such)** |
+| LeapYear | **(Basic Mathematical functions under conditional loops)** |
+| Minute Time | **(Fundemental [ " import time " ] and basic scaling from its previous file to test its functionality)** |
+| Multiply | **(*)** |
+| Prime Numbers | **(Iterative sequence filtration and identification)** |
+| Seconds Countdown | **(Fundemental [ " import time " ] under its essential (def) function including f string methods to present it accurately)** |
+| Shopping Cart | **(Fundemental lists under a function within a for conditoinal loop, including try-except error catching and f string methods.)** |
+| Square | **( pow(x, y) == ** )** |
+| Subtract | **(-)** |
+| Symbol Generator | **(Fundemental nested loops with user inputs, try-except error cathcing and conditional loops.)** |
+| Username Status | **(Fundemental conditional expressions with advanced string methods.)** |
 
 ---
 
