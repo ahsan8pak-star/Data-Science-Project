@@ -11,7 +11,7 @@ A personal project to advance my career in Data Science as a whole.
 
 **Python Fundamental Topics**:
 
-| File Name | Topics Covered |
+| Topic Name | Descriptions |
 |---|---|
 | Environment & Execution | **(PyCharm / Visual Studio Code installation, interpreter mechanics, print())** |
 | Variables & Core Types | **(Data declarations, interactive input(), type casting via int()/float())** |
@@ -26,27 +26,6 @@ A personal project to advance my career in Data Science as a whole.
 | Reusable Logic & Code Style | **(Function refactoring, # syntax comments documentation)** |
 
 # Applied Foundation Projects
-
-**Mathematical & Scientific Projects:**
-
-| File Name | Topics Covered |
-|---|---|
-| Area & Volume Calculator | **(Functions combining 2 basic files with advanced user input)** |
-| Area | **(Basic arithmetic functions with 2 values)** |
-| Area of Circle | **(Mathematical functions, including user input)** |
-| Area of Triangle | **(Basic mathematical functions, with a fundemental user input function)** |
-| Arithmetic Calculator | **(Basic switch cases with extensive conditional loops and f-strings with the inclusion of fundemental mathematical unit formatting)** |
-| Circumference of Circle | **(Mathematical functions, including user input)** |
-| Compound Debt Calculator | **(Mathematical formulas in relation to its interest calculator, including fundemental conditional loops)** |
-| Compound Interest Rate | **(Mathematical formulas, including fundemental conditional loops, try-except error catching and f-strings)** |
-| Cosine Rule | **(Advanced Mathematical functions)** |
-| Perimeter of Triangle | **(Basic mathematical functions with user input)** |
-| Pythagoras Theorm | **(Advanced Mathematical functions)** |
-| Simple Debt Calculator | **(Mathematical formulas in relation to its interest calculator, including fundemental conditional loops)** |
-| Simple Interest Rate | **(Mathematical formulas, including fundemental conditional loops, try-except error catching and f-strings)** |
-| Sine Rule | **(Advanced Mathematical functions)** |
-| Triangle Calculator | **(Functions combining 2 basic and 2 advanced files with advanced user input)** |
-| Volume | **(Basic arithmetic functions with 3 values)** |
 
 **Algorithms & Data Converters:**
 
@@ -69,6 +48,27 @@ A personal project to advance my career in Data Science as a whole.
 | Numerical Guessing Game | **(While loop & break engine execution)** |
 | Quiz Game | **(Fundemental lists and conditional for loops, including basic mathematical operations i.e. percentage score)** |
 | Word Guessing Game | **(Conditional loops, input functions & list fundementals)** |
+
+**Mathematical & Scientific Projects:**
+
+| File Name | Topics Covered |
+|---|---|
+| Area & Volume Calculator | **(Functions combining 2 basic files with advanced user input)** |
+| Area | **(Basic arithmetic functions with 2 values)** |
+| Area of Circle | **(Mathematical functions, including user input)** |
+| Area of Triangle | **(Basic mathematical functions, with a fundemental user input function)** |
+| Arithmetic Calculator | **(Basic switch cases with extensive conditional loops and f-strings with the inclusion of fundemental mathematical unit formatting)** |
+| Circumference of Circle | **(Mathematical functions, including user input)** |
+| Compound Debt Calculator | **(Mathematical formulas in relation to its interest calculator, including fundemental conditional loops)** |
+| Compound Interest Rate | **(Mathematical formulas, including fundemental conditional loops, try-except error catching and f-strings)** |
+| Cosine Rule | **(Advanced Mathematical functions)** |
+| Perimeter of Triangle | **(Basic mathematical functions with user input)** |
+| Pythagoras Theorm | **(Advanced Mathematical functions)** |
+| Simple Debt Calculator | **(Mathematical formulas in relation to its interest calculator, including fundemental conditional loops)** |
+| Simple Interest Rate | **(Mathematical formulas, including fundemental conditional loops, try-except error catching and f-strings)** |
+| Sine Rule | **(Advanced Mathematical functions)** |
+| Triangle Calculator | **(Functions combining 2 basic and 2 advanced files with advanced user input)** |
+| Volume | **(Basic arithmetic functions with 3 values)** |
 
 **Syntax Fundementals:**
 
