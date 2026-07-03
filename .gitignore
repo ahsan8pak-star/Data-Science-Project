@@ -200,6 +200,7 @@ cython_debug/
 #   and can be added to the global gitignore or merged into this file. However, if you prefer, 
 #   you could uncomment the following to ignore the entire vscode folder
 # .vscode/
+
 # Temporary file for partial code execution
 tempCodeRunnerFile.py
 
@@ -243,10 +244,46 @@ config/db_credentials.json
 # Data Science Data Handling
 # It's common to ignore data files in version control, especially if they are large or generated from other sources 
 # However, you may want to include a README.md file or a sample_data directory to provide context and examples for the data.
-data/
-!data/README.md
-!data/sample_data/
+
+[Dd]ata/
+![Dd]ata/README.md
+![Dd]ata/sample_data/
 
 # OS (macOS, Windows, Linux)
 .DS_Store
 Thumbs.db
+
+# C++ / Python Extension & Build Additions
+# Windows Python compiled extension modules (Crucial for pybind11 on Windows)
+*.pyd
+
+# CMake build outputs
+CMakeCache.txt
+CMakeFiles/
+CMakeSettings.json
+cmake_install.cmake
+TargetDirectories.txt
+Makefile
+
+# Compiler-specific IDE folders
+.clang-format
+.unreal/
+cmake-build-debug/
+cmake-build-release/
+
+# PostgreSQL & Database Query Artifacts
+# Block binary database dumps and automated backups
+*.dump
+*.bak
+*.tar
+*.sql.gz
+
+# Block local database connection test histories or passwords
+.pgpass
+
+# Data Science Bulk File Safety Nets
+# Prevents massive binary datasets from leaking if placed outside /Data
+*.parquet
+*.feather
+*.h5
+*.hdf5
