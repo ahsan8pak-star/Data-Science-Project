@@ -14,7 +14,7 @@ def arithmetic (num1, op, num2):
     
         case "/":
             if num2 == 0:
-                return "Error: ndefined. You can't divide anything by 0." # return allows the function to retrive the value rather than print() -> program crash
+                return "Error: Undefined. You can't divide anything by 0." # return allows the function to retrive the value rather than print() -> program crash
     
             else:
                 return num1 / num2 
@@ -37,12 +37,10 @@ def arithmetic (num1, op, num2):
 try:
     print("=======================")
     print(" ARITHMETIC CALCULATOR ")        
-    print("=======================")
-    print("")
+    print("=======================\n")
     print("<================>")
     print("<  MENU   GUIDE  >")
-    print("<================>")
-    print("")
+    print("<================>\n")
     print("  _______________________________________________________ ")
     print(" /                                                       \ ")
     print(" | 1) + = addition         5) // = base / quotient       | ")
@@ -50,8 +48,7 @@ try:
     print(" | 3) * = multiplication   7) ** = power / exponent      | ")
     print(" | 4) / = division         8) <ENTER> = Calculate result | ")
     print(" \                                                       / ")
-    print("  ``````````````````````````````````````````````````````` ")
-    print("")
+    print("  ``````````````````````````````````````````````````````` \n")
 
 
     first_num = input("Enter the 1st number: ").strip()
@@ -92,7 +89,7 @@ try:
 
         if round_choice and round_choice[0].lower() == "d":
             places = int(input("Enter the number of Decimal Places to be rounded to: ").strip())
-            result = round(total, places)
+            result = (f"{total:.{places}f}")
 
         elif round_choice and round_choice[0].lower() == "s":
             sf = int(input("Enter the amount of Significant Figures to be rounded to: ").strip())
