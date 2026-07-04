@@ -1,22 +1,22 @@
-def celsius(f):
+def fahrenheit_to_celcius(f):
 
     c = 5/9 * (f - 32) 
     return c
 
-def fahrenheit(f):
+def format_celcius(f):
     
-    c = round(celsius(f), 2)
-    print(f, "degrees Fahrenheit is", c, "degrees Celsius")
+    c = fahrenheit_to_celcius(f)
+    print(f"{f:.1f} degrees Fahrenheit is {c:.1f} degrees Celsius")
 
-def CELCIUS(c):
+def celcius_to_fahrenheit(c):
     
     f = (9/5 * c) + 32 
     return f
 
-def FAHRENHEIT(c):
+def format_fahrenheit(c):
     
-    f = round(CELCIUS(c), 2) 
-    print(c, "degrees Celsius is", f, "degrees Fahrenheit")
+    f = celcius_to_fahrenheit(c)
+    print(f"{c:.1f} degrees Celsius is {f:.1f} degrees Fahrenheit")
 
 try:
 
@@ -25,12 +25,12 @@ try:
     if i and i[0].upper() == "F":
     
         f = float(input("Enter Fahrenheit: "))
-        fahrenheit(f)
+        format_celcius(f)
     
     else:
     
         c = float(input("Enter Celsius: "))
-        FAHRENHEIT(c)
+        format_fahrenheit(c)
 
 except ValueError:
 
