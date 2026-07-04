@@ -28,12 +28,12 @@ while True: # Keeps looping until a valid input is received
 
     phone = input("Phone: ") # Treated as a string on its default case
 
-    if 0 < len(phone) < 10 and phone.isdigit(): # Checks if the length is 1-9 characters AND contains only numbers 
+    if 0 < len(phone) < 11 and phone.isdigit(): # Checks if the length is 1-10 characters AND contains only numbers 
 
         break # Exits the loop to proceed to the processing stage
 
     else:
-        print("Enter up to 9 digits from 0 to 9.") # Displays the error message
+        print("Enter up to 10 digits from 0 to 9.") # Displays the error message
 
 result = "" # Starts with an empty string 
 
