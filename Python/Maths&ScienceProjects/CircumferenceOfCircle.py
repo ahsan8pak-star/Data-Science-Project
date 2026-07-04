@@ -1,15 +1,20 @@
+import math
+
+
 def circumference(radius):
 
-    pi = 3.14
-    area = pi * 2 * radius 
+    area = math.pi * 2 * radius 
     
     return area
 
 try: 
     radius = input("Enter Radius: ")
 
-    while radius > 0:
-        print(circumference(radius))
+    if float(radius) > 0:
+        print(f"Circumference of Circle: {circumference(float(radius)):.2f}")
+
+    else:
+        print("Enter a valid radius")
 
 except ValueError:
     print("Numbers only")
