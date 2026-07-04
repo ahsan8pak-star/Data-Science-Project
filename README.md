@@ -146,20 +146,40 @@ A personal project to advance my career in Data Science as a whole.
 ```text
 Data-Science-Project/
 │
-├── .vscode/                 # IDE local runtime environments
-│   ├── launch.json          # Local debugger settings
-│   └── settings.json        # Path configurations, formatting, and script rules
+├── .vscode/                            # IDE local runtime environments
+│   ├── launch.json                     # Local debugger configurations and environment paths
+│   ├── settings.json                   # Path configurations, code formatting, and language rule overrides     
+│   └── tasks.json                      # Automated build tasks for compiling C++ via g++ and executing native psql files
 │
-├── C++/                     # High-performance source engine layer
-│   └── AIM.cc               # C++ logic for accelerated data processing/parsing
+├── C++/                                # High-performance source engine layer
+│   └── AIM.cc                          # C++ core logic engineered for accelerated data processing and execution wrapping
 │
-├── Data/                    # Storage layer for project datasets and assets
-│   └── AIM.csv              # Raw source data file (comma-separated values input)
+├── Data/                               # Storage layer for project datasets and tracking assets [cite: 20]
+│   └── AIM.csv                         # Raw baseline source data file used as pipeline input [cite: 20]
 │
-├── python/                  # Python modeling engines
-│   └── AIM.py               # Main Python script for data ingestion and pipeline automation
+├── postgresql/                         # Analytical Database engine scripts
+│   └── AIM.sql                         # SQL scripts for managing relational tables, normalizations, schemas, and queries
 │
-├── postgresql/              # Analytical Database engine scripts
-│   └── AIM.sql              # SQL scripts for relational tables, schemas, and queries
+├── python/                             # Python modeling engines
+│   ├── Algorithms & Data Converters    # Scripts managing data transformations, numbering systems, and conversion algorithms
+│   ├── Fundemental Topics              # Implementation playgrounds for native collection types, error handling, and basic structures
+│   ├── Logic & Algorithmic Games       # Terminal-based interactive games testing state management and algorithmic logic loops
+│   ├── Maths & Science Projects        # Financial computation engines, geometric calculators, and coordinate boundary systems
+│   ├── Syntax Fundementals             # Basic syntax verification scratchpads exploring file I/O operations, string slicing, and timers
+│   └── AIM.py                          # Main Python script for unified data ingestion and pipeline execution control
 │
-└── README.md                # Main project documentation, architecture map, and roadmap
+├── tests/                              # Pytest unit-testing framework validating mathematical logic and code stability
+│
+├── .gitignore                          # Multilayer safety network blocking binary artifacts, database dumps, and environment variables 
+├── LICENSE                             # MIT legal framework outlining permissions, open-source compliance, and liability limits [cite: 21, 22]
+├── NOTES.md                            # Comprehensive engineering timetable detailing specific coding phases, links, and study tracks
+├── pyproject.toml                      # Modern project manifest setting up testing structures and strict linting parameters (Ruff/Black)
+└── README.md                           # Master structural roadmap, technical explanations, and portfolio documentation
+```
+
+---
+
+## References
+
+[20]: The `[Dd]ata/` rule in our `.gitignore` protects both uppercase and lowercase data tracks.
+[21]: The MIT LICENSE framework chosen for open-source compliance.
