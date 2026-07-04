@@ -1,3 +1,9 @@
+"""
+Make sure to use ONLY ONE TYPE OF 'num_pad'.
+Use # to remove the other types of 'num_pad' that are not being used.
+Remember to ONLY RUN ONE TYPE of 'num_pad' 
+"""
+
 # 2D list of lists
 num_pad = [[1, 2, 3],
            [4, 5, 6],
