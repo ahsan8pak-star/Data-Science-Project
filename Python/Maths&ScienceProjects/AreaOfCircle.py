@@ -1,21 +1,26 @@
+import math
+
 def area_of_circle(radius):
 
-    pi = 3.14
-    area = pi * radius * radius
+    area = math.pi * radius * radius
     
     return area
 
 try: 
     radius = input("Enter Radius: ")
 
-    while radius > 0:
-        print(area_of_circle(radius))
+    if float(radius) > 0:
+        print(f"Area of Circle: {area_of_circle(float(radius)):.2f}")
+
+    else:
+        print("Enter a valid radius")
+        
 
 except ValueError:
     print("Numbers only")
 
 except TypeError:
-    print("Positive Numbers only. Meaning greater than 0.")
+    print("Positive Numbers only. Meaning numbers greater than 0.")
 
 except KeyboardInterrupt:
     print("Unusual Crash Detected.")
