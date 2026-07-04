@@ -3,12 +3,14 @@ username = input("Username: ").strip() # Allows the user to write down the usern
 
 print(f"Welcome, {username}!" if len(username) <= 12 and " " not in username and not any(char.isdigit() for char in username) else "Bye!")
 
-# This translates to:
+# This translates to the following code below:
 
-# if len(username) <= 12 and " " not in username and not any(char.isdigit() for char in username):
-#   print(f"Welcome, {username}!")
-# else:
-#   print("Bye!")
+"""
+if len(username) <= 12 and " " not in username and not any(char.isdigit() for char in username):
+    print(f"Welcome, {username}!")
+else:
+    print("Bye!")
+"""
 
 # [ len(username) <= 12 ] -> checks the length of the username by characters individually and sees if it's up to 12 characters.
 # This includes spaces as well
