@@ -4,17 +4,17 @@ def factorial(n):
     else:
         return n * factorial(n - 1) # factorial function / formula
     
-
-try: # opens a safe execution zone to process user entries and catch typing errors
+if __name__ == "__main__": # ensures the code block runs when the script is executed directly, not imported as a module 
+    try: # opens a safe execution zone to process user entries and catch typing errors
     
-    # Prompts the user to type a number and captures it as a string by default
-    num = input("Enter your number: ")
+        # Prompts the user to type a number and captures it as a string by default
+        num = input("Enter your number: ")
 
-    n = int(num) # converts the number into an integer
+        n = int(num) # converts the number into an integer
 
-    print(factorial(n))
+        print(factorial(n))
 
         
-except ValueError: # prevents a crash in the system if the user enters other than integers like floats for example
-    print("Error: Invalid number format. Enter integers only (whole numbers).") # specifies the input rules to guide the operator
+    except ValueError: # prevents a crash in the system if the user enters other than integers like floats for example
+        print("Error: Invalid number format. Enter integers only (whole numbers).") # specifies the input rules to guide the operator
 
