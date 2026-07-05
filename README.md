@@ -44,7 +44,7 @@ A personal project to advance my career in Data Science as a whole.
 |---|---|
 | Grade Boundary Calculator | **(Integers with conditional (if) loops)** |
 | Haiku - Madlibs | **(F-strings with lists and random import)** |
-| Login Status Z | **(User input and error catching, within the logical framework of boolean)** |
+| Login Status | **(User input and error catching, within the logical framework of boolean)** |
 | Numerical Guessing Game | **(While loop & break engine execution)** |
 | Quiz Game | **(Fundemental lists and conditional for loops, including basic mathematical operations i.e. percentage score)** |
 | Word Guessing Game | **(Conditional loops, input functions & list fundementals)** |
@@ -161,9 +161,9 @@ Data-Science-Project/
 │   └── AIM.sql                         # SQL scripts for managing relational tables, normalizations, schemas, and queries
 │
 ├── python/                             # Python modeling engines
-│   ├── Algorithms & Data Converters    # Scripts managing data transformations, numbering systems, and conversion algorithms
+│   ├── Algorithmic Data Converters     # Scripts managing data transformations, numbering systems, and conversion algorithms
 │   ├── Fundemental Topics              # Implementation playgrounds for native collection types, error handling, and basic structures
-│   ├── Logic & Algorithmic Games       # Terminal-based interactive games testing state management and algorithmic logic loops
+│   ├── Logical Games                   # Terminal-based interactive games testing state management and algorithmic logic loops
 │   ├── Maths & Science Projects        # Financial computation engines, geometric calculators, and coordinate boundary systems
 │   ├── Syntax Fundementals             # Basic syntax verification scratchpads exploring file I/O operations, string slicing, and timers
 │   └── AIM.py                          # Main Python script for unified data ingestion and pipeline execution control
