@@ -1,11 +1,13 @@
 {
-    "python.defaultInterpreterPath": "/usr/bin/python3",
+    "python.defaultInterpreterPath": "python",
     "python.languageServer": "Pylance",
     "python.analysis.typeCheckingMode": "basic",
     "python.analysis.autoImportCompletions": true,
     "python.terminal.activateEnvironment": true,
     "editor.formatOnSave": true,
-    "editor.rulers": [88],
+    "editor.rulers": [
+        88
+    ],
     "[python]": {
         "editor.tabSize": 4,
         "editor.insertSpaces": true,
@@ -42,5 +44,11 @@
             "username": "postgres",
             "password": ""
         }
+    ],
+    "pylint.args": [
+        "--init-hook=import sys; sys.path.append('C:/Users/A.I.M/C.S/Data-Science-Project/Python')"
+    ],
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/Python"
     ]
 }
