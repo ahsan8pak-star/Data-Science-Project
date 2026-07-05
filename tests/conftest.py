@@ -72,9 +72,11 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
         except StopIteration:
             raise EOFError("run_script(): no more mocked input available")
 
-    # A unique module name per call avoids clashes in sys.modules between
-    # unrelated scripts that happen to share a stem, and avoids re-using a
-    # stale cached module.
+    """
+    A unique module name per call avoids clashes in sys.modules between
+    unrelated scripts that happen to share a stem, and avoids re-using a
+    stale cached module.
+    """
     module_name = f"_script_under_test_{uuid.uuid4().hex}"
     spec = importlib.util.spec_from_file_location(module_name, str(filepath))
     
@@ -100,12 +102,14 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
             except SystemExit:
                 pass  # a script deliberately calling exit()/quit() is fine
             except Exception as exc:
-                # A handful of the coursework scripts have genuine bugs that
-                # make them crash partway through (e.g. calling .clear() and
-                # then .pop() on the same list back to back). Rather than
-                # hide that, attach whatever was printed *before* the crash
-                # to the exception so tests can still assert on it, then
-                # let the real exception propagate.
+                """
+                A handful of the coursework scripts have genuine bugs 
+                that make them crash partway through (e.g. calling .clear() 
+                and then .pop() on the same list back to back). 
+                Rather than hide that, attach whatever was printed 
+                *before* the crash to the exception so tests can still assert on it, 
+                then let the real exception propagate.
+                """
                 
                 # USE setattr() to safely attach dynamic properties
                 setattr(exc, "partial_output", buf.getvalue())

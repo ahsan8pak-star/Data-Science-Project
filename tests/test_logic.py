@@ -62,8 +62,10 @@ class TestHaikuMadlibs:
     FILE = f"{FOLDER}/haiku_madlibs.py"
 
     def test_all_three_verses_built_from_input(self):
-        # random.choice always picks the *first* template of whichever list
-        # it's given, making the whole script deterministic.
+       """
+       random.choice always picks the *first* template of whichever list
+       it's given, making the whole script deterministic.
+       """
         first_choice = patch("random.choice", side_effect=lambda seq: seq[0])
         inputs = [
             "the", "silent", "pine", "it", "sways", "softly",       # verse 1
@@ -75,8 +77,10 @@ class TestHaikuMadlibs:
         assert "Chapter 2: The Pond" in out
         assert "Part 3: The Temple" in out
         assert "A Beautiful Scene" in out
-        # first verse-1 template capitalises only the determiner (d1) and
-        # pronoun (p1), not the adjective
+        """
+        first verse-1 template capitalises only the determiner (d1) 
+        and pronoun (p1), not the adjective.
+        """
         assert "The silent pine," in out
 
 
@@ -87,9 +91,11 @@ class TestLoginStatus:
     FILE = f"{FOLDER}/login_status.py"
 
     def test_echoes_back_all_five_answers(self):
-        # is_regular="False" avoids the (buggy) elif branch below, which
-        # would otherwise demand a 6th "choice" answer - see
-        # test_regular_student_online_accident_choice for that path.
+       """
+       is_regular="False" avoids the (buggy) elif branch below, 
+       which would otherwise demand a 6th "choice" answer - 
+       see test_regular_student_online_accident_choice for that path.
+       """
         inputs = ["True", "False", "False", "False", "True"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Student: True" in out
@@ -122,8 +128,10 @@ class TestLoginStatus:
         assert "You are offline. You are unable to access this." in out
 
     def test_empty_online_answer_raises_uncaught_index_error(self):
-        # is_online[0] on an empty string raises IndexError, which this
-        # script's `except ValueError:` does not catch.
+       """
+       is_online[0] on an empty string raises IndexError, 
+       which this script's `except ValueError:` does not catch.
+       """
         inputs = ["True", "False", "False", "True", ""]
         with pytest.raises(IndexError):
             run_script(self.FILE, inputs=inputs)
@@ -151,10 +159,13 @@ class TestNumberGuessingGame:
         assert "Congrats. You Won!" in out
 
     def test_hints_given_for_high_and_low_guesses(self):
-        # Any guess that isn't correct costs an attempt, so a single round
-        # can only ever afford exactly 10 wrong guesses before "Unlucky"
-        # ends the game - use all 10 (alternating low/high) purely to
-        # observe both hint messages without needing a second round.
+       """
+       Any guess that isn't correct costs an attempt, 
+       so a single round can only ever afford exactly 10 wrong guesses 
+       before "Unlucky" ends the game - 
+       use all 10 (alternating low/high) purely to observe both hint messages 
+       without needing a second round.
+       """
         fixed_answer = patch("random.randint", return_value=50)
         wrong_guesses = ["10", "90", "20", "80", "30", "70", "40", "60", "15", "85"]
         _, out = run_script(self.FILE, inputs=wrong_guesses, patches=[fixed_answer])
