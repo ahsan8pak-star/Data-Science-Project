@@ -22,6 +22,7 @@ FOLDER = "fundamental_topics"
 # =====================================================================
 # 1. CONDITIONS
 # =====================================================================
+
 class TestConditions:
     FILE = f"{FOLDER}/Conditions.py"
 
@@ -63,7 +64,7 @@ class TestConditions:
         assert "Please log in to continue." in out
 
     def test_break_and_continue(self):
-        mod, out = run_script(self.FILE)
+        _, out = run_script(self.FILE)
         assert "0\n1\n2\n" in out  # break stops before 3 is printed
 
     def test_get_day_name_function_directly(self):
@@ -89,6 +90,7 @@ class TestConditions:
 # =====================================================================
 # 2. DICTIONARIES
 # =====================================================================
+
 class TestDictionaries:
     FILE = f"{FOLDER}/dictionaries.py"
 
@@ -116,6 +118,7 @@ class TestDictionaries:
 # =====================================================================
 # 3. EXCEPTIONS
 # =====================================================================
+
 class TestExceptions:
     FILE = f"{FOLDER}/Exceptions.py"
 
@@ -142,6 +145,7 @@ class TestExceptions:
 # =====================================================================
 # 4. FORMATS
 # =====================================================================
+
 class TestFormats:
     FILE = f"{FOLDER}/Formats.py"
 
@@ -165,6 +169,7 @@ class TestFormats:
 # =====================================================================
 # 5. FUNCTIONS
 # =====================================================================
+
 class TestFunctions:
     FILE = f"{FOLDER}/Functions.py"
 
@@ -196,6 +201,7 @@ class TestFunctions:
 # =====================================================================
 # 6. HELLO WORLD
 # =====================================================================
+
 class TestHelloWorld:
     FILE = f"{FOLDER}/hello_world.py"
 
@@ -213,6 +219,7 @@ class TestHelloWorld:
 # =====================================================================
 # 7. LISTS
 # =====================================================================
+
 class TestLists:
     FILE = f"{FOLDER}/Lists.py"
 
@@ -222,7 +229,7 @@ class TestLists:
         # up to that point.
         with pytest.raises(IndexError) as exc_info:
             run_script(self.FILE)
-        out = exc_info.value.partial_output 
+        out = getattr(exc_info.value, "partial_output", "")
         assert "Ahsan" in out
         assert "Hamza" in out
         assert "['Ahsan', 'Yahya', 'Matthew', 'Ahnaf', 'Hamza']" in out
@@ -246,6 +253,7 @@ class TestLists:
 # =====================================================================
 # 8. NUMBERS
 # =====================================================================
+
 class TestNumbers:
     FILE = f"{FOLDER}/Numbers.py"
 
@@ -281,6 +289,7 @@ class TestNumbers:
 # =====================================================================
 # 9. SETS
 # =====================================================================
+
 class TestSets:
     FILE = f"{FOLDER}/Sets.py"
 
@@ -303,6 +312,7 @@ class TestSets:
 # =====================================================================
 # 10. STRINGS
 # =====================================================================
+
 class TestStrings:
     FILE = f"{FOLDER}/Strings.py"
 
@@ -357,12 +367,13 @@ class TestTuples:
     
         # Confirming that altering an immutable sequence raises a TypeError
         with pytest.raises(TypeError):
-            london_coordinates[0] = 52.0000
+            london_coordinates[0] = 52.0000  # type: ignore
 
 
 # =====================================================================
 # 12. TYPE CONVERSION & TYPE CASTING
 # =====================================================================
+
 class TestTypeConversionTypeCasting:
     FILE = f"{FOLDER}/type_conversion_type_casting.py"
 
@@ -393,6 +404,7 @@ class TestTypeConversionTypeCasting:
 # =====================================================================
 # 13. VARIABLES
 # =====================================================================
+
 class TestVariables:
     FILE = f"{FOLDER}/Variables.py"
 

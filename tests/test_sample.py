@@ -1,7 +1,6 @@
 """
 Tests for every script under Python/SyntaxFundementals/.
 """
-from unittest.mock import patch
 
 import pytest
 
@@ -166,7 +165,7 @@ class TestHourClock:
         assert "Please enter a valid input." in out
 
     def test_countdown_function_directly_is_instant(self):
-        mod, out = run_script(self.FILE, inputs=["0", "0", "1"])
+        _, out = run_script(self.FILE, inputs=["0", "0", "1"])
         assert "TIMES UP!" in out
 
 
@@ -375,15 +374,13 @@ test_math_science.py, test_syntax.py).
 
 """
 
-from tests.conftest import run_script
-
-
 def test_aim_py_is_currently_empty_and_imports_cleanly():
     """AIM.py is a placeholder (intended as the main pipeline entry point,
     per the README) and is currently empty. This just guards against
     anything being silently added later that breaks on import."""
-    module, out = run_script("AIM.py")
+    _, out = run_script("AIM.py")
     assert out == ""
+
 
 """
 Sample test file to validate pytest configuration.

@@ -5,7 +5,6 @@ Each script is executed for real via run_script() (see conftest.py) with
 scripted input, so these tests exercise the actual coursework code rather
 than reimplementations of it.
 """
-from unittest.mock import patch
 
 import pytest
 
@@ -17,6 +16,7 @@ FOLDER = "algorithmic_data_converters"
 # ---------------------------------------------------------------------------
 # annual_rate_calculator.py
 # ---------------------------------------------------------------------------
+
 class TestAnnualRateCalculator:
     FILE = f"{FOLDER}/annual_rate_calculator.py"
 
@@ -51,6 +51,7 @@ class TestAnnualRateCalculator:
 # ---------------------------------------------------------------------------
 # fahrenheit_celsius_converter.py
 # ---------------------------------------------------------------------------
+
 class TestFahrenheitCelsiusConverter:
     FILE = f"{FOLDER}/fahrenheit_celsius_converter.py"
 
@@ -80,6 +81,7 @@ class TestFahrenheitCelsiusConverter:
 # ---------------------------------------------------------------------------
 # phone_converter.py
 # ---------------------------------------------------------------------------
+
 class TestPhoneConverter:
     FILE = f"{FOLDER}/phone_converter.py"
 
@@ -112,6 +114,7 @@ class TestPhoneConverter:
 # ---------------------------------------------------------------------------
 # roman_numeral_converter.py
 # ---------------------------------------------------------------------------
+
 class TestRomanNumeralsConverter:
     FILE = f"{FOLDER}/roman_numeral_converter.py"
 
@@ -157,6 +160,7 @@ class TestRomanNumeralsConverter:
 # ---------------------------------------------------------------------------
 # time_converter.py
 # ---------------------------------------------------------------------------
+
 class TestTimeConverter:
     FILE = f"{FOLDER}/time_converter.py"
 
@@ -191,6 +195,7 @@ class TestTimeConverter:
 # ---------------------------------------------------------------------------
 # weight_converter.py
 # ---------------------------------------------------------------------------
+
 class TestWeightConverter:
     FILE = f"{FOLDER}/weight_converter.py"
 
@@ -221,6 +226,7 @@ class TestWeightConverter:
 
 
 # Test cases for algorithms and logic
+
 def test_prime_detection():
     def is_prime(n):
         if n < 2:
@@ -236,6 +242,7 @@ def test_prime_detection():
     assert is_prime(17) == True
     assert is_prime(1) == False
 
+
 def test_sorting_algorithm():
     # Bubble sort implementation
     def bubble_sort(arr):
@@ -249,6 +256,7 @@ def test_sorting_algorithm():
     assert bubble_sort([5, 2, 8, 1, 9]) == [1, 2, 5, 8, 9]
     assert bubble_sort([3, 1, 4, 1, 5]) == [1, 1, 3, 4, 5]
 
+
 def test_logic_game_implementation():
     # Simple game logic: check win condition
     def check_win(score):
@@ -259,12 +267,15 @@ def test_logic_game_implementation():
     assert check_win(100) == True
     assert check_win(50) == False
 
+
 def test_edge_cases_empty_list():
     empty_list = []
     assert len(empty_list) == 0
     assert empty_list == []
 
+
 def test_edge_cases_data_converter():
+
     # Test converter with edge cases
     def safe_divide(a, b):
         if b == 0:
@@ -275,7 +286,9 @@ def test_edge_cases_data_converter():
     assert safe_divide(10, 0) == None
     assert safe_divide(0, 5) == 0
 
+
 def test_fibonacci_sequence():
+
     def fibonacci(n):
         if n <= 0:
             return []
@@ -293,4 +306,3 @@ def test_fibonacci_sequence():
     assert fibonacci(1) == [0]
     assert fibonacci(0) == []
 
-    

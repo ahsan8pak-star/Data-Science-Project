@@ -27,6 +27,7 @@ from __future__ import annotations
 import contextlib
 import importlib.util
 import io
+import sys
 import uuid
 from pathlib import Path
 from unittest.mock import patch
@@ -37,6 +38,8 @@ TESTS_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = TESTS_DIR.parent
 PYTHON_DIR = PROJECT_ROOT / "Python"
 
+# Force the terminal execution to automatically see your code directories
+sys.path.insert(0, str(PYTHON_DIR))
 
 def run_script(relative_path, inputs=None, patches=None, cwd=None):
     """
@@ -73,8 +76,14 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
     # unrelated scripts that happen to share a stem, and avoids re-using a
     # stale cached module.
     module_name = f"_script_under_test_{uuid.uuid4().hex}"
-    spec = importlib.util.spec_from_file_location(module_name, filepath)
+    spec = importlib.util.spec_from_file_location(module_name, str(filepath))
+    
+    # ADD THIS GUARD: Ensure spec and loader exist to satisfy Pylance
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Could not load module specification for {filepath}")
+
     module = importlib.util.module_from_spec(spec)
+    sys.modules[module_name] = module
 
     buf = io.StringIO()
 
@@ -97,7 +106,9 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
                 # hide that, attach whatever was printed *before* the crash
                 # to the exception so tests can still assert on it, then
                 # let the real exception propagate.
-                exc.partial_output = buf.getvalue()
+                
+                # USE setattr() to safely attach dynamic properties
+                setattr(exc, "partial_output", buf.getvalue())
                 raise
 
     return module, buf.getvalue()
@@ -125,3 +136,4 @@ def script(tmp_path):
         return run_script(relative_path, inputs=inputs, patches=patches, cwd=cwd)
 
     return _runner
+

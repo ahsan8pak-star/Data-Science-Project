@@ -2,9 +2,7 @@
 Tests for every script under Python/Maths&ScienceProjects/.
 """
 import math
-
 import pytest
-
 from tests.conftest import run_script
 
 FOLDER = "maths_science_projects"
@@ -420,7 +418,6 @@ def test_time_converter():
 
 def test_geometry_area():
     # Circle area: π * r²
-    import math
     radius = 5
     area = round(math.pi * (radius ** 2), 2)
     assert area == 78.54
@@ -439,7 +436,6 @@ def test_geometry_volume():
     assert volume == 27
     
     # Sphere volume: (4/3) * π * r³
-    import math
     radius = 2
     volume = round((4/3) * math.pi * (radius ** 3), 2)
     assert volume == 33.51

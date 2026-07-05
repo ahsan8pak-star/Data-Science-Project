@@ -8,6 +8,7 @@ from syntax_fundamentals.Factorials import factorial
 # =====================================================================
 # 1. ADD & DIVIDE (Pure Functions)
 # =====================================================================
+
 def test_addition_module():
     # Tests the actual function from Add.py
     assert add(5, 3) == 8
@@ -25,6 +26,7 @@ def test_division_module():
 # =====================================================================
 # 2. FACTORIALS (Recursion & Input Validation Logic)
 # =====================================================================
+
 def test_factorial_logic():
     # Tests the recursive function from Factorials.py
     assert factorial(0) == 1
@@ -35,6 +37,7 @@ def test_factorial_logic():
 # =====================================================================
 # 3. FILE WRITER (I/O Operations)
 # =====================================================================
+
 def test_file_writer_output(tmp_path):
     # Temporarily changing directory to pytest's safe sandbox to check file writing
     os.chdir(tmp_path)
@@ -46,18 +49,19 @@ def test_file_writer_output(tmp_path):
     assert message == "A.I.M"
     
     # Simulating the file creation process from your script
-    file = open("AIM.txt", "w")
+    file = open("AIM.txt", "w", encoding="utf-8")
     file.write(message)
     file.close()
     
     assert os.path.exists("AIM.txt")
-    with open("AIM.txt", "r") as f:
+    with open("AIM.txt", "r", encoding="utf-8") as f:
         assert f.read() == "A.I.M"
 
 
 # =====================================================================
 # 4. TIME CALCULATIONS (Hour Clock & Timers)
 # =====================================================================
+
 def test_hour_clock_maths():
     # Abstracting the seconds pool logic from your countdown script
     def calculate_combined_seconds(hours, minutes, seconds):
