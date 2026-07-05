@@ -28,3 +28,4 @@ try:
         print("Please enter a valid input.")
 except ValueError:
     print("Seconds is in the form of integers.")
+

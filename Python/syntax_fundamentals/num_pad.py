@@ -92,3 +92,4 @@ for row in num_pad:
 # print(num, end=" ") -> Under EACH LIST being interated, ALL of its item will display on a single line i.e. goes to the next one after completion.
 # end=" " -> this allows EACH ITEM to have a whitespace to the next item i.e. have a spare empty space next to one another
 # print() -> This allows each new line to be printed after each iteration completed by each list ( \n funtion )
+

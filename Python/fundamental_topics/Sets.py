@@ -25,3 +25,4 @@ print(fruits.remove('plum')) # Removes 'plum' from the set
 print(fruits.pop()) # Removes the first element -> Under a random list, it'll remove whatever comes first
 
 print(fruits.clear()) # Clears all items under the set 'fruits' -> Result: set()
+
