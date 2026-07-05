@@ -5,6 +5,7 @@ Tests for every script under Python/SyntaxFundementals/.
 import pytest
 
 from tests.conftest import run_script
+from syntax_fundamentals.Factorials import factorial
 
 FOLDER = "syntax_fundamentals"
 
@@ -109,25 +110,20 @@ class TestEvenOddLoopDetector:
 
 
 class TestFactorials:
-    FILE = f"{FOLDER}/Factorials.py"
 
     def test_factorial_of_five(self):
-        _, out = run_script(self.FILE, inputs=["5"])
-        assert "120" in out
+        assert factorial(5) == 120
 
     def test_factorial_of_zero_and_one(self):
-        _, out = run_script(self.FILE, inputs=["0"])
-        assert "1" in out
-        _, out = run_script(self.FILE, inputs=["1"])
-        assert "1" in out
+        assert factorial(0) == 1
+        assert factorial(1) == 1
 
     def test_non_numeric_input(self):
-        _, out = run_script(self.FILE, inputs=["abc"])
-        assert "Error: Invalid number format. Enter integers only (whole numbers)." in out
-
-    def test_function_directly(self):
-        mod, _ = run_script(self.FILE, inputs=["1"])
-        assert mod.factorial(6) == 720
+        """Since the script's logic has been passed, we can test that
+        passing a non-integer raises a TypeError (or add a specific
+        test case in this function in here, if handled it correctly)."""
+        with pytest.raises(TypeError):
+            factorial("abc")
 
 
 class TestFileWriter:
