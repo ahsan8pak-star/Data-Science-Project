@@ -224,11 +224,11 @@ class TestLists:
     FILE = f"{FOLDER}/Lists.py"
 
     def test_indexing_and_slicing_prints_before_the_crash(self):
-       """
-       See test_pop_from_cleared_list_crashes below: 
-       the script never reaches the end, 
-       so we only get to assert on what it printed up to that point.
-       """
+        """
+        See test_pop_from_cleared_list_crashes below: 
+        the script never reaches the end, 
+        so we only get to assert on what it printed up to that point.
+        """
         with pytest.raises(IndexError) as exc_info:
             run_script(self.FILE)
         out = getattr(exc_info.value, "partial_output", "")
@@ -237,12 +237,12 @@ class TestLists:
         assert "['Ahsan', 'Yahya', 'Matthew', 'Ahnaf', 'Hamza']" in out
 
     def test_pop_from_cleared_list_crashes(self):
-       """
-       Genuine bug in the source script: 
-       `numbers.clear()` is called immediately followed by `numbers.pop()` on the very next line,
-       so the script always raises IndexError at that point 
-       and never reaches the sort/reverse/duplicates/matrix demos further down.
-       """
+        """
+        Genuine bug in the source script: 
+        `numbers.clear()` is called immediately followed by `numbers.pop()` on the very next line,
+        so the script always raises IndexError at that point 
+        and never reaches the sort/reverse/duplicates/matrix demos further down.
+        """
         with pytest.raises(IndexError):
             run_script(self.FILE)
 
@@ -439,10 +439,10 @@ class TestVariables:
         assert "Admin: False" in out
 
     def test_non_numeric_costs_raises_uncaught_value_error(self):
-       """
-       There's no try/except around int(costs) in this file, 
-       so an invalid, non-numeric answer should propagate as a real ValueError.
-       """
+        """
+        There's no try/except around int(costs) in this file, 
+        so an invalid, non-numeric answer should propagate as a real ValueError.
+        """
         with pytest.raises(ValueError):
             run_script(self.FILE, inputs=["2", "not-a-number"])
 

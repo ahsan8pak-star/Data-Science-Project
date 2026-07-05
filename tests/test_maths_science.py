@@ -98,10 +98,10 @@ class TestArithmeticCalculator:
     FILE = f"{FOLDER}/arithmetic_calculator.py"
 
     def test_addition_chain_with_no_rounding(self):
-       """
-       A clean float result has its trailing .0 stripped to an int 
-       for display when "n" (no formatting) is chosen.
-       """
+        """
+        A clean float result has its trailing .0 stripped to an int 
+        for display when "n" (no formatting) is chosen.
+        """
         inputs = ["10", "+", "5", "", "n"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "| Result: 15 |" in out
@@ -117,10 +117,10 @@ class TestArithmeticCalculator:
         assert "| Result: 3.33 |" in out
 
     def test_no_first_number_exits_immediately(self):
-       """
-       run_script() absorbs the script's own exit() call (see conftest),
-       so we assert on the message it printed just before exiting.
-       """
+        """
+        run_script() absorbs the script's own exit() call (see conftest),
+        so we assert on the message it printed just before exiting.
+        """
         _, out = run_script(self.FILE, inputs=[""])
         assert "No input provided. Exiting." in out
 
