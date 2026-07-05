@@ -231,3 +231,4 @@ class TestWordGuessingGame:
         inputs = ["l", "u", "a", "y", "l", "u", "a", "n"]
         _, out = run_script(self.FILE, inputs=inputs, patches=[fixed_word])
         assert out.count("Congratulations!!! You guessed the word: lua") == 2
+

@@ -116,7 +116,7 @@ class TestDictionaries:
 # =====================================================================
 # 3. EXCEPTIONS
 # =====================================================================
- class TestExceptions:
+class TestExceptions:
     FILE = f"{FOLDER}/Exceptions.py"
 
     def test_valid_age_echoed_back(self):
@@ -222,7 +222,7 @@ class TestLists:
         # up to that point.
         with pytest.raises(IndexError) as exc_info:
             run_script(self.FILE)
-        out = exc_info.value.partial_output
+        out = exc_info.value.partial_output 
         assert "Ahsan" in out
         assert "Hamza" in out
         assert "['Ahsan', 'Yahya', 'Matthew', 'Ahnaf', 'Hamza']" in out

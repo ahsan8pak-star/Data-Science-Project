@@ -118,3 +118,4 @@ def test_prime_numbers_logic():
     assert is_prime(7) is True
     assert is_prime(1) is False
     assert is_prime(10) is False
+
