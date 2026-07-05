@@ -27,7 +27,7 @@ A personal project to advance my career in Data Science as a whole.
 
 # Applied Foundation Projects
 
-**Algorithms & Data Converters:**
+**Algorithmic Data Converters:**
 
 | File Name | Topics Covered |
 |---|---|
@@ -38,7 +38,7 @@ A personal project to advance my career in Data Science as a whole.
 | Time Coverter | **(Fundemental switch cases, including error catching within conditional loops)** |
 | Weight Converter Utility | **(Conditional logic integration)** |
 
-**Logic & Algorithmic Games:**
+**Logical Games:**
 
 | File Name | Topics Covered |
 |---|---|
