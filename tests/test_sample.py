@@ -219,14 +219,14 @@ class TestNumPad:
     FILE = f"{FOLDER}/num_pad.py"
 
     def test_script_crashes_on_the_set_of_lists_assignment(self):
-       """
-       Genuine bug in the source script: 
-       despite the header comment saying to comment out the invalid variants, 
-       the "2D set of lists (NOT VALID)" assignment is left active 
-       and always raises TypeError (lists aren't hashable), 
-       well before the later frozenset-based assignment 
-       or the print loop are ever reached.
-       """
+        """
+        Genuine bug in the source script: 
+        despite the header comment saying to comment out the invalid variants, 
+        the "2D set of lists (NOT VALID)" assignment is left active 
+        and always raises TypeError (lists aren't hashable), 
+        well before the later frozenset-based assignment 
+        or the print loop are ever reached.
+        """
         with pytest.raises(TypeError):
             run_script(self.FILE)
 
