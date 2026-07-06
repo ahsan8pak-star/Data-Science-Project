@@ -82,6 +82,7 @@ A personal project to advance my career in Data Science as a whole.
 | Even & Odd Loop Detector | **(Fundemental conditional for loop and modulus operator)** |
 | Factorials | **(Iterative Sequence Multiplication)** |
 | File Writer | **(File I/O fundementals)** |
+| Food Menu | **(Dictionaries and/or sets and applied conditional loops)** |
 | Hour Clock | **(Fundemental [ " import time " ] and scaling it up to its real world resemblence through previous files made on such)** |
 | LeapYear | **(Basic Mathematical functions under conditional loops)** |
 | Minute Time | **(Fundemental [ " import time " ] and basic scaling from its previous file to test its functionality)** |
