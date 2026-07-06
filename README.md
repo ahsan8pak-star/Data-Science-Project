@@ -47,6 +47,7 @@ A personal project to advance my career in Data Science as a whole.
 | Login Status | **(User input and error catching, within the logical framework of boolean)** |
 | Numerical Guessing Game | **(While loop & break engine execution)** |
 | Quiz Game | **(Fundemental lists and conditional for loops, including basic mathematical operations i.e. percentage score)** |
+| Rock Paper Scissors | **(Applied def functions, conditional loops with ASCII Art and formatting)** |
 | Word Guessing Game | **(Conditional loops, input functions & list fundementals)** |
 
 **Mathematical & Scientific Projects:**
