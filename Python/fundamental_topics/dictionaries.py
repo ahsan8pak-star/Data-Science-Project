@@ -44,9 +44,13 @@ print(coder.popitem()) # Removes the last item in the dictionary
 
 print(coder.clear()) # Clears the entire dictionary
 
-print(coder.keys()) # Outputs all the keys in the dictionary
+print(coder.keys()) # Outputs all the keys in the dictionary (first column)
+# Output: (['Name', 'Age', 'Is_Beginner'])
 
-print(coder.items()) # Shows all the items in the dictionary
+print(coder.values()) # Outputs all the values in the dictionary (second column)
+# Output: (['A.I.M', 20, True])
+
+print(coder.items()) # Shows all the items in the dictionary as a list -> [ {}, {}, {}... ]
 
 """ Another Dictionary Example """
 
@@ -64,20 +68,54 @@ if capitals.get("Russia"):
 else:
     print("Non-Existant Capital!")
 
-capitals.update({"Germany": "Berlin"})
-capitals.update({"USA": "Detroit"})
-capitals.pop("China")
-capitals.popitem()
-capitals.clear()
+capitals.update({"Germany": "Berlin"}) 
+# {"USA": "Washington D.C.", "India": "New Delhi", "China": "Beijing", "Russia": "Moscow", "Germany": "Berlin"}
+
+capitals.update({"USA": "Detroit"}) 
+# {"USA": "Detroit", "India": "New Delhi", "China": "Beijing", "Russia": "Moscow", "Germany": "Berlin"}
+
+capitals.pop("China") 
+# {"USA": "Detroit", "India": "New Delhi", "Russia": "Moscow", "Germany": "Berlin"}
+
+capitals.popitem() 
+# {"USA": "Detroit", "India": "New Delhi", "Russia": "Moscow"}
+
+capitals.clear() 
+# {}
 
 keys = capitals.keys()
 for key in capitals.keys():
     print(key)
 
+# Output: 
+"""
+USA
+India
+China
+Russia
+"""
+
 values = capitals.values()
 for value in capitals.values():
     print(value)
 
+# Output:  
+"""
+Washington D.C.
+New Delhi
+Beijing
+Moscow
+"""
+
+
 items = capitals.items()
 for key, value in capitals.items():
     print(f"{key}: {value}")
+
+# Output:
+"""
+USA: Washington D.C.
+India: New Delhi
+China: Beijing
+Russia: Moscow
+"""
