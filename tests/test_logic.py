@@ -214,6 +214,27 @@ class TestQuizGame:
 
 
 # ---------------------------------------------------------------------------
+# rock_paper_scissors.py
+# ---------------------------------------------------------------------------
+class TestRockPaperScissors:
+    FILE = f"{FOLDER}/rock_paper_scissors.py"
+
+    def test_player_wins(self):
+        fixed_choice = patch("random.choice", return_value="scissors")
+        _, out = run_script(self.FILE, inputs=["rock"], patches=[fixed_choice])
+        assert "You win!" in out
+
+    def test_player_loses(self):
+        fixed_choice = patch("random.choice", return_value="paper")
+        _, out = run_script(self.FILE, inputs=["rock"], patches=[fixed_choice])
+        assert "You lose!" in out
+
+    def test_tie(self):
+        fixed_choice = patch("random.choice", return_value="rock")
+        _, out = run_script(self.FILE, inputs=["rock"], patches=[fixed_choice])
+        assert "It's a tie!" in out
+
+# ---------------------------------------------------------------------------
 # word_guessing_game.py
 # ---------------------------------------------------------------------------
 class TestWordGuessingGame:
