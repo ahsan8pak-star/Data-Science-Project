@@ -220,19 +220,22 @@ class TestRockPaperScissors:
     FILE = f"{FOLDER}/rock_paper_scissors.py"
 
     def test_player_wins(self):
-        fixed_choice = patch("random.choice", return_value="scissors")
-        _, out = run_script(self.FILE, inputs=["rock"], patches=[fixed_choice])
+        # Expects "s" for scissors and "r" for rock
+        fixed_choice = patch("random.choice", return_value="s")
+        _, out = run_script(self.FILE, inputs=["r"], patches=[fixed_choice])
         assert "You win!" in out
 
     def test_player_loses(self):
-        fixed_choice = patch("random.choice", return_value="paper")
-        _, out = run_script(self.FILE, inputs=["rock"], patches=[fixed_choice])
+        # Expects "p" for paper and "r" for rock
+        fixed_choice = patch("random.choice", return_value="p")
+        _, out = run_script(self.FILE, inputs=["r"], patches=[fixed_choice])
         assert "You lose!" in out
 
     def test_tie(self):
-        fixed_choice = patch("random.choice", return_value="rock")
-        _, out = run_script(self.FILE, inputs=["rock"], patches=[fixed_choice])
-        assert "It's a tie!" in out
+        # Expects "r" for rock and outputs uppercase "TIE!"
+        fixed_choice = patch("random.choice", return_value="r")
+        _, out = run_script(self.FILE, inputs=["r"], patches=[fixed_choice])
+        assert "It's a TIE!" in out
 
 # ---------------------------------------------------------------------------
 # word_guessing_game.py
