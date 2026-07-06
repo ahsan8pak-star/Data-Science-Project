@@ -14,8 +14,8 @@ class TestAdd:
     FILE = f"{FOLDER}/Add.py"
 
     def test_output(self):
-        mod, out = run_script(self.FILE)
-        assert mod.result == 8
+        _, out = run_script(self.FILE)
+        assert _.result == 8
         assert "8" in out
 
     def test_function_directly(self):
@@ -65,8 +65,8 @@ class TestDivide:
     FILE = f"{FOLDER}/Divide.py"
 
     def test_output(self):
-        mod, out = run_script(self.FILE)
-        assert mod.result == 4.0
+        _, out = run_script(self.FILE)
+        assert _.result == 4.0
         assert "4.0" in out
 
     def test_function_directly(self):
@@ -206,8 +206,8 @@ class TestMultiply:
     FILE = f"{FOLDER}/Multiply.py"
 
     def test_output(self):
-        mod, out = run_script(self.FILE)
-        assert mod.product == 24
+        _, out = run_script(self.FILE)
+        assert _.product == 24
         assert "24" in out
 
     def test_function_directly(self):
@@ -302,8 +302,8 @@ class TestSquare:
     FILE = f"{FOLDER}/Square.py"
 
     def test_output(self):
-        mod, out = run_script(self.FILE)
-        assert mod.result == 16
+        _, out = run_script(self.FILE)
+        assert _.result == 16
         assert "16" in out
 
     def test_function_directly(self):
@@ -315,8 +315,8 @@ class TestSubtract:
     FILE = f"{FOLDER}/Subtract.py"
 
     def test_output(self):
-        mod, out = run_script(self.FILE)
-        assert mod.product == 6
+        _, out = run_script(self.FILE)
+        assert _.product == 6
         assert "6" in out
 
     def test_function_directly(self):

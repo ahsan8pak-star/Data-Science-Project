@@ -95,10 +95,10 @@ class TestDictionaries:
     FILE = f"{FOLDER}/dictionaries.py"
 
     def test_dictionary_values(self):
-        mod, out = run_script(self.FILE)
-        assert mod.coder["Name"] == "A.I.M"
-        assert mod.coder["Age"] == 20  # overwritten from 21 later in the script
-        assert mod.coder["Is_Beginner"] is True
+        _, out = run_script(self.FILE)
+        assert _.coder["Name"] == "A.I.M"
+        assert _.coder["Age"] == 20  # overwritten from 21 later in the script
+        assert _.coder["Is_Beginner"] is True
 
     def test_get_with_default_and_missing_key(self):
         _, out = run_script(self.FILE)
@@ -353,7 +353,7 @@ class TestTuples:
     FILE = f"{FOLDER}/Tuples.py"
 
     def test_tuple_indexing(self):
-        mod, out = run_script(self.FILE)
+        _, out = run_script(self.FILE)
         assert mod.numbers == (1, 2, 3)
         assert "1" in out and "2" in out and "3" in out
 
@@ -382,7 +382,7 @@ class TestTypeConversionTypeCasting:
     FILE = f"{FOLDER}/type_conversion_type_casting.py"
 
     def test_string_conversions(self):
-        mod, out = run_script(self.FILE)
+        _, out = run_script(self.FILE)
         assert str(mod.a) == "A.I.M"
         assert str(mod.b) == "8"
         assert str(mod.d) == "True"
