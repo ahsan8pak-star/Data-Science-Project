@@ -37,10 +37,12 @@ for food, quantity in order.items():
     
     # Correctly prints the actual quantity and the total price for that item
     print(f"| x{quantity} {food:11}: £{item_total:.2f} |")
-    print("-------------------------\n")
+    print("-------------------------")
 
-print("===== TOTAL =====")
+print("===== PRICE =====")
 print(f"| Total:  £{total:.2f} |")
-print("=================\n")
+print("=================")
 
-print("Cash or Card?")
+print("==== PAYMENT ====")
+print("| Cash or Card? |")
+print("=================")
