@@ -97,7 +97,7 @@ class TestDictionaries:
     def test_dictionary_values(self):
         _, out = run_script(self.FILE)
         assert _.coder["Name"] == "A.I.M"
-        assert _.coder["Age"] == 20  # overwritten from 21 later in the script
+        assert _.coder["Age"] == 20 # overwritten from 21 later in the script
         assert _.coder["Is_Beginner"] is True
 
     def test_get_with_default_and_missing_key(self):
@@ -354,7 +354,7 @@ class TestTuples:
 
     def test_tuple_indexing(self):
         _, out = run_script(self.FILE)
-        assert mod.numbers == (1, 2, 3)
+        assert _.numbers == (1, 2, 3)
         assert "1" in out and "2" in out and "3" in out
 
     def test_unpacking(self):
@@ -383,9 +383,9 @@ class TestTypeConversionTypeCasting:
 
     def test_string_conversions(self):
         _, out = run_script(self.FILE)
-        assert str(mod.a) == "A.I.M"
-        assert str(mod.b) == "8"
-        assert str(mod.d) == "True"
+        assert str(_.a) == "A.I.M"
+        assert str(_.b) == "8"
+        assert str(_.d) == "True"
 
     def test_numeric_conversions(self):
         mod, _ = run_script(self.FILE)
