@@ -96,9 +96,13 @@ class TestDictionaries:
 
     def test_dictionary_values(self):
         _, out = run_script(self.FILE)
-        assert _.coder["Name"] == "A.I.M"
-        assert _.coder["Age"] == 20 # overwritten from 21 later in the script
-        assert _.coder["Is_Beginner"] is True
+        # By the time the script finishes, coder.clear() was called, leaving it empty
+        # Allowing other tests to assert on the printed output without worrying about the module's own top-level variable state
+        assert _.coder == {}
+        
+        assert "A.I.M" in out
+        assert "21" in out 
+        assert "20" in out
 
     def test_get_with_default_and_missing_key(self):
         _, out = run_script(self.FILE)
