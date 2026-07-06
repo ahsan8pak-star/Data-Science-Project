@@ -35,6 +35,9 @@ elif int(grade) >= 20:
 elif int(grade) >= 10:
     print(f"{str(grade)}. Did you forgot the exam?")
 
-else:
+elif int(grade) >= 0:
     print(f"{str(grade)}!!! SERIOUSLY?! THAT LOW?!! DO BETTER!!!")
+
+else:
+    print(f"{str(grade)}!!! ARE YOU KIDDING ME???!!! GET OUT!!!")
 

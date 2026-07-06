@@ -24,6 +24,7 @@ class TestGradeBoundaryCalculator:
     @pytest.mark.parametrize(
         "score, expected_phrase",
         [
+            ("105", "HOW?! YOU ARE LYING!"),
             ("100", "Unbelievable!"),
             ("95", "Really Good."),
             ("85", "Solid."),
@@ -34,9 +35,12 @@ class TestGradeBoundaryCalculator:
             ("35", "You must have slept the exam"),
             ("25", "We can do way better"),
             ("15", "Did you forgot the exam?"),
-            ("5", "SERIOUSLY?! THAT LOW?!!"),
-        ],
+            ("5", "SERIOUSLY?! THAT LOW?!! DO BETTER!!!"),
+            ("0", "ARE YOU KIDDING ME???!!! GET OUT!!!"),
+            ("-5", "HOW?! YOU ARE LYING!")
+        ]
     )
+    
     def test_grade_boundaries(self, score, expected_phrase):
         _, out = run_script(self.FILE, inputs=[score])
         assert expected_phrase in out
