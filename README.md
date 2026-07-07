@@ -42,6 +42,7 @@ A personal project to advance my career in Data Science as a whole.
 
 | File Name | Topics Covered |
 |---|---|
+| Dice Game | **(Fundemental dictionary / sets, applied arrays / lists and applied conditional loops with creative TUI display)** |
 | Grade Boundary Calculator | **(Integers with conditional (if) loops)** |
 | Haiku - Madlibs | **(F-strings with lists and random import)** |
 | Login Status | **(User input and error catching, within the logical framework of boolean)** |
