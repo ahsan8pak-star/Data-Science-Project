@@ -219,6 +219,7 @@ __marimo__/
 .streamlit/secrets.toml
 
 # C++ / MinGW / MSYS2 artifacts
+*.cc
 *.exe
 *.out
 *.dll
@@ -273,6 +274,7 @@ cmake-build-release/
 
 # PostgreSQL & Database Query Artifacts
 # Block binary database dumps and automated backups
+*.sql
 *.dump
 *.bak
 *.tar
