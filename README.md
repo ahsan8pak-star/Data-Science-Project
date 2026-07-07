@@ -90,6 +90,7 @@ A personal project to advance my career in Data Science as a whole.
 | Minute Time | **(Fundemental [ " import time " ] and basic scaling from its previous file to test its functionality)** |
 | Multiply | **(*)** |
 | Prime Numbers | **(Iterative sequence filtration and identification)** |
+| Random Cipher | **(import random and import string, with applied inputs, f-strings and conditional loops)**
 | Seconds Countdown | **(Fundemental [ " import time " ] under its essential (def) function including f string methods to present it accurately)** |
 | Shopping Cart | **(Fundemental lists under a function within a for conditoinal loop, including try-except error catching and f string methods.)** |
 | Square | **( pow(x, y) == ** )** |
