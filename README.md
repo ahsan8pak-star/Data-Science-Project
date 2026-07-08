@@ -36,7 +36,7 @@ A personal project to advance my career in Data Science as a whole.
 | Phone Number Converter | **(Case function & conditional loops)** |
 | Roman Numerals Converter | **(Conditional loops, input functions, case switch fundementals & exception rules)** |
 | Time Coverter | **(Fundemental switch cases, including error catching within conditional loops)** |
-| Weight Converter Utility | **(Conditional logic integration)** |
+| Weight Converter | **(Conditional logic integration)** |
 
 **Logical Games:**
 
