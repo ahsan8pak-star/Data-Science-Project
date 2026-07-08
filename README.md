@@ -78,6 +78,7 @@ A personal project to advance my career in Data Science as a whole.
 |---|---|
 | Add | **(+)** |
 | Checkout System | **(User input and type conversions)** |
+| Count Up Timer | **(Foundational default arguements and import time)** |
 | Distance Calculator | **(Floats and user input demonstartion.)** |
 | Divide | **(/)** |
 | Email Slicer | **(Index formtting fundementals)** |
