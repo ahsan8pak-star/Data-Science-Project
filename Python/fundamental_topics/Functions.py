@@ -25,6 +25,7 @@ print(increment(20, 10)) # Output: 30
 print(increment(7, by=3)) # Output: 10
 print(increment(15)) # Output: 16 (uses default value of by)
 
+
 def hello(greeting, title, first, last): # Standard parameters i.e. basic / generic variable assignment
     print(f"{greeting} {title} {first} {last}") # Spacing matters on how the message is formatted
     # Ordering keywords can vary its location i.e. Unordered format
@@ -32,6 +33,7 @@ def hello(greeting, title, first, last): # Standard parameters i.e. basic / gene
 
 hello("Hello", title="Mr.", last="Iqbal", first="Ahsan") # Keyword - various parameter types for various inputs in out of order, i.e. unordered
 # Positional Argument ( "Hello" ) + Keyword Arguement ( title="Mr.", last="Iqbal", first="Ahsan" )
+
 
 def divide(*numbers): # xArgs - *numbers allows the function to accept a variable number of arguments.
     total = 100
@@ -41,4 +43,43 @@ def divide(*numbers): # xArgs - *numbers allows the function to accept a variabl
 
 
 print(divide(5, 4, 2)) # Output: 2.5
+
+
+def fullname(*name): # ARGS -> allows passing multiple NON-KEY(WORD) arguements
+   
+   # ( * ) -> Unpacking Operator for ARGS i.e. unpacks / separates the whole arguement into individual items
+   
+   print(f"Hello, ", end=" ") # Positional Arguement
+
+   for word in name: # Every Non-Key argument under the variable 'args'
+       print(word, end=" ") # print them individually in every whitespace separated
+
+fullname("Dr.", "A.I.M", "'N'", "A.C.E") 
+
+# Output: Hello, Dr. A.I.M 'N' A.C.E
+
+
+def address(**location): # KWARGS -> allows passing multiple KEYWORD arguements
+
+    # ( ** ) -> Unpacking operator for KWARGS.
+
+    for value in location.values(): # Every Keyword arguement as values of the variable 'kwargs'
+        print(value) # print every item sequentially
+
+
+address(
+    street="1 Fake Av.",
+    postcode="RG1 2AB",
+    city="Reading",
+    county="Berkshire")
+
+"""
+Output:
+
+1 Fake Av.
+RG1 2AB
+Reading
+Berkshire
+
+"""
 
