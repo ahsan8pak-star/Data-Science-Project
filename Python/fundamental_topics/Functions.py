@@ -54,10 +54,9 @@ def fullname(*name): # ARGS -> allows passing multiple NON-KEY(WORD) arguements
    for word in name: # Every Non-Key argument under the variable 'args'
        print(word, end=" ") # print them individually in every whitespace separated
 
-fullname("Dr.", "A.I.M", "'N'", "A.C.E") 
+fullname("Dr.", "A.I.M", "'N'", "A.C.E") # Output: Hello, Dr. A.I.M 'N' A.C.E
 
-# Output: Hello, Dr. A.I.M 'N' A.C.E
-
+print(type(fullname)) # Output: <class 'function'>
 
 def address(**location): # KWARGS -> allows passing multiple KEYWORD arguements
 
@@ -82,4 +81,6 @@ Reading
 Berkshire
 
 """
+
+print(type(address)) # Ouput: <class 'function'>
 
