@@ -27,11 +27,11 @@ print(increment(15)) # Output: 16 (uses default value of by)
 
 def hello(greeting, title, first, last): # Standard parameters i.e. basic / generic variable assignment
     print(f"{greeting} {title} {first} {last}") # Spacing matters on how the message is formatted
-    # Ordering keywords can vary its location.
-    
-# Positional Argument ( "Hello" ) + Keyword Arguement ( title="Mr." )
-hello("Hello", title="Mr.", last="Iqbal", first="Ahsan") # Keyword - various parameter types for various inputs in out of order, i.e. unordered
+    # Ordering keywords can vary its location i.e. Unordered format
 
+
+hello("Hello", title="Mr.", last="Iqbal", first="Ahsan") # Keyword - various parameter types for various inputs in out of order, i.e. unordered
+# Positional Argument ( "Hello" ) + Keyword Arguement ( title="Mr.", last="Iqbal", first="Ahsan" )
 
 def divide(*numbers): # xArgs - *numbers allows the function to accept a variable number of arguments.
     total = 100
