@@ -62,15 +62,16 @@ def address(**location): # KWARGS -> allows passing multiple KEYWORD arguements
 
     # ( ** ) -> Unpacking operator for KWARGS.
 
-    for value in location.values(): # Every Keyword arguement as values of the variable 'kwargs'
-        print(value) # print every item sequentially
+    for key, value in location.items(): # Every Keyword arguement as keys and values respectively of the variable 'kwargs'
+        print(f"{key}: {value}") # print every item sequentially in the format of keys and values respectively
+        # Acts as a dictionary
 
 
 address(
-    street="1 Fake Av.",
-    postcode="RG1 2AB",
-    city="Reading",
-    county="Berkshire")
+    Street="1 Fake Av.",
+    Postcode="RG1 2AB",
+    City="Reading",
+    County="Berkshire")
 
 """
 Output:
