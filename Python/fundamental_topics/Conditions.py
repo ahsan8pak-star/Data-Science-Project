@@ -361,22 +361,153 @@ for x in range (5): # for 5 times
 
 """Iterables"""
 
-fruits = ["apple", "banana", "cherry"]
-for fruit in fruits: # Iterating through a list
-    print(fruit)
+# An object/collection that can return its elements one at a time, allowing it to be iterated over in a loop
+
+name = "AIM"
+
+for char in name:
+    print(char, end=" | ")
 
 # Expected Output:
-# "apple"
-# "banana"
-# "cherry"
+# A | I | M
+
+# Actual Output: 
+# A | I | M
+
+# Reason: Using for loop iterates every 'char(acter)' under the 'word' 'name'
+# end= " | " -> two spaces in between the character symbol '|' i.e. prints in the same single line
+
+# LISTS
+
+numbers = [1, 2, 3, 4, 5]
+for number in numbers:
+    print(number, end=" ")
+
+# Expected Output:
+# 1 2 3 4 5
+
+# Actual Output: 
+# 1 2 3 4 5
+
+# Reason: for loop iterates every 'number' under the list 'numbers' 
+# and prints them under a single line with spaces based on the function 'end=" "'
+
+countries = ["Algeria", "Belgium", "Canada"]
+for country in countries: # Iterating through a list
+    print(country)
+
+# Expected Output:
+# "Algeria"
+# "Belgium"
+# "Canada"
 
 # Actual Output:
-# "apple"
-# "banana"
-# "cherry"
+# "Algeria"
+# "Belgium"
+# "Canada"
 
-# Reason: The for loop goes through each element in the 'fruits' list one by one
-# Assigning it to the variable 'fruit' and printing it vertically, not horizontally.
+# Reason: The for loop goes through each element in the 'countries' list one by one
+# Assigning it to the variable 'country' and printing it vertically, not horizontally.
+
+# TUPLES
+
+coordinates = (1, 2, 3, 4, 5, 6)
+for point in coordinates:
+    print(point, end=" ")
+
+# Expected Output:
+# 1 2 3 4 5 6
+
+# Actual Output: 
+# 1 2 3 4 5 6
+
+# Reason: for loop iterates every 'point' under the tuple 'coordinates' 
+# and prints them under a single line with spaces based on the function 'end=" "'
+
+# SETS
+
+fruits = {"apple", "banana", "cherry"}
+for fruit in fruits:
+    print(fruit, end=" ")
+
+# Expected Output:
+# "apple" "banana" "cherry"
+
+# Actual Output: FULLY RANDOM
+# "apple" "banana" "cherry"
+# OR
+# "banana" "cherry" "apple"
+# OR
+# "cherry" "apple" "banana"
+
+# Reason: for loop checks each element in the 'fruits' set individually
+# Assigning to 'fruit' and prints it horizontally i.e. a single line through 'end=" "'
+# Due to the nature of sets, it is Unordered, meaning it will print randomly
+
+# DICTIONARIES
+
+alphabet = {'A': 1, 'B': 2, 'C': 3}
+for key in alphabet:
+    print(key)
+
+# Expected Output:
+# A
+# B
+# C
+
+# Actual Output:
+# A
+# B
+# C
+
+# Reason: Prints on the 'first' column i.e. only the keys vertically 
+# Meaning after the first row has been printed, the next gets printed out i.e. a new line for every new key
+
+for value in alphabet.values():
+    print(value)
+
+# Expected Output:
+# 1
+# 2
+# 3
+
+# Actual Output:
+# 1
+# 2
+# 3
+
+# Reason: Similar to keys except its the 'second / last' column being printed vertically
+
+for key, value in alphabet.items():
+    print(f"{key} = {value}")
+
+# Expected Output:
+# A = 1
+# B = 2
+# C = 3
+
+# Actual Output:
+# A = 1
+# B = 2
+# C = 3
+
+alphabet = {'A': 1, 'B': 2, 'C': 3}
+for key in alphabet:
+    print(key)
+
+# Expected Output:
+# A
+# B
+# C
+
+# Actual Output:
+# A
+# B
+# C
+
+# Reason: The .items() method returns both the key and value as a pair
+# allowing the for loop to instantly unpack into two distinct variables (key and value) 
+# and printed horizontally using an f-string.
 
 
 """Infinite Loops (Extreme Caution!!!)"""
