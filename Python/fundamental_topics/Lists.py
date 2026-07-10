@@ -185,6 +185,59 @@ print(horizontal_list)
 # [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
+""" List Comprehensions """
+
+
+doubles = [x * 2 for x in range(1, 11)]
+# Output: [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+# Reason: range(1, 11) generates numbers 1 to 10. Each number is multiplied by 2.
+
+triples = [y * 3 for y in range(1, 11)]
+# Output: [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
+# Reason: Each number from 1 to 10 is multiplied by 3.
+
+squares = [z * z for z in range(1, 11)]
+# Output: [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+# Reason: Each number from 1 to 10 is squared (multiplied by itself).
+
+
+fruits = ["apple", "orange", "banana", "coconut"]
+
+uppercase_words = [fruit.upper() for fruit in fruits]
+# Output: ['APPLE', 'ORANGE', 'BANANA', 'COCONUT']
+# Reason: Runs the .upper() method on each fruit string to capitalize them.
+
+fruit_chars = [fruit[0] for fruit in fruits]
+# Output: ['a', 'o', 'b', 'c']
+# Reason: Targets and extracts index 0 (the first character) of each fruit string.
+
+
+number_list = [1, -2, 3, -4, 5, -6, 8, -7]
+
+positive_number = [x for x in number_list if x >= 0]
+# Output: [1, 3, 5, 8]
+# Reason: Only includes numbers that are greater than or equal to 0.
+
+negative_number = [x for x in number_list if x < 0]
+# Output: [-2, -4, -6, -7]
+# Reason: Only includes numbers that are strictly less than 0.
+
+even_number = [x for x in number_list if x % 2 == 0]
+# Output: [-2, -4, -6, 8]
+# Reason: Only includes numbers where the remainder of division by 2 is 0.
+
+odd_number = [x for x in number_list if x % 2 == 1]
+# Output: [1, 3, 5, -7]
+# Reason: Only includes numbers where division by 2 leaves a remainder of 1. (Note: In Python, negative odd numbers like -7 also return 1 when moduloed by 2!)
+
+
+grades = [85, 42, 79, 90, 56, 61, 30]
+
+passing_grades = [grade for grade in grades if grade >= 60]
+# Output: [85, 79, 90, 61]
+# Reason: Filters the grade list to only keep values of 60 or higher.
+
+
 """ List Methods """
 
 print(dir(names)) # Print all list methods as a help guide under ANY list variable name
