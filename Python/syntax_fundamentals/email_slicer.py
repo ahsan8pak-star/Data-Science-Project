@@ -2,7 +2,12 @@ while True: # While the program is running
     try: # main code
         email = input("Enter your email (or 'q' to quit): ").strip() # prevents accidental <ENTER> imputs
 
-        if email[0].lower() == 'q':
+        # Catch empty inputs safely before indexing to prevent IndexError
+        if not email:
+            print("No Input Made. Try again.")
+            continue
+
+        if email.lower() == 'q':
             print("Shutting down...")
             break
 
