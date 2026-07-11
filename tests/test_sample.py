@@ -5,7 +5,7 @@ Tests for every script under Python/SyntaxFundementals/.
 import pytest
 
 from tests.conftest import run_script
-from syntax_fundamentals.Factorials import factorial
+from syntax_fundamentals.factorials import factorial
 
 FOLDER = "syntax_fundamentals"
 

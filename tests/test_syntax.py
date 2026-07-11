@@ -3,12 +3,12 @@ from unittest.mock import patch
 import pytest
 import os
 
-from syntax_fundamentals.Add import add
-from syntax_fundamentals.Divide import divide
+from syntax_fundamentals.add import add
+from syntax_fundamentals.divide import divide
 
 # Mock input BEFORE importing the problematic module
 with patch('builtins.input', return_value='5'):
-    from syntax_fundamentals.Factorials import factorial
+    from syntax_fundamentals.factorials import factorial
 
 # =====================================================================
 # 1. ADD & DIVIDE (Pure Functions)
