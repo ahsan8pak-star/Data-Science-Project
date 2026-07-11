@@ -31,7 +31,8 @@ while True: # While the program is running
     except ValueError: # Allowing in the form of strings i.e. prevents unexpected crashes
         print("Invalid input. Avoid Typo Errors.")
 
-    except KeyboardInterrupt:
-        print("We apologise for any inconvenience.")
+    except KeyboardInterrupt: # Stops the program even if it unexpectedly crashes to reduce further conflict
+        print("\nWe apologise for any inconvenience.")
         print("Have a great day!")
+        break
 
