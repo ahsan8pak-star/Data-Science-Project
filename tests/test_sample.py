@@ -87,9 +87,9 @@ class TestEmailSlicer:
         assert "Username: ahsan" in out
         assert "Email Domain: gmail.com" in out
 
-    def test_no_at_symbol_raises_uncaught_value_error(self):
-        with pytest.raises(ValueError):
-            run_script(self.FILE, inputs=["not-an-email"])
+    def test_no_at_symbol_handles_error_gracefully(self):
+        output = run_script(self.FILE, inputs=["not-an-email", "q"])
+        assert "Invalid input" in output
 
 
 class TestEvenOddLoopDetector:
