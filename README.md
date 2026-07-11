@@ -24,6 +24,7 @@ A personal project to advance my career in Data Science as a whole.
 | Functions | **(Def blocks, positional/keyword arguments, parameter passing, return statements)** |
 | Exceptions | **(Try, except error handling structures)** |
 | Reusable Logic & Code Style | **(Function refactoring, # syntax comments documentation)** |
+| Modules | **(Importing, creating modules and descriptions of its various types)** |
 
 # Applied Foundation Projects
 
@@ -88,6 +89,8 @@ A personal project to advance my career in Data Science as a whole.
 | Food Menu | **(Dictionaries and/or sets and applied conditional loops)** |
 | Hour Clock | **(Fundemental [ " import time " ] and scaling it up to its real world resemblence through previous files made on such)** |
 | LeapYear | **(Basic Mathematical functions under conditional loops)** |
+| Math File | **(Fundemental import modules and basic printing various cases)** |
+| Math Module| **(Fundemental created import modules and basic mathematical functions)** |
 | Minute Time | **(Fundemental [ " import time " ] and basic scaling from its previous file to test its functionality)** |
 | Multiply | **(*)** |
 | Prime Numbers | **(Iterative sequence filtration and identification)** |
