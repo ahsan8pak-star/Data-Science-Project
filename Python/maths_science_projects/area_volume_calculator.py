@@ -1,41 +1,49 @@
-# define functions first to prevent crashes of values not returning
-def volume(x, y, z):
-    return x * y * z
-
-def area(x, y):
-    return x * y
+# imported files as modules to undergo D.R.Y (Don't Repeat Yourself)
+# from [FILE NAME] import [FUNCTION] allows the specific def function to be imported
+from area import area 
+from volume import volume
 
 # Menu Screen
-print("Geometry Calculator")
-print()
-print("1: Calculate Area")
-print("2: Calculate Volume")
+print("\n=======================")
+print("| Geometry Calculator |")
+print("=======================")
+print("| 1: Calculate Area   |")
+print("| 2: Calculate Volume |")
+print("=======================")
 
-choice = input("Enter your choice (1 or 2): ").strip()
+choice = input("\nEnter your choice (1 or 2): ").strip()
 
 match choice:
 
     case "1":
-        print("Area Calculator")
+        print("\n===================")
+        print("| Area Calculator |")
+        print("===================")
     
         try:
-            x = float(input("Enter Length (cm): "))
-            y = float(input("Enter Width (cm): "))
-    
-            print(f"Area: {round(area(x, y), 2)} cm²")
+            x = float(input("\nEnter Length (cm): "))
+            y = float(input("\nEnter Width (cm): "))
+            
+            print("\n=================================")
+            print(f"| {f'Area: {round(area(x, y), 2)} cm²':^29} |")
+            print("=================================")
     
         except ValueError:
             print("Error: Numbers only.")
 
     case "2":
-        print("Volume Calculator")
+        print("\n=====================")
+        print("| Volume Calculator |")
+        print("=====================")
         
         try:
-            x = float(input("Enter Length (cm): "))
-            y = float(input("Enter Width (cm): "))
-            z = float(input("Enter Depth (cm): "))
-        
-            print(f"Volume: {round(volume(x, y, z), 2)} cm³")
+            x = float(input("\nEnter Length (cm): "))
+            y = float(input("\nEnter Width (cm): "))
+            z = float(input("\nEnter Depth (cm): "))
+
+            print("\n=================================")
+            print(f"| {f'Volume: {round(volume(x, y, z), 2)} cm³':^29} |")
+            print("=================================")
         
         except ValueError:
             print("Error: Numbers only.")
