@@ -9,43 +9,44 @@ def get_float_input(prompt):
     if user_input.strip() == "": # If input hasn't been typed down i.e. <ENTER>
         return None # Returns a NULL answer
     
-    try:
-        return float(user_input) # converts user input from string into float
+    if __name__ == "__main__": # allow this to be an imported module
+        try:
+            return float(user_input) # converts user input from string into float
     
-    except ValueError:
-        print("Invalid input. Numbers only.")
-        return None # Safety net for incorrect values
+        except ValueError:
+            print("Invalid input. Numbers only.")
+            return None # Safety net for incorrect values
 
-print("\nPythagorean Theorem")
-print("Leave the variable blank (press Enter) for the one you want to find.")
+    print("\nPythagorean Theorem")
+    print("Leave the variable blank (press Enter) for the one you want to find.")
 
-a = get_float_input("Enter side a (cm): ")
-b = get_float_input("Enter side b (cm): ")
-c = get_float_input("Enter hypotenuse c (cm): ")
+    a = get_float_input("Enter side a (cm): ")
+    b = get_float_input("Enter side b (cm): ")
+    c = get_float_input("Enter hypotenuse c (cm): ")
 
-missing = [a, b, c].count(None)
+    missing = [a, b, c].count(None)
 
-if missing != 1:
-    print("Error: You must provide exactly TWO known values.")
+    if missing != 1:
+        print("Error: You must provide exactly TWO known values.")
 
-else:
+    else:
 
-    if c is None:
-        print(f"\nResult: Hypotenuse (c) is {round(math.sqrt(a**2 + b**2), 2)} cm")
+        if c is None:
+            print(f"\nResult: Hypotenuse (c) is {round(math.sqrt(a**2 + b**2), 2)} cm")
 
-    elif a is None:
+        elif a is None:
 
-        if c <= b:
-            print("Error: Hypotenuse (c) MUST be strictly greater than side (b).")
+            if c <= b:
+                print("Error: Hypotenuse (c) MUST be strictly greater than side (b).")
 
-        else:
-            print(f"\nResult: Side (a) is {round(math.sqrt(c**2 - b**2), 2)} cm")
+            else:
+                print(f"\nResult: Side (a) is {round(math.sqrt(c**2 - b**2), 2)} cm")
 
-    elif b is None:
+        elif b is None:
 
-        if c <= a:
-            print("Error: Hypotenuse (c) MUST be strictly greater than side (a).")
+            if c <= a:
+                print("Error: Hypotenuse (c) MUST be strictly greater than side (a).")
 
-        else:
-            print(f"\nResult: Side (b) is {round(math.sqrt(c**2 - a**2), 2)} cm")
+            else:
+                print(f"\nResult: Side (b) is {round(math.sqrt(c**2 - a**2), 2)} cm")
 
