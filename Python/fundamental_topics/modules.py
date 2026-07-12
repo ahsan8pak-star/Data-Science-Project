@@ -42,3 +42,13 @@ print(e ** e) # 3125
 # Solution: use 'import math' instead and it'll be 'math.e'
 
 """ Solution Example """
+
+import math
+
+a, b, c, d, e = 1, 2, 3, 4, 5
+
+print(math.e ** a) # 5
+print(math.e ** b) # 25
+print(math.e ** c) # 125
+print(math.e ** d) # 625
+print(math.e ** e) # 3125
