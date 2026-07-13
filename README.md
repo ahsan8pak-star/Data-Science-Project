@@ -9,6 +9,8 @@ A personal project to advance my career in Data Science as a whole.
 - CLI Commands from **Powershell/CMD (mainly used)** and **Ubuntu/Linux (eventually will come later on in main projects)**
 - Git Version Control from **GitHub, GitLab (both of them synchronized with VSC as a 'middle man')** and **Git Bash (rarely used)**
 
+---
+
 **Python Fundamental Topics**:
 
 | Topic Name | Descriptions |
@@ -27,6 +29,8 @@ A personal project to advance my career in Data Science as a whole.
 | Modules | **Importing, creating modules and descriptions of its various types** |
 | Scope Resolution | **Range of variable scopes within functions i.e. (LEGB) Local -> Enclosed -> Global -> Built-in** |
 
+---
+
 # Applied Foundation Projects
 
 **Algorithmic Data Converters:**
@@ -40,6 +44,8 @@ A personal project to advance my career in Data Science as a whole.
 | Time Coverter | **Fundemental switch cases, including error catching within conditional loops** |
 | Weight Converter | **Conditional logic integration** |
 
+---
+
 **Logical Games:**
 
 | File Name | Topics Covered |
@@ -52,6 +58,8 @@ A personal project to advance my career in Data Science as a whole.
 | Quiz Game | **Fundemental lists and conditional for loops, including basic mathematical operations i.e. percentage score** |
 | Rock Paper Scissors | **Applied def functions, conditional loops with ASCII Art and formatting** |
 | Word Guessing Game | **Conditional loops, input functions & list fundementals** |
+
+---
 
 **Mathematical & Scientific Projects:**
 
@@ -73,6 +81,8 @@ A personal project to advance my career in Data Science as a whole.
 | Sine Rule | **Advanced Mathematical functions** |
 | Triangle Calculator | **Functions combining 2 basic and 2 advanced files with advanced user input** |
 | Volume | **Basic arithmetic functions with 3 values** |
+
+---
 
 **Syntax Fundementals:**
 
