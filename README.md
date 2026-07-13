@@ -192,5 +192,5 @@ Data-Science-Project/
 
 ## References
 
-[20]: The `[Dd]ata/` rule in our `.gitignore` protects both uppercase and lowercase data tracks.
-[21]: The MIT LICENSE framework chosen for open-source compliance.
+- [20]: The `[Dd]ata/` rule in our `.gitignore` protects both uppercase and lowercase data tracks.
+- [21]: The MIT LICENSE framework chosen for open-source compliance.
