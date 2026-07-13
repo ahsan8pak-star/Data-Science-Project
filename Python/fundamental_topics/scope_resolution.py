@@ -1,46 +1,53 @@
+""" Scope Resolution """
+
+# Variable Scope = Variable Visibility and Accessibility
+
+# Scope Resolution = (L)ocal -> (E)nclosed -> (G)lobal -> (B)uilt-In
+# from smallest to biggest i.e. ascending
+
 # LOCAL
 
-def function_local1():
-    x = 1 #local
+def local1():
+    x = 1 # local variable
     print(x)
 
-def function_local2():
-    x = 2 #local
+def local2():
+    x = 2 # local variable
     print(x)
 
-function_local1()
-function_local2()
+local1()
+local2()
 
 # ENCLOSED
 
-def function_enclosed_3():
+def enclosed1():
     x = 1 # enclosed variable
 
-    def function_enclosed4():
+    def enclosed2():
         print(x)
-    function_enclosed4()
+    enclosed2()
 
-function_enclosed_3()
+enclosed1()
 
 # GLOBAL
 
-def function_global5():
+def global1():
     print(x)
 
-def function_global6():
+def global2():
     print(x)
 
 x = 3 # global variable
 
-function_global5()
-function_global6()
+global1()
+global2()
 
 # BUILT-IN
 
-from math import e 
+from math import e # from MODULE import FUNCTION
 
-def function_built_in7():
-    print(e)
+def built_in():
+    print(e) # built-in variable
 
-function_built_in7()
+built_in()
 
