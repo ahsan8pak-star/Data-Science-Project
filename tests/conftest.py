@@ -23,14 +23,14 @@ This conftest instead provides `run_script()`, which:
 """
 
 from __future__ import annotations
+from pathlib import Path
+from unittest.mock import patch
 
 import contextlib
 import importlib.util
 import io
 import sys
 import uuid
-from pathlib import Path
-from unittest.mock import patch
 
 import pytest
 
@@ -42,6 +42,7 @@ PYTHON_DIR = PROJECT_ROOT / "Python"
 sys.path.insert(0, str(PYTHON_DIR))
 
 def run_script(relative_path, inputs=None, patches=None, cwd=None):
+
     """
     Execute ``Python/<relative_path>`` as an isolated module.
 
@@ -60,6 +61,7 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
 
     Returns (module, printed_output).
     """
+    
     filepath = PYTHON_DIR / relative_path
     assert filepath.exists(), f"Script not found: {filepath}"
 
@@ -67,8 +69,10 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
     input_iter = iter(inputs)
 
     def fake_input(prompt=""):
+    
         try:
             return next(input_iter)
+    
         except StopIteration:
             raise EOFError("run_script(): no more mocked input available")
 
@@ -86,26 +90,27 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
         raise ImportError(f"Could not load module specification for {filepath}")
 
     module = importlib.util.module_from_spec(spec)
-
-    # THE MASTER KEY: Force the module to run directly
-    module.__name__ = "__main__"
-
     sys.modules[module_name] = module
-
     buf = io.StringIO()
 
     with contextlib.ExitStack() as stack:
         stack.enter_context(patch("builtins.input", side_effect=fake_input))
         stack.enter_context(patch("time.sleep", return_value=None))
+    
         for p in (patches or []):
             stack.enter_context(p)
+    
         if cwd is not None:
             stack.enter_context(_chdir(cwd))
+    
         with contextlib.redirect_stdout(buf):
+    
             try:
                 spec.loader.exec_module(module)
+
             except SystemExit:
                 pass  # a script deliberately calling exit()/quit() is fine
+            
             except Exception as exc:
                 
                 """
@@ -130,14 +135,17 @@ def _chdir(path):
 
     old = os.getcwd()
     os.chdir(path)
+    
     try:
         yield
+    
     finally:
         os.chdir(old)
 
 
 @pytest.fixture
 def script(tmp_path):
+    
     """Fixture wrapper around run_script(), defaulting cwd to a scratch tmp_path
     so any scripts that write local files (e.g. FileWriter.py) don't pollute
     the real repository."""
