@@ -1,3 +1,9 @@
+import sys
+import os
+
+# Tells Python to look inside this exact folder for modules
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 import math 
 import cosine_rule
 import sine_rule

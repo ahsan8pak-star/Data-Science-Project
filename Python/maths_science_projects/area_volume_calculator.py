@@ -1,5 +1,12 @@
+import sys
+import os
+
+# Tells Python to look inside this exact folder for modules
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 # imported files as modules to undergo D.R.Y (Don't Repeat Yourself)
 # from [FILE NAME] import [FUNCTION] allows the specific def function to be imported
+
 from area import area 
 from volume import volume
 
