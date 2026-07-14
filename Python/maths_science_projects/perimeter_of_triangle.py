@@ -7,13 +7,14 @@ def get_float_input(prompt):
     if user_input.strip() == "": # If input hasn't been typed down i.e. <ENTER>
         return None # Returns a NULL answer
     
-    if __name__ == "__main__": # allow this to be an imported module
-        try:
-            return float(user_input) # converts user input from string into float
+    try:
+        return float(user_input) # converts user input from string into float
     
-        except ValueError:
-            print("Invalid input. Numbers only.")
-            return None # Safety net for incorrect values
+    except ValueError:
+        print("Invalid input. Numbers only.")
+        return None # Safety net for incorrect values
+
+def calculate():
 
     print("\nPerimeter of a Triangle")
     a = get_float_input("Enter side a (cm): ")
@@ -22,4 +23,7 @@ def get_float_input(prompt):
 
     if a and b and c:
         print(f"\nResult: Perimeter is {round(a + b + c, 2)} cm")
+
+if __name__ == "__main__": # allow this to act as an imported module
+    calculate()
 

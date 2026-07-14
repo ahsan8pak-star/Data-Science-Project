@@ -8,14 +8,15 @@ def get_float_input(prompt):
     
     if user_input.strip() == "": # If input hasn't been typed down i.e. <ENTER>
         return None # Returns a NULL answer
+   
+    try:
+        return float(user_input) # converts user input from string into float
     
-    if __name__ == "__main__": # allow this to be an imported module
-        try:
-            return float(user_input) # converts user input from string into float
-    
-        except ValueError:
-            print("Invalid input. Numbers only.")
-            return None # Safety net for incorrect values
+    except ValueError:
+        print("Invalid input. Numbers only.")
+        return None # Safety net for incorrect values
+
+def calculate():
 
     print("\nPythagorean Theorem")
     print("Leave the variable blank (press Enter) for the one you want to find.")
@@ -49,4 +50,7 @@ def get_float_input(prompt):
 
             else:
                 print(f"\nResult: Side (b) is {round(math.sqrt(c**2 - a**2), 2)} cm")
+
+if __name__ == "__main__": # allow this to act as an imported module
+    calculate()
 

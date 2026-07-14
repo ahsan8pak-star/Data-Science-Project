@@ -1,7 +1,7 @@
 def volume (x, y, z):
     return x * y * z
 
-if __name__ == "__main__":
+def calculate():
     try:
         x = float(input("Enter Length (cm): "))
         y = float(input("Enter Width (cm): "))
@@ -13,4 +13,7 @@ if __name__ == "__main__":
 
     except ValueError:
         print("Numbers only")
+
+if __name__ == "__main__":
+    calculate()
 
