@@ -4,7 +4,6 @@ def factorial(n):
     else:
         return n * factorial(n - 1) # factorial function / formula
     
-if __name__ == "__main__": # ensures the code block runs when the script is executed directly, not imported as a module 
     try: # opens a safe execution zone to process user entries and catch typing errors
     
         # Prompts the user to type a number and captures it as a string by default
