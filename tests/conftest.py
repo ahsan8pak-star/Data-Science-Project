@@ -77,6 +77,7 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
     unrelated scripts that happen to share a stem, and avoids re-using a
     stale cached module.
     """
+
     module_name = f"_script_under_test_{uuid.uuid4().hex}"
     spec = importlib.util.spec_from_file_location(module_name, str(filepath))
     
@@ -85,6 +86,10 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
         raise ImportError(f"Could not load module specification for {filepath}")
 
     module = importlib.util.module_from_spec(spec)
+
+    # THE MASTER KEY: Force the module to run directly
+    module.__name__ = "__main__"
+
     sys.modules[module_name] = module
 
     buf = io.StringIO()
@@ -102,6 +107,7 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
             except SystemExit:
                 pass  # a script deliberately calling exit()/quit() is fine
             except Exception as exc:
+                
                 """
                 A handful of the coursework scripts have genuine bugs 
                 that make them crash partway through (e.g. calling .clear() 
