@@ -42,12 +42,12 @@ try:
     print("<  MENU   GUIDE  >")
     print("<================>\n")
     print("  _______________________________________________________ ")
-    print(" /                                                       \ ")
+    print(" /                                                       \\ ")
     print(" | 1) + = addition         5) // = base / quotient       | ")
     print(" | 2) - = subtraction      6) % = remainder / modulus    | ") 
     print(" | 3) * = multiplication   7) ** = power / exponent      | ")
     print(" | 4) / = division         8) <ENTER> = Calculate result | ")
-    print(" \                                                       / ")
+    print(" \\                                                       / ")
     print("  ``````````````````````````````````````````````````````` \n")
 
 
