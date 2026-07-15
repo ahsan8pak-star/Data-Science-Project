@@ -124,7 +124,7 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
                         func = getattr(module, name)
                         if callable(func):
                             func()
-                            return  # Stop immediately after running the first match
+                            break  # Stop immediately after running the first match
 
             except SystemExit:
                 pass  # a script deliberately calling exit()/quit() is fine
