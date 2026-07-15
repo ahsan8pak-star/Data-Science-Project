@@ -28,6 +28,7 @@ A personal project to advance my career in Data Science as a whole.
 | Reusable Logic & Code Style | **Function refactoring, # syntax comments documentation** |
 | Modules | **Importing, creating modules and descriptions of its various types** |
 | Scope Resolution | **Range of variable scopes within functions i.e. (LEGB) Local -> Enclosed -> Global -> Built-in** |
+| Main | **Software Development Practical and Security Function using def main(): and [ if **name** == "**main**": ]** |
 
 ---
 
@@ -94,11 +95,13 @@ A personal project to advance my career in Data Science as a whole.
 | Count Up Timer | **Foundational default arguements and import time** |
 | Distance Calculator | **Floats and user input demonstartion.** |
 | Divide | **/ -> Division** |
+| Drink Script Example | **Applied import created modules with def main and [ if **name** == "**main**": ]** |
 | Email Slicer | **Index formtting fundementals** |
 | Even & Odd Loop Detector | **Fundemental conditional for loop and modulus operator** |
 | Factorials | **Iterative Sequence Multiplication** |
 | File Writer | **File I/O fundementals** |
 | Food Menu | **Dictionaries and/or sets and applied conditional loops** |
+| Food Script Example | **Applied import created modules with def main and [ if **name** == "**main**": ]** |
 | Hour Clock | **Fundemental [ import time ] and scaling it up to its real world resemblence through previous files made on such** |
 | LeapYear | **Basic Mathematical functions under conditional loops** |
 | Math File | **Fundemental import modules and basic printing various cases** |
