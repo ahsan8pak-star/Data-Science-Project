@@ -106,7 +106,25 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
         with contextlib.redirect_stdout(buf):
     
             try:
+                # Load the module
                 spec.loader.exec_module(module)
+    
+                """
+                Define the "Contract" 
+                These are the only function names recognised as entry points.
+                If a file has one of these, trigger / execute it. If not, skip / do nothing.
+                """
+
+                # This is a placeholder for all functions defined when if __name__ == "__main__": used
+                # Temporary solution to adjust for def main():
+                entry_points = ('main', 'calculate', 'run_calculator')
+                
+                for name in entry_points:
+                    if hasattr(module, name):
+                        func = getattr(module, name)
+                        if callable(func):
+                            func()
+                            return  # Stop immediately after running the first match
 
             except SystemExit:
                 pass  # a script deliberately calling exit()/quit() is fine
