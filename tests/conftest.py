@@ -117,7 +117,7 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
 
                 # This is a placeholder for all functions defined when if __name__ == "__main__": used
                 # Temporary solution to adjust for def main():
-                entry_points = ('main', 'calculate', 'run_calculator')
+                entry_points = ('main', 'calculate', 'run_calculator', 'area_of_circle', 'circumference')
                 
                 for name in entry_points:
                     if hasattr(module, name):

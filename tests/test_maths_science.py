@@ -71,7 +71,7 @@ class TestAreaOfCircle:
 
     def test_function_directly(self):
         mod, _ = run_script(self.FILE, inputs=["1"])
-        assert mod.area_of_circle(2) == pytest.approx(math.pi * 4)
+        assert mod.calculate_area(2) == pytest.approx(math.pi * 4)
 
 
 class TestAreaOfTriangle:
@@ -154,7 +154,7 @@ class TestCircumferenceOfCircle:
 
     def test_function_directly(self):
         mod, _ = run_script(self.FILE, inputs=["1"])
-        assert mod.circumference(1) == pytest.approx(2 * math.pi)
+        assert mod.calculate_circumference(1) == pytest.approx(2 * math.pi)
 
 
 class TestCompoundDebtCalculator:
