@@ -52,7 +52,6 @@ A personal project to advance my career in Data Science as a whole.
 | File Name | Topics Covered |
 |---|---|
 | Dice Game | **Fundemental dictionary / sets, applied arrays / lists and applied conditional loops with creative TUI display** |
-| Grade Boundary Calculator | **Integers with conditional (if-else) loops** |
 | Haiku - Madlibs | **F-strings with lists and random import** |
 | Login Status | **User input and error catching, within the logical framework of boolean** |
 | Numerical Guessing Game | **While loop & break engine execution** |
@@ -71,6 +70,7 @@ A personal project to advance my career in Data Science as a whole.
 | Area of Circle | **Mathematical functions, including user input** |
 | Area of Triangle | **Basic mathematical functions, with a fundemental user input function** |
 | Arithmetic Calculator | **Basic switch cases with extensive conditional loops and f-strings with the inclusion of fundemental mathematical unit formatting** |
+| Card Validator Program | **Applied for loops and list indexing with fundemental variable assignments** |
 | Circle Calculator | **Fundemental mathematical functions and imported created modules, with applied user error catching and TUI** |
 | Circumference of Circle | **Mathematical functions, including user input** |
 | Compound Debt Calculator | **Mathematical formulas in relation to its interest calculator, including fundemental conditional loops** |
@@ -103,6 +103,7 @@ A personal project to advance my career in Data Science as a whole.
 | File Writer | **File I/O fundementals** |
 | Food Menu | **Dictionaries and/or sets and applied conditional loops** |
 | Food Script Example | **Applied import created modules with def main and [ if **name** == "**main**": ]** |
+| Grade Boundary Calculator | **Integers with conditional (if-else) loops** |
 | Hour Clock | **Fundemental [ import time ] and scaling it up to its real world resemblence through previous files made on such** |
 | LeapYear | **Basic Mathematical functions under conditional loops** |
 | Math File | **Fundemental import modules and basic printing various cases** |
