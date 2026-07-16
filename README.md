@@ -71,6 +71,7 @@ A personal project to advance my career in Data Science as a whole.
 | Area of Circle | **Mathematical functions, including user input** |
 | Area of Triangle | **Basic mathematical functions, with a fundemental user input function** |
 | Arithmetic Calculator | **Basic switch cases with extensive conditional loops and f-strings with the inclusion of fundemental mathematical unit formatting** |
+| Circle Calculator | **Fundemental mathematical functions and imported created modules, with applied user error catching and TUI** |
 | Circumference of Circle | **Mathematical functions, including user input** |
 | Compound Debt Calculator | **Mathematical formulas in relation to its interest calculator, including fundemental conditional loops** |
 | Compound Interest Rate | **Mathematical formulas, including fundemental conditional loops, try-except error catching and f-strings** |
