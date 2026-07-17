@@ -53,6 +53,7 @@ A personal project to advance my career in Data Science as a whole.
 |---|---|
 | Dice Game | **Fundemental dictionary / sets, applied arrays / lists and applied conditional loops with creative TUI display** |
 | Haiku - Madlibs | **F-strings with lists and random import** |
+| Hangman Game | **Applied Dictionaries, for loops, tuples and conditional statements with import random** |
 | Login Status | **User input and error catching, within the logical framework of boolean** |
 | Numerical Guessing Game | **While loop & break engine execution** |
 | Quiz Game | **Fundemental lists and conditional for loops, including basic mathematical operations i.e. percentage score** |
@@ -70,6 +71,7 @@ A personal project to advance my career in Data Science as a whole.
 | Area of Circle | **Mathematical functions, including user input** |
 | Area of Triangle | **Basic mathematical functions, with a fundemental user input function** |
 | Arithmetic Calculator | **Basic switch cases with extensive conditional loops and f-strings with the inclusion of fundemental mathematical unit formatting** |
+| Banking Program | **Applied arithmetic formulas under fintech, error catching, def fcuntions and match cases with TUI displays** |
 | Card Validator Program | **Applied for loops and list indexing with fundemental variable assignments** |
 | Circle Calculator | **Fundemental mathematical functions and imported created modules, with applied user error catching and TUI** |
 | Circumference of Circle | **Mathematical functions, including user input** |
