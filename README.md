@@ -11,7 +11,7 @@ A personal project to advance my career in Data Science as a whole.
 
 ---
 
-**Python Fundamental Topics**:
+# Python Fundamental Topics
 
 | Topic Name | Descriptions |
 |---|---|
@@ -33,6 +33,14 @@ A personal project to advance my career in Data Science as a whole.
 ---
 
 # Applied Foundation Projects
+
+All fundemental python files have been made into their respective folders from each programming methods used throughout.
+
+---
+
+## Imperitive Programming
+
+---
 
 **Algorithmic Data Converters:**
 
@@ -121,6 +129,10 @@ A personal project to advance my career in Data Science as a whole.
 | Subtract | **- -> Subtraction** |
 | Symbol Generator | **Fundemental nested loops with user inputs, try-except error cathcing and conditional loops.** |
 | Username Status | **Fundemental conditional expressions with advanced string methods.** |
+
+---
+
+# Object - Oriented Programming
 
 ---
 
