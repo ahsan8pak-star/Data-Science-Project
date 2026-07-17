@@ -132,7 +132,11 @@ All fundemental python files have been made into their respective folders from e
 
 ---
 
-# Object - Oriented Programming
+## Object - Orient Programming
+
+---
+
+## Functional Programming
 
 ---
 
