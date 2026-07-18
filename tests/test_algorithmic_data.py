@@ -1,14 +1,17 @@
 """
-Tests for every script under Python/Algorithms&DataConverters/.
+Pytest suite for every script under Python/algorithmic_data_converters/.
 
-Each script is executed for real via run_script() (see conftest.py) with
+Each script is executed for real via run_script() (see tests/conftest.py) with
 scripted input, so these tests exercise the actual coursework code rather
-than reimplementations of it.
+than reimplementations of it. Covers fundamental/happy paths as well as
+error-catching (invalid input, boundary, and exception) cases.
 """
 
-import pytest
+from unittest.mock import patch
 
 from tests.conftest import run_script
+
+import pytest
 
 FOLDER = "algorithmic_data_converters"
 
@@ -47,6 +50,32 @@ class TestAnnualRateCalculator:
         _, out = run_script(self.FILE, inputs=["2", "0", "$"])
         assert "Random Error Found: Enter a Valid Amount." in out
 
+    def test_income_with_exactly_two_decimals_is_accepted(self):
+        _, out = run_script(self.FILE, inputs=["1", "99.99", "£"])
+        assert "Income: £99.99" in out
+        assert "Random Error Found" not in out
+
+    def test_empty_currency_rejected(self):
+        _, out = run_script(self.FILE, inputs=["2", "100", ""])
+        assert "Random Error Found: Single Symbols only" in out
+
+    def test_negative_time_produces_negative_rate_without_crashing(self):
+
+        """
+        int(time) accepts negatives happily (no explicit guard), so a
+        negative time just flows through the rate formula rather than
+        raising or being rejected.
+        """
+        
+        _, out = run_script(self.FILE, inputs=["-2", "1000", "$"])
+        expected_rate = 1000 / -2
+        assert f"Amount Rate: ${expected_rate:.2f} per year" in out
+
+    def test_whole_number_time_with_decimal_income(self):
+        _, out = run_script(self.FILE, inputs=["4", "999.50", "€"])
+        assert "Income: €999.50" in out
+        assert "Time: 4 years" in out
+
 
 # ---------------------------------------------------------------------------
 # fahrenheit_celsius_converter.py
@@ -75,6 +104,25 @@ class TestFahrenheitCelsiusConverter:
 
     def test_non_numeric_value_raises_message(self):
         _, out = run_script(self.FILE, inputs=["F", "not-a-number"])
+        assert "Numbers only!" in out
+
+    def test_empty_first_prompt_defaults_to_celsius_path(self):
+        """An empty string is falsy, so `i and i[0].upper() == "F"` skips
+        straight to the else (Celsius) branch."""
+        _, out = run_script(self.FILE, inputs=["", "0"])
+        assert "0.0 degrees Celsius is 32.0 degrees Fahrenheit" in out
+
+    def test_lowercase_f_is_still_accepted(self):
+        _, out = run_script(self.FILE, inputs=["f", "32"])
+        assert "32.0 degrees Fahrenheit is 0.0 degrees Celsius" in out
+
+    def test_negative_forty_is_the_equal_point(self):
+        """-40 is the famous point where Fahrenheit and Celsius meet."""
+        _, out = run_script(self.FILE, inputs=["F", "-40"])
+        assert "-40.0 degrees Fahrenheit is -40.0 degrees Celsius" in out
+
+    def test_non_numeric_celsius_value_raises_message(self):
+        _, out = run_script(self.FILE, inputs=["C", "not-a-number"])
         assert "Numbers only!" in out
 
 
@@ -109,6 +157,18 @@ class TestPhoneConverter:
         _, out = run_script(self.FILE, inputs=["12345678901", "7"])
         assert "Enter up to 10 digits from 0 to 9." in out
         assert "Word: Seven" in out
+
+    def test_single_digit_zero_converted(self):
+        _, out = run_script(self.FILE, inputs=["0"])
+        assert "Word: Zero" in out
+
+    def test_ten_digit_number_is_accepted(self):
+        _, out = run_script(self.FILE, inputs=["1234567890"])
+        assert "Word: One Two Three Four Five Six Seven Eight Nine Zero" in out
+
+    def test_num_returns_invalid_marker_for_negative_value(self):
+        mod, _ = run_script(self.FILE, inputs=["1"])
+        assert mod.num(-1) == "Invalid Phone Digit"
 
 
 # ---------------------------------------------------------------------------
@@ -156,6 +216,27 @@ class TestRomanNumeralsConverter:
         _, out = run_script(self.FILE, inputs=["ABC123"])
         assert "Error: Roman Numerals Only (I, V, X, L, C, D, M)" in out
 
+    def test_empty_string_returns_zero(self):
+        _, out = run_script(self.FILE, inputs=[""])
+        assert "Arabic Numerals: 0" in out
+
+    def test_single_numeral_returns_its_value(self):
+        _, out = run_script(self.FILE, inputs=["M"])
+        assert "Arabic Numerals: 1000" in out
+
+    def test_repeated_numerals_sum_correctly(self):
+        _, out = run_script(self.FILE, inputs=["III"])
+        assert "Arabic Numerals: 3" in out
+
+    def test_mixed_case_numeral_still_converts(self):
+        _, out = run_script(self.FILE, inputs=["mCmXciV"])
+        assert "Arabic Numerals: 1994" in out
+
+    def test_get_value_for_all_seven_symbols_covers_full_dict(self):
+        mod, _ = run_script(self.FILE, inputs=["I"])
+        values = {mod.get_value(s) for s in "MDCLXVI"}
+        assert values == {1000, 500, 100, 50, 10, 5, 1}
+
 
 # ---------------------------------------------------------------------------
 # time_converter.py
@@ -169,6 +250,21 @@ class TestTimeConverter:
         assert mod.get_unit_info(1) == (1, "Seconds")
         assert mod.get_unit_info(2) == (60, "Minutes")
         assert mod.get_unit_info(10) == (31557600000, "Millenniums")
+
+    def test_get_unit_info_middle_cases(self):
+        """Cases 5-9 (weeks/months/years/decades/centuries) weren't
+        exercised by any other test."""
+        mod, _ = run_script(self.FILE, inputs=["1", "1", "1"])
+        assert mod.get_unit_info(5) == (604800, "Weeks")
+        assert mod.get_unit_info(6) == (2629746, "Months")
+        assert mod.get_unit_info(7) == (31557600, "Years")
+        assert mod.get_unit_info(8) == (315576000, "Decades")
+        assert mod.get_unit_info(9) == (3155760000, "Centuries")
+
+    def test_keyboard_interrupt_handled(self):
+        kb = patch("builtins.input", side_effect=KeyboardInterrupt)
+        _, out = run_script(self.FILE, patches=[kb])
+        assert "Program Stopped." in out
 
     def test_get_unit_info_out_of_range(self):
         mod, _ = run_script(self.FILE, inputs=["1", "1", "1"])
@@ -190,6 +286,19 @@ class TestTimeConverter:
     def test_non_numeric_choice_prints_message(self):
         _, out = run_script(self.FILE, inputs=["abc", "1"])
         assert "Numbers only." in out
+
+    def test_same_unit_conversion_is_identity(self):
+        _, out = run_script(self.FILE, inputs=["4", "4", "10"])
+        assert "There are 10.0 Days in 10.0 Days." in out
+
+    def test_non_numeric_amount_after_valid_choices(self):
+        _, out = run_script(self.FILE, inputs=["1", "1", "not-a-number"])
+        assert "Numbers only." in out
+
+    def test_menu_is_displayed(self):
+        _, out = run_script(self.FILE, inputs=["1", "1", "1"])
+        assert "The Time Converter:" in out
+        assert "10. Millenniums" in out
 
 
 # ---------------------------------------------------------------------------
@@ -224,85 +333,18 @@ class TestWeightConverter:
         _, out = run_script(self.FILE, inputs=["5", "stone"])
         assert "Only pounds and kilos." in out
 
+    def test_uppercase_unit_letters_accepted(self):
+        _, out = run_script(self.FILE, inputs=["150", "L"])
+        assert "You weigh 67.5 kilograms." in out
 
-# Test cases for algorithms and logic
+    def test_negative_weight_is_not_rejected_by_the_zero_check(self):
+        """Only `== 0` or empty is rejected; a negative value slips through
+        to the float()/unit conversion path."""
+        _, out = run_script(self.FILE, inputs=["-10", "k"])
+        expected = -10 / 0.45
+        assert f"You weigh {expected} pounds." in out
 
-def test_prime_detection():
-    def is_prime(n):
-        if n < 2:
-            return False
-        for i in range(2, int(n ** 0.5) + 1):
-            if n % i == 0:
-                return False
-        return True
-    
-    assert is_prime(2) == True
-    assert is_prime(3) == True
-    assert is_prime(4) == False
-    assert is_prime(17) == True
-    assert is_prime(1) == False
-
-
-def test_sorting_algorithm():
-    # Bubble sort implementation
-    def bubble_sort(arr):
-        n = len(arr)
-        for i in range(n):
-            for j in range(0, n - i - 1):
-                if arr[j] > arr[j + 1]:
-                    arr[j], arr[j + 1] = arr[j + 1], arr[j]
-        return arr
-    
-    assert bubble_sort([5, 2, 8, 1, 9]) == [1, 2, 5, 8, 9]
-    assert bubble_sort([3, 1, 4, 1, 5]) == [1, 1, 3, 4, 5]
-
-
-def test_logic_game_implementation():
-    # Simple game logic: check win condition
-    def check_win(score):
-        return score >= 100
-    
-    game_over = False
-    assert not game_over
-    assert check_win(100) == True
-    assert check_win(50) == False
-
-
-def test_edge_cases_empty_list():
-    empty_list = []
-    assert len(empty_list) == 0
-    assert empty_list == []
-
-
-def test_edge_cases_data_converter():
-
-    # Test converter with edge cases
-    def safe_divide(a, b):
-        if b == 0:
-            return None
-        return a / b
-    
-    assert safe_divide(10, 2) == 5
-    assert safe_divide(10, 0) == None
-    assert safe_divide(0, 5) == 0
-
-
-def test_fibonacci_sequence():
-
-    def fibonacci(n):
-        if n <= 0:
-            return []
-        elif n == 1:
-            return [0]
-        elif n == 2:
-            return [0, 1]
-        else:
-            fib = [0, 1]
-            for i in range(2, n):
-                fib.append(fib[i-1] + fib[i-2])
-            return fib
-    
-    assert fibonacci(5) == [0, 1, 1, 2, 3]
-    assert fibonacci(1) == [0]
-    assert fibonacci(0) == []
+    def test_empty_unit_rejected(self):
+        _, out = run_script(self.FILE, inputs=["10", ""])
+        assert "Only pounds and kilos." in out
 

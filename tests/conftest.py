@@ -3,23 +3,27 @@ Shared test utilities for exercising the scripts under `Python/`.
 
 Most files in this project are procedural "coursework" scripts: they call
 input()/print() directly at module level instead of being wrapped in a
-single clean function. The old placeholder tests in this folder worked
-around that by re-implementing toy versions of the logic (e.g. their own
-local `is_prime`) directly inside the test file, which meant they never
-actually touched the real source files at all.
+single clean function, and several now guard that body behind
+`if __name__ == "__main__":` so they can also be safely imported by
+sibling scripts (e.g. area_volume_calculator.py importing area/volume,
+triangle_calculator.py importing cosine_rule/sine_rule).
 
-This conftest instead provides `run_script()`, which:
+This conftest provides `run_script()`, which:
 
-  1. Loads a given .py file as its own fresh module via importlib, so files
-     with special characters in their names/paths (e.g. "Algorithms&Data
-     Converters") can still be tested without needing to be valid import
-     statements.
+  1. Executes a given .py file via runpy.run_path(..., run_name="__main__"),
+     the same mechanism Python itself uses for `python -m` - so __name__
+     really is "__main__" for the duration of the run (making
+     if-__name__-main guards fire correctly) and the script's own
+     directory is temporarily added to sys.path (so sibling imports like
+     `from area import area` resolve, exactly as they would for a real
+     `python some_script.py` run).
   2. Feeds it a scripted sequence of answers for any input() calls it makes.
   3. Silences time.sleep() so countdown-style scripts run instantly.
   4. Captures everything the script prints to stdout.
-  5. Returns both the executed module (so top-level functions/variables can
-     be inspected or reused directly in further assertions) and the
-     captured output (so printed behaviour can be asserted on too).
+  5. Returns both a lightweight module-like wrapper around the script's
+     resulting globals (so top-level functions/variables can be inspected
+     or called directly in further assertions) and the captured output
+     (so printed behaviour can be asserted on too).
 """
 
 from __future__ import annotations
@@ -27,12 +31,11 @@ from pathlib import Path
 from unittest.mock import patch
 
 import contextlib
-import importlib.util
 import io
+import os
+import runpy
 import sys
-import uuid
-
-import pytest
+import types
 
 TESTS_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = TESTS_DIR.parent
@@ -41,13 +44,15 @@ PYTHON_DIR = PROJECT_ROOT / "Python"
 # Force the terminal execution to automatically see your code directories
 sys.path.insert(0, str(PYTHON_DIR))
 
+
 def run_script(relative_path, inputs=None, patches=None, cwd=None):
 
     """
-    Execute ``Python/<relative_path>`` as an isolated module.
+    Execute ``Python/<relative_path>`` as if it had been run directly via
+    ``python <relative_path>``.
 
     relative_path : path relative to the Python/ folder, e.g.
-                    "Algorithms&DataConverters/WeightConverter.py"
+                    "algorithmic_data_converters/weight_converter.py"
     inputs        : list of strings returned in order for each input() call
                     the script makes. If the script asks for more input than
                     was provided, an EOFError is raised (mirrors real stdin
@@ -57,9 +62,21 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
                     apply for the duration of the run, on top of the
                     input()/time.sleep() patches already applied.
     cwd           : optional directory to run the script from (useful for
-                    scripts that read/write local files, e.g. FileWriter.py).
+                    scripts that read/write local files, e.g. file_writer.py).
 
     Returns (module, printed_output).
+
+    Uses runpy.run_path(..., run_name="__main__") rather than a hand-rolled
+    importlib spec. This matters for two real behaviours some scripts rely
+    on: (1) several scripts guard their executable body behind
+    `if __name__ == "__main__":` so they're safe to import as plain modules
+    from sibling scripts - runpy correctly sets __name__ to "__main__" for
+    the duration of the run (and restores sys.modules["__main__"]
+    afterwards) so those guards fire exactly as they would for a real user;
+    (2) some scripts do plain sibling imports (`from area import area`,
+    `import cosine_rule`) that only resolve because a directly-run script's
+    own directory is temporarily added to the front of sys.path - runpy
+    does this automatically too.
     """
     
     filepath = PYTHON_DIR / relative_path
@@ -69,88 +86,73 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
     input_iter = iter(inputs)
 
     def fake_input(prompt=""):
-    
         try:
             return next(input_iter)
-    
+        
         except StopIteration:
             raise EOFError("run_script(): no more mocked input available")
 
-    """
-    A unique module name per call avoids clashes in sys.modules between
-    unrelated scripts that happen to share a stem, and avoids re-using a
-    stale cached module.
-    """
-
-    module_name = f"_script_under_test_{uuid.uuid4().hex}"
-    spec = importlib.util.spec_from_file_location(module_name, str(filepath))
-    
-    # ADD THIS GUARD: Ensure spec and loader exist to satisfy Pylance
-    if spec is None or spec.loader is None:
-        raise ImportError(f"Could not load module specification for {filepath}")
-
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[module_name] = module
     buf = io.StringIO()
+    namespace = {}
 
-    with contextlib.ExitStack() as stack:
-        stack.enter_context(patch("builtins.input", side_effect=fake_input))
-        stack.enter_context(patch("time.sleep", return_value=None))
-    
-        for p in (patches or []):
-            stack.enter_context(p)
-    
-        if cwd is not None:
-            stack.enter_context(_chdir(cwd))
-    
-        with contextlib.redirect_stdout(buf):
-    
-            try:
-                # Load the module
-                spec.loader.exec_module(module)
-    
-                """
-                Define the "Contract" 
-                These are the only function names recognised as entry points.
-                If a file has one of these, trigger / execute it. If not, skip / do nothing.
-                """
+    script_dir = str(filepath.parent)
+    sys.path.insert(0, script_dir)
 
-                # This is a placeholder for all functions defined when if __name__ == "__main__": used
-                # Temporary solution to adjust for def main():
-                entry_points = ('main', 'calculate', 'run_calculator', 'area_of_circle', 'circumference')
-                
-                for name in entry_points:
-                    if hasattr(module, name):
-                        func = getattr(module, name)
-                        if callable(func):
-                            func()
-                            break  # Stop immediately after running the first match
-
-            except SystemExit:
-                pass  # a script deliberately calling exit()/quit() is fine
+    try:
+        with contextlib.ExitStack() as stack:
+            stack.enter_context(patch("builtins.input", side_effect=fake_input))
+            stack.enter_context(patch("time.sleep", return_value=None))
             
-            except Exception as exc:
-                
-                """
-                A handful of the coursework scripts have genuine bugs 
-                that make them crash partway through (e.g. calling .clear() 
-                and then .pop() on the same list back to back). 
-                Rather than hide that, attach whatever was printed 
-                *before* the crash to the exception so tests can still assert on it, 
-                then let the real exception propagate.
-                """
-                
-                # USE setattr() to safely attach dynamic properties
-                setattr(exc, "partial_output", buf.getvalue())
-                raise
+            for p in (patches or []):
+                stack.enter_context(p)
+            
+            if cwd is not None:
+                stack.enter_context(_chdir(cwd))
+            
+            with contextlib.redirect_stdout(buf):
+                try:
+                    namespace = runpy.run_path(str(filepath), run_name="__main__")
+            
+                except SystemExit:
+                    pass  # a script deliberately calling exit()/quit() is fine
+            
+                except Exception as exc:
+
+                    """
+                    A handful of the coursework scripts have genuine bugs
+                    that make them crash partway through (e.g. calling
+                    .clear() and then .pop() on the same list back to
+                    back). Rather than hide that, attach whatever was
+                    printed *before* the crash to the exception so tests
+                    can still assert on it, then let the real exception
+                    propagate.
+                    """
+
+                    setattr(exc, "partial_output", buf.getvalue())
+                    raise
+    finally:
+       
+        # Clean up the sys.path addition regardless of success/failure
+        # Prevent leaks into unrelated tests or shadow same-named modules.
+       
+        try:
+            sys.path.remove(script_dir)
+       
+        except ValueError:
+            pass
+
+    # Wrap the returned globals dict in a lightweight module-like object so
+    # existing assertions like `mod.some_function(...)` / `mod.some_var`
+    # keep working exactly as they did against a real imported module.
+    module = types.ModuleType(filepath.stem)
+    module.__dict__.update(namespace)
 
     return module, buf.getvalue()
 
 
 @contextlib.contextmanager
-def _chdir(path):
-    import os
 
+def _chdir(path):
     old = os.getcwd()
     os.chdir(path)
     
@@ -159,17 +161,4 @@ def _chdir(path):
     
     finally:
         os.chdir(old)
-
-
-@pytest.fixture
-def script(tmp_path):
-    
-    """Fixture wrapper around run_script(), defaulting cwd to a scratch tmp_path
-    so any scripts that write local files (e.g. FileWriter.py) don't pollute
-    the real repository."""
-
-    def _runner(relative_path, inputs=None, patches=None, cwd=tmp_path):
-        return run_script(relative_path, inputs=inputs, patches=patches, cwd=cwd)
-
-    return _runner
 
