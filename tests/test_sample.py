@@ -5,9 +5,9 @@ Tests for every script under Python/SyntaxFundementals/.
 import pytest
 
 from tests.conftest import run_script
-from syntax_fundamentals.factorials import factorial
+from imperitive_programming.syntax_fundamentals.factorials import factorial
 
-FOLDER = "syntax_fundamentals"
+FOLDER = "imperitive_programming/syntax_fundamentals"
 
 
 class TestAdd:
