@@ -18,7 +18,7 @@ import pytest
 
 from tests.conftest import run_script, PYTHON_DIR
 
-FOLDER = "fundamental_topics"
+FOLDER = "imperitive_programming/fundamental_topics"
 
 
 # =====================================================================

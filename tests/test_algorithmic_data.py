@@ -13,7 +13,7 @@ from tests.conftest import run_script
 
 import pytest
 
-FOLDER = "algorithmic_data_converters"
+FOLDER = "imperitive_programming/algorithmic_data_converters"
 
 
 # ---------------------------------------------------------------------------

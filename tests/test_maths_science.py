@@ -15,7 +15,7 @@ import pytest
 
 from tests.conftest import run_script
 
-FOLDER = "maths_science_projects"
+FOLDER = "imperitive_programming/maths_science_projects"
 
 
 # ---------------------------------------------------------------------------

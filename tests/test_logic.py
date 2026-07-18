@@ -13,7 +13,7 @@ import pytest
 
 from tests.conftest import run_script
 
-FOLDER = "logical_games"
+FOLDER = "imperitive_programming/logical_games"
 
 
 # ---------------------------------------------------------------------------
