@@ -13,6 +13,12 @@ A personal project to advance my career in Data Science as a whole.
 
 # Python Fundamental Topics
 
+All fundemental and applied topics learned in their respective folder, most commonly known as 'fundamental_topics'.
+
+---
+
+## Imperitive Programming
+
 | Topic Name | Descriptions |
 |---|---|
 | Environment & Execution | **(PyCharm / Visual Studio Code) IDE installation, interpreter mechanics, print()** |
@@ -29,6 +35,20 @@ A personal project to advance my career in Data Science as a whole.
 | Modules | **Importing, creating modules and descriptions of its various types** |
 | Scope Resolution | **Range of variable scopes within functions i.e. (LEGB) Local -> Enclosed -> Global -> Built-in** |
 | Main | **Software Development Practical and Security Function using def main(): and [ if **name** == "**main**": ]** |
+
+---
+
+## Object - Orient Programming
+
+| Topic Name | Descriptions |
+|---|---|
+
+---
+
+## Functional Programming
+
+| Topic Name | Descriptions |
+|---|---|
 
 ---
 
@@ -134,9 +154,15 @@ All fundemental python files have been made into their respective folders from e
 
 ## Object - Orient Programming
 
+| File Name | Topics Covered |
+|---|---|
+
 ---
 
 ## Functional Programming
+
+| File Name | Topics Covered |
+|---|---|
 
 ---
 
