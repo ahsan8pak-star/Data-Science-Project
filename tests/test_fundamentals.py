@@ -12,14 +12,12 @@ deliberately wrong about "expected vs actual" output.
 
 import math
 import sys
-from pathlib import Path
-
 import pytest
 
+from pathlib import Path
 from tests.conftest import run_script, PYTHON_DIR
 
 FOLDER = "imperitive_programming/fundamental_topics"
-
 
 # =====================================================================
 # 1. CONDITIONS
@@ -407,9 +405,103 @@ class TestLists:
         out = getattr(exc_info.value, "partial_output", "")
         assert "[1, 0, 0]" not in out
 
+# =====================================================================
+# 8. MODULES
+# =====================================================================
+
+class TestModules:
+    FILE = f"{FOLDER}/modules.py"
+
+    def test_math_pi_imported_three_different_ways(self):
+        _, out = run_script(self.FILE)
+        assert out.count("3.14159") >= 3
+
+    def test_help_docs_for_three_modules_are_shown(self):
+        _, out = run_script(self.FILE)
+        assert "FILE" in out  # help() output includes a FILE section
+
+    def test_e_shadowing_bug_replaces_eulers_number(self):
+        
+        """
+        Genuine bug in the source script: `from math import e` correctly
+        imports Euler's number, but the very next line,
+        `a, b, c, d, e = 1, 2, 3, 4, 5`, immediately reassigns the name
+        `e` to the integer 5. Every subsequent `e ** x` therefore uses
+        5, not 2.718..., producing 5, 25, 125, 625, 3125 - not the
+        mathematically "expected" exponential values.
+        """
+        
+        _, out = run_script(self.FILE)
+        assert "5" in out.splitlines()
+        assert "25" in out.splitlines()
+        assert "125" in out.splitlines()
+        assert "625" in out.splitlines()
+        assert "3125" in out.splitlines()
+
+    def test_e_squared_would_differ_if_not_shadowed(self):
+
+        """
+        Sanity check proving the shadowing bug: math.e ** 2 is nowhere
+        near 25, confirming the printed 25 came from the integer e=5.
+        """
+        
+        _, out = run_script(self.FILE)
+        assert str(round(math.e ** 2, 5)) not in out
+
+    def test_module_alias_import_matches_plain_import(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.m.pi == mod.math.pi
+
+    def test_from_import_pi_matches_module_attribute(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.pi == mod.math.pi
+
+    def test_final_shadowed_e_is_the_integer_five(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.e == 5
+        assert isinstance(mod.e, int)
+
+    def test_tuple_unpacked_values_a_through_d(self):
+        mod, _ = run_script(self.FILE)
+        assert (mod.a, mod.b, mod.c, mod.d) == (1, 2, 3, 4)
+
 
 # =====================================================================
-# 8. NUMBERS
+# 9. MODULE IMPORT EXAMPLE (main.py)
+# =====================================================================
+
+class TestModuleImportExamples:
+    MAIN_FILE = f"{FOLDER}/main.py"
+
+    def test_main_py_has_a_syntax_error_and_cannot_be_parsed(self):
+        
+        """
+        main.py is a broken stub: `def main():` has only a comment as its
+        body (comments aren't statements), which is invalid Python - the
+        file fails to even parse, let alone run, regardless of any test
+        harness. This isn't a testing artifact; the exact same
+        SyntaxError happens with a plain `python main.py` too.
+        """
+        
+        with pytest.raises(SyntaxError):
+            run_script(self.MAIN_FILE)
+
+    def test_main_py_docstring_typo_does_not_affect_the_real_bug(self):
+        
+        """The module docstring also says `_name_`/`__main__` (missing
+        underscores) - a comment/documentation typo, harmless on its own,
+        but the file is broken regardless because of the empty function
+        body, not because of this typo."""
+        
+        source = (PYTHON_DIR / self.MAIN_FILE).read_text()
+        assert "_name_" in source  # confirms the docstring typo is present
+        with pytest.raises(SyntaxError):
+            run_script(self.MAIN_FILE)  # but the real failure is elsewhere
+
+
+
+# =====================================================================
+# 10. NUMBERS
 # =====================================================================
 
 class TestNumbers:
@@ -469,7 +561,16 @@ class TestNumbers:
 
 
 # =====================================================================
-# 9. SETS
+# 11. SCOPE RESOLUTION
+# =====================================================================
+
+class TestScopeResolution:
+    FILE = f"{FOLDER}/scope_resolution.py"
+
+    # TO DO Pytest Cases
+
+# =====================================================================
+# 12. SETS
 # =====================================================================
 
 class TestSets:
@@ -485,8 +586,12 @@ class TestSets:
         assert "False" in out  # 'coconut' in fruits was False *before* adding it
 
     def test_add_and_remove_print_none(self):
-        """.add() and .remove() both return None, so wrapping them in
-        print() prints the literal word 'None'."""
+        
+        """
+        .add() and .remove() both return None, so wrapping them in
+        print() prints the literal word 'None'.
+        """
+        
         _, out = run_script(self.FILE)
         assert out.count("None") >= 2
 
@@ -506,7 +611,7 @@ class TestSets:
 
 
 # =====================================================================
-# 10. STRINGS
+# 13. STRINGS
 # =====================================================================
 
 class TestStrings:
@@ -557,7 +662,7 @@ class TestStrings:
 
 
 # =====================================================================
-# 11. TUPLES
+# 14. TUPLES
 # =====================================================================
 
 class TestTuples:
@@ -599,7 +704,7 @@ class TestTuples:
 
 
 # =====================================================================
-# 12. TYPE CONVERSION & TYPE CASTING
+# 15. TYPE CONVERSION & TYPE CASTING
 # =====================================================================
 
 class TestTypeConversionTypeCasting:
@@ -638,7 +743,7 @@ class TestTypeConversionTypeCasting:
 
 
 # =====================================================================
-# 13. VARIABLES
+# 16. VARIABLES
 # =====================================================================
 
 class TestVariables:
@@ -719,181 +824,4 @@ class TestVariables:
     def test_games_remaining_calculation(self):
         mod, _ = run_script(self.FILE, inputs=["1", "1"])
         assert mod.left == 15  # 100 - 85
-
-
-# =====================================================================
-# 14. MODULES
-# =====================================================================
-
-class TestModules:
-    FILE = f"{FOLDER}/modules.py"
-
-    def test_math_pi_imported_three_different_ways(self):
-        _, out = run_script(self.FILE)
-        assert out.count("3.14159") >= 3
-
-    def test_help_docs_for_three_modules_are_shown(self):
-        _, out = run_script(self.FILE)
-        assert "FILE" in out  # help() output includes a FILE section
-
-    def test_e_shadowing_bug_replaces_eulers_number(self):
-        
-        """
-        Genuine bug in the source script: `from math import e` correctly
-        imports Euler's number, but the very next line,
-        `a, b, c, d, e = 1, 2, 3, 4, 5`, immediately reassigns the name
-        `e` to the integer 5. Every subsequent `e ** x` therefore uses
-        5, not 2.718..., producing 5, 25, 125, 625, 3125 - not the
-        mathematically "expected" exponential values.
-        """
-        
-        _, out = run_script(self.FILE)
-        assert "5" in out.splitlines()
-        assert "25" in out.splitlines()
-        assert "125" in out.splitlines()
-        assert "625" in out.splitlines()
-        assert "3125" in out.splitlines()
-
-    def test_e_squared_would_differ_if_not_shadowed(self):
-
-        """
-        Sanity check proving the shadowing bug: math.e ** 2 is nowhere
-        near 25, confirming the printed 25 came from the integer e=5.
-        """
-        
-        _, out = run_script(self.FILE)
-        assert str(round(math.e ** 2, 5)) not in out
-
-    def test_module_alias_import_matches_plain_import(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.m.pi == mod.math.pi
-
-    def test_from_import_pi_matches_module_attribute(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.pi == mod.math.pi
-
-    def test_final_shadowed_e_is_the_integer_five(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.e == 5
-        assert isinstance(mod.e, int)
-
-    def test_tuple_unpacked_values_a_through_d(self):
-        mod, _ = run_script(self.FILE)
-        assert (mod.a, mod.b, mod.c, mod.d) == (1, 2, 3, 4)
-
-
-# =====================================================================
-# 15. MODULE IMPORT EXAMPLES (food_script_example.py, drink_script_example.py, main.py)
-# =====================================================================
-# NOTE: placed here provisionally, alongside modules.py - these are
-# conceptual if-__name__-main / import demos rather than one-off utility
-# scripts. Confirm/adjust the folder if you'd rather they sit elsewhere.
-
-class TestModuleImportExamples:
-    FOOD_FILE = f"{FOLDER}/food_script_example.py"
-    DRINK_FILE = f"{FOLDER}/drink_script_example.py"
-    MAIN_FILE = f"{FOLDER}/main.py"
-
-    @pytest.fixture(autouse=True)
-    def _clean_module_cache(self):
-
-        """
-        Both files get cached in sys.modules under their bare names on
-        a plain `import`; reset before/after each test so one test's
-        import doesn't leave a stale cached module for the next.
-        """
-        
-        for name in ("food_script_example", "drink_script_example"):
-            sys.modules.pop(name, None)
-        yield
-        
-        for name in ("food_script_example", "drink_script_example"):
-            sys.modules.pop(name, None)
-
-    def test_food_script_runs_main_when_executed_directly(self):
-        _, out = run_script(self.FOOD_FILE)
-        assert "You are seeing SCRIPT 1!" in out
-        assert "Your favorite food is 'CHICKEN'!" in out
-        assert "Bye Bye!" in out
-
-    def test_food_script_stays_silent_on_a_plain_import(self, monkeypatch, capsys):
-
-        """
-        food_script_example.py correctly guards its execution behind
-        `if __name__ == "__main__": main()`, so importing it as a regular
-        sibling module (as drink_script_example.py does) produces no
-        output at all - exactly as intended.
-        """
-        
-        folder_path = str(Path(__file__).resolve().parent.parent / "Python" / FOLDER)
-        monkeypatch.syspath_prepend(folder_path)
-        import food_script_example  # noqa: F401
-        captured = capsys.readouterr()
-        assert captured.out == ""
-
-    def test_food_script_favourite_food_function_direct(self, capsys):
-        mod, _ = run_script(self.FOOD_FILE)
-        mod.favourite_food("pizza")
-        captured = capsys.readouterr()
-        assert "Your favorite food is 'PIZZA'!" in captured.out
-
-    def test_drink_script_imports_and_calls_foods_function(self):
-        _, out = run_script(self.DRINK_FILE)
-        assert "Your favorite food is 'RICE'!" in out
-        assert "Your favorite drink is 'TEA'!" in out
-
-    def test_drink_script_has_no_guard_and_always_executes(self, monkeypatch, capsys):
-        
-        """
-        Contrast with food_script_example.py: despite the header comment
-        claiming "This file should run ONLY standalone", drink_script_example.py
-        has no `if __name__ == "__main__":` guard at all around its own
-        body. So a plain sibling import of it - exactly the scenario the
-        comment claims to guard against - still fires every print()
-        unconditionally.
-        """
-        
-        folder_path = str(Path(__file__).resolve().parent.parent / "Python" / FOLDER)
-        monkeypatch.syspath_prepend(folder_path)
-        
-        import drink_script_example  # noqa: F401
-        
-        captured = capsys.readouterr()
-        assert "Your favorite food is 'RICE'!" in captured.out
-        assert "This is SCRIPT 2!" in captured.out
-
-    def test_drink_script_output_follows_comment_order(self):
-        
-        """
-        food's favourite_food() call is explicitly marked '1st' and
-        favorite_drink() '2nd' in the source comments.
-        """
-        
-        _, out = run_script(self.DRINK_FILE)
-        assert out.find("RICE") < out.find("TEA") < out.find("This is SCRIPT 2!")
-
-    def test_main_py_has_a_syntax_error_and_cannot_be_parsed(self):
-        
-        """
-        main.py is a broken stub: `def main():` has only a comment as its
-        body (comments aren't statements), which is invalid Python - the
-        file fails to even parse, let alone run, regardless of any test
-        harness. This isn't a testing artifact; the exact same
-        SyntaxError happens with a plain `python main.py` too.
-        """
-        
-        with pytest.raises(SyntaxError):
-            run_script(self.MAIN_FILE)
-
-    def test_main_py_docstring_typo_does_not_affect_the_real_bug(self):
-        
-        """The module docstring also says `_name_`/`__main__` (missing
-        underscores) - a comment/documentation typo, harmless on its own,
-        but the file is broken regardless because of the empty function
-        body, not because of this typo."""
-        
-        source = (PYTHON_DIR / self.MAIN_FILE).read_text()
-        assert "_name_" in source  # confirms the docstring typo is present
-        with pytest.raises(SyntaxError):
-            run_script(self.MAIN_FILE)  # but the real failure is elsewhere
 

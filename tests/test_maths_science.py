@@ -9,17 +9,16 @@ than testing each formula in isolation.
 """
 
 import math
-from unittest.mock import patch
-
 import pytest
 
+from unittest.mock import patch
 from tests.conftest import run_script
 
 FOLDER = "imperitive_programming/maths_science_projects"
 
 
 # ---------------------------------------------------------------------------
-# Area.py
+# area.py
 # ---------------------------------------------------------------------------
 class TestArea:
     FILE = f"{FOLDER}/area.py"
@@ -62,6 +61,7 @@ class TestAreaOfCircle:
     FILE = f"{FOLDER}/area_of_circle.py"
 
     def test_running_directly_produces_no_output_at_all(self):
+        
         """
         Genuine bug / asymmetry: unlike circumference_of_circle.py, this
         file defines calculate_area() and area_of_circle() but has NO
@@ -70,6 +70,7 @@ class TestAreaOfCircle:
         whatsoever - no prompt, no output - even though the file otherwise
         looks like a complete, runnable script.
         """
+        
         _, out = run_script(self.FILE, inputs=["5"])
         assert out == ""
 
@@ -107,6 +108,7 @@ class TestAreaOfCircle:
         assert "Numbers only" in captured.out
 
     def test_area_of_circle_type_error_branch(self, capsys):
+        
         """
         The `except TypeError:` clause can't actually be reached through
         any normal string input - float(radius) only ever raises
@@ -240,12 +242,14 @@ class TestArithmeticCalculator:
         assert "Error: Undefined. You can't divide anything by 0." in out
 
     def test_blank_next_number_breaks_the_chain_early(self):
+        
         """
         Distinct from a blank *operator* (which breaks earlier, at a
         separate `if not op: break`): providing a valid operator but then
         pressing Enter for the next number hits its own break a few lines
         later, before that dangling operator can ever be applied.
         """
+        
         inputs = ["10", "+", "5", "*", "", "n"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "| Result: 15 |" in out
@@ -302,6 +306,223 @@ class TestArithmeticCalculator:
         # (2 + 3) = 5, then 5 * 4 = 20
         assert "| Result: 20 |" in out
 
+# ---------------------------------------------------------------------------
+# banking_program.py
+# ---------------------------------------------------------------------------
+class TestBankingProgram:
+    FILE = f"{FOLDER}/banking_program.py"
+
+    def test_show_balance_direct(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["4"])
+        mod.show_balance(123.4)
+        captured = capsys.readouterr()
+        assert "Balance: £123.40" in captured.out
+
+    def test_deposit_valid_amount_returned(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["4"])
+        with patch("builtins.input", return_value="50"):
+            result = mod.deposit()
+        assert result == 50.0
+
+    def test_deposit_produces_no_confirmation_message(self, capsys):
+        
+        """
+        Asymmetry worth flagging: withdraw() prints two confirmation
+        lines ("You have withdrew..."/"You have ... left.") on success,
+        but deposit() has no equivalent - it silently just returns the
+        amount with no printed confirmation at all.
+        """
+        
+        mod, _ = run_script(self.FILE, inputs=["4"])
+        with patch("builtins.input", return_value="50"):
+            mod.deposit()
+        captured = capsys.readouterr()
+        assert captured.out == ""
+
+    def test_deposit_negative_amount_rejected(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["4"])
+        with patch("builtins.input", return_value="-10"):
+            result = mod.deposit()
+        captured = capsys.readouterr()
+        assert result == 0
+        assert "Enter Positive Deposits." in captured.out
+
+    def test_deposit_more_than_two_decimals_rejected(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["4"])
+        with patch("builtins.input", return_value="10.999"):
+            result = mod.deposit()
+        captured = capsys.readouterr()
+        assert result == 0
+        assert "Funds have to be within 2 decimal places." in captured.out
+
+    def test_deposit_exactly_two_decimals_accepted(self):
+        mod, _ = run_script(self.FILE, inputs=["4"])
+        with patch("builtins.input", return_value="10.99"):
+            result = mod.deposit()
+        assert result == 10.99
+
+    def test_deposit_non_numeric_rejected(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["4"])
+        with patch("builtins.input", return_value="abc"):
+            result = mod.deposit()
+        captured = capsys.readouterr()
+        assert result == 0
+        assert "Invalid Input. Numbers Only." in captured.out
+
+    def test_withdraw_valid_amount(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["4"])
+        with patch("builtins.input", return_value="30"):
+            result = mod.withdraw(100)
+        captured = capsys.readouterr()
+        assert result == 30.0
+        assert "You have withdrew £30.00." in captured.out
+        assert "You have £70.00 left." in captured.out
+
+    def test_withdraw_insufficient_funds(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["4"])
+        with patch("builtins.input", return_value="150"):
+            result = mod.withdraw(100)
+        captured = capsys.readouterr()
+        assert result == 0
+        assert "Insufficient Funds." in captured.out
+        assert "You need £50.00 to complete transaction." in captured.out
+
+    def test_withdraw_negative_amount_rejected(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["4"])
+        with patch("builtins.input", return_value="-5"):
+            result = mod.withdraw(100)
+        captured = capsys.readouterr()
+        assert result == 0
+        assert "No Negative Amounts." in captured.out
+
+    def test_withdraw_non_numeric_rejected(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["4"])
+        with patch("builtins.input", return_value="abc"):
+            result = mod.withdraw(100)
+        captured = capsys.readouterr()
+        assert result == 0
+        assert "Invalid Input. Numbers Only." in captured.out
+
+    def test_full_session_deposit_then_withdraw_then_check_balance(self):
+        inputs = ["2", "100", "3", "30", "1", "4"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "You have withdrew £30.00." in out
+        assert "Balance: £70.00" in out
+        assert ">>> Shutting Down... <<<" in out
+
+    def test_invalid_menu_choice_shows_message(self):
+        inputs = ["9", "4"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Invalid Choice." in out
+        assert "Try Again." in out
+
+    def test_menu_banner_shown(self):
+        _, out = run_script(self.FILE, inputs=["4"])
+        assert "Banking Program" in out
+        assert "Main Menu" in out
+
+
+# ---------------------------------------------------------------------------
+# card_validator.py
+# ---------------------------------------------------------------------------
+class TestCardValidator:
+    FILE = f"{FOLDER}/card_validator.py"
+
+# ---------------------------------------------------------------------------
+# circle_calculator.py
+# ---------------------------------------------------------------------------
+class TestCircleCalculator:
+    FILE = f"{FOLDER}/circle_calculator.py"
+
+    def test_option_1_delegates_to_area_of_circle(self):
+        _, out = run_script(self.FILE, inputs=["1", "5"])
+        expected = math.pi * 5 * 5
+        assert "AREA OF CIRCLE" in out
+        assert f"Area of Circle: {expected:.2f}" in out
+
+    def test_option_2_delegates_to_circumference(self):
+        _, out = run_script(self.FILE, inputs=["2", "5"])
+        expected = math.pi * 2 * 5
+        assert "CIRCUMFERENCE OF CIRCLE" in out
+        assert f"Circumference of Circle: {expected:.2f}" in out
+
+    def test_invalid_numeric_option_rejected(self):
+        _, out = run_script(self.FILE, inputs=["9"])
+        assert "Invalid Option. Try Again." in out
+
+    def test_non_digit_option_falls_to_invalid_branch_not_a_crash(self):
+        
+        """`
+        choice.isdigit() and int(choice) == 1` short-circuits safely
+        for non-digit text - no ValueError, just the else branch.
+        """
+        
+        _, out = run_script(self.FILE, inputs=["abc"])
+        assert "Invalid Option. Try Again." in out
+
+    def test_empty_option_is_invalid(self):
+        _, out = run_script(self.FILE, inputs=[""])
+        assert "Invalid Option. Try Again." in out
+
+    def test_menu_banner_and_options_shown(self):
+        _, out = run_script(self.FILE, inputs=["1", "5"])
+        assert "CIRCLE CALCULATOR" in out
+        assert "1. Area of Circle" in out
+        assert "2. Circumference of Circle" in out
+
+    def test_keyboard_interrupt_on_choice_prompt_uses_own_except(self):
+        
+        """
+        A KeyboardInterrupt during the outer `choice = input(...)` call
+        is caught by circle_calculator.py's own except block.
+        """
+        
+        kb = patch("builtins.input", side_effect=KeyboardInterrupt)
+        _, out = run_script(self.FILE, patches=[kb])
+        assert "We apologise for any inconvenience." in out
+        assert "Run the program again." in out
+
+    def test_keyboard_interrupt_on_delegated_radius_prompt_is_swallowed_inside(self):
+        
+        """
+        Genuine, subtle nesting behaviour: if the KeyboardInterrupt
+        instead happens on the radius prompt *inside* the delegated
+        area_of_circle() call, it's caught by that inner function's own
+        `except KeyboardInterrupt` ("Unusual Crash Detected.") - circle_
+        calculator.py's own outer except never even fires for that case.
+        """
+        
+        call_count = {"n": 0}
+
+        def fake_input(prompt=""):
+            call_count["n"] += 1
+            if call_count["n"] == 1:
+                return "1"  # choose Area of Circle
+            raise KeyboardInterrupt
+
+        kb = patch("builtins.input", side_effect=fake_input)
+        _, out = run_script(self.FILE, patches=[kb])
+        assert "Unusual Crash Detected." in out
+        assert "We apologise for any inconvenience." not in out
+
+    def test_own_value_error_except_is_effectively_unreachable_in_practice(self):
+        
+        """
+        circle_calculator.py's own `except ValueError:` can't actually be
+        triggered by any real typed input: the choice prompt is a plain
+        input() (never raises ValueError on its own), `int(choice)` is
+        guarded by `choice.isdigit()` first, and the only real float()
+        parsing happens inside the delegated functions, which already
+        catch their own ValueError internally. This except clause is only
+        reachable at all by making input() itself raise ValueError
+        artificially, as done here - it's defensive code with no natural
+        trigger path.
+        """
+        
+        val_err = patch("builtins.input", side_effect=ValueError)
+        _, out = run_script(self.FILE, patches=[val_err])
+        assert "Positive Numbers Only." in out
+
 
 # ---------------------------------------------------------------------------
 # circumference_of_circle.py
@@ -310,9 +531,13 @@ class TestCircumferenceOfCircle:
     FILE = f"{FOLDER}/circumference_of_circle.py"
 
     def test_valid_radius_when_run_directly(self):
-        """Unlike area_of_circle.py, this file DOES have a working
+        
+        """
+        Unlike area_of_circle.py, this file DOES have a working
         `if __name__ == "__main__": circumference()` guard, so running it
-        directly correctly prompts and prints a result."""
+        directly correctly prompts and prints a result.
+        """
+        
         _, out = run_script(self.FILE, inputs=["5"])
         expected = math.pi * 2 * 5
         assert f"Circumference of Circle: {expected:.2f}" in out
@@ -343,9 +568,13 @@ class TestCircumferenceOfCircle:
         assert f"Circumference of Circle: {expected:.2f}" in out
 
     def test_type_error_branch(self):
-        """Same as area_of_circle.py: except TypeError is unreachable via
+        
+        """
+        Same as area_of_circle.py: except TypeError is unreachable via
         normal string input, exercised here by making input() itself
-        raise it."""
+        raise it.
+        """
+        
         type_err = patch("builtins.input", side_effect=TypeError)
         _, out = run_script(self.FILE, patches=[type_err])
         assert "Positive Numbers only. Meaning greater than 0." in out
@@ -507,8 +736,12 @@ class TestCosineRule:
         assert "Error: Impossible triangle. These sides cannot connect." in out
 
     def test_find_angle_b_success_case(self):
-        """Success (non-impossible) path for angle B specifically, as
-        distinct from the impossible-triangle case above."""
+        
+        """
+        Success (non-impossible) path for angle B specifically, as
+        distinct from the impossible-triangle case above.
+        """
+        
         inputs = ["angle", "3", "4", "5", "B"]
         _, out = run_script(self.FILE, inputs=inputs)
         cos_B = ((3**2) + (5**2) - (4**2)) / (2 * 3 * 5)
@@ -516,8 +749,12 @@ class TestCosineRule:
         assert f"Result: Angle B is {expected} degrees" in out
 
     def test_blank_input_returns_none_without_crashing(self):
-        """Pressing Enter with no value hits get_float_input's own blank
-        check, distinct from the try/except numeric-parsing path below."""
+        
+        """
+        Pressing Enter with no value hits get_float_input's own blank
+        check, distinct from the try/except numeric-parsing path below.
+        """
+        
         inputs = ["side", "ab", "", "4", "90"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Result" not in out
@@ -528,6 +765,7 @@ class TestCosineRule:
         assert "Invalid input. Numbers only." in out
 
     def test_cosine_rule_silently_produces_nothing_when_imported_via_triangle_calculator(self):
+        
         """
         Genuine, subtle bug: cosine_rule.py's own get_float_input() checks
         `if __name__ == "__main__":` - but that checks *cosine_rule's own*
@@ -539,15 +777,20 @@ class TestCosineRule:
         the Cosine Rule mode inside the triangle calculator can never
         actually produce a result, even with perfectly valid input.
         """
+        
         inputs = ["A", "2", "side", "ab", "3", "4", "90", "6"]
         _, out = run_script("maths_science_projects/triangle_calculator.py", inputs=inputs)
         assert "Result: Side c is 5.0" not in out
         assert "Result" not in out
 
     def test_sine_rule_unaffected_by_the_same_pattern_when_imported(self):
-        """Contrast case: sine_rule.py's get_float_input has no such nested
+        
+        """
+        Contrast case: sine_rule.py's get_float_input has no such nested
         guard, so Sine Rule mode works correctly through
-        triangle_calculator.py, unlike Cosine Rule mode above."""
+        triangle_calculator.py, unlike Cosine Rule mode above.
+        """
+        
         inputs = ["A", "1", "angle", "ab", "3", "4", "A", "40", "6"]
         _, out = run_script("maths_science_projects/triangle_calculator.py", inputs=inputs)
         assert "Result: Angle B is" in out
@@ -724,8 +967,12 @@ class TestSineRule:
         assert "Invalid input. Numbers only." in out
 
     def test_find_angle_a_given_ab_and_angle_b(self):
-        """The known_ang == 'B' branch for the ab combo (as distinct from
-        the 'A' branch already covered below)."""
+        
+        """
+        The known_ang == 'B' branch for the ab combo (as distinct from
+        the 'A' branch already covered below).
+        """
+        
         inputs = ["angle", "ab", "3", "4", "B", "40"]
         _, out = run_script(self.FILE, inputs=inputs)
         sin_A = (3 * math.sin(math.radians(40))) / 4
@@ -738,8 +985,12 @@ class TestSineRule:
         assert "Error: Impossible dimensions (Domain Error)." in out
 
     def test_ab_domain_error_via_the_b_known_branch(self):
-        """Same error, but reached through the sibling known_ang == 'B'
-        branch rather than 'A' above - a separate code path entirely."""
+        
+        """
+        Same error, but reached through the sibling known_ang == 'B'
+        branch rather than 'A' above - a separate code path entirely.
+        """
+        
         inputs = ["angle", "ab", "10", "1", "B", "80"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Error: Impossible dimensions (Domain Error)." in out
@@ -752,8 +1003,12 @@ class TestSineRule:
         assert f"Result: Angle C is {expected} degrees" in out
 
     def test_ac_domain_error_via_the_a_known_branch(self):
-        """Distinct from test_ac_domain_error_for_impossible_dimensions
-        below, which goes through the sibling known_ang == 'C' branch."""
+        
+        """
+        Distinct from test_ac_domain_error_for_impossible_dimensions
+        below, which goes through the sibling known_ang == 'C' branch.
+        """
+        
         inputs = ["angle", "ac", "1", "10", "A", "80"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Error: Impossible dimensions (Domain Error)." in out
@@ -776,8 +1031,12 @@ class TestSineRule:
         assert f"Result: Angle C is {expected} degrees" in out
 
     def test_bc_domain_error_via_the_b_known_branch(self):
-        """Distinct from test_bc_domain_error_for_impossible_dimensions
-        below, which goes through the sibling known_ang == 'C' branch."""
+        
+        """
+        Distinct from test_bc_domain_error_for_impossible_dimensions
+        below, which goes through the sibling known_ang == 'C' branch.
+        """
+        
         inputs = ["angle", "bc", "1", "10", "B", "80"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Error: Impossible dimensions (Domain Error)." in out
@@ -793,8 +1052,12 @@ class TestSineRule:
         assert "Error: For sides b and c, you must know angle B or C." in out
 
     def test_find_side_a_given_ab_and_side_b(self):
-        """The known_side == 'b' branch for the AB combo (finds side a),
-        distinct from the known_side == 'a' branch (finds side b)."""
+        
+        """
+        The known_side == 'b' branch for the AB combo (finds side a),
+        distinct from the known_side == 'a' branch (finds side b).
+        """
+        
         inputs = ["side", "AB", "30", "60", "b", "6"]
         _, out = run_script(self.FILE, inputs=inputs)
         a = (6 * math.sin(math.radians(30))) / math.sin(math.radians(60))
@@ -919,9 +1182,13 @@ class TestTriangleCalculator:
         assert "Result: Hypotenuse (c) is 5.0" in out
 
     def test_pythagoras_requires_exactly_two_known_values(self):
-        """triangle_calculator.py has its own separate pythagoras()
+        
+        """
+        triangle_calculator.py has its own separate pythagoras()
         function (distinct from the standalone pythagoras_theorem.py) -
-        exercising its own "all three provided" guard clause."""
+        exercising its own "all three provided" guard clause.
+        """
+        
         inputs = ["A", "3", "3", "4", "5", "6"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Error: You must provide exactly TWO known values." in out
@@ -947,9 +1214,13 @@ class TestTriangleCalculator:
         assert "Error: Hypotenuse (c) MUST be strictly greater than side (a)." in out
 
     def test_pythagoras_own_get_float_input_rejects_non_numeric(self):
-        """triangle_calculator.py's pythagoras() uses its own local
+        
+        """
+        triangle_calculator.py's pythagoras() uses its own local
         get_float_input(), separate from the one in pythagoras_theorem.py
-        - confirms its error message specifically."""
+        - confirms its error message specifically.
+        """
+        
         inputs = ["A", "3", "abc", "4", "5", "6"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Invalid input. Please enter numbers only." in out
@@ -960,17 +1231,25 @@ class TestTriangleCalculator:
         assert "You selected Scalene." in out
 
     def test_scalene_perimeter_uses_three_sides(self):
-        """Scalene is the match-statement's default case for perimeter()
-        (unlike equilateral/isosceles, it takes 3 independent sides)."""
+        
+        """
+        Scalene is the match-statement's default case for perimeter()
+        (unlike equilateral/isosceles, it takes 3 independent sides).
+        """
+        
         inputs = ["D", "5", "3", "4", "5", "6"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert ">>> Calculator locked into Scalene mode. <<<" in out
         assert "Result: Perimeter is 12.0" in out
 
     def test_scalene_area_uses_base_height_formula(self):
-        """Scalene is also area()'s default case, using the plain
+        
+        """
+        Scalene is also area()'s default case, using the plain
         base * height / 2 formula rather than the right/equilateral
-        specific ones."""
+        specific ones.
+        """
+        
         inputs = ["D", "4", "10", "4", "6"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Result: Area is 20.0" in out
@@ -1019,88 +1298,4 @@ class TestVolume:
         assert "Numbers only" in out
         # only the length field triggers the try/except before it aborts
         assert "Volume:" not in out
-
-
-# ---------------------------------------------------------------------------
-# circle_calculator.py
-# ---------------------------------------------------------------------------
-class TestCircleCalculator:
-    FILE = f"{FOLDER}/circle_calculator.py"
-
-    def test_option_1_delegates_to_area_of_circle(self):
-        _, out = run_script(self.FILE, inputs=["1", "5"])
-        expected = math.pi * 5 * 5
-        assert "AREA OF CIRCLE" in out
-        assert f"Area of Circle: {expected:.2f}" in out
-
-    def test_option_2_delegates_to_circumference(self):
-        _, out = run_script(self.FILE, inputs=["2", "5"])
-        expected = math.pi * 2 * 5
-        assert "CIRCUMFERENCE OF CIRCLE" in out
-        assert f"Circumference of Circle: {expected:.2f}" in out
-
-    def test_invalid_numeric_option_rejected(self):
-        _, out = run_script(self.FILE, inputs=["9"])
-        assert "Invalid Option. Try Again." in out
-
-    def test_non_digit_option_falls_to_invalid_branch_not_a_crash(self):
-        """`choice.isdigit() and int(choice) == 1` short-circuits safely
-        for non-digit text - no ValueError, just the else branch."""
-        _, out = run_script(self.FILE, inputs=["abc"])
-        assert "Invalid Option. Try Again." in out
-
-    def test_empty_option_is_invalid(self):
-        _, out = run_script(self.FILE, inputs=[""])
-        assert "Invalid Option. Try Again." in out
-
-    def test_menu_banner_and_options_shown(self):
-        _, out = run_script(self.FILE, inputs=["1", "5"])
-        assert "CIRCLE CALCULATOR" in out
-        assert "1. Area of Circle" in out
-        assert "2. Circumference of Circle" in out
-
-    def test_keyboard_interrupt_on_choice_prompt_uses_own_except(self):
-        """A KeyboardInterrupt during the outer `choice = input(...)` call
-        is caught by circle_calculator.py's own except block."""
-        kb = patch("builtins.input", side_effect=KeyboardInterrupt)
-        _, out = run_script(self.FILE, patches=[kb])
-        assert "We apologise for any inconvenience." in out
-        assert "Run the program again." in out
-
-    def test_keyboard_interrupt_on_delegated_radius_prompt_is_swallowed_inside(self):
-        """
-        Genuine, subtle nesting behaviour: if the KeyboardInterrupt
-        instead happens on the radius prompt *inside* the delegated
-        area_of_circle() call, it's caught by that inner function's own
-        `except KeyboardInterrupt` ("Unusual Crash Detected.") - circle_
-        calculator.py's own outer except never even fires for that case.
-        """
-        call_count = {"n": 0}
-
-        def fake_input(prompt=""):
-            call_count["n"] += 1
-            if call_count["n"] == 1:
-                return "1"  # choose Area of Circle
-            raise KeyboardInterrupt
-
-        kb = patch("builtins.input", side_effect=fake_input)
-        _, out = run_script(self.FILE, patches=[kb])
-        assert "Unusual Crash Detected." in out
-        assert "We apologise for any inconvenience." not in out
-
-    def test_own_value_error_except_is_effectively_unreachable_in_practice(self):
-        """
-        circle_calculator.py's own `except ValueError:` can't actually be
-        triggered by any real typed input: the choice prompt is a plain
-        input() (never raises ValueError on its own), `int(choice)` is
-        guarded by `choice.isdigit()` first, and the only real float()
-        parsing happens inside the delegated functions, which already
-        catch their own ValueError internally. This except clause is only
-        reachable at all by making input() itself raise ValueError
-        artificially, as done here - it's defensive code with no natural
-        trigger path.
-        """
-        val_err = patch("builtins.input", side_effect=ValueError)
-        _, out = run_script(self.FILE, patches=[val_err])
-        assert "Positive Numbers Only." in out
 
