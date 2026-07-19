@@ -23,11 +23,10 @@ line-length = 88
 target-version = ["py314"]
 
 [tool.pytest.ini_options]
-pythonpath = ["python"]
 testpaths = ["tests"]
 python_files = "test_*.py"
 python_classes = "Test*"
 python_functions = "test_*"
 addopts = "--strict-markers --disable-warnings"
-pythonpath = ["."]
+pythonpath = ["python"]
 
