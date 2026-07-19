@@ -13,8 +13,11 @@ import sys
 from unittest.mock import patch
 from tests.conftest import run_script
 from imperitive_programming.syntax_fundamentals.factorials import factorial # Unique case since this is the only file to occur a NameError
-import imperitive_programming.syntax_fundamentals.drink_script_example # This is to resolve ModuleNotFoundError
-import imperitive_programming.syntax_fundamentals.food_script_example # This is to resolve ModuleNotFoundError
+from imperitive_programming.syntax_fundamentals.food_script_example import favourite_food # This is to resolve ModuleNotFoundError
+from imperitive_programming.syntax_fundamentals.drink_script_example import favorite_drink # This is to resolve ModuleNotFoundError
+
+
+
 
 FOLDER = "imperitive_programming/syntax_fundamentals"
 
@@ -288,7 +291,7 @@ class TestEmailSlicer:
 
     def test_no_at_symbol_raises_uncaught_value_error(self):
         with pytest.raises(ValueError):
-            run_script(self.FILE, inputs=["not-an-email"])
+            run_script(self.FILE, inputs=["not-an-email", "q"])
 
     def test_multiple_at_symbols_uses_the_first_one(self):
         _, out = run_script(self.FILE, inputs=["a@b@c.com"])
