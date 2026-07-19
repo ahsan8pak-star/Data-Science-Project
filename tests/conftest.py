@@ -26,16 +26,16 @@ This conftest provides `run_script()`, which:
      (so printed behaviour can be asserted on too).
 """
 
-from __future__ import annotations
-from pathlib import Path
-from unittest.mock import patch
-
 import contextlib
 import io
 import os
 import runpy
 import sys
 import types
+
+from __future__ import annotations
+from pathlib import Path
+from unittest.mock import patch
 
 TESTS_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = TESTS_DIR.parent
@@ -141,9 +141,12 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
         except ValueError:
             pass
 
-    # Wrap the returned globals dict in a lightweight module-like object so
-    # existing assertions like `mod.some_function(...)` / `mod.some_var`
-    # keep working exactly as they did against a real imported module.
+    """
+    Wrap the returned globals dict in a lightweight module-like object so
+    existing assertions like `mod.some_function(...)` / `mod.some_var`
+    keep working exactly as they did against a real imported module.
+    """
+    
     module = types.ModuleType(filepath.stem)
     module.__dict__.update(namespace)
 
