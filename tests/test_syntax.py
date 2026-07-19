@@ -12,13 +12,12 @@ import sys
 
 from unittest.mock import patch
 from tests.conftest import run_script
-from imperitive_programming.syntax_fundamentals.factorials import factorial
 
 FOLDER = "imperitive_programming/syntax_fundamentals"
 
 
 # ---------------------------------------------------------------------------
-# Add.py
+# add.py
 # ---------------------------------------------------------------------------
 class TestAdd:
     FILE = f"{FOLDER}/add.py"
@@ -82,8 +81,12 @@ class TestCheckoutSystem:
             run_script(self.FILE, inputs=["Apple", "1.50", "abc"])
 
     def test_negative_quantity_falls_into_else_branch(self):
-        """Only 0 and 1 have dedicated branches; a negative quantity is
-        neither, so it flows into the general multi-item branch."""
+        
+        """
+        Only 0 and 1 have dedicated branches; a negative quantity is
+        neither, so it flows into the general multi-item branch.
+        """
+        
         _, out = run_script(self.FILE, inputs=["Apple", "1.50", "-2"])
         assert "You bought -2 Apples" in out
         assert "Total: £-3.00" in out
@@ -108,8 +111,12 @@ class TestCountUpTimer:
         assert out.count("TIMES UP!") == 10
 
     def test_none_printed_after_each_call(self):
-        """count() has no return statement, so wrapping every call in
-        print() also prints the literal word 'None' each time."""
+        
+        """
+        count() has no return statement, so wrapping every call in
+        print() also prints the literal word 'None' each time.
+        """
+        
         _, out = run_script(self.FILE)
         assert out.count("None") == 10
 
@@ -138,8 +145,12 @@ class TestCountUpTimer:
         assert "3\n4\n5\nTIMES UP!\n" in captured.out
 
     def test_start_greater_than_end_prints_no_numbers(self):
-        """range(start, end + 1) is empty when start > end, so the loop
-        body never executes - only the trailing 'TIMES UP!' prints."""
+        
+        """
+        range(start, end + 1) is empty when start > end, so the loop
+        body never executes - only the trailing 'TIMES UP!' prints.
+        """
+        
         mod, _ = run_script(self.FILE)
         with patch("time.sleep", return_value=None):
             import io
@@ -178,7 +189,7 @@ class TestDistanceCalculator:
 
 
 # ---------------------------------------------------------------------------
-# Divide.py
+# divide.py
 # ---------------------------------------------------------------------------
 class TestDivide:
     FILE = f"{FOLDER}/divide.py"
@@ -204,6 +215,61 @@ class TestDivide:
     def test_divide_returns_float(self):
         mod, _ = run_script(self.FILE)
         assert isinstance(mod.divide(4, 2), float)
+
+
+# ---------------------------------------------------------------------------
+# drink_script_example.py
+# ---------------------------------------------------------------------------
+class TestDrinkScriptExample:
+    FILE =f"{FOLDER}/drink_script_example.py"
+
+    @pytest.fixture(autouse=True)
+    def _clean_module_cache(self):
+
+        """
+        Both files get cached in sys.modules under their bare names on
+        a plain `import`; reset before/after each test so one test's
+        import doesn't leave a stale cached module for the next.
+        """
+        
+        for name in ("food_script_example", "drink_script_example"):
+            sys.modules.pop(name, None)
+        yield
+        
+        for name in ("food_script_example", "drink_script_example"):
+            sys.modules.pop(name, None)
+
+    def test_drink_script_imports_and_calls_foods_function(self):
+        _, out = run_script(self.FILE)
+        assert "Your favorite food is 'RICE'!" in out
+        assert "Your favorite drink is 'TEA'!" in out
+
+    def test_drink_script_has_no_guard_and_always_executes(self, monkeypatch, capsys):
+        
+        """
+        Contrast with food_script_example.py: despite the header comment
+        claiming "This file should run ONLY standalone", drink_script_example.py
+        has no `if __name__ == "__main__":` guard at all around its own
+        body. So a plain sibling import of it - exactly the scenario the
+        comment claims to guard against - still fires every print()
+        unconditionally.
+        """
+
+        import drink_script_example  # noqa: F401
+        
+        captured = capsys.readouterr()
+        assert "Your favorite food is 'RICE'!" in captured.out
+        assert "This is SCRIPT 2!" in captured.out
+
+    def test_drink_script_output_follows_comment_order(self):
+        
+        """
+        food's favourite_food() call is explicitly marked '1st' and
+        favorite_drink() '2nd' in the source comments.
+        """
+        
+        _, out = run_script(self.FILE)
+        assert out.find("RICE") < out.find("TEA") < out.find("This is SCRIPT 2!")
 
 
 # ---------------------------------------------------------------------------
@@ -259,14 +325,69 @@ class TestEvenOddLoopDetector:
         assert out.find("We have 6 even numbers") < out.find("We have 5 odd numbers")
 
     def test_no_input_required(self):
-        """The script has no input() calls, so it should run identically
-        with an empty inputs list."""
+        
+        """
+        The script has no input() calls, so it should run identically
+        with an empty inputs list.
+        """
+        
         _, out = run_script(self.FILE, inputs=[])
         assert "We have 6 even numbers" in out
 
 
 # ---------------------------------------------------------------------------
-# Factorials.py
+# food_script_example.py
+# ---------------------------------------------------------------------------
+class TestModuleImportExamples:
+    FILE = f"{FOLDER}/food_script_example.py"
+
+    @pytest.fixture(autouse=True)
+    def _clean_module_cache(self):
+
+        """
+        Both files get cached in sys.modules under their bare names on
+        a plain `import`; reset before/after each test so one test's
+        import doesn't leave a stale cached module for the next.
+        """
+        
+        for name in ("food_script_example", "drink_script_example"):
+            sys.modules.pop(name, None)
+        yield
+        
+        for name in ("food_script_example", "drink_script_example"):
+            sys.modules.pop(name, None)
+
+    def test_food_script_runs_main_when_executed_directly(self):
+        _, out = run_script(self.FILE)
+        assert "You are seeing SCRIPT 1!" in out
+        assert "Your favorite food is 'CHICKEN'!" in out
+        assert "Bye Bye!" in out
+
+    def test_food_script_stays_silent_on_a_plain_import(self, monkeypatch, capsys):
+
+        """
+        food_script_example.py correctly guards its execution behind
+        `if __name__ == "__main__": main()`, so importing it as a regular
+        sibling module (as drink_script_example.py does) produces no
+        output at all - exactly as intended.
+        """
+        
+        import food_script_example  # noqa: F401
+        
+        captured = capsys.readouterr()
+        assert captured.out == ""
+
+    def test_food_script_favourite_food_function_direct(self, capsys):
+
+        mod, _ = run_script(self.FILE)
+        mod.favourite_food("pizza")
+        
+        captured = capsys.readouterr()
+        assert "Your favorite food is 'PIZZA'!" in captured.out
+
+
+# ---------------------------------------------------------------------------
+# factorials.py
 # ---------------------------------------------------------------------------
 class TestFactorials:
 
@@ -288,15 +409,23 @@ class TestFactorials:
         assert factorial(6) == 6 * factorial(5)
 
     def test_negative_input_recurses_indefinitely_until_recursion_error(self):
-        """There's no base case for negatives, so n never reaches 0 or 1
-        and Python eventually raises a RecursionError."""
+        
+        """
+        There's no base case for negatives, so n never reaches 0 or 1
+        and Python eventually raises a RecursionError.
+        """
+        
         with pytest.raises(RecursionError):
             factorial(-1)
 
     def test_script_block_valid_input(self):
-        """factorials.py now also has an `if __name__ == "__main__":`
+        
+        """
+        factorials.py now also has an `if __name__ == "__main__":`
         block wrapping an input()/print() script, in addition to the bare
-        function - exercise that too, not just factorial() directly."""
+        function - exercise that too, not just factorial() directly.
+        """
+        
         _, out = run_script(f"{FOLDER}/factorials.py", inputs=["5"])
         assert out.strip() == "120"
 
@@ -357,8 +486,12 @@ class TestFoodMenu:
         assert "Total:  £11.97" in out
 
     def test_invalid_item_is_silently_ignored(self):
-        """menu.get(food) is None for unknown items, so the elif branch is
-        skipped entirely with no error message and no order entry."""
+        
+        """
+        menu.get(food) is None for unknown items, so the elif branch is
+        skipped entirely with no error message and no order entry.
+        """
+        
         _, out = run_script(self.FILE, inputs=["burger", "q"])
         assert "burger" not in out.split("======================")[1]
         assert "Total:  £0.00" in out
@@ -369,8 +502,11 @@ class TestFoodMenu:
         assert "Thank you for your order!" in out
 
     def test_item_name_is_case_insensitive(self):
-        """`food = input(...).lower()` normalises the entry before the
-        menu lookup, so uppercase item names still match."""
+        
+        """
+        `food = input(...).lower()` normalises the entry before the
+        menu lookup, so uppercase item names still match.
+        """
         _, out = run_script(self.FILE, inputs=["PIZZA", "q"])
         assert "x1 pizza      : £2.99" in out
 
@@ -465,10 +601,14 @@ class TestMathModuleAndMathFile:
 
     @pytest.fixture(autouse=True)
     def _clean_math_module_cache(self):
-        """math_file.py's plain `import math_module` gets cached in
+        
+        """
+        math_file.py's plain `import math_module` gets cached in
         sys.modules under the bare name 'math_module'; reset it before and
         after each test here so successes/failures in one test don't leak
-        into another."""
+        into another.
+        """
+        
         sys.modules.pop("math_module", None)
         yield
         sys.modules.pop("math_module", None)
@@ -605,8 +745,12 @@ class TestNumPad:
             run_script(self.FILE)
 
     def test_frozenset_variant_never_executes(self):
-        """The valid frozenset-based num_pad assignment sits after the
-        crash point, so it's never actually reached or printed."""
+        
+        """
+        The valid frozenset-based num_pad assignment sits after the
+        crash point, so it's never actually reached or printed.
+        """
+        
         with pytest.raises(TypeError) as exc_info:
             run_script(self.FILE)
         out = getattr(exc_info.value, "partial_output", "")
@@ -642,11 +786,15 @@ class TestPrimeNumbers:
         assert "The number 0 isn't prime." in out
 
     def test_negative_number_is_reported_as_not_prime(self):
-        """The special-case check only excludes 0 and 1; a negative number
+        
+        """
+        The special-case check only excludes 0 and 1; a negative number
         falls through the `while i < n` loop (which never executes since
         i=2 is not < a negative n), so `flag` stays True... except the
         function still returns based on that logic - verify actual
-        behaviour rather than assuming."""
+        behaviour rather than assuming.
+        """
+        
         mod, _ = run_script(self.FILE, inputs=["2"])
         assert mod.is_prime(-5) is True  # loop never runs, flag stays True
 
@@ -663,8 +811,12 @@ class TestRandomCipher:
 
     @staticmethod
     def _reversed_key_patch():
-        """Makes the substitution deterministic: the key is simply the
-        character pool reversed, instead of randomly shuffled."""
+        
+        """
+        Makes the substitution deterministic: the key is simply the
+        character pool reversed, instead of randomly shuffled.
+        """
+        
         return patch("random.shuffle", side_effect=lambda lst: lst.reverse())
 
     def test_encryption_is_deterministic_with_a_reversed_key(self):
@@ -674,24 +826,36 @@ class TestRandomCipher:
         assert "Encrypted Message: <aZoY" in out
 
     def test_decryption_reverses_a_matching_encryption(self):
-        """Feeding the exact ciphertext produced above back in as the
-        decrypt input should round-trip to the original plaintext."""
+        
+        """
+        Feeding the exact ciphertext produced above back in as the
+        decrypt input should round-trip to the original plaintext.
+        """
+        
         _, out = run_script(
             self.FILE, inputs=["Hi 4!", "<aZoY"], patches=[self._reversed_key_patch()]
         )
         assert "Decrypted Message: Hi 4!" in out
 
     def test_unknown_characters_pass_through_unchanged(self):
-        """Characters outside the tracked charset (like a tab) hit the
-        fallback `else` branch and are copied over untouched."""
+        
+        """
+        Characters outside the tracked charset (like a tab) hit the
+        fallback `else` branch and are copied over untouched.
+        """
+        
         _, out = run_script(
             self.FILE, inputs=["A\tB", "placeholder"], patches=[self._reversed_key_patch()]
         )
         assert "\t" in out
 
     def test_chars_pool_is_never_shuffled_itself(self):
-        """Only `key` (a copy) is shuffled; the original `chars` list stays
-        in its built, unshuffled order."""
+        
+        """
+        Only `key` (a copy) is shuffled; the original `chars` list stays
+        in its built, unshuffled order.
+        """
+        
         mod, _ = run_script(
             self.FILE, inputs=["A", "B"], patches=[self._reversed_key_patch()]
         )
@@ -718,9 +882,13 @@ class TestRandomCipher:
         assert "Encrypted Message: \n" in out
 
     def test_decrypt_fallback_for_characters_outside_the_charset(self):
-        """The decrypt loop's own `else: decrypted_text += letter` branch,
+        
+        """
+        The decrypt loop's own `else: decrypted_text += letter` branch,
         distinct from the encrypt-side fallback tested elsewhere - a tab
-        in the ciphertext input passes through unchanged on decryption."""
+        in the ciphertext input passes through unchanged on decryption.
+        """
+        
         _, out = run_script(
             self.FILE, inputs=["A", "\t"], patches=[self._reversed_key_patch()]
         )
@@ -812,8 +980,12 @@ class TestShippingLabel:
         assert "FLOOR" not in captured.out
 
     def test_falsy_empty_value_is_treated_as_missing(self, capsys):
-        """The walrus-operator guard `if value := location.get(key)` skips
-        the line entirely when the value is empty, since "" is falsy."""
+        
+        """
+        The walrus-operator guard `if value := location.get(key)` skips
+        the line entirely when the value is empty, since "" is falsy.
+        """
+        
         mod, _ = run_script(self.FILE)
         mod.shipping_label("A.", "B", postcode="", city="Bristol")
         captured = capsys.readouterr()
@@ -1000,9 +1172,13 @@ part of any of the topic subfolders.
 
 
 def test_aim_py_is_currently_empty_and_imports_cleanly():
-    """aim.py is a placeholder (intended as the main pipeline entry point,
+    
+    """
+    aim.py is a placeholder (intended as the main pipeline entry point,
     per the README) and is currently empty. This just guards against
-    anything being silently added later that breaks on import."""
+    anything being silently added later that breaks on import.
+    """
+    
     _, out = run_script("aim.py")
     assert out == ""
 

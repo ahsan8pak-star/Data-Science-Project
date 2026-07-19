@@ -10,6 +10,7 @@ than testing each formula in isolation.
 
 import math
 import pytest
+import sys
 
 from unittest.mock import patch
 from tests.conftest import run_script
@@ -44,8 +45,12 @@ class TestArea:
         assert "Area: 6.67 cm^2" in out
 
     def test_negative_dimension_is_not_rejected(self):
-        """No explicit positivity check exists, so a negative width just
-        flows through the multiplication."""
+        
+        """
+        No explicit positivity check exists, so a negative width just
+        flows through the multiplication.
+        """
+        
         _, out = run_script(self.FILE, inputs=["10", "-5"])
         assert "Area: -50.0 cm^2" in out
 
@@ -164,8 +169,12 @@ class TestAreaOfTriangle:
         assert mod.get_float_input.__name__ == "get_float_input"
 
     def test_zero_base_skips_result(self):
-        """0 is falsy in Python, so `if b and h:` treats a zero base the
-        same as a missing one and silently skips the calculation."""
+        
+        """
+        0 is falsy in Python, so `if b and h:` treats a zero base the
+        same as a missing one and silently skips the calculation.
+        """
+        
         _, out = run_script(self.FILE, inputs=["0", "4"])
         assert "Result" not in out
 
@@ -452,8 +461,8 @@ class TestCircleCalculator:
 
     def test_non_digit_option_falls_to_invalid_branch_not_a_crash(self):
         
-        """`
-        choice.isdigit() and int(choice) == 1` short-circuits safely
+        """
+        `choice.isdigit() and int(choice) == 1` short-circuits safely
         for non-digit text - no ValueError, just the else branch.
         """
         

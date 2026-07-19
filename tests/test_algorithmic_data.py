@@ -7,10 +7,11 @@ than reimplementations of it. Covers fundamental/happy paths as well as
 error-catching (invalid input, boundary, and exception) cases.
 """
 
+import pytest
+import sys
+
 from unittest.mock import patch
 from tests.conftest import run_script
-
-import pytest
 
 FOLDER = "imperitive_programming/algorithmic_data_converters"
 
@@ -120,7 +121,8 @@ class TestFahrenheitCelsiusConverter:
         assert "32.0 degrees Fahrenheit is 0.0 degrees Celsius" in out
 
     def test_negative_forty_is_the_equal_point(self):
-        """-40 is the famous point where Fahrenheit and Celsius meet."""
+
+        # -40 is the famous point where Fahrenheit and Celsius meet.
         _, out = run_script(self.FILE, inputs=["F", "-40"])
         assert "-40.0 degrees Fahrenheit is -40.0 degrees Celsius" in out
 
@@ -255,8 +257,12 @@ class TestTimeConverter:
         assert mod.get_unit_info(10) == (31557600000, "Millenniums")
 
     def test_get_unit_info_middle_cases(self):
-        """Cases 5-9 (weeks/months/years/decades/centuries) weren't
-        exercised by any other test."""
+
+        """
+        Cases 5-9 (weeks/months/years/decades/centuries) weren't
+        exercised by any other test.
+        """
+        
         mod, _ = run_script(self.FILE, inputs=["1", "1", "1"])
         assert mod.get_unit_info(5) == (604800, "Weeks")
         assert mod.get_unit_info(6) == (2629746, "Months")

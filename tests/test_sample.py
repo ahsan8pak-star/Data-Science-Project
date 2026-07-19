@@ -3,15 +3,16 @@ Tests for every script under Python/SyntaxFundementals/.
 """
 
 import pytest
+import sys
 
+from unittest.mock import patch
 from tests.conftest import run_script
-from imperitive_programming.syntax_fundamentals.factorials import factorial
 
 FOLDER = "imperitive_programming/syntax_fundamentals"
 
 
 class TestAdd:
-    FILE = f"{FOLDER}/Add.py"
+    FILE = f"{FOLDER}/add.py"
 
     def test_output(self):
         _, out = run_script(self.FILE)
@@ -62,7 +63,7 @@ class TestDistanceCalculator:
 
 
 class TestDivide:
-    FILE = f"{FOLDER}/Divide.py"
+    FILE = f"{FOLDER}/divide.py"
 
     def test_output(self):
         _, out = run_script(self.FILE)
@@ -110,6 +111,7 @@ class TestEvenOddLoopDetector:
 
 
 class TestFactorials:
+    FILE = f"{FOLDER}/factorials.py"
 
     def test_factorial_of_five(self):
         assert factorial(5) == 120
@@ -119,9 +121,13 @@ class TestFactorials:
         assert factorial(1) == 1
 
     def test_non_numeric_input(self):
-        """Since the script's logic has been passed, we can test that
+        
+        """
+        Since the script's logic has been passed, we can test that
         passing a non-integer raises a TypeError (or add a specific
-        test case in this function in here, if handled it correctly)."""
+        test case in this function in here, if handled it correctly).
+        """
+        
         with pytest.raises(TypeError):
             factorial("abc")
 
@@ -203,7 +209,7 @@ class TestMinuteTimer:
 
 
 class TestMultiply:
-    FILE = f"{FOLDER}/Multiply.py"
+    FILE = f"{FOLDER}/multiply.py"
 
     def test_output(self):
         _, out = run_script(self.FILE)
@@ -219,6 +225,7 @@ class TestNumPad:
     FILE = f"{FOLDER}/num_pad.py"
 
     def test_script_crashes_on_the_set_of_lists_assignment(self):
+        
         """
         Genuine bug in the source script: 
         despite the header comment saying to comment out the invalid variants, 
@@ -227,6 +234,7 @@ class TestNumPad:
         well before the later frozenset-based assignment 
         or the print loop are ever reached.
         """
+        
         with pytest.raises(TypeError):
             run_script(self.FILE)
 
@@ -299,7 +307,7 @@ class TestShoppingCart:
 
 
 class TestSquare:
-    FILE = f"{FOLDER}/Square.py"
+    FILE = f"{FOLDER}/square.py"
 
     def test_output(self):
         _, out = run_script(self.FILE)
@@ -312,7 +320,7 @@ class TestSquare:
 
 
 class TestSubtract:
-    FILE = f"{FOLDER}/Subtract.py"
+    FILE = f"{FOLDER}/subtract.py"
 
     def test_output(self):
         _, out = run_script(self.FILE)
@@ -366,7 +374,7 @@ class TestUsernameStatus:
 
 
 """
-Test for Python/AIM.py, the single file directly under Python/ that isn't
+Test for Python/aim.py, the single file directly under Python/ that isn't
 part of any of the topic subfolders (those each have their own dedicated
 test module: test_algorithms.py, test_fundamentals.py, test_logic_games.py,
 test_math_science.py, test_syntax.py).
@@ -374,9 +382,13 @@ test_math_science.py, test_syntax.py).
 """
 
 def test_aim_py_is_currently_empty_and_imports_cleanly():
-    """AIM.py is a placeholder (intended as the main pipeline entry point,
+    
+    """
+    AIM.py (aim.py [lowercase]) is a placeholder (intended as the main pipeline entry point,
     per the README) and is currently empty. This just guards against
-    anything being silently added later that breaks on import."""
+    anything being silently added later that breaks on import.
+    """
+    
     _, out = run_script("AIM.py")
     assert out == ""
 
@@ -388,12 +400,12 @@ Replace with actual tests for your Python modules.
 """
 
 def test_sample_pass():
-    """Sample test that should pass."""
+    # Sample test that should pass.
     assert 1 + 1 == 2
 
 
 def test_sample_string():
-    """Sample test for string operations."""
+    # Sample test for string operations.
     result = "hello".upper()
     assert result == "HELLO"
 

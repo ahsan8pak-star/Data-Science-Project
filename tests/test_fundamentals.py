@@ -15,6 +15,7 @@ import sys
 import pytest
 
 from pathlib import Path
+from unittest.mock import patch
 from tests.conftest import run_script, PYTHON_DIR
 
 FOLDER = "imperitive_programming/fundamental_topics"
@@ -398,8 +399,12 @@ class TestLists:
         assert shopping_cart[-1] == "tea"
 
     def test_matrix_and_duplicate_logic_never_reached(self):
-        """The identity-matrix and duplicate-removal demos live after the
-        clear()/pop() crash point, so they never actually execute."""
+        
+        """
+        The identity-matrix and duplicate-removal demos live after the
+        clear()/pop() crash point, so they never actually execute.
+        """
+        
         with pytest.raises(IndexError) as exc_info:
             run_script(self.FILE)
         out = getattr(exc_info.value, "partial_output", "")
@@ -488,10 +493,12 @@ class TestModuleImportExamples:
 
     def test_main_py_docstring_typo_does_not_affect_the_real_bug(self):
         
-        """The module docstring also says `_name_`/`__main__` (missing
+        """
+        The module docstring also says `_name_`/`__main__` (missing
         underscores) - a comment/documentation typo, harmless on its own,
         but the file is broken regardless because of the empty function
-        body, not because of this typo."""
+        body, not because of this typo.
+        """
         
         source = (PYTHON_DIR / self.MAIN_FILE).read_text()
         assert "_name_" in source  # confirms the docstring typo is present
@@ -795,16 +802,19 @@ class TestVariables:
         assert "You are offline" not in out
 
     def test_income_exactly_zero_still_counts_as_broke(self):
-        """income <= 0 includes the boundary case of exactly zero."""
+
+        # income <= 0 includes the boundary case of exactly zero.
         _, out = run_script(self.FILE, inputs=["2", "100000"])
         assert "You're broke." in out
         assert "You have £0" in out
 
     def test_non_numeric_costs_raises_uncaught_value_error(self):
+        
         """
         There's no try/except around int(costs) in this file, so an
         invalid, non-numeric answer should propagate as a real ValueError.
         """
+        
         with pytest.raises(ValueError):
             run_script(self.FILE, inputs=["2", "not-a-number"])
 
