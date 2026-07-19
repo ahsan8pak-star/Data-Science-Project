@@ -91,7 +91,7 @@ class TestEmailSlicer:
 
     def test_no_at_symbol_handles_error_gracefully(self):
         _, out = run_script(self.FILE, inputs=["not-an-email", "q"])
-        assert "Invalid input" in out
+        assert "Invalid email: missing @ symbol" in out
 
 
 class TestEvenOddLoopDetector:
