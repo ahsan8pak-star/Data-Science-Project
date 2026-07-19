@@ -3,7 +3,8 @@ def factorial(n):
         return 1 # result from these two special case scenarios
     else:
         return n * factorial(n - 1) # factorial function / formula
-    
+
+if __name__ == "__main__":   
     try: # opens a safe execution zone to process user entries and catch typing errors
     
         # Prompts the user to type a number and captures it as a string by default
