@@ -268,10 +268,6 @@ class TestDrinkScriptExample:
 class TestEmailSlicer:
     FILE = f"{FOLDER}/email_slicer.py"
 
-    def slice_email(email):
-        if "@" not in email:
-            raise ValueError("Invalid email: missing @ symbol")
-
     def test_username_and_domain_split(self):
         _, out = run_script(self.FILE, inputs=["ahsan@gmail.com"])
         assert "Username: ahsan" in out

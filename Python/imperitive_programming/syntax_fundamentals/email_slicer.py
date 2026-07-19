@@ -2,6 +2,10 @@ while True: # While the program is running
     try: # main code
         email = input("Enter your email (or 'q' to quit): ").strip() # prevents accidental <ENTER> imputs
 
+        # Essential for the specific Exception to be called via pytest cases to be executed
+        if "@" not in email: 
+            raise ValueError("Invalid email: missing @ symbol")
+
         # Catch empty inputs safely before indexing to prevent IndexError
         if not email:
             print("No Input Made. Try again.")
