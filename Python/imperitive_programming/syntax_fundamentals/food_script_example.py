@@ -1,7 +1,7 @@
 # This file should run only standalone OR imported as a module
 
 def favourite_food(food):
-    print(f"\nYour favorite food is '{food.upper()}'!")
+    print(f"\nYour favourite food is '{food.upper()}'!")
 
 def main():
     print("\nYou are seeing SCRIPT 1!")

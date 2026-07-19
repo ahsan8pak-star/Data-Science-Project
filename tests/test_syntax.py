@@ -14,7 +14,7 @@ from unittest.mock import patch
 from tests.conftest import run_script
 from imperitive_programming.syntax_fundamentals.factorials import factorial # Unique case since this is the only file to occur a NameError
 from imperitive_programming.syntax_fundamentals.food_script_example import favourite_food # This is to resolve ModuleNotFoundError
-from imperitive_programming.syntax_fundamentals.drink_script_example import favorite_drink # This is to resolve ModuleNotFoundError
+from imperitive_programming.syntax_fundamentals.drink_script_example import favourite_drink # This is to resolve ModuleNotFoundError
 
 
 
@@ -247,8 +247,8 @@ class TestDrinkScriptExample:
 
     def test_drink_script_imports_and_calls_foods_function(self):
         _, out = run_script(self.FILE)
-        assert "Your favorite food is 'RICE'!" in out
-        assert "Your favorite drink is 'TEA'!" in out
+        assert "Your favourite food is 'RICE'!" in out
+        assert "Your favourite drink is 'TEA'!" in out
 
     def test_drink_script_has_no_guard_and_always_executes(self, monkeypatch, capsys):
         
@@ -264,14 +264,14 @@ class TestDrinkScriptExample:
         import drink_script_example  # noqa: F401
         
         captured = capsys.readouterr()
-        assert "Your favorite food is 'RICE'!" in captured.out
+        assert "Your favourite food is 'RICE'!" in captured.out
         assert "This is SCRIPT 2!" in captured.out
 
     def test_drink_script_output_follows_comment_order(self):
         
         """
         food's favourite_food() call is explicitly marked '1st' and
-        favorite_drink() '2nd' in the source comments.
+        favourite_drink() '2nd' in the source comments.
         """
         
         _, out = run_script(self.FILE)
@@ -366,7 +366,7 @@ class TestModuleImportExamples:
     def test_food_script_runs_main_when_executed_directly(self):
         _, out = run_script(self.FILE)
         assert "You are seeing SCRIPT 1!" in out
-        assert "Your favorite food is 'CHICKEN'!" in out
+        assert "Your favourite food is 'CHICKEN'!" in out
         assert "Bye Bye!" in out
 
     def test_food_script_stays_silent_on_a_plain_import(self, monkeypatch, capsys):
@@ -389,7 +389,7 @@ class TestModuleImportExamples:
         mod.favourite_food("pizza")
         
         captured = capsys.readouterr()
-        assert "Your favorite food is 'PIZZA'!" in captured.out
+        assert "Your favourite food is 'PIZZA'!" in captured.out
 
 
 # ---------------------------------------------------------------------------
