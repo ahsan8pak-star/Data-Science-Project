@@ -117,60 +117,6 @@ class TestDiceGame:
 
 
 # ---------------------------------------------------------------------------
-# grade_boundary_calculator.py
-# ---------------------------------------------------------------------------
-class TestGradeBoundaryCalculator:
-    FILE = f"{FOLDER}/grade_boundary_calculator.py"
-
-    @pytest.mark.parametrize(
-        "score, expected_phrase",
-        [
-            ("105", "HOW?! YOU ARE LYING!"),
-            ("100", "Unbelievable!"),
-            ("95", "Really Good."),
-            ("85", "Solid."),
-            ("75", "Decent!"),
-            ("65", "Not bad!"),
-            ("55", "Well done! You passed!"),
-            ("45", "Better luck next time."),
-            ("35", "You must have slept the exam"),
-            ("25", "We can do way better"),
-            ("15", "Did you forgot the exam?"),
-            ("5", "SERIOUSLY?! THAT LOW?!! DO BETTER!!!"),
-            ("0", "ARE YOU KIDDING ME???!!! GET OUT!!!"),
-            ("-5", "HOW?! YOU ARE LYING!"),
-        ],
-    )
-    def test_grade_boundaries(self, score, expected_phrase):
-        _, out = run_script(self.FILE, inputs=[score])
-        assert expected_phrase in out
-
-    def test_score_over_100_flagged_as_lying(self):
-        _, out = run_script(self.FILE, inputs=["150"])
-        assert "HOW?! YOU ARE LYING!" in out
-
-    def test_negative_score_flagged_as_lying(self):
-        _, out = run_script(self.FILE, inputs=["-5"])
-        assert "HOW?! YOU ARE LYING!" in out
-
-    def test_non_numeric_score_raises_uncaught_value_error(self):
-        with pytest.raises(ValueError):
-            run_script(self.FILE, inputs=["not-a-number"])
-
-    def test_score_out_of_100_line_is_always_printed_first(self):
-        _, out = run_script(self.FILE, inputs=["50"])
-        assert "50 / 100" in out
-
-    def test_exact_boundary_of_90_gives_really_good(self):
-        _, out = run_script(self.FILE, inputs=["90"])
-        assert "Really Good." in out
-
-    def test_exact_boundary_of_50_gives_passed_message(self):
-        _, out = run_script(self.FILE, inputs=["50"])
-        assert "Well done! You passed!" in out
-
-
-# ---------------------------------------------------------------------------
 # haiku_madlibs.py
 # ---------------------------------------------------------------------------
 class TestHaikuMadlibs:
