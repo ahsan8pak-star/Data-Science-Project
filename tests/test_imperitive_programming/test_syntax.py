@@ -10,14 +10,17 @@ sys.path and __name__ behaviour (see conftest.py).
 import pytest
 import sys
 
+from pathlib import Path
 from unittest.mock import patch
 from tests.test_imperitive_programming.conftest import run_script
-from imperitive_programming.syntax_fundamentals.factorials import factorial # Unique case since this is the only file to occur a NameError
-from imperitive_programming.syntax_fundamentals.food_script_example import favourite_food # This is to resolve ModuleNotFoundError
-from imperitive_programming.syntax_fundamentals.drink_script_example import favourite_drink # This is to resolve ModuleNotFoundError
-from imperitive_programming.syntax_fundamentals.email_slicer import slice_email # Unique case to only fix this file's EOFError issue
 
+# Direct imports required to resolve specific test execution errors
+from imperitive_programming.syntax_fundamentals.factorials import factorial                  # Resolves NameError
+from imperitive_programming.syntax_fundamentals.food_script_example import favourite_food    # Resolves ModuleNotFoundError
+from imperitive_programming.syntax_fundamentals.drink_script_example import favourite_drink  # Resolves ModuleNotFoundError
+from imperitive_programming.syntax_fundamentals.email_slicer import slice_email              # Resolves EOFError
 
+PYTHON_SOURCE_DIR = Path(__file__).resolve().parents[2] / 'Python'
 
 FOLDER = "imperitive_programming/syntax_fundamentals"
 
