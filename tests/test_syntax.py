@@ -15,6 +15,7 @@ from tests.conftest import run_script
 from imperitive_programming.syntax_fundamentals.factorials import factorial # Unique case since this is the only file to occur a NameError
 from imperitive_programming.syntax_fundamentals.food_script_example import favourite_food # This is to resolve ModuleNotFoundError
 from imperitive_programming.syntax_fundamentals.drink_script_example import favourite_drink # This is to resolve ModuleNotFoundError
+from imperitive_programming.syntax_fundamentals.email_slicer import slice_email # Unique case to only fix this file's EOFError issue
 
 
 
@@ -268,14 +269,20 @@ class TestDrinkScriptExample:
 class TestEmailSlicer:
     FILE = f"{FOLDER}/email_slicer.py"
 
+    # This test verifies the script prints the right error message
+    def test_no_at_symbol_handles_error_gracefully(self):
+        _, out = run_script(self.FILE, inputs=["not-an-email", "q"])
+        assert "Invalid email: missing @ symbol" in out
+
     def test_username_and_domain_split(self):
         _, out = run_script(self.FILE, inputs=["ahsan@gmail.com"])
         assert "Username: ahsan" in out
         assert "Email Domain: gmail.com" in out
 
+    # THIS IS THE KEY: This test bypasses the script's try/except block
     def test_no_at_symbol_raises_uncaught_value_error(self):
         with pytest.raises(ValueError):
-            run_script(self.FILE, inputs=["not-an-email", "q"])
+            slice_email("not-an-email")
 
     def test_multiple_at_symbols_uses_the_first_one(self):
         _, out = run_script(self.FILE, inputs=["a@b@c.com"])
