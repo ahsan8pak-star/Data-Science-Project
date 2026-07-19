@@ -36,12 +36,15 @@ import types
 from unittest.mock import patch
 from pathlib import Path
 
-# .parents[2] jumps up 3 levels: 
-# 0: test_imperitive_programming -> 1: tests -> 2: Data-Science-Project
-PYTHON_SOURCE_DIR = Path(__file__).resolve().parents[2] / 'python'
+# This finds the root by looking for the directory containing the projects
+# Replace 'Data-Science-Project' with the exact name of the root folder if it differs
+PROJECT_ROOT = Path(__file__).resolve()
+while PROJECT_ROOT.name != 'Data-Science-Project':
+    PROJECT_ROOT = PROJECT_ROOT.parent
+
+PYTHON_SOURCE_DIR = PROJECT_ROOT / 'Python'
 
 TESTS_DIR = Path(__file__).resolve().parent
-PROJECT_ROOT = TESTS_DIR.parent
 PYTHON_DIR = PROJECT_ROOT / "Python"
 
 # Force the terminal execution to automatically see your code directories
