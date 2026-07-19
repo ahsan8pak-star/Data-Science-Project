@@ -33,8 +33,12 @@ import runpy
 import sys
 import types
 
-from pathlib import Path
 from unittest.mock import patch
+from pathlib import Path
+
+# .parents[2] jumps up 3 levels: 
+# 0: test_imperitive_programming -> 1: tests -> 2: Data-Science-Project
+PYTHON_SOURCE_DIR = Path(__file__).resolve().parents[2] / 'python'
 
 TESTS_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = TESTS_DIR.parent
