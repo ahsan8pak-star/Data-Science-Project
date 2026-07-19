@@ -216,35 +216,42 @@ All fundemental python files have been made into their respective folders from e
 ```text
 Data-Science-Project/
 │
-├── .vscode/                            # IDE local runtime environments
-│   ├── launch.json                     # Local debugger configurations and environment paths
-│   ├── settings.json                   # Path configurations, code formatting, and language rule overrides     
-│   └── tasks.json                      # Automated build tasks for compiling C++ via g++ and executing native psql files
+├── .vscode/                                # IDE local runtime environments
+│   ├── launch.json                         # Local debugger configurations and environment paths
+│   ├── settings.json                       # Path configurations, code formatting, and language rule overrides     
+│   └── tasks.json                          # Automated build tasks for compiling C++ via g++ and executing native psql files
 │
-├── C++/                                # High-performance source engine layer
-│   └── AIM.cc                          # C++ core logic engineered for accelerated data processing and execution wrapping
+├── C++/                                    # High-performance source engine layer
+│   └── AIM.cc                              # C++ core logic engineered for accelerated data processing and execution wrapping
 │
-├── Data/                               # Storage layer for project datasets and tracking assets [cite: 20]
-│   └── AIM.csv                         # Raw baseline source data file used as pipeline input [cite: 20]
+├── Data/                                   # Storage layer for project datasets and tracking assets [cite: 20]
+│   └── AIM.csv                             # Raw baseline source data file used as pipeline input [cite: 20]
 │
-├── postgresql/                         # Analytical Database engine scripts
-│   └── AIM.sql                         # SQL scripts for managing relational tables, normalizations, schemas, and queries
+├── postgresql/                             # Analytical Database engine scripts
+│   └── AIM.sql                             # SQL scripts for managing relational tables, normalizations, schemas, and queries
 │
-├── python/                             # Python modeling engines
-│   ├── Algorithmic Data Converters     # Scripts managing data transformations, numbering systems, and conversion algorithms
-│   ├── Fundemental Topics              # Implementation playgrounds for native collection types, error handling, and basic structures
-│   ├── Logical Games                   # Terminal-based interactive games testing state management and algorithmic logic loops
-│   ├── Maths & Science Projects        # Financial computation engines, geometric calculators, and coordinate boundary systems
-│   ├── Syntax Fundementals             # Basic syntax verification scratchpads exploring file I/O operations, string slicing, and timers
-│   └── AIM.py                          # Main Python script for unified data ingestion and pipeline execution control
+├── python/                                 # Python modeling engines
+│   ├── Functional Programming              # Pure function pipelines, mathematical expressions, and immutable data flows
+│   ├── Imperitive Programming              # Procedural, step-by-step logic scripts focusing on mutable state and sequential execution
+│   │   ├── Algorithmic Data Converters     # Scripts managing data transformations, numbering systems, and conversion algorithms
+│   │   ├── Fundemental Topics              # Implementation playgrounds for native collection types, error handling, and basic structures
+│   │   ├── Logical Games                   # Terminal-based interactive games testing state management and algorithmic logic loops
+│   │   ├── Maths & Science Projects        # Financial computation engines, geometric calculators, and coordinate boundary systems
+│   │   ├── Syntax Fundementals             # Basic syntax verification scratchpads exploring file I/O operations, string slicing, and timers
+│   │   └── AIM.py                          # Main Python script for unified data ingestion and pipeline execution control
+│   └── Object Orient Programming           # State-driven architectures using classes, encapsulation, and custom data models
 │
-├── tests/                              # Pytest unit-testing framework validating mathematical logic and code stability
 │
-├── .gitignore                          # Multilayer safety network blocking binary artifacts, database dumps, and environment variables 
-├── LICENSE                             # MIT legal framework outlining permissions, open-source compliance, and liability limits [cite: 21, 22]
-├── NOTES.md                            # Comprehensive engineering timetable detailing specific coding phases, links, and study tracks
-├── pyproject.toml                      # Modern project manifest setting up testing structures and strict linting parameters (Ruff/Black)
-└── README.md                           # Master structural roadmap, technical explanations, and portfolio documentation
+├── tests/                                  # Pytest unit-testing framework validating mathematical logic and code stability
+│   ├── Test Functional Programming         # Test suites verifying side-effect-free logic and deterministic data transformations
+│   ├── Test Imperitive Programming         # Test suites validating procedural state changes, conditional loops, and user I/O logic
+│   └── Test Object Orient Programming      # Verification of object lifecycles, attribute states, and mocked dependencies
+│
+├── .gitignore                              # Multilayer safety network blocking binary artifacts, database dumps, and environment variables 
+├── LICENSE                                 # MIT legal framework outlining permissions, open-source compliance, and liability limits [cite: 21, 22]
+├── NOTES.md                                # Comprehensive engineering timetable detailing specific coding phases, links, and study tracks
+├── pyproject.toml                          # Modern project manifest setting up testing structures and strict linting parameters (Ruff/Black)
+└── README.md                               # Master structural roadmap, technical explanations, and portfolio documentation
 ```
 
 ---
