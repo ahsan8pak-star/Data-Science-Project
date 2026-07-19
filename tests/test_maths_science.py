@@ -789,7 +789,7 @@ class TestCosineRule:
         
         inputs = ["A", "2", "side", "ab", "3", "4", "90", "6"]
         _, out = run_script("imperitive_programming/maths_science_projects/triangle_calculator.py", inputs=inputs)
-        assert "Result: Side c is 5.0" not in out
+        assert "Result: Side c is 5.0" in out
         assert "Result" not in out
 
     def test_sine_rule_unaffected_by_the_same_pattern_when_imported(self):

@@ -18,7 +18,6 @@ from imperitive_programming.syntax_fundamentals.drink_script_example import favo
 
 
 
-
 FOLDER = "imperitive_programming/syntax_fundamentals"
 
 
@@ -227,23 +226,17 @@ class TestDivide:
 # drink_script_example.py
 # ---------------------------------------------------------------------------
 class TestDrinkScriptExample:
-    FILE =f"{FOLDER}/drink_script_example.py"
+    FILE = "imperitive_programming/syntax_fundamentals/drink_script_example.py" # Full path for the module cache cleaner
+    MODULE_PATH = "imperitive_programming.syntax_fundamentals.drink_script_example"
 
     @pytest.fixture(autouse=True)
     def _clean_module_cache(self):
-
         """
-        Both files get cached in sys.modules under their bare names on
-        a plain `import`; reset before/after each test so one test's
-        import doesn't leave a stale cached module for the next.
+        Reset the specific module path before/after each test.
         """
-        
-        for name in ("food_script_example", "drink_script_example"):
-            sys.modules.pop(name, None)
+        sys.modules.pop(self.MODULE_PATH, None)
         yield
-        
-        for name in ("food_script_example", "drink_script_example"):
-            sys.modules.pop(name, None)
+        sys.modules.pop(self.MODULE_PATH, None)
 
     def test_drink_script_imports_and_calls_foods_function(self):
         _, out = run_script(self.FILE)
@@ -253,28 +246,19 @@ class TestDrinkScriptExample:
     def test_drink_script_has_no_guard_and_always_executes(self, monkeypatch, capsys):
         
         """
-        Contrast with food_script_example.py: despite the header comment
-        claiming "This file should run ONLY standalone", drink_script_example.py
-        has no `if __name__ == "__main__":` guard at all around its own
-        body. So a plain sibling import of it - exactly the scenario the
-        comment claims to guard against - still fires every print()
-        unconditionally.
+        Importing the module via its full package path to verify
+        the lack of a guard clause.
         """
-
-        import drink_script_example  # noqa: F401
+        
+        import imperitive_programming.syntax_fundamentals.drink_script_example as drink_script_example # noqa: F401
         
         captured = capsys.readouterr()
         assert "Your favourite food is 'RICE'!" in captured.out
         assert "This is SCRIPT 2!" in captured.out
 
     def test_drink_script_output_follows_comment_order(self):
-        
-        """
-        food's favourite_food() call is explicitly marked '1st' and
-        favourite_drink() '2nd' in the source comments.
-        """
-        
         _, out = run_script(self.FILE)
+        # Using string find to verify order of execution
         assert out.find("RICE") < out.find("TEA") < out.find("This is SCRIPT 2!")
 
 
@@ -283,6 +267,10 @@ class TestDrinkScriptExample:
 # ---------------------------------------------------------------------------
 class TestEmailSlicer:
     FILE = f"{FOLDER}/email_slicer.py"
+
+    def slice_email(email):
+        if "@" not in email:
+            raise ValueError("Invalid email: missing @ symbol")
 
     def test_username_and_domain_split(self):
         _, out = run_script(self.FILE, inputs=["ahsan@gmail.com"])
@@ -344,24 +332,21 @@ class TestEvenOddLoopDetector:
 # ---------------------------------------------------------------------------
 # food_script_example.py
 # ---------------------------------------------------------------------------
-class TestModuleImportExamples:
-    FILE = f"{FOLDER}/food_script_example.py"
+class TestFoodScriptExample:
+    FILE = "imperitive_programming/syntax_fundamentals/food_script_example.py" # Full path for the module cache cleaner
+    MODULE_PATH = "imperitive_programming.syntax_fundamentals.food_script_example"
 
     @pytest.fixture(autouse=True)
     def _clean_module_cache(self):
-
+        
         """
-        Both files get cached in sys.modules under their bare names on
-        a plain `import`; reset before/after each test so one test's
-        import doesn't leave a stale cached module for the next.
+        Reset the specific module path before/after each test to ensure
+        fresh imports and no state pollution.
         """
         
-        for name in ("food_script_example", "drink_script_example"):
-            sys.modules.pop(name, None)
+        sys.modules.pop(self.MODULE_PATH, None)
         yield
-        
-        for name in ("food_script_example", "drink_script_example"):
-            sys.modules.pop(name, None)
+        sys.modules.pop(self.MODULE_PATH, None)
 
     def test_food_script_runs_main_when_executed_directly(self):
         _, out = run_script(self.FILE)
@@ -370,21 +355,14 @@ class TestModuleImportExamples:
         assert "Bye Bye!" in out
 
     def test_food_script_stays_silent_on_a_plain_import(self, monkeypatch, capsys):
-
-        """
-        food_script_example.py correctly guards its execution behind
-        `if __name__ == "__main__": main()`, so importing it as a regular
-        sibling module (as drink_script_example.py does) produces no
-        output at all - exactly as intended.
-        """
         
-        import food_script_example  # noqa: F401
+        # Importing the module via its full package path.
+        import imperitive_programming.syntax_fundamentals.food_script_example as food_script_example # noqa: F401
         
         captured = capsys.readouterr()
         assert captured.out == ""
 
     def test_food_script_favourite_food_function_direct(self, capsys):
-
         mod, _ = run_script(self.FILE)
         mod.favourite_food("pizza")
         
