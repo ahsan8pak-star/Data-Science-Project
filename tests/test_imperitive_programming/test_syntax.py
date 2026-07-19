@@ -11,7 +11,7 @@ import pytest
 import sys
 
 from unittest.mock import patch
-from tests.conftest import run_script
+from tests.test_imperitive_programming.conftest import run_script
 from imperitive_programming.syntax_fundamentals.factorials import factorial # Unique case since this is the only file to occur a NameError
 from imperitive_programming.syntax_fundamentals.food_script_example import favourite_food # This is to resolve ModuleNotFoundError
 from imperitive_programming.syntax_fundamentals.drink_script_example import favourite_drink # This is to resolve ModuleNotFoundError

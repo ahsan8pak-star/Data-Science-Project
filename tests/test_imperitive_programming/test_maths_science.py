@@ -13,7 +13,7 @@ import pytest
 import sys
 
 from unittest.mock import patch
-from tests.conftest import run_script
+from tests.test_imperitive_programming.conftest import run_script
 
 FOLDER = "imperitive_programming/maths_science_projects"
 

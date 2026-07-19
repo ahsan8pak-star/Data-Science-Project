@@ -10,7 +10,7 @@ looping forever.
 import pytest
 
 from unittest.mock import patch
-from tests.conftest import run_script
+from tests.test_imperitive_programming.conftest import run_script
 
 FOLDER = "imperitive_programming/logical_games"
 

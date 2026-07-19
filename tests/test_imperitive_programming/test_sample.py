@@ -6,7 +6,7 @@ import pytest
 import sys
 
 from unittest.mock import patch
-from tests.conftest import run_script
+from tests.test_imperitive_programming.conftest import run_script
 from imperitive_programming.syntax_fundamentals.factorials import factorial # Unique case since this is the only file to occur a NameError
 
 FOLDER = "imperitive_programming/syntax_fundamentals"
