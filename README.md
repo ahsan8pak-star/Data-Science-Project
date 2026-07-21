@@ -42,7 +42,9 @@ All fundemental and applied topics learned in their respective folder, most comm
 
 | Topic Name | Descriptions |
 |---|---|
-| Classes | **Objects and classes through def class (self), imported modules, and fundamental variable assignments** |
+| Classes | **Objects and classes through import created modules, and fundamental variable assignments** |
+| Class Variables | **Outside of constructor's scope as a global variable** |
+| Constructors | **def **init** (self), self.variable == variable and printing the objects within the class itself** |
 
 ---
 
@@ -157,6 +159,9 @@ All fundemental python files have been made into their respective folders from e
 
 | File Name | Topics Covered |
 |---|---|
+| Car | **Fundamental classes, methods, constructors and import created module** |
+| Person | **Fundamental classes, methods and import created module** |
+| Point | **Fundamental classes, methods, constructors and import created module** |
 
 ---
 
