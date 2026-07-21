@@ -2,6 +2,8 @@
 # Reasons: Cleaner code structure and allows various attribites (variables) to be inputted
 
 class Car:
+    
+    # Constructor
     def __init__(self, model, year, colour, for_sale):
         self.model = model
         self.year = year
@@ -24,3 +26,4 @@ class Car:
 
         else:
             print("A priceless car, not worthy to be auctioned.")
+
