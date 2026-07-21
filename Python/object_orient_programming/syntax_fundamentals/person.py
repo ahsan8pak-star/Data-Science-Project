@@ -16,12 +16,4 @@ class Person:
         else:
             print(f"{self.name}, wait for the other person's turn.")
 
-person1 = Person("Ahsan", 21, True)
-person2 = Person("Hamza", 20, False)
-person3 = Person("Aiman", 19, False)
-
-person1.talk()
-person2.talk()
-person3.talk()
-
         

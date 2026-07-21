@@ -4,6 +4,10 @@
 # A "Class" is needed to create many objects
 # Class = (Blueprint) used to design the structure and layout of an object
 
+"""
+car.py 
+"""
+
 from object_orient_programming.syntax_fundamentals.car import Car # from car.py import class Car()
 
 car1 = Car("Toyata Supra", 1998, "White", True)
@@ -50,4 +54,46 @@ print(car2.for_sale)
 car2.drive()
 car2.stop()
 car2.description()
+
+"""
+person.py
+"""
+
+from object_orient_programming.syntax_fundamentals.person import Person
+
+person1 = Person("Ahsan", 21, True)
+person2 = Person("Hamza", 20, False)
+person3 = Person("Aiman", 19, False)
+
+person1.talk()
+person2.talk()
+person3.talk()
+
+
+"""
+point.pt
+"""
+
+from object_orient_programming.syntax_fundamentals.point import Point
+
+point1 = Point() # variable = class
+point1.draw() # "draw"
+point1.move() # "move"
+
+# Another example of variable assignment
+# Better to use a constructor to improve this
+
+point1.x = 1
+point1.y = 2
+
+print(point1.x)
+print(point1.y)
+
+point2 = Point()
+
+point2.x = 3
+point2.y = 4
+
+print(point2.x)
+print(point2.y)
 
