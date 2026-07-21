@@ -42,6 +42,7 @@ All fundemental and applied topics learned in their respective folder, most comm
 
 | Topic Name | Descriptions |
 |---|---|
+| Classes | **Objects and classes through def class (self), imported modules, and fundamental variable assignments** |
 
 ---
 
