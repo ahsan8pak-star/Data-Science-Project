@@ -4,7 +4,7 @@
 # A "Class" is needed to create many objects
 # Class = (Blueprint) used to design the structure and layout of an object
 
-from car import Car # from car.py import class Car()
+from object_orient_programming.syntax_fundamentals.car import Car # from car.py import class Car()
 
 car1 = Car("Toyata Supra", 1998, "White", True)
 
