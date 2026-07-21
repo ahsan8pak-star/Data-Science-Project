@@ -12,6 +12,7 @@ point1.draw() # "draw"
 point1.move() # "move"
 
 # Another example of variable assignment
+# Better to use a constructor to improve this
 
 point1.x = 1
 point1.y = 2
