@@ -45,6 +45,7 @@ All fundemental and applied topics learned in their respective folder, most comm
 | Classes | **Objects and classes through import created modules, and fundamental variable assignments** |
 | Class Variables | **Outside of constructor's scope as a global variable** |
 | Constructors | **def **init** (self), self.variable == variable and printing the objects within the class itself** |
+| Inheritance | **Combination of the classes, methods and constructors and derived the basic definitions to grasp its full use and applications** |
 
 ---
 
