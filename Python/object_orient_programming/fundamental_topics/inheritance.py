@@ -33,13 +33,22 @@ class Dog(Animal):
     def speak(self):
         print("WOOF!")
 
+    def walk(self):
+        print("pat, pat, pat...")
+
 class Cat(Animal):
     def speak(self):
         print("MEOW!")
 
+    def walk(self):
+            print("crawl, crawl, crawl...")
+
 class Mouse(Animal):
     def speak(self):
         print("SQUEEK!")
+
+    def walk(self):
+            print("tiptoe, tiptoe, tiptoe...")
 
 # Objects
 dog = Dog("Scooby") # Dog -> WOOF!
@@ -48,10 +57,12 @@ mouse = Mouse("Mickey") # Mouse -> SQUEEK!
 
 print(dog.name)
 dog.speak()
+dog.walk()
 
 print(cat.name)
 cat.speak()
+cat.walk()
 
-mouse.speak()
 print(mouse.name)
-
+mouse.speak()
+mouse.walk()
