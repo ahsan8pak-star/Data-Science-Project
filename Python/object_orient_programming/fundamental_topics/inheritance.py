@@ -10,7 +10,7 @@ class Animal:
         print(f"{self.name} is eating right now.")
 
     def sleep(self):
-        print(f"{self.name} is asleep. Do not disturb {self.name}")
+        print(f"{self.name} is asleep. Do not disturb {self.name}.")
 
     def play(self):
         print(f"{self.name} is playing. You can come and play with them.")
@@ -51,18 +51,22 @@ class Mouse(Animal):
             print("tiptoe, tiptoe, tiptoe...")
 
 # Objects
-dog = Dog("Scooby") # Dog -> WOOF!
-cat = Cat("Garfield") # Cat -> MEOW!
-mouse = Mouse("Mickey") # Mouse -> SQUEEK!
+dog = Dog("Scooby") 
+cat = Cat("Garfield") 
+mouse = Mouse("Mickey") 
 
 print(dog.name)
-dog.speak()
-dog.walk()
+dog.speak() # Dog -> WOOF!
+dog.walk() # Pat
+dog.play() # Dog is playing
 
 print(cat.name)
-cat.speak()
-cat.walk()
+cat.speak() # Cat -> MEOW!
+cat.walk() # Crawl
+cat.sleep() # Cat is sleeping
 
 print(mouse.name)
-mouse.speak()
-mouse.walk()
+mouse.speak() # Mouse -> SQUEEK!
+mouse.walk() # Tiptoe
+mouse.eat() # Mouse is eating
+
