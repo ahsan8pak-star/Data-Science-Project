@@ -162,6 +162,7 @@ All fundemental python files have been made into their respective folders from e
 | File Name | Topics Covered |
 |---|---|
 | Car | **Fundamental classes, methods, constructors and import created module** |
+| Dice | **Applied import modules within the framework of OOP i.e. from dice_game.py import dice_art with fundemental file I/O management** |
 | Person | **Fundamental classes, methods and import created module** |
 | Point | **Fundamental classes, methods, constructors and import created module** |
 
