@@ -35,24 +35,26 @@ dice_art = {
 }
 
 
-while True: # Assumes the program running, hence becoming it all true
+def main():
+    
+    while True: # Assumes the program running, hence becoming it all true
 
-    # Initialise game states i.e. begin
-    player_score = 0
-    computer_score = 0
+        # Initialise game states i.e. begin
+        player_score = 0
+        computer_score = 0
 
-    # Randomly establish a target between 20 to 50 range
-    target_score = random.randint(20, 50) # Both numbers are inclusive, meaning both are included -> random.randint(a, b)
+        # Randomly establish a target between 20 to 50 range
+        target_score = random.randint(20, 50) # Both numbers are inclusive, meaning both are included -> random.randint(a, b)
 
-    # Welcome Screen Box
-    # Centre alignment (^) for desirable TUI
-    print("==============================================")
-    print(f"| {'DICE RACE':^42} |")
-    print(f"| {f'FIRST PLAYER TO {target_score} POINTS WINS!':^42} |") 
-    print("==============================================")
+        # Welcome Screen Box
+        # Centre alignment (^) for desirable TUI
+        print("==============================================")
+        print(f"| {'DICE RACE':^42} |")
+        print(f"| {f'FIRST PLAYER TO {target_score} POINTS WINS!':^42} |") 
+        print("==============================================")
 
-    # Turn-based gameplay loop
-    while player_score < target_score and computer_score < target_score:
+        # Turn-based gameplay loop
+        while player_score < target_score and computer_score < target_score:
     
         # Display Current Board Standings
         # Centre alignment (^) for desirable TUI
@@ -144,36 +146,40 @@ while True: # Assumes the program running, hence becoming it all true
         print(f"| {f'Computer New Score: {computer_score}':^42} |")
         print("----------------------------------------------")
 
-    # =========================================
-    #                  WINNER               
-    # =========================================
-    print("\n==============================================")
-    print(f"| {'GAME OVER':^42} |") # Centre alignment (^) for desirable TUI
-    print("==============================================")
-
-    if player_score >= target_score:
-        victory_text = "CONGRATULATIONS! YOU WIN!"
-        victory_score = player_score - computer_score
-        victory_message = f"You won by {victory_score} point(s)!"
-    else:
-        victory_text = "Unlucky! The COMPUTER won!"
-        victory_score = computer_score - player_score
-        victory_message = f"You lost by {victory_score} point(s)!"
-
-    print(f"| {victory_text:^42} |")
-    print("----------------------------------------------")
-    print(f"| {'FINAL SCORE':^42} |")
-    print(f"| {f'YOU: {player_score}  |  COMPUTER: {computer_score}':^42} |")
-    print("----------------------------------------------")
-    print(f"| {victory_message:^42} |")
-    print("==============================================")
-
-    print()
-    play_again = input("Do you want to play again? (y/n): ").strip().lower()
-    
-    # If they choose anything other than 'y' or 'yes', break the main loop
-    if play_again != 'y' and play_again != 'yes':
+        # =========================================
+        #                  WINNER               
+        # =========================================
         print("\n==============================================")
-        print(f"| {'THANKS FOR PLAYING!':^42} |")
-        print("==============================================\n")
-        break
+        print(f"| {'GAME OVER':^42} |") # Centre alignment (^) for desirable TUI
+        print("==============================================")
+
+        if player_score >= target_score:
+            victory_text = "CONGRATULATIONS! YOU WIN!"
+            victory_score = player_score - computer_score
+            victory_message = f"You won by {victory_score} point(s)!"
+        else:
+            victory_text = "Unlucky! The COMPUTER won!"
+            victory_score = computer_score - player_score
+            victory_message = f"You lost by {victory_score} point(s)!"
+
+        print(f"| {victory_text:^42} |")
+        print("----------------------------------------------")
+        print(f"| {'FINAL SCORE':^42} |")
+        print(f"| {f'YOU: {player_score}  |  COMPUTER: {computer_score}':^42} |")
+        print("----------------------------------------------")
+        print(f"| {victory_message:^42} |")
+        print("==============================================")
+
+        print()
+        play_again = input("Do you want to play again? (y/n): ").strip().lower()
+    
+        # If they choose anything other than 'y' or 'yes', break the main loop
+        if play_again != 'y' and play_again != 'yes':
+            print("\n==============================================")
+            print(f"| {'THANKS FOR PLAYING!':^42} |")
+            print("==============================================\n")
+            break
+
+if __name__ == "__main__":
+    main()
+
