@@ -51,6 +51,6 @@ def IceCream():
         break  # Exit loop after successful calculation
 
 # Run the function
-if __name__ = "__main__":
+if __name__ == "__main__":
     print(IceCream())
 
