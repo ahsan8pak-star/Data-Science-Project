@@ -9,11 +9,13 @@ A personal project to advance my career in Data Science as a whole.
 - CLI Commands from **Powershell/CMD (mainly used)** and **Ubuntu/Linux (eventually will come later on in main projects)**
 - Git Version Control from **GitHub, GitLab (both of them synchronized with VSC as a 'middle man')** and **Git Bash (rarely used)**
 
+*The rest of them are categorised into its own subheadings respectively below:*
+
 ---
 
 # Python Fundamental Topics
 
-All fundemental and applied topics learned in their respective folder, most commonly known as 'fundamental_topics'.
+All fundemental and applied topics learned in their respective folder, known as 'fundamental_topics'.
 
 ---
 
@@ -169,6 +171,33 @@ All fundemental python files have been made into their respective folders from e
 ---
 
 ## Functional Programming
+
+| File Name | Topics Covered |
+|---|---|
+
+---
+
+# Java -> Python Coursework Projects
+
+This is where university modules and its coursework goes under for the application of Python (*Read Above for more information about its topic usage*)
+
+---
+
+## CS1IP
+
+**Coursework 1 -> 1st half of Semester 1 at Year 1**
+
+| File Name | Topics Covered |
+|---|---|
+| Average Grades | **[ *Python Fundemental Topics* ] -> [ *Imperitive Programming* ] -> [ *Lists & Matrices* ] , [ *Loops & State Control* ] , [ *Conditions & Control Flow* ] , [ *Functions* ] and [ *Main* ]** |
+| Hello | **[ *Python Fundemental Topics* ] -> [ *Imperitive Programming* ] -> [ *Environment & Execution* ]**|
+| Ice Cream | **[ *Python Fundemental Topics* ] -> [ *Imperitive Programming* ] -> [ *Conditions & Control Flow* ] , [ *Loops & State Control* ] and [ *Exceptions* ]**|
+| Seven Segment | **[ *Python Fundemental Topics* ] -> [ *Imperitive Programming* ] -> [ *Lists & Matrices* ] , [ *Loops & State Control* ] , [ *Conditions & Control Flow* ] , [ *Functions* ] and [ *Main* ]** |
+| Volume | **[ *Python Fundemental Topics* ] -> [ *Imperitive Programming* ] -> [ *Functions* ] , [ *Modules* ] and [ *Arithmetic & Maths Operations* ]** |
+
+---
+
+**Coursework 2 -> 2st half of Semester 1 at Year 1**
 
 | File Name | Topics Covered |
 |---|---|
