@@ -42,7 +42,7 @@ def display(n): # Essential for 'def ssd(d, n)' to be outputted after 'n' input 
 if __name__ == "__main__":
 
     try:
-        num = int(input("Enter a number to display: "))
+        num = int(input("Enter a number to display: ").strip())
 
         if num < 0:
             num = 0
