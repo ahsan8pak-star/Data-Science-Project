@@ -27,7 +27,7 @@ def IceCream():
 
             case 0:
                 print("We don't sell just a cone.\n")
-                continue
+                continue # repeat user prompt
 
             case _:
                 print("That's too many scoops to fit in a cone.\n")
@@ -51,5 +51,6 @@ def IceCream():
         break  # Exit loop after successful calculation
 
 # Run the function
-IceCream()
+if __name__ = "__main__":
+    print(IceCream())
 
