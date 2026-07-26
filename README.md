@@ -265,10 +265,15 @@ Data-Science-Project/
 ├── Data/                                   # Storage layer for project datasets and tracking assets [cite: 20]
 │   └── AIM.csv                             # Raw baseline source data file used as pipeline input [cite: 20]
 │
-├── postgresql/                             # Analytical Database engine scripts
-│   └── AIM.sql                             # SQL scripts for managing relational tables, normalizations, schemas, and queries
+├── Java-To-Python-Conversion/              # Directory dedicated to migrating legacy Java university coursework into Python scripts
+│   └── CS1IP/                              # Year 1 university module repository
+│       ├── Coursework 1                    # Assignments and projects from the first half of the first semester in Year 1 i.e. Sep to Oct
+│       └── Coursework 2                    # Assignments and projects from the second half of the first semester in Year 1 i.e. Nov to Dec
 │
-├── python/                                 # Python modeling engines
+├── PostgreSQL/                             # Analytical Database engine scripts
+│   └── AIM.sql                             # SQL scripts for managing relational tables, normalisations, schemas, and queries
+│
+├── Python/                                 # Python modeling engines
 │   ├── Functional Programming              # Pure function pipelines, mathematical expressions, and immutable data flows
 │   ├── Imperitive Programming              # Procedural, step-by-step logic scripts focusing on mutable state and sequential execution
 │   │   ├── Algorithmic Data Converters     # Scripts managing data transformations, numbering systems, and conversion algorithms
@@ -280,7 +285,7 @@ Data-Science-Project/
 │   └── Object Orient Programming           # State-driven architectures using classes, encapsulation, and custom data models
 │
 │
-├── tests/                                  # Pytest unit-testing framework validating mathematical logic and code stability
+├── Tests/                                  # Pytest unit-testing framework validating mathematical logic and code stability
 │   ├── Test Functional Programming         # Test suites verifying side-effect-free logic and deterministic data transformations
 │   ├── Test Imperitive Programming         # Test suites validating procedural state changes, conditional loops, and user I/O logic
 │   └── Test Object Orient Programming      # Verification of object lifecycles, attribute states, and mocked dependencies
