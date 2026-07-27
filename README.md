@@ -213,7 +213,7 @@ This is for extensive and multi-level applications such as machine learning and 
 | Folder Name | File Types |
 | --- | --- |
 | Music | **multiple [ *music_---.py* ] , [ *music-recommender.dot* ], [ *music-recommender.dot* ] and [ *music.csv* ]** |
-| Video Games | **[ *video_games.py* ] and [ *vgsales.csv* ]** |
+| Video Games | **multiple [ *vg_---.py* ], [ *vg_recommender.dot* ], [ *vg_recommender.joblib*]  and [ *vgsales.csv* ]** |
 
 **Transactions**
 
