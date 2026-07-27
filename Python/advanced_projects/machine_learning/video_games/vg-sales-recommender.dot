@@ -1,0 +1,29 @@
+digraph Tree {
+node [shape=box, style="filled, rounded", color="black", fontname="helvetica"] ;
+edge [fontname="helvetica"] ;
+0 [label="Publisher_Nintendo <= 0.5\nsquared_error = 2.425\nsamples = 16540\nvalue = 0.538", fillcolor="#fefbf8"] ;
+1 [label="Publisher_Electronic Arts <= 0.5\nsquared_error = 0.931\nsamples = 15837\nvalue = 0.45", fillcolor="#fffdfc"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label="Publisher_Sony Computer Entertainment <= 0.5\nsquared_error = 0.898\nsamples = 14486\nvalue = 0.415", fillcolor="#fffefe"] ;
+1 -> 2 ;
+3 [label="squared_error = 0.811\nsamples = 13803\nvalue = 0.391", fillcolor="#ffffff"] ;
+2 -> 3 ;
+4 [label="squared_error = 2.422\nsamples = 683\nvalue = 0.889", fillcolor="#fcf0e8"] ;
+2 -> 4 ;
+5 [label="Platform_PS2 <= 0.5\nsquared_error = 1.131\nsamples = 1351\nvalue = 0.822", fillcolor="#fcf2eb"] ;
+1 -> 5 ;
+6 [label="squared_error = 0.957\nsamples = 1152\nvalue = 0.742", fillcolor="#fdf5ef"] ;
+5 -> 6 ;
+7 [label="squared_error = 1.891\nsamples = 199\nvalue = 1.285", fillcolor="#fae5d5"] ;
+5 -> 7 ;
+8 [label="Platform_Wii <= 0.5\nsquared_error = 31.912\nsamples = 703\nvalue = 2.541", fillcolor="#f2bf9b"] ;
+0 -> 8 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+9 [label="Platform_NES <= 0.5\nsquared_error = 18.035\nsamples = 619\nvalue = 2.255", fillcolor="#f4c8a8"] ;
+8 -> 9 ;
+10 [label="squared_error = 15.162\nsamples = 574\nvalue = 2.112", fillcolor="#f4ccaf"] ;
+9 -> 10 ;
+11 [label="squared_error = 51.064\nsamples = 45\nvalue = 4.088", fillcolor="#e89253"] ;
+9 -> 11 ;
+12 [label="squared_error = 129.133\nsamples = 84\nvalue = 4.648", fillcolor="#e58139"] ;
+8 -> 12 ;
+}
