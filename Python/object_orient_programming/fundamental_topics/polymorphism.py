@@ -41,7 +41,7 @@ class Triangle(Shape):
     def area(self):
         return  0.5 * self.base * self.height
 
-class Cake: # Since 'def area(self)', This passes through a No AttributeError
+class FlatCake: # Since 'def area(self)', This passes through a No AttributeError
     def __init__ (self, flavour, length, height):
         self.flavour = flavour
         self.length = length
@@ -50,14 +50,20 @@ class Cake: # Since 'def area(self)', This passes through a No AttributeError
     def area(self):
         return  self.length * self.height
 
+# Problem:
 # Due to not having 'def area()' this cause an AttributeError 
 # Since this is using an abstract class requiring ALL its abstract methods
-class Pizza:
-    def __init__ (self, toppings, radius):
-        self.toppings = toppings
-        self.radius = radius
 
-shapes = [Circle(3), Square(4), Triangle(5, 6), Cake("Chocolate", 6, 6), Pizza("Magherita", 10) ]
+# Solution:
+# Bring the child class 'Circle' as a parent class to Pizza
+# Use super() to include constructor and its attribute to undego D.R.Y
+class Pizza(Circle):
+    def __init__ (self, toppings, radius):
+        super().__init__(radius)
+        self.toppings = toppings
+        
+
+shapes = [Circle(3), Square(4), Triangle(5, 6), FlatCake("Chocolate", 6, 6), Pizza("Magherita", 10) ]
 
 for shape in shapes:
     print(f"Area: {shape.area():.2f}")
