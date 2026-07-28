@@ -49,6 +49,9 @@ All fundemental and applied topics learned in their respective folder, known as 
 | Constructors | **def **init** (self), self.variable == variable and printing the objects within the class itself** |
 | Inheritance | **Combination of the classes, methods and constructors and derived the basic definitions to grasp its full use and applications** |
 | Multiple & Multi-Level Inheritance | **Extension of inheritance with applied child and parent classes, its methods, attributes and functions all intertwined / interconnected to each other** |
+| Abstract Classes | **Applied classes of non - instantitated rules to understand its own functions through parent and child classes** |
+| super() | **Applied constructors of def **init**(self,...) -> super().**init**(...)** |
+| Polymorphism | **Fundemental OOP concept. *Go to Inheritence as reference*** |
 
 ---
 
