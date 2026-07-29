@@ -16,9 +16,9 @@ import pytest
 
 from pathlib import Path
 from unittest.mock import patch
-from tests.test_imperitive_programming.conftest import run_script, PYTHON_DIR
+from tests.test_imperative_programming.conftest import run_script, PYTHON_DIR
 
-FOLDER = "imperitive_programming/fundamental_topics"
+FOLDER = "imperative_programming/fundamental_topics"
 
 # =====================================================================
 # 1. CONDITIONS

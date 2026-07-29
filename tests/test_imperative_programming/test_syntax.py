@@ -12,17 +12,17 @@ import sys
 
 from pathlib import Path
 from unittest.mock import patch
-from tests.test_imperitive_programming.conftest import run_script
+from tests.test_imperative_programming.conftest import run_script
 
 # Direct imports required to resolve specific test execution errors
-from imperitive_programming.syntax_fundamentals.factorials import factorial                  # Resolves NameError
-from imperitive_programming.syntax_fundamentals.food_script_example import favourite_food    # Resolves ModuleNotFoundError
-from imperitive_programming.syntax_fundamentals.drink_script_example import favourite_drink  # Resolves ModuleNotFoundError
-from imperitive_programming.syntax_fundamentals.email_slicer import slice_email              # Resolves EOFError
+from imperative_programming.syntax_fundamentals.factorials import factorial                  # Resolves NameError
+from imperative_programming.syntax_fundamentals.food_script_example import favourite_food    # Resolves ModuleNotFoundError
+from imperative_programming.syntax_fundamentals.drink_script_example import favourite_drink  # Resolves ModuleNotFoundError
+from imperative_programming.syntax_fundamentals.email_slicer import slice_email              # Resolves EOFError
 
 PYTHON_SOURCE_DIR = Path(__file__).resolve().parents[2] / 'Python'
 
-FOLDER = "imperitive_programming/syntax_fundamentals"
+FOLDER = "imperative_programming/syntax_fundamentals"
 
 
 # ---------------------------------------------------------------------------
@@ -230,8 +230,8 @@ class TestDivide:
 # drink_script_example.py
 # ---------------------------------------------------------------------------
 class TestDrinkScriptExample:
-    FILE = "imperitive_programming/syntax_fundamentals/drink_script_example.py" # Full path for the module cache cleaner
-    MODULE_PATH = "imperitive_programming.syntax_fundamentals.drink_script_example"
+    FILE = "imperative_programming/syntax_fundamentals/drink_script_example.py" # Full path for the module cache cleaner
+    MODULE_PATH = "imperative_programming.syntax_fundamentals.drink_script_example"
 
     @pytest.fixture(autouse=True)
     def _clean_module_cache(self):
@@ -254,7 +254,7 @@ class TestDrinkScriptExample:
         the lack of a guard clause.
         """
         
-        import imperitive_programming.syntax_fundamentals.drink_script_example as drink_script_example # noqa: F401
+        import imperative_programming.syntax_fundamentals.drink_script_example as drink_script_example # noqa: F401
         
         captured = capsys.readouterr()
         assert "Your favourite food is 'RICE'!" in captured.out
@@ -339,8 +339,8 @@ class TestEvenOddLoopDetector:
 # food_script_example.py
 # ---------------------------------------------------------------------------
 class TestFoodScriptExample:
-    FILE = "imperitive_programming/syntax_fundamentals/food_script_example.py" # Full path for the module cache cleaner
-    MODULE_PATH = "imperitive_programming.syntax_fundamentals.food_script_example"
+    FILE = "imperative_programming/syntax_fundamentals/food_script_example.py" # Full path for the module cache cleaner
+    MODULE_PATH = "imperative_programming.syntax_fundamentals.food_script_example"
 
     @pytest.fixture(autouse=True)
     def _clean_module_cache(self):
@@ -363,7 +363,7 @@ class TestFoodScriptExample:
     def test_food_script_stays_silent_on_a_plain_import(self, monkeypatch, capsys):
         
         # Importing the module via its full package path.
-        import imperitive_programming.syntax_fundamentals.food_script_example as food_script_example # noqa: F401
+        import imperative_programming.syntax_fundamentals.food_script_example as food_script_example # noqa: F401
         
         captured = capsys.readouterr()
         assert captured.out == ""

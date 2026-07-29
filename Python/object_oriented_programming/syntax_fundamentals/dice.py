@@ -7,7 +7,7 @@ sys.path.append(
 )
 
 import random
-from imperitive_programming.logical_games.dice_game import dice_art
+from imperative_programming.logical_games.dice_game import dice_art
 
 # 1. Roll a random integer (whole number) from 1 to 6
 roll = random.randint(1, 6)

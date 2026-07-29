@@ -1,6 +1,6 @@
 # This file should run ONLY standalone 
 
-from imperitive_programming.syntax_fundamentals.food_script_example import favourite_food # from [FOLDER NAME]...[FILENAME] import [FUNCTION]
+from imperative_programming.syntax_fundamentals.food_script_example import favourite_food # from [FOLDER NAME]...[FILENAME] import [FUNCTION]
 
 
 def favourite_drink(drink):

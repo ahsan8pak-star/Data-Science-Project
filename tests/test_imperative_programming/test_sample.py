@@ -6,10 +6,10 @@ import pytest
 import sys
 
 from unittest.mock import patch
-from tests.test_imperitive_programming.conftest import run_script
-from imperitive_programming.syntax_fundamentals.factorials import factorial # Unique case since this is the only file to occur a NameError
+from tests.test_imperative_programming.conftest import run_script
+from imperative_programming.syntax_fundamentals.factorials import factorial # Unique case since this is the only file to occur a NameError
 
-FOLDER = "imperitive_programming/syntax_fundamentals"
+FOLDER = "imperative_programming/syntax_fundamentals"
 
 
 class TestAdd:

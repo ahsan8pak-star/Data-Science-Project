@@ -8,7 +8,7 @@
 car.py 
 """
 
-from object_orient_programming.syntax_fundamentals.car import Car # from car.py import class Car()
+from object_orienteded_programming.syntax_fundamentals.car import Car # from car.py import class Car()
 
 car1 = Car("Toyata Supra", 1998, "White", True)
 
@@ -59,7 +59,7 @@ car2.description()
 person.py
 """
 
-from object_orient_programming.syntax_fundamentals.person import Person
+from object_oriented_programming.syntax_fundamentals.person import Person
 
 person1 = Person("Ahsan", 21, True)
 person2 = Person("Hamza", 20, False)
@@ -74,7 +74,7 @@ person3.talk()
 point.pt
 """
 
-from object_orient_programming.syntax_fundamentals.point import Point
+from object_oriented_programming.syntax_fundamentals.point import Point
 
 point1 = Point() # variable = class
 point1.draw() # "draw"

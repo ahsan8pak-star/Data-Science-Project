@@ -19,7 +19,7 @@ All fundemental and applied topics learned in their respective folder, known as 
 
 ---
 
-## Imperitive Programming
+## Imperative Programming
 
 | Topic Name | Descriptions |
 | --- | --- |
@@ -68,7 +68,7 @@ All fundemental python files have been made into their respective folders from e
 
 ---
 
-## Imperitive Programming
+## Imperative Programming
 
 ---
 
@@ -192,11 +192,11 @@ This is where university modules and its coursework goes under for the applicati
 
 | File Name | Topics Covered |
 | --- | --- |
-| Average Grades | **[ *Python Fundemental Topics* ] -> [ *Imperitive Programming* ] -> [ *Lists & Matrices* ] , [ *Loops & State Control* ] , [ *Conditions & Control Flow* ] , [ *Functions* ] and [ *Main* ]** |
-| Hello | **[ *Python Fundemental Topics* ] -> [ *Imperitive Programming* ] -> [ *Environment & Execution* ]** |
-| Ice Cream | **[ *Python Fundemental Topics* ] -> [ *Imperitive Programming* ] -> [ *Conditions & Control Flow* ] , [ *Loops & State Control* ] and [ *Exceptions* ]** |
-| Seven Segment | **[ *Python Fundemental Topics* ] -> [ *Imperitive Programming* ] -> [ *Lists & Matrices* ] , [ *Loops & State Control* ] , [ *Conditions & Control Flow* ] , [ *Functions* ] and [ *Main* ]** |
-| Volume | **[ *Python Fundemental Topics* ] -> [ *Imperitive Programming* ] -> [ *Functions* ] , [ *Modules* ] and [ *Arithmetic & Maths Operations* ]** |
+| Average Grades | **[ *Python Fundemental Topics* ] -> [ *Imperative Programming* ] -> [ *Lists & Matrices* ] , [ *Loops & State Control* ] , [ *Conditions & Control Flow* ] , [ *Functions* ] and [ *Main* ]** |
+| Hello | **[ *Python Fundemental Topics* ] -> [ *Imperative Programming* ] -> [ *Environment & Execution* ]** |
+| Ice Cream | **[ *Python Fundemental Topics* ] -> [ *Imperative Programming* ] -> [ *Conditions & Control Flow* ] , [ *Loops & State Control* ] and [ *Exceptions* ]** |
+| Seven Segment | **[ *Python Fundemental Topics* ] -> [ *Imperative Programming* ] -> [ *Lists & Matrices* ] , [ *Loops & State Control* ] , [ *Conditions & Control Flow* ] , [ *Functions* ] and [ *Main* ]** |
+| Volume | **[ *Python Fundemental Topics* ] -> [ *Imperative Programming* ] -> [ *Functions* ] , [ *Modules* ] and [ *Arithmetic & Maths Operations* ]** |
 
 ---
 
@@ -299,20 +299,20 @@ Data-Science-Project/
 │
 ├── Python/                                 # Python modeling engines
 │   ├── Functional Programming              # Pure function pipelines, mathematical expressions, and immutable data flows
-│   ├── Imperitive Programming              # Procedural, step-by-step logic scripts focusing on mutable state and sequential execution
+│   ├── Imperative Programming              # Procedural, step-by-step logic scripts focusing on mutable state and sequential execution
 │   │   ├── Algorithmic Data Converters     # Scripts managing data transformations, numbering systems, and conversion algorithms
 │   │   ├── Fundemental Topics              # Implementation playgrounds for native collection types, error handling, and basic structures
 │   │   ├── Logical Games                   # Terminal-based interactive games testing state management and algorithmic logic loops
 │   │   ├── Maths & Science Projects        # Financial computation engines, geometric calculators, and coordinate boundary systems
 │   │   ├── Syntax Fundementals             # Basic syntax verification scratchpads exploring file I/O operations, string slicing, and timers
 │   │   └── AIM.py                          # Main Python script for unified data ingestion and pipeline execution control
-│   └── Object Orient Programming           # State-driven architectures using classes, encapsulation, and custom data models
+│   └── Object Oriented Programming           # State-driven architectures using classes, encapsulation, and custom data models
 │
 │
 ├── Tests/                                  # Pytest unit-testing framework validating mathematical logic and code stability
 │   ├── Test Functional Programming         # Test suites verifying side-effect-free logic and deterministic data transformations
-│   ├── Test Imperitive Programming         # Test suites validating procedural state changes, conditional loops, and user I/O logic
-│   └── Test Object Orient Programming      # Verification of object lifecycles, attribute states, and mocked dependencies
+│   ├── Test Imperative Programming         # Test suites validating procedural state changes, conditional loops, and user I/O logic
+│   └── Test Object Oriented Programming      # Verification of object lifecycles, attribute states, and mocked dependencies
 │
 ├── .gitignore                              # Multilayer safety network blocking binary artifacts, database dumps, and environment variables 
 ├── LICENSE                                 # MIT legal framework outlining permissions, open-source compliance, and liability limits [cite: 21, 22]
