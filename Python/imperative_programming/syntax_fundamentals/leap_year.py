@@ -2,7 +2,7 @@ def is_leap(year):
     
     leap = False # Assumes it's false since we have no confirmation at the start
     
-    if year % 4 == 0: # Fundemental rule that every year has to be a multiple of 4 hence every 4 years
+    if year % 4 == 0: # Fundamental rule that every year has to be a multiple of 4 hence every 4 years
         leap = True
     
     else:

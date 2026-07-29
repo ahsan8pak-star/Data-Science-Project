@@ -45,7 +45,7 @@ def divide(*numbers): # xArgs - *numbers allows the function to accept a variabl
 print(divide(5, 4, 2)) # Output: 2.5
 
 
-def fullname(*name): # ARGS -> allows passing multiple NON-KEY(WORD) arguements
+def fullname(*name): # ARGS -> allows passing multiple NON-KEY(WORD) arguments
    
    # ( * ) -> Unpacking Operator for ARGS i.e. unpacks / separates the whole arguement into individual items
    
@@ -58,7 +58,7 @@ fullname("Dr.", "A.I.M", "'N'", "A.C.E") # Output: Hello, Dr. A.I.M 'N' A.C.E
 
 print(type(fullname)) # Output: <class 'function'>
 
-def address(**location): # KWARGS -> allows passing multiple KEYWORD arguements
+def address(**location): # KWARGS -> allows passing multiple KEYWORD arguments
 
     # ( ** ) -> Unpacking operator for KWARGS.
 

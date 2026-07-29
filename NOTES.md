@@ -1,6 +1,6 @@
 # Data Science Projects
 
-- A list of potential projects to doing after fundemental basics and intermediate levels secured
+- A list of potential projects to doing after fundamental basics and intermediate levels secured
 
 ---
 
