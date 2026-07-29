@@ -40,7 +40,7 @@ All fundemental and applied topics learned in their respective folder, known as 
 
 ---
 
-## Object - Orient Programming
+## Object - Oriented Programming
 
 | Topic Name | Descriptions |
 | --- | --- |
@@ -52,6 +52,8 @@ All fundemental and applied topics learned in their respective folder, known as 
 | Abstract Classes | **Applied classes of non - instantitated rules to understand its own functions through parent and child classes** |
 | super() | **Applied constructors of def **init**(self,...) -> super().**init**(...)** |
 | Polymorphism | **Fundemental OOP concept. *Go to Inheritence as reference*** |
+| Aggregation | **"Has-a" relationship -> refers 'independent' classes** |
+| Composition | **"Owns-a" relationship. Uses 'components' (dependents) to represent a composite object (independent)** |
 
 ---
 
@@ -215,7 +217,7 @@ This is for extensive and multi-level applications such as machine learning and 
 
 | Folder Name | File Types |
 | --- | --- |
-| Music | **multiple [ *music_---.py* ] , [ *music-recommender.dot* ], [ *music-recommender.dot* ] and [ *music.csv* ]** |
+| Music | **multiple [ *music_---.py* ] , [ *music-recommender.dot* ], [ *music-recommender.joblib* ] and [ *music.csv* ]** |
 | Video Games | **multiple [ *vg_---.py* ], [ *vg_recommender.dot* ], [ *vg_recommender.joblib*]  and [ *vgsales.csv* ]** |
 
 **Transactions**
@@ -278,47 +280,48 @@ This is for extensive and multi-level applications such as machine learning and 
 ```text
 Data-Science-Project/
 │
-├── .vscode/                                # IDE local runtime environments
-│   ├── launch.json                         # Local debugger configurations and environment paths
-│   ├── settings.json                       # Path configurations, code formatting, and language rule overrides     
-│   └── tasks.json                          # Automated build tasks for compiling C++ via g++ and executing native psql files
+├── .vscode/                                # IDE local runtime environment configuration
+│   ├── launch.json                         # Local debugger configurations and environment execution paths
+│   ├── settings.json                       # Workspace settings, path definitions, auto-formatting, and linting rules     
+│   └── tasks.json                          # Automated build tasks for compiling C++ via g++ and executing psql scripts
 │
 ├── C++/                                    # High-performance source engine layer
-│   └── AIM.cc                              # C++ core logic engineered for accelerated data processing and execution wrapping
+│   └── Sandbox/                            # C++ core logic workspace housing accelerated execution scripts (e.g., aim.cc)
 │
-├── Data/                                   # Storage layer for project datasets and tracking assets [cite: 20]
-│   └── AIM.csv                             # Raw baseline source data file used as pipeline input [cite: 20]
+├── Data/                                   # Storage layer for project datasets and tracking assets
+│   └── Sandbox/                            # Storage folder containing raw pipeline source data (e.g., aim.csv)
 │
-├── Java-To-Python-Conversion/              # Directory dedicated to migrating legacy Java university coursework into Python scripts
+├── Java-To-Python-Conversion/              # Migration directory translating legacy Java university coursework into Python
 │   └── CS1IP/                              # Year 1 university module repository
-│       ├── Coursework 1                    # Assignments and projects from the first half of the first semester in Year 1 i.e. Sep to Oct
-│       └── Coursework 2                    # Assignments and projects from the second half of the first semester in Year 1 i.e. Nov to Dec
+│       ├── Coursework 1/                   # Assignments from the first half of semester 1 (Sep - Oct)
+│       └── Coursework 2/                   # Assignments from the second half of semester 1 (Nov - Dec)
 │
-├── PostgreSQL/                             # Analytical Database engine scripts
-│   └── AIM.sql                             # SQL scripts for managing relational tables, normalisations, schemas, and queries
+├── PostgreSQL/                             # Analytical relational database management scripts
+│   └── Sandbox/                            # Database workspace housing schemas, migrations, and query scripts (e.g., aim.sql)
 │
-├── Python/                                 # Python modeling engines
-│   ├── Functional Programming              # Pure function pipelines, mathematical expressions, and immutable data flows
-│   ├── Imperative Programming              # Procedural, step-by-step logic scripts focusing on mutable state and sequential execution
-│   │   ├── Algorithmic Data Converters     # Scripts managing data transformations, numbering systems, and conversion algorithms
-│   │   ├── Fundemental Topics              # Implementation playgrounds for native collection types, error handling, and basic structures
-│   │   ├── Logical Games                   # Terminal-based interactive games testing state management and algorithmic logic loops
-│   │   ├── Maths & Science Projects        # Financial computation engines, geometric calculators, and coordinate boundary systems
-│   │   ├── Syntax Fundementals             # Basic syntax verification scratchpads exploring file I/O operations, string slicing, and timers
-│   │   └── AIM.py                          # Main Python script for unified data ingestion and pipeline execution control
-│   └── Object Oriented Programming           # State-driven architectures using classes, encapsulation, and custom data models
-│
+├── Python/                                 # Main Python development and modeling architectures
+│   ├── Functional Programming/             # Pure functions, mathematical pipelines, and immutable data flows
+│   ├── Imperative Programming/             # Procedural logic scripts focused on mutable state and step-by-step execution
+│   │   ├── Algorithmic Data Converters/    # Numerical conversion algorithms and data transformation utility scripts
+│   │   ├── Fundamental Topics/             # Implementation playgrounds for native collection types, modules, and error handling
+│   │   ├── Logical Games/                  # Interactive terminal games testing state tracking and algorithmic logic loops
+│   │   ├── Maths & Science Projects/       # Financial models, geometry calculators, and coordinate boundary systems
+│   │   ├── Syntax Fundamentals/            # Language syntax scratchpads exploring file I/O operations, string manipulation, and timers
+│   │   └── Sandbox/                        # Imperative prototyping environment and execution sandbox (e.g., aim.py)
+│   ├── Object Oriented Programming/        # State-driven architectures using classes, encapsulation, and custom domain models
+│   └── Sandbox/                            # Primary Python workspace housing unified ingestion and execution scripts (e.g., aim.py)
 │
 ├── Tests/                                  # Pytest unit-testing framework validating mathematical logic and code stability
-│   ├── Test Functional Programming         # Test suites verifying side-effect-free logic and deterministic data transformations
-│   ├── Test Imperative Programming         # Test suites validating procedural state changes, conditional loops, and user I/O logic
-│   └── Test Object Oriented Programming      # Verification of object lifecycles, attribute states, and mocked dependencies
+│   ├── Test Functional Programming/        # Test suites verifying deterministic, side-effect-free data transformations
+│   ├── Test Imperative Programming/        # Test suites validating procedural state changes, conditional loops, and user I/O logic
+│   └── Test Object Oriented Programming/   # Verification of object lifecycles, attribute states, and mocked dependencies
 │
-├── .gitignore                              # Multilayer safety network blocking binary artifacts, database dumps, and environment variables 
-├── LICENSE                                 # MIT legal framework outlining permissions, open-source compliance, and liability limits [cite: 21, 22]
-├── NOTES.md                                # Comprehensive engineering timetable detailing specific coding phases, links, and study tracks
-├── pyproject.toml                          # Modern project manifest setting up testing structures and strict linting parameters (Ruff/Black)
-└── README.md                               # Master structural roadmap, technical explanations, and portfolio documentation
+├── .gitignore                              # Multilayer safety network blocking binary artifacts, database dumps, and environment variables
+├── .gitkeep                                # Version control placeholder file preserving empty directory architecture in Git
+├── LICENSE                                 # MIT legal framework outlining permissions, open-source compliance, and liability limits
+├── NOTES.md                                # Comprehensive engineering journal tracking milestone phases, study tracks, and resources
+├── pyproject.toml                          # Central project configuration for build tools, test runners, and strict linters (Ruff/Black)
+└── README.md                               # Master structural roadmap, technical documentation, and portfolio overview
 ```
 
 ---
@@ -327,3 +330,4 @@ Data-Science-Project/
 
 - [20]: The `[Dd]ata/` rule in our `.gitignore` protects both uppercase and lowercase data tracks.
 - [21]: The MIT LICENSE framework chosen for open-source compliance.
+- [22]: Standard legal permissions, copyright notices, and liability disclaimers under open-source compliance.
