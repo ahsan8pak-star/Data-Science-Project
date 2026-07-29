@@ -1218,11 +1218,10 @@ part of any of the topic subfolders.
 def test_aim_py_is_currently_empty_and_imports_cleanly():
     
     """
-    aim.py is a placeholder (intended as the main pipeline entry point,
-    per the README) and is currently empty. This just guards against
-    anything being silently added later that breaks on import.
+    Guards Python/sandbox/aim.py against broken execution or syntax errors on import.
+    Ensures any code added to the sandbox entry point runs cleanly without unexpected errors.
     """
     
-    _, out = run_script("aim.py")
+    _, out = run_script("sandbox/aim.py")
     assert out == ""
 

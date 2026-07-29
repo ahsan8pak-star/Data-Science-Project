@@ -375,11 +375,12 @@ class TestUsernameStatus:
 
 
 """
-Test for Python/aim.py, the single file directly under Python/ that isn't
-part of any of the topic subfolders (those each have their own dedicated
-test module: test_algorithms.py, test_fundamentals.py, test_logic_games.py,
-test_math_science.py, test_syntax.py).
+Tests for Python/sandbox/aim.py.
 
+Guards the scratch/experimental script located in 'Python/sandbox/', keeping experimental 
+code isolated from core topic folders (which are covered by dedicated test modules: 
+test_algorithmic_data.py, test_fundamentals.py, test_logic.py, test_maths_science.py, 
+and test_syntax.py).
 """
 
 def test_aim_py_is_currently_empty_and_imports_cleanly():
@@ -390,14 +391,13 @@ def test_aim_py_is_currently_empty_and_imports_cleanly():
     anything being silently added later that breaks on import.
     """
     
-    _, out = run_script("AIM.py")
+    _, out = run_script("sandbox/aim.py")
     assert out == ""
 
 
 """
 Sample test file to validate pytest configuration.
 Replace with actual tests for your Python modules.
-
 """
 
 def test_sample_pass():
