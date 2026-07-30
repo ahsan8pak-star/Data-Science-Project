@@ -54,6 +54,8 @@ All fundamental and applied topics learned in their respective folder, known as 
 | Polymorphism | **Fundamental OOP concept. *Go to Inheritence as reference*** |
 | Aggregation | **"Has-a" relationship -> refers 'independent' classes** |
 | Composition | **"Owns-a" relationship. Uses 'components' (dependents) to represent a composite object (independent)** |
+| Nested Classes | **Similar to *Nested Loops* in *Inperative Programming*. *Go towards Inheritence for more fundamental reasons*** |
+| Static Methods | **Alternative to Instance Methods. *Got to Nested Loops for further context*** |
 
 ---
 
