@@ -574,7 +574,62 @@ class TestNumbers:
 class TestScopeResolution:
     FILE = f"{FOLDER}/scope_resolution.py"
 
-    # TO DO Pytest Cases
+    def test_local_scope_prints_each_functions_own_value(self):
+        _, out = run_script(self.FILE)
+        assert "1" in out.splitlines()
+        assert "2" in out.splitlines()
+
+    def test_enclosed_scope_reads_outer_variable(self, capsys):
+        mod, _ = run_script(self.FILE)
+        mod.enclosed1()
+        captured = capsys.readouterr()
+        assert captured.out.strip() == "1"
+
+    def test_global_scope_is_shared_between_functions(self, capsys):
+        mod, _ = run_script(self.FILE)
+        mod.global1()
+        mod.global2()
+        captured = capsys.readouterr()
+        assert captured.out == "3\n3\n"
+
+    def test_built_in_scope_reads_imported_math_e(self):
+        _, out = run_script(self.FILE)
+        assert str(math.e) in out
+
+    def test_local_variables_do_not_leak_to_module_namespace(self, capsys):
+        
+        """
+        local1()/local2()'s x=1 and x=2 are function-scoped; only the
+        module-level x=3 (global) survives on the returned module object.
+        """
+        
+        mod, _ = run_script(self.FILE)
+        assert mod.x == 3
+        mod.local1()
+        captured = capsys.readouterr()
+        assert captured.out.strip() == "1"
+        assert mod.x == 3  # confirms local1() never touched the global x
+
+    def test_scope_resolution_order(self):
+        
+        """
+        L -> E -> G -> B: a name lookup resolves to the nearest enclosing
+        scope first, only falling back to global/built-in when no local
+        or enclosing binding exists.
+        """
+        
+        x = "global"
+
+        def outer():
+            x = "enclosed"
+
+            def inner():
+                return x  # resolves to "enclosed", not "global"
+
+            return inner()
+
+        assert outer() == "enclosed"
+        assert x == "global"
 
 # =====================================================================
 # 12. SETS

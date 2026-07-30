@@ -435,7 +435,43 @@ class TestBankingProgram:
 # card_validator.py
 # ---------------------------------------------------------------------------
 class TestCardValidator:
-    FILE = f"{FOLDER}/card_validator.py"
+    FILE = f"{FOLDER}/card_validator_program.py"  # was pointing at a non-existent file
+
+    def test_valid_visa_number(self):
+        _, out = run_script(self.FILE, inputs=["4111111111111111"])
+        assert out.strip() == "VALID"
+
+    def test_valid_mastercard_number(self):
+        _, out = run_script(self.FILE, inputs=["5555555555554444"])
+        assert out.strip() == "VALID"
+
+    def test_invalid_number_fails_luhn_check(self):
+        _, out = run_script(self.FILE, inputs=["4111111111111112"])
+        assert out.strip() == "INVALID"
+
+    def test_dashes_and_spaces_are_stripped_before_validating(self):
+        _, out = run_script(self.FILE, inputs=["4111-1111-1111-1111"])
+        assert out.strip() == "VALID"
+
+        _, out2 = run_script(self.FILE, inputs=["4111 1111 1111 1111"])
+        assert out2.strip() == "VALID"
+
+    def test_validate_function_directly(self):
+        mod, _ = run_script(self.FILE, inputs=["4111111111111111"])
+        assert mod.validate("4111111111111111") is True
+        assert mod.validate("4111111111111112") is False
+
+    def test_amex_number_is_valid(self):
+        _, out = run_script(self.FILE, inputs=["378282246310005"])
+        assert out.strip() == "VALID"
+
+    def test_discover_number_is_valid(self):
+        _, out = run_script(self.FILE, inputs=["6011111111111117"])
+        assert out.strip() == "VALID"
+
+    def test_single_zero_digit_is_trivially_valid(self):
+        mod, _ = run_script(self.FILE, inputs=["0"])
+        assert mod.validate("0") is True
 
 # ---------------------------------------------------------------------------
 # circle_calculator.py
