@@ -330,6 +330,23 @@ Data-Science-Project/
 
 ## References
 
-- [20]: The `[Dd]ata/` rule in our `.gitignore` protects both uppercase and lowercase data tracks.
-- [21]: The MIT LICENSE framework chosen for open-source compliance.
-- [22]: Standard legal permissions, copyright notices, and liability disclaimers under open-source compliance.
+- [1]: **CLI Environment:** Navigation and script execution via PowerShell/CMD and Linux/Ubuntu workflows.
+- [2]: **Version Control:** Repository sync via GitHub, GitLab, and VS Code, supported by Git Bash CLI.
+- [3]: **IDE Setup (`.vscode/`):** Debugger paths (`launch.json`), settings (`settings.json`), and build tasks (`tasks.json`).
+- [4]: **Build & Compliance:** Tool setup in `pyproject.toml`, `.gitignore` data protection, and MIT LICENSE terms.
+- [5]: **Imperative Programming:** Syntax, datatypes, control flow, functions, LEGB scope, error handling, and `main` entry guards.
+- [6]: **OOP Architecture:** Classes, inheritance, polymorphism, encapsulation, nested classes, and static methods.
+- [7]: **Functional Programming:** Pure functions, mathematical data processing, and immutable data flow pipelines.
+- [8]: **Data Converters:** Conversions for rates, temperatures, phone numbers, Roman numerals, time, and weights.
+- [9]: **CLI Games:** Interactive terminal games including Dice (TUI), Hangman, Quiz, RPS, and Word Guessing.
+- [10]: **Maths & Fintech:** Geometry, trigonometry, interest/debt calculators, and a TUI banking application.
+- [11]: **Syntax Utilities:** Standalone scripts covering File I/O, timers, factorials, ciphers, and walrus operators.
+- [12]: **OOP Models:** Domain models including `Car.py`, `Person.py`, `Point.py`, and `Dice.py` with custom TUI graphics.
+- [13]: **Java-to-Python:** Translated CS1IP coursework including Average Grades, Seven Segment, and Volume logic.
+- [14]: **Machine Learning:** Recommendation models for Music and Video Games using `.csv`, `.dot`, and `.joblib` assets.
+- [15]: **Excel Automation:** Scripting (`transactions.py`) for processing Excel sheets and generating bar chart outputs.
+- [16]: **Multi-Language Layer:** C++ execution scripts, raw CSV data pipelines, and PostgreSQL database schemas.
+- [17]: **Pytest Framework:** Unit tests under `Tests/` mirroring imperative, OOP, and functional Python paradigms.
+- [18]: **Data Safety:** The `[Dd]ata/` rule in `.gitignore` protects both uppercase and lowercase data tracks.
+- [19]: **Open Source:** MIT legal framework chosen for repository distribution compliance.
+- [20]: **Legal Terms:** Standard permissions, copyright notices, and liability limits under open-source licensing.
