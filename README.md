@@ -51,11 +51,12 @@ All fundamental and applied topics learned in their respective folder, known as 
 | Multiple & Multi-Level Inheritance | **Extension of inheritance with applied child and parent classes, its methods, attributes and functions all intertwined / interconnected to each other** |
 | Abstract Classes | **Applied classes of non - instantitated rules to understand its own functions through parent and child classes** |
 | super() | **Applied constructors of def **init**(self,...) -> super().**init**(...)** |
-| Polymorphism | **Fundamental OOP concept. *Go to Inheritence as reference*** |
+| Polymorphism | **Fundamental OOP concept. *Go to **Inheritence** as reference*** |
 | Aggregation | **"Has-a" relationship -> refers 'independent' classes** |
 | Composition | **"Owns-a" relationship. Uses 'components' (dependents) to represent a composite object (independent)** |
-| Nested Classes | **Similar to *Nested Loops* in *Inperative Programming*. *Go towards Inheritence for more fundamental reasons*** |
-| Static Methods | **Alternative to Instance Methods. *Got to Nested Loops for further context*** |
+| Nested Classes | **Similar to *Nested Loops* in *Inperative Programming*. *Go towards **Inheritence** for more fundamental reasons*** |
+| Static Methods | **Alternative to Instance Methods. *Go to Nested Loops for further context*** |
+| Class Methods | **Alternative to Instance and Static Methods. *Go to **Nested Loops** and **Static Classes** for further context*** |
 
 ---
 
