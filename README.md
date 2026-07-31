@@ -56,7 +56,8 @@ All fundamental and applied topics learned in their respective folder, known as 
 | Composition | **"Owns-a" relationship. Uses 'components' (dependents) to represent a composite object (independent)** |
 | Nested Classes | **Similar to *Nested Loops* in *Inperative Programming*. *Go towards **Inheritence** for more fundamental reasons*** |
 | Static Methods | **Alternative to Instance Methods. *Go to Nested Loops for further context*** |
-| Class Methods | **Alternative to Instance and Static Methods. *Go to **Nested Loops** and **Static Classes** for further context*** |
+| Class Methods | **Alternative to Static Methods. *Go to **Nested Classes** and **Static Methods** for further context*** |
+| Magic Methods | **Branch of Class Methods and Constructors. *Refer to **Nested Classes** for further context*** |
 
 ---
 
@@ -336,7 +337,7 @@ Data-Science-Project/
 - [3]: **IDE Setup (`.vscode/`):** Debugger paths (`launch.json`), settings (`settings.json`), and build tasks (`tasks.json`).
 - [4]: **Build & Compliance:** Tool setup in `pyproject.toml`, `.gitignore` data protection, and MIT LICENSE terms.
 - [5]: **Imperative Programming:** Syntax, datatypes, control flow, functions, LEGB scope, error handling, and `main` entry guards.
-- [6]: **OOP Architecture:** Classes, inheritance, polymorphism, encapsulation, nested classes, and static methods.
+- [6]: **OOP Architecture:** Classes, abstraction, inheritance, polymorphism, encapsulation, nested classes, types of class methods and contructors.
 - [7]: **Functional Programming:** Pure functions, mathematical data processing, and immutable data flow pipelines.
 - [8]: **Data Converters:** Conversions for rates, temperatures, phone numbers, Roman numerals, time, and weights.
 - [9]: **CLI Games:** Interactive terminal games including Dice (TUI), Hangman, Quiz, RPS, and Word Guessing.
