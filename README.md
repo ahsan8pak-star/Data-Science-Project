@@ -58,6 +58,8 @@ All fundamental and applied topics learned in their respective folder, known as 
 | Static Methods | **Alternative to Instance Methods. *Go to Nested Loops for further context*** |
 | Class Methods | **Alternative to Static Methods. *Go to **Nested Classes** and **Static Methods** for further context*** |
 | Magic Methods | **Branch of Class Methods and Constructors. *Refer to **Nested Classes** for further context*** |
+| Decorator | **Unique method used to make functions into attributes. *Go to **Abstract Methods** and **Class Methods** for more information*** |
+| Property | **Combination of functions as attributes i.e. objects functioning as its own attributes. *Go to **Decorator** , **Magic Methods** and **Class Methods** for its full responses*** |
 
 ---
 
