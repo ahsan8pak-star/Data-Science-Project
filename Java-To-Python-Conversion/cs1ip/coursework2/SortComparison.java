@@ -30,10 +30,10 @@ public class SortComparison {
             System.out.println("Sorted:   " + mergeSort(list2));
             // Expected: [3H, 4H, 8C, 2D, 3S, 7S]
 
-            System.out.println("\nRunning sortComparison ");
+            System.out.println("\nRunning SortComparison ");
             System.out.println("Analyzing files: sort10.txt, sort100.txt, sort10000.txt");
-            sortComparison(new String[] { "sort10.txt", "sort100.txt", "sort10000.txt" });
-            System.out.println("✓ CSV file 'sortComparison.csv' generated successfully!");
+            SortComparison(new String[] { "sort10.txt", "sort100.txt", "sort10000.txt" });
+            System.out.println("✓ CSV file 'SortComparison.csv' generated successfully!");
             System.out.println("Check the file for performance results.");
 
         } catch (IOException e) {
@@ -162,7 +162,7 @@ public class SortComparison {
         return result;
     }
 
-    static void sortComparison(String[] files) throws IOException {
+    static void SortComparison(String[] files) throws IOException {
         // ArrayLists to store the number of cards and execution times
         ArrayList<Integer> cardCounts = new ArrayList<>();
         ArrayList<Long> bubbleTimes = new ArrayList<>();
@@ -228,7 +228,7 @@ public class SortComparison {
     private static void writeResultsToCSV(ArrayList<Integer> cardCounts,
             ArrayList<Long> bubbleTimes,
             ArrayList<Long> mergeTimes) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter("sortComparison.csv"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("SortComparison.csv"));
 
         // Write header with card counts
         writer.write(",");
