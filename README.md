@@ -40,7 +40,7 @@ All fundamental and applied topics learned in their respective folder, known as 
 
 ---
 
-## Object - Oriented Programming
+## Object Oriented Programming
 
 | Topic Name | Descriptions |
 | --- | --- |
@@ -188,7 +188,7 @@ All fundamental python files have been made into their respective folders from e
 
 ---
 
-# Java -> Python Coursework Projects
+# University Courseworks
 
 This is where university modules and its coursework goes under for the application of Python (*Read Above for more information about its topic usage*)
 
@@ -212,6 +212,7 @@ This is where university modules and its coursework goes under for the applicati
 
 | File Name | Topics Covered |
 |---|---|
+| Sort Comparison | **[ *Python Fundamental Topics* ] -> [ *Imperative Programming* ] -> [ *Lists & Matrices* ] , [ *Loops & State Control* ] , [ *Conditions & Control Flow* ] , [ *Functions* ] , [ *Modules* ] and [ *Main* ]** |
 
 ---
 
