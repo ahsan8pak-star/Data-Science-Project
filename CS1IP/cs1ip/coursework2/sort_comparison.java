@@ -33,7 +33,7 @@ public class SortComparison {
             System.out.println("\nRunning SortComparison ");
             System.out.println("Analyzing files: sort10.txt, sort100.txt, sort10000.txt");
             SortComparison(new String[] { "sort10.txt", "sort100.txt", "sort10000.txt" });
-            System.out.println("✓ CSV file 'SortComparison.csv' generated successfully!");
+            System.out.println("✓ CSV file 'sort_comparison.csv' generated successfully!");
             System.out.println("Check the file for performance results.");
 
         } catch (IOException e) {
@@ -228,7 +228,7 @@ public class SortComparison {
     private static void writeResultsToCSV(ArrayList<Integer> cardCounts,
             ArrayList<Long> bubbleTimes,
             ArrayList<Long> mergeTimes) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter("SortComparison.csv"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("sort_comparison.csv"));
 
         // Write header with card counts
         writer.write(",");

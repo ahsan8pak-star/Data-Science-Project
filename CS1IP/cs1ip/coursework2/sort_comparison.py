@@ -104,7 +104,7 @@ def read_file(filename):
     # Reads lines from a file and returns them as a list.
     cards = []
     
-    # __file__ gets the path of SortComparison.py
+    # __file__ gets the path of sort_comparison.py
     # os.path.dirname strips the filename off, leaving just the folder path
     # os.path.abspath makes it a full, absolute C:\ path
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -128,7 +128,7 @@ def write_results_to_csv(card_counts, bubble_times, merge_times):
     # Ensure the CSV saves in the exact same folder as the script
     
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    output_path = os.path.join(script_dir, "SortComparison.csv")
+    output_path = os.path.join(script_dir, "sort_comparison.csv")
     
     with open(output_path, "w") as writer:
         counts_str = ",".join([f" {c}" for c in card_counts])
@@ -196,7 +196,7 @@ if __name__ == "__main__":
         print("\nRunning sort_comparison")
         print("Analyzing files: sort10.txt, sort100.txt, sort10000.txt")
         sort_comparison(["sort10.txt", "sort100.txt", "sort10000.txt"])
-        print("✓ CSV file 'SortComparison.csv' generated successfully!")
+        print("✓ CSV file 'sort_comparison.csv' generated successfully!")
         print("Check the file for performance results.")
 
     except FileNotFoundError as e:
