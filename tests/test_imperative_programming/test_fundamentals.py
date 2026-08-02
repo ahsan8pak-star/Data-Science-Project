@@ -1,5 +1,5 @@
 """
-Pytest suite for every script under Python/fundamental_topics/.
+Pytest suite for every script under python/fundamental_topics/.
 
 Most of these files are teaching scratchpads: fixed top-level statements
 with no functions to call. For those, run_script() executes the real file
@@ -161,9 +161,9 @@ class TestDictionaries:
         assert user_profile["name"] == "Ahsan"
 
         # Testing dynamic key addition
-        user_profile["language"] = "Python"
+        user_profile["language"] = "python"
         assert "language" in user_profile
-        assert user_profile["language"] == "Python"
+        assert user_profile["language"] == "python"
 
     def test_dictionary_update_overwrites_existing_key(self):
         capitals = {"USA": "Washington D.C."}

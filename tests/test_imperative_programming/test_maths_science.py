@@ -1,5 +1,5 @@
 """
-Pytest suite for every script under Python/maths_science_projects/.
+Pytest suite for every script under python/maths_science_projects/.
 
 Covers the standalone calculators (Area, Volume, Pythagoras, Sine/Cosine
 Rule, etc.) as well as the composite scripts that import their siblings

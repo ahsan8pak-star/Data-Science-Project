@@ -1,5 +1,5 @@
 """
-Tests for every script under Python/SyntaxFundamentals/.
+Tests for every script under python/SyntaxFundamentals/.
 """
 
 import pytest
@@ -375,9 +375,9 @@ class TestUsernameStatus:
 
 
 """
-Tests for Python/sandbox/aim.py.
+Tests for python/sandbox/aim.py.
 
-Guards the scratch/experimental script located in 'Python/sandbox/', keeping experimental 
+Guards the scratch/experimental script located in 'python/sandbox/', keeping experimental 
 code isolated from core topic folders (which are covered by dedicated test modules: 
 test_algorithmic_data.py, test_fundamentals.py, test_logic.py, test_maths_science.py, 
 and test_syntax.py).

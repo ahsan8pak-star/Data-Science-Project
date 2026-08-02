@@ -1,5 +1,5 @@
 """
-Pytest suite for every script under Python/logical_games/.
+Pytest suite for every script under python/logical_games/.
 
 These are small interactive terminal games. Where a script relies on
 `random`, we patch it via run_script(..., patches=[...]) so the games become

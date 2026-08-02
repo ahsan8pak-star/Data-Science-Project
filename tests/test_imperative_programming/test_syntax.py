@@ -1,5 +1,5 @@
 """
-Pytest suite for every script under Python/syntax_fundamentals/.
+Pytest suite for every script under python/syntax_fundamentals/.
 
 This is the largest and most varied folder - one-off utility scripts,
 countdown timers, and a couple of files (math_module.py/math_file.py) that
@@ -20,7 +20,7 @@ from imperative_programming.syntax_fundamentals.food_script_example import favou
 from imperative_programming.syntax_fundamentals.drink_script_example import favourite_drink  # Resolves ModuleNotFoundError
 from imperative_programming.syntax_fundamentals.email_slicer import slice_email              # Resolves EOFError
 
-PYTHON_SOURCE_DIR = Path(__file__).resolve().parents[2] / 'Python'
+PYTHON_SOURCE_DIR = Path(__file__).resolve().parents[2] / 'python'
 
 FOLDER = "imperative_programming/syntax_fundamentals"
 
@@ -1210,7 +1210,7 @@ class TestUsernameStatus:
 
 
 """
-Test for Python/aim.py, the single file directly under Python/ that isn't
+Test for python/aim.py, the single file directly under python/ that isn't
 part of any of the topic subfolders.
 """
 
@@ -1218,7 +1218,7 @@ part of any of the topic subfolders.
 def test_aim_py_is_currently_empty_and_imports_cleanly():
     
     """
-    Guards Python/sandbox/aim.py against broken execution or syntax errors on import.
+    Guards python/sandbox/aim.py against broken execution or syntax errors on import.
     Ensures any code added to the sandbox entry point runs cleanly without unexpected errors.
     """
     

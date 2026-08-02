@@ -42,10 +42,10 @@ PROJECT_ROOT = Path(__file__).resolve()
 while PROJECT_ROOT.name != 'Data-Science-Project':
     PROJECT_ROOT = PROJECT_ROOT.parent
 
-PYTHON_SOURCE_DIR = PROJECT_ROOT / 'Python'
+PYTHON_SOURCE_DIR = PROJECT_ROOT / 'python'
 
 TESTS_DIR = Path(__file__).resolve().parent
-PYTHON_DIR = PROJECT_ROOT / "Python"
+PYTHON_DIR = PROJECT_ROOT / "python"
 
 # Force the terminal execution to automatically see your code directories
 sys.path.insert(0, str(PYTHON_DIR))
@@ -54,10 +54,10 @@ sys.path.insert(0, str(PYTHON_DIR))
 def run_script(relative_path, inputs=None, patches=None, cwd=None):
 
     """
-    Execute ``Python/<relative_path>`` as if it had been run directly via
+    Execute ``python/<relative_path>`` as if it had been run directly via
     ``python <relative_path>``.
 
-    relative_path : path relative to the Python/ folder, e.g.
+    relative_path : path relative to the python/ folder, e.g.
                     "algorithmic_data_converters/weight_converter.py"
     inputs        : list of strings returned in order for each input() call
                     the script makes. If the script asks for more input than
