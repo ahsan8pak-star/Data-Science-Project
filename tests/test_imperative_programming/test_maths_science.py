@@ -846,18 +846,43 @@ class TestCosineRule:
 class TestEuclideanDistanceCalculator:
     FILE = f"{FOLDER}/euclidean_distance_calculator.py"
 
-    def test_valid_coordinates(self):
-        _, out = run_script(self.FILE, inputs=["1", "2", "3", "4"])
+    def test_1d_coordinates(self):
+        _, out = run_script(self.FILE, inputs=["1", "1", "4"])
+        expected = abs(4 - 1)
+        assert f"Euclidean Distance: {expected:.2f}" in out
+
+    def test_valid_coordinate(self):
+        _, out = run_script(self.FILE, inputs=["2", "1", "2", "4", "6"])
         expected = math.sqrt((4 - 1) ** 2 + (6 - 2) ** 2)
-        assert f"Distance: {expected:.2f}" in out
+        assert f"Euclidean Distance: {expected:.2f}" in out
+
+    def test_2d_coordinates(self):
+        _, out = run_script(self.FILE, inputs=["2", "1", "2", "4", "6"])
+        expected = math.sqrt((4 - 1) ** 2 + (6 - 2) ** 2)
+        assert f"Euclidean Distance: {expected:.2f}" in out
+
+    def test_3d_coordinates(self):
+        _, out = run_script(self.FILE, inputs=["3", "1", "2", "3", "4", "5", "6"])
+        expected = math.sqrt((4 - 1) ** 2 + (5 - 2) ** 2 + (6 - 3) ** 2)
+        assert f"Euclidean Distance: {expected:.2f}" in out
+
+    def test_4d_coordinates(self):
+        _, out = run_script(self.FILE, inputs=["4", "1", "2", "3", "4", "5", "6", "7", "8"])
+        expected = math.sqrt((5 - 1) ** 2 + (6 - 2) ** 2 + (7 - 3) ** 2 + (8 - 4) ** 2)
+        assert f"Euclidean Distance: {expected:.2f}" in out
+
+    def test_5d_coordinates(self):
+        _, out = run_script(self.FILE, inputs=["5", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"])
+        expected = math.sqrt((6 - 1) ** 2 + (7 - 2) ** 2 + (8 - 3) ** 2 + (9 - 4) ** 2 + (10 - 5) ** 2)
+        assert f"Euclidean Distance: {expected:.2f}" in out
 
     def test_non_numeric_coordinates(self):
-        _, out = run_script(self.FILE, inputs=["a", "2", ".", "True"])
-        assert "Invalid input. Numbers only." in out
+        _, out = run_script(self.FILE, inputs=["2", "a", "2", ".", "True"])
+        assert "Invalid Input. Numbers Only." in out
 
     def test_blank_coordinate_skips_result(self):
-        _, out = run_script(self.FILE, inputs=["2", "", "4", "6"])
-        assert "Distance" not in out
+        _, out = run_script(self.FILE, inputs=["2", "2", "", "4", "6"])
+        assert "Euclidean Distance" not in out
 
 # ---------------------------------------------------------------------------
 # perimeter_of_triangle.py
