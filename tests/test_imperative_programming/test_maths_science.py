@@ -839,6 +839,25 @@ class TestCosineRule:
         _, out = run_script("imperative_programming/maths_science_projects/triangle_calculator.py", inputs=inputs)
         assert "Result: Angle B is" in out
 
+# ---------------------------------------------------------------------------
+# euclidean_distance_calculator.py
+# ---------------------------------------------------------------------------
+
+class TestEuclideanDistanceCalculator:
+    FILE = f"{FOLDER}/euclidean_distance_calculator.py"
+
+    def test_valid_coordinates(self):
+        _, out = run_script(self.FILE, inputs=["1", "2", "3", "4"])
+        expected = math.sqrt((4 - 1) ** 2 + (6 - 2) ** 2)
+        assert f"Distance: {expected:.2f}" in out
+
+    def test_non_numeric_coordinates(self):
+        _, out = run_script(self.FILE, inputs=["a", "2", ".", "True"])
+        assert "Invalid input. Numbers only." in out
+
+    def test_blank_coordinate_skips_result(self):
+        _, out = run_script(self.FILE, inputs=["2", "", "4", "6"])
+        assert "Distance" not in out
 
 # ---------------------------------------------------------------------------
 # perimeter_of_triangle.py
