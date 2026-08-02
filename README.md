@@ -124,6 +124,7 @@ All fundamental python files have been made into their respective folders from e
 | Compound Debt Calculator | **Mathematical formulas in relation to its interest calculator, including fundamental conditional loops** |
 | Compound Interest Rate | **Mathematical formulas, including fundamental conditional loops, try-except error catching and f-strings** |
 | Cosine Rule | **Advanced Mathematical functions** |
+| Euclidean Distance Calculator | **Applied mathematical functions thorugh user input and an example case to check its functionality and durability** |
 | Perimeter of Triangle | **Basic mathematical functions with user input** |
 | Pythagoras Theorem | **Advanced Mathematical functions)** |
 | Simple Debt Calculator | **Mathematical formulas in relation to its interest calculator, including fundamental conditional loops** |
@@ -226,6 +227,7 @@ This is for extensive and multi-level applications such as machine learning and 
 | --- | --- |
 | Music | **multiple [ *music_---.py* ] , [ *music-recommender.dot* ], [ *music-recommender.joblib* ] and [ *music.csv* ]** |
 | Video Games | **multiple [ *vg_---.py* ], [ *vg_recommender.dot* ], [ *vg_recommender.joblib*]  and [ *vgsales.csv* ]** |
+| Data Outliers | **[ *data_outlier.ipynb* ] and [ *data_outlier.py* ]** |
 
 **Transactions**
 
