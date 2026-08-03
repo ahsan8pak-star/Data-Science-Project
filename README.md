@@ -175,10 +175,16 @@ All fundamental python files have been made into their respective folders from e
 
 | File Name | Topics Covered |
 | --- | --- |
-| Car | **Fundamental classes, methods, constructors and import created module** |
-| Dice | **Applied import modules within the framework of OOP i.e. from dice_game.py import dice_art with fundamental file I/O management** |
-| Person | **Fundamental classes, methods and import created module** |
-| Point | **Fundamental classes, methods, constructors and import created module** |
+| Bank Account | **Encapsulation, instance methods, custom string formatting (***str***), and state mutation (deposits/withdrawals)** |
+| Car | **Fundamental classes, methods, constructors, and importing created modules** |
+| Device | **Inheritance, method overriding, base/derived classes, and super() call mechanics** |
+| Dice | **Applied import modules within the framework of OOP (e.g., *from dice_game import dice_art*) with fundamental file I/O management** |
+| Order | **Class variables vs. instance variables, constructors (***init***), object tracking, and aggregated calculations** |
+| Person | **Fundamental classes, methods, and importing created modules** |
+| Point | **Fundamental classes, methods, constructors, and importing created modules** |
+| Restaurant | **Aggregation/Composition (managing nested objects like menus & orders) and dynamic state updating** |
+| School | **Class relationships (Has-a / Owns-a modeling), collection management inside classes, and multi-class interactions** |
+| User Access | **Encapsulation, property decorators (*@property*), getters/setters, and static/validation methods** |
 
 ---
 
