@@ -171,20 +171,28 @@ All fundamental python files have been made into their respective folders from e
 
 ---
 
-## Object - Orient Programming
+## Object-Oriented Programming
 
 | File Name | Topics Covered |
 | --- | --- |
-| Bank Account | **Encapsulation, instance methods, custom string formatting (***str***), and state mutation (deposits/withdrawals)** |
-| Car | **Fundamental classes, methods, constructors, and importing created modules** |
-| Device | **Inheritance, method overriding, base/derived classes, and super() call mechanics** |
-| Dice | **Applied import modules within the framework of OOP (e.g., *from dice_game import dice_art*) with fundamental file I/O management** |
-| Order | **Class variables vs. instance variables, constructors (***init***), object tracking, and aggregated calculations** |
-| Person | **Fundamental classes, methods, and importing created modules** |
+| Bank Account | **Encapsulation, instance methods, custom string formatting (***str***), state mutation through deposits and withdrawals, and object-level data management** |
+| Calculator | **Static methods, utility functions, and reusable class-level operations for arithmetic logic** |
+| Car | **Fundamental classes, attributes, methods, constructors, and importing created modules** |
+| Device | **Abstract classes, inheritance, method overriding, base/derived class design, and super() call mechanics** |
+| Dice | **Applied import modules within OOP (e.g., *from dice_game import dice_art*), object-based simulation, and basic file interaction** |
+| Employee Contract | **Multiple inheritance, combined class behaviour, and real-world worker role modelling** |
+| Food | **Multi-level inheritance, layered class hierarchies, and specialised food categories such as snacks, desserts, and drinks** |
+| Item | **Magic methods, dunder methods, custom comparisons, item lookup, and built-in operator behaviour** |
+| Order | **Class variables versus instance variables, constructors (***init***), object tracking, and aggregated calculations** |
+| Payment | **Polymorphism, shared interfaces, and differing implementations for cash, card, and bank transfer payments** |
+| Person | **Fundamental classes, methods, and importing created modules for object practice** |
 | Point | **Fundamental classes, methods, constructors, and importing created modules** |
-| Restaurant | **Aggregation/Composition (managing nested objects like menus & orders) and dynamic state updating** |
-| School | **Class relationships (Has-a / Owns-a modeling), collection management inside classes, and multi-class interactions** |
-| User Access | **Encapsulation, property decorators (*@property*), getters/setters, and static/validation methods** |
+| Real Estate | **Property decorators, validation logic, getter/setter patterns, and real-world attribute checking** |
+| Restaurant | **Aggregation and composition, managing nested objects such as menus, and dynamic state updating** |
+| School | **Class relationships, has-a / owns-a modelling, collection management inside classes, and multi-class interaction** |
+| Sports | **Nested classes, grouped related classes, and domain-specific object organisation** |
+| User Access | **Decorator-based access control, login validation, permission checks, and wrapper logic** |
+| Worker | **Inheritance hierarchies, subclass-specific behaviour, and switch-style matching through object type dispatch** |
 
 ---
 
