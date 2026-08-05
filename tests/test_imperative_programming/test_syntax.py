@@ -822,8 +822,7 @@ class TestNumberMatrixDisplay:
 
     def test_matrix_for_n_zero(self):
         _, out = run_script(self.FILE, inputs=["0"])
-        expected = 
-        """
+        expected = """
         0 0 0 0 0
         1 0 1 0 0
         2 0 2 0 0   
@@ -834,8 +833,7 @@ class TestNumberMatrixDisplay:
 
     def test_matrix_for_n_one(self):
         _, out = run_script(self.FILE, inputs=["1"])
-        expected = 
-        """
+        expected = """
         1 1 1 1 1
         2 1 2 4 8
         3 1 3 9 27
@@ -846,8 +844,7 @@ class TestNumberMatrixDisplay:
 
     def test_matrix_for_n_two(self):
         _, out = run_script(self.FILE, inputs=["2"])
-        expected = 
-        """
+        expected = """
         2 2 2 2 2
         3 2 3 8 16
         4 2 4 18 54
@@ -858,8 +855,7 @@ class TestNumberMatrixDisplay:
 
     def test_matrix_for_n_three(self):
         _, out = run_script(self.FILE, inputs=["3"])
-        expected = 
-        """
+        expected = """
         3 3 3 3 3
         4 3 4 12 36
         5 3 5 27 135
@@ -870,8 +866,7 @@ class TestNumberMatrixDisplay:
 
     def test_matrix_for_n_four(self):
         _, out = run_script(self.FILE, inputs=["4"])
-        expected = 
-        """
+        expected = """
         4 4 4 4 4
         5 4 5 20 100
         6 4 6 36 216
@@ -882,8 +877,7 @@ class TestNumberMatrixDisplay:
 
     def test_matrix_for_n_five(self):
         _, out = run_script(self.FILE, inputs=["5"])
-        expected = 
-        """
+        expected = """
         5 5 5 5 5
         6 5 6 30 150
         7 5 7 49 343
