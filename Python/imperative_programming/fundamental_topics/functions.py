@@ -85,3 +85,6 @@ Berkshire
 
 print(type(address)) # Ouput: <class 'function'>
 
+# In-Built Functions Guide
+print(help('keywords')) # Shows all the keywords in Python.
+
