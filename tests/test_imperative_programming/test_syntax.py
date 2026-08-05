@@ -815,6 +815,89 @@ class TestNumPad:
 
 
 # ---------------------------------------------------------------------------
+# number_matrix_display.py
+# ---------------------------------------------------------------------------
+class TestNumberMatrixDisplay:
+    FILE = f"{FOLDER}/number_matrix_display.py"
+
+    def test_matrix_for_n_zero(self):
+        _, out = run_script(self.FILE, inputs=["0"])
+        expected = 
+        """
+        0 0 0 0 0
+        1 0 1 0 0
+        2 0 2 0 0   
+        3 0 3 0 0
+        4 0 4 0 0
+        """
+        assert expected in out
+
+    def test_matrix_for_n_one(self):
+        _, out = run_script(self.FILE, inputs=["1"])
+        expected = 
+        """
+        1 1 1 1 1
+        2 1 2 4 8
+        3 1 3 9 27
+        4 1 4 16 64
+        5 1 5 25 125
+        """
+        assert expected in out
+
+    def test_matrix_for_n_two(self):
+        _, out = run_script(self.FILE, inputs=["2"])
+        expected = 
+        """
+        2 2 2 2 2
+        3 2 3 8 16
+        4 2 4 18 54
+        5 2 5 32 128
+        6 2 6 50 250
+        """
+        assert expected in out
+
+    def test_matrix_for_n_three(self):
+        _, out = run_script(self.FILE, inputs=["3"])
+        expected = 
+        """
+        3 3 3 3 3
+        4 3 4 12 36
+        5 3 5 27 135
+        6 3 6 48 288
+        7 3 7 75 525
+        """
+        assert expected in out
+
+    def test_matrix_for_n_four(self):
+        _, out = run_script(self.FILE, inputs=["4"])
+        expected = 
+        """
+        4 4 4 4 4
+        5 4 5 20 100
+        6 4 6 36 216
+        7 4 7 56 392
+        8 4 8 80 640
+        """
+        assert expected in out
+
+    def test_matrix_for_n_five(self):
+        _, out = run_script(self.FILE, inputs=["5"])
+        expected = 
+        """
+        5 5 5 5 5
+        6 5 6 30 150
+        7 5 7 49 343
+        8 5 8 72 576
+        9 5 9 110 990
+        """
+        assert expected in out
+
+    def test_negative_input_is_rejected(self):
+        _, out = run_script(self.FILE, inputs=["-1"])
+        assert "Number must be a positive integer i.e. n >= 0" in out
+
+
+# ---------------------------------------------------------------------------
 # prime_numbers.py
 # ---------------------------------------------------------------------------
 class TestPrimeNumbers:
