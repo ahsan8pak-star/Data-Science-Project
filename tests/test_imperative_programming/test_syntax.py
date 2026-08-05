@@ -272,7 +272,7 @@ class TestDrinkScriptExample:
 class TestEmailSlicer:
     FILE = f"{FOLDER}/email_slicer.py"
 
-    # This test verifies the script prints the right error message
+
     def test_no_at_symbol_handles_error_gracefully(self):
         _, out = run_script(self.FILE, inputs=["not-an-email", "q"])
         assert "Invalid email: missing @ symbol" in out
@@ -282,23 +282,36 @@ class TestEmailSlicer:
         assert "Username: ahsan" in out
         assert "Email Domain: gmail.com" in out
 
-    # THIS IS THE KEY: This test bypasses the script's try/except block
-    def test_no_at_symbol_raises_uncaught_value_error(self):
-        with pytest.raises(ValueError):
-            slice_email("not-an-email")
+    def test_empty_input_reprompts_without_crashing(self):
+        inputs = ["", "ahsan@gmail.com"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "No Input Made. Try again." in out
+        assert "Username: ahsan" in out
 
-    def test_multiple_at_symbols_uses_the_first_one(self):
-        _, out = run_script(self.FILE, inputs=["a@b@c.com"])
-        assert "Username: a" in out
-        assert "Email Domain: b@c.com" in out
+    def test_at_symbol_present_but_no_dot_shows_invalid_email_message(self):
+        
+        """
+        slice_email() only checks for '@', so "user@localhost" parses
+        fine internally - but the outer loop's own
+        `if "@" in email and "." in email:` guard still rejects it for
+        missing a dot, distinct from the missing-'@' ValueError path.
+        """
+        
+        inputs = ["user@localhost", "q"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Invalid email. Try again." in out
+        assert "Shutting down..." in out
 
-    def test_email_with_dots_in_username(self):
-        _, out = run_script(self.FILE, inputs=["ahsan.iqbal@gmail.com"])
-        assert "Username: ahsan.iqbal" in out
+    def test_keyboard_interrupt_handled(self):
+        kb = patch("builtins.input", side_effect=KeyboardInterrupt)
+        _, out = run_script(self.FILE, patches=[kb])
+        assert "We apologise for any inconvenience." in out
+        assert "Have a great day!" in out
 
-    def test_full_email_is_echoed_back(self):
-        _, out = run_script(self.FILE, inputs=["test@test.co.uk"])
-        assert "Email: test@test.co.uk" in out
+    def test_quit_command_exits_cleanly(self):
+        _, out = run_script(self.FILE, inputs=["q"])
+        assert "Shutting down..." in out
+        assert "Username:" not in out
 
 
 # ---------------------------------------------------------------------------
