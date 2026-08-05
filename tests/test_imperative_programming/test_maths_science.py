@@ -884,6 +884,61 @@ class TestEuclideanDistanceCalculator:
         _, out = run_script(self.FILE, inputs=["2", "2", "", "4", "6"])
         assert "Euclidean Distance" not in out
 
+
+# ---------------------------------------------------------------------------
+# gradient_calculator.py
+# ---------------------------------------------------------------------------
+class TestGradientCalculator:
+    FILE = f"{FOLDER}/gradient_calculator.py"
+
+    def test_gradient_from_point_a_to_point_b(self):
+        _, out = run_script(self.FILE, inputs=["2", "1", "2", "4", "6", "y"])
+        expected = (6 - 2) / (4 - 1)
+        assert "Gradient from point a to point b" in out
+        assert f"Gradient from point a to point b: {expected:.2f}" in out
+
+    def test_gradient_from_point_b_to_point_a(self):
+        _, out = run_script(self.FILE, inputs=["2", "4", "6", "1", "2", "n"])
+        expected = (2 - 6) / (1 - 4)
+        assert "Gradient from point b to point a" in out
+        assert f"Gradient from point b to point a: {expected:.2f}" in out
+
+    def test_positive_gradient(self):
+        _, out = run_script(self.FILE, inputs=["2", "1", "5", "3", "7", "y"])
+        expected = (7 - 5) / (3 - 1)
+        assert "Gradient from point a to point b" in out
+        assert f"Gradient from point a to point b: {expected:.2f}" in out
+
+    def test_negative_gradient(self):
+        _, out = run_script(self.FILE, inputs=["2", "5", "9", "1", "3", "y"])
+        expected = (3 - 9) / (1 - 5)
+        assert "Gradient from point a to point b" in out
+        assert f"Gradient from point a to point b: {expected:.2f}" in out
+
+    @pytest.mark.parametrize(
+        "dimensions, inputs, expected",
+        [
+            (2, ["2", "1", "2", "4", "6", "y"], (6 - 2) / (4 - 1)),
+            (3, ["3", "1", "2", "3", "4", "5", "6", "y"], (5 - 2) / (4 - 1)),
+            (4, ["4", "1", "2", "3", "4", "5", "6", "7", "8", "y"], (5 - 2) / (4 - 1)),
+            (5, ["5", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "y"], (6 - 2) / (5 - 1)),
+        ],
+    )
+    def test_gradient_for_dimensions_2_to_5(self, dimensions, inputs, expected):
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert f"Gradient from point a to point b: {expected:.2f}" in out
+
+    def test_1d_dimension_rejected(self):
+        _, out = run_script(self.FILE, inputs=["1"])
+        assert "Gradient calculation requires at least 2 dimensions." in out
+
+    def test_zero_gradient_horizontal_line(self):
+        _, out = run_script(self.FILE, inputs=["2", "2", "4", "6", "4", "y"])
+        expected = (4 - 4) / (6 - 2)
+        assert "Gradient from point a to point b" in out
+        assert f"Gradient from point a to point b: {expected:.2f}" in out
+
+
 # ---------------------------------------------------------------------------
 # perimeter_of_triangle.py
 # ---------------------------------------------------------------------------
