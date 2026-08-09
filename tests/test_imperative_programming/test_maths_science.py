@@ -315,6 +315,172 @@ class TestArithmeticCalculator:
         # (2 + 3) = 5, then 5 * 4 = 20
         assert "| Result: 20 |" in out
 
+
+# ---------------------------------------------------------------------------
+# arithmetic_iteration.py
+# ---------------------------------------------------------------------------
+class TestArithmeticIteration:
+    FILE = f"{FOLDER}/arithmetic_iteration.py"
+
+    @pytest.fixture(autouse=True)
+    def _clean_arithmetic_calculator_cache(self):
+        
+        """
+        `from arithmetic_calculator import arithmetic` caches the sibling
+        module under sys.modules["arithmetic_calculator"]. Reset it before
+        and after each test so every test deterministically re-triggers
+        arithmetic_calculator.py's own (guardless) top-level execution,
+        rather than silently reusing whichever test happened to import it
+        first in the session.
+        """
+        
+        sys.modules.pop("arithmetic_calculator", None)
+        yield
+        sys.modules.pop("arithmetic_calculator", None)
+
+    # arithmetic_calculator.py has NO `if __name__ == "__main__":` guard,
+    # so merely importing it (arithmetic_iteration.py's very first line)
+    # runs its full interactive session. These 3 answers are the minimum
+    # needed to get past that phantom session without crashing:
+    # first_num="1" (non-blank, avoids its own exit()), op="" (blank,
+    # breaks its input loop immediately), round_choice="" (blank, falls
+    # into its "Invalid choice" branch with no further prompts).
+    _IMPORT_STUB = ["1", "", ""]
+
+    def test_importing_arithmetic_calculator_runs_its_own_script_first(self):
+        
+        """
+        Documents the root bug: arithmetic_calculator.py's own banner and
+        result box appear in the output BEFORE arithmetic_iteration.py's
+        own banner, proving the sibling import silently ran a full,
+        unrelated interactive session first.
+        """
+        
+        inputs = self._IMPORT_STUB + ["+", "1", "2", "1", "3"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "ARITHMETIC CALCULATOR" in out
+        assert "Invalid choice. Try again." in out
+        assert "| Result: 1 |" in out
+        assert out.find("ARITHMETIC CALCULATOR") < out.find("ARITHMETIC ITERATION")
+
+    def test_blank_phantom_first_num_prevents_any_code_from_loading(self):
+        
+        """
+        Worst-case consequence of the missing guard: if the phantom
+        first_num prompt (triggered purely by the import statement) gets
+        a blank answer, arithmetic_calculator.py calls its own exit()
+        mid-import. That SystemExit propagates straight out of
+        arithmetic_iteration.py's very first line, before any of its own
+        functions or __main__ block are ever defined.
+        """
+        
+        mod, out = run_script(self.FILE, inputs=[""])
+        assert "No input provided. Exiting." in out
+        assert "ARITHMETIC ITERATION" not in out
+        assert not hasattr(mod, "generate_sequence")
+
+    def test_addition_full_happy_path(self):
+        inputs = self._IMPORT_STUB + ["+", "1", "2", "1", "3"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Coefficient Sequence ('n' terms) of 1 iterations: [3.0]" in out
+        assert "Main Number Sequence List (with starting number: 2.0): [5.0]" in out
+        assert "Final Result: 5.0" in out
+
+    def test_subtraction_operator(self):
+        inputs = self._IMPORT_STUB + ["-", "1", "10", "1", "4"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Final Result: 6.0" in out
+
+    def test_multiplication_operator(self):
+        inputs = self._IMPORT_STUB + ["*", "1", "3", "1", "4"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Final Result: 12.0" in out
+
+    def test_division_operator(self):
+        inputs = self._IMPORT_STUB + ["/", "1", "10", "1", "2"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Final Result: 5.0" in out
+
+    def test_floor_division_operator(self):
+        inputs = self._IMPORT_STUB + ["//", "1", "17", "1", "5"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Final Result: 3.0" in out
+
+    def test_modulus_operator(self):
+        inputs = self._IMPORT_STUB + ["%", "1", "17", "1", "5"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Final Result: 2.0" in out
+
+    def test_power_operator(self):
+        inputs = self._IMPORT_STUB + ["**", "1", "2", "1", "3"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Final Result: 8.0" in out
+
+    def test_division_by_zero_breaks_the_iteration_early(self):
+        inputs = self._IMPORT_STUB + ["/", "1", "10", "1", "0"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Error: Undefined. You can't divide anything by 0." in out
+        assert "Final Result: Error: Undefined. You can't divide anything by 0." in out
+
+    def test_four_iterations_with_a_quadratic_sequence(self):
+        
+        """
+        Exercises the "up to 4 iterations" case with a 3-term (quadratic)
+        polynomial: coefficients 1, 0, 0 -> n^2, giving sequence values
+        1, 4, 9, 16 for n = 1..4, then a running "+" total across them.
+        """
+        
+        inputs = self._IMPORT_STUB + ["+", "4", "0", "3", "1", "0", "0"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Coefficient Sequence ('n' terms) of 4 iterations: [1.0, 4.0, 9.0, 16.0]" in out
+        assert "Main Number Sequence List (with starting number: 0.0): [1.0, 5.0, 14.0, 30.0]" in out
+        assert "Final Result: 30.0" in out
+
+    def test_missing_input_exits_before_any_conversion(self):
+        inputs = self._IMPORT_STUB + ["", "2", "5", "2"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Missing input." in out
+        assert "<<< Exiting. >>>" in out
+
+    def test_non_positive_iterations_rejected(self):
+        inputs = self._IMPORT_STUB + ["+", "0", "5", "2"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Iterations and terms must be positive integers." in out
+
+    def test_non_positive_num_terms_rejected(self):
+        inputs = self._IMPORT_STUB + ["+", "2", "5", "-1"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Iterations and terms must be positive integers." in out
+
+    def test_non_numeric_first_number_raises_caught_value_error(self):
+        inputs = self._IMPORT_STUB + ["+", "2", "not-a-number", "2"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Invalid input. Please enter numeric values where required." in out
+
+    def test_generate_sequence_function_directly(self):
+        
+        """
+        Uses the fast "missing input" exit path just to load the module
+        (functions are defined before the __main__ block, so they survive
+        even though the script itself exits early), then calls
+        generate_sequence() directly with its own patched input.
+        """
+        
+        stub_inputs = self._IMPORT_STUB + ["", "", "", ""]
+        mod, _ = run_script(self.FILE, inputs=stub_inputs)
+        with patch("builtins.input", side_effect=["2", "3"]):
+            result = mod.generate_sequence(iterations=2, terms=2)
+        assert result == [5.0, 7.0]  # 2n + 3 for n = 1, 2
+
+    def test_arithmetic_iteration_function_directly_stops_on_error(self):
+        stub_inputs = self._IMPORT_STUB + ["", "", "", ""]
+        mod, _ = run_script(self.FILE, inputs=stub_inputs)
+        final, steps = mod.arithmetic_iteration(10, "/", [2, 0, 5])
+        assert final == "Error: Undefined. You can't divide anything by 0."
+        assert steps == [5.0, "Error: Undefined. You can't divide anything by 0."]
+        assert len(steps) == 2  # confirms the third value (5) was never reached
+
+
 # ---------------------------------------------------------------------------
 # banking_program.py
 # ---------------------------------------------------------------------------
