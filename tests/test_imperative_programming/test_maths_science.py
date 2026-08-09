@@ -14,6 +14,7 @@ import sys
 
 from unittest.mock import patch
 from tests.test_imperative_programming.conftest import run_script
+from python.imperative_programming.maths_science_projects import arithmetic_iteration # imported for direct function testing
 
 FOLDER = "imperative_programming/maths_science_projects"
 
@@ -400,33 +401,30 @@ class TestArithmeticIteration:
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Invalid input. Please enter numeric values where required." in out
 
-    def test_generate_sequence_function_directly(self):
+def test_generate_sequence_function_directly(self):
 
         """
-        Uses the fast "missing input" exit path just to load the module
-        (functions are defined before the __main__ block, so they survive
-        even though the script itself exits early), then calls
-        generate_sequence() directly with its own patched input.
+        Directly imports the module (now completely safe thanks to the 
+        __main__ guard) and tests generate_sequence() with patched inputs.
         """
 
-        # Trigger the early exit to retrieve the module
-        stub_inputs = ["", "", "", ""] 
-        mod, _ = run_script(self.FILE, inputs=stub_inputs)
-        
         with patch("builtins.input", side_effect=["2", "3"]):
-            result = mod.generate_sequence(iterations=2, terms=2)
+            result = arithmetic_iteration.generate_sequence(iterations=2, terms=2)
             
         assert result == [5.0, 7.0]  # 2n + 3 for n = 1, 2
 
-    def test_arithmetic_iteration_function_directly_stops_on_error(self):
-        stub_inputs = ["", "", "", ""]
-        mod, _ = run_script(self.FILE, inputs=stub_inputs)
+def test_arithmetic_iteration_function_directly_stops_on_error(self):
+
+    """
+    Directly imports the module and tests arithmetic_iteration() 
+    behavior when encountering a division-by-zero error.
+    """
+
+    final, steps = arithmetic_iteration.arithmetic_iteration(10, "/", [2, 0, 5])
         
-        final, steps = mod.arithmetic_iteration(10, "/", [2, 0, 5])
-        
-        assert final == "Error: Undefined. You can't divide anything by 0."
-        assert steps == [5.0, "Error: Undefined. You can't divide anything by 0."]
-        assert len(steps) == 2  # confirms the third value (5) was never reached
+    assert final == "Error: Undefined. You can't divide anything by 0."
+    assert steps == [5.0, "Error: Undefined. You can't divide anything by 0."]
+    assert len(steps) == 2  # confirms the third value (5) was never reached
 
 
 # ---------------------------------------------------------------------------
