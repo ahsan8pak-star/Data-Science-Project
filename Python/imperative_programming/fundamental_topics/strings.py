@@ -1,6 +1,6 @@
 Name = " AhSaN "
 
-# print(help(str)) # Entire list of strings methods
+print(help(str)) # Entire list of strings methods
 
 print(Name.lower()) # all letters in lower case 
 # Expected Output: " ahsan "
@@ -59,6 +59,26 @@ print(Name.split("h")) # splits the string at each occurrence of "h"
 # Expected Output: [' A', 'SaN ']
 # Actual Output:   [' A', 'SaN ']
 # Reason: The string is sliced at "h", preserving the surrounding spaces inside the resulting list elements.
+
+print(Name.splitlines()) # splits the string at line breaks
+# Expected Output: [' AhSaN ']
+# Actual Output:   [' AhSaN ']
+# Reason: The string contains no newline characters, so it remains a single-element list.
+
+print(Name.join(["Hello", ", Welcome!"])) # joins the list elements with the string as a separator 
+# Expected Output: "Hello AhSaN , Welcome!"
+# Actual Output:   "Hello AhSaN , Welcome!"
+# Reason: The string " AhSaN " is used as a separator between the list elements "Hello" and "Welcome!", resulting in the concatenated output.
+
+print(Name.expandtabs(4)) # expands tab characters to spaces, assuming a tab stop of 4
+# Expected Output: " AhSaN "
+# Actual Output:   " AhSaN "
+# Reason: The string contains no tab characters, so it remains unchanged.
+
+print(Name.count("A")) # counts the number of occurrences of uppercase "A"
+# Expected Output: 1
+# Actual Output:   1
+# Reason: There is exactly one uppercase "A" present in the string.
 
 print(Name.isalpha()) # checks if all characters are alphabetic 
 # Expected Output: True
@@ -177,7 +197,6 @@ name = input("Name: ") # Allows the user to type/write down their name
 print("Hey there, " + name)
 
 # Escape sequence
-
 
 print("My name is " + Name + ".\nHere's what each letter looks like:")  # line break
 print('Name\tLetters\tIndex') # Print header
