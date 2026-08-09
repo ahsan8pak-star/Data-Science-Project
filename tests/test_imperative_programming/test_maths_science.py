@@ -122,6 +122,7 @@ class TestAreaOfCircle:
         returns a str. Exercised here by making input() itself raise
         TypeError, purely to confirm the except clause's own message.
         """
+                
         mod, _ = run_script(self.FILE)
         with patch("builtins.input", side_effect=TypeError):
             mod.area_of_circle()
