@@ -328,7 +328,7 @@ class TestArithmeticIteration:
         inputs = ["+", "1", "2", "1", "3"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Coefficient Sequence ('n' terms) of 1 iterations: [3.0]" in out
-        assert "Main Number Sequence List (with starting number: 2.0): [5.0]" in out
+        assert "Main Number Sequence List (with the starting number: 2.0): [5.0]" in out
         assert "Final Result: 5.0" in out
 
     def test_subtraction_operator(self):
@@ -374,11 +374,11 @@ class TestArithmeticIteration:
         polynomial: coefficients 1, 0, 0 -> n^2, giving sequence values
         1, 4, 9, 16 for n = 1..4, then a running "+" total across them.
         """
-        
+
         inputs = ["+", "4", "0", "3", "1", "0", "0"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Coefficient Sequence ('n' terms) of 4 iterations: [1.0, 4.0, 9.0, 16.0]" in out
-        assert "Main Number Sequence List (with starting number: 0.0): [1.0, 5.0, 14.0, 30.0]" in out
+        assert "Main Number Sequence List (with the starting number: 0.0): [1.0, 5.0, 14.0, 30.0]" in out
         assert "Final Result: 30.0" in out
 
     def test_missing_input_exits_before_any_conversion(self):
@@ -402,30 +402,30 @@ class TestArithmeticIteration:
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Invalid input. Please enter numeric values where required." in out
 
-def test_generate_sequence_function_directly(self):
+    def test_generate_sequence_function_directly(self):
 
         """
         Directly imports the module (now completely safe thanks to the 
         __main__ guard) and tests generate_sequence() with patched inputs.
+     
         """
-
         with patch("builtins.input", side_effect=["2", "3"]):
             result = arithmetic_iteration.generate_sequence(iterations=2, terms=2)
             
         assert result == [5.0, 7.0]  # 2n + 3 for n = 1, 2
 
-def test_arithmetic_iteration_function_directly_stops_on_error(self):
+    def test_arithmetic_iteration_function_directly_stops_on_error(self):
 
-    """
-    Directly imports the module and tests arithmetic_iteration() 
-    behavior when encountering a division-by-zero error.
-    """
+        """
+        Directly imports the module and tests arithmetic_iteration() 
+        behavior when encountering a division-by-zero error.
+        """
 
-    final, steps = arithmetic_iteration.arithmetic_iteration(10, "/", [2, 0, 5])
+        final, steps = arithmetic_iteration.arithmetic_iteration(10, "/", [2, 0, 5])
         
-    assert final == "Error: Undefined. You can't divide anything by 0."
-    assert steps == [5.0, "Error: Undefined. You can't divide anything by 0."]
-    assert len(steps) == 2  # confirms the third value (5) was never reached
+        assert final == "Error: Undefined. You can't divide anything by 0."
+        assert steps == [5.0, "Error: Undefined. You can't divide anything by 0."]
+        assert len(steps) == 2  # confirms the third value (5) was never reached
 
 
 # ---------------------------------------------------------------------------
