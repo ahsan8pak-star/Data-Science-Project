@@ -1,6 +1,6 @@
 Name = " AhSaN "
 
-print(help(str)) # Entire list of strings methods
+# print(help(str)) # Entire list of strings methods
 
 print(Name.lower()) # all letters in lower case 
 # Expected Output: " ahsan "
@@ -175,4 +175,20 @@ print(Name.isidentifier()) # checks if the string is a valid identifier (Duplica
 
 name = input("Name: ") # Allows the user to type/write down their name
 print("Hey there, " + name)
+
+# Escape sequence
+
+
+print("My name is " + Name + ".\nHere's what each letter looks like:")  # line break
+print('Name\tLetters\tIndex') # Print header
+print(f'{Name}\t{Name[1]}\t0') # Name[1] -> "A"
+print(f"{Name}\t{Name[2]}\t1") # Name[2] -> "h"
+print(f"{Name}\t{Name[3]}\t2") # Name[3] -> "S"
+print(f"{Name}\t{Name[4]}\t3") # Name[4] -> "a"
+print(f"{Name}\t{Name[5]}\t4") # Name[5] -> "N"
+
+# Reason : Name[0] = " " (space) and Name[6] = " " (space) are not printed because they are whitespace characters.
+
+print("This is a back slash  symbol (\\)")  # To write a back slash
+print("In every programming language it starts with \"Hello, World!\"")  # To write double quotes
 
