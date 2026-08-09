@@ -1,4 +1,9 @@
-from arithmetic_calculator import arithmetic
+# Importing the arithmetic function from the arithmetic_calculator module.
+try:
+    from python.imperative_programming.maths_science_projects.arithmetic_calculator import arithmetic
+
+except ImportError:
+    from arithmetic_calculator import arithmetic
 
 def generate_sequence(iterations, terms):
     # Generates a polynomial sequence based on user-provided coefficients.
@@ -90,7 +95,7 @@ if __name__ == "__main__":
         print(f"\nCoefficient Sequence ('n' terms) of {iterations} iterations: {sequence}")
         
         final_result, all_steps = arithmetic_iteration(first_num, operation, sequence)
-        print(f"\nMain Number Sequence List (with starting number: {first_num}): {all_steps}")
+        print(f"\nMain Number Sequence List (with the starting number: {first_num}): {all_steps}")
 
         result = f"Final Result: {final_result}"
         width = len(result) + 4  # Set standard terminal menu width
