@@ -324,6 +324,29 @@ class TestArithmeticCalculator:
 class TestArithmeticExpressions:
     FILE = f"{FOLDER}/arithmetic_expressions.py"
 
+    def test_fallback_import_path_used_when_qualified_import_unavailable(self):
+        
+        """
+        Covers the except ImportError: branch: forces the fully-qualified
+        python.imperative_programming... import to fail so the bare
+        `from arithmetic_calculator import arithmetic` fallback actually
+        executes, mirroring the same guard added to arithmetic_iteration.py.
+        """
+        
+        import builtins
+        real_import = builtins.__import__
+
+        def fake_import(name, *args, **kwargs):
+            if name.startswith("python.imperative_programming"):
+                raise ImportError("forced for test")
+            return real_import(name, *args, **kwargs)
+
+        with patch("builtins.__import__", side_effect=fake_import):
+            mod, out = run_script(self.FILE, inputs=["8", "6"])
+
+        assert "8 + 6 = 14" in out
+        assert mod.arithmetic(2, "+", 3) == 5
+
     def test_integer_inputs_full_output(self):
         inputs = ["8", "6"]
         _, out = run_script(self.FILE, inputs=inputs)
