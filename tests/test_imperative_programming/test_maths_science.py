@@ -319,6 +319,155 @@ class TestArithmeticCalculator:
 
 
 # ---------------------------------------------------------------------------
+# arithmetic_expressions.py
+# ---------------------------------------------------------------------------
+class TestArithmeticExpressions:
+    FILE = f"{FOLDER}/arithmetic_expressions.py"
+
+    def test_integer_inputs_full_output(self):
+        inputs = ["8", "6"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "8 + 6 = 14" in out
+        assert "8 - 6 = 2" in out
+        assert "8 * 6 = 48" in out
+        assert "8 / 6 = 1.33" in out
+        assert "8 % 6 = 2" in out
+        assert "8 // 6 = 1" in out
+        assert "8 ** 6 = 262144" in out
+
+    def test_float_inputs_full_output(self):
+        
+        """
+        Corrects an earlier illustrative example: format_result()'s
+        non-"/" branch also formats any non-whole float to 2 decimal
+        places (not a bare str()), so 8.5 + 2 prints as "10.50" and
+        8.5 % 2 prints as "0.50", not "10.5"/"0.5". Whole-number floats
+        (17.0, 4.0) still print without the trailing zero.
+        """
+        
+        inputs = ["8.5", "2"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "8.5 + 2 = 10.50" in out
+        assert "8.5 - 2 = 6.50" in out
+        assert "8.5 * 2 = 17" in out
+        assert "8.5 / 2 = 4.25" in out
+        assert "8.5 % 2 = 0.50" in out
+        assert "8.5 // 2 = 4" in out
+        assert "8.5 ** 2 = 72.25" in out
+
+    def test_negative_number_inputs(self):
+        inputs = ["-8", "6"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "-8 + 6 = -2" in out
+        assert "-8 - 6 = -14" in out
+        assert "-8 * 6 = -48" in out
+        assert "-8 / 6 = -1.33" in out
+        assert "-8 % 6 = 4" in out  # Python modulo takes the divisor's sign
+        assert "-8 // 6 = -2" in out  # floors toward negative infinity
+        assert "-8 ** 6 = 262144" in out  # even exponent -> positive result
+
+    def test_zero_denominator_crashes_on_the_division_line_specifically(self):
+        
+        """
+        Genuine bug: format_result()'s "/" branch does f"{result:.2f}"
+        unconditionally, without checking whether arithmetic() actually
+        returned the "Error: Undefined..." string instead of a number.
+        Formatting a str with the ':.2f' spec raises ValueError, which
+        propagates straight out of calculate()'s own try block and is
+        swallowed by its own `except ValueError:` - a misleading message
+        for what's actually a zero-division case, not bad input. Because
+        "/" comes before "%" and "//" in the operators list, this also
+        means the loop dies right there: "%" and "//" (which WOULD have
+        handled a zero denominator safely, via the plain str(result)
+        fallback) never get a chance to print.
+        """
+        
+        inputs = ["8", "0"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "8 + 0 = 8" in out
+        assert "8 - 0 = 8" in out
+        assert "8 * 0 = 0" in out
+        assert "Invalid input. Please enter numeric values only." in out
+        # confirms the loop died before reaching any of these
+        assert "8 / 0" not in out
+        assert "8 % 0" not in out
+        assert "8 // 0" not in out
+        assert "8 ** 0" not in out
+
+    def test_get_number_parses_int_when_possible(self):
+        mod, _ = run_script(self.FILE, inputs=["8", "6"])
+        with patch("builtins.input", return_value="10"):
+            result = mod.get_number("Enter: ")
+        assert result == 10
+        assert isinstance(result, int)
+
+    def test_get_number_falls_back_to_float(self):
+        mod, _ = run_script(self.FILE, inputs=["8", "6"])
+        with patch("builtins.input", return_value="3.5"):
+            result = mod.get_number("Enter: ")
+        assert result == 3.5
+        assert isinstance(result, float)
+
+    def test_get_number_raises_for_non_numeric_text(self):
+        mod, _ = run_script(self.FILE, inputs=["8", "6"])
+        with patch("builtins.input", return_value="abc"):
+            with pytest.raises(ValueError):
+                mod.get_number("Enter: ")
+
+    def test_format_result_strips_trailing_zero_for_whole_number_floats(self):
+        mod, _ = run_script(self.FILE, inputs=["8", "6"])
+        assert mod.format_result("*", 17.0) == "17"
+
+    def test_format_result_keeps_two_decimals_for_non_whole_floats(self):
+        mod, _ = run_script(self.FILE, inputs=["8", "6"])
+        assert mod.format_result("%", 0.5) == "0.50"
+
+    def test_format_result_division_always_shows_two_decimals(self):
+        mod, _ = run_script(self.FILE, inputs=["8", "6"])
+        assert mod.format_result("/", 4) == "4.00"
+
+    def test_format_result_plain_int_passthrough(self):
+        mod, _ = run_script(self.FILE, inputs=["8", "6"])
+        assert mod.format_result("+", 14) == "14"
+
+    def test_modulo_and_floor_division_by_zero_do_not_crash_in_isolation(self):
+        
+        """
+        Confirms format_result() itself handles the zero-division error
+        string safely for "%" and "//" (the plain str(result) fallback
+        branch) - it's specifically "/" sitting before them in the
+        operators list that causes the full-script crash above, not a
+        flaw in these two branches themselves.
+        """
+        
+        mod, _ = run_script(self.FILE, inputs=["8", "6"])
+        error_string = "Error: Undefined. You can't divide anything by 0."
+        assert mod.format_result("%", error_string) == error_string
+        assert mod.format_result("//", error_string) == error_string
+
+    def test_non_numeric_first_number_raises_message(self):
+        inputs = ["abc", "6"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Invalid input. Please enter numeric values only." in out
+
+    def test_non_numeric_second_number_raises_message(self):
+        inputs = ["8", "abc"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Invalid input. Please enter numeric values only." in out
+
+    def test_blank_first_number_raises_message(self):
+        inputs = ["", "6"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Invalid input. Please enter numeric values only." in out
+
+    def test_menu_banner_and_results_header_shown(self):
+        inputs = ["8", "6"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "ARITHMETIC EXPERSSIONS" in out  # matches the source's own typo verbatim
+        assert "RESULTS" in out
+
+
+# ---------------------------------------------------------------------------
 # arithmetic_iteration.py
 # ---------------------------------------------------------------------------
 class TestArithmeticIteration:
