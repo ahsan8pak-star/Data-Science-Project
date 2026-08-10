@@ -117,6 +117,7 @@ All fundamental python files have been made into their respective folders from e
 | Area of Circle | **Mathematical functions, including user input** |
 | Area of Triangle | **Basic mathematical functions, with a fundamental user input function** |
 | Arithmetic Calculator | **Basic switch cases with extensive conditional loops and f-strings with the inclusion of fundamental mathematical unit formatting** |
+| Arithmetic Expressions | **Imported created math module i.e. [ *Arithmetic Calculator* ], f-strings and TUI displays based on [ *Arithmetic Calculator* ]** |
 | Arithmetic Iteration | **Imported created modules, f-strings with the inclusion of fundamental mathematical formulas and TUI displays** |
 | Banking Program | **Applied arithmetic formulas under fintech, error catching, def functions and match cases with TUI displays** |
 | Card Validator Program | **Applied for loops and list indexing with fundamental variable assignments** |
