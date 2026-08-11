@@ -2,6 +2,7 @@
 
 # [START : END : STEP] -> Ordered, Changable and can include Duplicate items.
 
+
 names = ["Ahsan", "Yahya", "Matthew", "Ahnaf", "Hamza"]
 # names = [0, 1, 2, 3, 4] -> [1st, 2nd, 3rd, 4th, 5th]
 # names = [-5, -4, -3, -2, -1] -> [1st, 2nd, 3rd, 4th, 5th]
@@ -18,6 +19,7 @@ print(names[-3]) # print(names[2]) -> Matthew
 print(names[-4]) # print(names[1]) -> Yahya
 print(names[-5]) # print(names[0]) -> Ahsan
 
+"""List Slicing"""
 print(names[:]) # [Ahsan, Yahya, Matthew, Ahnaf, Hamza] 
 
 print(names[0:]) # [Ahsan, Yahya, Matthew, Ahnaf, Hamza] 
@@ -47,6 +49,21 @@ print(names[:-2]) # ['Ahsan', 'Yahya', 'Matthew']
 print(names[:-1]) # ['Ahsan', 'Yahya', 'Matthew', 'Ahnaf']
 print(names[:-0]) # [] 
 
+"""List Modifying"""
+names[0] = "Aiman"
+names[1] = "Maryam"
+names[2] = "Akshaya"
+names[3] = "Ayesha"
+names[4] = "Gavishca"
+print(names)
+
+# In Negative Index
+names[-5] = "Alpha"
+names[-4] = "Beta"
+names[-3] = "Charlie"
+names[-2] = "Delta"
+names[-1] = "Enigma"
+print(names)
 
 """List Methods"""
 
@@ -74,6 +91,50 @@ print(numbers.count(1)) # 1
 number = numbers.copy()
 print(number) # [5, 2, 1, 7, 4]
 # This when we can do whatever we do that new list (number)
+
+""" Unpacking Lists """
+
+# Variables on the left, the list on the right
+first_name, second_name, *rest, last_name = names
+
+print(first_name)
+print(second_name)
+print(rest)
+print(last_name)
+
+"""Using 'del' to remove lists"""
+
+del numbers[0]
+print(numbers) # [2, 1, 7, 4, 8] -> 5 is removed at index 0
+
+del numbers[2]
+print(numbers) # [5, 2, 7, 4, 8] -> 1 is removed at index 2
+
+del numbers[4]
+print(numbers) # [5, 2, 1, 7, 8] -> 4 is removed at index 4
+
+# del numbers
+# print(numbers) # NameError: name 'numbers' is not defined
+# This means that this entire list is deleted and can't be located
+
+"""Join Lists"""
+
+# syntax
+# list3 = list1 + list2
+
+names_and_numbers = names + numbers
+print(names_and_numbers) 
+# Output: ['Ahsan', 'Yahya', 'Matthew', 'Ahnaf', 'Hamza', 1, 2, 3, 4, 5]
+
+# Using extend() syntax:
+# list1 = ['item1', 'item2']
+# list2 = ['item3', 'item4', 'item5']
+# list1.extend(list2) 
+# Output: ['item1', 'item2', 'item3', 'item4', 'item5']
+
+names.extend(numbers)
+print('Names and Numbers:', names) 
+# Output: Names and Numbers: ['Ahsan', 'Yahya', 'Matthew', 'Ahnaf', 'Hamza', 1, 2, 3, 4, 5]
 
 
 """ Duplicates solution """
