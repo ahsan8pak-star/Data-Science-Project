@@ -48,3 +48,56 @@ print(x) # 1
 print(y) # 2
 print(z) # 3
 
+""" Slicing Tuples """
+
+coordinates[:]
+
+print(coordinates[0:])  
+print(coordinates[1:]) 
+print(coordinates[2:]) 
+
+print(coordinates[-3:]) 
+print(coordinates[-2:]) 
+print(coordinates[-1:]) 
+
+print(coordinates[:0])  
+print(coordinates[:1]) 
+print(coordinates[:2]) 
+
+print(coordinates[:-3]) 
+print(coordinates[:-2]) 
+print(coordinates[:-1]) 
+print(coordinates[:-0]) 
+
+""" Tuples -> Lists """
+
+numbers = list(numbers)
+numbers.append(4)
+print(numbers)
+
+# In Reverse
+
+double_digits = [11, 22, 33]
+double_digits = tuple(double_digits)
+print(double_digits)
+
+
+""" Joining Tuples """
+
+# tpl1 = ('item1', 'item2', 'item3')
+# tpl2 = ('item4', 'item5', 'item6')
+# tpl3 = tpl1 + tpl2
+
+
+# Joining the two tuples together
+combined_tuples = coordinates + double_digits
+
+print(combined_tuples)
+# Output: (1, 2, 3, 11, 22, 33)
+
+""" Deleting Tuples """
+
+random_tuple = (1, "test", True, 9.8)
+
+del random_tuple # printing this will result in a NameError due to inaccessability of its "deleted" / "overwritten" memory address
+
