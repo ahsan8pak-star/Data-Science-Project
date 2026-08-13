@@ -132,6 +132,8 @@ All fundamental python files have been made into their respective folders from e
 | Simple Debt Calculator | **Mathematical formulas in relation to its interest calculator, including fundamental conditional loops** |
 | Simple Interest Rate | **Mathematical formulas, including fundamental conditional loops, try-except error catching and f-strings** |
 | Sine Rule | **Advanced Mathematical functions** |
+| Square Number Times Tables | **Mathematical iteration using a single loop, module imports, and formatted f-strings** |
+| Times Tables | **Mathematical iteration using nested loops, advanced user input, and formatted f-strings** |
 | Triangle Calculator | **Functions combining 2 basic and 2 advanced files with advanced user input** |
 | Volume | **Basic arithmetic functions with 3 values** |
 
