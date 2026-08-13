@@ -310,18 +310,15 @@ Data-Science-Project/
 ├── .vscode/                                # IDE local runtime environment configuration
 │   ├── launch.json                         # Local debugger configurations and environment execution paths
 │   ├── settings.json                       # Workspace settings, path definitions, auto-formatting, and linting rules     
-│   └── tasks.json                          # Automated build tasks for compiling C++ via g++ and executing psql scripts
-│
-├── C++/                                    # High-performance source engine layer
-│   └── Sandbox/                            # C++ core logic workspace housing accelerated execution scripts (e.g., aim.cc)
+│   └── tasks.json                          # Automated build tasks for executing psql scripts
 │
 ├── Data/                                   # Storage layer for project datasets and tracking assets
 │   └── Sandbox/                            # Storage folder containing raw pipeline source data (e.g., aim.csv)
 │
 ├── Java-To-Python-Conversion/              # Migration directory translating legacy Java university coursework into Python
 │   └── CS1IP/                              # Year 1 university module repository
-│       ├── Coursework 1/                   # Assignments from the first half of semester 1 (Sep - Oct)
-│       └── Coursework 2/                   # Assignments from the second half of semester 1 (Nov - Dec)
+│       ├── Coursework 1/                   # Assignments from the First (1st) half of Semester 1 (Sep - Oct)
+│       └── Coursework 2/                   # Assignments from the Second (2nd) half of Semester 1 (Nov - Dec)
 │
 ├── PostgreSQL/                             # Analytical relational database management scripts
 │   └── Sandbox/                            # Database workspace housing schemas, migrations, and query scripts (e.g., aim.sql)

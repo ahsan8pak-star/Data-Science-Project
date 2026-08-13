@@ -18,35 +18,6 @@
             "console": "integratedTerminal",
             "cwd": "${fileDirname}",
             "justMyCode": false
-        },
-        {
-            "name": "C++: Build and Debug (g++)",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "miDebuggerPath": "/usr/bin/gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true}
-            ],
-            "preLaunchTask": "C/C++: g++ build active file"
-        },
-        {
-            "name": "C++: Build and Debug (lldb)",
-            "type": "lldb",
-            "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": [],
-            "cwd": "${fileDirname}",
-            "preLaunchTask": "C/C++: g++ build active file"
         }
     ]
 }
