@@ -1559,6 +1559,183 @@ class TestSineRule:
 
 
 # ---------------------------------------------------------------------------
+# square_number_times_tables.py
+# ---------------------------------------------------------------------------
+class TestSquareNumberTimesTables:
+    FILE = f"{FOLDER}/square_number_times_tables.py"
+
+    @pytest.fixture(autouse=True)
+    def _clean_times_tables_cache(self):
+        
+        """
+        `from times_tables import times_tables` caches the sibling module
+        under sys.modules["times_tables"]. Reset it before/after each
+        test, mirroring the same precaution taken for other sibling
+        imports elsewhere in this file (e.g. cosine_rule/sine_rule via
+        triangle_calculator.py, euclidean_distance_calculator.py via
+        gradient_calculator.py).
+        """
+        
+        sys.modules.pop("times_tables", None)
+        yield
+        sys.modules.pop("times_tables", None)
+
+    def test_limit_of_zero_prints_only_the_zero_row(self):
+        _, out = run_script(self.FILE, inputs=["0"])
+        assert "0 x 0 = 0" in out
+        assert "1 x 1 = 1" not in out
+
+    def test_limit_of_five_prints_all_square_rows_inclusive(self):
+        _, out = run_script(self.FILE, inputs=["5"])
+        for n in range(6):  # range(limit + 1) is inclusive of the limit itself
+            assert f"{n} x {n} = {n * n}" in out
+
+    def test_squares_are_correct_not_just_present(self):
+        
+        """
+        Distinct from the presence check above: confirms the printed
+        values are genuine squares (i x i), not some other formula that
+        happens to also produce matching lines for small numbers.
+        """
+        
+        _, out = run_script(self.FILE, inputs=["12"])
+        assert "12 x 12 = 144" in out
+        assert "7 x 7 = 49" in out
+
+    def test_header_line_is_shown(self):
+        _, out = run_script(self.FILE, inputs=["3"])
+        assert "Square Times Tables:" in out
+
+    def test_non_numeric_input_raises_uncaught_value_error(self):
+        
+        """
+        No try/except around int(input(...)) in this file, so invalid
+        text should propagate as a real ValueError, same category as
+        distance_calculator.py and grade_boundary_calculator.py.
+        """
+        
+        with pytest.raises(ValueError):
+            run_script(self.FILE, inputs=["not-a-number"])
+
+    def test_negative_limit_produces_no_output_rows(self):
+        
+        """
+        range(0, limit + 1) is empty when limit is negative (e.g.
+        range(0, -4) for limit=-5), so the loop body never executes -
+        only the header line prints.
+        """
+        
+        _, out = run_script(self.FILE, inputs=["-5"])
+        assert "Square Times Tables:" in out
+        assert "x" not in out.split("Square Times Tables:")[1]
+
+    def test_square_number_function_directly(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["2"])
+        with patch("builtins.input", return_value="3"):
+            mod.square_number()
+        captured = capsys.readouterr()
+        assert "3 x 3 = 9" in captured.out
+
+    def test_times_tables_sibling_import_resolves_correctly(self):
+        
+        """
+        Confirms the sibling import itself works (times_tables is
+        importable from the same folder) even though square_number()
+        never actually calls the imported times_tables() function - it's
+        an unused import in this file, distinct from
+        gradient_calculator.py's genuine use of its sibling import.
+        """
+        
+        mod, _ = run_script(self.FILE, inputs=["1"])
+        assert mod.times_tables.__name__ == "times_tables"
+
+
+# ---------------------------------------------------------------------------
+# times_tables.py
+# ---------------------------------------------------------------------------
+class TestTimesTables:
+    FILE = f"{FOLDER}/times_tables.py"
+
+    def test_single_column_single_table(self):
+        inputs = ["1", "1"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "0 Times Table(s)" in out
+        assert "1 Times Table(s)" in out
+        assert "0 x 0 = 0" in out
+        assert "0 x 1 = 0" in out
+        assert "1 x 0 = 0" in out
+        assert "1 x 1 = 1" in out
+
+    def test_standard_twelve_by_twelve_grid(self):
+        inputs = ["12", "12"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "12 Times Table(s)" in out
+        assert "12 x 12 = 144" in out
+        assert "7 x 8 = 56" in out
+
+    def test_zero_columns_and_zero_tables_prints_only_the_zero_row(self):
+        inputs = ["0", "0"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "0 Times Table(s)" in out
+        assert "0 x 0 = 0" in out
+        assert "1 Times Table(s)" not in out
+
+    def test_asymmetric_columns_and_tables(self):
+        
+        """
+        Confirms columns and tables are independently configurable -
+        the outer loop's range isn't silently reused for the inner one.
+        """
+        
+        inputs = ["2", "4"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "4 Times Table(s)" in out
+        assert "4 x 2 = 8" in out
+        assert "4 x 3" not in out  # columns capped at 2, so j never reaches 3
+
+    def test_non_numeric_columns_raises_uncaught_value_error(self):
+        with pytest.raises(ValueError):
+            run_script(self.FILE, inputs=["not-a-number", "5"])
+
+    def test_non_numeric_tables_raises_uncaught_value_error(self):
+        with pytest.raises(ValueError):
+            run_script(self.FILE, inputs=["5", "not-a-number"])
+
+    def test_negative_tables_produces_no_output_rows(self):
+        
+        """
+        range(0, tables + 1) is empty when tables is negative, so the
+        outer loop body (and therefore every inner print) never runs.
+        """
+        
+        inputs = ["5", "-3"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Times Table(s)" not in out
+
+    def test_negative_columns_prints_table_headers_with_no_multiplication_rows(self):
+        
+        """
+        Distinct from negative tables above: a negative columns value
+        still lets the outer loop run (tables is still valid), so every
+        "N Times Table(s)" header prints, but the inner range(0, columns
+        + 1) is empty, so no "i x j = ..." lines ever appear.
+        """
+        
+        inputs = ["-2", "3"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "0 Times Table(s)" in out
+        assert "3 Times Table(s)" in out
+        assert "x" not in out.split("3 Times Table(s)")[1]
+
+    def test_times_tables_function_directly(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["1", "1"])
+        with patch("builtins.input", side_effect=["2", "1"]):
+            mod.times_tables()
+        captured = capsys.readouterr()
+        assert "1 x 2 = 2" in captured.out
+
+
+# ---------------------------------------------------------------------------
 # triangle_calculator.py
 # ---------------------------------------------------------------------------
 class TestTriangleCalculator:
