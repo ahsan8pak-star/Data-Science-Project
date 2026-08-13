@@ -333,6 +333,8 @@ Data-Science-Project/
 │   │   ├── Syntax Fundamentals/            # Language syntax scratchpads exploring file I/O operations, string manipulation, and timers
 │   │   └── Sandbox/                        # Imperative prototyping environment and execution sandbox (e.g., aim.py)
 │   ├── Object Oriented Programming/        # State-driven architectures using classes, encapsulation, and custom domain models
+│   │   ├── Fundamental Topics/             # Implementation of abstraction, inheritance, polymorphism, and nested classes [cite: 6]
+│   │   └── Syntax Fundamentals/            # Domain models including Car, Person, Point, and Dice with custom TUI graphics
 │   └── Sandbox/                            # Primary Python workspace housing unified ingestion and execution scripts (e.g., aim.py)
 │
 ├── Tests/                                  # Pytest unit-testing framework validating mathematical logic and code stability
@@ -352,23 +354,23 @@ Data-Science-Project/
 
 ## References
 
-- [1]: **CLI Environment:** Navigation and script execution via PowerShell/CMD and Linux/Ubuntu workflows.
-- [2]: **Version Control:** Repository sync via GitHub, GitLab, and VS Code, supported by Git Bash CLI.
-- [3]: **IDE Setup (`.vscode/`):** Debugger paths (`launch.json`), settings (`settings.json`), and build tasks (`tasks.json`).
-- [4]: **Build & Compliance:** Tool setup in `pyproject.toml`, `.gitignore` data protection, and MIT LICENSE terms.
-- [5]: **Imperative Programming:** Syntax, datatypes, control flow, functions, LEGB scope, error handling, and `main` entry guards.
-- [6]: **OOP Architecture:** Classes, abstraction, inheritance, polymorphism, encapsulation, nested classes, types of class methods and contructors.
-- [7]: **Functional Programming:** Pure functions, mathematical data processing, and immutable data flow pipelines.
-- [8]: **Data Converters:** Conversions for rates, temperatures, phone numbers, Roman numerals, time, and weights.
-- [9]: **CLI Games:** Interactive terminal games including Dice (TUI), Hangman, Quiz, RPS, and Word Guessing.
-- [10]: **Maths & Fintech:** Geometry, trigonometry, interest/debt calculators, and a TUI banking application.
-- [11]: **Syntax Utilities:** Standalone scripts covering File I/O, timers, factorials, ciphers, and walrus operators.
-- [12]: **OOP Models:** Domain models including `Car.py`, `Person.py`, `Point.py`, and `Dice.py` with custom TUI graphics.
-- [13]: **Java-to-Python:** Translated CS1IP coursework including Average Grades, Seven Segment, and Volume logic.
-- [14]: **Machine Learning:** Recommendation models for Music and Video Games using `.csv`, `.dot`, and `.joblib` assets.
-- [15]: **Excel Automation:** Scripting (`transactions.py`) for processing Excel sheets and generating bar chart outputs.
-- [16]: **Multi-Language Layer:** C++ execution scripts, raw CSV data pipelines, and PostgreSQL database schemas.
-- [17]: **Pytest Framework:** Unit tests under `Tests/` mirroring imperative, OOP, and functional Python paradigms.
-- [18]: **Data Safety:** The `[Dd]ata/` rule in `.gitignore` protects both uppercase and lowercase data tracks.
-- [19]: **Open Source:** MIT legal framework chosen for repository distribution compliance.
-- [20]: **Legal Terms:** Standard permissions, copyright notices, and liability limits under open-source licensing.
+- [1]: CLI Environment: Navigation and script execution via PowerShell/CMD and Linux/Ubuntu workflows.
+- [2]: Version Control: Repository sync via GitHub, GitLab, and VS Code, supported by Git Bash CLI.
+- [3]: IDE Setup (`.vscode/`): Debugger paths (`launch.json`), settings (`settings.json`), and build tasks (`tasks.json`).
+- [4]: Build & Compliance: Tool setup in `pyproject.toml`, .`gitignore` data protection, and MIT LICENSE terms.
+- [5]: Imperative Programming: Syntax, datatypes, control flow, functions, LEGB scope, error handling, and `main` entry guards.
+- [6]: OOP Architecture (fundamental_topics/): Classes, abstraction, inheritance, polymorphism, encapsulation, nested classes, types of class methods and constructors.
+- [7]: Functional Programming: Pure functions, mathematical data processing, and immutable data flow pipelines.
+- [8]: Data Converters: Conversions for rates, temperatures, phone numbers, Roman numerals, time, and weights.
+- [9]: CLI Games: Interactive terminal games including Dice (TUI), Hangman, Quiz, RPS, and Word Guessing.
+- [10]: Maths & Fintech: Geometry, trigonometry, interest/debt calculators, and a TUI banking application.
+- [11]: Syntax Utilities: Standalone scripts covering File I/O, timers, factorials, ciphers, and walrus operators.
+- [12]: OOP Models (`syntax_fundamentals/`): Domain models including `car.py`, `person.py`, `point.py`, and `dice.py` with custom TUI graphics.
+- [13]: University Courseworks: Translated CS1IP coursework including `Average Grades`, `Seven Segment`, and `Volume` logic.
+- [14]: Machine Learning: Recommendation models for Music and Video Games using `.csv`, `.dot`, and `.joblib` assets.
+- [15]: Excel Automation: Scripting (`transactions.py`) for processing Excel sheets and generating bar chart outputs.
+- [16]: Multi-Language Layer: Raw CSV data pipelines and PostgreSQL database schemas.
+- [17]: Pytest Framework: Unit tests under `tests/` mirroring imperative, OOP, and functional Python paradigms.
+- [18]: Data Safety: The `[Dd]ata/` rule in `.gitignore` protects both uppercase and lowercase data tracks.
+- [19]: Open Source: MIT legal framework chosen for repository distribution compliance.
+- [20]: Legal Terms: Standard permissions, copyright notices, and liability limits under open-source licensing._
