@@ -323,7 +323,7 @@ Data-Science-Project/
 ├── PostgreSQL/                             # Analytical relational database management scripts
 │   └── Sandbox/                            # Database workspace housing schemas, migrations, and query scripts (e.g., aim.sql)
 │
-├── Python/                                 # Main Python development and modeling architectures
+├── Python/                                 # Main Python development and modelling architectures
 │   ├── Functional Programming/             # Pure functions, mathematical pipelines, and immutable data flows
 │   ├── Imperative Programming/             # Procedural logic scripts focused on mutable state and step-by-step execution
 │   │   ├── Algorithmic Data Converters/    # Numerical conversion algorithms and data transformation utility scripts
@@ -333,7 +333,7 @@ Data-Science-Project/
 │   │   ├── Syntax Fundamentals/            # Language syntax scratchpads exploring file I/O operations, string manipulation, and timers
 │   │   └── Sandbox/                        # Imperative prototyping environment and execution sandbox (e.g., aim.py)
 │   ├── Object Oriented Programming/        # State-driven architectures using classes, encapsulation, and custom domain models
-│   │   ├── Fundamental Topics/             # Implementation of abstraction, inheritance, polymorphism, and nested classes [cite: 6]
+│   │   ├── Fundamental Topics/             # Implementation of abstraction, inheritance, polymorphism, and nested classes
 │   │   └── Syntax Fundamentals/            # Domain models including Car, Person, Point, and Dice with custom TUI graphics
 │   └── Sandbox/                            # Primary Python workspace housing unified ingestion and execution scripts (e.g., aim.py)
 │
@@ -342,7 +342,7 @@ Data-Science-Project/
 │   ├── Test Imperative Programming/        # Test suites validating procedural state changes, conditional loops, and user I/O logic
 │   └── Test Object Oriented Programming/   # Verification of object lifecycles, attribute states, and mocked dependencies
 │
-├── .gitignore                              # Multilayer safety network blocking binary artifacts, database dumps, and environment variables
+├── .gitignore                              # Multilayer safety network blocking binary artefacts, database dumps, and environment variables
 ├── .gitkeep                                # Version control placeholder file preserving empty directory architecture in Git
 ├── LICENSE                                 # MIT legal framework outlining permissions, open-source compliance, and liability limits
 ├── NOTES.md                                # Comprehensive engineering journal tracking milestone phases, study tracks, and resources
