@@ -942,6 +942,7 @@ class TestPrimeNumbers:
 # ---------------------------------------------------------------------------
 # random_cipher.py
 # ---------------------------------------------------------------------------
+
 class TestRandomCipher:
     FILE = f"{FOLDER}/random_cipher.py"
 
@@ -1036,6 +1037,136 @@ class TestRandomCipher:
         )
         assert "Encrypted Input  :" in out
         assert "Decrypted Message:" in out
+
+
+# ---------------------------------------------------------------------------
+# reverse_list_program.py
+# ---------------------------------------------------------------------------
+class TestReverseListProgram:
+    FILE = f"{FOLDER}/reverse_list_program.py"
+
+    def test_reverse_list_function_directly(self):
+        mod, _ = run_script(self.FILE, inputs=["apple, banana", "n"])
+        assert mod.reverse_list([1, 2, 3]) == [3, 2, 1]
+        assert mod.reverse_list([]) == []
+        assert mod.reverse_list(["a"]) == ["a"]
+
+    def test_alpha_list_reversed_without_sorting(self):
+        inputs = ["banana, apple, cherry", "n"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Reverse List: cherry, apple, banana" in out
+
+    def test_alpha_list_sorted_then_reversed(self):
+        
+        """
+        Sorting happens BEFORE the reversal, so a "yes" answer produces
+        descending alphabetical order, not the original input order
+        reversed.
+        """
+        
+        inputs = ["banana, apple, cherry", "y"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Reverse List: cherry, banana, apple" in out
+
+    def test_numeric_list_reversed_without_sorting(self):
+        inputs = ["10, 2, 33", "n"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Reverse List: 33, 2, 10" in out
+
+    def test_numeric_list_sorted_numerically_not_lexicographically(self):
+        
+        """
+        Items are converted to int BEFORE sort() is called, so "10" sorts
+        correctly after "2" (numeric order), not before it, which is
+        what a lexicographic/string sort would have produced.
+        """
+        
+        inputs = ["10, 2, 33", "y"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Reverse List: 33, 10, 2" in out
+
+    def test_mixed_alpha_and_numeric_items_rejected(self):
+        
+        """
+        Only one input (the list itself) is consumed here - the mismatch
+        is caught before the order_choice prompt is ever reached.
+        """
+        
+        inputs = ["apple, 5, banana"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Error: All items must be the same data type / variable" in out
+        assert "Reverse List:" not in out
+
+    def test_empty_input_is_rejected(self):
+        
+        """
+        An empty string still produces one list item (""), and both
+        "".isalpha() and "".isnumeric() are False, so this hits the same
+        mismatched-type error branch rather than crashing.
+        """
+        
+        _, out = run_script(self.FILE, inputs=[""])
+        assert "Error: All items must be the same data type / variable" in out
+
+    def test_negative_numbers_are_rejected_as_non_numeric(self):
+        
+        """
+        Genuine limitation worth documenting: str.isnumeric() returns
+        False for a leading '-' sign, so a "numeric" list containing a
+        negative number is treated as neither alpha nor numeric and hits
+        the error branch, even though it's conceptually still numeric.
+        """
+        
+        inputs = ["-5, 3, 8"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Error: All items must be the same data type / variable" in out
+
+    def test_decimal_numbers_are_rejected_as_non_numeric(self):
+        
+        """
+        Same root cause as the negative-number case: str.isnumeric()
+        returns False for a decimal point, so "3.14" is rejected too.
+        """
+        
+        inputs = ["3.14, 2.5"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Error: All items must be the same data type / variable" in out
+
+    def test_whitespace_around_items_is_stripped(self):
+        inputs = ["  10 ,  2  ,   33  ", "n"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Reverse List: 33, 2, 10" in out
+
+    def test_single_item_alpha_list(self):
+        inputs = ["solo", "n"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Reverse List: solo" in out
+
+    def test_single_item_numeric_list(self):
+        inputs = ["42", "n"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Reverse List: 42" in out
+
+    def test_order_choice_accepts_any_y_prefixed_word(self):
+        
+        """
+        `.startswith("y")` accepts "yes", "yep", or just "y" - not an
+        exact-match check against "y" alone.
+        """
+        
+        inputs = ["banana, apple", "yes"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Reverse List: banana, apple" in out  # sorted [apple, banana] then reversed
+
+    def test_blank_order_choice_defaults_to_unsorted(self):
+        inputs = ["banana, apple", ""]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Reverse List: apple, banana" in out  # original order reversed, no sort
+
+    def test_uppercase_alpha_items_are_still_detected_as_alpha(self):
+        inputs = ["APPLE, BANANA", "n"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Reverse List: BANANA, APPLE" in out
 
 
 # ---------------------------------------------------------------------------
