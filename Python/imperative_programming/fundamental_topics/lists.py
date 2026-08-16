@@ -81,7 +81,7 @@ numbers.reverse() # [4, 7, 1, 2, 5]
 numbers.sort() # [1, 2, 4, 5, 7] 
 # With numbers.sort() for numbers.reverse(): [7, 5, 4, 2, 1] 
 
-print(numbers) # Testing each function, can't do all at once
+print(numbers) # Testing each function, can't do all at once. Especially comment out numbers.clear()
 print(numbers.index(1)) # 2
 print(2 in numbers) # True
 print(21 in numbers) # False
