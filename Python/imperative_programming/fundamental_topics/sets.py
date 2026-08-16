@@ -19,17 +19,17 @@ print('coconut' in fruits) # Result: False -> Reason: word not found within this
 
 print('Apple' in fruits) # Case-sensitive check -> Result: False
 
-fruits.add('coconut') # Adds 'coconut' to the set 
+fruits.add('coconut') # Adds 'coconut' to the set (item into a list)
 
 fruits.remove('plum') # Removes 'plum' from the set
 
 print(fruits.pop()) # Removes an arbitrary element
 
-fruits.update(vegetables)
+fruits.update(vegetables) # Updates (Similar to Add but uses an entire list instead) the list 'vegetables' 
 
 fruits.clear() # Clears all items under the set 'fruits' -> Result: set()
 
-del vegetables
+del vegetables # Deletes the list 'vegetables' i.e. removes completely of all the structure not only the items
 
 
 """ Set <-> List """
