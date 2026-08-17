@@ -48,7 +48,15 @@ print(x) # 1
 print(y) # 2
 print(z) # 3
 
-""" Slicing Tuples """
+""" Sorting """
+
+points = (4, 2, 3)
+
+sorted_points = tuple(sorted(points)) # sorted(points) -> list by default
+print(sorted_points)
+
+
+""" Slicing """
 
 coordinates[:]
 
@@ -69,7 +77,7 @@ print(coordinates[:-2])
 print(coordinates[:-1]) 
 print(coordinates[:-0]) 
 
-""" Tuples -> Lists """
+""" Tuples <-> Lists """
 
 numbers = list(numbers)
 numbers.append(4)
@@ -82,7 +90,7 @@ double_digits = tuple(double_digits)
 print(double_digits)
 
 
-""" Joining Tuples """
+""" Joining """
 
 # tpl1 = ('item1', 'item2', 'item3')
 # tpl2 = ('item4', 'item5', 'item6')
@@ -95,7 +103,7 @@ combined_tuples = coordinates + double_digits
 print(combined_tuples)
 # Output: (1, 2, 3, 11, 22, 33)
 
-""" Deleting Tuples """
+""" Deleting """
 
 random_tuple = (1, "test", True, 9.8)
 
