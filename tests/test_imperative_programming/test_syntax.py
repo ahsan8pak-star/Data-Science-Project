@@ -1040,6 +1040,204 @@ class TestRandomCipher:
 
 
 # ---------------------------------------------------------------------------
+# random_colour_generator.py
+# ---------------------------------------------------------------------------
+class TestRandomColourGenerator:
+    FILE = f"{FOLDER}/random_colour_generator.py"
+
+    def test_hexadecimal_option_via_menu_number(self):
+        fixed_randint = patch("random.randint", return_value=0xA1B2C3)
+        inputs = ["1", "1"]
+        _, out = run_script(self.FILE, inputs=inputs, patches=[fixed_randint])
+        assert "#A1B2C3" in out
+
+    def test_hexadecimal_option_via_full_word_alias(self):
+        fixed_randint = patch("random.randint", return_value=0xFFFFFF)
+        inputs = ["1", "hexadecimal"]
+        _, out = run_script(self.FILE, inputs=inputs, patches=[fixed_randint])
+        assert "#FFFFFF" in out
+
+    def test_hexadecimal_short_alias_variants_all_accepted(self):
+        
+        """
+        The case pattern accepts four separate short aliases for hex
+        ("hexa", "hex", "he") in addition to "1"/"hexadecimal" - each
+        gets its own run to confirm none of them silently fall through
+        to the default "not recognised" branch.
+        """
+        
+        fixed_randint = patch("random.randint", return_value=0x000000)
+        for alias in ("hexa", "hex", "he"):
+            _, out = run_script(self.FILE, inputs=["1", alias], patches=[fixed_randint])
+            assert "#000000" in out
+            assert "not a recognised option" not in out
+
+    def test_rgb_option_via_menu_number(self):
+        fixed_randint = patch("random.randint", side_effect=[10, 20, 30])
+        inputs = ["1", "2"]
+        _, out = run_script(self.FILE, inputs=inputs, patches=[fixed_randint])
+        assert "RGB(10, 20, 30)" in out
+
+    def test_rgb_short_alias_variants_all_accepted(self):
+        
+        """
+        "rgb", "r", "b", and "g" are all valid aliases for the SAME full
+        RGB triplet case - none of them mean "just the red/blue/green
+        channel alone", which is worth confirming explicitly since the
+        naming could otherwise be misread as single-channel shortcuts.
+        """
+        
+        for alias in ("rgb", "r", "b", "g"):
+            fixed_randint = patch("random.randint", side_effect=[1, 2, 3])
+            _, out = run_script(self.FILE, inputs=["1", alias], patches=[fixed_randint])
+            assert "RGB(1, 2, 3)" in out
+
+    def test_octal_option_via_menu_number(self):
+        fixed_randint = patch("random.randint", return_value=8)
+        inputs = ["1", "3"]
+        _, out = run_script(self.FILE, inputs=inputs, patches=[fixed_randint])
+        assert "0o10" in out  # oct(8) == "0o10"
+
+    def test_octal_short_alias_variants_all_accepted(self):
+        fixed_randint = patch("random.randint", return_value=64)
+        for alias in ("octal", "oct", "oc", "o"):
+            _, out = run_script(self.FILE, inputs=["1", alias], patches=[fixed_randint])
+            assert "0o100" in out  # oct(64) == "0o100"
+
+    def test_hsl_option_via_menu_number(self):
+        fixed_randint = patch("random.randint", side_effect=[180, 60, 40])
+        inputs = ["1", "4"]
+        _, out = run_script(self.FILE, inputs=inputs, patches=[fixed_randint])
+        assert "HSL(180, 60%, 40%)" in out
+
+    def test_hsl_short_alias_variants_all_accepted(self):
+        for alias in ("hsl", "hs"):
+            fixed_randint = patch("random.randint", side_effect=[90, 50, 25])
+            _, out = run_script(self.FILE, inputs=["1", alias], patches=[fixed_randint])
+            assert "HSL(90, 50%, 25%)" in out
+
+    def test_colour_type_input_is_case_insensitive(self):
+        fixed_randint = patch("random.randint", return_value=0x123456)
+        inputs = ["1", "HEX"]
+        _, out = run_script(self.FILE, inputs=inputs, patches=[fixed_randint])
+        assert "#123456" in out
+
+    def test_multiple_colours_of_the_same_type_generated(self):
+        
+        """
+        colour_type is read ONCE, outside the loop, so all max_num
+        iterations use the same case every time - confirms the loop
+        actually repeats the chosen type rather than re-prompting or
+        defaulting after the first iteration.
+        """
+        
+        # 3 iterations x 3 randint() calls per RGB colour (r, g, b) = 9 values needed
+        fixed_randint = patch("random.randint", side_effect=[1, 2, 3, 4, 5, 6, 7, 8, 9])
+        inputs = ["3", "rgb"]
+        _, out = run_script(self.FILE, inputs=inputs, patches=[fixed_randint])
+        assert "RGB(1, 2, 3)" in out
+        assert "RGB(4, 5, 6)" in out
+        assert "RGB(7, 8, 9)" in out
+        assert out.count("RGB(") == 3
+
+    def test_invalid_colour_type_shows_error_and_stops_immediately(self):
+        
+        """
+        The default case's `break` means only ONE error message ever
+        prints, regardless of how large max_num is - the loop doesn't
+        repeat the "not recognised" message for every iteration.
+        """
+        
+        inputs = ["5", "crayon"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Error: 'crayon' is not a recognised option." in out
+        assert "Use the 4 main options mentioned above." in out
+        assert out.count("Error:") == 1
+
+    def test_empty_colour_type_hits_the_default_case(self):
+        inputs = ["1", ""]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Error: '' is not a recognised option." in out
+
+    def test_zero_colours_prints_headers_but_no_colour_lines(self):
+        inputs = ["0", "1"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Generating 0 random colour(s):" in out
+        assert "#" not in out.split("-" * 30)[-1]
+
+    def test_negative_max_num_produces_no_colour_lines(self):
+        
+        """
+        range(negative) is empty, same category as square_number_times_tables.py
+        and times_tables.py's negative-input behaviour elsewhere in this
+        suite - the header still prints, the loop body just never runs.
+        """
+        
+        inputs = ["-3", "hex"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Generating -3 random colour(s):" in out
+        assert "#" not in out.split("-" * 30)[-1]
+
+    def test_non_numeric_max_num_raises_caught_value_error(self):
+        inputs = ["not-a-number", "1"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Wrong Data Values." in out
+        assert "Check the question being asked for the correct data type." in out
+
+    def test_blank_max_num_raises_caught_value_error(self):
+        inputs = [""]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Wrong Data Values." in out
+
+    def test_decimal_max_num_raises_caught_value_error(self):
+        
+        """
+        int() rejects "3.5" outright (unlike float(), which would parse
+        it fine) - this is a real ValueError path distinct from
+        genuinely non-numeric text like "abc".
+        """
+        
+        inputs = ["3.5", "1"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Wrong Data Values." in out
+
+    def test_menu_options_are_displayed_before_the_choice_prompt(self):
+        inputs = ["1", "1"]
+        fixed_randint = patch("random.randint", return_value=0)
+        _, out = run_script(self.FILE, inputs=inputs, patches=[fixed_randint])
+        assert "1. Hexadecimal (e.g. 0xA623F6)" in out
+        assert "2. RGB (e.g. (10, 20, 30))" in out
+        assert "3. Octal (e.g. 0x16032743)" in out
+        assert "4. HSL (e.g. (80, 60%, 40%))" in out
+
+    def test_random_colours_function_returns_none_directly(self):
+        
+        """
+        random_colours() has no return statement, so calling it directly
+        should yield None, distinct from asserting on its printed output.
+        """
+        
+        mod, _ = run_script(self.FILE, inputs=["1", "1"], patches=[patch("random.randint", return_value=0)])
+        with patch("builtins.input", side_effect=["1", "rgb"]):
+            with patch("random.randint", side_effect=[5, 5, 5]):
+                result = mod.random_colours()
+        assert result is None
+
+    def test_real_hex_output_matches_expected_format_without_patching(self):
+        
+        """
+        A sanity check with genuinely random values (no patch): confirms
+        the hex format itself - '#' followed by exactly 6 uppercase
+        hex digits - regardless of which random bytes were drawn.
+        """
+        
+        import re
+        _, out = run_script(self.FILE, inputs=["1", "hex"])
+        match = re.search(r"#[0-9A-F]{6}", out)
+        assert match is not None
+
+
+# ---------------------------------------------------------------------------
 # reverse_list_program.py
 # ---------------------------------------------------------------------------
 class TestReverseListProgram:
