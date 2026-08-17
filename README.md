@@ -165,6 +165,7 @@ All fundamental python files have been made into their respective folders from e
 | Multiply | **( * ) -> Multiplication** |
 | Prime Numbers | **Iterative sequence filtration and identification** |
 | Random Cipher | **[ import random ] and [ import string ], with applied inputs, f-strings and conditional loops** |
+| Random Colour Generator | **[ from random import randint ], match-case statements, applied f-strings, nested for loops and try-except error catching.** |
 | Reverse List Program | **Fundamental list manipulation via slicing and comprehensions, applied type validation using all() method, and conditional string formatting.** |
 | Seconds Countdown | **Fundamental [ import time ] under its essential (def) function including f string methods to present it accurately** |
 | Shipping Label | **Foundational xArgs and xKwargs, applied dictionaries, and walrus operator under a specific for conditional loop as well as string methods being applied throughout.** |
