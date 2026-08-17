@@ -92,7 +92,7 @@ number = numbers.copy()
 print(number) # [5, 2, 1, 7, 4]
 # This when we can do whatever we do that new list (number)
 
-""" Unpacking Lists """
+"""Unpacking Lists"""
 
 # Variables on the left, the list on the right
 first_name, second_name, *rest, last_name = names
@@ -101,6 +101,12 @@ print(first_name)
 print(second_name)
 print(rest)
 print(last_name)
+
+"""Sort Lists"""
+
+# sorted( [ VARIABLE ] ) method as an alternative to [ VARIABLE ] .sort()
+sorted_names = sorted(names)
+print(sorted_names)
 
 """Using 'del' to remove lists"""
 
