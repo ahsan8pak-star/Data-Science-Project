@@ -61,6 +61,7 @@ capitals = {"USA": "Washington D.C.",
 
 print(dir(capitals))
 print(help(capitals))
+
 print(capitals.get("Japan"))
 
 if capitals.get("Russia"):
@@ -119,4 +120,25 @@ India: New Delhi
 China: Beijing
 Russia: Moscow
 """
+
+
+""" Sorting Out Dictionaries Alphabetically """
+
+sorted_keys = dict(sorted(capitals.items())) # sorts out the keys -> 1st column
+print(sorted_keys)
+
+# Output:
+# {'India': 'New Delhi', 'Russia': 'Moscow', 'USA': 'Detroit'}
+
+another_sorted_keys = dict(sorted(capitals.items(), key = lambda item: item[0])) # sorts out by Countries alphabetically
+print(another_sorted_keys)
+
+# Output:
+# {'India': 'New Delhi', 'Russia': 'Moscow', 'USA': 'Detroit'}
+
+sorted_values = dict(sorted(capitals.items(), key = lambda item: item[1])) # sorts out values -> 2nd / Last column
+print(sorted_values) # sorts out by Capitals alphabetically
+
+# Output:
+# {'USA': 'Detroit', 'Russia': 'Moscow', 'India': 'New Delhi'}
 
