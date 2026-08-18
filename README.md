@@ -66,7 +66,11 @@ All fundamental and applied topics learned in their respective folder, known as 
 ## Functional Programming
 
 | Topic Name | Descriptions |
-|---|---|
+| --- | --- |
+| Filter | **[ filter() ] combined with lambda predicates to conditionally select items from a list — even/odd numbers, values above/below a threshold, and non-empty strings** |
+| Lambda | **Anonymous one-expression functions assigned to variables, applied across arithmetic, comparison, and conditional (ternary) use cases** |
+| Map | **[ map() ] applying a lambda across single and multiple iterables — squaring/doubling values, type conversion, and pairwise combination of two lists** |
+| Zip | **[ zip() ] combining multiple iterables into paired tuples, with unpacking via a for loop across matched indices** |
 
 ---
 
