@@ -188,6 +188,7 @@ All fundamental python files have been made into their respective folders from e
 | Dice | **Applied import modules within OOP (e.g., *from dice_game import dice_art*), object-based simulation, and basic file interaction** |
 | Employee Contract | **Multiple inheritance, combined class behaviour, and real-world worker role modelling** |
 | Food | **Multi-level inheritance, layered class hierarchies, and specialised food categories such as snacks, desserts, and drinks** |
+| Grocery Caloric List | **Class methods as alternative constructors, duck typing across differing grocery item types, and iterative aggregation for total caloric summation** |
 | Item | **Magic methods, dunder methods, custom comparisons, item lookup, and built-in operator behaviour** |
 | Order | **Class variables versus instance variables, constructors (***init***), object tracking, and aggregated calculations** |
 | Payment | **Polymorphism, shared interfaces, and differing implementations for cash, card, and bank transfer payments** |
