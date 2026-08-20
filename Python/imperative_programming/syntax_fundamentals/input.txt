@@ -1,0 +1,2 @@
+This is being read from file_reader.py
+This is an input script being outputted
