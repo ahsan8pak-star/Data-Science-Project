@@ -26,6 +26,27 @@ except FileExistsError:
     print(f"\nFile '{file_name}' already exists!\nNo need to overwrite.")
 
 
+""" TXT File Appending Activity Log Example """
+
+from datetime import datetime
+
+# Generating a formatted log entry
+current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+log_entry = f"[{current_time}] System Check Completed by User: 'A.I.M'\n"
+
+file_dir = "C:/Users/A.I.M/C.S/Data-Science-Project/python/imperative_programming/syntax_fundamentals/"
+file_name = "activity_log.txt"
+file_path = file_dir + file_name
+
+try:
+    with open(file_path, "a") as file: # Mode "a" appends data to the end without truncating i.e. without slicing / trimming off data
+        file.write(log_entry)
+    print(f"\nLog entry successfully appended to ['{file_path}']!")
+
+except PermissionError:
+    print(f"\nError: Insufficient permissions to write to '{file_name}'.")
+
+
 """ JSON File Example """
 
 import json
