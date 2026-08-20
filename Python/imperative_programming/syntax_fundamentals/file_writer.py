@@ -85,7 +85,7 @@ file_name = "output.csv"
 file_path = file_dir + file_name
 
 try:
-    with open(file_path, "x", newline="") as file:
+    with open(file_path, "x", newline = "") as file: # newline = "" -> no newlines made i.e. no empty one line code of whitespace
         writer = csv.writer(file)
 
         for row in employees:
