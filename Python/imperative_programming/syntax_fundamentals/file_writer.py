@@ -63,7 +63,8 @@ file_path = file_dir + file_name
 
 try:
     with open(file_path, "x") as file:
-        json.dump(employee, file, indent=4)
+        json.dump(employee, file, indent = 4) # indent(ation) allows each 'row' to be neatly organised under the JSON format.
+        # 2 indents = <TAB> Command
     print(f"\n.json file ['{file_path}'] has been created successfully!")
 
 except FileExistsError:
