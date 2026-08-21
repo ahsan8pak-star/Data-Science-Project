@@ -1,844 +1,784 @@
 """
-Pytest suite for every script under python/fundamental_topics/.
+Pytest suite for every script under python/object_oriented_programming/fundamental_topics/.
 
-Most of these files are teaching scratchpads: fixed top-level statements
-with no functions to call. For those, run_script() executes the real file
-and we assert against (a) the module's own top-level variables (accessible
-straight off the executed module object) and (b) key lines of what it
-actually printed - computed independently in the test rather than copied
-from the file's own inline comments, since a couple of those comments are
-deliberately wrong about "expected vs actual" output.
+Each script is executed for real via run_script() (see conftest.py), so
+these tests exercise the actual coursework code rather than
+reimplementations of it. Most of these files are demonstration scripts
+that instantiate a handful of objects at module level and print fixed,
+deterministic output - so full-sequence assertions are used where the
+output is entirely predictable, mirroring the style of
+tests/test_imperative_programming/test_fundamentals.py.
 """
 
 import math
-import sys
 import pytest
+import sys
 
-from pathlib import Path
 from unittest.mock import patch
-from tests.test_imperative_programming.conftest import run_script, PYTHON_DIR
+from tests.test_object_oriented_programming.conftest import run_script
 
-FOLDER = "imperative_programming/fundamental_topics"
+FOLDER = "object_oriented_programming/fundamental_topics"
 
-# =====================================================================
-# 1. CONDITIONS
-# =====================================================================
 
-class TestConditions:
-    FILE = f"{FOLDER}/conditions.py"
+# ---------------------------------------------------------------------------
+# abstract_classes.py
+# ---------------------------------------------------------------------------
+class TestAbstractClasses:
+    FILE = f"{FOLDER}/abstract_classes.py"
 
-    def test_temperature_branch(self):
+    def test_script_produces_no_output(self):
+
+        """
+        Car, Motorcycle, and Boat are instantiated (car/motorcycle/boat),
+        but none of their go()/stop() methods are ever actually called at
+        module level - so running this script prints nothing at all.
+        """
+
         _, out = run_script(self.FILE)
-        assert "It's a nice day" in out
+        assert out == ""
 
-    def test_even_odd_loop(self):
-        _, out = run_script(self.FILE)
-        assert "0 is even" in out
-        assert "1 is odd" in out
-        assert "4 is even" in out
-
-    def test_range_with_step_starts_odd(self):
-        # range(1, 11, 2) -> 1,3,5,7,9 (not the "2,4,6,8,10" the file's own
-        # comment mistakenly expects)
-        _, out = run_script(self.FILE)
-        for n in ("1", "3", "5", "7", "9"):
-            assert f"\n{n}\n" in out
-
-    def test_minor_to_adult_while_loop(self):
-        _, out = run_script(self.FILE)
-        assert "You are a minor: 15" in out
-        assert "You are a minor: 17" in out
-        assert "You are an adult" in out
-
-    def test_ternary_and_switch_case(self):
-        _, out = run_script(self.FILE)
-        assert "rainy" in out
-        assert "Rejected" in out
-        assert "Wednesday" in out
-        assert "Invalid day" in out
-
-    def test_logical_operators(self):
-        _, out = run_script(self.FILE)
-        assert "Eligible for loan" in out
-        assert "You don't have to work!" in out
-        assert "Access Granted!" in out
-        assert "Please log in to continue." in out
-
-    def test_break_and_continue(self):
-        _, out = run_script(self.FILE)
-        assert "0\n1\n2\n" in out  # break stops before 3 is printed
-
-    def test_get_day_name_function_directly(self):
+    def test_vehicle_cannot_be_instantiated_directly(self):
         mod, _ = run_script(self.FILE)
-        assert mod.get_day_name(1) == "Monday"
-        assert mod.get_day_name(2) == "Tuesday"
-        assert mod.get_day_name(3) == "Wednesday"
-        assert mod.get_day_name(4) == "Thursday"
-        assert mod.get_day_name(5) == "Friday"
-        assert mod.get_day_name(6) == "Saturday"
-        assert mod.get_day_name(7) == "Sunday"
-        assert mod.get_day_name(0) == "Invalid day"
-
-    def test_membership_operators_output(self):
-        _, out = run_script(self.FILE)
-        assert "Access Granted" in out
-        assert "The letter 'z' is missing." in out
-
-    def test_conditions_admission(self):
-        def check_admission(age):
-            if age < 12:
-                return "Child ticket"
-            elif age < 65:
-                return "Standard ticket"
-            else:
-                return "Senior ticket"
-
-        assert check_admission(5) == "Child ticket"
-        assert check_admission(25) == "Standard ticket"
-        assert check_admission(70) == "Senior ticket"
-
-
-# =====================================================================
-# 2. DICTIONARIES
-# =====================================================================
-
-class TestDictionaries:
-    FILE = f"{FOLDER}/dictionaries.py"
-
-    def test_dictionary_values(self):
-        _, out = run_script(self.FILE)
-        # By the time the script finishes, coder.clear() was called, leaving it empty
-        assert _.coder == {}
-
-        assert "A.I.M" in out
-        assert "21" in out
-        assert "20" in out
-
-    def test_get_with_default_and_missing_key(self):
-        _, out = run_script(self.FILE)
-        assert "None" in out  # coder.get("name") -> None (case sensitive)
-        assert "Arsenal" in out  # default fallback value used
-
-    def test_pop_and_popitem_intermediate_state(self):
-        
-        """
-        coder.pop("Is_Beginner") returns True (the removed value), and the
-        dict printed right after shows Age already updated to 20 with
-        Is_Beginner gone. popitem() then removes ('Age', 20) as a tuple.
-        """
-        
-        _, out = run_script(self.FILE)
-        assert "{'Name': 'A.I.M', 'Age': 20}" in out
-        assert "('Age', 20)" in out
-
-    def test_capitals_keys_values_items_are_empty_after_clear(self):
-        
-        """
-        Genuine quirk in the source script: capitals.clear() runs *before*
-        the keys()/values()/items() for-loops, so despite the file's own
-        stale comments claiming "USA/India/China/Russia" get printed, the
-        loops actually iterate over nothing.
-        """
-        
-        _, out = run_script(self.FILE)
-        assert "dict_keys([])" in out
-        assert "dict_values([])" in out
-        assert "dict_items([])" in out
-
-    def test_capitals_russia_exists_check(self):
-        _, out = run_script(self.FILE)
-        assert "Captial Exists!" in out
-        assert "Non-Existant Capital!" not in out
-
-    def test_capitals_get_missing_key_returns_none_marker(self):
-        _, out = run_script(self.FILE)
-        # capitals.get("Japan") with no default -> printed as None
-        lines = out.splitlines()
-        assert "None" in lines
-
-    def test_dictionary_operations(self):
-        user_profile = {"name": "Ahsan", "role": "Developer"}
-        assert user_profile["name"] == "Ahsan"
-
-        # Testing dynamic key addition
-        user_profile["language"] = "python"
-        assert "language" in user_profile
-        assert user_profile["language"] == "python"
-
-    def test_dictionary_update_overwrites_existing_key(self):
-        capitals = {"USA": "Washington D.C."}
-        capitals.update({"USA": "Detroit"})
-        assert capitals["USA"] == "Detroit"
-
-
-# =====================================================================
-# 3. EXCEPTIONS
-# =====================================================================
-
-class TestExceptions:
-    FILE = f"{FOLDER}/exceptions.py"
-
-    def test_valid_age_echoed_back(self):
-        _, out = run_script(self.FILE, inputs=["21"])
-        assert "21" in out
-
-    def test_invalid_age_caught(self):
-        _, out = run_script(self.FILE, inputs=["not-an-age"])
-        assert "Enter the age in integers (whole numbers)." in out
-
-    def test_zero_age_is_valid_and_echoed(self):
-        _, out = run_script(self.FILE, inputs=["0"])
-        assert "0" in out.splitlines()
-
-    def test_negative_age_is_accepted_without_extra_validation(self):
-        
-        """
-        int() parses negative numbers fine; this script has no range
-        check, only a type check, so a negative age is echoed as-is.
-        """
-        
-        _, out = run_script(self.FILE, inputs=["-5"])
-        assert "-5" in out
-
-    def test_float_input_is_rejected_as_invalid(self):
-        _, out = run_script(self.FILE, inputs=["21.5"])
-        assert "Enter the age in integers (whole numbers)." in out
-
-    def test_module_defines_age_variable_after_valid_run(self):
-        mod, _ = run_script(self.FILE, inputs=["30"])
-        assert mod.age == 30
-
-    def test_exceptions_handling(self):
-        def safe_divide(numerator, denominator):
-            if denominator == 0:
-                raise ZeroDivisionError("Cannot divide by zero.")
-            return numerator / denominator
-
-        with pytest.raises(ZeroDivisionError):
-            safe_divide(10, 0)
-        assert safe_divide(10, 2) == 5.0
-
-
-# =====================================================================
-# 4. FORMATS
-# =====================================================================
-
-class TestFormats:
-    FILE = f"{FOLDER}/formats.py"
-
-    def test_price_formatting_matches_python_semantics(self):
-        _, out = run_script(self.FILE)
-        price = 1234.56
-        assert f"Price 1: {price:.3f}" in out
-        assert f"Price 4: {price:010}" in out
-        assert f"Price 6: {price:.<10}" in out
-        assert f"Price 9: {price:+.3f}" in out
-        assert f"Price 13: {price:,}" in out
-
-    def test_scientific_notation_prices(self):
-        _, out = run_script(self.FILE)
-        price = 1234.56
-        assert f"Price 2: {price:.2g}" in out
-        assert f"Price 3: {price:.4}" in out
-
-    def test_justification_variants(self):
-        _, out = run_script(self.FILE)
-        price = 1234.56
-        assert f"Price 7: {price:.>10}" in out
-        assert f"Price 8: {price:.^10}" in out
-
-    def test_sign_and_default_formatting(self):
-        _, out = run_script(self.FILE)
-        price = 1234.56
-        assert f"Price 10: {price:.=+10.2f}" in out
-        assert f"Price 11: {price:}" in out
-        assert f"Price 12: {price: }" in out
-
-    def test_module_defines_price_variable(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.price == 1234.56
-
-    def test_formats_currency(self):
-        def format_gbp_currency(value):
-            return f"£{value:.2f}"
-
-        assert format_gbp_currency(5) == "£5.00"
-        assert format_gbp_currency(12.346) == "£12.35"  # British rounding rules
-
-
-# =====================================================================
-# 5. FUNCTIONS
-# =====================================================================
-
-class TestFunctions:
-    FILE = f"{FOLDER}/functions.py"
-
-    def test_script_output(self):
-        _, out = run_script(self.FILE)
-        assert "A.I.M" in out
-        assert "2" in out
-        assert "15" in out
-        assert "30" in out
-        assert "10" in out
-        assert "16" in out
-        assert "2.5" in out
-
-    def test_functions_directly(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.decrement(5, 3) == 2
-        assert mod.increment(10, 5) == 15
-        assert mod.increment(15) == 16
-        assert mod.divide(5, 4, 2) == 2.5
-
-    def test_increment_default_argument_is_one(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.increment(9) == 10
-
-    def test_increment_keyword_argument(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.increment(7, by=3) == 10
-
-    def test_divide_with_single_number_returns_scaled_total(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.divide(4) == 25  # 100 / 4
-
-    def test_name_function_prints_aim(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.name.__name__ == "name"
-
-    def test_function_signatures(self):
-        def calculate_total_cost(price, tax_rate=0.20):  # 20% standard UK VAT
-            return price + (price * tax_rate)
-
-        assert calculate_total_cost(100) == 120.0        # Uses default parameter
-        assert calculate_total_cost(100, 0.05) == 105.0   # Uses custom argument
-
-
-# =====================================================================
-# 6. HELLO WORLD
-# =====================================================================
-
-class TestHelloWorld:
-    FILE = f"{FOLDER}/hello_world.py"
-
-    def test_prints_hello_world(self):
-        _, out = run_script(self.FILE)
-        assert out.strip() == "Hello World"
-
-    def test_output_has_no_extra_lines(self):
-        _, out = run_script(self.FILE)
-        assert len(out.strip().splitlines()) == 1
-
-    def test_hello_world_greeting(self):
-        def get_greeting():
-            return "Hello, World!"
-
-        assert get_greeting() == "Hello, World!"
-
-    def test_output_is_case_sensitive(self):
-        _, out = run_script(self.FILE)
-        assert "hello world" not in out  # capitalisation matters
-
-    def test_output_does_not_include_punctuation(self):
-        _, out = run_script(self.FILE)
-        assert "!" not in out
-
-
-# =====================================================================
-# 7. LISTS
-# =====================================================================
-
-class TestLists:
-    FILE = f"{FOLDER}/lists.py"
-
-    def test_indexing_and_slicing_prints_before_the_crash(self):
-
-        """
-        See test_pop_from_cleared_list_crashes below: the script never
-        reaches the end, so we only get to assert on what it printed up to
-        that point.
-        """
-        
-        with pytest.raises(IndexError) as exc_info:
-            run_script(self.FILE)
-        
-        out = getattr(exc_info.value, "partial_output", "")
-        assert "Ahsan" in out
-        assert "Hamza" in out
-        assert "['Ahsan', 'Yahya', 'Matthew', 'Ahnaf', 'Hamza']" in out
-
-    def test_pop_from_cleared_list_crashes(self):
-        
-        """
-        Genuine bug in the source script: `numbers.clear()` is called
-        immediately followed by `numbers.pop()` on the very next line, so
-        the script always raises IndexError at that point and never
-        reaches the sort/reverse/duplicates/matrix demos further down.
-        """
-        
-        with pytest.raises(IndexError):
-            run_script(self.FILE)
-
-    def test_negative_index_slicing_present_before_crash(self):
-        with pytest.raises(IndexError) as exc_info:
-            run_script(self.FILE)
-        out = getattr(exc_info.value, "partial_output", "")
-        assert "['Matthew', 'Ahnaf', 'Hamza']" in out  # names[-3:]
-
-    def test_empty_slice_present_before_crash(self):
-        with pytest.raises(IndexError) as exc_info:
-            run_script(self.FILE)
-        out = getattr(exc_info.value, "partial_output", "")
-        assert "[]" in out  # names[:0] and names[:-5]
-
-    def test_list_mutability(self):
-        shopping_cart = ["bread", "milk"]
-        shopping_cart.append("tea")
-
-        assert len(shopping_cart) == 3
-        assert shopping_cart[-1] == "tea"
-
-    def test_matrix_and_duplicate_logic_never_reached(self):
-        
-        """
-        The identity-matrix and duplicate-removal demos live after the
-        clear()/pop() crash point, so they never actually execute.
-        """
-        
-        with pytest.raises(IndexError) as exc_info:
-            run_script(self.FILE)
-        out = getattr(exc_info.value, "partial_output", "")
-        assert "[1, 0, 0]" not in out
-
-# =====================================================================
-# 8. MODULES
-# =====================================================================
-
-class TestModules:
-    FILE = f"{FOLDER}/modules.py"
-
-    def test_math_pi_imported_three_different_ways(self):
-        _, out = run_script(self.FILE)
-        assert out.count("3.14159") >= 3
-
-    def test_help_docs_for_three_modules_are_shown(self):
-        _, out = run_script(self.FILE)
-        assert "FILE" in out  # help() output includes a FILE section
-
-    def test_e_shadowing_bug_replaces_eulers_number(self):
-        
-        """
-        Genuine bug in the source script: `from math import e` correctly
-        imports Euler's number, but the very next line,
-        `a, b, c, d, e = 1, 2, 3, 4, 5`, immediately reassigns the name
-        `e` to the integer 5. Every subsequent `e ** x` therefore uses
-        5, not 2.718..., producing 5, 25, 125, 625, 3125 - not the
-        mathematically "expected" exponential values.
-        """
-        
-        _, out = run_script(self.FILE)
-        assert "5" in out.splitlines()
-        assert "25" in out.splitlines()
-        assert "125" in out.splitlines()
-        assert "625" in out.splitlines()
-        assert "3125" in out.splitlines()
-
-    def test_e_squared_would_differ_if_not_shadowed(self):
-
-        """
-        Sanity check proving the shadowing bug: math.e ** 2 is nowhere
-        near 25, confirming the printed 25 came from the integer e=5.
-        """
-        
-        _, out = run_script(self.FILE)
-        assert str(round(math.e ** 2, 5)) not in out
-
-    def test_module_alias_import_matches_plain_import(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.m.pi == mod.math.pi
-
-    def test_from_import_pi_matches_module_attribute(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.pi == mod.math.pi
-
-    def test_final_shadowed_e_is_the_integer_five(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.e == 5
-        assert isinstance(mod.e, int)
-
-    def test_tuple_unpacked_values_a_through_d(self):
-        mod, _ = run_script(self.FILE)
-        assert (mod.a, mod.b, mod.c, mod.d) == (1, 2, 3, 4)
-
-
-# =====================================================================
-# 9. MODULE IMPORT EXAMPLE (main.py)
-# =====================================================================
-
-class TestModuleImportExamples:
-    MAIN_FILE = f"{FOLDER}/main.py"
-
-    def test_main_py_has_a_syntax_error_and_cannot_be_parsed(self):
-        
-        """
-        main.py is a broken stub: `def main():` has only a comment as its
-        body (comments aren't statements), which is invalid Python - the
-        file fails to even parse, let alone run, regardless of any test
-        harness. This isn't a testing artifact; the exact same
-        SyntaxError happens with a plain `python main.py` too.
-        """
-        
-        with pytest.raises(SyntaxError):
-            run_script(self.MAIN_FILE)
-
-    def test_main_py_docstring_typo_does_not_affect_the_real_bug(self):
-        
-        """
-        The module docstring also says `_name_`/`__main__` (missing
-        underscores) - a comment/documentation typo, harmless on its own,
-        but the file is broken regardless because of the empty function
-        body, not because of this typo.
-        """
-        
-        source = (PYTHON_DIR / self.MAIN_FILE).read_text()
-        assert "_name_" in source  # confirms the docstring typo is present
-        with pytest.raises(SyntaxError):
-            run_script(self.MAIN_FILE)  # but the real failure is elsewhere
-
-
-
-# =====================================================================
-# 10. NUMBERS
-# =====================================================================
-
-class TestNumbers:
-    FILE = f"{FOLDER}/numbers.py"
-
-    def test_numeric_literals(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.a == 1
-        assert mod.b == 1.1
-        assert mod.c == 1 + 2j
-        assert mod.e == 0b1010
-        assert mod.h == 1_000_000
-
-    def test_arithmetic_operations_output(self):
-        _, out = run_script(self.FILE)
-        x, y = 10, 3
-        assert str(x + y) in out
-        assert str(x * y) in out
-        assert str(x // y) in out
-        assert str(x % y) in out
-
-    def test_math_module_values(self):
-        _, out = run_script(self.FILE)
-        assert str(math.sqrt(16)) in out
-        assert str(math.factorial(5)) in out
-        assert str(math.gcd(48, 18)) in out
-
-    def test_scientific_and_binary_literal_types_are_float(self):
-        mod, _ = run_script(self.FILE)
-        assert isinstance(mod.d, float)  # 1e-3
-        assert mod.f == 0o12 == 10
-
-    def test_comparison_operators_output(self):
-        _, out = run_script(self.FILE)
-        assert "False" in out  # 10 == 3
-        assert "True" in out   # 10 != 3
-
-    def test_hypot_and_degrees_values(self):
-        _, out = run_script(self.FILE)
-        assert str(math.hypot(3, 4)) in out
-        assert str(math.degrees(math.pi)) in out
-
-    def test_numbers_maths_operators(self):
-        # Modulo remainder logic
-        assert 10 % 3 == 1
-        # Exponent logic
-        assert 2 ** 3 == 8
-
-    def test_divmod_returns_quotient_and_remainder_tuple(self):
-        _, out = run_script(self.FILE)
-        assert str(divmod(10, 3)) in out
-
-    def test_underscore_separated_literals_parse_correctly(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.h == 1000000
-        assert mod.i == pytest.approx(0.000001)
-
-
-# =====================================================================
-# 11. SCOPE RESOLUTION
-# =====================================================================
-
-class TestScopeResolution:
-    FILE = f"{FOLDER}/scope_resolution.py"
-
-    def test_local_scope_prints_each_functions_own_value(self):
-        _, out = run_script(self.FILE)
-        assert "1" in out.splitlines()
-        assert "2" in out.splitlines()
-
-    def test_enclosed_scope_reads_outer_variable(self, capsys):
-        mod, _ = run_script(self.FILE)
-        mod.enclosed1()
-        captured = capsys.readouterr()
-        assert captured.out.strip() == "1"
-
-    def test_global_scope_is_shared_between_functions(self, capsys):
-        mod, _ = run_script(self.FILE)
-        mod.global1()
-        mod.global2()
-        captured = capsys.readouterr()
-        assert captured.out == "3\n3\n"
-
-    def test_built_in_scope_reads_imported_math_e(self):
-        _, out = run_script(self.FILE)
-        assert str(math.e) in out
-
-    def test_local_variables_do_not_leak_to_module_namespace(self, capsys):
-        
-        """
-        local1()/local2()'s x=1 and x=2 are function-scoped; only the
-        module-level x=3 (global) survives on the returned module object.
-        """
-        
-        mod, _ = run_script(self.FILE)
-        assert mod.x == 3
-        mod.local1()
-        captured = capsys.readouterr()
-        assert captured.out.strip() == "1"
-        assert mod.x == 3  # confirms local1() never touched the global x
-
-    def test_scope_resolution_order(self):
-        
-        """
-        L -> E -> G -> B: a name lookup resolves to the nearest enclosing
-        scope first, only falling back to global/built-in when no local
-        or enclosing binding exists.
-        """
-        
-        x = "global"
-
-        def outer():
-            x = "enclosed"
-
-            def inner():
-                return x  # resolves to "enclosed", not "global"
-
-            return inner()
-
-        assert outer() == "enclosed"
-        assert x == "global"
-
-# =====================================================================
-# 12. SETS
-# =====================================================================
-
-class TestSets:
-    FILE = f"{FOLDER}/sets.py"
-
-    def test_script_crashes_on_deleted_variable(self):
-        with pytest.raises(NameError):
-            run_script(self.FILE)
-
-    def test_membership_checks_output(self):
-        with pytest.raises(NameError) as exc_info:
-            run_script(self.FILE)
-        out = getattr(exc_info.value, "partial_output", "")
-        assert "False" in out
-
-    def test_add_and_remove_print_none(self):
-        """
-        .add() and .remove() both return None, so wrapping them in
-        print() prints the literal word 'None'.
-        """
-        with pytest.raises(NameError) as exc_info:
-            run_script(self.FILE)
-        out = getattr(exc_info.value, "partial_output", "")
-        assert out.count("None") >= 2
-
-    def test_len_of_original_set_is_printed(self):
-        with pytest.raises(NameError) as exc_info:
-            run_script(self.FILE)
-        out = getattr(exc_info.value, "partial_output", "")
-        assert "6" in out
-
-    def test_case_sensitive_membership_check(self):
-        with pytest.raises(NameError) as exc_info:
-            run_script(self.FILE)
-        out = getattr(exc_info.value, "partial_output", "")
-        assert out.count("False") >= 2
-
-    def test_set_uniqueness(self):
-        unique_ids = {101, 102, 102, 103}
-        assert len(unique_ids) == 3  # Verifies duplicate removal
-        assert 101 in unique_ids
-        
-# =====================================================================
-# 13. TUPLES
-# =====================================================================
-
-class TestTuples:
-    FILE = f"{FOLDER}/tuples.py"
-
-    def test_tuple_indexing(self):
-        _, out = run_script(self.FILE)
-        assert _.numbers == [1, 2, 3, 4]
-        assert "1" in out and "2" in out and "3" in out
-
-    def test_unpacking(self):
-        mod, _ = run_script(self.FILE)
-        assert (mod.x, mod.y, mod.z) == (1, 2, 3)
-
-    def test_count_of_missing_item_is_zero(self):
-        _, out = run_script(self.FILE)
-        assert "0" in out  # numbers.count(0)
-
-    def test_negative_indexing_matches_positive(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.numbers[-1] == mod.numbers[3] == 4
-        assert mod.numbers[-4] == mod.numbers[0] == 1
-
-    def test_index_method_finds_correct_positions(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.numbers.index(1) == 0
-        assert mod.numbers.index(3) == 2
-
-    def test_coordinates_multiplication_result(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.result == 6  # 1 * 2 * 3
-
-    def test_tuple_immutability(self):
-        london_coordinates = (51.5074, -0.1278)
-        assert london_coordinates[0] == 51.5074
-
         with pytest.raises(TypeError):
-            london_coordinates[0] = 52.0000  # type: ignore
+            mod.Vehicle()
 
-
-# =====================================================================
-# 14. TYPE CONVERSION & TYPE CASTING
-# =====================================================================
-
-class TestTypeConversionTypeCasting:
-    FILE = f"{FOLDER}/type_conversion_type_casting.py"
-
-    def test_string_conversions(self):
-        _, out = run_script(self.FILE)
-        assert str(_.a) == "A.I.M"
-        assert str(_.b) == "8"
-        assert str(_.d) == "True"
-
-    def test_numeric_conversions(self):
+    def test_car_go_and_stop_methods_directly(self, capsys):
         mod, _ = run_script(self.FILE)
-        assert mod.e == pytest.approx(11.14)
-        assert mod.f == 11
+        car = mod.Car()
+        car.go()
+        car.stop()
+        captured = capsys.readouterr()
+        assert "You are driving a car" in captured.out
+        assert "You stopped the car" in captured.out
 
-    def test_types_reported_correctly(self):
-        _, out = run_script(self.FILE)
-        assert "<class 'str'>" in out
-        assert "<class 'int'>" in out
-        assert "<class 'float'>" in out
-        assert "<class 'bool'>" in out
-
-    def test_f_string_concatenation_line(self):
-        _, out = run_script(self.FILE)
-        assert "a = A.I.M, b = 8, c = 3.14, d = True" in out
-
-    def test_int_truncates_rather_than_rounds(self):
+    def test_motorcycle_go_and_stop_methods_directly(self, capsys):
         mod, _ = run_script(self.FILE)
-        assert int(mod.c) == 3  # int(3.14) truncates to 3, doesn't round
+        motorcycle = mod.Motorcycle()
+        motorcycle.go()
+        motorcycle.stop()
+        captured = capsys.readouterr()
+        assert "You are riding a motorcycle" in captured.out
+        assert "You stopped the motorcycle" in captured.out
 
-    def test_type_casting(self):
-        assert int("42") == 42
-        assert float("3.14") == 3.14
-        assert str(2026) == "2026"
+    def test_boat_go_and_stop_methods_directly(self, capsys):
+        mod, _ = run_script(self.FILE)
+        boat = mod.Boat()
+        boat.go()
+        boat.stop()
+        captured = capsys.readouterr()
+        assert "You are sailing a boat" in captured.out
+        assert "You anchored the boat" in captured.out
+
+    def test_all_three_subclasses_were_instantiated_at_module_level(self):
+        mod, _ = run_script(self.FILE)
+        assert isinstance(mod.car, mod.Car)
+        assert isinstance(mod.motorcycle, mod.Motorcycle)
+        assert isinstance(mod.boat, mod.Boat)
 
 
-# =====================================================================
-# 15. VARIABLES
-# =====================================================================
+# ---------------------------------------------------------------------------
+# aggregation.py
+# ---------------------------------------------------------------------------
+class TestAggregation:
+    FILE = f"{FOLDER}/aggregation.py"
 
-class TestVariables:
-    FILE = f"{FOLDER}/variables.py"
+    def test_full_output_sequence(self):
+        _, out = run_script(self.FILE)
+        assert "London Museum Library" in out
+        assert "-" * 21 in out
+        assert "Alex Rider: Stormbreaker by Anthony Horowitz" in out
+        assert "Harry Potter: The Philosopher Stone by J.K Rowling" in out
+        assert "The Great Gatsby by F.Scott Fitzegerald" in out
+        assert "The Hobbit by J.R.R Tolkein" in out
 
-    def test_string_intro_lines(self):
-        _, out = run_script(self.FILE, inputs=["2", "500"])
-        assert "Hi, Ahsan Iqbal." in out
-        assert "ahsan8pak@gmail.com" in out
+    def test_books_printed_in_the_order_they_were_added(self):
+        _, out = run_script(self.FILE)
+        assert out.find("Alex Rider") < out.find("Harry Potter") < out.find("Great Gatsby") < out.find("Hobbit")
 
-    def test_price_total_from_quantity_input(self):
-        _, out = run_script(self.FILE, inputs=["2", "500"])
-        assert "Price: £25.98" in out
+    def test_library_and_book_classes_directly(self):
+        mod, _ = run_script(self.FILE)
+        library = mod.Library("Test Library")
+        book = mod.Book("Test Book", "Test Author")
+        library.add_book(book)
+        assert library.list_book() == ["Test Book by Test Author"]
 
-    def test_income_positive_branch(self):
-        _, out = run_script(self.FILE, inputs=["2", "500"])
-        # revenue (100000) - costs (500) = 99500
-        assert "You have £99500 in your account." in out
 
-    def test_income_negative_branch(self):
-        _, out = run_script(self.FILE, inputs=["2", "150000"])
-        # revenue (100000) - costs (150000) = -50000, debt = 50000
-        assert "You're broke." in out
-        assert "-50000" in out
-        assert "You owe £50000" in out
+# ---------------------------------------------------------------------------
+# classes.py
+# ---------------------------------------------------------------------------
+class TestClasses:
+    FILE = f"{FOLDER}/classes.py"
 
-    def test_boolean_status_lines(self):
-        _, out = run_script(self.FILE, inputs=["2", "500"])
-        assert "Student: True" in out
-        assert "Admin: False" in out
+    def test_script_crashes_on_misspelled_sibling_package_import(self):
 
-    def test_online_welcome_branch_is_the_only_reachable_outcome(self):
-        
         """
-        is_student, is_admin, is_new, is_regular, and is_online are all
-        hardcoded booleans with no input() controlling them, so exactly
-        one branch of the nested if/elif/else is ever reachable in this
-        script: is_online=True, is_student and is_admin==True evaluates
-        False, is_new and is_regular==True also evaluates False, landing
-        on the final "Welcome to our university!" else - every single
-        run. The "Stop Lying", "Accident or Intended?", and "You are
-        offline" branches can't be exercised without changing the
-        hardcoded source values themselves.
+        Genuine bug: the very first import in this file is
+        `from object_orienteded_programming.syntax_fundamentals.car import Car`
+        - "orienteded" is a typo for "oriented" (an extra "ed"). No such
+        package exists, so this raises ModuleNotFoundError immediately,
+        before a single line of the script's actual demo code (car1,
+        person1, point1, etc.) ever runs. The correctly-spelled imports
+        further down (person.py, point.py) are never even reached.
         """
-        
-        _, out = run_script(self.FILE, inputs=["2", "500"])
-        assert "Welcome to our university!" in out
-        assert "Stop Lying" not in out
-        assert "You are offline" not in out
 
-    def test_income_exactly_zero_still_counts_as_broke(self):
+        with pytest.raises(ModuleNotFoundError, match="object_orienteded_programming"):
+            run_script(self.FILE)
 
-        # income <= 0 includes the boundary case of exactly zero.
-        _, out = run_script(self.FILE, inputs=["2", "100000"])
-        assert "You're broke." in out
-        assert "You have £0" in out
+    def test_no_output_is_produced_before_the_crash(self):
 
-    def test_non_numeric_costs_raises_uncaught_value_error(self):
-        
         """
-        There's no try/except around int(costs) in this file, so an
-        invalid, non-numeric answer should propagate as a real ValueError.
+        The crash happens on the module's very first executable statement
+        (after the docstring), so partial_output should be completely
+        empty - nothing from the car/person/point demo sections ever
+        gets a chance to print.
         """
-        
-        with pytest.raises(ValueError):
-            run_script(self.FILE, inputs=["2", "not-a-number"])
 
-    def test_variable_reassignment(self):
-        primary_score = 100
-        backup_score = primary_score
+        with pytest.raises(ModuleNotFoundError) as exc_info:
+            run_script(self.FILE)
+        out = getattr(exc_info.value, "partial_output", None)
+        assert out == ""
 
-        primary_score = 250
 
-        assert backup_score == 100
-        assert primary_score == 250
+# ---------------------------------------------------------------------------
+# class_methods.py
+# ---------------------------------------------------------------------------
+class TestClassMethods:
+    FILE = f"{FOLDER}/class_methods.py"
 
-    def test_favourite_team_line_is_static(self):
-        _, out = run_script(self.FILE, inputs=["1", "1"])
-        assert "Arsenal is your favourite team!" in out
+    def test_all_five_student_details_printed(self):
+        _, out = run_script(self.FILE)
+        assert "--- Hamza Khan ---" in out
+        assert "University of: Birmingham" in out
+        assert "Qualification: BA Business Studies" in out
+        assert "Grade: 81%" in out
+        assert "--- Ahmed Al-Farsi ---" in out
+        assert "--- Ahsan Iqbal ---" in out
+        assert "--- Ilyas Ifzal ---" in out
+        assert "--- Bilal Ibn Hisham  ---" in out  # note the double space from the source's own trailing space in the name
 
-    def test_games_remaining_calculation(self):
-        mod, _ = run_script(self.FILE, inputs=["1", "1"])
-        assert mod.left == 15  # 100 - 85
+    def test_student_total_reflects_all_five_instances(self):
+        _, out = run_script(self.FILE)
+        assert "Student Population: 5" in out
+
+    def test_average_grade_is_computed_correctly(self):
+
+        # (81 + 72 + 75 + 68 + 73) / 5 = 73.80
+        _, out = run_script(self.FILE)
+        assert "Average Grade: 73.80" in out
+
+    def test_class_methods_called_directly_on_a_fresh_class_state(self):
+
+        """
+        Calling run_script() again creates a brand new Student class
+        object each time (module re-executed from scratch via runpy), so
+        class-level totals aren't contaminated between test runs.
+        """
+
+        mod, _ = run_script(self.FILE)
+        assert mod.Student.student_total() == "Student Population: 5"
+
+    def test_average_grade_with_zero_students_direct(self):
+
+        """
+        Exercises the classmethod's own zero-division guard directly,
+        distinct from the module-level run which always has 5 students.
+        """
+
+        mod, _ = run_script(self.FILE)
+
+        class FreshStudent(mod.Student):
+            total = 0
+            overall_grade = 0
+
+        assert FreshStudent.average_grade() == "No Students. No Grade."
+
+
+# ---------------------------------------------------------------------------
+# class_variables.py
+# ---------------------------------------------------------------------------
+class TestClassVariables:
+    FILE = f"{FOLDER}/class_variables.py"
+
+    def test_all_three_students_share_the_same_university_class_variable(self):
+        _, out = run_script(self.FILE)
+        assert "All students must be at the same university to do this." not in out
+
+    def test_graduating_student_message(self):
+
+        # student1 = Ahsan, age 21 -> meets the >= 21 branch
+        _, out = run_script(self.FILE)
+        assert "Congratulations Ahsan, you are now graduating." in out
+
+    def test_continuing_students_show_correct_years_remaining(self):
+
+        # student2 = Hamza, age 20 -> 21 - 20 = 1 year left
+        # student3 = Yahya, age 19 -> 21 - 19 = 2 years left
+        _, out = run_script(self.FILE)
+        assert "Continue studying Hamza, just 1 year(s) left." in out
+        assert "Continue studying Yahya, just 2 year(s) left." in out
+
+    def test_class_variable_is_shared_not_per_instance(self):
+        _, out = run_script(self.FILE)
+        assert "University of Reading" in out
+
+    def test_num_students_counts_every_instantiation(self):
+        _, out = run_script(self.FILE)
+        assert out.strip().splitlines()[-1] == "3"
+
+    def test_university_mismatch_branch_via_mutating_the_modules_own_globals(self, capsys):
+
+        """
+        Genuine subtlety: level()'s university-match check reads the
+        MODULE-LEVEL student1/student2/student3 directly, not self - so
+        calling .level() on ANY instance checks those same three fixed
+        globals regardless of who called it. The mismatch branch can
+        therefore only be reached by mutating those exact three globals,
+        not by creating unrelated new Student objects.
+        """
+
+        mod, _ = run_script(self.FILE)
+        mod.student2.university = "Manchester"
+        mod.student1.level()
+        captured = capsys.readouterr()
+        assert "All students must be at the same university to do this." in captured.out
+
+
+# ---------------------------------------------------------------------------
+# composition.py
+# ---------------------------------------------------------------------------
+class TestComposition:
+    FILE = f"{FOLDER}/composition.py"
+
+    def test_both_cars_displayed_correctly(self):
+        _, out = run_script(self.FILE)
+        assert "BMW M3 GTR: 550hp | 19in" in out
+        assert "Chevrolet Corvette Z06: 670hp | 20in" in out
+
+    def test_car_owns_four_wheels(self):
+        mod, _ = run_script(self.FILE)
+        car = mod.Car("Test", "Model", 100, 18)
+        assert len(car.wheels) == 4
+        assert all(wheel.size == 18 for wheel in car.wheels)
+
+    def test_engine_and_wheel_are_independent_component_classes(self):
+        mod, _ = run_script(self.FILE)
+        engine = mod.Engine(999)
+        wheel = mod.Wheel(21)
+        assert engine.horse_power == 999
+        assert wheel.size == 21
+
+
+# ---------------------------------------------------------------------------
+# constructors.py
+# ---------------------------------------------------------------------------
+class TestConstructors:
+    FILE = f"{FOLDER}/constructors.py"
+
+    def test_point_coordinates_printed(self):
+        _, out = run_script(self.FILE)
+        assert "x = 5" in out
+        assert "y = 6" in out
+
+    def test_point_constructor_directly(self):
+        mod, _ = run_script(self.FILE)
+        point = mod.Point(10, 20)
+        assert point.x == 10
+        assert point.y == 20
+
+
+# ---------------------------------------------------------------------------
+# decorator.py
+# ---------------------------------------------------------------------------
+class TestDecorator:
+    FILE = f"{FOLDER}/decorator.py"
+
+    def test_decorators_apply_in_outer_to_inner_print_order(self):
+
+        """
+        @add_sprinkles is the outermost decorator, @add_flake the
+        innermost (closest to the function), so at call time the print
+        order is sprinkles -> fudge -> flake -> the actual flavour
+        message, for each of the three calls.
+        """
+
+        _, out = run_script(self.FILE)
+        vanilla_section = out.split("chocolate")[0]
+        assert (
+            vanilla_section.find("*You added sprinkles.*")
+            < vanilla_section.find("*You added fudge.*")
+            < vanilla_section.find("*You added a flake.*")
+            < vanilla_section.find("Here is your vanilla ice cream.")
+        )
+
+    def test_all_three_flavours_produce_their_own_full_message_chain(self):
+        _, out = run_script(self.FILE)
+        for flavour in ("vanilla", "chocolate", "strawberry"):
+            assert f"Here is your {flavour} ice cream." in out
+        assert out.count("*You added sprinkles.*") == 3
+        assert out.count("*You added fudge.*") == 3
+        assert out.count("*You added a flake.*") == 3
+
+    def test_decorated_function_directly(self, capsys):
+        mod, _ = run_script(self.FILE)
+        mod.get_ice_cream("mint")
+        captured = capsys.readouterr()
+        assert "Here is your mint ice cream." in captured.out
+
+
+# ---------------------------------------------------------------------------
+# duck_typing.py
+# ---------------------------------------------------------------------------
+class TestDuckTyping:
+    FILE = f"{FOLDER}/duck_typing.py"
+
+    def test_duck_sequence(self):
+        _, out = run_script(self.FILE)
+        duck_section = out.split("Animal?: True")[1].split("Animal?:")[0]
+        assert "QUACK!" in duck_section
+        assert "bread..." in duck_section
+        assert "Swiming" in duck_section
+
+    def test_cow_and_plane_alive_flags_differ(self):
+
+        """
+        Cow inherits Animal.alive (True, unmodified), while Plane defines
+        its own class-level `alive = False`, overriding the inherited
+        default entirely rather than sharing it.
+        """
+
+        mod, _ = run_script(self.FILE)
+        assert mod.Cow.alive is True
+        assert mod.Duck.alive is True
+        assert mod.Plane.alive is False
+
+    def test_plane_satisfies_the_duck_typed_interface_without_inheriting_animal(self):
+
+        """
+        Plane isn't an Animal subclass at all, but implements the same
+        speak()/eat()/move() method names, so it slots into the same
+        loop without an AttributeError - the core duck-typing point.
+        """
+
+        _, out = run_script(self.FILE)
+        assert out.count("FLY!!!") == 3  # speak, eat, and move all print the same line for Plane
+
+    def test_all_three_objects_processed_in_list_order(self):
+        _, out = run_script(self.FILE)
+        assert out.find("QUACK!") < out.find("Moo!") < out.find("FLY!!!")
+
+
+# ---------------------------------------------------------------------------
+# inheritance.py
+# ---------------------------------------------------------------------------
+class TestInheritance:
+    FILE = f"{FOLDER}/inheritance.py"
+
+    def test_base_animal_instances_use_their_own_methods(self):
+        _, out = run_script(self.FILE)
+        assert "A.I.M is eating right now." in out
+        assert "Doug is asleep. Do not disturb Doug." in out
+        assert "MeowMeow is playing. You can come and play with them." in out
+
+    def test_dog_uses_own_speak_and_walk_but_inherits_play(self):
+        _, out = run_script(self.FILE)
+        assert "WOOF!" in out
+        assert "pat, pat, pat..." in out
+        assert "Scooby is playing. You can come and play with them." in out
+
+    def test_cat_uses_own_speak_and_walk_but_inherits_sleep(self):
+        _, out = run_script(self.FILE)
+        assert "MEOW!" in out
+        assert "crawl, crawl, crawl..." in out
+        assert "Garfield is asleep. Do not disturb Garfield." in out
+
+    def test_mouse_uses_own_speak_and_walk_but_inherits_eat(self):
+        _, out = run_script(self.FILE)
+        assert "SQUEEK!" in out
+        assert "tiptoe, tiptoe, tiptoe..." in out
+        assert "Mickey is eating right now." in out
+
+    def test_all_three_animals_can_call_the_shared_base_methods(self):
+        mod, _ = run_script(self.FILE)
+        dog = mod.Dog("Rex")
+        assert dog.name == "Rex"
+        assert hasattr(dog, "eat") and hasattr(dog, "sleep") and hasattr(dog, "play")
+
+
+# ---------------------------------------------------------------------------
+# magic_methods.py
+# ---------------------------------------------------------------------------
+class TestMagicMethods:
+    FILE = f"{FOLDER}/magic_methods.py"
+
+    def test_str_magic_method(self):
+        _, out = run_script(self.FILE)
+        assert "'The Hobbit' by J.R.R. Tolkien" in out
+
+    def test_eq_magic_method_false_for_different_books(self):
+        mod, _ = run_script(self.FILE)
+        assert (mod.book1 == mod.book3) is False
+
+    def test_lt_and_gt_magic_methods_compare_page_counts(self):
+
+        # book1 = 310 pages, book2 = 223 pages, book3 = 172 pages
+        mod, _ = run_script(self.FILE)
+        assert (mod.book1 < mod.book2) is False
+        assert (mod.book2 > mod.book3) is True
+
+    def test_add_magic_method_sums_page_counts(self):
+
+        # 310 + 223 = 533
+        _, out = run_script(self.FILE)
+        assert "533 pages" in out
+
+    def test_contains_magic_method_checks_title_and_author(self):
+        _, out = run_script(self.FILE)
+        assert "True" in out.splitlines()  # "Lion" in book3 (title match)
+
+    def test_getitem_magic_method_returns_expected_field(self):
+        _, out = run_script(self.FILE)
+        assert "The Lion, the Witch and the Wardrobe" in out.splitlines()[-1]
+
+    def test_getitem_unknown_key_returns_fallback_string(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.book1["publisher"] == "Key 'publisher' was not found"
+
+    def test_getitem_returns_author_and_num_pages_branches(self):
+
+        """
+        The module-level output only ever exercises the "title" branch
+        of __getitem__ directly - "author" and "num_pages" were untested
+        until now.
+        """
+
+        mod, _ = run_script(self.FILE)
+        assert mod.book1["author"] == "J.R.R. Tolkien"
+        assert mod.book1["num_pages"] == 310
+
+
+# ---------------------------------------------------------------------------
+# multiple_inheritance.py
+# ---------------------------------------------------------------------------
+class TestMultipleInheritance:
+    FILE = f"{FOLDER}/multiple_inheritance.py"
+
+    def test_son_inherits_from_both_father_and_mother(self):
+        _, out = run_script(self.FILE)
+        assert "Son: Leo" in out
+        assert "Age: 15" in out
+
+    def test_daughter_inherits_from_both_father_and_mother(self):
+        _, out = run_script(self.FILE)
+        assert "Daughter: Mia" in out
+        assert "Age: 12" in out
+
+    def test_standalone_father_and_mother_instances(self):
+        _, out = run_script(self.FILE)
+        assert "Father: Arthur" in out
+        assert "Age: 45" in out
+        assert "Mother: Elena" in out
+        assert "Age: 43" in out
+
+    def test_son_and_daughter_do_not_share_father_mother_state(self):
+        mod, _ = run_script(self.FILE)
+        son = mod.Son(son_name="Test", son_age=10)
+        assert not hasattr(son, "father_name")  # Son's __init__ doesn't call super().__init__()
+
+
+# ---------------------------------------------------------------------------
+# multi_level_inheritance.py
+# ---------------------------------------------------------------------------
+class TestMultiLevelInheritance:
+    FILE = f"{FOLDER}/multi_level_inheritance.py"
+
+    def test_class_body_print_statements_fire_at_definition_time(self):
+
+        """
+        Rabbit/Hawk/Fish each have a bare print() inside their class body,
+        which executes immediately when the class is DEFINED, not when
+        it's instantiated - so these three lines appear before any of
+        the rabbit/hawk/fish instance output further down.
+        """
+
+        _, out = run_script(self.FILE)
+        assert out.find("This is a Rabbit") < out.find("Bugs is eating")
+        assert out.find("This is a Hawk") < out.find("Tony is sleeping")
+        assert out.find("This is a Fish") < out.find("Nemo is fleeing")
+
+    def test_grandparent_method_accessible_through_grandchild(self):
+        _, out = run_script(self.FILE)
+        assert "Bugs is eating right now." in out
+        assert "Tony is sleeping at the moment." in out
+
+    def test_parent_specific_methods_accessible_through_child(self):
+        _, out = run_script(self.FILE)
+        assert "Bugs is fleeing from its predators." in out
+        assert "Tony is hunting its prey." in out
+
+    def test_fish_inherits_both_prey_and_predator_behaviour(self):
+
+        """
+        Fish(Prey, Predator) sits at the bottom of two separate branches
+        of the multi-level chain simultaneously, so both fish instances
+        can call methods from either lineage.
+        """
+
+        _, out = run_script(self.FILE)
+        assert "Nemo is fleeing from its predators." in out
+        assert "Dory is hunting its prey." in out
+
+
+# ---------------------------------------------------------------------------
+# nested_classes.py
+# ---------------------------------------------------------------------------
+class TestNestedClasses:
+    FILE = f"{FOLDER}/nested_classes.py"
+
+    def test_both_class_body_headers_print_before_any_table_output(self):
+
+        """
+        Both "Companies Sells Products" and "Organisations Sells
+        Services" are bare print() statements inside their respective
+        class bodies, so both fire back-to-back at class-definition time,
+        before the Company/Organisation instance sections further down
+        ever run.
+        """
+
+        _, out = run_script(self.FILE)
+        header_end = max(out.find("Companies Sells Products"), out.find("Organisations Sells Services"))
+        assert out.find("Tesco | Profit") > header_end
+        assert out.find("NHS | Non-Profit") > header_end
+
+    def test_company_employees_listed_with_and_without_department(self):
+        _, out = run_script(self.FILE)
+        assert "Tesco | Profit" in out
+        assert "Mark Sterling : CEO" in out
+        assert "John Dickenson : COO" in out
+        assert "Olivia Elizabeth : Manager -> Bakery" in out
+
+    def test_organisation_employees_listed(self):
+        _, out = run_script(self.FILE)
+        assert "NHS | Non-Profit" in out
+        assert "Emily Karen : Nurse -> Midwife" in out
+        assert "Bob Middleton : Doctor -> A&E" in out
+        assert "Thomas Edward : Researcher -> Laboratory" in out
+
+    def test_nested_employee_class_is_scoped_to_its_outer_class(self):
+
+        """
+        Company.Employee and Organisation.Employee are separate classes
+        despite having identical bodies - confirming the nesting actually
+        namespaces them rather than sharing one global Employee class.
+        """
+
+        mod, _ = run_script(self.FILE)
+        assert mod.Company.Employee is not mod.Organisation.Employee
+
+
+# ---------------------------------------------------------------------------
+# polymorphism.py
+# ---------------------------------------------------------------------------
+class TestPolymorphism:
+    FILE = f"{FOLDER}/polymorphism.py"
+
+    def test_all_five_shape_areas_printed_in_order(self):
+
+        # Circle(3): pi*9 = 28.27, Square(4): 16.00, Triangle(5,6): 15.00,
+        # FlatCake: 36.00, Pizza(10) inherits Circle's area: pi*100 = 314.16
+        _, out = run_script(self.FILE)
+        expected = ["Area: 28.27", "Area: 16.00", "Area: 15.00", "Area: 36.00", "Area: 314.16"]
+        lines = [line for line in out.splitlines() if line.startswith("Area:")]
+        assert lines == expected
+
+    def test_flatcake_satisfies_duck_typed_interface_without_inheriting_shape(self):
+
+        """
+        FlatCake is not a Shape subclass at all, but defines its own
+        area() method with a matching signature, so it slots into the
+        polymorphic loop without an AttributeError.
+        """
+
+        mod, _ = run_script(self.FILE)
+        cake = mod.FlatCake("Vanilla", 4, 5)
+        assert cake.area() == 20
+
+    def test_pizza_inherits_circle_area_via_super(self):
+
+        """
+        Pizza(Circle) doesn't override area() at all, so calling it
+        resolves to Circle's implementation using the radius passed
+        through super().__init__().
+        """
+
+        mod, _ = run_script(self.FILE)
+        pizza = mod.Pizza("Pepperoni", 5)
+        assert pizza.area() == pytest.approx(math.pi * 25)
+
+    def test_shape_is_not_actually_enforced_as_abstract(self):
+
+        """
+        Genuine inconsistency worth knowing: Shape uses @abstractmethod
+        but does NOT inherit from ABC, so the decorator has no
+        enforcement effect on its own here - Shape() instantiates fine,
+        unlike Vehicle in abstract_classes.py or Device in device.py,
+        both of which correctly inherit ABC and raise TypeError on
+        direct instantiation.
+        """
+
+        mod, _ = run_script(self.FILE)
+        shape = mod.Shape()  # does NOT raise, unlike a true ABC would
+        assert shape.area() is None  # falls through the bare `pass` body
+
+
+# ---------------------------------------------------------------------------
+# property.py
+# ---------------------------------------------------------------------------
+class TestProperty:
+    FILE = f"{FOLDER}/property.py"
+
+    def test_all_three_rectangles_printed_with_computed_areas(self):
+        _, out = run_script(self.FILE)
+        assert "Width: 1.00cm" in out and "Height: 2.00cm" in out and "Area: 2.00cm" in out
+        assert "Width: 3.00cm" in out and "Height: 4.00cm" in out and "Area: 12.00cm" in out
+        assert "Width: 5.00cm" in out and "Height: 6.00cm" in out and "Area: 30.00cm" in out
+
+    def test_width_setter_rejects_non_positive_values(self, capsys):
+        mod, _ = run_script(self.FILE)
+        rectangle = mod.Rectangle(10, 10)
+        rectangle.width = -5
+        captured = capsys.readouterr()
+        assert "Has to be Non-Zero Positive Widths -> W > 0" in captured.out
+        assert rectangle._width == 10  # unchanged since the invalid value was rejected
+
+    def test_height_setter_rejects_non_positive_values(self, capsys):
+        mod, _ = run_script(self.FILE)
+        rectangle = mod.Rectangle(10, 10)
+        rectangle.height = 0
+        captured = capsys.readouterr()
+        assert "Has to be Non-Zero Positive Heights -> H > 0" in captured.out
+        assert rectangle._height == 10
+
+    def test_width_setter_accepts_valid_positive_value(self):
+        mod, _ = run_script(self.FILE)
+        rectangle = mod.Rectangle(10, 10)
+        rectangle.width = 25
+        assert rectangle.width == "25.00cm"
+
+    def test_width_deleter_removes_the_underlying_attribute(self, capsys):
+        mod, _ = run_script(self.FILE)
+        rectangle = mod.Rectangle(10, 10)
+        del rectangle.width
+        captured = capsys.readouterr()
+        assert "Width has been deleted" in captured.out
+        assert not hasattr(rectangle, "_width")
+
+    def test_height_deleter_removes_the_underlying_attribute(self, capsys):
+        mod, _ = run_script(self.FILE)
+        rectangle = mod.Rectangle(10, 10)
+        del rectangle.height
+        captured = capsys.readouterr()
+        assert "Height has been deleted" in captured.out
+        assert not hasattr(rectangle, "_height")
+
+    def test_height_getter_property_directly(self):
+
+        """
+        The module-level output only reads self._height directly inside
+        __str__ - the height @property getter itself was never actually
+        called anywhere until now.
+        """
+
+        mod, _ = run_script(self.FILE)
+        rectangle = mod.Rectangle(3, 4)
+        assert rectangle.height == "4.00cm"
+
+    def test_area_getter_property_directly(self):
+
+        # Same gap as height above: area's @property getter was untested.
+        mod, _ = run_script(self.FILE)
+        rectangle = mod.Rectangle(3, 4)
+        assert rectangle.area == "12.00cm\u00b2"
+
+    def test_height_setter_accepts_valid_positive_value(self):
+
+        """
+        The module-level output never exercises height's setter valid
+        branch - only the width setter's valid path was covered before.
+        """
+
+        mod, _ = run_script(self.FILE)
+        rectangle = mod.Rectangle(10, 10)
+        rectangle.height = 40
+        assert rectangle.height == "40.00cm"
+
+
+# ---------------------------------------------------------------------------
+# static_methods.py
+# ---------------------------------------------------------------------------
+class TestStaticMethods:
+    FILE = f"{FOLDER}/static_methods.py"
+
+    def test_all_seven_employee_info_lines_printed(self):
+        _, out = run_script(self.FILE)
+        for name, role in [
+            ("Alice", "Manager"), ("Bob", "Janitor"), ("Charlie", "Chef"),
+            ("David", "Waiter"), ("Eve", "Assistant"), ("Frank", "Owner"),
+            ("Grace", "Co-Founder"),
+        ]:
+            assert f"{name} : {role}" in out
+
+    def test_valid_job_role_static_method_results(self):
+        _, out = run_script(self.FILE)
+        assert "Cook in Staff? False" in out
+        assert "Chef in Staff? True" in out
+
+    def test_static_method_callable_without_any_instance(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.Employee.valid_job_role("Manager") is True
+        assert mod.Employee.valid_job_role("Astronaut") is False
+
+
+# ---------------------------------------------------------------------------
+# super.py
+# ---------------------------------------------------------------------------
+class TestSuper:
+    FILE = f"{FOLDER}/super.py"
+
+    def test_circle_area_and_filled_description(self):
+
+        # pi * 5^2 = 78.54
+        _, out = run_script(self.FILE)
+        assert "AREA: 78.54" in out
+        assert "A(n) Filled Red Shape" in out
+
+    def test_square_area_and_unfilled_description(self):
+        _, out = run_script(self.FILE)
+        assert "AREA: 100.00" in out
+        assert "A(n) Unfilled Blue Shape" in out
+
+    def test_triangle_area_and_filled_description(self):
+
+        # 2 * 3 = 6.00
+        _, out = run_script(self.FILE)
+        assert "AREA: 6.00" in out
+        assert "A(n) Filled Yellow Shape" in out
+
+    def test_shape_attributes_printed_for_all_three(self):
+        _, out = run_script(self.FILE)
+        assert "COLOUR: Red" in out and "RADIUS: 5" in out
+        assert "COLOUR: Blue" in out and "SIDE: 10" in out
+        assert "COLOUR: Yellow" in out and "LENGTH: 2" in out and "HEIGHT: 3" in out
+
+    def test_super_call_chains_child_description_before_parent_description(self):
+
+        """
+        Each subclass's description() prints its own AREA line first,
+        THEN calls super().description() for the "A(n) ... Shape" line -
+        confirming the super() call happens after, not before, the
+        child's own logic.
+        """
+
+        _, out = run_script(self.FILE)
+        circle_section = out.split("--- CIRCLE ---")[1].split("--- SQUARE ---")[0]
+        assert circle_section.find("AREA:") < circle_section.find("A(n)")
 

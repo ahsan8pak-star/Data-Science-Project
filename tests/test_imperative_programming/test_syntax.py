@@ -1,1648 +1,994 @@
 """
-Pytest suite for every script under python/syntax_fundamentals/.
+Pytest suite for every script under python/object_oriented_programming/syntax_fundamentals/.
 
-This is the largest and most varied folder - one-off utility scripts,
-countdown timers, and a couple of files (math_module.py/math_file.py) that
-only work correctly once run_script() replicates a directly-run script's
-sys.path and __name__ behaviour (see conftest.py).
+Executed for real via run_script() (see conftest.py). Several files here
+are pure class-definition modules with no module-level instantiation
+(car.py, person.py, point.py) - these produce empty stdout by design and
+are exercised via direct method calls on the returned module instead.
+dice.py additionally reaches across into imperative_programming for its
+dice_art dict, mirroring the cross-package pattern already covered for
+dice_game.py itself under test_imperative_programming.
 """
 
 import pytest
 import sys
 
-from pathlib import Path
 from unittest.mock import patch
-from tests.test_imperative_programming.conftest import run_script
+from tests.test_object_oriented_programming.conftest import run_script
 
-# Direct imports required to resolve specific test execution errors
-from imperative_programming.syntax_fundamentals.factorials import factorial                  # Resolves NameError
-from imperative_programming.syntax_fundamentals.food_script_example import favourite_food    # Resolves ModuleNotFoundError
-from imperative_programming.syntax_fundamentals.drink_script_example import favourite_drink  # Resolves ModuleNotFoundError
-from imperative_programming.syntax_fundamentals.email_slicer import slice_email              # Resolves EOFError
-
-PYTHON_SOURCE_DIR = Path(__file__).resolve().parents[2] / 'python'
-
-FOLDER = "imperative_programming/syntax_fundamentals"
+FOLDER = "object_oriented_programming/syntax_fundamentals"
 
 
 # ---------------------------------------------------------------------------
-# add.py
+# bank_account.py
 # ---------------------------------------------------------------------------
-class TestAdd:
-    FILE = f"{FOLDER}/add.py"
+class TestBankAccount:
+    FILE = f"{FOLDER}/bank_account.py"
 
-    def test_output(self):
+    def test_initial_account_details_printed(self):
         _, out = run_script(self.FILE)
-        assert _.result == 8
-        assert "8" in out
+        assert "Account Number: 12345678" in out
+        assert "Account Holder: John Doe" in out
+        assert "Balance: £1000.00" in out
 
-    def test_function_directly(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.add(-2, 2) == 0
-
-    def test_add_with_two_negatives(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.add(-5, -5) == -10
-
-    def test_add_with_floats(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.add(1.5, 2.5) == 4.0
-
-    def test_add_is_commutative(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.add(3, 7) == mod.add(7, 3)
-
-    def test_add_zero_identity(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.add(9, 0) == 9
-
-    def test_add_large_numbers(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.add(999999, 1) == 1000000
-
-
-# ---------------------------------------------------------------------------
-# checkout_system.py
-# ---------------------------------------------------------------------------
-class TestCheckoutSystem:
-    FILE = f"{FOLDER}/checkout_system.py"
-
-    def test_zero_quantity(self):
-        _, out = run_script(self.FILE, inputs=["Apple", "1.50", "0"])
-        assert "You bought nothing. See you later!" in out
-
-    def test_single_item(self):
-        _, out = run_script(self.FILE, inputs=["Apple", "1.50", "1"])
-        assert "You bought only 1 Apple" in out
-        assert "Price: £1.50" in out
-
-    def test_multiple_items(self):
-        _, out = run_script(self.FILE, inputs=["Apple", "1.50", "4"])
-        assert "You bought 4 Apples" in out
-        assert "Total: £6.00" in out
-
-    def test_non_numeric_price_raises_uncaught_value_error(self):
-        with pytest.raises(ValueError):
-            run_script(self.FILE, inputs=["Apple", "abc", "1"])
-
-    def test_non_numeric_quantity_raises_uncaught_value_error(self):
-        with pytest.raises(ValueError):
-            run_script(self.FILE, inputs=["Apple", "1.50", "abc"])
-
-    def test_negative_quantity_falls_into_else_branch(self):
-        
-        """
-        Only 0 and 1 have dedicated branches; a negative quantity is
-        neither, so it flows into the general multi-item branch.
-        """
-        
-        _, out = run_script(self.FILE, inputs=["Apple", "1.50", "-2"])
-        assert "You bought -2 Apples" in out
-        assert "Total: £-3.00" in out
-
-    def test_total_rounds_to_two_decimal_places(self):
-        _, out = run_script(self.FILE, inputs=["Widget", "1.111", "3"])
-        assert "Total: £3.33" in out
-
-    def test_item_name_with_spaces_preserved(self):
-        _, out = run_script(self.FILE, inputs=["Green Apple", "2.00", "2"])
-        assert "You bought 2 Green Apples" in out
-
-
-# ---------------------------------------------------------------------------
-# count_up_timer.py
-# ---------------------------------------------------------------------------
-class TestCountUpTimer:
-    FILE = f"{FOLDER}/count_up_timer.py"
-
-    def test_ten_calls_all_print_times_up(self):
+    def test_deposit_and_withdraw_confirmation_messages(self):
         _, out = run_script(self.FILE)
-        assert out.count("TIMES UP!") == 10
+        assert "Deposited £500. New balance: £1500." in out
+        assert "Withdrew £200. New balance: £1300." in out
 
-    def test_none_printed_after_each_call(self):
-        
-        """
-        count() has no return statement, so wrapping every call in
-        print() also prints the literal word 'None' each time.
-        """
-        
+    def test_final_balance_reflects_deposit_then_withdrawal(self):
+
+        # 1000 + 500 - 200 = 1300
         _, out = run_script(self.FILE)
-        assert out.count("None") == 10
+        assert "Balance: £1300.00" in out
 
-    def test_first_call_counts_from_zero_to_one(self):
-        _, out = run_script(self.FILE)
-        assert out.startswith("0\n1\nTIMES UP!\nNone\n")
-
-    def test_last_call_reaches_thirty(self):
-        _, out = run_script(self.FILE)
-        assert "29\n30\nTIMES UP!\nNone" in out
-
-    def test_default_start_argument_is_zero(self):
+    def test_deposit_rejects_non_positive_amount(self, capsys):
         mod, _ = run_script(self.FILE)
-        assert mod.count.__defaults__ == (0,)
-
-    def test_count_function_returns_none(self):
-        mod, _ = run_script(self.FILE)
-        with patch("time.sleep", return_value=None):
-            assert mod.count(0) is None
-
-    def test_custom_start_value_direct_call(self, capsys):
-        mod, _ = run_script(self.FILE)
-        with patch("time.sleep", return_value=None):
-            mod.count(5, start=3)
+        account = mod.BankAccount("999", "Test User")
+        account.deposit(-50)
         captured = capsys.readouterr()
-        assert "3\n4\n5\nTIMES UP!\n" in captured.out
+        assert "Deposit amount must be positive." in captured.out
+        assert account.balance == 0  # unchanged
 
-    def test_start_greater_than_end_prints_no_numbers(self):
-        
-        """
-        range(start, end + 1) is empty when start > end, so the loop
-        body never executes - only the trailing 'TIMES UP!' prints.
-        """
-        
+    def test_withdraw_rejects_amount_greater_than_balance(self, capsys):
         mod, _ = run_script(self.FILE)
-        with patch("time.sleep", return_value=None):
-            import io
-            import contextlib
-            buf = io.StringIO()
-            with contextlib.redirect_stdout(buf):
-                mod.count(2, start=5)
-            assert buf.getvalue() == "TIMES UP!\n"
-
-
-# ---------------------------------------------------------------------------
-# distance_calculator.py
-# ---------------------------------------------------------------------------
-class TestDistanceCalculator:
-    FILE = f"{FOLDER}/distance_calculator.py"
-
-    def test_positive_distance(self):
-        _, out = run_script(self.FILE, inputs=["0", "100"])
-        assert "You travelled 100.0km!" in out
-
-    def test_negative_distance_if_reversed(self):
-        _, out = run_script(self.FILE, inputs=["100", "0"])
-        assert "You travelled -100.0km!" in out
-
-    def test_non_numeric_input_raises_uncaught_value_error(self):
-        with pytest.raises(ValueError):
-            run_script(self.FILE, inputs=["abc", "100"])
-
-    def test_decimal_inputs_rounded_to_two_places(self):
-        _, out = run_script(self.FILE, inputs=["1.111", "5.555"])
-        assert "You travelled 4.44km!" in out
-
-    def test_identical_points_gives_zero_distance(self):
-        _, out = run_script(self.FILE, inputs=["50", "50"])
-        assert "You travelled 0.0km!" in out
-
-
-# ---------------------------------------------------------------------------
-# divide.py
-# ---------------------------------------------------------------------------
-class TestDivide:
-    FILE = f"{FOLDER}/divide.py"
-
-    def test_output(self):
-        _, out = run_script(self.FILE)
-        assert _.result == 4.0
-        assert "4.0" in out
-
-    def test_function_directly(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.divide(10, 2) == 5
-
-    def test_division_by_zero_raises(self):
-        mod, _ = run_script(self.FILE)
-        with pytest.raises(ZeroDivisionError):
-            mod.divide(1, 0)
-
-    def test_divide_negative_numbers(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.divide(-10, 2) == -5
-
-    def test_divide_returns_float(self):
-        mod, _ = run_script(self.FILE)
-        assert isinstance(mod.divide(4, 2), float)
-
-
-# ---------------------------------------------------------------------------
-# drink_script_example.py
-# ---------------------------------------------------------------------------
-class TestDrinkScriptExample:
-    FILE = "imperative_programming/syntax_fundamentals/drink_script_example.py" # Full path for the module cache cleaner
-    MODULE_PATH = "imperative_programming.syntax_fundamentals.drink_script_example"
-
-    @pytest.fixture(autouse=True)
-    def _clean_module_cache(self):
-        """
-        Reset the specific module path before/after each test.
-        """
-        sys.modules.pop(self.MODULE_PATH, None)
-        yield
-        sys.modules.pop(self.MODULE_PATH, None)
-
-    def test_drink_script_imports_and_calls_foods_function(self):
-        _, out = run_script(self.FILE)
-        assert "Your favourite food is 'RICE'!" in out
-        assert "Your favourite drink is 'TEA'!" in out
-
-    def test_drink_script_has_no_guard_and_always_executes(self, monkeypatch, capsys):
-        
-        """
-        Importing the module via its full package path to verify
-        the lack of a guard clause.
-        """
-        
-        import imperative_programming.syntax_fundamentals.drink_script_example as drink_script_example # noqa: F401
-        
+        account = mod.BankAccount("999", "Test User", balance=100)
+        account.withdraw(200)
         captured = capsys.readouterr()
-        assert "Your favourite food is 'RICE'!" in captured.out
-        assert "This is SCRIPT 2!" in captured.out
+        assert "Withdrawal amount must be positive and less than or equal to the current balance." in captured.out
 
-    def test_drink_script_output_follows_comment_order(self):
+    def test_get_balance_returns_current_balance(self):
+        mod, _ = run_script(self.FILE)
+        account = mod.BankAccount("999", "Test User", balance=250)
+        assert account.get_balance() == 250
+
+
+# ---------------------------------------------------------------------------
+# calculator.py
+# ---------------------------------------------------------------------------
+class TestCalculator:
+    FILE = f"{FOLDER}/calculator.py"
+
+    def test_all_operations_printed_in_order(self):
         _, out = run_script(self.FILE)
-        # Using string find to verify order of execution
-        assert out.find("RICE") < out.find("TEA") < out.find("This is SCRIPT 2!")
+        lines = out.strip().splitlines()
+        assert lines == ["15", "5", "5.0", "Cannot divide by zero.", "42", "8", "4.0",
+                          "Impossible to calculate square root of a negative number."]
+
+    def test_static_methods_callable_without_an_instance(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.Calculator.add(2, 3) == 5
+        assert mod.Calculator.subtract(10, 4) == 6
+        assert mod.Calculator.multiply(3, 3) == 9
+        assert mod.Calculator.power(2, 10) == 1024
+
+    def test_divide_by_zero_returns_a_string_not_an_exception(self):
+        mod, _ = run_script(self.FILE)
+        result = mod.Calculator.divide(5, 0)
+        assert result == "Cannot divide by zero."
+        assert isinstance(result, str)
+
+    def test_square_root_of_negative_returns_error_string(self):
+        mod, _ = run_script(self.FILE)
+        result = mod.Calculator.square_root(-9)
+        assert result == "Impossible to calculate square root of a negative number."
 
 
 # ---------------------------------------------------------------------------
-# email_slicer.py
+# car.py
 # ---------------------------------------------------------------------------
-class TestEmailSlicer:
-    FILE = f"{FOLDER}/email_slicer.py"
+class TestCar:
+    FILE = f"{FOLDER}/car.py"
 
+    def test_script_produces_no_output(self):
 
-    def test_no_at_symbol_handles_error_gracefully(self):
-        _, out = run_script(self.FILE, inputs=["not-an-email", "q"])
-        assert "Invalid email: missing @ symbol" in out
-
-    def test_username_and_domain_split(self):
-        _, out = run_script(self.FILE, inputs=["ahsan@gmail.com"])
-        assert "Username: ahsan" in out
-        assert "Email Domain: gmail.com" in out
-
-    def test_empty_input_reprompts_without_crashing(self):
-        inputs = ["", "ahsan@gmail.com"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "No Input Made. Try again." in out
-        assert "Username: ahsan" in out
-
-    def test_at_symbol_present_but_no_dot_shows_invalid_email_message(self):
-        
         """
-        slice_email() only checks for '@', so "user@localhost" parses
-        fine internally - but the outer loop's own
-        `if "@" in email and "." in email:` guard still rejects it for
-        missing a dot, distinct from the missing-'@' ValueError path.
+        car.py only defines the Car class - it never instantiates or
+        calls anything at module level, so running it directly prints
+        nothing. This is the sibling module classes.py's typo'd import
+        was trying (and failing) to reach.
         """
-        
-        inputs = ["user@localhost", "q"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Invalid email. Try again." in out
-        assert "Shutting down..." in out
 
-    def test_keyboard_interrupt_handled(self):
-        kb = patch("builtins.input", side_effect=KeyboardInterrupt)
-        _, out = run_script(self.FILE, patches=[kb])
-        assert "We apologise for any inconvenience." in out
-        assert "Have a great day!" in out
-
-    def test_quit_command_exits_cleanly(self):
-        _, out = run_script(self.FILE, inputs=["q"])
-        assert "Shutting down..." in out
-        assert "Username:" not in out
-
-
-# ---------------------------------------------------------------------------
-# even_odd_detector.py
-# ---------------------------------------------------------------------------
-class TestEvenOddLoopDetector:
-    FILE = f"{FOLDER}/even_odd_detector.py"
-
-    def test_even_and_odd_counts(self):
         _, out = run_script(self.FILE)
-        assert "We have 6 even numbers" in out
-        assert "We have 5 odd numbers" in out
+        assert out == ""
 
-    def test_individual_numbers_present(self):
+    def test_drive_and_stop_methods_directly(self, capsys):
+        mod, _ = run_script(self.FILE)
+        car = mod.Car("Supra", 1998, "White", True)
+        car.drive()
+        car.stop()
+        captured = capsys.readouterr()
+        assert "You are driving a White Supra!" in captured.out
+        assert "You finished driving a White Supra." in captured.out
+
+    def test_description_for_sale_branch(self, capsys):
+        mod, _ = run_script(self.FILE)
+        car = mod.Car("GTR", 2005, "Blue", True)
+        car.description()
+        captured = capsys.readouterr()
+        assert "This is a 2005 Blue GTR" in captured.out
+        assert "You can buy this car right now!" in captured.out
+
+    def test_description_not_for_sale_branch(self, capsys):
+        mod, _ = run_script(self.FILE)
+        car = mod.Car("Classic", 1965, "Red", False)
+        car.description()
+        captured = capsys.readouterr()
+        assert "A priceless car, not worthy to be auctioned." in captured.out
+
+
+# ---------------------------------------------------------------------------
+# device.py
+# ---------------------------------------------------------------------------
+class TestDevice:
+    FILE = f"{FOLDER}/device.py"
+
+    def test_device_cannot_be_instantiated_directly(self):
+        mod, _ = run_script(self.FILE)
+        with pytest.raises(TypeError):
+            mod.Device("Generic", "X1")
+
+    def test_all_three_info_lines_printed(self):
+        _, out = run_script(self.FILE)
+        assert "The phone number is 123-456-7890." in out
+        assert "The screen size is 15.6 inches." in out
+        assert "The storage capacity is 128GB." in out
+
+    def test_turn_on_messages_for_all_three_devices(self):
+        _, out = run_script(self.FILE)
+        assert "The Apple IPhone XR phone is turning on." in out
+        assert "The Dell XPS 15 laptop is turning on." in out
+        assert "The Samsung Galaxy Tab S7 tablet is turning on." in out
+
+    def test_turn_off_messages_for_all_three_devices(self):
+        _, out = run_script(self.FILE)
+        assert "The Apple IPhone XR phone is turning off." in out
+        assert "The Dell XPS 15 laptop is turning off." in out
+        assert "The Samsung Galaxy Tab S7 tablet is turning off." in out
+
+    def test_turn_on_block_prints_before_turn_off_block(self):
+        _, out = run_script(self.FILE)
+        assert out.find("turning on") < out.find("turning off")
+
+
+# ---------------------------------------------------------------------------
+# dice.py
+# ---------------------------------------------------------------------------
+class TestDice:
+    FILE = f"{FOLDER}/dice.py"
+
+    def test_rolled_number_matches_the_patched_random_value(self):
+        fixed_roll = patch("random.randint", return_value=6)
+        _, out = run_script(self.FILE, patches=[fixed_roll])
+        assert "You rolled a 6:" in out
+
+    def test_dice_art_lines_for_the_rolled_value_are_printed(self):
+
+        """
+        Confirms the cross-package import from
+        imperative_programming.logical_games.dice_game actually resolves
+        and its dice_art dict is used correctly, not just that a number
+        gets printed.
+        """
+
+        fixed_roll = patch("random.randint", return_value=6)
+        _, out = run_script(self.FILE, patches=[fixed_roll])
+        assert "┌─────────┐" in out
+        assert "│  ●   ●  │" in out
+        assert "└─────────┘" in out
+
+    def test_different_roll_shows_different_art(self):
+        fixed_roll = patch("random.randint", return_value=1)
+        _, out = run_script(self.FILE, patches=[fixed_roll])
+        assert "You rolled a 1:" in out
+        assert "│    ●    │" in out  # roll 1's single centred dot
+
+    def test_dice_art_import_did_not_trigger_dice_game_pys_own_main(self):
+
+        """
+        dice_game.py guards its own interactive script behind
+        `if __name__ == "__main__":`, so importing just its dice_art dict
+        should not print or prompt anything from that sibling file - its
+        own "DICE RACE" welcome banner should never appear here.
+        """
+
+        fixed_roll = patch("random.randint", return_value=3)
+        _, out = run_script(self.FILE, patches=[fixed_roll])
+        assert "DICE RACE" not in out  # would appear if dice_game.py's own main() had run
+
+
+# ---------------------------------------------------------------------------
+# employee_contract.py
+# ---------------------------------------------------------------------------
+class TestEmployeeContract:
+    FILE = f"{FOLDER}/employee_contract.py"
+
+    def test_part_time_employee_combines_worker_and_student_info(self):
+        _, out = run_script(self.FILE)
+        assert "Sophia works as a Support Assistant." in out
+        assert "Sophia is studying Business Management." in out
+        assert "Working hours: 20 hours per week." in out
+
+    def test_full_time_employee_combines_worker_and_graduate_info(self):
+        _, out = run_script(self.FILE)
+        assert "Daniel works as a Software Engineer." in out
+        assert "Daniel graduated with a Computer Science degree." in out
+        assert "Assigned department: Engineering." in out
+
+    def test_part_time_printed_before_full_time(self):
+        _, out = run_script(self.FILE)
+        assert out.find("Sophia") < out.find("Daniel")
+
+    def test_multiple_inheritance_uses_explicit_parent_init_calls(self):
+
+        """
+        PartTimeEmployee calls Worker.__init__() and Student.__init__()
+        explicitly by name (rather than a single super().__init__()
+        chain), so both parents' attributes end up set on the same
+        instance without needing cooperative MRO-based super() calls.
+        """
+
+        mod, _ = run_script(self.FILE)
+        part_time = mod.PartTimeEmployee(name="Test", role="Role", course="Course", hours_per_week=15)
+        assert part_time.name == "Test" and part_time.role == "Role" and part_time.course == "Course"
+
+
+# ---------------------------------------------------------------------------
+# food.py
+# ---------------------------------------------------------------------------
+class TestFood:
+    FILE = f"{FOLDER}/food.py"
+
+    def test_dessert_chain_output(self):
+        _, out = run_script(self.FILE)
+        assert "'Chocolate Cake' has '350' calories." in out
+        assert "'Chocolate Cake' is a snack served in '1 Slice'." in out
+        assert "'Chocolate Cake' is a dessert with 'High' sweetness." in out
+
+    def test_treat_chain_output(self):
+        _, out = run_script(self.FILE)
+        assert "'Chocolate Chip Cookies' has '220' calories." in out
+        assert "'Chocolate Chip Cookies' is a snack served in '2 Cookies'." in out
+        assert "'Chocolate Chip Cookies' has a 'Crunchy' texture." in out
+
+    def test_cold_drink_chain_output(self):
+        _, out = run_script(self.FILE)
+        assert "'Cola' has '140' calories." in out
+        assert "'Cola' is served at a 'Cold' temperature." in out
+        assert "'Cola' is 'Carbonated'." in out
+
+    def test_hot_drink_chain_output(self):
+        _, out = run_script(self.FILE)
+        assert "'Green Tea' has '50' calories." in out
+        assert "'Green Tea' is served at a 'Hot' temperature." in out
+        assert "'Green Tea' has a 'Fresh' aroma." in out
+
+    def test_four_groups_separated_by_dashed_lines(self):
+        _, out = run_script(self.FILE)
+        assert out.count("-" * 40) == 3  # 3 separators between 4 groups
+
+    def test_dessert_is_a_multi_level_subclass_of_food(self):
+        mod, _ = run_script(self.FILE)
+        assert isinstance(mod.cake, mod.Snack)
+        assert isinstance(mod.cake, mod.Food)
+
+
+# ---------------------------------------------------------------------------
+# grocery_caloric_list.py
+# ---------------------------------------------------------------------------
+class TestGroceryCaloricList:
+    FILE = f"{FOLDER}/grocery_caloric_list.py"
+
+    def test_get_positive_float_rejects_non_numeric_then_non_positive_then_accepts(self):
+        mod, _ = run_script(self.FILE, inputs=["2000", "20", "", ""])
+        with patch("builtins.input", side_effect=["abc", "-5", "10"]):
+            result = mod.get_positive_float("Enter: ")
+        assert result == 10.0
+
+    def test_display_menu_prints_header_and_all_items(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["2000", "20", "", ""])
+        item = mod.FoodItem("banana", 105, 0.30)
+        mod.display_menu("Test Menu", {"banana": item})
+        captured = capsys.readouterr()
+        assert "--- Test Menu ---" in captured.out
+        assert "Banana" in captured.out
+        assert "105" in captured.out
+
+    def test_print_welcome_banner(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["2000", "20", "", ""])
+        mod.print_welcome()
+        captured = capsys.readouterr()
+        assert "GROCERY & CALORIE TRACKER" in captured.out
+        assert "Plan your meals, balance your budget," in captured.out
+
+    def test_empty_order_immediately_exited(self):
+
+        """
+        max_calories=2000, max_budget=20, blank item selection (skips
+        ordering entirely), then blank again at the adjust-order prompt
+        to exit straight away.
+        """
+
+        inputs = ["2000", "20", "", ""]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Your order is currently empty." in out
+        assert "HERE'S YOUR ORDER! THANKS FOR SHOPPING WITH OUR TRACKER!" in out
+
+    def test_single_item_order_shows_correct_receipt_totals(self):
+
+        # banana: 105 kcal, £0.30 each -> qty 2 = 210 kcal, £0.60
+        inputs = ["2000", "5", "banana", "2", ""]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Banana" in out
+        assert "210" in out
+        assert "£0.60" in out
+        assert "Nice! You are within both your Caloric and Budget limits." in out
+
+    def test_unrecognised_item_name_shows_notice_and_is_skipped(self):
+        inputs = ["2000", "20", "fakefood", ""]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Notice: 'fakefood' is not on the menu and was skipped." in out
+        assert "Your order is currently empty." in out
+
+    def test_generate_recommendations_over_both_limits_scenario(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["2000", "20", "", ""])
+        item = mod.FoodItem("coconut", 354, 2.50)
+        order = [mod.OrderLine(item, 10)]  # 3540 kcal, £25.00
+        mod.generate_recommendations(order, {"coconut": item}, cal_excess=1540, budget_excess=5.0,
+                                       remaining_cals=-1540, remaining_budget=-5.0)
+        captured = capsys.readouterr()
+        assert "EXCEEDED BOTH LIMITS!" in captured.out
+
+    def test_generate_recommendations_within_limits_scenario(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["2000", "20", "", ""])
+        item = mod.FoodItem("apple", 72, 0.50)
+        mod.generate_recommendations([], {"apple": item}, cal_excess=-1000, budget_excess=-10,
+                                       remaining_cals=1000, remaining_budget=10)
+        captured = capsys.readouterr()
+        assert "Nice! You are within both your Caloric and Budget limits." in captured.out
+
+    def test_generate_recommendations_calories_only_exceeded_scenario(self, capsys):
+
+        """
+        Distinct branch from "over both": budget_excess is negative (still
+        within budget) while cal_excess is positive, so only the
+        calories-specific recommendation branch should fire.
+        """
+
+        mod, _ = run_script(self.FILE, inputs=["2000", "20", "", ""])
+        item = mod.FoodItem("coconut", 354, 2.50)
+        order = [mod.OrderLine(item, 6)]  # 2124 kcal, £15.00 - over calories, under budget
+        mod.generate_recommendations(order, {"coconut": item}, cal_excess=124, budget_excess=-5.0,
+                                       remaining_cals=-124, remaining_budget=5.0)
+        captured = capsys.readouterr()
+        assert "EXCEEDED CALORIC LIMIT!" in captured.out
+        assert "EXCEEDED BOTH LIMITS!" not in captured.out
+
+    def test_generate_recommendations_budget_only_exceeded_scenario(self, capsys):
+
+        """
+        The mirror case: cal_excess negative (within calories) while
+        budget_excess is positive, exercising the budget-only branch
+        distinct from both the "over both" and "over calories" branches.
+        """
+
+        mod, _ = run_script(self.FILE, inputs=["2000", "20", "", ""])
+        item = mod.FoodItem("coconut", 354, 2.50)
+        order = [mod.OrderLine(item, 2)]  # 708 kcal, £5.00 - under calories, over a tiny budget
+        mod.generate_recommendations(order, {"coconut": item}, cal_excess=-1292, budget_excess=1.0,
+                                       remaining_cals=1292, remaining_budget=-1.0)
+        captured = capsys.readouterr()
+        assert "EXCEEDED BUDGET LIMIT!" in captured.out
+        assert "EXCEEDED BOTH LIMITS!" not in captured.out
+
+    def test_generate_recommendations_both_limits_with_no_single_item_solving_either(self, capsys):
+
+        """
+        Covers the "not found_option" fallback inside the over-both
+        branch: no single order line's calories or price alone meets
+        either excess, so the generic "reduce quantities" suggestion
+        prints instead of a specific item removal line.
+        """
+
+        mod, _ = run_script(self.FILE, inputs=["2000", "20", "", ""])
+        item = mod.FoodItem("apple", 72, 0.50)
+        order = [mod.OrderLine(item, 1)]
+        mod.generate_recommendations(order, {"apple": item}, cal_excess=5000, budget_excess=100,
+                                       remaining_cals=-5000, remaining_budget=-100)
+        captured = capsys.readouterr()
+        assert "Consider reducing quantities across multiple items to balance both limits." in captured.out
+
+    def test_initial_order_placed_then_viewed_in_receipt(self):
+
+        """
+        Exercises the initial item-selection loop's happy path (quantity
+        prompt succeeds first try), distinct from the single-item test
+        above which used the same path but didn't assert on the
+        interactive quantity-retry sub-loop.
+        """
+
+        inputs = ["2000", "20", "apple", "3", ""]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Apple" in out
+        assert "YOUR GROCERY RECEIPT" in out
+
+    def test_invalid_then_valid_quantity_during_initial_ordering(self):
+
+        """
+        Covers the initial-order quantity prompt's own retry branches:
+        a non-numeric answer, then a zero/negative answer, before finally
+        succeeding - three distinct rejection/retry paths in one script run.
+        """
+
+        inputs = ["2000", "20", "apple", "abc", "0", "2", ""]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Please enter a valid whole number." in out
+        assert "Quantity must be at least 1." in out
+        assert "Apple" in out
+
+    def test_updating_quantity_of_an_existing_order_item(self):
+
+        """
+        Covers the main interactive loop's modification branch when the
+        item is already in the order: updates its quantity rather than
+        adding a new line.
+        """
+
+        inputs = ["2000", "20", "apple", "2", "apple", "5", ""]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Updated 'Apple' quantity to 5." in out
+
+    def test_removing_an_existing_order_item_via_zero_quantity(self):
+
+        """
+        Setting the new quantity to 0 for an item already in the order
+        removes that line entirely, distinct from the update-quantity
+        branch above.
+        """
+
+        inputs = ["2000", "20", "apple", "2", "apple", "0", ""]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Removed 'Apple' from your order." in out
+        assert "Your order is currently empty." in out
+
+    def test_adding_a_new_item_via_the_modify_prompt_when_order_not_empty(self):
+
+        """
+        Distinct from the initial-selection loop: adding a second,
+        previously-unordered item through the main loop's own
+        add/update prompt rather than the very first item-selection step.
+        """
+
+        inputs = ["2000", "20", "apple", "2", "banana", "3", ""]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Added 3x 'Banana' to your order." in out
+        assert "Apple" in out and "Banana" in out
+
+    def test_negative_quantity_rejected_during_modify_prompt(self):
+        inputs = ["2000", "20", "apple", "2", "apple", "-1", "0", ""]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Quantity cannot be negative." in out
+
+    def test_unrecognised_item_name_during_modify_prompt(self):
+
+        """
+        Distinct from the initial-selection loop's own unrecognised-item
+        notice: this exercises the main loop's own equivalent check,
+        reached via a completely separate branch of the source.
+        """
+
+        inputs = ["2000", "20", "apple", "2", "fakefood", ""]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Notice: 'fakefood' is not on the menu. Please check the spelling and try again." in out
+
+
+# ---------------------------------------------------------------------------
+# item.py
+# ---------------------------------------------------------------------------
+class TestItem:
+    FILE = f"{FOLDER}/item.py"
+
+    def test_str_magic_method(self):
+        _, out = run_script(self.FILE)
+        assert "Keyboard - £29.99 (x2)" in out
+
+    def test_eq_magic_method(self):
+        mod, _ = run_script(self.FILE)
+        assert (mod.item1 == mod.item3) is False
+
+    def test_lt_and_gt_compare_by_price(self):
+
+        # item2 (Mouse, £9.99) < item3 (Monitor, £129.99)
+        # item3 (Monitor, £129.99) > item1 (Keyboard, £29.99)
         _, out = run_script(self.FILE)
         lines = out.splitlines()
-        for n in (0, 2, 4, 6, 8, 10):
-            assert str(n) in lines
-        for n in (1, 3, 5, 7, 9):
-            assert str(n) in lines
+        assert lines[1] == "False"  # item1 == item3
+        assert lines[2] == "True"   # item2 < item3
+        assert lines[3] == "True"   # item3 > item1
 
-    def test_even_numbers_printed_before_odd_numbers(self):
+    def test_add_magic_method_sums_prices(self):
+
+        # 29.99 + 9.99 = 39.98
         _, out = run_script(self.FILE)
-        assert out.find("We have 6 even numbers") < out.find("We have 5 odd numbers")
+        assert "39.98" in out
 
-    def test_no_input_required(self):
-        
-        """
-        The script has no input() calls, so it should run identically
-        with an empty inputs list.
-        """
-        
-        _, out = run_script(self.FILE, inputs=[])
-        assert "We have 6 even numbers" in out
+    def test_contains_magic_method_is_case_insensitive_substring_of_name(self):
+        _, out = run_script(self.FILE)
+        assert "True" in out.splitlines()   # "board" in "Keyboard"
+        assert "False" in out.splitlines()  # "laptop" not in "Mouse"
+
+    def test_getitem_magic_method_for_each_key(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.item1["price"] == 29.99
+        assert mod.item2["quantity"] == 5
+        assert mod.item3["name"] == "Monitor"
+
+    def test_getitem_unknown_key_returns_fallback_string(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.item1["colour"] == "Key 'colour' was not found"
 
 
 # ---------------------------------------------------------------------------
-# food_script_example.py
+# order.py
 # ---------------------------------------------------------------------------
-class TestFoodScriptExample:
-    FILE = "imperative_programming/syntax_fundamentals/food_script_example.py" # Full path for the module cache cleaner
-    MODULE_PATH = "imperative_programming.syntax_fundamentals.food_script_example"
+class TestOrder:
+    FILE = f"{FOLDER}/order.py"
 
-    @pytest.fixture(autouse=True)
-    def _clean_module_cache(self):
-        
-        """
-        Reset the specific module path before/after each test to ensure
-        fresh imports and no state pollution.
-        """
-        
-        sys.modules.pop(self.MODULE_PATH, None)
-        yield
-        sys.modules.pop(self.MODULE_PATH, None)
-
-    def test_food_script_runs_main_when_executed_directly(self):
+    def test_all_five_order_details_printed(self):
         _, out = run_script(self.FILE)
-        assert "You are seeing SCRIPT 1!" in out
-        assert "Your favourite food is 'CHICKEN'!" in out
-        assert "Bye Bye!" in out
+        assert "--- Sourdough Bread ---" in out
+        assert "Type: Bakery" in out
+        assert "Amount: 2" in out
+        assert "Cost: £2.50" in out
 
-    def test_food_script_stays_silent_on_a_plain_import(self, monkeypatch, capsys):
-        
-        # Importing the module via its full package path.
-        import imperative_programming.syntax_fundamentals.food_script_example as food_script_example # noqa: F401
-        
+    def test_total_orders_and_average_cost(self):
+
+        # revenue: (2.50*2)+(1.20*3)+(3.00*1)+(2.20*2)+(1.50*5) = 23.50
+        # average: 23.50 / 5 = 4.70
+        _, out = run_script(self.FILE)
+        assert "Total Orders: 5" in out
+        assert "Average Cost: £4.70" in out
+
+    def test_overall_stats_printed_after_all_individual_orders(self):
+        _, out = run_script(self.FILE)
+        assert out.find("Plain Flour") < out.find("Overall Stats")
+
+    def test_class_variables_are_fresh_per_script_run(self):
+
+        """
+        Since run_script() re-executes the module from scratch each time
+        via runpy, Order.total_orders should always be exactly 5 for this
+        specific script, never accumulating across separate test runs.
+        """
+
+        mod, _ = run_script(self.FILE)
+        assert mod.Order.total_orders == 5
+
+    def test_average_cost_with_zero_orders_direct(self):
+        mod, _ = run_script(self.FILE)
+
+        class FreshOrder(mod.Order):
+            total_revenue = 0
+            total_orders = 0
+
+        assert FreshOrder.average_cost() == "No Orders. No Costs."
+
+
+# ---------------------------------------------------------------------------
+# payment.py
+# ---------------------------------------------------------------------------
+class TestPayment:
+    FILE = f"{FOLDER}/payment.py"
+
+    def test_all_four_payment_types_processed(self):
+        _, out = run_script(self.FILE)
+        assert "Cash payment of £25.00 has been received." in out
+        assert "Card payment of £120.50 processed with card ending 3456." in out
+        assert "Bank transfer of £500.00 sent from account number 987654321." in out
+        assert "Cheque payment of £100.00 processed with cheque number CHK001." in out
+
+    def test_card_number_is_masked_to_last_four_digits(self):
+        mod, _ = run_script(self.FILE)
+        card = mod.Card(50, "9999888877776666")
+        assert "6666" in card.process()
+        assert "9999888877776666" not in card.process()
+
+    def test_base_payment_class_raises_when_process_not_overridden(self):
+
+        """
+        Payment isn't declared with ABC/abstractmethod, so it CAN be
+        instantiated directly - but calling .process() on it raises
+        NotImplementedError manually, a lighter-weight enforcement than
+        the abc-based pattern used in device.py/abstract_classes.py.
+        """
+
+        mod, _ = run_script(self.FILE)
+        payment = mod.Payment()  # instantiation itself succeeds
+        with pytest.raises(NotImplementedError):
+            payment.process()
+
+    def test_payments_processed_in_list_order(self):
+        _, out = run_script(self.FILE)
+        assert out.find("Cash") < out.find("Card") < out.find("Bank transfer") < out.find("Cheque")
+
+
+# ---------------------------------------------------------------------------
+# person.py
+# ---------------------------------------------------------------------------
+class TestPerson:
+    FILE = f"{FOLDER}/person.py"
+
+    def test_script_produces_no_output(self):
+
+        """
+        person.py only defines the Person class - nothing is instantiated
+        or called at module level, so running it directly prints nothing.
+        """
+
+        _, out = run_script(self.FILE)
+        assert out == ""
+
+    def test_talk_when_is_talking_is_true(self, capsys):
+        mod, _ = run_script(self.FILE)
+        person = mod.Person("Alex", 30, True)
+        person.talk()
         captured = capsys.readouterr()
-        assert captured.out == ""
+        assert "Alex is speaking right now." in captured.out
 
-    def test_food_script_favourite_food_function_direct(self, capsys):
+    def test_talk_when_not_talking_but_age_twenty_or_over(self, capsys):
         mod, _ = run_script(self.FILE)
-        mod.favourite_food("pizza")
-        
+        person = mod.Person("Sam", 25, False)
+        person.talk()
         captured = capsys.readouterr()
-        assert "Your favourite food is 'PIZZA'!" in captured.out
+        assert "Sam. You may start after the first speech." in captured.out
 
-
-# ---------------------------------------------------------------------------
-# factorials.py
-# ---------------------------------------------------------------------------
-class TestFactorials:
-
-    def test_factorial_of_five(self):
-        assert factorial(5) == 120
-
-    def test_factorial_of_zero_and_one(self):
-        assert factorial(0) == 1
-        assert factorial(1) == 1
-
-    def test_non_numeric_input(self):
-        with pytest.raises(TypeError):
-            factorial("abc")
-
-    def test_factorial_of_ten(self):
-        assert factorial(10) == 3628800
-
-    def test_factorial_is_recursive(self):
-        assert factorial(6) == 6 * factorial(5)
-
-    def test_negative_input_recurses_indefinitely_until_recursion_error(self):
-        
-        """
-        There's no base case for negatives, so n never reaches 0 or 1
-        and Python eventually raises a RecursionError.
-        """
-        
-        with pytest.raises(RecursionError):
-            factorial(-1)
-
-    def test_script_block_valid_input(self):
-        
-        """
-        factorials.py now also has an `if __name__ == "__main__":`
-        block wrapping an input()/print() script, in addition to the bare
-        function - exercise that too, not just factorial() directly.
-        """
-        
-        _, out = run_script(f"{FOLDER}/factorials.py", inputs=["5"])
-        assert out.strip() == "120"
-
-    def test_script_block_non_numeric_input(self):
-        _, out = run_script(f"{FOLDER}/factorials.py", inputs=["abc"])
-        assert "Error: Invalid number format. Enter integers only (whole numbers)." in out
-
-    def test_script_block_zero_input(self):
-        _, out = run_script(f"{FOLDER}/factorials.py", inputs=["0"])
-        assert out.strip() == "1"
-
-
-# ---------------------------------------------------------------------------
-# file_writer.py
-# ---------------------------------------------------------------------------
-class TestFileWriter:
-    FILE = f"{FOLDER}/file_writer.py"
-
-    def test_writes_greeting_to_file(self, tmp_path):
-        run_script(self.FILE, cwd=tmp_path)
-        written = (tmp_path / "AIM.txt").read_text()
-        assert written == "A.I.M"
-
-    def test_greet_function_directly(self, tmp_path):
-        mod, _ = run_script(self.FILE, cwd=tmp_path)
-        assert mod.greet("Test") == "Test"
-
-    def test_greet_with_empty_string(self, tmp_path):
-        mod, _ = run_script(self.FILE, cwd=tmp_path)
-        assert mod.greet("") == ""
-
-    def test_file_is_overwritten_not_appended(self, tmp_path):
-        (tmp_path / "AIM.txt").write_text("OLD CONTENT")
-        run_script(self.FILE, cwd=tmp_path)
-        assert (tmp_path / "AIM.txt").read_text() == "A.I.M"
-
-
-# ---------------------------------------------------------------------------
-# food_menu.py
-# ---------------------------------------------------------------------------
-class TestFoodMenu:
-    FILE = f"{FOLDER}/food_menu.py"
-
-    def test_menu_lists_all_nine_items_with_prices(self):
-        _, out = run_script(self.FILE, inputs=["q"])
-        assert "pizza      : £2.99" in out
-        assert "lemonade   : £3.99" in out
-
-    def test_ordering_same_item_twice_aggregates_quantity(self):
-        _, out = run_script(self.FILE, inputs=["pizza", "pizza", "q"])
-        assert "x2 pizza      : £5.98" in out
-        assert "Total:  £5.98" in out
-
-    def test_ordering_multiple_distinct_items(self):
-        _, out = run_script(self.FILE, inputs=["pizza", "pizza", "tacos", "q"])
-        assert "x2 pizza      : £5.98" in out
-        assert "x1 tacos      : £5.99" in out
-        assert "Total:  £11.97" in out
-
-    def test_invalid_item_is_silently_ignored(self):
-        
-        """
-        menu.get(food) is None for unknown items, so the elif branch is
-        skipped entirely with no error message and no order entry.
-        """
-        
-        _, out = run_script(self.FILE, inputs=["burger", "q"])
-        assert "burger" not in out.split("======================")[1]
-        assert "Total:  £0.00" in out
-
-    def test_immediate_quit_shows_zero_total(self):
-        _, out = run_script(self.FILE, inputs=["q"])
-        assert "Total:  £0.00" in out
-        assert "Thank you for your order!" in out
-
-    def test_item_name_is_case_insensitive(self):
-        
-        """
-        `food = input(...).lower()` normalises the entry before the
-        menu lookup, so uppercase item names still match.
-        """
-        _, out = run_script(self.FILE, inputs=["PIZZA", "q"])
-        assert "x1 pizza      : £2.99" in out
-
-    def test_payment_prompt_always_shown_at_the_end(self):
-        _, out = run_script(self.FILE, inputs=["q"])
-        assert "Cash or Card?" in out
-
-    def test_menu_dict_has_nine_items(self):
-        mod, _ = run_script(self.FILE, inputs=["q"])
-        assert len(mod.menu) == 9
-
-
-# ---------------------------------------------------------------------------
-# grade_boundary_calculator.py
-# ---------------------------------------------------------------------------
-class TestGradeBoundaryCalculator:
-    FILE = f"{FOLDER}/grade_boundary_calculator.py"
-
-    @pytest.mark.parametrize(
-        "score, expected_phrase",
-        [
-            ("105", "HOW?! YOU ARE LYING!"),
-            ("100", "Unbelievable!"),
-            ("95", "Really Good."),
-            ("85", "Solid."),
-            ("75", "Decent!"),
-            ("65", "Not bad!"),
-            ("55", "Well done! You passed!"),
-            ("45", "Better luck next time."),
-            ("35", "You must have slept the exam"),
-            ("25", "We can do way better"),
-            ("15", "Did you forgot the exam?"),
-            ("5", "SERIOUSLY?! THAT LOW?!! DO BETTER!!!"),
-            ("0", "ARE YOU KIDDING ME???!!! GET OUT!!!"),
-            ("-5", "HOW?! YOU ARE LYING!"),
-        ],
-    )
-    def test_grade_boundaries(self, score, expected_phrase):
-        _, out = run_script(self.FILE, inputs=[score])
-        assert expected_phrase in out
-
-    def test_score_over_100_flagged_as_lying(self):
-        _, out = run_script(self.FILE, inputs=["150"])
-        assert "HOW?! YOU ARE LYING!" in out
-
-    def test_negative_score_flagged_as_lying(self):
-        _, out = run_script(self.FILE, inputs=["-5"])
-        assert "HOW?! YOU ARE LYING!" in out
-
-    def test_non_numeric_score_raises_uncaught_value_error(self):
-        with pytest.raises(ValueError):
-            run_script(self.FILE, inputs=["not-a-number"])
-
-    def test_score_out_of_100_line_is_always_printed_first(self):
-        _, out = run_script(self.FILE, inputs=["50"])
-        assert "50 / 100" in out
-
-    def test_exact_boundary_of_90_gives_really_good(self):
-        _, out = run_script(self.FILE, inputs=["90"])
-        assert "Really Good." in out
-
-    def test_exact_boundary_of_50_gives_passed_message(self):
-        _, out = run_script(self.FILE, inputs=["50"])
-        assert "Well done! You passed!" in out
-
-
-# ---------------------------------------------------------------------------
-# hour_clock.py
-# ---------------------------------------------------------------------------
-class TestHourClock:
-    FILE = f"{FOLDER}/hour_clock.py"
-
-    def test_value_error_except_branch(self):
-        val_err = patch("builtins.input", side_effect=ValueError)
-        _, out = run_script(self.FILE, patches=[val_err])
-        assert "All inputs must be in the form of whole integers." in out
-
-    def test_full_countdown_from_hms(self):
-        _, out = run_script(self.FILE, inputs=["0", "0", "2"])
-        assert "00:00:02" in out
-        assert "00:00:01" in out
-        assert "TIMES UP!" in out
-
-    def test_minutes_60_or_more_rejected(self):
-        _, out = run_script(self.FILE, inputs=["1", "60", "0"])
-        assert "Minutes and seconds must be less than 60." in out
-
-    def test_all_zero_rejected(self):
-        _, out = run_script(self.FILE, inputs=["0", "0", "0"])
-        assert "Enter a valid time." in out
-
-    def test_non_digit_input(self):
-        _, out = run_script(self.FILE, inputs=["a", "0", "0"])
-        assert "Please enter a valid input." in out
-
-    def test_countdown_function_directly_is_instant(self):
-        _, out = run_script(self.FILE, inputs=["0", "0", "1"])
-        assert "TIMES UP!" in out
-
-    def test_seconds_60_or_more_rejected(self):
-        _, out = run_script(self.FILE, inputs=["0", "0", "60"])
-        assert "Minutes and seconds must be less than 60." in out
-
-    def test_one_hour_countdown_shows_correct_padding(self):
-        _, out = run_script(self.FILE, inputs=["1", "0", "0"])
-        assert "01:00:00" in out
-        assert "00:59:59" in out
-
-
-# ---------------------------------------------------------------------------
-# leap_year.py
-# ---------------------------------------------------------------------------
-class TestLeapYear:
-    FILE = f"{FOLDER}/leap_year.py"
-
-    @pytest.mark.parametrize("year, expected", [("2024", "True"), ("2023", "False")])
-    def test_leap_year_detection(self, year, expected):
-        _, out = run_script(self.FILE, inputs=[year])
-        assert expected in out
-
-    def test_non_numeric_year(self):
-        _, out = run_script(self.FILE, inputs=["abc"])
-        assert "Integers only" in out
-
-    def test_is_leap_function_directly(self):
-        mod, _ = run_script(self.FILE, inputs=["2000"])
-        assert mod.is_leap(2000) is True
-        assert mod.is_leap(1900) is True  # this script's rule is "multiple of 4" only
-        assert mod.is_leap(2001) is False
-
-    def test_year_zero_is_treated_as_leap(self):
-        _, out = run_script(self.FILE, inputs=["0"])
-        assert "True" in out
-
-    def test_negative_multiple_of_four_is_leap(self):
-        _, out = run_script(self.FILE, inputs=["-8"])
-        assert "True" in out
-
-
-# ---------------------------------------------------------------------------
-# math_module.py + math_file.py
-# ---------------------------------------------------------------------------
-class TestMathModuleAndMathFile:
-    MODULE_FILE = f"{FOLDER}/math_module.py"
-    IMPORTER_FILE = f"{FOLDER}/math_file.py"
-
-    @pytest.fixture(autouse=True)
-    def _clean_math_module_cache(self):
-        
-        """
-        math_file.py's plain `import math_module` gets cached in
-        sys.modules under the bare name 'math_module'; reset it before and
-        after each test here so successes/failures in one test don't leak
-        into another.
-        """
-        
-        sys.modules.pop("math_module", None)
-        yield
-        sys.modules.pop("math_module", None)
-
-    def test_math_module_constant_and_functions_directly(self):
-        mod, _ = run_script(self.MODULE_FILE)
-        assert mod.pi == 3.14159
-        assert mod.square(2) == 4
-        assert mod.cube(3) == 27
-        assert mod.circumference(4) == pytest.approx(2 * 3.14159 * 4)
-        assert mod.area(5) == pytest.approx(3.14159 * 5 ** 2)
-
-    def test_square_of_negative_number(self):
-        mod, _ = run_script(self.MODULE_FILE)
-        assert mod.square(-3) == 9
-
-    def test_cube_of_negative_number_stays_negative(self):
-        mod, _ = run_script(self.MODULE_FILE)
-        assert mod.cube(-2) == -8
-
-    def test_math_file_sibling_import_resolves_automatically(self):
-        """
-        math_file.py does a plain `import math_module`, which only works
-        when the running script's own directory is on sys.path (true when
-        launched directly, e.g. from VS Code). run_script() now replicates
-        that automatically for every script (mirroring runpy's own
-        directly-run behaviour), so this sibling import just works without
-        any special per-test handling.
-        """
-        _, out = run_script(self.IMPORTER_FILE)
-        assert "3.14159" in out
-        assert "4" in out
-        assert "27" in out
-        assert "25.13272" in out
-        assert "78.53975" in out
-
-    def test_math_file_output_is_in_call_order(self):
-        _, out = run_script(self.IMPORTER_FILE)
-        assert (
-            out.find("3.14159")
-            < out.find("4")
-            < out.find("27")
-            < out.find("25.13272")
-            < out.find("78.53975")
-        )
-
-    def test_area_formula_matches_pi_r_squared(self):
-        mod, _ = run_script(self.MODULE_FILE)
-        assert mod.area(10) == pytest.approx(3.14159 * 100)
-
-    def test_circumference_formula_matches_two_pi_r(self):
-        mod, _ = run_script(self.MODULE_FILE)
-        assert mod.circumference(1) == pytest.approx(2 * 3.14159)
-
-
-# ---------------------------------------------------------------------------
-# minute_timer.py
-# ---------------------------------------------------------------------------
-class TestMinuteTimer:
-    FILE = f"{FOLDER}/minute_timer.py"
-
-    def test_value_error_except_branch(self):
-        val_err = patch("builtins.input", side_effect=ValueError)
-        _, out = run_script(self.FILE, patches=[val_err])
-        assert "Minutes and Seconds is in the form of integers." in out
-
-    def test_full_countdown(self):
-        _, out = run_script(self.FILE, inputs=["0", "2"])
-        assert "00:02" in out
-        assert "00:01" in out
-        assert "TIMES UP!" in out
-
-    def test_seconds_60_or_more_rejected(self):
-        _, out = run_script(self.FILE, inputs=["1", "60"])
-        assert "Can't be at least 60 seconds" in out
-
-    def test_non_digit_input(self):
-        _, out = run_script(self.FILE, inputs=["a", "0"])
-        assert "Please enter a valid input." in out
-
-    def test_one_minute_countdown_padding(self):
-        _, out = run_script(self.FILE, inputs=["1", "0"])
-        assert "01:00" in out
-        assert "00:59" in out
-
-    def test_zero_minutes_zero_seconds_still_runs_to_times_up(self):
-        _, out = run_script(self.FILE, inputs=["0", "0"])
-        assert "TIMES UP!" in out
-
-
-# ---------------------------------------------------------------------------
-# Multiply.py
-# ---------------------------------------------------------------------------
-class TestMultiply:
-    FILE = f"{FOLDER}/multiply.py"
-
-    def test_output(self):
-        _, out = run_script(self.FILE)
-        assert _.product == 24
-        assert "24" in out
-
-    def test_function_directly(self):
+    def test_talk_when_not_talking_and_under_twenty(self, capsys):
         mod, _ = run_script(self.FILE)
-        assert mod.multiply(7, 8) == 56
-
-    def test_multiply_by_zero(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.multiply(9, 0) == 0
-
-    def test_multiply_negatives_gives_positive(self):
-        mod, _ = run_script(self.FILE)
-        assert mod.multiply(-3, -4) == 12
-
-
-# ---------------------------------------------------------------------------
-# num_pad.py
-# ---------------------------------------------------------------------------
-class TestNumPad:
-    FILE = f"{FOLDER}/num_pad.py"
-
-    def test_script_crashes_on_the_set_of_lists_assignment(self):
-        """
-        Genuine bug: despite the header comment saying to comment out the
-        invalid variants, the "2D set of lists (NOT VALID)" assignment is
-        left active and always raises TypeError (lists aren't hashable),
-        well before the later frozenset-based assignment or the print
-        loop are ever reached.
-        """
-        with pytest.raises(TypeError):
-            run_script(self.FILE)
-
-    def test_crash_is_specifically_about_unhashable_type(self):
-        with pytest.raises(TypeError, match="unhashable"):
-            run_script(self.FILE)
-
-    def test_frozenset_variant_never_executes(self):
-        
-        """
-        The valid frozenset-based num_pad assignment sits after the
-        crash point, so it's never actually reached or printed.
-        """
-        
-        with pytest.raises(TypeError) as exc_info:
-            run_script(self.FILE)
-        out = getattr(exc_info.value, "partial_output", "")
-        assert out == ""  # nothing is printed before the crash
-
-
-# ---------------------------------------------------------------------------
-# number_matrix_display.py
-# ---------------------------------------------------------------------------
-import textwrap
-
-class TestNumberMatrixDisplay:
-    FILE = f"{FOLDER}/number_matrix_display.py"
-
-    def test_matrix_for_n_zero(self):
-        _, out = run_script(self.FILE, inputs=["0"])
-        expected = textwrap.dedent("""
-            0 0 0 0 0
-            1 0 1 0 0
-            2 0 2 0 0
-            3 0 3 0 0
-            4 0 4 0 0
-        """).strip()
-        assert expected in out
-
-    def test_matrix_for_n_one(self):
-        _, out = run_script(self.FILE, inputs=["1"])
-        expected = textwrap.dedent("""
-            1 1 1 1 1
-            2 1 2 4 8
-            3 1 3 9 27
-            4 1 4 16 64
-            5 1 5 25 125
-        """).strip()
-        assert expected in out
-
-    def test_matrix_for_n_two(self):
-        _, out = run_script(self.FILE, inputs=["2"])
-        expected = textwrap.dedent("""
-            2 2 2 2 2
-            3 2 3 8 16
-            4 2 4 18 54
-            5 2 5 32 128
-            6 2 6 50 250
-        """).strip()
-        assert expected in out
-
-    def test_matrix_for_n_three(self):
-        _, out = run_script(self.FILE, inputs=["3"])
-        expected = textwrap.dedent("""
-            3 3 3 3 3
-            4 3 4 12 24
-            5 3 5 27 81
-            6 3 6 48 192
-            7 3 7 75 375
-        """).strip()
-        assert expected in out
-
-    def test_matrix_for_n_four(self):
-        _, out = run_script(self.FILE, inputs=["4"])
-        expected = textwrap.dedent("""
-            4 4 4 4 4
-            5 4 5 16 32
-            6 4 6 36 108
-            7 4 7 64 256
-            8 4 8 100 500
-        """).strip()
-        assert expected in out
-
-    def test_matrix_for_n_five(self):
-        _, out = run_script(self.FILE, inputs=["5"])
-        expected = textwrap.dedent("""
-            5 5 5 5 5
-            6 5 6 20 40
-            7 5 7 45 135
-            8 5 8 80 320
-            9 5 9 125 625
-        """).strip()
-        assert expected in out
-
-    def test_negative_input_is_rejected(self):
-        _, out = run_script(self.FILE, inputs=["-1"])
-        assert "Number must be a positive integer i.e. n >= 0" in out
-
-
-# ---------------------------------------------------------------------------
-# prime_numbers.py
-# ---------------------------------------------------------------------------
-class TestPrimeNumbers:
-    FILE = f"{FOLDER}/prime_numbers.py"
-
-    @pytest.mark.parametrize("n, is_prime", [("2", True), ("17", True), ("1", False), ("4", False)])
-    def test_prime_detection(self, n, is_prime):
-        _, out = run_script(self.FILE, inputs=[n])
-        if is_prime:
-            assert f"The number {n} is a prime number!" in out
-        else:
-            assert f"The number {n} isn't prime." in out
-
-    def test_non_numeric_input(self):
-        _, out = run_script(self.FILE, inputs=["abc"])
-        assert "Error: Invalid number format. Enter integers only (whole numbers)." in out
-
-    def test_is_prime_function_directly(self):
-        mod, _ = run_script(self.FILE, inputs=["2"])
-        assert mod.is_prime(0) is False
-        assert mod.is_prime(2) is True
-        assert mod.is_prime(97) is True
-
-    def test_zero_is_not_prime(self):
-        _, out = run_script(self.FILE, inputs=["0"])
-        assert "The number 0 isn't prime." in out
-
-    def test_negative_number_is_reported_as_not_prime(self):
-        
-        """
-        The special-case check only excludes 0 and 1; a negative number
-        falls through the `while i < n` loop (which never executes since
-        i=2 is not < a negative n), so `flag` stays True... except the
-        function still returns based on that logic - verify actual
-        behaviour rather than assuming.
-        """
-        
-        mod, _ = run_script(self.FILE, inputs=["2"])
-        assert mod.is_prime(-5) is True  # loop never runs, flag stays True
-
-    def test_large_prime_is_correctly_detected(self):
-        _, out = run_script(self.FILE, inputs=["7919"])
-        assert "The number 7919 is a prime number!" in out
-
-
-# ---------------------------------------------------------------------------
-# random_cipher.py
-# ---------------------------------------------------------------------------
-
-class TestRandomCipher:
-    FILE = f"{FOLDER}/random_cipher.py"
-
-    @staticmethod
-    def _reversed_key_patch():
-        
-        """
-        Makes the substitution deterministic: the key is simply the
-        character pool reversed, instead of randomly shuffled.
-        """
-        
-        return patch("random.shuffle", side_effect=lambda lst: lst.reverse())
-
-    def test_encryption_is_deterministic_with_a_reversed_key(self):
-        _, out = run_script(
-            self.FILE, inputs=["Hi 4!", "placeholder"], patches=[self._reversed_key_patch()]
-        )
-        assert "Encrypted Message: <aZoY" in out
-
-    def test_decryption_reverses_a_matching_encryption(self):
-        
-        """
-        Feeding the exact ciphertext produced above back in as the
-        decrypt input should round-trip to the original plaintext.
-        """
-        
-        _, out = run_script(
-            self.FILE, inputs=["Hi 4!", "<aZoY"], patches=[self._reversed_key_patch()]
-        )
-        assert "Decrypted Message: Hi 4!" in out
-
-    def test_unknown_characters_pass_through_unchanged(self):
-        
-        """
-        Characters outside the tracked charset (like a tab) hit the
-        fallback `else` branch and are copied over untouched.
-        """
-        
-        _, out = run_script(
-            self.FILE, inputs=["A\tB", "placeholder"], patches=[self._reversed_key_patch()]
-        )
-        assert "\t" in out
-
-    def test_chars_pool_is_never_shuffled_itself(self):
-        
-        """
-        Only `key` (a copy) is shuffled; the original `chars` list stays
-        in its built, unshuffled order.
-        """
-        
-        mod, _ = run_script(
-            self.FILE, inputs=["A", "B"], patches=[self._reversed_key_patch()]
-        )
-        assert mod.chars[0] == " "
-
-    def test_key_is_always_a_permutation_of_chars(self):
-        mod, _ = run_script(
-            self.FILE, inputs=["A", "B"], patches=[self._reversed_key_patch()]
-        )
-        assert sorted(mod.key) == sorted(mod.chars)
-        assert len(mod.key) == len(mod.chars)
-
-    def test_original_and_encrypted_labels_printed(self):
-        _, out = run_script(
-            self.FILE, inputs=["Hi", "x"], patches=[self._reversed_key_patch()]
-        )
-        assert "Original Message :" in out
-        assert "Encrypted Message:" in out
-
-    def test_empty_message_produces_empty_ciphertext(self):
-        _, out = run_script(
-            self.FILE, inputs=["", "x"], patches=[self._reversed_key_patch()]
-        )
-        assert "Encrypted Message: \n" in out
-
-    def test_decrypt_fallback_for_characters_outside_the_charset(self):
-        
-        """
-        The decrypt loop's own `else: decrypted_text += letter` branch,
-        distinct from the encrypt-side fallback tested elsewhere - a tab
-        in the ciphertext input passes through unchanged on decryption.
-        """
-        
-        _, out = run_script(
-            self.FILE, inputs=["A", "\t"], patches=[self._reversed_key_patch()]
-        )
-        assert "Decrypted Message: \t" in out
-
-    def test_encrypted_and_decrypted_labels_printed(self):
-        _, out = run_script(
-            self.FILE, inputs=["Hi", "x"], patches=[self._reversed_key_patch()]
-        )
-        assert "Encrypted Input  :" in out
-        assert "Decrypted Message:" in out
-
-
-# ---------------------------------------------------------------------------
-# random_colour_generator.py
-# ---------------------------------------------------------------------------
-class TestRandomColourGenerator:
-    FILE = f"{FOLDER}/random_colour_generator.py"
-
-    def test_hexadecimal_option_via_menu_number(self):
-        fixed_randint = patch("random.randint", return_value=0xA1B2C3)
-        inputs = ["1", "1"]
-        _, out = run_script(self.FILE, inputs=inputs, patches=[fixed_randint])
-        assert "#A1B2C3" in out
-
-    def test_hexadecimal_option_via_full_word_alias(self):
-        fixed_randint = patch("random.randint", return_value=0xFFFFFF)
-        inputs = ["1", "hexadecimal"]
-        _, out = run_script(self.FILE, inputs=inputs, patches=[fixed_randint])
-        assert "#FFFFFF" in out
-
-    def test_hexadecimal_short_alias_variants_all_accepted(self):
-        
-        """
-        The case pattern accepts four separate short aliases for hex
-        ("hexa", "hex", "he") in addition to "1"/"hexadecimal" - each
-        gets its own run to confirm none of them silently fall through
-        to the default "not recognised" branch.
-        """
-        
-        fixed_randint = patch("random.randint", return_value=0x000000)
-        for alias in ("hexa", "hex", "he"):
-            _, out = run_script(self.FILE, inputs=["1", alias], patches=[fixed_randint])
-            assert "#000000" in out
-            assert "not a recognised option" not in out
-
-    def test_rgb_option_via_menu_number(self):
-        fixed_randint = patch("random.randint", side_effect=[10, 20, 30])
-        inputs = ["1", "2"]
-        _, out = run_script(self.FILE, inputs=inputs, patches=[fixed_randint])
-        assert "RGB(10, 20, 30)" in out
-
-    def test_rgb_short_alias_variants_all_accepted(self):
-        
-        """
-        "rgb", "r", "b", and "g" are all valid aliases for the SAME full
-        RGB triplet case - none of them mean "just the red/blue/green
-        channel alone", which is worth confirming explicitly since the
-        naming could otherwise be misread as single-channel shortcuts.
-        """
-        
-        for alias in ("rgb", "r", "b", "g"):
-            fixed_randint = patch("random.randint", side_effect=[1, 2, 3])
-            _, out = run_script(self.FILE, inputs=["1", alias], patches=[fixed_randint])
-            assert "RGB(1, 2, 3)" in out
-
-    def test_octal_option_via_menu_number(self):
-        fixed_randint = patch("random.randint", return_value=8)
-        inputs = ["1", "3"]
-        _, out = run_script(self.FILE, inputs=inputs, patches=[fixed_randint])
-        assert "0o10" in out  # oct(8) == "0o10"
-
-    def test_octal_short_alias_variants_all_accepted(self):
-        fixed_randint = patch("random.randint", return_value=64)
-        for alias in ("octal", "oct", "oc", "o"):
-            _, out = run_script(self.FILE, inputs=["1", alias], patches=[fixed_randint])
-            assert "0o100" in out  # oct(64) == "0o100"
-
-    def test_hsl_option_via_menu_number(self):
-        fixed_randint = patch("random.randint", side_effect=[180, 60, 40])
-        inputs = ["1", "4"]
-        _, out = run_script(self.FILE, inputs=inputs, patches=[fixed_randint])
-        assert "HSL(180, 60%, 40%)" in out
-
-    def test_hsl_short_alias_variants_all_accepted(self):
-        for alias in ("hsl", "hs"):
-            fixed_randint = patch("random.randint", side_effect=[90, 50, 25])
-            _, out = run_script(self.FILE, inputs=["1", alias], patches=[fixed_randint])
-            assert "HSL(90, 50%, 25%)" in out
-
-    def test_colour_type_input_is_case_insensitive(self):
-        fixed_randint = patch("random.randint", return_value=0x123456)
-        inputs = ["1", "HEX"]
-        _, out = run_script(self.FILE, inputs=inputs, patches=[fixed_randint])
-        assert "#123456" in out
-
-    def test_multiple_colours_of_the_same_type_generated(self):
-        
-        """
-        colour_type is read ONCE, outside the loop, so all max_num
-        iterations use the same case every time - confirms the loop
-        actually repeats the chosen type rather than re-prompting or
-        defaulting after the first iteration.
-        """
-        
-        # 3 iterations x 3 randint() calls per RGB colour (r, g, b) = 9 values needed
-        fixed_randint = patch("random.randint", side_effect=[1, 2, 3, 4, 5, 6, 7, 8, 9])
-        inputs = ["3", "rgb"]
-        _, out = run_script(self.FILE, inputs=inputs, patches=[fixed_randint])
-        assert "RGB(1, 2, 3)" in out
-        assert "RGB(4, 5, 6)" in out
-        assert "RGB(7, 8, 9)" in out
-        assert out.count("RGB(") == 3
-
-    def test_invalid_colour_type_shows_error_and_stops_immediately(self):
-        
-        """
-        The default case's `break` means only ONE error message ever
-        prints, regardless of how large max_num is - the loop doesn't
-        repeat the "not recognised" message for every iteration.
-        """
-        
-        inputs = ["5", "crayon"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Error: 'crayon' is not a recognised option." in out
-        assert "Use the 4 main options mentioned above." in out
-        assert out.count("Error:") == 1
-
-    def test_empty_colour_type_hits_the_default_case(self):
-        inputs = ["1", ""]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Error: '' is not a recognised option." in out
-
-    def test_zero_colours_prints_headers_but_no_colour_lines(self):
-        inputs = ["0", "1"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Generating 0 random colour(s):" in out
-        assert "#" not in out.split("-" * 30)[-1]
-
-    def test_negative_max_num_produces_no_colour_lines(self):
-        
-        """
-        range(negative) is empty, same category as square_number_times_tables.py
-        and times_tables.py's negative-input behaviour elsewhere in this
-        suite - the header still prints, the loop body just never runs.
-        """
-        
-        inputs = ["-3", "hex"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Generating -3 random colour(s):" in out
-        assert "#" not in out.split("-" * 30)[-1]
-
-    def test_non_numeric_max_num_raises_caught_value_error(self):
-        inputs = ["not-a-number", "1"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Wrong Data Values." in out
-        assert "Check the question being asked for the correct data type." in out
-
-    def test_blank_max_num_raises_caught_value_error(self):
-        inputs = [""]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Wrong Data Values." in out
-
-    def test_decimal_max_num_raises_caught_value_error(self):
-        
-        """
-        int() rejects "3.5" outright (unlike float(), which would parse
-        it fine) - this is a real ValueError path distinct from
-        genuinely non-numeric text like "abc".
-        """
-        
-        inputs = ["3.5", "1"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Wrong Data Values." in out
-
-    def test_menu_options_are_displayed_before_the_choice_prompt(self):
-        inputs = ["1", "1"]
-        fixed_randint = patch("random.randint", return_value=0)
-        _, out = run_script(self.FILE, inputs=inputs, patches=[fixed_randint])
-        assert "1. Hexadecimal (e.g. 0xA623F6)" in out
-        assert "2. RGB (e.g. (10, 20, 30))" in out
-        assert "3. Octal (e.g. 0x16032743)" in out
-        assert "4. HSL (e.g. (80, 60%, 40%))" in out
-
-    def test_random_colours_function_returns_none_directly(self):
-        
-        """
-        random_colours() has no return statement, so calling it directly
-        should yield None, distinct from asserting on its printed output.
-        """
-        
-        mod, _ = run_script(self.FILE, inputs=["1", "1"], patches=[patch("random.randint", return_value=0)])
-        with patch("builtins.input", side_effect=["1", "rgb"]):
-            with patch("random.randint", side_effect=[5, 5, 5]):
-                result = mod.random_colours()
-        assert result is None
-
-    def test_real_hex_output_matches_expected_format_without_patching(self):
-        
-        """
-        A sanity check with genuinely random values (no patch): confirms
-        the hex format itself - '#' followed by exactly 6 uppercase
-        hex digits - regardless of which random bytes were drawn.
-        """
-        
-        import re
-        _, out = run_script(self.FILE, inputs=["1", "hex"])
-        match = re.search(r"#[0-9A-F]{6}", out)
-        assert match is not None
-
-
-# ---------------------------------------------------------------------------
-# reverse_list_program.py
-# ---------------------------------------------------------------------------
-class TestReverseListProgram:
-    FILE = f"{FOLDER}/reverse_list_program.py"
-
-    def test_reverse_list_function_directly(self):
-        mod, _ = run_script(self.FILE, inputs=["apple, banana", "n"])
-        assert mod.reverse_list([1, 2, 3]) == [3, 2, 1]
-        assert mod.reverse_list([]) == []
-        assert mod.reverse_list(["a"]) == ["a"]
-
-    def test_alpha_list_reversed_without_sorting(self):
-        inputs = ["banana, apple, cherry", "n"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Reverse List: cherry, apple, banana" in out
-
-    def test_alpha_list_sorted_then_reversed(self):
-        
-        """
-        Sorting happens BEFORE the reversal, so a "yes" answer produces
-        descending alphabetical order, not the original input order
-        reversed.
-        """
-        
-        inputs = ["banana, apple, cherry", "y"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Reverse List: cherry, banana, apple" in out
-
-    def test_numeric_list_reversed_without_sorting(self):
-        inputs = ["10, 2, 33", "n"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Reverse List: 33, 2, 10" in out
-
-    def test_numeric_list_sorted_numerically_not_lexicographically(self):
-        
-        """
-        Items are converted to int BEFORE sort() is called, so "10" sorts
-        correctly after "2" (numeric order), not before it, which is
-        what a lexicographic/string sort would have produced.
-        """
-        
-        inputs = ["10, 2, 33", "y"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Reverse List: 33, 10, 2" in out
-
-    def test_mixed_alpha_and_numeric_items_rejected(self):
-        
-        """
-        Only one input (the list itself) is consumed here - the mismatch
-        is caught before the order_choice prompt is ever reached.
-        """
-        
-        inputs = ["apple, 5, banana"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Error: All items must be the same data type / variable" in out
-        assert "Reverse List:" not in out
-
-    def test_empty_input_is_rejected(self):
-        
-        """
-        An empty string still produces one list item (""), and both
-        "".isalpha() and "".isnumeric() are False, so this hits the same
-        mismatched-type error branch rather than crashing.
-        """
-        
-        _, out = run_script(self.FILE, inputs=[""])
-        assert "Error: All items must be the same data type / variable" in out
-
-    def test_negative_numbers_are_rejected_as_non_numeric(self):
-        
-        """
-        Genuine limitation worth documenting: str.isnumeric() returns
-        False for a leading '-' sign, so a "numeric" list containing a
-        negative number is treated as neither alpha nor numeric and hits
-        the error branch, even though it's conceptually still numeric.
-        """
-        
-        inputs = ["-5, 3, 8"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Error: All items must be the same data type / variable" in out
-
-    def test_decimal_numbers_are_rejected_as_non_numeric(self):
-        
-        """
-        Same root cause as the negative-number case: str.isnumeric()
-        returns False for a decimal point, so "3.14" is rejected too.
-        """
-        
-        inputs = ["3.14, 2.5"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Error: All items must be the same data type / variable" in out
-
-    def test_whitespace_around_items_is_stripped(self):
-        inputs = ["  10 ,  2  ,   33  ", "n"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Reverse List: 33, 2, 10" in out
-
-    def test_single_item_alpha_list(self):
-        inputs = ["solo", "n"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Reverse List: solo" in out
-
-    def test_single_item_numeric_list(self):
-        inputs = ["42", "n"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Reverse List: 42" in out
-
-    def test_order_choice_accepts_any_y_prefixed_word(self):
-        
-        """
-        `.startswith("y")` accepts "yes", "yep", or just "y" - not an
-        exact-match check against "y" alone.
-        """
-        
-        inputs = ["banana, apple", "yes"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Reverse List: banana, apple" in out  # sorted [apple, banana] then reversed
-
-    def test_blank_order_choice_defaults_to_unsorted(self):
-        inputs = ["banana, apple", ""]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Reverse List: apple, banana" in out  # original order reversed, no sort
-
-    def test_uppercase_alpha_items_are_still_detected_as_alpha(self):
-        inputs = ["APPLE, BANANA", "n"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Reverse List: BANANA, APPLE" in out
-
-
-# ---------------------------------------------------------------------------
-# seconds_countdown.py
-# ---------------------------------------------------------------------------
-class TestSecondsCountdown:
-    FILE = f"{FOLDER}/seconds_countdown.py"
-
-    def test_value_error_except_branch(self):
-        val_err = patch("builtins.input", side_effect=ValueError)
-        _, out = run_script(self.FILE, patches=[val_err])
-        assert "Seconds is in the form of integers." in out
-
-    def test_full_countdown(self):
-        _, out = run_script(self.FILE, inputs=["3"])
-        assert "03" in out
-        assert "02" in out
-        assert "01" in out
-        assert "TIMES UP!" in out
-
-    def test_60_or_more_rejected(self):
-        _, out = run_script(self.FILE, inputs=["60"])
-        assert "Can't be at least 60 seconds" in out
-
-    def test_non_digit_input(self):
-        _, out = run_script(self.FILE, inputs=["abc"])
-        assert "Please enter a valid input." in out
-
-    def test_single_digit_seconds_are_zero_padded(self):
-        _, out = run_script(self.FILE, inputs=["1"])
-        assert "01" in out
-
-    def test_zero_seconds_still_hits_times_up(self):
-        _, out = run_script(self.FILE, inputs=["0"])
-        assert "TIMES UP!" in out
-
-
-# ---------------------------------------------------------------------------
-# shipping_label.py
-# ---------------------------------------------------------------------------
-class TestShippingLabel:
-    FILE = f"{FOLDER}/shipping_label.py"
-
-    def test_full_name_is_joined_uppercased_and_dot_free(self):
-        _, out = run_script(self.FILE)
-        assert "DR NOBODY KNOWS" in out
-
-    def test_floor_is_prefixed_with_floor_label(self):
-        _, out = run_script(self.FILE)
-        assert "FLOOR 123" in out
-
-    def test_street_dot_is_removed_with_no_prefix(self):
-        _, out = run_script(self.FILE)
-        assert "1 FAKE AV" in out
-
-    def test_city_county_and_postcode_all_printed(self):
-        _, out = run_script(self.FILE)
-        assert "READING" in out
-        assert "BERKSHIRE" in out
-        assert "RD1 2AB" in out
-
-    def test_output_follows_template_order(self):
-        _, out = run_script(self.FILE)
-        assert (
-            out.find("FLOOR 123")
-            < out.find("1 FAKE AV")
-            < out.find("READING")
-            < out.find("BERKSHIRE")
-            < out.find("RD1 2AB")
-        )
-
-    def test_missing_keyword_is_silently_skipped(self, capsys):
-        mod, _ = run_script(self.FILE)
-        mod.shipping_label("Mr.", "John", "Smith", city="London")
+        person = mod.Person("Jo", 15, False)
+        person.talk()
         captured = capsys.readouterr()
-        assert "MR JOHN SMITH" in captured.out
-        assert "LONDON" in captured.out
-        assert "FLOOR" not in captured.out
+        assert "Jo, wait for the other person's turn." in captured.out
 
-    def test_falsy_empty_value_is_treated_as_missing(self, capsys):
-        
+    def test_age_boundary_of_exactly_twenty(self, capsys):
+        mod, _ = run_script(self.FILE)
+        person = mod.Person("Robin", 20, False)
+        person.talk()
+        captured = capsys.readouterr()
+        assert "Robin. You may start after the first speech." in captured.out
+
+
+# ---------------------------------------------------------------------------
+# point.py
+# ---------------------------------------------------------------------------
+class TestPoint:
+    FILE = f"{FOLDER}/point.py"
+
+    def test_script_produces_no_output(self):
+
         """
-        The walrus-operator guard `if value := location.get(key)` skips
-        the line entirely when the value is empty, since "" is falsy.
+        point.py only defines the Point class - nothing is instantiated
+        or called at module level, so running it directly prints nothing.
         """
-        
-        mod, _ = run_script(self.FILE)
-        mod.shipping_label("A.", "B", postcode="", city="Bristol")
-        captured = capsys.readouterr()
-        assert "BRISTOL" in captured.out
-        assert captured.out.count("\n") == 2  # only the name and city lines
 
-    def test_commas_are_stripped_from_values(self, capsys):
-        mod, _ = run_script(self.FILE)
-        mod.shipping_label("A.", "B", city="Reading, Berks")
-        captured = capsys.readouterr()
-        assert "READING BERKS" in captured.out
-
-    def test_positional_args_are_joined_with_spaces(self, capsys):
-        mod, _ = run_script(self.FILE)
-        mod.shipping_label("Mrs.", "Jane", "Doe")
-        captured = capsys.readouterr()
-        assert captured.out.strip() == "MRS JANE DOE"
-
-
-# ---------------------------------------------------------------------------
-# shopping_cart.py
-# ---------------------------------------------------------------------------
-class TestShoppingCart:
-    FILE = f"{FOLDER}/shopping_cart.py"
-
-    def test_keyboard_interrupt_branch(self):
-        kb = patch("builtins.input", side_effect=KeyboardInterrupt)
-        _, out = run_script(self.FILE, patches=[kb])
-        assert "Program Crashed!" in out
-
-    def test_eof_error_branch(self):
-        eof = patch("builtins.input", side_effect=EOFError)
-        _, out = run_script(self.FILE, patches=[eof])
-        assert "Program Completed." in out
-
-    def test_checkout_via_fruit_prompt(self):
-        inputs = ["apple", "1.50", "banana", "0.50", "c"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "apple: £1.50" in out
-        assert "banana: £0.50" in out
-        assert "Total: £2.00" in out
-
-    def test_checkout_via_price_prompt(self):
-        inputs = ["apple", "c"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Total: £0.00" in out
-
-    def test_invalid_price_caught(self):
-        inputs = ["apple", "abc"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Enter a valid number" in out
-
-    def test_cart_function_directly(self):
-        inputs = ["apple", "1.00", "c"]
-        mod, _ = run_script(self.FILE, inputs=inputs)
-        assert mod.cart.__name__ == "cart"
-
-    def test_multiple_items_totalled_correctly(self):
-        inputs = ["apple", "1.20", "banana", "0.80", "cherry", "2.00", "c"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Total: £4.00" in out
-
-    def test_uppercase_c_also_checks_out(self):
-        inputs = ["apple", "1.00", "C"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Total: £1.00" in out
-
-
-# ---------------------------------------------------------------------------
-# Square.py
-# ---------------------------------------------------------------------------
-class TestSquare:
-    FILE = f"{FOLDER}/square.py"
-
-    def test_output(self):
         _, out = run_script(self.FILE)
-        assert _.result == 16
-        assert "16" in out
+        assert out == ""
 
-    def test_function_directly(self):
+    def test_move_method_directly(self, capsys):
         mod, _ = run_script(self.FILE)
-        assert mod.square(5) == 25
+        point = mod.Point()
+        point.move()
+        captured = capsys.readouterr()
+        assert captured.out.strip() == "move"
 
-    def test_square_of_negative_number(self):
+    def test_draw_method_directly(self, capsys):
         mod, _ = run_script(self.FILE)
-        assert mod.square(-4) == 16
+        point = mod.Point()
+        point.draw()
+        captured = capsys.readouterr()
+        assert captured.out.strip() == "draw"
 
-    def test_square_of_zero(self):
+    def test_point_has_no_constructor_defined(self):
+
+        """
+        Unlike constructors.py's Point class, this Point() takes no
+        __init__ arguments at all and has no x/y attributes until
+        manually assigned after instantiation.
+        """
+
         mod, _ = run_script(self.FILE)
-        assert mod.square(0) == 0
+        point = mod.Point()
+        assert not hasattr(point, "x")
+        point.x = 5
+        assert point.x == 5
 
 
 # ---------------------------------------------------------------------------
-# Subtract.py
+# real_estate.py
 # ---------------------------------------------------------------------------
-class TestSubtract:
-    FILE = f"{FOLDER}/subtract.py"
+class TestRealEstate:
+    FILE = f"{FOLDER}/real_estate.py"
 
-    def test_output(self):
+    def test_all_five_property_descriptions_printed(self):
         _, out = run_script(self.FILE)
-        assert _.product == 6
-        assert "6" in out
+        assert "Oakwood House: 4 bedroom house for £450,000.00." in out
+        assert "Lakeside Flat: Flat on floor 8 for £240,000.00." in out
+        assert "Harbor Apartments: 12 unit apartment for £300,000.00." in out
+        assert "City Tower: 20-storey building valued at £1,200,000.00." in out
+        assert "Royal Crest: Luxury mansion with a private pool for £2,500,000.00." in out
 
-    def test_function_directly(self):
+    def test_prices_are_comma_formatted(self):
+        _, out = run_script(self.FILE)
+        assert "£1,200,000.00" in out  # confirms thousands separators, not just decimal formatting
+
+    def test_price_setter_rejects_non_positive_values(self, capsys):
         mod, _ = run_script(self.FILE)
-        assert mod.subtract(3, 10) == -7
+        house = mod.House("Test House", 100000, 3)
+        house.price = -500
+        captured = capsys.readouterr()
+        assert "Price must be greater than 0." in captured.out
+        assert house.price == 100000  # unchanged
 
-    def test_subtract_from_itself_is_zero(self):
+    def test_price_setter_accepts_valid_positive_value(self):
         mod, _ = run_script(self.FILE)
-        assert mod.subtract(8, 8) == 0
+        house = mod.House("Test House", 100000, 3)
+        house.price = 150000
+        assert house.price == 150000
 
-    def test_subtract_negative_number_adds(self):
+    def test_base_realestate_description_uses_comma_formatting_too(self):
         mod, _ = run_script(self.FILE)
-        assert mod.subtract(5, -5) == 10
+        base = mod.RealEstate("Plot of Land", 1000000)
+        assert base.description() == "Plot of Land is priced at £1,000,000.00."
+
+    def test_name_property_has_no_setter(self):
+        mod, _ = run_script(self.FILE)
+        house = mod.House("Test House", 100000, 3)
+        with pytest.raises(AttributeError):
+            house.name = "Renamed House"
 
 
 # ---------------------------------------------------------------------------
-# symbol_generator.py
+# restaurant.py
 # ---------------------------------------------------------------------------
-class TestSymbolGenerator:
-    FILE = f"{FOLDER}/symbol_generator.py"
+class TestRestaurant:
+    FILE = f"{FOLDER}/restaurant.py"
 
-    def test_grid_of_symbols_printed(self):
-        _, out = run_script(self.FILE, inputs=["2", "3", "*"])
-        assert "***" in out
-        assert out.count("***") == 2
+    def test_indian_restaurant_details(self):
 
-    def test_letter_symbol_rejected(self):
-        _, out = run_script(self.FILE, inputs=["2", "3", "a"])
-        assert "Can't be a letter nor a number. Try again" in out
+        # Note: the source's own typo "Resturant" is preserved verbatim
+        _, out = run_script(self.FILE)
+        assert "Resturant: Spice of India (Indian)" in out
+        assert "Location: London" in out
+        assert "Menu: Butter Chicken, Naan Bread, Biryani" in out
 
-    def test_digit_symbol_rejected(self):
-        _, out = run_script(self.FILE, inputs=["2", "3", "5"])
-        assert "Can't be a letter nor a number. Try again" in out
+    def test_chinese_restaurant_details(self):
+        _, out = run_script(self.FILE)
+        assert "Resturant: Dragon's Delight (Chinese)" in out
+        assert "Location: Manchester" in out
+        assert "Menu: Kung Pao Chicken, Fried Rice, Dim Sum" in out
 
-    def test_non_numeric_rows_caught(self):
-        _, out = run_script(self.FILE, inputs=["abc"])
-        assert "Invalid Input. Try Again." in out
+    def test_japanese_restaurant_details(self):
+        _, out = run_script(self.FILE)
+        assert "Resturant: Sakura Sushi (Japanese)" in out
+        assert "Location: Birmingham" in out
+        assert "Menu: Miso Soup, Sashimi, Ramen" in out
 
-    def test_zero_rows_prints_nothing(self):
-        _, out = run_script(self.FILE, inputs=["0", "3", "#"])
-        assert "#" not in out
+    def test_restaurant_owns_its_menu_via_composition(self):
+        mod, _ = run_script(self.FILE)
+        assert isinstance(mod.indian.menu, mod.Menu)
 
-    def test_single_row_and_column(self):
-        _, out = run_script(self.FILE, inputs=["1", "1", "$"])
-        assert out.strip() == "$"
+    def test_menu_display_menu_directly(self):
+        mod, _ = run_script(self.FILE)
+        menu = mod.Menu(["Rice", "Curry"])
+        assert menu.display_menu() == "Menu: Rice, Curry"
+
+    def test_three_restaurants_printed_in_definition_order(self):
+        _, out = run_script(self.FILE)
+        assert out.find("Spice of India") < out.find("Dragon's Delight") < out.find("Sakura Sushi")
 
 
 # ---------------------------------------------------------------------------
-# username_status.py
+# school.py
 # ---------------------------------------------------------------------------
-class TestUsernameStatus:
-    FILE = f"{FOLDER}/username_status.py"
+class TestSchool:
+    FILE = f"{FOLDER}/school.py"
 
-    def test_valid_username_welcomed(self):
-        _, out = run_script(self.FILE, inputs=["Ahsan"])
-        assert "Welcome, Ahsan!" in out
+    def test_school_name_and_address_printed(self):
+        _, out = run_script(self.FILE)
+        assert "Greenwood High" in out
+        assert "123 Main St" in out
 
-    def test_username_with_space_rejected(self):
-        _, out = run_script(self.FILE, inputs=["Ahsan Iqbal"])
-        assert "Bye!" in out
+    def test_all_three_students_listed_with_ages(self):
+        _, out = run_script(self.FILE)
+        assert "Alice, Age: 15" in out
+        assert "Bob, Age: 16" in out
+        assert "Charlie, Age: 14" in out
 
-    def test_username_with_digit_rejected(self):
-        _, out = run_script(self.FILE, inputs=["Ahsan1"])
-        assert "Bye!" in out
+    def test_separator_line_between_school_info_and_student_list(self):
+        _, out = run_script(self.FILE)
+        assert "-" * 30 in out
 
-    def test_username_too_long_rejected(self):
-        _, out = run_script(self.FILE, inputs=["a" * 13])
-        assert "Bye!" in out
+    def test_remove_student_removes_a_matching_instance(self):
+        mod, _ = run_script(self.FILE)
+        school = mod.School("Test School", "1 Test Rd")
+        student = mod.Student("Test Student", 12)
+        school.add_student(student)
+        assert len(school.students) == 1
+        school.remove_student(student)
+        assert len(school.students) == 0
 
-    def test_username_at_exactly_twelve_characters_is_accepted(self):
-        _, out = run_script(self.FILE, inputs=["a" * 12])
-        assert f"Welcome, {'a' * 12}!" in out
+    def test_remove_student_is_a_no_op_for_an_unrelated_instance(self):
 
-    def test_leading_and_trailing_whitespace_is_stripped_first(self):
-        _, out = run_script(self.FILE, inputs=["  Ahsan  "])
-        assert "Welcome, Ahsan!" in out
+        """
+        Student has no __eq__ defined, so the `if student in self.students`
+        check falls back to identity comparison - a different Student
+        object with identical name/age is NOT considered a match and
+        removal silently does nothing.
+        """
+
+        mod, _ = run_script(self.FILE)
+        school = mod.School("Test School", "1 Test Rd")
+        student_in_school = mod.Student("Same Name", 10)
+        student_not_in_school = mod.Student("Same Name", 10)
+        school.add_student(student_in_school)
+        school.remove_student(student_not_in_school)
+        assert len(school.students) == 1
 
 
-"""
-Test for python/aim.py, the single file directly under python/ that isn't
-part of any of the topic subfolders.
-"""
+# ---------------------------------------------------------------------------
+# sports.py
+# ---------------------------------------------------------------------------
+class TestSports:
+    FILE = f"{FOLDER}/sports.py"
+
+    def test_all_four_sport_details_printed(self):
+        _, out = run_script(self.FILE)
+        assert "Football team: Arsenal | Stadium: Emirates Stadium" in out
+        assert "Basketball team: Lakers | Court: Staples Center" in out
+        assert "Cricket team: England | Venue: Lord's" in out
+        assert "Tennis tournament: Wimbledon | Surface: Grass" in out
+
+    def test_nested_sport_classes_are_scoped_under_sports(self):
+        mod, _ = run_script(self.FILE)
+        football = mod.Sports.Football("Test FC", "Test Stadium")
+        assert football.details() == "Football team: Test FC | Stadium: Test Stadium"
+
+    def test_sports_printed_in_the_order_theyre_defined(self):
+        _, out = run_script(self.FILE)
+        assert out.find("Football") < out.find("Basketball") < out.find("Cricket") < out.find("Tennis")
+
+    def test_each_nested_class_is_independent_of_the_others(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.Sports.Football is not mod.Sports.Basketball
+        assert not hasattr(mod.Sports.Cricket("England", "Lord's"), "court")
 
 
-def test_aim_py_is_currently_empty_and_imports_cleanly():
-    
-    """
-    Guards python/sandbox/aim.py against broken execution or syntax errors on import.
-    Ensures any code added to the sandbox entry point runs cleanly without unexpected errors.
-    """
-    
-    _, out = run_script("sandbox/aim.py")
-    assert out == ""
+# ---------------------------------------------------------------------------
+# user_access.py
+# ---------------------------------------------------------------------------
+class TestUserAccess:
+    FILE = f"{FOLDER}/user_access.py"
+
+    def test_valid_login_and_sufficient_permission_grants_access(self):
+        _, out = run_script(self.FILE)
+        assert "Access granted for user1 to perform write." in out
+
+    def test_valid_login_but_insufficient_permission_is_denied(self):
+
+        """
+        The @require_permission("write") decorator hardcodes the action
+        it checks against - "write" - regardless of what action the
+        caller actually passed at runtime ("read" for user2). So even
+        though user2 only requested "read", the message still references
+        "write", since that's the permission the decorator itself was
+        built to enforce.
+        """
+
+        _, out = run_script(self.FILE)
+        assert "Access denied for user2. Insufficient permissions for write." in out
+
+    def test_login_check_runs_before_permission_check(self):
+
+        """
+        @require_login is the OUTERMOST decorator, so its wrapper's
+        login_check() runs first; only if that passes does execution
+        reach the inner @require_permission wrapper's permission_check().
+        """
+
+        mod, _ = run_script(self.FILE)
+        result = mod.user_access("user1", "wrong-password", "write")
+        assert result == "Invalid username or password."
+
+    def test_permission_check_fires_only_after_successful_login(self):
+        mod, _ = run_script(self.FILE)
+        result = mod.user_access("user2", "securepass", "write")
+        assert "Access denied" in result
+
+    def test_login_check_and_permission_check_directly(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.login_check("user1", "password123") is True
+        assert mod.login_check("user1", "wrong") is False
+        assert mod.permission_check("user1", "write") is True
+        assert mod.permission_check("user2", "write") is False
+
+    def test_unknown_username_fails_login_check(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.login_check("ghost_user", "anything") is False
+
+
+# ---------------------------------------------------------------------------
+# worker.py
+# ---------------------------------------------------------------------------
+class TestWorker:
+    FILE = f"{FOLDER}/worker.py"
+
+    def test_manager_dispatch(self):
+        _, out = run_script(self.FILE)
+        assert "Alice is working as a Manager." in out
+        assert "Alice is managing the Engineering department." in out
+
+    def test_developer_dispatch(self):
+        _, out = run_script(self.FILE)
+        assert "Bob is working as a Developer." in out
+        assert "Bob is coding in Python." in out
+
+    def test_designer_dispatch(self):
+        _, out = run_script(self.FILE)
+        assert "Charlie is working as a Designer." in out
+        assert "Charlie is designing using Figma." in out
+
+    def test_writer_dispatch(self):
+        _, out = run_script(self.FILE)
+        assert "Eve is working as a Writer." in out
+        assert "Eve is writing in the Fiction genre." in out
+
+    def test_intern_dispatch(self):
+
+        # mentor="Eve" here is just a coincidental data value, unrelated
+        # to the separate Writer instance also named Eve in the same list.
+        _, out = run_script(self.FILE)
+        assert "David is working as a Intern." in out
+        assert "David is learning from Eve." in out
+
+    def test_all_five_workers_processed_in_list_order_with_separators(self):
+        _, out = run_script(self.FILE)
+        assert out.count("=" * 34) == 10  # 2 separator lines per worker x 5 workers
+        assert out.find("Alice") < out.find("Bob") < out.find("Charlie") < out.find("Eve") < out.find("David")
+
+    def test_match_case_dispatch_uses_type_not_just_attributes(self):
+
+        """
+        The match statement dispatches on Manager()/Developer()/etc. as
+        TYPE patterns, not by inspecting attributes - confirms a base
+        Worker() instance (belonging to none of the subclasses) falls
+        through to the default case.
+        """
+
+        mod, _ = run_script(self.FILE)
+        plain_worker = mod.Worker("Test", "Generic Role")
+        match plain_worker:
+            case mod.Manager():
+                result = "manager"
+            case _:
+                result = "default"
+        assert result == "default"
 
