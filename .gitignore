@@ -290,3 +290,5 @@ cmake-build-release/
 *.h5
 *.hdf5
 
+# Additional Files while running
+.txt
