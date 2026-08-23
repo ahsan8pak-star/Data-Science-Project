@@ -138,7 +138,7 @@ class TestFileWriter:
 
     def test_writes_greeting_to_file(self, tmp_path):
         run_script(self.FILE, cwd=tmp_path)
-        written = (tmp_path / "AIM.txt").read_text()
+        written = (tmp_path / "aim.txt").read_text()
         assert written == "A.I.M"
 
     def test_greet_function_directly(self, tmp_path):
