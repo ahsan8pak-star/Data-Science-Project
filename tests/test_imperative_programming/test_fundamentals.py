@@ -178,34 +178,36 @@ class TestDictionaries:
 class TestExceptions:
     FILE = f"{FOLDER}/exceptions.py"
 
+    # ---- Block 1: age input (try/except ValueError) ----
+
     def test_valid_age_echoed_back(self):
-        _, out = run_script(self.FILE, inputs=["21"])
+        _, out = run_script(self.FILE, inputs=["21", "1"])
         assert "21" in out
 
     def test_invalid_age_caught(self):
-        _, out = run_script(self.FILE, inputs=["not-an-age"])
+        _, out = run_script(self.FILE, inputs=["not-an-age", "1"])
         assert "Enter the age in integers (whole numbers)." in out
 
     def test_zero_age_is_valid_and_echoed(self):
-        _, out = run_script(self.FILE, inputs=["0"])
+        _, out = run_script(self.FILE, inputs=["0", "1"])
         assert "0" in out.splitlines()
 
     def test_negative_age_is_accepted_without_extra_validation(self):
         
         """
-        int() parses negative numbers fine; this script has no range
+        int() parses negative numbers fine; this block has no range
         check, only a type check, so a negative age is echoed as-is.
         """
         
-        _, out = run_script(self.FILE, inputs=["-5"])
+        _, out = run_script(self.FILE, inputs=["-5", "1"])
         assert "-5" in out
 
     def test_float_input_is_rejected_as_invalid(self):
-        _, out = run_script(self.FILE, inputs=["21.5"])
+        _, out = run_script(self.FILE, inputs=["21.5", "1"])
         assert "Enter the age in integers (whole numbers)." in out
 
     def test_module_defines_age_variable_after_valid_run(self):
-        mod, _ = run_script(self.FILE, inputs=["30"])
+        mod, _ = run_script(self.FILE, inputs=["30", "1"])
         assert mod.age == 30
 
     def test_exceptions_handling(self):
@@ -217,6 +219,78 @@ class TestExceptions:
         with pytest.raises(ZeroDivisionError):
             safe_divide(10, 0)
         assert safe_divide(10, 2) == 5.0
+
+    # ---- Block 2: reciprocal calculator (try/except x4/finally) ----
+
+    def test_reciprocal_success_path_prints_result_and_runs_finally(self):
+        
+        """
+        A clean run where neither block raises anything: confirms the
+        genuine happy path prints the reciprocal and still reaches
+        finally, without any of the four except branches firing.
+        """
+        
+        _, out = run_script(self.FILE, inputs=["25", "4"])
+        assert "0.25" in out
+        assert "Proceed Data Cleanup." in out
+        assert "Unexpected Error" not in out
+        assert "Undefined" not in out
+
+    def test_reciprocal_zero_division_caught(self):
+        _, out = run_script(self.FILE, inputs=["25", "0"])
+        assert "Error: Undefined. Zero (0) can't be as a divider." in out
+        assert "Proceed Data Cleanup." in out
+
+    def test_reciprocal_non_numeric_value_raises_message(self):
+        _, out = run_script(self.FILE, inputs=["25", "abc"])
+        assert "Enter Valid Numerical Values" in out
+        assert "Proceed Data Cleanup." in out
+
+    def test_reciprocal_keyboard_interrupt_handled(self):
+        
+        """
+        Block 1's own input() must still succeed normally, so the patch's
+        side_effect list supplies a valid age string first and only
+        raises KeyboardInterrupt on the SECOND input() call (block 2's
+        own prompt), isolating this branch from block 1 entirely.
+        """
+        
+        kb = patch("builtins.input", side_effect=["25", KeyboardInterrupt])
+        _, out = run_script(self.FILE, patches=[kb])
+        assert "Unexpected Crash." in out
+        assert "Immense Apologies." in out
+        assert "Proceed Data Cleanup." in out
+
+    def test_reciprocal_generic_exception_branch_via_forced_input_error(self):
+        
+        """
+        The bare `except Exception as e:` clause is a genuine catch-all
+        for anything not already matched by the three specific except
+        clauses above it - exercised here by forcing input() itself to
+        raise an arbitrary, otherwise-unhandled exception on block 2's
+        own prompt.
+        """
+        
+        forced_error = patch("builtins.input", side_effect=["25", RuntimeError("simulated failure")])
+        _, out = run_script(self.FILE, patches=[forced_error])
+        assert "Unexpected Error: simulated failure" in out
+        assert "Proceed Data Cleanup." in out
+
+    def test_finally_runs_even_when_an_input_is_missing_entirely(self):
+        
+        """
+        Genuine, subtle behaviour worth documenting: if the script is fed
+        only one input, block 1 consumes it and block 2's own input()
+        call runs out of scripted answers, raising conftest's own
+        EOFError. Since EOFError is a subclass of the built-in Exception,
+        it's caught by block 2's own bare `except Exception as e:` clause
+        rather than propagating out of run_script() as an unhandled
+        error - and finally still runs afterwards regardless.
+        """
+        
+        _, out = run_script(self.FILE, inputs=["25"])
+        assert "Unexpected Error:" in out
+        assert "Proceed Data Cleanup." in out
 
 
 # =====================================================================
