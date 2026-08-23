@@ -4,7 +4,11 @@ def greet(name):
 
 message = greet("A.I.M")
 
-file = open("aim.txt", "w") # Opens a file in write mode.
+file_dir = "C:/Users/A.I.M/C.S/Data-Science-Project/python/imperative_programming/syntax_fundamentals/"
+file_name = "aim.txt"
+file_path = file_dir + file_name
+
+file = open(file_path, "w") # Opens a file in write mode.
 file.write(message) # Writes the greeting message to the file.
 file.close() # Closes the file.
 
@@ -41,7 +45,7 @@ file_path = file_dir + file_name
 try:
     with open(file_path, "a") as file: # Mode "a" appends data to the end without truncating i.e. without slicing / trimming off data
         file.write(log_entry)
-    print(f"\nLog entry successfully appended to ['{file_path}']!")
+    print(f"\nLog entry successfully appended to ['{file_path}'].")
 
 except PermissionError:
     print(f"\nError: Insufficient permissions to write to '{file_name}'.")
