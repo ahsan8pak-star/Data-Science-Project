@@ -131,8 +131,9 @@ All fundamental python files have been made into their respective folders from e
 | Compound Interest Rate | **Mathematical formulas, including fundamental conditional loops, try-except error catching and f-strings** |
 | Cosine Rule | **Advanced Mathematical functions** |
 | Euclidean Distance Calculator | **Applied mathematical functions thorugh user input and an example case to check its functionality and durability** |
+| Gradient Calculator | **Mathematical functions for calculating graphical slopes and gradients** |
 | Perimeter of Triangle | **Basic mathematical functions with user input** |
-| Pythagoras Theorem | **Advanced Mathematical functions)** |
+| Pythagoras Theorem | **Advanced Mathematical functions** |
 | Simple Debt Calculator | **Mathematical formulas in relation to its interest calculator, including fundamental conditional loops** |
 | Simple Interest Rate | **Mathematical formulas, including fundamental conditional loops, try-except error catching and f-strings** |
 | Sine Rule | **Advanced Mathematical functions** |
@@ -147,6 +148,7 @@ All fundamental python files have been made into their respective folders from e
 
 | File Name | Topics Covered |
 | --- | --- |
+| Activity Log.txt | *Go to File Handling for more* |
 | Add | **+ -> Addition** |
 | AIM.txt | *Go to File Writer for more* |
 | Checkout System | **User input and type conversions** |
@@ -154,19 +156,26 @@ All fundamental python files have been made into their respective folders from e
 | Distance Calculator | **Floats and user input demonstration.** |
 | Divide | **/ -> Division** |
 | Drink Script Example | **Applied import created modules with def main and [ if **name** == "**main**": ]** |
-| Email Slicer | **Index formtting fundamentals** |
+| Email Slicer | **Index formatting fundamentals** |
 | Even & Odd Loop Detector | **Fundamental conditional for loop and modulus operator** |
 | Factorials | **Iterative Sequence Multiplication** |
+| File Handling | **Comprehensive file I/O operations and context managers** |
+| File Reader | **Read functions and string parsing fundamentals** |
 | File Writer | **File I/O fundamentals** |
 | Food Menu | **Dictionaries and/or sets and applied conditional loops** |
 | Food Script Example | **Applied import created modules with def main and [ if **name** == "**main**": ]** |
 | Grade Boundary Calculator | **Integers with conditional (if-else) loops** |
 | Hour Clock | **Fundamental [ import time ] and scaling it up to its real world resemblence through previous files made on such** |
+| Input / Output CSVs | *Go to File Handling for more* |
+| Input / Output JSONs | *Go to File Handling for more* |
+| Input / Output / Test TXTs | *Go to File Handling for more* |
 | LeapYear | **Basic Mathematical functions under conditional loops** |
 | Math File | **Fundamental import modules and basic printing various cases** |
 | Math Module | **Fundamental created import modules and basic mathematical functions** |
 | Minute Time | **Fundamental [ import time ] and basic scaling from its previous file to test its functionality** |
 | Multiply | **( * ) -> Multiplication** |
+| Number Matrix Display | **Nested loops with advanced formatted grid outputs** |
+| Num Pad | **2D lists and nested conditional loops** |
 | Prime Numbers | **Iterative sequence filtration and identification** |
 | Random Cipher | **[ import random ] and [ import string ], with applied inputs, f-strings and conditional loops** |
 | Random Colour Generator | **[ from random import randint ], match-case statements, applied f-strings, nested for loops and try-except error catching.** |
