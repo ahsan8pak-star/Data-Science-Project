@@ -192,9 +192,13 @@ All fundamental python files have been made into their respective folders from e
 
 ## Object-Oriented Programming
 
+---
+
+**Syntax Fundamentals:**
+
 | File Name | Topics Covered |
 | --- | --- |
-| Bank Account | **Encapsulation, instance methods, custom string formatting (***str***), state mutation through deposits and withdrawals, and object-level data management** |
+| Bank Account | **Encapsulation, instance methods, custom string formatting (`__str__`), state mutation through deposits and withdrawals, and object-level data management** |
 | Calculator | **Static methods, utility functions, and reusable class-level operations for arithmetic logic** |
 | Car | **Fundamental classes, attributes, methods, constructors, and importing created modules** |
 | Device | **Abstract classes, inheritance, method overriding, base/derived class design, and super() call mechanics** |
@@ -203,7 +207,7 @@ All fundamental python files have been made into their respective folders from e
 | Food | **Multi-level inheritance, layered class hierarchies, and specialised food categories such as snacks, desserts, and drinks** |
 | Grocery Caloric List | **Class methods as alternative constructors, duck typing across differing grocery item types, and iterative aggregation for total caloric summation** |
 | Item | **Magic methods, dunder methods, custom comparisons, item lookup, and built-in operator behaviour** |
-| Order | **Class variables versus instance variables, constructors (***init***), object tracking, and aggregated calculations** |
+| Order | **Class variables versus instance variables, constructors (`__init__`), object tracking, and aggregated calculations** |
 | Payment | **Polymorphism, shared interfaces, and differing implementations for cash, card, and bank transfer payments** |
 | Person | **Fundamental classes, methods, and importing created modules for object practice** |
 | Point | **Fundamental classes, methods, constructors, and importing created modules** |
@@ -218,6 +222,8 @@ All fundamental python files have been made into their respective folders from e
 
 ## Functional Programming
 
+---
+
 | File Name | Topics Covered |
 |---|---|
 
@@ -230,6 +236,8 @@ This is where university modules and its coursework goes under for the applicati
 ---
 
 ## CS1IP
+
+---
 
 **Coursework 1 -> 1st half of Semester 1 at Year 1**
 
@@ -254,6 +262,8 @@ This is where university modules and its coursework goes under for the applicati
 ## Advanced Projects
 
 This is for extensive and multi-level applications such as machine learning and specific topics dedicated for data science
+
+---
 
 **Machine Learning**
 
