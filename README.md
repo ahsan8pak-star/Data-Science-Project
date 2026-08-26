@@ -36,7 +36,7 @@ All fundamental and applied topics learned in their respective folder, known as 
 | Reusable Logic & Code Style | **Function refactoring, # syntax comments documentation** |
 | Modules | **Importing, creating modules and descriptions of its various types** |
 | Scope Resolution | **Range of variable scopes within functions i.e. (LEGB) Local -> Enclosed -> Global -> Built-in** |
-| Main | **Software Development Practical and Security Function using def main(): and [ if **name** == "**main**": ]** |
+| Main | **Software Development Practical and Security Function using def main(): and [ if `__name__` == `__main__`: ]** |
 
 ---
 
@@ -155,7 +155,7 @@ All fundamental python files have been made into their respective folders from e
 | Count Up Timer | **Foundational default arguments and import time** |
 | Distance Calculator | **Floats and user input demonstration.** |
 | Divide | **/ -> Division** |
-| Drink Script Example | **Applied import created modules with def main and [ if **name** == "**main**": ]** |
+| Drink Script Example | **Applied import created modules with def main and [ if `__name__` == `__main__`: ]** |
 | Email Slicer | **Index formatting fundamentals** |
 | Even & Odd Loop Detector | **Fundamental conditional for loop and modulus operator** |
 | Factorials | **Iterative Sequence Multiplication** |
@@ -163,7 +163,7 @@ All fundamental python files have been made into their respective folders from e
 | File Reader | **Read functions and string parsing fundamentals** |
 | File Writer | **File I/O fundamentals** |
 | Food Menu | **Dictionaries and/or sets and applied conditional loops** |
-| Food Script Example | **Applied import created modules with def main and [ if **name** == "**main**": ]** |
+| Food Script Example | **Applied import created modules with def main and [ if `__name__` == `__main__`: ]** |
 | Grade Boundary Calculator | **Integers with conditional (if-else) loops** |
 | Hour Clock | **Fundamental [ import time ] and scaling it up to its real world resemblence through previous files made on such** |
 | Input / Output CSVs | *Go to File Handling for more* |
@@ -401,4 +401,6 @@ Data-Science-Project/
 - [17]: Pytest Framework: Unit tests under `tests/` mirroring imperative, OOP, and functional Python paradigms.
 - [18]: Data Safety: The `[Dd]ata/` rule in `.gitignore` protects both uppercase and lowercase data tracks.
 - [19]: Open Source: MIT legal framework chosen for repository distribution compliance.
-- [20]: Legal Terms: Standard permissions, copyright notices, and liability limits under open-source licensing._
+- [20]: Legal Terms: Standard permissions, copyright notices, and liability limits under open-source licensing.
+
+---
