@@ -261,7 +261,7 @@ This is where university modules and its coursework goes under for the applicati
 
 ## Advanced Projects
 
-This is for extensive and multi-level applications such as machine learning and specific topics dedicated for data science
+This is for extensive and multi-level applications such as machine learning and specific topics dedicated for data science.
 
 ---
 
@@ -269,9 +269,11 @@ This is for extensive and multi-level applications such as machine learning and 
 
 | Folder Name | File Types |
 | --- | --- |
-| Music | **multiple [ *music_---.py* ] , [ *music-recommender.dot* ], [ *music-recommender.joblib* ] and [ *music.csv* ]** |
-| Video Games | **multiple [ *vg_---.py* ], [ *vg_recommender.dot* ], [ *vg_recommender.joblib*]  and [ *vgsales.csv* ]** |
+| Music | **multiple [ *music_---.ipynb* ], [ *music-recommender.dot* ], [ *music-recommender.joblib* ] and [ *music.csv* ]** |
+| Video Games | **multiple [ *vg_---.ipynb* ], [ *vg-sales-recommender.dot* ], [ *vg-recommender.joblib* ] and [ *vgsales.csv* ]** |
 | Data Outliers | **[ *data_outlier.ipynb* ] and [ *data_outlier.py* ]** |
+
+---
 
 **Transactions**
 
