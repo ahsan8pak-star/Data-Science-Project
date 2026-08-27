@@ -1,21 +1,21 @@
 # Data Science Project
 
-A personal project to advance my career in Data Science as a whole.
+A personal project to advance my career in Data Science.
 
 ---
 
 # Completed Tasks
 
 - CLI Commands from **Powershell/CMD (mainly used)** and **Ubuntu/Linux (eventually will come later on in main projects)**
-- Git Version Control from **GitHub, GitLab (both of them synchronized with VSC as a 'middle man')** and **Git Bash (rarely used)**
+- Git Version Control from **GitHub & GitLab (both of them synchronized with VSC as a 'middle man')** and **Git Bash (rarely used)**
 
-*The rest of them are categorised into its own subheadings respectively below:*
+*The rest of the tasks are categorised into its own subheadings respectively below:*
 
 ---
 
 # Python Fundamental Topics
 
-All fundamental and applied topics learned in their respective folder, known as 'fundamental_topics'.
+All fundamental and applied topics learned in their respective folder, known as `fundamental_topics`.
 
 ---
 
@@ -23,20 +23,20 @@ All fundamental and applied topics learned in their respective folder, known as 
 
 | Topic Name | Descriptions |
 | --- | --- |
-| Environment & Execution | **(PyCharm / Visual Studio Code) IDE installation, interpreter mechanics, print()** |
-| Variables & Core Types | **Data declarations, interactive input(), type casting via int()/float()** |
+| Environment & Execution | **(PyCharm / Visual Studio Code) IDE installation, interpreter mechanics, `print()`** |
+| Variables & Core Types | **Data declarations, interactive `input()`, type casting via `int()` / `float()`** |
 | String Manipulation | **F-strings, index parsing, multi-line strings, string methods** |
 | Arithmetic & Maths Operations | **Operators, BIDMAS operatortions, maths module functions** |
-| Conditions & Control Flow | **If, elif, else, logical and/or/not, comparison operators** |
-| Loops & State Control | **While loops, for loops, nested loops, break statements** |
-| Lists & Matrices | **Arrays, 2D Matrices, index modification, list methods like .append() and .sort()** |
+| Conditions & Control Flow | **`if`, `elif`, `else`, logical `and` / `or` / `not`, comparison operators** |
+| Loops & State Control | **`while` loops, `for` loops, nested loops, `break` statements** |
+| Lists & Matrices | **Arrays, 2D Matrices, index modification, list methods like `.append()` and `.sort()`** |
 | Tuples & Dictionaries | **Immutable sequences, tuple unpacking, key-value data structures** |
-| Functions | **Def blocks, positional/keyword arguments, parameter passing, return statements** |
-| Exceptions | **Try, except error handling structures** |
-| Reusable Logic & Code Style | **Function refactoring, # syntax comments documentation** |
+| Functions | **`def` blocks, positional/keyword arguments, parameter passing, `return` statements** |
+| Exceptions | **`try`, `except` error handling structures** |
+| Reusable Logic & Code Style | **Function refactoring, `#` syntax comments documentation** |
 | Modules | **Importing, creating modules and descriptions of its various types** |
 | Scope Resolution | **Range of variable scopes within functions i.e. (LEGB) Local -> Enclosed -> Global -> Built-in** |
-| Main | **Software Development Practical and Security Function using def main(): and [ if `__name__` == `__main__`: ]** |
+| Main | **Software Development Practical and Security Function using def main(): and `if __name__ == __main__:`** |
 
 ---
 
@@ -46,11 +46,11 @@ All fundamental and applied topics learned in their respective folder, known as 
 | --- | --- |
 | Classes | **Objects and classes through import created modules, and fundamental variable assignments** |
 | Class Variables | **Outside of constructor's scope as a global variable** |
-| Constructors | **def `__init__` (self), self.variable == variable and printing the objects within the class itself** |
+| Constructors | **`def __init__ (self)`, `self.variable == variable` and printing the objects within the class itself** |
 | Inheritance | **Combination of the classes, methods and constructors and derived the basic definitions to grasp its full use and applications** |
 | Multiple & Multi-Level Inheritance | **Extension of inheritance with applied child and parent classes, its methods, attributes and functions all intertwined / interconnected to each other** |
 | Abstract Classes | **Applied classes of non - instantitated rules to understand its own functions through parent and child classes** |
-| super() | **Applied constructors of def `__init__`(self,...) -> super().`__init__`(...)** |
+| super() | **Applied constructors of `def __init__(self,...)` -> `super().__init__(...)`** |
 | Polymorphism | **Fundamental OOP concept. *Go to **Inheritence** as reference*** |
 | Aggregation | **"Has-a" relationship -> refers 'independent' classes** |
 | Composition | **"Owns-a" relationship. Uses 'components' (dependents) to represent a composite object (independent)** |
@@ -67,16 +67,16 @@ All fundamental and applied topics learned in their respective folder, known as 
 
 | Topic Name | Descriptions |
 | --- | --- |
-| Filter | **[ filter() ] combined with lambda predicates to conditionally select items from a list — even/odd numbers, values above/below a threshold, and non-empty strings** |
+| Filter | **`filter()` combined with lambda predicates to conditionally select items from a list — even/odd numbers, values above/below a threshold, and non-empty strings** |
 | Lambda | **Anonymous one-expression functions assigned to variables, applied across arithmetic, comparison, and conditional (ternary) use cases** |
-| Map | **[ map() ] applying a lambda across single and multiple iterables — squaring/doubling values, type conversion, and pairwise combination of two lists** |
-| Zip | **[ zip() ] combining multiple iterables into paired tuples, with unpacking via a for loop across matched indices** |
+| Map | **`map()`applying a lambda across single and multiple iterables — squaring/doubling values, type conversion, and pairwise combination of two lists** |
+| Zip | **`zip()`combining multiple iterables into paired tuples, with unpacking via a for loop across matched indices** |
 
 ---
 
 # Applied Foundation Projects
 
-All fundamental python files have been made into their respective folders from each programming methods used throughout.
+All python files have been made into their respective folders from each programming methods used throughout based on the applications from `fundamental_topics` folder as its reference.
 
 ---
 
@@ -90,9 +90,9 @@ All fundamental python files have been made into their respective folders from e
 | --- | --- |
 | Annual Rate Calculator | **Exception functions & formatting within mathematical formulas** |
 | Fahrenheit & Celcius | **Function fundamentals with basic conditional loops** |
-| Phone Number Converter | **Case function & conditional loops** |
-| Roman Numerals Converter | **Conditional loops, input functions, case switch fundamentals & exception rules** |
-| Time Coverter | **fundamental switch cases, including error catching within conditional loops** |
+| Phone Number Converter | **`match case` function & conditional loops** |
+| Roman Numerals Converter | **Conditional loops, `input()` functions, `match cases` fundamentals & exception rules** |
+| Time Coverter | **Fundamental `match cases`, including error catching within conditional loops** |
 | Weight Converter | **Conditional logic integration** |
 
 ---
@@ -101,14 +101,14 @@ All fundamental python files have been made into their respective folders from e
 
 | File Name | Topics Covered |
 | --- | --- |
-| Dice Game | **fundamental dictionary / sets, applied arrays / lists and applied conditional loops with creative TUI display** |
-| Haiku - Madlibs | **F-strings with lists and random import** |
-| Hangman Game | **Applied Dictionaries, for loops, tuples and conditional statements with import random** |
-| Login Status | **User input and error catching, within the logical framework of boolean** |
-| Numerical Guessing Game | **While loop & break engine execution** |
-| Quiz Game | **Fundamental lists and conditional for loops, including basic mathematical operations i.e. percentage score** |
-| Rock Paper Scissors | **Applied def functions, conditional loops with ASCII Art and formatting** |
-| Word Guessing Game | **Conditional loops, input functions & list fundamentals** |
+| Dice Game | **Fundamental dictionary / sets, applied arrays / lists and applied conditional loops with creative TUI display** |
+| Haiku - Madlibs | **F-strings with lists and `import random`** |
+| Hangman Game | **Applied Dictionaries, for loops, tuples and conditional statements with `import random`** |
+| Login Status | **User `input()` and error catching, within the logical framework of boolean** |
+| Numerical Guessing Game | **`while` loop & `break` engine execution** |
+| Quiz Game | **Fundamental lists and conditional `for` loops, including basic mathematical operations i.e. percentage score** |
+| Rock Paper Scissors | **Applied `def` functions, conditional loops with ASCII Art and formatting** |
+| Word Guessing Game | **Conditional loops, `input()` functions & list fundamentals** |
 
 ---
 
@@ -116,30 +116,30 @@ All fundamental python files have been made into their respective folders from e
 
 | File Name | Topics Covered |
 | --- | --- |
-| Area & Volume Calculator | **Functions combining 2 basic files with advanced user input** |
+| Area & Volume Calculator | **Functions combining 2 basic files with advanced user `input()`** |
 | Area | **Basic arithmetic functions with 2 values** |
-| Area of Circle | **Mathematical functions, including user input** |
+| Area of Circle | **Mathematical functions, including user `input()`** |
 | Area of Triangle | **Basic mathematical functions, with a fundamental user input function** |
-| Arithmetic Calculator | **Basic switch cases with extensive conditional loops and f-strings with the inclusion of fundamental mathematical unit formatting** |
-| Arithmetic Expressions | **Imported created math module i.e. [ *Arithmetic Calculator* ], f-strings and TUI displays based on [ *Arithmetic Calculator* ]** |
+| Arithmetic Calculator | **Basic `match cases` with extensive conditional loops and f-strings with the inclusion of fundamental mathematical unit formatting** |
+| Arithmetic Expressions | **Created `import math` module i.e. `Arithmetic Calculator`, f-strings and TUI displays based on `Arithmetic Calculator`** |
 | Arithmetic Iteration | **Imported created modules, f-strings with the inclusion of fundamental mathematical formulas and TUI displays** |
-| Banking Program | **Applied arithmetic formulas under fintech, error catching, def functions and match cases with TUI displays** |
+| Banking Program | **Applied arithmetic formulas under fintech, error catching, `def` functions and `match case` with TUI displays** |
 | Card Validator Program | **Applied for loops and list indexing with fundamental variable assignments** |
 | Circle Calculator | **Fundamental mathematical functions and imported created modules, with applied user error catching and TUI** |
-| Circumference of Circle | **Mathematical functions, including user input** |
-| Compound Debt Calculator | **Mathematical formulas in relation to its interest calculator, including fundamental conditional loops** |
-| Compound Interest Rate | **Mathematical formulas, including fundamental conditional loops, try-except error catching and f-strings** |
+| Circumference of Circle | **Mathematical functions, including user `input()`** |
+| Compound Debt Calculator | **Mathematical formulas in relation to `Compound Interest Rate`, including fundamental conditional loops** |
+| Compound Interest Rate | **Mathematical formulas, including fundamental conditional loops, `try-except` error catching and f-strings** |
 | Cosine Rule | **Advanced Mathematical functions** |
-| Euclidean Distance Calculator | **Applied mathematical functions thorugh user input and an example case to check its functionality and durability** |
+| Euclidean Distance Calculator | **Applied mathematical functions thorugh user `input()` and an example case to check its functionality and durability** |
 | Gradient Calculator | **Mathematical functions for calculating graphical slopes and gradients** |
-| Perimeter of Triangle | **Basic mathematical functions with user input** |
+| Perimeter of Triangle | **Basic mathematical functions with user `input()`** |
 | Pythagoras Theorem | **Advanced Mathematical functions** |
-| Simple Debt Calculator | **Mathematical formulas in relation to its interest calculator, including fundamental conditional loops** |
-| Simple Interest Rate | **Mathematical formulas, including fundamental conditional loops, try-except error catching and f-strings** |
+| Simple Debt Calculator | **Mathematical formulas in relation to `Simple Interest Rate`, including fundamental conditional loops** |
+| Simple Interest Rate | **Mathematical formulas, including fundamental conditional loops, `try-except` error catching and f-strings** |
 | Sine Rule | **Advanced Mathematical functions** |
-| Square Number Times Tables | **Mathematical iteration using a single loop, module imports, and formatted f-strings** |
-| Times Tables | **Mathematical iteration using nested loops, advanced user input, and formatted f-strings** |
-| Triangle Calculator | **Functions combining 2 basic and 2 advanced files with advanced user input** |
+| Square Number Times Tables | **Mathematical iteration using a single loop, modules `import`, and formatted f-strings** |
+| Times Tables | **Mathematical iteration using nested loops, advanced user `input()`, and formatted f-strings** |
+| Triangle Calculator | **Functions combining 2 basic and 2 advanced files with advanced user `input()`** |
 | Volume | **Basic arithmetic functions with 3 values** |
 
 ---
@@ -148,44 +148,44 @@ All fundamental python files have been made into their respective folders from e
 
 | File Name | Topics Covered |
 | --- | --- |
-| Activity Log.txt | *Go to File Handling for more* |
-| Add | **+ -> Addition** |
-| AIM.txt | *Go to File Writer for more* |
-| Checkout System | **User input and type conversions** |
-| Count Up Timer | **Foundational default arguments and import time** |
-| Distance Calculator | **Floats and user input demonstration.** |
-| Divide | **/ -> Division** |
-| Drink Script Example | **Applied import created modules with def main and [ if `__name__` == `__main__`: ]** |
+| Activity Log.txt | *Go to `File Handling` for more* |
+| Add | **`+` -> Addition** |
+| AIM.txt | *Go to `File Writer` for more* |
+| Checkout System | **User `input()` and type conversions** |
+| Count Up Timer | **Foundational default arguments and `import time`** |
+| Distance Calculator | **`floats` and user `input()` demonstration.** |
+| Divide | **`/` -> Division** |
+| Drink Script Example | **Applied `import` created modules with `def main` and `if __name__ == __main__:`** |
 | Email Slicer | **Index formatting fundamentals** |
-| Even & Odd Loop Detector | **Fundamental conditional for loop and modulus operator** |
+| Even & Odd Loop Detector | **Fundamental conditional `for` loop and modulus operator (`%`)** |
 | Factorials | **Iterative Sequence Multiplication** |
 | File Handling | **Comprehensive file I/O operations and context managers** |
 | File Reader | **Read functions and string parsing fundamentals** |
 | File Writer | **File I/O fundamentals** |
 | Food Menu | **Dictionaries and/or sets and applied conditional loops** |
-| Food Script Example | **Applied import created modules with def main and [ if `__name__` == `__main__`: ]** |
-| Grade Boundary Calculator | **Integers with conditional (if-else) loops** |
-| Hour Clock | **Fundamental [ import time ] and scaling it up to its real world resemblence through previous files made on such** |
-| Input / Output CSVs | *Go to File Handling for more* |
-| Input / Output JSONs | *Go to File Handling for more* |
-| Input / Output / Test TXTs | *Go to File Handling for more* |
+| Food Script Example | **Applied `import` created modules with `def main` and `if __name__ == __main__:`** |
+| Grade Boundary Calculator | **Integers with conditional `if-else` loops** |
+| Hour Clock | **Fundamental `import time` and scaling it up to its real world resemblence through previous files made on such** |
+| Input / Output CSVs | *Go to `File Handling` for more* |
+| Input / Output JSONs | *Go to `File Handling` for more* |
+| Input / Output / Test TXTs | *Go to `File Handling` for more* |
 | LeapYear | **Basic Mathematical functions under conditional loops** |
-| Math File | **Fundamental import modules and basic printing various cases** |
-| Math Module | **Fundamental created import modules and basic mathematical functions** |
-| Minute Time | **Fundamental [ import time ] and basic scaling from its previous file to test its functionality** |
-| Multiply | **( * ) -> Multiplication** |
+| Math File | **Fundamental `import` modules and basic printing various cases** |
+| Math Module | **Fundamental created `import` modules and basic mathematical functions** |
+| Minute Time | **Fundamental `import time` and basic scaling from its previous file to test its functionality** |
+| Multiply | **`*` -> Multiplication** |
 | Number Matrix Display | **Nested loops with advanced formatted grid outputs** |
 | Num Pad | **2D lists and nested conditional loops** |
 | Prime Numbers | **Iterative sequence filtration and identification** |
-| Random Cipher | **[ import random ] and [ import string ], with applied inputs, f-strings and conditional loops** |
-| Random Colour Generator | **[ from random import randint ], match-case statements, applied f-strings, nested for loops and try-except error catching.** |
-| Reverse List Program | **Fundamental list manipulation via slicing and comprehensions, applied type validation using all() method, and conditional string formatting.** |
-| Seconds Countdown | **Fundamental [ import time ] under its essential (def) function including f string methods to present it accurately** |
-| Shipping Label | **Foundational xArgs and xKwargs, applied dictionaries, and walrus operator under a specific for conditional loop as well as string methods being applied throughout.** |
-| Shopping Cart | **Fundamental lists under a function within a for conditoinal loop, including try-except error catching and f string methods.** |
-| Square | **( pow(x, y) == ** )** |
-| Subtract | **- -> Subtraction** |
-| Symbol Generator | **Fundamental nested loops with user inputs, try-except error catching and conditional loops.** |
+| Random Cipher | **`import random` and `import string`, with applied `input()` functions, f-strings and conditional loops** |
+| Random Colour Generator | **`from random import randint`, `match-case` statements, applied f-strings, nested for loops and `try-except` error catching.** |
+| Reverse List Program | **Fundamental list manipulation via slicing and comprehensions, applied type validation using `all()` method, and conditional string formatting.** |
+| Seconds Countdown | **Fundamental `import time` under its essential `def` function including f-string methods to present it accurately** |
+| Shipping Label | **Foundational `xArgs` and `xKwargs`, applied dictionaries, and walrus operator under a specific for conditional loop as well as string methods being applied throughout.** |
+| Shopping Cart | **Fundamental lists under a function within a `for` conditoinal loop, including `try-except` error catching and f-string methods.** |
+| Square | **`pow(x, y)` == `**`** |
+| Subtract | **`-` -> Subtraction** |
+| Symbol Generator | **Fundamental nested loops with user `input()`s, `try-except` error catching and conditional loops.** |
 | Username Status | **Fundamental conditional expressions with advanced string methods.** |
 
 ---
@@ -201,8 +201,8 @@ All fundamental python files have been made into their respective folders from e
 | Bank Account | **Encapsulation, instance methods, custom string formatting (`__str__`), state mutation through deposits and withdrawals, and object-level data management** |
 | Calculator | **Static methods, utility functions, and reusable class-level operations for arithmetic logic** |
 | Car | **Fundamental classes, attributes, methods, constructors, and importing created modules** |
-| Device | **Abstract classes, inheritance, method overriding, base/derived class design, and super() call mechanics** |
-| Dice | **Applied import modules within OOP (e.g., *from dice_game import dice_art*), object-based simulation, and basic file interaction** |
+| Device | **Abstract classes, inheritance, method overriding, base/derived class design, and `super()` call mechanics** |
+| Dice | **Applied import modules within OOP (e.g., `from dice_game import dice_art`), object-based simulation, and basic file interaction** |
 | Employee Contract | **Multiple inheritance, combined class behaviour, and real-world worker role modelling** |
 | Food | **Multi-level inheritance, layered class hierarchies, and specialised food categories such as snacks, desserts, and drinks** |
 | Grocery Caloric List | **Class methods as alternative constructors, duck typing across differing grocery item types, and iterative aggregation for total caloric summation** |
@@ -243,11 +243,11 @@ This is where university modules and its coursework goes under for the applicati
 
 | File Name | Topics Covered |
 | --- | --- |
-| Average Grades | **[ *Python Fundamental Topics* ] -> [ *Imperative Programming* ] -> [ *Lists & Matrices* ] , [ *Loops & State Control* ] , [ *Conditions & Control Flow* ] , [ *Functions* ] and [ *Main* ]** |
-| Hello | **[ *Python Fundamental Topics* ] -> [ *Imperative Programming* ] -> [ *Environment & Execution* ]** |
-| Ice Cream | **[ *Python Fundamental Topics* ] -> [ *Imperative Programming* ] -> [ *Conditions & Control Flow* ] , [ *Loops & State Control* ] and [ *Exceptions* ]** |
-| Seven Segment | **[ *Python Fundamental Topics* ] -> [ *Imperative Programming* ] -> [ *Lists & Matrices* ] , [ *Loops & State Control* ] , [ *Conditions & Control Flow* ] , [ *Functions* ] and [ *Main* ]** |
-| Volume | **[ *Python Fundamental Topics* ] -> [ *Imperative Programming* ] -> [ *Functions* ] , [ *Modules* ] and [ *Arithmetic & Maths Operations* ]** |
+| Average Grades | **`Python Fundamental Topics`-> `Imperative Programming` -> `Lists & Matrices` , `Loops & State Control` , `Conditions & Control Flow` , `Functions` and `Main`** |
+| Hello | **`Python Fundamental Topics` -> `Imperative Programming` -> `Environment & Execution`** |
+| Ice Cream | **`Python Fundamental Topics` -> `Imperative Programming` -> `Conditions & Control Flow` , `Loops & State Control` and `Exceptions`** |
+| Seven Segment | **`Python Fundamental Topics` -> `Imperative Programming` -> `Lists & Matrices` , `Loops & State Control` , `Conditions & Control Flow` , `Functions` and `Main`** |
+| Volume | **`Python Fundamental Topics` -> `Imperative Programming` -> `Functions` , `Modules` and `Arithmetic & Maths Operations`** |
 
 ---
 
@@ -255,7 +255,7 @@ This is where university modules and its coursework goes under for the applicati
 
 | File Name | Topics Covered |
 |---|---|
-| Sort Comparison | **[ *Python Fundamental Topics* ] -> [ *Imperative Programming* ] -> [ *Lists & Matrices* ] , [ *Loops & State Control* ] , [ *Conditions & Control Flow* ] , [ *Functions* ] , [ *Modules* ] and [ *Main* ]** |
+| Sort Comparison | **`Python Fundamental Topics` -> `Imperative Programming` -> `Lists & Matrices` , `Loops & State Control` , `Conditions & Control Flow` , `Functions` , `Modules` and `Main`** |
 
 ---
 
@@ -269,9 +269,9 @@ This is for extensive and multi-level applications such as machine learning and 
 
 | Folder Name | File Types |
 | --- | --- |
-| Music | **multiple [ *music_---.ipynb* ], [ *music-recommender.dot* ], [ *music-recommender.joblib* ] and [ *music.csv* ]** |
-| Video Games | **multiple [ *vg_---.ipynb* ], [ *vg-sales-recommender.dot* ], [ *vg-recommender.joblib* ] and [ *vgsales.csv* ]** |
-| Data Outliers | **[ *data_outlier.ipynb* ] and [ *data_outlier.py* ]** |
+| Music | **multiple `music_---.ipynb`, `music-recommender.dot`, `music-recommender.joblib` and `music.csv`** |
+| Video Games | **multiple `vg_---.ipynb`, `vg-sales-recommender.dot`, `vg-recommender.joblib` and `vgsales.csv`** |
+| Data Outliers | **`data_outlier.ipynb` and `data_outlier.py`** |
 
 ---
 
@@ -387,7 +387,7 @@ Data-Science-Project/
 - [3]: IDE Setup (`.vscode/`): Debugger paths (`launch.json`), settings (`settings.json`), and build tasks (`tasks.json`).
 - [4]: Build & Compliance: Tool setup in `pyproject.toml`, .`gitignore` data protection, and MIT LICENSE terms.
 - [5]: Imperative Programming: Syntax, datatypes, control flow, functions, LEGB scope, error handling, and `main` entry guards.
-- [6]: OOP Architecture (fundamental_topics/): Classes, abstraction, inheritance, polymorphism, encapsulation, nested classes, types of class methods and constructors.
+- [6]: OOP Architecture (`fundamental_topics/`): Classes, abstraction, inheritance, polymorphism, encapsulation, nested classes, types of class methods and constructors.
 - [7]: Functional Programming: Pure functions, mathematical data processing, and immutable data flow pipelines.
 - [8]: Data Converters: Conversions for rates, temperatures, phone numbers, Roman numerals, time, and weights.
 - [9]: CLI Games: Interactive terminal games including Dice (TUI), Hangman, Quiz, RPS, and Word Guessing.
