@@ -54,12 +54,12 @@ All fundamental and applied topics learned in their respective folder, known as 
 | Polymorphism | **Fundamental OOP concept. *Go to **Inheritence** as reference*** |
 | Aggregation | **"Has-a" relationship -> refers 'independent' classes** |
 | Composition | **"Owns-a" relationship. Uses 'components' (dependents) to represent a composite object (independent)** |
-| Nested Classes | **Similar to *Nested Loops* in *Inperative Programming*. *Go towards **Inheritence** for more fundamental reasons*** |
-| Static Methods | **Alternative to Instance Methods. *Go to Nested Loops for further context*** |
-| Class Methods | **Alternative to Static Methods. *Go to **Nested Classes** and **Static Methods** for further context*** |
-| Magic Methods | **Branch of Class Methods and Constructors. *Refer to **Nested Classes** for further context*** |
-| Decorator | **Unique method used to make functions into attributes. *Go to **Abstract Methods** and **Class Methods** for more information*** |
-| Property | **Combination of functions as attributes i.e. objects functioning as its own attributes. *Go to **Decorator** , **Magic Methods** and **Class Methods** for its full responses*** |
+| Nested Classes | **Similar to `Nested Loops` in `Imperative Programming`. *Go towards `Inheritence` for more fundamental reasons*** |
+| Static Methods | **Alternative to `Instance Methods`. *Go to `Nested Loops` for further context*** |
+| Class Methods | **Alternative to `Static Methods`. *Go to `Nested Classes` and `Static Methods` for further context*** |
+| Magic Methods | **Branch of `Class Methods` and `Constructors`. *Refer to `Nested Classes` for further context*** |
+| Decorator | **Unique method used to make functions into attributes. *Go to `Abstract Methods` and `Class Methods` for more information*** |
+| Property | **Combination of functions as attributes i.e. objects functioning as its own attributes. *Go to `Decorator` , `Magic Methods` and `Class Methods` for its full responses*** |
 
 ---
 
@@ -67,10 +67,10 @@ All fundamental and applied topics learned in their respective folder, known as 
 
 | Topic Name | Descriptions |
 | --- | --- |
-| Filter | **`filter()` combined with lambda predicates to conditionally select items from a list — even/odd numbers, values above/below a threshold, and non-empty strings** |
+| Filter | **`filter()` combined with lambda predicates to conditionally select items from a list — even and odd numbers, values both above and below a threshold, and non-empty strings** |
 | Lambda | **Anonymous one-expression functions assigned to variables, applied across arithmetic, comparison, and conditional (ternary) use cases** |
-| Map | **`map()`applying a lambda across single and multiple iterables — squaring/doubling values, type conversion, and pairwise combination of two lists** |
-| Zip | **`zip()`combining multiple iterables into paired tuples, with unpacking via a for loop across matched indices** |
+| Map | **`map()` applying a lambda across single and multiple iterables — squaring/doubling values, type conversion, and pairwise combination of 2 lists** |
+| Zip | **`zip()`combining multiple iterables into paired tuples, with unpacking via for loop across matched indices** |
 
 ---
 
