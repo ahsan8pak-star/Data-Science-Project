@@ -181,7 +181,7 @@ All python files have been made into their respective folders from each programm
 | Random Colour Generator | **`from random import randint`, `match-case` statements, applied f-strings, nested for loops and `try-except` error catching.** |
 | Reverse List Program | **Fundamental list manipulation via slicing and comprehensions, applied type validation using `all()` method, and conditional string formatting.** |
 | Seconds Countdown | **Fundamental `import time` under its essential `def` function including f-string methods to present it accurately** |
-| Shipping Label | **Foundational `xArgs` and `xKwargs`, applied dictionaries, and walrus operator under a specific for conditional loop as well as string methods being applied throughout.** |
+| Shipping Label | **Foundational `xArgs` and `xKwargs`, applied dictionaries, and walrus operator (`:=`) under a specific for conditional loop as well as string methods being applied throughout.** |
 | Shopping Cart | **Fundamental lists under a function within a `for` conditoinal loop, including `try-except` error catching and f-string methods.** |
 | Square | **`pow(x, y)` == `**`** |
 | Subtract | **`-` -> Subtraction** |
