@@ -243,7 +243,7 @@ This is where university modules and its coursework goes under for the applicati
 
 | File Name | Topics Covered |
 | --- | --- |
-| Average Grades | **`Python Fundamental Topics`-> `Imperative Programming` -> `Lists & Matrices` , `Loops & State Control` , `Conditions & Control Flow` , `Functions` and `Main`** |
+| Average Grades | **`Python Fundamental Topics` -> `Imperative Programming` -> `Lists & Matrices` , `Loops & State Control` , `Conditions & Control Flow` , `Functions` and `Main`** |
 | Hello | **`Python Fundamental Topics` -> `Imperative Programming` -> `Environment & Execution`** |
 | Ice Cream | **`Python Fundamental Topics` -> `Imperative Programming` -> `Conditions & Control Flow` , `Loops & State Control` and `Exceptions`** |
 | Seven Segment | **`Python Fundamental Topics` -> `Imperative Programming` -> `Lists & Matrices` , `Loops & State Control` , `Conditions & Control Flow` , `Functions` and `Main`** |
