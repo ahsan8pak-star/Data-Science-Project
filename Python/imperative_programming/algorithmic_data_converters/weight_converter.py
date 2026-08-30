@@ -1,9 +1,9 @@
-Weight = input("Weight: ")
-if len(Weight) == 0 or Weight == "0":
+weight = input("Weight: ")
+if len(weight) == 0 or weight == "0":
     print("You must weigh something")
 else:
     try:
-        w = float(Weight)
+        w = float(weight)
     except ValueError:
         print("Invalid weight")
     else:
