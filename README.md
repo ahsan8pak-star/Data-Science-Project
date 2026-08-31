@@ -15,7 +15,7 @@ A personal project to advance my career in Data Science.
 
 # Python Fundamental Topics
 
-All fundamental and applied topics learned in their respective folder, known as `fundamental_topics`.
+All fundamental and applied topics learnt in their respective folder, known as `fundamental_topics`.
 
 ---
 
