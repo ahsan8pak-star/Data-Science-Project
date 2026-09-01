@@ -367,6 +367,140 @@ class TestGroceryCaloricList:
         captured = capsys.readouterr()
         assert "Nice! You are within both your Caloric and Budget limits." in captured.out
 
+    def test_generate_recommendations_calories_only_exceeded_scenario(self, capsys):
+
+        """
+        Distinct branch from "over both": budget_excess is negative (still
+        within budget) while cal_excess is positive, so only the
+        calories-specific recommendation branch should fire.
+        """
+
+        mod, _ = run_script(self.FILE, inputs=["2000", "20", "", ""])
+        item = mod.FoodItem("coconut", 354, 2.50)
+        order = [mod.OrderLine(item, 6)]  # 2124 kcal, £15.00 - over calories, under budget
+        mod.generate_recommendations(order, {"coconut": item}, cal_excess=124, budget_excess=-5.0,
+                                       remaining_cals=-124, remaining_budget=5.0)
+        captured = capsys.readouterr()
+        assert "EXCEEDED CALORIC LIMIT!" in captured.out
+        assert "EXCEEDED BOTH LIMITS!" not in captured.out
+
+    def test_generate_recommendations_budget_only_exceeded_scenario(self, capsys):
+
+        """
+        The mirror case: cal_excess negative (within calories) while
+        budget_excess is positive, exercising the budget-only branch
+        distinct from both the "over both" and "over calories" branches.
+        """
+
+        mod, _ = run_script(self.FILE, inputs=["2000", "20", "", ""])
+        item = mod.FoodItem("coconut", 354, 2.50)
+        order = [mod.OrderLine(item, 2)]  # 708 kcal, £5.00 - under calories, over a tiny budget
+        mod.generate_recommendations(order, {"coconut": item}, cal_excess=-1292, budget_excess=1.0,
+                                       remaining_cals=1292, remaining_budget=-1.0)
+        captured = capsys.readouterr()
+        assert "EXCEEDED BUDGET LIMIT!" in captured.out
+        assert "EXCEEDED BOTH LIMITS!" not in captured.out
+
+    def test_generate_recommendations_both_limits_with_no_single_item_solving_either(self, capsys):
+
+        """
+        Covers the "not found_option" fallback inside the over-both
+        branch: no single order line's calories or price alone meets
+        either excess, so the generic "reduce quantities" suggestion
+        prints instead of a specific item removal line.
+        """
+
+        mod, _ = run_script(self.FILE, inputs=["2000", "20", "", ""])
+        item = mod.FoodItem("apple", 72, 0.50)
+        order = [mod.OrderLine(item, 1)]
+        mod.generate_recommendations(order, {"apple": item}, cal_excess=5000, budget_excess=100,
+                                       remaining_cals=-5000, remaining_budget=-100)
+        captured = capsys.readouterr()
+        assert "Consider reducing quantities across multiple items to balance both limits." in captured.out
+
+    def test_initial_order_placed_then_viewed_in_receipt(self):
+
+        """
+        Exercises the initial item-selection loop's happy path (quantity
+        prompt succeeds first try), distinct from the single-item test
+        above which used the same path but didn't assert on the
+        interactive quantity-retry sub-loop.
+        """
+
+        inputs = ["2000", "20", "apple", "3", ""]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Apple" in out
+        assert "YOUR GROCERY RECEIPT" in out
+
+    def test_invalid_then_valid_quantity_during_initial_ordering(self):
+
+        """
+        Covers the initial-order quantity prompt's own retry branches:
+        a non-numeric answer, then a zero/negative answer, before finally
+        succeeding - three distinct rejection/retry paths in one script run.
+        """
+
+        inputs = ["2000", "20", "apple", "abc", "0", "2", ""]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Please enter a valid whole number." in out
+        assert "Quantity must be at least 1." in out
+        assert "Apple" in out
+
+    def test_updating_quantity_of_an_existing_order_item(self):
+
+        """
+        Covers the main interactive loop's modification branch when the
+        item is already in the order: updates its quantity rather than
+        adding a new line.
+        """
+
+        inputs = ["2000", "20", "apple", "2", "apple", "5", ""]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Updated 'Apple' quantity to 5." in out
+
+    def test_removing_an_existing_order_item_via_zero_quantity(self):
+
+        """
+        Setting the new quantity to 0 for an item already in the order
+        removes that line entirely, distinct from the update-quantity
+        branch above.
+        """
+
+        inputs = ["2000", "20", "apple", "2", "apple", "0", ""]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Removed 'Apple' from your order." in out
+        assert "Your order is currently empty." in out
+
+    def test_adding_a_new_item_via_the_modify_prompt_when_order_not_empty(self):
+
+        """
+        Distinct from the initial-selection loop: adding a second,
+        previously-unordered item through the main loop's own
+        add/update prompt rather than the very first item-selection step.
+        """
+
+        inputs = ["2000", "20", "apple", "2", "banana", "3", ""]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Added 3x 'Banana' to your order." in out
+        assert "Apple" in out and "Banana" in out
+
+    def test_negative_quantity_rejected_during_modify_prompt(self):
+        inputs = ["2000", "20", "apple", "2", "apple", "-1", "0", ""]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Quantity cannot be negative." in out
+
+    def test_unrecognised_item_name_during_modify_prompt(self):
+
+        """
+        Distinct from the initial-selection loop's own unrecognised-item
+        notice: this exercises the main loop's own equivalent check,
+        reached via a completely separate branch of the source.
+        """
+
+        inputs = ["2000", "20", "apple", "2", "fakefood", ""]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Notice: 'fakefood' is not on the menu. Please check the spelling and try again." in out
+
 
 # ---------------------------------------------------------------------------
 # item.py
