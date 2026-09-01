@@ -17,9 +17,13 @@ This conftest provides `run_script()`, which:
      directory is temporarily added to sys.path (so sibling imports like
      `from area import area` resolve, exactly as they would for a real
      `python some_script.py` run).
+  
   2. Feeds it a scripted sequence of answers for any input() calls it makes.
+  
   3. Silences time.sleep() so countdown-style scripts run instantly.
+  
   4. Captures everything the script prints to stdout.
+  
   5. Returns both a lightweight module-like wrapper around the script's
      resulting globals (so top-level functions/variables can be inspected
      or called directly in further assertions) and the captured output
