@@ -158,6 +158,7 @@ All python files have been made into their respective folders from each programm
 | Drink Script Example | **Applied `import` created modules with `def main` and `if __name__ == __main__:`** |
 | Email Slicer | **Index formatting fundamentals** |
 | Even & Odd Loop Detector | **Fundamental conditional `for` loop and modulus operator (`%`)** |
+| Execution Time | **Automated batch script execution runner featuring `subprocess` process sandboxing, `pathlib` recursive discovery, `time.perf_counter()` benchmarking, `try-except` timeout handling, and Pytest-style ASCII reporting** |
 | Factorials | **Iterative Sequence Multiplication** |
 | File Handling | **Comprehensive file I/O operations and context managers** |
 | File Reader | **Read functions and string parsing fundamentals** |
