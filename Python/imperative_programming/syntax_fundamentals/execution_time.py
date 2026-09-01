@@ -8,5 +8,5 @@ end_time = time.perf_counter()
 
 executed_time = end_time - start_time
 
-print(f"Execution time: {executed_time:.1f} seconds")
+print(f"Execution time: {executed_time:.2f} seconds")
 
