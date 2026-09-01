@@ -1,5 +1,5 @@
 """
-Tests for every script under python/SyntaxFundamentals/.
+Tests for every script under python/syntax_fundamentals/.
 """
 
 import pytest
