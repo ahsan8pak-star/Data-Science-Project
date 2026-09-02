@@ -10,10 +10,10 @@ try:
         print(content)
 
 except FileNotFoundError:
-    print("Error: File Not Found.\nCheck Directory Path.")
+    print("\nError: File Not Found.\nCheck Directory Path.")
 
 except PermissionError:
-    print("Administrative / Authroised Users Only!")
+    print("\nAdministrative / Authroised Users Only!")
 
 
 """ .json file """
@@ -30,10 +30,10 @@ try:
         print(content) # this line can access each key (e.g. print(content["gamertag"]))
 
 except FileNotFoundError:
-    print("Error: File Not Found.\nCheck Directory Path.")
+    print("\nError: File Not Found.\nCheck Directory Path.")
 
 except PermissionError:
-    print("Administrative / Authroised Users Only!")
+    print("\nAdministrative / Authroised Users Only!")
 
 
 """ .csv file """
@@ -62,14 +62,14 @@ try:
             is_online = row[2].lower() == "true"
             account_made = datetime.strptime(row[3], "%d/%m/%Y").date()
 
-            print(f"Tag: {gamertag} ({type(gamertag).__name__}) | "
+            print(f"\nTag: {gamertag} ({type(gamertag).__name__}) | "
                   f"Score: {gamerscore} ({type(gamerscore).__name__}) | "
                   f"Online: {is_online} ({type(is_online).__name__}) | "
-                  f"Created: {account_made} ({type(account_made).__name__})")
+                  f"Created: {account_made} ({type(account_made).__name__})\n")
 
 except FileNotFoundError:
-    print("Error: File Not Found.\nCheck Directory Path.")
+    print("\nError: File Not Found.\nCheck Directory Path.")
 
 except PermissionError:
-    print("Administrative / Authorised Users Only!")
+    print("\nAdministrative / Authorised Users Only!")
 
