@@ -1,31 +1,27 @@
-from pathlib import Path
-
-# Dynamically resolves to python/imperative_programming/syntax_fundamentals/
-BASE_DIR = Path(__file__).resolve().parent
-
 """ TXT File Example """
 
 def greet(name): 
     return f"{name}"
 
 message = greet("A.I.M")
-file_path = BASE_DIR / "aim.txt"
+file_path = "aim.txt" # Relative to cwd for pytest to run tmp_path
 
-with open(file_path, "w", encoding="utf-8") as file:
+with open(file_path, "w", encoding = "utf-8") as file:
     file.write(message)
 
 
 """ Another Example for Writing TXT Files """
 
 txt = "T.X.T"
-file_path = BASE_DIR / "output.txt"
+file_path = "output.txt"
 
 try:
-    with open(file_path, "x", encoding="utf-8") as file:
+    with open(file_path, "x", encoding = "utf-8") as file:
         file.write(txt)
     print(f"\n.txt file ['{file_path}'] has been created successfully!")
+
 except FileExistsError:
-    print(f"\nFile '{file_path.name}' already exists!\nNo need to overwrite.")
+    print(f"\nFile '{file_path}' already exists!\nNo need to overwrite.")
 
 
 """ TXT File Appending Activity Log Example """
@@ -34,14 +30,15 @@ from datetime import datetime
 
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 log_entry = f"[{current_time}] System Check Completed by User: 'A.I.M'\n"
-file_path = BASE_DIR / "activity_log.txt"
+file_path =  "activity_log.txt"
 
 try:
-    with open(file_path, "a", encoding="utf-8") as file:
+    with open(file_path, "a", encoding = "utf-8") as file:
         file.write(log_entry)
     print(f"\nLog entry successfully appended to ['{file_path}'].")
+
 except PermissionError:
-    print(f"\nError: Insufficient permissions to write to '{file_path.name}'.")
+    print(f"\nError: Insufficient permissions to write to '{file_path}'.")
 
 
 """ JSON File Example """
@@ -53,14 +50,16 @@ employee = {
     "age": 21,
     "job": "Tutor"
 }
-file_path = BASE_DIR / "output.json"
+
+file_path = "output.json"
 
 try:
-    with open(file_path, "x", encoding="utf-8") as file:
-        json.dump(employee, file, indent=4)
+    with open(file_path, "x", encoding = "utf-8") as file:
+        json.dump(employee, file, indent = 4)
     print(f"\n.json file ['{file_path}'] has been created successfully!")
+
 except FileExistsError:
-    print(f"\nFile '{file_path.name}' already exists!\nNo need to overwrite.")
+    print(f"\nFile '{file_path}' already exists!\nNo need to overwrite.")
 
 
 """ CSV File Example """
@@ -74,10 +73,10 @@ employees = [
     ["Yayha", 19, "Baker"]
 ]
 
-file_path = BASE_DIR / "output.csv"
+file_path =  "output.csv"
 
 try:
-    with open(file_path, "x", newline="", encoding="utf-8") as file:
+    with open(file_path, "x", newline="", encoding = "utf-8") as file:
         writer = csv.writer(file)
 
         for row in employees:
@@ -85,5 +84,5 @@ try:
     print(f"\n.csv file ['{file_path}'] was created successfully!")
 
 except FileExistsError:
-    print(f"\nFile '{file_path.name}' already exists!\nNo need to overwrite.")
+    print(f"\nFile '{file_path}' already exists!\nNo need to overwrite.")
 
