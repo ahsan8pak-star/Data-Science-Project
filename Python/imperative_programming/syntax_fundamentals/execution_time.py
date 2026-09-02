@@ -5,14 +5,14 @@ from pathlib import Path
 def execute_project_scripts(target_directory):
     base_path = Path(target_directory)
     
-    # Recursively find all .py files in the directory
+    # Recursively find all python files in the directory
     py_files = list(base_path.rglob("*.py"))
     
     results = []
     start_time_total = time.perf_counter()
     
     for file_path in py_files:
-        # Extract relative path (e.g., python\imperative_programming\...) for clean display
+        # Extract relative path (e.g. python\imperative_programming\...) for clean display
         try:
             rel_path = file_path.relative_to(base_path.parent)
 
@@ -23,7 +23,7 @@ def execute_project_scripts(target_directory):
         
         try:
             # Execute the file. 
-            # timeout = 2 is critical here to prevent scripts with input() loops from freezing the execution.
+            # timeout = 2 is crucial to prevent scripts with input() loops from freezing the execution.
             process = subprocess.run(
                 ["python", str(file_path)],
                 capture_output = True,
