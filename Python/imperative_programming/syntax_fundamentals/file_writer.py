@@ -1,10 +1,10 @@
 """ TXT File Example """
 
-def greet(name): 
+def greet(name):
     return f"{name}"
 
 message = greet("A.I.M")
-file_path = "aim.txt" # Relative to cwd for pytest to run tmp_path
+file_path = "aim.txt"  # Relative to cwd for pytest to  run_script(cwd = tmp_path)
 
 with open(file_path, "w", encoding = "utf-8") as file:
     file.write(message)
@@ -30,7 +30,7 @@ from datetime import datetime
 
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 log_entry = f"[{current_time}] System Check Completed by User: 'A.I.M'\n"
-file_path =  "activity_log.txt"
+file_path = "activity_log.txt"
 
 try:
     with open(file_path, "a", encoding = "utf-8") as file:
@@ -55,7 +55,7 @@ file_path = "output.json"
 
 try:
     with open(file_path, "x", encoding = "utf-8") as file:
-        json.dump(employee, file, indent = 4)
+        json.dump(employee, file, indent = 4) # Indentation of 4 spaces for json formatting i.e. 2 <TAB> spaces
     print(f"\n.json file ['{file_path}'] has been created successfully!")
 
 except FileExistsError:
@@ -73,7 +73,7 @@ employees = [
     ["Yayha", 19, "Baker"]
 ]
 
-file_path =  "output.csv"
+file_path = "output.csv"
 
 try:
     with open(file_path, "x", newline="", encoding = "utf-8") as file:
