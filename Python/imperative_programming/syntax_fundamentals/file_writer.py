@@ -4,7 +4,7 @@ def greet(name):
     return f"{name}"
 
 message = greet("A.I.M")
-file_path = "aim.txt"  # Relative to cwd for pytest to  run_script(cwd = tmp_path)
+file_path = "aim.txt"  # Relative to cwd for pytest to run_script(cwd = tmp_path)
 
 with open(file_path, "w", encoding = "utf-8") as file:
     file.write(message)
