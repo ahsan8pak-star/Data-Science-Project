@@ -1,2 +1,4 @@
 # Future Music (MP3) Player
-.wav
+*.wav
+*.mp4
+*.mp3
