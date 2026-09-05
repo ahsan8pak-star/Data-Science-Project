@@ -15,6 +15,55 @@ from tests.test_imperative_programming.conftest import run_script
 
 FOLDER = "imperative_programming/algorithmic_data_converters"
 
+# ---------------------------------------------------------------------------
+# alarm_clock.py
+# ---------------------------------------------------------------------------
+
+class TestAlarmClock:
+    FILE = f"{FOLDER}/alarm_clock.py"
+
+    def test_valid_12_hour_input(self):
+        # Choice 1 (12-hr), Time input, Period input
+        _, out = run_script(self.FILE, inputs=["1", "02:30:00", "PM"])
+        assert "Mode        : 12-Hour Format (PM)" in out
+        assert "Target Time : 02:30:00 PM (Internal: 14:30:00)" in out
+
+    def test_valid_24_hour_input(self):
+        # Choice 2 (24-hr), Time input
+        _, out = run_script(self.FILE, inputs=["2", "14:30:00"])
+        assert "Mode        : 24-Hour Format" in out
+        assert "Target Time : 14:30:00" in out
+
+    def test_invalid_mode_selection_retry(self):
+        # Invalid selection '9', retried with valid choice '2', then valid time
+        _, out = run_script(self.FILE, inputs=["9", "2", "14:30:00"])
+        assert "[X] Invalid selection! Please enter choice '1' or '2'." in out
+        assert "Target Time : 14:30:00" in out
+
+    def test_invalid_12_hour_period_retry(self):
+        # Choice 1, Time '10:00:00', Invalid Period 'NOON', then Valid Period 'AM'
+        _, out = run_script(self.FILE, inputs=["1", "10:00:00", "NOON", "AM"])
+        assert "[X] Error: Period must strictly be 'AM' or 'PM'." in out
+        assert "Mode        : 12-Hour Format (AM)" in out
+
+    def test_invalid_12_hour_time_format_retry(self):
+        # Choice 1, Invalid Time '25:00:00', Period 'PM', retried with '05:00:00', Period 'PM'
+        _, out = run_script(self.FILE, inputs=["1", "25:00:00", "PM", "05:00:00", "PM"])
+        assert "[X] Error: Invalid 12-hour time format!" in out
+        assert "Target Time : 05:00:00 PM (Internal: 17:00:00)" in out
+
+    def test_invalid_24_hour_time_format_retry(self):
+        # Choice 2, Invalid Time '25:00:00', retried with valid time '14:30:00'
+        _, out = run_script(self.FILE, inputs=["2", "25:00:00", "14:30:00"])
+        assert "[X] Error: Invalid 24-hour time format!" in out
+        assert "Target Time : 14:30:00" in out
+
+    def test_keyboard_interrupt_handled_gracefully(self):
+        # Simulates pressing Ctrl+C during initial input prompt
+        kb = patch("builtins.input", side_effect=KeyboardInterrupt)
+        _, out = run_script(self.FILE, patches=[kb])
+        assert "[!] Alarm session cancelled by user." in out
+
 
 # ---------------------------------------------------------------------------
 # annual_rate_calculator.py
