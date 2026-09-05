@@ -89,6 +89,7 @@ All python files have been made into their respective folders from each programm
 
 | File Name | Topics Covered |
 | --- | --- |
+| Alarm Clock | **`import datetime`, `import time` ,`import os` and `import pygame`, with the application of alarm clocks via personalised / customised sound files when time's up** |
 | Annual Rate Calculator | **Exception functions & formatting within mathematical formulas** |
 | Fahrenheit & Celcius | **Function fundamentals with basic conditional loops** |
 | Phone Number Converter | **`match case` function & conditional loops** |
