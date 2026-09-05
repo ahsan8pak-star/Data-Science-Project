@@ -1,0 +1,14 @@
+pytest
+pytest-cov
+coverage
+numpy
+pandas
+scipy
+scikit-learn
+matplotlib
+seaborn
+joblib
+openpyxl
+psycopg2
+requests
+pygame-ce
