@@ -61,6 +61,7 @@ All fundamental and applied topics learnt in their respective folder, known as `
 | Magic Methods | **Branch of `Class Methods` and `Constructors`. *Refer to `Nested Classes` for further context*** |
 | Decorator | **Unique method used to make functions into attributes. *Go to `Abstract Methods` and `Class Methods` for more information*** |
 | Property | **Combination of functions as attributes i.e. objects functioning as its own attributes. *Go to `Decorator` , `Magic Methods` and `Class Methods` for its full responses*** |
+| Iterator | **`__iter__` and `__next__` as OOP alternatives to `while` loops and (index) increments respectively** |
 
 ---
 
