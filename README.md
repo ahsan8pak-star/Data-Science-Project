@@ -38,6 +38,7 @@ All fundamental and applied topics learnt in their respective folder, known as `
 | Scope Resolution | **Range of variable scopes within functions i.e. (LEGB) Local -> Enclosed -> Global -> Built-in** |
 | `__main__` | **Software Development Practical and Security Function using `def main():` and `if __name__ == __main__:`** |
 | `datetime` | **Applied dates, times, timezones, formatting, and time-based comparisons via `datetime` module** |
+| Generator | **`yeild` method as an alternative to `return` within `def` blocks i.e. an iterator function** |
 
 ---
 
