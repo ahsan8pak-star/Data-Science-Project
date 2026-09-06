@@ -122,7 +122,7 @@ def set_alarm(alarm_time):
     file validation, and sound playback loops.
     """
 
-    sound_file = r"C:\Users\A.I.M\C.S\WAV\Ummati Qad Laha Fajrun.wav"
+    sound_file = r"C:\Users\A.I.M\C.S\WAV\Ummati Qad Laha Fajrun.wav" # WAV and MP3 formats supported by Pygame mixer module
 
     # Pre-check target file path existence on system drive to prevent runtime crashes
     if not os.path.exists(sound_file):
@@ -136,7 +136,7 @@ def set_alarm(alarm_time):
     # Initialises Pygame's internal sound engine and opens system audio channels.
     # ============================================================================
     # 2. pygame.mixer.music.load(): 
-    # Loads the WAV track into the streaming music buffer.
+    # Loads the WAV / MP3 track into the streaming music buffer.
     # ============================================================================
     
     try:
