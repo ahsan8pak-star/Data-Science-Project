@@ -1,7 +1,7 @@
 # Generator = Function that behaves like an iterator (it can be used in a for loop)
 # Pauses a function, returns a value, then resumes
 # Uses 'yield' instead or 'return'
-# Iterate without loading everything into memory (ex. reading large files)
+# Iterate without loading everything into memory (e.g. reading large files)
 # return is like a Pouring bucket = Always empties the function and returns a value
 # yield is like a Drip faucet = Can be paused and resumed
 
@@ -67,6 +67,4 @@ for line in read_file(file_directory):
     print(line)
 
 # Note: Ensure activity_log.txt exists at path before iterating
-# for line in read_file(file_directory):
-#     print(line)
 
