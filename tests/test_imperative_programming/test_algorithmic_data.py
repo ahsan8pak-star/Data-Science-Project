@@ -20,7 +20,22 @@ FOLDER = "imperative_programming/algorithmic_data_converters"
 # ---------------------------------------------------------------------------
 
 class TestAlarmClock:
+
+    """
+    alarm_clock.py imports pygame at module level (SystemExit if missing),
+    so pygame/pygame-ce must be installed to import this script at all. On
+    a headless machine set SDL_AUDIODRIVER=dummy and SDL_VIDEODRIVER=dummy
+    before running pytest so pygame.mixer.init() doesn't need a real device.
+    The hardcoded sound_file path in set_alarm() never exists on a test
+    machine, so every full-script run naturally lands on the
+    "[X] FileNotFoundError: Audio file missing..." branch - the real
+    playback branch is exercised separately below via mocks.
+    """
+
     FILE = f"{FOLDER}/alarm_clock.py"
+
+
+    # --- valid_alarm_time(): 12-hour path ---
 
     def test_valid_12_hour_input(self):
         # Choice 1 (12-hr), Time input, Period input
@@ -40,9 +55,23 @@ class TestAlarmClock:
         assert "[X] Invalid selection! Please enter choice '1' or '2'." in out
         assert "Target Time : 14:30:00" in out
 
+    def test_blank_mode_selection_is_also_rejected(self):
+        _, out = run_script(self.FILE, inputs=["", "2", "14:30:00"])
+        assert "[X] Invalid selection! Please enter choice '1' or '2'." in out
+
     def test_invalid_12_hour_period_retry(self):
-        # Choice 1, Time '10:00:00', Invalid Period 'NOON', then Valid Period 'AM'
-        _, out = run_script(self.FILE, inputs=["1", "10:00:00", "NOON", "AM"])
+
+        """
+        Genuine bug fixed here: the case "1" retry loop re-prompts BOTH
+        time_input and period on failure (not just period alone), so the
+        retry needs two fresh inputs, not one. The original single "AM"
+        follow-up value was silently consumed as the retry's time_input,
+        leaving period with no scripted answer and raising an EOFError
+        from run_script() rather than exercising the retry path at all.
+        """
+
+        # Choice 1, Time '10:00:00', Invalid Period 'NOON', retried with time '10:00:00', period 'AM'
+        _, out = run_script(self.FILE, inputs=["1", "10:00:00", "NOON", "10:00:00", "AM"])
         assert "[X] Error: Period must strictly be 'AM' or 'PM'." in out
         assert "Mode        : 12-Hour Format (AM)" in out
 
@@ -50,19 +79,147 @@ class TestAlarmClock:
         # Choice 1, Invalid Time '25:00:00', Period 'PM', retried with '05:00:00', Period 'PM'
         _, out = run_script(self.FILE, inputs=["1", "25:00:00", "PM", "05:00:00", "PM"])
         assert "[X] Error: Invalid 12-hour time format!" in out
+        assert "(Hours: 01-12, Minutes: 00-59, Seconds: 00-59)" in out
         assert "Target Time : 05:00:00 PM (Internal: 17:00:00)" in out
+
+
+    # --- valid_alarm_time(): 24-hour path ---
 
     def test_invalid_24_hour_time_format_retry(self):
         # Choice 2, Invalid Time '25:00:00', retried with valid time '14:30:00'
         _, out = run_script(self.FILE, inputs=["2", "25:00:00", "14:30:00"])
         assert "[X] Error: Invalid 24-hour time format!" in out
+        assert "(Hours: 00-23, Minutes: 00-59, Seconds: 00-59)" in out
         assert "Target Time : 14:30:00" in out
+
+
+    # --- top-level KeyboardInterrupt handling ---
 
     def test_keyboard_interrupt_handled_gracefully(self):
         # Simulates pressing Ctrl+C during initial input prompt
         kb = patch("builtins.input", side_effect=KeyboardInterrupt)
         _, out = run_script(self.FILE, patches=[kb])
         assert "[!] Alarm session cancelled by user." in out
+        assert "Have a great day!" in out
+
+    def test_keyboard_interrupt_prints_no_stack_trace(self):
+        kb = patch("builtins.input", side_effect=KeyboardInterrupt)
+        _, out = run_script(self.FILE, patches=[kb])
+        assert "Traceback" not in out
+
+
+    # --- missing pygame dependency ---
+
+    def test_missing_pygame_prints_install_instructions_and_exits_cleanly(self):
+
+        """
+        Forces the module-level `import pygame` to fail regardless of
+        whether pygame is actually installed in this environment, to
+        confirm the fallback except-branch message and the immediate,
+        clean SystemExit (already handled by run_script's own
+        `except SystemExit: pass`).
+        """
+
+        import builtins
+        real_import = builtins.__import__
+
+        def fake_import(name, *args, **kwargs):
+            if name == "pygame":
+                raise ModuleNotFoundError("No module named 'pygame'")
+            return real_import(name, *args, **kwargs)
+
+        with patch("builtins.__import__", side_effect=fake_import):
+            _, out = run_script(self.FILE)
+
+        assert out.strip() == (
+            "Error: 'pygame' module is not installed. Please run 'pip install pygame-ce'."
+        )
+
+
+    # --- display_tui_banner() / display_info_box() directly ---
+
+    def test_display_tui_banner_centres_title_across_40_chars(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["1", "02:30:00", "PM"])
+        mod.display_tui_banner("TEST")
+        captured = capsys.readouterr()
+        lines = captured.out.strip("\n").splitlines()
+        assert lines[0] == "=" * 40
+        assert lines[1] == "TEST".center(40)
+        assert lines[2] == "=" * 40
+
+    def test_display_info_box_border_width_fits_longest_line(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["1", "02:30:00", "PM"])
+        mod.display_info_box(["short", "a much longer line here"])
+        captured = capsys.readouterr()
+        longest = len("a much longer line here")
+        expected_border = "-" * (longest + 4)
+        assert captured.out.count(expected_border) == 2  # top and bottom
+        assert f"| {'short'.ljust(longest)} |" in captured.out
+
+    def test_total_width_constant_is_forty(self):
+        mod, _ = run_script(self.FILE, inputs=["1", "02:30:00", "PM"])
+        assert mod.TOTAL_WIDTH == 40
+
+
+    # --- set_alarm() directly ---
+
+    def test_set_alarm_missing_sound_file_returns_immediately(self, capsys):
+
+        """
+        os.path.exists() is checked before any pygame.mixer call, so this
+        branch is safely testable without touching real audio at all.
+        """
+
+        mod, _ = run_script(self.FILE, inputs=["1", "02:30:00", "PM"])
+        mod.set_alarm("14:30:00")
+        captured = capsys.readouterr()
+        assert "[X] FileNotFoundError: Audio file missing at path:" in captured.out
+        assert r"Ummati Qad Laha Fajrun.wav" in captured.out
+
+    def test_set_alarm_triggers_playback_when_clock_matches_target(self, capsys):
+
+        """
+        Mocks os.path.exists (file "found"), every pygame.mixer call (no
+        real audio device needed), time.sleep (no real waiting), and
+        datetime.datetime.now() (clock "matches" target immediately) -
+        confirms the full TIMES UP! + playback + completion sequence
+        without any real I/O.
+        """
+
+        mod, _ = run_script(self.FILE, inputs=["1", "02:30:00", "PM"])
+
+        with patch("os.path.exists", return_value=True), \
+             patch.object(mod.pygame.mixer, "init"), \
+             patch.object(mod.pygame.mixer.music, "load"), \
+             patch.object(mod.pygame.mixer.music, "play"), \
+             patch.object(mod.pygame.mixer.music, "get_busy", return_value=False), \
+             patch.object(mod.time, "sleep"), \
+             patch.object(mod.datetime, "datetime") as mock_dt:
+
+            mock_dt.now.return_value.strftime.return_value = "14:30:00"
+            mod.set_alarm("14:30:00")
+
+        captured = capsys.readouterr()
+        assert "TIMES UP!" in captured.out
+        assert "Alarm Time Reached: 14:30:00" in captured.out
+        assert "Alarm session completed successfully." in captured.out
+
+    def test_set_alarm_handles_pygame_mixer_init_failure(self, capsys):
+
+        """
+        Confirms the `except pygame.error` branch around mixer.init()/
+        music.load() specifically, distinct from the FileNotFoundError
+        and successful-playback paths above.
+        """
+
+        mod, _ = run_script(self.FILE, inputs=["1", "02:30:00", "PM"])
+
+        with patch("os.path.exists", return_value=True), \
+             patch.object(mod.pygame.mixer, "init", side_effect=mod.pygame.error("no audio device")):
+            mod.set_alarm("14:30:00")
+
+        captured = capsys.readouterr()
+        assert "[X] Pygame Engine Error: Failed to initialise or load track" in captured.out
 
 
 # ---------------------------------------------------------------------------
