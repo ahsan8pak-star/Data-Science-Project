@@ -34,6 +34,28 @@ class TestAlarmClock:
 
     FILE = f"{FOLDER}/alarm_clock.py"
 
+    @pytest.fixture(autouse=True)
+    def _force_missing_sound_file(self):
+
+        """
+        CRITICAL: without this, any full-script test where the target
+        time doesn't match the current second falls into set_alarm()'s
+        REAL polling loop. run_script() already mocks time.sleep() to a
+        no-op globally (for countdown-style scripts elsewhere), so on any
+        machine where the hardcoded sound_file path genuinely exists
+        (e.g. the original author's own machine), that "sleep" does
+        nothing and the loop becomes a 100%-CPU busy-wait on the REAL
+        system clock - it can spin for hours until the wall clock
+        happens to hit the exact target second, making pytest appear to
+        hang indefinitely. Forcing os.path.exists() to False here keeps
+        every full-script-flow test deterministic and machine-independent.
+        Tests that specifically exercise the playback branch patch
+        os.path.exists themselves inside a narrower `with` block, which
+        safely overrides this fixture for their own duration.
+        """
+
+        with patch("os.path.exists", return_value=False):
+            yield
 
     # --- valid_alarm_time(): 12-hour path ---
 
