@@ -449,7 +449,7 @@ class TestFileWriter:
 
     def test_writes_greeting_to_file(self, tmp_path):
         run_script(self.FILE, cwd=tmp_path)
-        written = (tmp_path / "AIM.txt").read_text()
+        written = (tmp_path / "a.i.m.txt").read_text()
         assert written == "A.I.M"
 
     def test_greet_function_directly(self, tmp_path):
@@ -461,9 +461,9 @@ class TestFileWriter:
         assert mod.greet("") == ""
 
     def test_file_is_overwritten_not_appended(self, tmp_path):
-        (tmp_path / "AIM.txt").write_text("OLD CONTENT")
+        (tmp_path / "a.i.m.txt").write_text("OLD CONTENT")
         run_script(self.FILE, cwd=tmp_path)
-        assert (tmp_path / "AIM.txt").read_text() == "A.I.M"
+        assert (tmp_path / "a.i.m.txt").read_text() == "A.I.M"
 
 
 # ---------------------------------------------------------------------------
