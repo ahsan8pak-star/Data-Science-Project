@@ -84,7 +84,7 @@ Creates a generator (iterator) that yields values one at a time
 No need to define a function or use yield
 Less flexible than a gen func and not reusable
 
-gen object = (expression for value in iterable if condition)
+gen object = (expression for value in iterable + if condition optional)
 """
 
 # -----------------
@@ -117,10 +117,19 @@ with open(file_directory) as file:
 # --- EXAMPLE 3 ---
 # ----------------- 
 
-number = int(input("Enter a number to square up to: "))
+even_number = int(input("Enter a number to square EVEN numbers up to : "))
 
-even_squares = (x ** 2 for x in range(1, number + 1) if x % 2 == 0)
+even_squares = (x ** 2 for x in range(1, even_number + 1) if x % 2 == 0)
 
 for square in even_squares:
    print(square)
+
+# ------------------------------------------------------------------------
+
+odd_number = int(input("Enter a number to square ODD numbers up to: "))
+
+odd_squares = (x ** 2 for x in range(1, odd_number + 1) if x % 2 != 0)
+
+for square in odd_squares:
+    print(square)
 
