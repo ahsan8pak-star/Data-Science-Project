@@ -37,7 +37,7 @@ def random_colours():
                 octal_colour = oct(randint(0, 0xFFFFFF))
                 print(octal_colour)
                 
-            case "4" | "hsl" | "hs":
+            case "4" | "hsl" | "hs" | "hu" | "hue" | "saturation" | "lightness" | "h" | "s" | "l":
                 h = randint(0, 360)
                 s = randint(0, 100)
                 l = randint(0, 100)
