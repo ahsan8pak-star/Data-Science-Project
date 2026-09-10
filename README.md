@@ -280,6 +280,15 @@ This is for extensive and multi-level applications such as machine learning and 
 
 ---
 
+**Music Player**
+
+| Folder Name | File Types |
+| --- | --- |
+| TUI | `mp3_` & `wav_` -> `tui_player.py` |
+| GUI | `mp3_` & `wav_` -> `gui_player.py` |
+
+---
+
 **Transactions**
 
 | File Name | File Usage / Purpose |
