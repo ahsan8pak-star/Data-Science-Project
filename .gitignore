@@ -293,4 +293,7 @@ cmake-build-release/
 # Additional Files while running
 *.txt
 *.pdf
+*.html
+*.in
+*.ini
 
