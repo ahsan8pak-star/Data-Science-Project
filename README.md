@@ -365,21 +365,27 @@ Data-Science-Project/
 │   │   │   ├── Data Outliers/              # Outlier-capping (IQR) detection experiment with report notebooks
 │   │   │   ├── Music/                      # Music recommendation model with accuracy, prediction, and visualisation workflows
 │   │   │   └── Video Games/                # Video-game sales recommender with hypothesis, IQR, and per-region prediction analysis
+│   │   │
 │   │   ├── Music Player/                   # Standalone audio players exposing GUI and terminal (TUI) interfaces
 │   │   │   ├── GUI/                        # Graphical MP3 and WAV playback interface variants
 │   │   │   └── TUI/                        # Terminal MP3 and WAV playback interface variants
+│   │   │
 │   │   └── Transactions/                   # Excel workbook automation and bar-chart report generation
+│   │
 │   ├── Functional Programming/             # Pure functions, mathematical pipelines, and immutable data flows
 │   │   └── Fundamental Topics/             # Higher-order transforms: filter, lambda, map, and zip
+│   │
 │   ├── Imperative Programming/             # Procedural logic scripts focused on mutable state and step-by-step execution
 │   │   ├── Algorithmic Data Converters/    # Numerical conversion algorithms and data transformation utility scripts
 │   │   ├── Fundamental Topics/             # Implementation playgrounds for native collection types, modules, and error handling
 │   │   ├── Logical Games/                  # Interactive terminal games testing state tracking and algorithmic logic loops
 │   │   ├── Maths & Science Projects/       # Financial models, geometry calculators, and coordinate boundary systems
 │   │   └── Syntax Fundamentals/            # Language syntax scratchpads exploring file I/O operations, string manipulation, and timers
+│   │
 │   ├── Object Oriented Programming/        # State-driven architectures using classes, encapsulation, and custom domain models
 │   │   ├── Fundamental Topics/             # Implementation of abstraction, inheritance, polymorphism, and nested classes
 │   │   └── Syntax Fundamentals/            # Domain models including Car, Person, Point, and Dice with custom TUI graphics
+│   │
 │   └── Sandbox/                            # Primary Python workspace housing unified ingestion and execution scripts (e.g., aim.py)
 │
 ├── Roadmap/                                # Data Science and Python learning-path reference guides (PDF/TXT)
@@ -394,7 +400,9 @@ Data-Science-Project/
 │   │   └── CS1IP/                          # Java coursework transposed into Python pairs
 │   │       ├── Coursework 1/               # hello, ice_cream, volume, seven_segment, average_grades (Java ↔ Python)
 │   │       └── Coursework 2/               # sort_comparison with partial and full sorted-dataset exports
+│   │
 │   ├── Year 2/                             # CS2 briefings (DA, ON, PP, SD, SE) plus the CS2PP module roadmap
+│   │
 │   └── Year 3/                             # Year 3 briefing documents
 │
 ├── .gitignore                              # Multilayer safety network blocking binary artefacts, database dumps, and environment variables
