@@ -350,39 +350,52 @@ This is for extensive and multi-level applications such as machine learning and 
 Data-Science-Project/
 │
 ├── .vscode/                                # IDE local runtime environment configuration
-│   ├── launch.json                         # Local debugger configurations and environment execution paths
-│   ├── settings.json                       # Workspace settings, path definitions, auto-formatting, and linting rules     
-│   └── tasks.json                          # Automated build tasks for executing psql scripts
 │
 ├── Data/                                   # Storage layer for project datasets and tracking assets
 │   └── Sandbox/                            # Storage folder containing raw pipeline source data (e.g., aim.csv)
 │
-├── Java-To-Python-Conversion/              # Migration directory translating legacy Java university coursework into Python
-│   └── CS1IP/                              # Year 1 university module repository
-│       ├── Coursework 1/                   # Assignments from the First (1st) half of Semester 1 (Sep - Oct)
-│       └── Coursework 2/                   # Assignments from the Second (2nd) half of Semester 1 (Nov - Dec)
+├── HTMLCov/                                # Generated pytest HTML coverage report (gitignored build artefact)
 │
 ├── PostgreSQL/                             # Analytical relational database management scripts
 │   └── Sandbox/                            # Database workspace housing schemas, migrations, and query scripts (e.g., aim.sql)
 │
 ├── Python/                                 # Main Python development and modelling architectures
+│   ├── Advanced Projects/                  # Applied capstone builds combining core libraries with data and UI automation
+│   │   ├── Machine Learning/               # Supervised learning experiments over curated public datasets
+│   │   │   ├── Data Outliers/              # Outlier-capping (IQR) detection experiment with report notebooks
+│   │   │   ├── Music/                      # Music recommendation model with accuracy, prediction, and visualisation workflows
+│   │   │   └── Video Games/                # Video-game sales recommender with hypothesis, IQR, and per-region prediction analysis
+│   │   ├── Music Player/                   # Standalone audio players exposing GUI and terminal (TUI) interfaces
+│   │   │   ├── GUI/                        # Graphical MP3 and WAV playback interface variants
+│   │   │   └── TUI/                        # Terminal MP3 and WAV playback interface variants
+│   │   └── Transactions/                   # Excel workbook automation and bar-chart report generation
 │   ├── Functional Programming/             # Pure functions, mathematical pipelines, and immutable data flows
+│   │   └── Fundamental Topics/             # Higher-order transforms: filter, lambda, map, and zip
 │   ├── Imperative Programming/             # Procedural logic scripts focused on mutable state and step-by-step execution
 │   │   ├── Algorithmic Data Converters/    # Numerical conversion algorithms and data transformation utility scripts
 │   │   ├── Fundamental Topics/             # Implementation playgrounds for native collection types, modules, and error handling
 │   │   ├── Logical Games/                  # Interactive terminal games testing state tracking and algorithmic logic loops
 │   │   ├── Maths & Science Projects/       # Financial models, geometry calculators, and coordinate boundary systems
-│   │   ├── Syntax Fundamentals/            # Language syntax scratchpads exploring file I/O operations, string manipulation, and timers
-│   │   └── Sandbox/                        # Imperative prototyping environment and execution sandbox (e.g., aim.py)
+│   │   └── Syntax Fundamentals/            # Language syntax scratchpads exploring file I/O operations, string manipulation, and timers
 │   ├── Object Oriented Programming/        # State-driven architectures using classes, encapsulation, and custom domain models
 │   │   ├── Fundamental Topics/             # Implementation of abstraction, inheritance, polymorphism, and nested classes
 │   │   └── Syntax Fundamentals/            # Domain models including Car, Person, Point, and Dice with custom TUI graphics
 │   └── Sandbox/                            # Primary Python workspace housing unified ingestion and execution scripts (e.g., aim.py)
 │
+├── Roadmap/                                # Data Science and Python learning-path reference guides (PDF/TXT)
+│
 ├── Tests/                                  # Pytest unit-testing framework validating mathematical logic and code stability
 │   ├── Test Functional Programming/        # Test suites verifying deterministic, side-effect-free data transformations
 │   ├── Test Imperative Programming/        # Test suites validating procedural state changes, conditional loops, and user I/O logic
 │   └── Test Object Oriented Programming/   # Verification of object lifecycles, attribute states, and mocked dependencies
+│
+├── University Courseworks/                 # Official university module briefings and transposed coursework
+│   ├── Year 1/                             # CS1 briefings (AC, CA, DB, IP, MA, OP) plus translated CS1IP coursework
+│   │   └── CS1IP/                          # Java coursework transposed into Python pairs
+│   │       ├── Coursework 1/               # hello, ice_cream, volume, seven_segment, average_grades (Java ↔ Python)
+│   │       └── Coursework 2/               # sort_comparison with partial and full sorted-dataset exports
+│   ├── Year 2/                             # CS2 briefings (DA, ON, PP, SD, SE) plus the CS2PP module roadmap
+│   └── Year 3/                             # Year 3 briefing documents
 │
 ├── .gitignore                              # Multilayer safety network blocking binary artefacts, database dumps, and environment variables
 ├── .gitkeep                                # Version control placeholder file preserving empty directory architecture in Git
@@ -416,5 +429,8 @@ Data-Science-Project/
 - [18]: Data Safety: The `[Dd]ata/` rule in `.gitignore` protects both uppercase and lowercase data tracks.
 - [19]: Open Source: MIT legal framework chosen for repository distribution compliance.
 - [20]: Legal Terms: Standard permissions, copyright notices, and liability limits under open-source licensing.
+- [21]: Roadmap Guides: Data Science and Python learning-path references (`.pdf` / `.txt`) under `Roadmap/`, guiding the study phases.
+- [22]: Advanced Projects: ML experiments (`Machine Learning/`), media-playback interfaces (`Music Player/`), and Excel automation (`Transactions/`).
+- [23]: Courseworks Archive: Year 1–3 module briefings and the Java-to-Python CS1IP transposition pairs under `University Courseworks/`.
 
 ---
