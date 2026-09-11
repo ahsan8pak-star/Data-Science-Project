@@ -1,5 +1,5 @@
 """
-Pytest suite for every script under Python/algorithmic_data_converters/.
+Pytest suite for every script under python/algorithmic_data_converters/.
 
 Each script is executed for real via run_script() (see tests/conftest.py) with
 scripted input, so these tests exercise the actual coursework code rather

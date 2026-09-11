@@ -1,5 +1,5 @@
 """
-Shared test utilities for exercising the scripts under `Python/`.
+Shared test utilities for exercising the scripts under `python/`.
 
 Most files in this project are procedural "coursework" scripts: they call
 input()/print() directly at module level instead of being wrapped in a
