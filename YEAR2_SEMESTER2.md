@@ -2,7 +2,7 @@
 
 This plan maps the Year 2 Semester 2 modules at **University of Reading (2026/27)** and
 turns their required topics into a week-by-week study timetable for the Spring term.
-It mirrors the structure of `YEAR2-SEMESTER1.md` and sits as a standalone document so
+It mirrors the structure of `YEAR2_SEMESTER1.md` and sits as a standalone document so
 that `README.md` and `NOTES.md` remain untouched.
 
 > **CS2AI note.** The CS2AI module briefing is not present in `university_courseworks/`,
