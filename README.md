@@ -70,9 +70,9 @@ All fundamental and applied topics learnt in their respective folder, known as `
 
 | Topic Name | Descriptions |
 | --- | --- |
-| Filter | **`filter()` combined with lambda predicates to conditionally select items from a list — even and odd numbers, values both above and below a threshold, and non-empty strings** |
+| Filter | **`filter()` combined with lambda predicates to conditionally select items from a list - even and odd numbers, values both above and below a threshold, and non-empty strings** |
 | Lambda | **Anonymous one-expression functions assigned to variables, applied across arithmetic, comparison, and conditional (ternary) use cases** |
-| Map | **`map()` applying a lambda across single and multiple iterables — squaring/doubling values, type conversion, and pairwise combination of 2 lists** |
+| Map | **`map()` applying a lambda across single and multiple iterables - squaring/doubling values, type conversion, and pairwise combination of 2 lists** |
 | Zip | **`zip()`combining multiple iterables into paired tuples, with unpacking via for loop across matched indices** |
 
 ---
