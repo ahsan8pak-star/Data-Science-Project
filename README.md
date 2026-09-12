@@ -410,7 +410,9 @@ Data-Science-Project/
 ├── Tests/                                  # Pytest unit-testing framework validating mathematical logic and code stability
 │   ├── Test Functional Programming/        # Test suites verifying deterministic, side-effect-free data transformations
 │   ├── Test Imperative Programming/        # Test suites validating procedural state changes, conditional loops, and user I/O logic
-│   └── Test Object Oriented Programming/   # Verification of object lifecycles, attribute states, and mocked dependencies
+│   ├── Test Object Oriented Programming/   # Verification of object lifecycles, attribute states, and mocked dependencies
+│   ├── Test Advanced Projects/             # Coverage for sklearn IQR capping, openpyxl discount pipelines, and music players (mocked pygame/tkinter)
+│   └── Test University Courseworks/        # Headless unit tests for the transposed CS1IP Python coursework under University Courseworks/
 │
 ├── University Courseworks/                 # Official university module briefings and transposed coursework
 │   ├── Year 1/                             # CS1 briefings (AC, CA, DB, IP, MA, OP) plus translated CS1IP coursework
