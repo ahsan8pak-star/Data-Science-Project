@@ -203,3 +203,284 @@ class TestZip:
         mod, _ = run_script(self.FILE)
         assert len(mod.names) == len(mod.ages) == len(mod.jobs) == 3
 
+
+# ---------------------------------------------------------------------------
+# reduce.py
+# ---------------------------------------------------------------------------
+
+class TestReduce:
+    FILE = f"{FOLDER}/reduce.py"
+
+    def test_accumulation_results(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.total == 15
+        assert mod.factorial == 120
+        assert mod.largest == 5
+        assert mod.sentence == "Python is functional"
+
+    def test_source_iterables_unmodified(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.numbers == [1, 2, 3, 4, 5]
+        assert mod.words == ["Python", "is", "functional"]
+
+    def test_printed_output_matches_computed_values(self):
+        _, out = run_script(self.FILE)
+        assert "Sum: 15" in out
+        assert "Factorial of 5: 120" in out
+        assert "Largest: 5" in out
+        assert "Joined: Python is functional" in out
+
+
+# ---------------------------------------------------------------------------
+# sorted.py
+# ---------------------------------------------------------------------------
+
+class TestSorted:
+    FILE = f"{FOLDER}/sorted.py"
+
+    def test_sorts_return_new_lists(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.sorted_names == ["Ahsan", "Alina", "Bilal", "Hamza", "Zara"]
+        assert mod.reverse_names == ["Zara", "Hamza", "Bilal", "Alina", "Ahsan"]
+        assert mod.by_age == [("Zara", 19), ("Hamza", 20), ("Ahsan", 21), ("Bilal", 22)]
+
+    def test_source_list_is_not_mutated(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.names == ["Alina", "Hamza", "Zara", "Bilal", "Ahsan"]
+
+    def test_printed_output_matches_computed_lists(self):
+        _, out = run_script(self.FILE)
+        assert "Sorted: ['Ahsan', 'Alina', 'Bilal', 'Hamza', 'Zara']" in out
+        assert "Reverse: ['Zara', 'Hamza', 'Bilal', 'Alina', 'Ahsan']" in out
+        assert "By age: [('Zara', 19), ('Hamza', 20), ('Ahsan', 21), ('Bilal', 22)]" in out
+
+
+# ---------------------------------------------------------------------------
+# comprehensions.py
+# ---------------------------------------------------------------------------
+
+class TestComprehensions:
+    FILE = f"{FOLDER}/comprehensions.py"
+
+    def test_list_comprehensions(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.squares == [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+        assert mod.evens == [2, 4, 6, 8, 10]
+
+    def test_set_comprehension_removes_duplicates(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.unique_votes == {"yes", "no", "abstain"}
+
+    def test_dict_comprehension(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.lengths == {"Ahsan": 5, "Hamza": 5, "Zara": 4}
+
+    def test_printed_output_includes_list_lines(self):
+        _, out = run_script(self.FILE)
+        assert "Numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" in out
+        assert "Squares: [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]" in out
+        assert "Evens: [2, 4, 6, 8, 10]" in out
+
+
+# ---------------------------------------------------------------------------
+# first_class_functions.py
+# ---------------------------------------------------------------------------
+
+class TestFirstClassFunctions:
+    FILE = f"{FOLDER}/first_class_functions.py"
+
+    def test_handlers_capture_function_references(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.operation(4) == 16
+        assert mod.apply(mod.square, 5) == 25
+        assert mod.apply(mod.cube, 5) == 125
+
+    def test_manufactured_functions(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.doubler(6) == 36
+        assert mod.cubed(6) == 216
+
+    def test_printed_output_in_call_order(self):
+        _, out = run_script(self.FILE)
+        lines = out.strip().splitlines()
+        assert lines == [
+            "square stored as operation: 16",
+            "apply(square, 5): 25",
+            "apply(cube, 5): 125",
+            "doubler(6): 36",
+            "cubed(6): 216",
+        ]
+
+
+# ---------------------------------------------------------------------------
+# closures.py
+# ---------------------------------------------------------------------------
+
+class TestClosures:
+    FILE = f"{FOLDER}/closures.py"
+
+    def test_multipliers_remember_their_factor(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.double(5) == 10
+        assert mod.triple(5) == 15
+
+    def test_counter_remembers_its_state(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.tickets() == 4
+
+    def test_printed_output_in_call_order(self):
+        _, out = run_script(self.FILE)
+        lines = out.strip().splitlines()
+        assert lines == [
+            "double(5): 10",
+            "triple(5): 15",
+            "ticket 1: 1",
+            "ticket 2: 2",
+            "ticket 3: 3",
+        ]
+
+
+# ---------------------------------------------------------------------------
+# partial_application.py
+# ---------------------------------------------------------------------------
+
+class TestPartialApplication:
+    FILE = f"{FOLDER}/partial_application.py"
+
+    def test_partials_prefill_arguments(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.square(4) == 16
+        assert mod.cube(3) == 27
+        assert mod.formatted(3.14159) == 3.14
+
+    def test_printed_output_matches_partial_results(self):
+        _, out = run_script(self.FILE)
+        assert "square(4): 16" in out
+        assert "cube(3): 27" in out
+        assert "formatted(3.14159): 3.14" in out
+
+
+# ---------------------------------------------------------------------------
+# currying.py
+# ---------------------------------------------------------------------------
+
+class TestCurrying:
+    FILE = f"{FOLDER}/currying.py"
+
+    def test_curried_functions_take_one_argument_at_a_time(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.curried_add(2)(3) == 5
+        assert mod.greet("Hi")("Zara") == "Hi, Zara!"
+
+    def test_printed_output_in_call_order(self):
+        _, out = run_script(self.FILE)
+        lines = out.strip().splitlines()
+        assert lines == [
+            "regular add(2, 3): 5",
+            "curried add(2)(3): 5",
+            "Hello, Ahsan!",
+            "Hi, Hamza!",
+        ]
+
+
+# ---------------------------------------------------------------------------
+# any_all.py
+# ---------------------------------------------------------------------------
+
+class TestAnyAll:
+    FILE = f"{FOLDER}/any_all.py"
+
+    def test_predicate_results(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.any_passed is True
+        assert mod.all_passed is True
+        assert mod.has_python is True
+
+    def test_empty_iterable_semantics(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.any_passed is not None
+        assert "any([]) is False" in _
+        assert "all([]) is True" in _
+
+    def test_printed_output_matches_flags(self):
+        _, out = run_script(self.FILE)
+        assert "Anyone scored 70+: True" in out
+        assert "Everyone scored 40+: True" in out
+        assert "Includes Python: True" in out
+
+
+# ---------------------------------------------------------------------------
+# itertools_module.py
+# ---------------------------------------------------------------------------
+
+class TestItertoolsModule:
+    FILE = f"{FOLDER}/itertools_module.py"
+
+    def test_building_blocks_produce_expected_lists(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.combined == [1, 2, 3, 4, 5, 6]
+        assert mod.natural == [1, 2, 3, 4, 5]
+        assert mod.colours == ["red", "green", "blue", "red", "green", "blue"]
+        assert mod.repeated == ["A", "A", "A", "A"]
+        assert mod.outcomes == [(1, "head"), (1, "tail"), (2, "head"), (2, "tail")]
+
+    def test_printed_output_matches_computed_lists(self):
+        _, out = run_script(self.FILE)
+        assert "chain: [1, 2, 3, 4, 5, 6]" in out
+        assert "repeat: ['A', 'A', 'A', 'A']" in out
+        assert "product: [(1, 'head'), (1, 'tail'), (2, 'head'), (2, 'tail')]" in out
+
+
+# ---------------------------------------------------------------------------
+# pure_functions.py
+# ---------------------------------------------------------------------------
+
+class TestPureFunctions:
+    FILE = f"{FOLDER}/pure_functions.py"
+
+    def test_pure_function_is_deterministic(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.add_tax(10, 0.2) == 12.0
+        assert mod.total_cost([5, 10, 15]) == 30
+
+    def test_impure_function_mutates_external_state(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.calls == 2
+
+    def test_printed_output_in_call_order(self):
+        _, out = run_script(self.FILE)
+        lines = out.strip().splitlines()
+        assert lines == [
+            "add_tax(10, 0.2): 12.0",
+            "add_tax(10, 0.2): 12.0",
+            "total_cost([5, 10, 15]): 30",
+            "next_number(): 1",
+            "next_number(): 2",
+        ]
+
+
+# ---------------------------------------------------------------------------
+# pipelines.py
+# ---------------------------------------------------------------------------
+
+class TestPipelines:
+    FILE = f"{FOLDER}/pipelines.py"
+
+    def test_pipeline_stages(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.passing == [("Ahsan", 55), ("Hamza", 72), ("Bilal", 64), ("Alina", 91)]
+        assert mod.boosted == [("Ahsan", 58), ("Hamza", 75), ("Bilal", 67), ("Alina", 94)]
+        assert mod.ranked == [("Alina", 94), ("Hamza", 75), ("Bilal", 67), ("Ahsan", 58)]
+        assert mod.winners == ["Alina", "Hamza"]
+        assert mod.average == 64.0
+
+    def test_source_data_is_unmodified(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.students[2] == ("Zara", 38)
+
+    def test_printed_output_matches_pipeline(self):
+        _, out = run_script(self.FILE)
+        assert "Ranked: [('Alina', 94), ('Hamza', 75), ('Bilal', 67), ('Ahsan', 58)]" in out
+        assert "Winners: ['Alina', 'Hamza']" in out
+        assert "Average score: 64.0" in out
+
