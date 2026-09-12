@@ -70,9 +70,20 @@ All fundamental and applied topics learnt in their respective folder, known as `
 
 | Topic Name | Descriptions |
 | --- | --- |
+| Any & All | **`any()` and `all()` short-circuit predicate checks over iterables, including their empty-iterable semantics** |
+| Closures | **Nested functions capturing ("remembering") a value from their outer function even after it has finished running** |
+| Comprehensions | **List, set, and dictionary comprehensions as compact, declarative loops with optional `if` filters** |
+| Currying | **Turning a multi-argument function into a chain of single-argument functions, i.e. `add(a, b)` becomes `add(a)(b)`** |
 | Filter | **`filter()` combined with lambda predicates to conditionally select items from a list - even and odd numbers, values both above and below a threshold, and non-empty strings** |
+| First-Class Functions | **Functions treated as values - stored in variables, passed as arguments, and returned from other functions** |
+| itertools Module | **`itertools` building blocks such as `chain`, `count`, `islice`, `cycle`, `repeat` and `product`** |
 | Lambda | **Anonymous one-expression functions assigned to variables, applied across arithmetic, comparison, and conditional (ternary) use cases** |
 | Map | **`map()` applying a lambda across single and multiple iterables - squaring/doubling values, type conversion, and pairwise combination of 2 lists** |
+| Partial Application | **`functools.partial` pre-filling arguments to create specialised versions of a general function** |
+| Pipelines | **Chaining functional steps (`filter` -> `map` -> `sorted` -> `reduce`) into immutable data flows** |
+| Pure Functions | **Deterministic, side-effect-free functions contrasted with impure functions that read or change external state** |
+| Reduce | **`functools.reduce` accumulating an iterable down to a single value - running sums, products, and largest items** |
+| Sorted | **`sorted()` returning a NEW sorted list with lambda `key` functions and `reverse`, without mutating the original** |
 | Zip | **`zip()`combining multiple iterables into paired tuples, with unpacking via for loop across matched indices** |
 
 ---
@@ -229,8 +240,14 @@ All python files have been made into their respective folders from each programm
 
 ---
 
+**Syntax Fundamentals:**
+
 | File Name | Topics Covered |
-|---|---|
+| --- | --- |
+| Grade Summary | **Applied `filter()`, `reduce()` and `any()` / `all()` to summarise passing, failing and average student grades** |
+| Number Pipeline | **A basic `filter` -> `map` -> `reduce` data flow computing the sum of squared even numbers** |
+| Shopping Receipt | **Applied `map()`, `filter()` and `reduce()` to total a shopping basket and print a formatted receipt** |
+| Word Frequency | **Applied `sorted()` with lambda keys and a set comprehension to tally repeated words** |
 
 ---
 
