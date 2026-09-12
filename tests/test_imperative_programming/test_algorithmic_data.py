@@ -7,6 +7,7 @@ than reimplementations of it. Covers fundamental/happy paths as well as
 error-catching (invalid input, boundary, and exception) cases.
 """
 
+import os
 import pytest
 import sys
 
@@ -52,9 +53,25 @@ class TestAlarmClock:
         Tests that specifically exercise the playback branch patch
         os.path.exists themselves inside a narrower `with` block, which
         safely overrides this fixture for their own duration.
+
+        The mock is scoped to the hardcoded sound_file path only (rather
+        than returning False for every path): on Python 3.14+ pathlib's
+        Path.exists() delegates to os.path.exists(), so an unconditional
+        False would also break the test harness's own "Script not found"
+        sanity check inside run_script().
         """
 
-        with patch("os.path.exists", return_value=False):
+        real_exists = os.path.exists
+        missing_sound_file = os.path.normcase(
+            r"C:\Users\A.I.M\C.S\WAV\Ummati Qad Laha Fajrun.wav"
+        )
+
+        def _exists(path):
+            if os.path.normcase(str(path)) == missing_sound_file:
+                return False
+            return real_exists(path)
+
+        with patch("os.path.exists", side_effect=_exists):
             yield
 
     # --- valid_alarm_time(): 12-hour path ---
