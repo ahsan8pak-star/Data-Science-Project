@@ -98,12 +98,10 @@ All python files have been made into their respective folders from each programm
 
 ---
 
-**Algorithmic Data Converters:**
+**Unit & Format Converters:**
 
 | File Name | Topics Covered |
 | --- | --- |
-| Alarm Clock | **`import datetime`, `import time` ,`import os` and `import pygame`, with the application of alarm clocks via personalised / customised sound files when time's up** |
-| Annual Rate Calculator | **Exception functions & formatting within mathematical formulas** |
 | Fahrenheit & Celcius | **Function fundamentals with basic conditional loops** |
 | Phone Number Converter | **`match case` function & conditional loops** |
 | Roman Numerals Converter | **Conditional loops, `input()` functions, `match cases` fundamentals & exception rules** |
@@ -112,14 +110,13 @@ All python files have been made into their respective folders from each programm
 
 ---
 
-**Logical Games:**
+**Interactive Games:**
 
 | File Name | Topics Covered |
 | --- | --- |
 | Dice Game | **Fundamental dictionary / sets, applied arrays / lists and applied conditional loops with creative TUI display** |
 | Haiku - Madlibs | **F-strings with lists and `import random`** |
 | Hangman Game | **Applied Dictionaries, for loops, tuples and conditional statements with `import random`** |
-| Login Status | **User `input()` and error catching, within the logical framework of boolean** |
 | Numerical Guessing Game | **`while` loop & `break` engine execution** |
 | Quiz Game | **Fundamental lists and conditional `for` loops, including basic mathematical operations i.e. percentage score** |
 | Rock Paper Scissors | **Applied `def` functions, conditional loops with ASCII Art and formatting** |
@@ -127,7 +124,7 @@ All python files have been made into their respective folders from each programm
 
 ---
 
-**Mathematical & Scientific Projects:**
+**Math & Science Calculators:**
 
 | File Name | Topics Covered |
 | --- | --- |
@@ -135,10 +132,10 @@ All python files have been made into their respective folders from each programm
 | Area | **Basic arithmetic functions with 2 values** |
 | Area of Circle | **Mathematical functions, including user `input()`** |
 | Area of Triangle | **Basic mathematical functions, with a fundamental user input function** |
+| Annual Rate Calculator | **Exception functions & formatting within mathematical formulas** |
 | Arithmetic Calculator | **Basic `match cases` with extensive conditional loops and f-strings with the inclusion of fundamental mathematical unit formatting** |
 | Arithmetic Expressions | **Created `import math` module i.e. `Arithmetic Calculator`, f-strings and TUI displays based on `Arithmetic Calculator`** |
 | Arithmetic Iteration | **Imported created modules, f-strings with the inclusion of fundamental mathematical formulas and TUI displays** |
-| Banking Program | **Applied arithmetic formulas under fintech, error catching, `def` functions and `match case` with TUI displays** |
 | Card Validator Program | **Applied for loops and list indexing with fundamental variable assignments** |
 | Circle Calculator | **Fundamental mathematical functions and imported created modules, with applied user error catching and TUI** |
 | Circumference of Circle | **Mathematical functions, including user `input()`** |
@@ -159,13 +156,15 @@ All python files have been made into their respective folders from each programm
 
 ---
 
-**Syntax Fundamentals:**
+**Syntax Exercises:**
 
 | File Name | Topics Covered |
 | --- | --- |
 | Activity Log.txt | *Go to `File Handling` for more* |
 | Add | **`+` -> Addition** |
 | AIM.txt | *Go to `File Writer` for more* |
+| Alarm Clock | **`import datetime`, `import time` ,`import os` and `import pygame`, with the application of alarm clocks via personalised / customised sound files when time's up** |
+| Banking Program | **Applied arithmetic formulas under fintech, error catching, `def` functions and `match case` with TUI displays** |
 | Checkout System | **User `input()` and type conversions** |
 | Count Up Timer | **Foundational default arguments and `import time`** |
 | Distance Calculator | **`floats` and user `input()` demonstration.** |
@@ -173,7 +172,6 @@ All python files have been made into their respective folders from each programm
 | Drink Script Example | **Applied `import` created modules with `def main` and `if __name__ == __main__:`** |
 | Email Slicer | **Index formatting fundamentals** |
 | Even & Odd Loop Detector | **Fundamental conditional `for` loop and modulus operator (`%`)** |
-| Execution Time | **Automated batch script execution runner featuring `subprocess` process sandboxing, `pathlib` recursive discovery, `time.perf_counter()` benchmarking, `try-except` timeout handling, and Pytest-style ASCII reporting** |
 | Factorials | **Iterative Sequence Multiplication** |
 | File Handling | **Comprehensive file I/O operations and context managers** |
 | File Reader | **Read functions and string parsing fundamentals** |
@@ -393,11 +391,11 @@ Data-Science-Project/
 │   │   └── Fundamental Topics/             # Higher-order transforms: filter, lambda, map, and zip
 │   │
 │   ├── Imperative Programming/             # Procedural logic scripts focused on mutable state and step-by-step execution
-│   │   ├── Algorithmic Data Converters/    # Numerical conversion algorithms and data transformation utility scripts
+│   │   ├── Unit & Format Converters/       # Unit and number-format conversion utility scripts
 │   │   ├── Fundamental Topics/             # Implementation playgrounds for native collection types, modules, and error handling
-│   │   ├── Logical Games/                  # Interactive terminal games testing state tracking and algorithmic logic loops
-│   │   ├── Maths & Science Projects/       # Financial models, geometry calculators, and coordinate boundary systems
-│   │   └── Syntax Fundamentals/            # Language syntax scratchpads exploring file I/O operations, string manipulation, and timers
+│   │   ├── Interactive Games/              # Interactive terminal games testing state tracking and algorithmic logic loops
+│   │   ├── Math & Science Calculators/     # Financial models, geometry calculators, and coordinate boundary systems
+│   │   └── Syntax Exercises/               # Language syntax scratchpads exploring file I/O operations, string manipulation, and timers
 │   │
 │   ├── Object Oriented Programming/        # State-driven architectures using classes, encapsulation, and custom domain models
 │   │   ├── Fundamental Topics/             # Implementation of abstraction, inheritance, polymorphism, and nested classes
