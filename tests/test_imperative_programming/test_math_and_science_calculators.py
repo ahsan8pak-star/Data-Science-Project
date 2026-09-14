@@ -1,5 +1,5 @@
 """
-Pytest suite for every script under python/maths_science_projects/.
+Pytest suite for every script under python/math_and_science_calculators/.
 
 Covers the standalone calculators (Area, Volume, Pythagoras, Sine/Cosine
 Rule, etc.) as well as the composite scripts that import their siblings
@@ -14,9 +14,9 @@ import sys
 
 from unittest.mock import patch
 from tests.test_imperative_programming.conftest import run_script
-from python.imperative_programming.maths_science_projects import arithmetic_iteration # imported for direct function testing
+from python.imperative_programming.math_and_science_calculators import arithmetic_iteration # imported for direct function testing
 
-FOLDER = "imperative_programming/maths_science_projects"
+FOLDER = "imperative_programming/math_and_science_calculators"
 
 
 # ---------------------------------------------------------------------------
@@ -601,119 +601,64 @@ class TestArithmeticIteration:
 
 
 # ---------------------------------------------------------------------------
-# banking_program.py
+# annual_rate_calculator.py
 # ---------------------------------------------------------------------------
-class TestBankingProgram:
-    FILE = f"{FOLDER}/banking_program.py"
 
-    def test_show_balance_direct(self, capsys):
-        mod, _ = run_script(self.FILE, inputs=["4"])
-        mod.show_balance(123.4)
-        captured = capsys.readouterr()
-        assert "Balance: £123.40" in captured.out
+class TestAnnualRateCalculator:
+    FILE = f"{FOLDER}/annual_rate_calculator.py"
 
-    def test_deposit_valid_amount_returned(self, capsys):
-        mod, _ = run_script(self.FILE, inputs=["4"])
-        with patch("builtins.input", return_value="50"):
-            result = mod.deposit()
-        assert result == 50.0
+    def test_valid_calculation(self):
+        _, out = run_script(self.FILE, inputs=["2", "1000", "$"])
+        assert "Income: $1000.00" in out
+        assert "Time: 2 years" in out
+        assert "Amount Rate: $500.00 per year" in out
+        assert "Percentage Rate: 50.00% Annual" in out
 
-    def test_deposit_produces_no_confirmation_message(self, capsys):
-        
+    def test_non_numeric_time_raises_value_error_message(self):
+        _, out = run_script(self.FILE, inputs=["not-a-number", "1000", "$"])
+        assert "Only numbers are accepted for time and income." in out
+
+    def test_zero_time_raises_zero_division_message(self):
+        _, out = run_script(self.FILE, inputs=["0", "1000", "$"])
+        assert "Has to be at least 1 year." in out
+
+    def test_income_with_too_many_decimal_places(self):
+        _, out = run_script(self.FILE, inputs=["2", "10.123"])
+        assert "Random Error Found: Income cannot have more than 2 decimal places." in out
+
+    def test_currency_must_be_single_symbol(self):
+        _, out = run_script(self.FILE, inputs=["2", "100", "USD"])
+        assert "Random Error Found: Single Symbols only" in out
+
+    def test_income_must_be_positive(self):
+        _, out = run_script(self.FILE, inputs=["2", "0", "$"])
+        assert "Random Error Found: Enter a Valid Amount." in out
+
+    def test_income_with_exactly_two_decimals_is_accepted(self):
+        _, out = run_script(self.FILE, inputs=["1", "99.99", "£"])
+        assert "Income: £99.99" in out
+        assert "Random Error Found" not in out
+
+    def test_empty_currency_rejected(self):
+        _, out = run_script(self.FILE, inputs=["2", "100", ""])
+        assert "Random Error Found: Single Symbols only" in out
+
+    def test_negative_time_produces_negative_rate_without_crashing(self):
+
         """
-        Asymmetry worth flagging: withdraw() prints two confirmation
-        lines ("You have withdrew..."/"You have ... left.") on success,
-        but deposit() has no equivalent - it silently just returns the
-        amount with no printed confirmation at all.
+        int(time) accepts negatives happily (no explicit guard), so a
+        negative time just flows through the rate formula rather than
+        raising or being rejected.
         """
-        
-        mod, _ = run_script(self.FILE, inputs=["4"])
-        with patch("builtins.input", return_value="50"):
-            mod.deposit()
-        captured = capsys.readouterr()
-        assert captured.out == ""
 
-    def test_deposit_negative_amount_rejected(self, capsys):
-        mod, _ = run_script(self.FILE, inputs=["4"])
-        with patch("builtins.input", return_value="-10"):
-            result = mod.deposit()
-        captured = capsys.readouterr()
-        assert result == 0
-        assert "Enter Positive Deposits." in captured.out
+        _, out = run_script(self.FILE, inputs=["-2", "1000", "$"])
+        expected_rate = 1000 / -2
+        assert f"Amount Rate: ${expected_rate:.2f} per year" in out
 
-    def test_deposit_more_than_two_decimals_rejected(self, capsys):
-        mod, _ = run_script(self.FILE, inputs=["4"])
-        with patch("builtins.input", return_value="10.999"):
-            result = mod.deposit()
-        captured = capsys.readouterr()
-        assert result == 0
-        assert "Funds have to be within 2 decimal places." in captured.out
-
-    def test_deposit_exactly_two_decimals_accepted(self):
-        mod, _ = run_script(self.FILE, inputs=["4"])
-        with patch("builtins.input", return_value="10.99"):
-            result = mod.deposit()
-        assert result == 10.99
-
-    def test_deposit_non_numeric_rejected(self, capsys):
-        mod, _ = run_script(self.FILE, inputs=["4"])
-        with patch("builtins.input", return_value="abc"):
-            result = mod.deposit()
-        captured = capsys.readouterr()
-        assert result == 0
-        assert "Invalid Input. Numbers Only." in captured.out
-
-    def test_withdraw_valid_amount(self, capsys):
-        mod, _ = run_script(self.FILE, inputs=["4"])
-        with patch("builtins.input", return_value="30"):
-            result = mod.withdraw(100)
-        captured = capsys.readouterr()
-        assert result == 30.0
-        assert "You have withdrew £30.00." in captured.out
-        assert "You have £70.00 left." in captured.out
-
-    def test_withdraw_insufficient_funds(self, capsys):
-        mod, _ = run_script(self.FILE, inputs=["4"])
-        with patch("builtins.input", return_value="150"):
-            result = mod.withdraw(100)
-        captured = capsys.readouterr()
-        assert result == 0
-        assert "Insufficient Funds." in captured.out
-        assert "You need £50.00 to complete transaction." in captured.out
-
-    def test_withdraw_negative_amount_rejected(self, capsys):
-        mod, _ = run_script(self.FILE, inputs=["4"])
-        with patch("builtins.input", return_value="-5"):
-            result = mod.withdraw(100)
-        captured = capsys.readouterr()
-        assert result == 0
-        assert "No Negative Amounts." in captured.out
-
-    def test_withdraw_non_numeric_rejected(self, capsys):
-        mod, _ = run_script(self.FILE, inputs=["4"])
-        with patch("builtins.input", return_value="abc"):
-            result = mod.withdraw(100)
-        captured = capsys.readouterr()
-        assert result == 0
-        assert "Invalid Input. Numbers Only." in captured.out
-
-    def test_full_session_deposit_then_withdraw_then_check_balance(self):
-        inputs = ["2", "100", "3", "30", "1", "4"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "You have withdrew £30.00." in out
-        assert "Balance: £70.00" in out
-        assert ">>> Shutting Down... <<<" in out
-
-    def test_invalid_menu_choice_shows_message(self):
-        inputs = ["9", "4"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Invalid Choice." in out
-        assert "Try Again." in out
-
-    def test_menu_banner_shown(self):
-        _, out = run_script(self.FILE, inputs=["4"])
-        assert "Banking Program" in out
-        assert "Main Menu" in out
+    def test_whole_number_time_with_decimal_income(self):
+        _, out = run_script(self.FILE, inputs=["4", "999.50", "€"])
+        assert "Income: €999.50" in out
+        assert "Time: 4 years" in out
 
 
 # ---------------------------------------------------------------------------
@@ -1109,7 +1054,7 @@ class TestCosineRule:
         """
         
         inputs = ["A", "2", "side", "ab", "3", "4", "90", "6"]
-        _, out = run_script("imperative_programming/maths_science_projects/triangle_calculator.py", inputs=inputs)
+        _, out = run_script("imperative_programming/math_and_science_calculators/triangle_calculator.py", inputs=inputs)
         assert "Result: Side c is 5.0" in out
 
     def test_sine_rule_unaffected_by_the_same_pattern_when_imported(self):
@@ -1121,7 +1066,7 @@ class TestCosineRule:
         """
         
         inputs = ["A", "1", "angle", "ab", "3", "4", "A", "40", "6"]
-        _, out = run_script("imperative_programming/maths_science_projects/triangle_calculator.py", inputs=inputs)
+        _, out = run_script("imperative_programming/math_and_science_calculators/triangle_calculator.py", inputs=inputs)
         assert "Result: Angle B is" in out
 
 # ---------------------------------------------------------------------------

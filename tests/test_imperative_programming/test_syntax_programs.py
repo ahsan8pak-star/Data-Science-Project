@@ -1,12 +1,16 @@
 """
-Pytest suite for every script under python/syntax_fundamentals/.
+Pytest suite for every script under python/syntax_exercises/.
 
 This is the largest and most varied folder - one-off utility scripts,
 countdown timers, and a couple of files (math_module.py/math_file.py) that
 only work correctly once run_script() replicates a directly-run script's
-sys.path and __name__ behaviour (see conftest.py).
+sys.path and __name__ behaviour (see conftest.py). It also owns the
+relocated alarm_clock.py (pygame-based, ex-unit_and_format_converters) and
+banking_program.py (ex-math_and_science_calculators), plus a guard for the
+scratch script python/sandbox/aim.py.
 """
 
+import os
 import pytest
 import sys
 
@@ -15,14 +19,14 @@ from unittest.mock import patch
 from tests.test_imperative_programming.conftest import run_script
 
 # Direct imports required to resolve specific test execution errors
-from imperative_programming.syntax_fundamentals.factorials import factorial                  # Resolves NameError
-from imperative_programming.syntax_fundamentals.food_script_example import favourite_food    # Resolves ModuleNotFoundError
-from imperative_programming.syntax_fundamentals.drink_script_example import favourite_drink  # Resolves ModuleNotFoundError
-from imperative_programming.syntax_fundamentals.email_slicer import slice_email              # Resolves EOFError
+from imperative_programming.syntax_exercises.factorials import factorial                  # Resolves NameError
+from imperative_programming.syntax_exercises.food_script_example import favourite_food    # Resolves ModuleNotFoundError
+from imperative_programming.syntax_exercises.drink_script_example import favourite_drink  # Resolves ModuleNotFoundError
+from imperative_programming.syntax_exercises.email_slicer import slice_email              # Resolves EOFError
 
 PYTHON_SOURCE_DIR = Path(__file__).resolve().parents[2] / 'python'
 
-FOLDER = "imperative_programming/syntax_fundamentals"
+FOLDER = "imperative_programming/syntax_exercises"
 
 
 # ---------------------------------------------------------------------------
@@ -230,8 +234,8 @@ class TestDivide:
 # drink_script_example.py
 # ---------------------------------------------------------------------------
 class TestDrinkScriptExample:
-    FILE = "imperative_programming/syntax_fundamentals/drink_script_example.py" # Full path for the module cache cleaner
-    MODULE_PATH = "imperative_programming.syntax_fundamentals.drink_script_example"
+    FILE = "imperative_programming/syntax_exercises/drink_script_example.py" # Full path for the module cache cleaner
+    MODULE_PATH = "imperative_programming.syntax_exercises.drink_script_example"
 
     @pytest.fixture(autouse=True)
     def _clean_module_cache(self):
@@ -254,7 +258,7 @@ class TestDrinkScriptExample:
         the lack of a guard clause.
         """
         
-        import imperative_programming.syntax_fundamentals.drink_script_example as drink_script_example # noqa: F401
+        import imperative_programming.syntax_exercises.drink_script_example as drink_script_example # noqa: F401
         
         captured = capsys.readouterr()
         assert "Your favourite food is 'RICE'!" in captured.out
@@ -352,8 +356,8 @@ class TestEvenOddLoopDetector:
 # food_script_example.py
 # ---------------------------------------------------------------------------
 class TestFoodScriptExample:
-    FILE = "imperative_programming/syntax_fundamentals/food_script_example.py" # Full path for the module cache cleaner
-    MODULE_PATH = "imperative_programming.syntax_fundamentals.food_script_example"
+    FILE = "imperative_programming/syntax_exercises/food_script_example.py" # Full path for the module cache cleaner
+    MODULE_PATH = "imperative_programming.syntax_exercises.food_script_example"
 
     @pytest.fixture(autouse=True)
     def _clean_module_cache(self):
@@ -376,7 +380,7 @@ class TestFoodScriptExample:
     def test_food_script_stays_silent_on_a_plain_import(self, monkeypatch, capsys):
         
         # Importing the module via its full package path.
-        import imperative_programming.syntax_fundamentals.food_script_example as food_script_example # noqa: F401
+        import imperative_programming.syntax_exercises.food_script_example as food_script_example # noqa: F401
         
         captured = capsys.readouterr()
         assert captured.out == ""
@@ -1646,3 +1650,367 @@ def test_aim_py_is_currently_empty_and_imports_cleanly():
     _, out = run_script("sandbox/aim.py")
     assert out == ""
 
+
+
+# alarm_clock.py
+# ---------------------------------------------------------------------------
+
+class TestAlarmClock:
+
+    """
+    alarm_clock.py imports pygame at module level (SystemExit if missing),
+    so pygame/pygame-ce must be installed to import this script at all. On
+    a headless machine set SDL_AUDIODRIVER=dummy and SDL_VIDEODRIVER=dummy
+    before running pytest so pygame.mixer.init() doesn't need a real device.
+    The hardcoded sound_file path in set_alarm() never exists on a test
+    machine, so every full-script run naturally lands on the
+    "[X] FileNotFoundError: Audio file missing..." branch - the real
+    playback branch is exercised separately below via mocks.
+    """
+
+    FILE = f"{FOLDER}/alarm_clock.py"
+
+    @pytest.fixture(autouse=True)
+    def _force_missing_sound_file(self):
+
+        """
+        CRITICAL: without this, any full-script test where the target
+        time doesn't match the current second falls into set_alarm()'s
+        REAL polling loop. run_script() already mocks time.sleep() to a
+        no-op globally (for countdown-style scripts elsewhere), so on any
+        machine where the hardcoded sound_file path genuinely exists
+        (e.g. the original author's own machine), that "sleep" does
+        nothing and the loop becomes a 100%-CPU busy-wait on the REAL
+        system clock - it can spin for hours until the wall clock
+        happens to hit the exact target second, making pytest appear to
+        hang indefinitely. Forcing os.path.exists() to False here keeps
+        every full-script-flow test deterministic and machine-independent.
+        Tests that specifically exercise the playback branch patch
+        os.path.exists themselves inside a narrower `with` block, which
+        safely overrides this fixture for their own duration.
+
+        The mock is scoped to the hardcoded sound_file path only (rather
+        than returning False for every path): on Python 3.14+ pathlib's
+        Path.exists() delegates to os.path.exists(), so an unconditional
+        False would also break the test harness's own "Script not found"
+        sanity check inside run_script().
+        """
+
+        real_exists = os.path.exists
+        missing_sound_file = os.path.normcase(
+            r"C:\Users\A.I.M\C.S\WAV\Ummati Qad Laha Fajrun.wav"
+        )
+
+        def _exists(path):
+            if os.path.normcase(str(path)) == missing_sound_file:
+                return False
+            return real_exists(path)
+
+        with patch("os.path.exists", side_effect=_exists):
+            yield
+
+    # --- valid_alarm_time(): 12-hour path ---
+
+    def test_valid_12_hour_input(self):
+        # Choice 1 (12-hr), Time input, Period input
+        _, out = run_script(self.FILE, inputs=["1", "02:30:00", "PM"])
+        assert "Mode        : 12-Hour Format (PM)" in out
+        assert "Target Time : 02:30:00 PM (Internal: 14:30:00)" in out
+
+    def test_valid_24_hour_input(self):
+        # Choice 2 (24-hr), Time input
+        _, out = run_script(self.FILE, inputs=["2", "14:30:00"])
+        assert "Mode        : 24-Hour Format" in out
+        assert "Target Time : 14:30:00" in out
+
+    def test_invalid_mode_selection_retry(self):
+        # Invalid selection '9', retried with valid choice '2', then valid time
+        _, out = run_script(self.FILE, inputs=["9", "2", "14:30:00"])
+        assert "[X] Invalid selection! Please enter choice '1' or '2'." in out
+        assert "Target Time : 14:30:00" in out
+
+    def test_blank_mode_selection_is_also_rejected(self):
+        _, out = run_script(self.FILE, inputs=["", "2", "14:30:00"])
+        assert "[X] Invalid selection! Please enter choice '1' or '2'." in out
+
+    def test_invalid_12_hour_period_retry(self):
+
+        """
+        Genuine bug fixed here: the case "1" retry loop re-prompts BOTH
+        time_input and period on failure (not just period alone), so the
+        retry needs two fresh inputs, not one. The original single "AM"
+        follow-up value was silently consumed as the retry's time_input,
+        leaving period with no scripted answer and raising an EOFError
+        from run_script() rather than exercising the retry path at all.
+        """
+
+        # Choice 1, Time '10:00:00', Invalid Period 'NOON', retried with time '10:00:00', period 'AM'
+        _, out = run_script(self.FILE, inputs=["1", "10:00:00", "NOON", "10:00:00", "AM"])
+        assert "[X] Error: Period must strictly be 'AM' or 'PM'." in out
+        assert "Mode        : 12-Hour Format (AM)" in out
+
+    def test_invalid_12_hour_time_format_retry(self):
+        # Choice 1, Invalid Time '25:00:00', Period 'PM', retried with '05:00:00', Period 'PM'
+        _, out = run_script(self.FILE, inputs=["1", "25:00:00", "PM", "05:00:00", "PM"])
+        assert "[X] Error: Invalid 12-hour time format!" in out
+        assert "(Hours: 01-12, Minutes: 00-59, Seconds: 00-59)" in out
+        assert "Target Time : 05:00:00 PM (Internal: 17:00:00)" in out
+
+
+    # --- valid_alarm_time(): 24-hour path ---
+
+    def test_invalid_24_hour_time_format_retry(self):
+        # Choice 2, Invalid Time '25:00:00', retried with valid time '14:30:00'
+        _, out = run_script(self.FILE, inputs=["2", "25:00:00", "14:30:00"])
+        assert "[X] Error: Invalid 24-hour time format!" in out
+        assert "(Hours: 00-23, Minutes: 00-59, Seconds: 00-59)" in out
+        assert "Target Time : 14:30:00" in out
+
+
+    # --- top-level KeyboardInterrupt handling ---
+
+    def test_keyboard_interrupt_handled_gracefully(self):
+        # Simulates pressing Ctrl+C during initial input prompt
+        kb = patch("builtins.input", side_effect=KeyboardInterrupt)
+        _, out = run_script(self.FILE, patches=[kb])
+        assert "[!] Alarm session cancelled by user." in out
+        assert "Have a great day!" in out
+
+    def test_keyboard_interrupt_prints_no_stack_trace(self):
+        kb = patch("builtins.input", side_effect=KeyboardInterrupt)
+        _, out = run_script(self.FILE, patches=[kb])
+        assert "Traceback" not in out
+
+
+    # --- missing pygame dependency ---
+
+    def test_missing_pygame_prints_install_instructions_and_exits_cleanly(self):
+
+        """
+        Forces the module-level `import pygame` to fail regardless of
+        whether pygame is actually installed in this environment, to
+        confirm the fallback except-branch message and the immediate,
+        clean SystemExit (already handled by run_script's own
+        `except SystemExit: pass`).
+        """
+
+        import builtins
+        real_import = builtins.__import__
+
+        def fake_import(name, *args, **kwargs):
+            if name == "pygame":
+                raise ModuleNotFoundError("No module named 'pygame'")
+            return real_import(name, *args, **kwargs)
+
+        with patch("builtins.__import__", side_effect=fake_import):
+            _, out = run_script(self.FILE)
+
+        assert out.strip() == (
+            "Error: 'pygame' module is not installed. Please run 'pip install pygame-ce'."
+        )
+
+
+    # --- display_tui_banner() / display_info_box() directly ---
+
+    def test_display_tui_banner_centres_title_across_40_chars(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["1", "02:30:00", "PM"])
+        mod.display_tui_banner("TEST")
+        captured = capsys.readouterr()
+        lines = captured.out.strip("\n").splitlines()
+        assert lines[0] == "=" * 40
+        assert lines[1] == "TEST".center(40)
+        assert lines[2] == "=" * 40
+
+    def test_display_info_box_border_width_fits_longest_line(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["1", "02:30:00", "PM"])
+        mod.display_info_box(["short", "a much longer line here"])
+        captured = capsys.readouterr()
+        longest = len("a much longer line here")
+        expected_border = "-" * (longest + 4)
+        assert captured.out.count(expected_border) == 2  # top and bottom
+        assert f"| {'short'.ljust(longest)} |" in captured.out
+
+    def test_total_width_constant_is_forty(self):
+        mod, _ = run_script(self.FILE, inputs=["1", "02:30:00", "PM"])
+        assert mod.TOTAL_WIDTH == 40
+
+
+    # --- set_alarm() directly ---
+
+    def test_set_alarm_missing_sound_file_returns_immediately(self, capsys):
+
+        """
+        os.path.exists() is checked before any pygame.mixer call, so this
+        branch is safely testable without touching real audio at all.
+        """
+
+        mod, _ = run_script(self.FILE, inputs=["1", "02:30:00", "PM"])
+        mod.set_alarm("14:30:00")
+        captured = capsys.readouterr()
+        assert "[X] FileNotFoundError: Audio file missing at path:" in captured.out
+        assert r"Ummati Qad Laha Fajrun.wav" in captured.out
+
+    def test_set_alarm_triggers_playback_when_clock_matches_target(self, capsys):
+
+        """
+        Mocks os.path.exists (file "found"), every pygame.mixer call (no
+        real audio device needed), time.sleep (no real waiting), and
+        datetime.datetime.now() (clock "matches" target immediately) -
+        confirms the full TIMES UP! + playback + completion sequence
+        without any real I/O.
+        """
+
+        mod, _ = run_script(self.FILE, inputs=["1", "02:30:00", "PM"])
+
+        with patch("os.path.exists", return_value=True), \
+             patch.object(mod.pygame.mixer, "init"), \
+             patch.object(mod.pygame.mixer.music, "load"), \
+             patch.object(mod.pygame.mixer.music, "play"), \
+             patch.object(mod.pygame.mixer.music, "get_busy", return_value=False), \
+             patch.object(mod.time, "sleep"), \
+             patch.object(mod.datetime, "datetime") as mock_dt:
+
+            mock_dt.now.return_value.strftime.return_value = "14:30:00"
+            mod.set_alarm("14:30:00")
+
+        captured = capsys.readouterr()
+        assert "TIMES UP!" in captured.out
+        assert "Alarm Time Reached: 14:30:00" in captured.out
+        assert "Alarm session completed successfully." in captured.out
+
+    def test_set_alarm_handles_pygame_mixer_init_failure(self, capsys):
+
+        """
+        Confirms the `except pygame.error` branch around mixer.init()/
+        music.load() specifically, distinct from the FileNotFoundError
+        and successful-playback paths above.
+        """
+
+        mod, _ = run_script(self.FILE, inputs=["1", "02:30:00", "PM"])
+
+        with patch("os.path.exists", return_value=True), \
+             patch.object(mod.pygame.mixer, "init", side_effect=mod.pygame.error("no audio device")):
+            mod.set_alarm("14:30:00")
+
+        captured = capsys.readouterr()
+        assert "[X] Pygame Engine Error: Failed to initialise or load track" in captured.out
+
+
+# ---------------------------------------------------------------------------
+
+# banking_program.py
+# ---------------------------------------------------------------------------
+class TestBankingProgram:
+    FILE = f"{FOLDER}/banking_program.py"
+
+    def test_show_balance_direct(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["4"])
+        mod.show_balance(123.4)
+        captured = capsys.readouterr()
+        assert "Balance: £123.40" in captured.out
+
+    def test_deposit_valid_amount_returned(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["4"])
+        with patch("builtins.input", return_value="50"):
+            result = mod.deposit()
+        assert result == 50.0
+
+    def test_deposit_produces_no_confirmation_message(self, capsys):
+        
+        """
+        Asymmetry worth flagging: withdraw() prints two confirmation
+        lines ("You have withdrew..."/"You have ... left.") on success,
+        but deposit() has no equivalent - it silently just returns the
+        amount with no printed confirmation at all.
+        """
+        
+        mod, _ = run_script(self.FILE, inputs=["4"])
+        with patch("builtins.input", return_value="50"):
+            mod.deposit()
+        captured = capsys.readouterr()
+        assert captured.out == ""
+
+    def test_deposit_negative_amount_rejected(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["4"])
+        with patch("builtins.input", return_value="-10"):
+            result = mod.deposit()
+        captured = capsys.readouterr()
+        assert result == 0
+        assert "Enter Positive Deposits." in captured.out
+
+    def test_deposit_more_than_two_decimals_rejected(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["4"])
+        with patch("builtins.input", return_value="10.999"):
+            result = mod.deposit()
+        captured = capsys.readouterr()
+        assert result == 0
+        assert "Funds have to be within 2 decimal places." in captured.out
+
+    def test_deposit_exactly_two_decimals_accepted(self):
+        mod, _ = run_script(self.FILE, inputs=["4"])
+        with patch("builtins.input", return_value="10.99"):
+            result = mod.deposit()
+        assert result == 10.99
+
+    def test_deposit_non_numeric_rejected(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["4"])
+        with patch("builtins.input", return_value="abc"):
+            result = mod.deposit()
+        captured = capsys.readouterr()
+        assert result == 0
+        assert "Invalid Input. Numbers Only." in captured.out
+
+    def test_withdraw_valid_amount(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["4"])
+        with patch("builtins.input", return_value="30"):
+            result = mod.withdraw(100)
+        captured = capsys.readouterr()
+        assert result == 30.0
+        assert "You have withdrew £30.00." in captured.out
+        assert "You have £70.00 left." in captured.out
+
+    def test_withdraw_insufficient_funds(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["4"])
+        with patch("builtins.input", return_value="150"):
+            result = mod.withdraw(100)
+        captured = capsys.readouterr()
+        assert result == 0
+        assert "Insufficient Funds." in captured.out
+        assert "You need £50.00 to complete transaction." in captured.out
+
+    def test_withdraw_negative_amount_rejected(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["4"])
+        with patch("builtins.input", return_value="-5"):
+            result = mod.withdraw(100)
+        captured = capsys.readouterr()
+        assert result == 0
+        assert "No Negative Amounts." in captured.out
+
+    def test_withdraw_non_numeric_rejected(self, capsys):
+        mod, _ = run_script(self.FILE, inputs=["4"])
+        with patch("builtins.input", return_value="abc"):
+            result = mod.withdraw(100)
+        captured = capsys.readouterr()
+        assert result == 0
+        assert "Invalid Input. Numbers Only." in captured.out
+
+    def test_full_session_deposit_then_withdraw_then_check_balance(self):
+        inputs = ["2", "100", "3", "30", "1", "4"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "You have withdrew £30.00." in out
+        assert "Balance: £70.00" in out
+        assert ">>> Shutting Down... <<<" in out
+
+    def test_invalid_menu_choice_shows_message(self):
+        inputs = ["9", "4"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Invalid Choice." in out
+        assert "Try Again." in out
+
+    def test_menu_banner_shown(self):
+        _, out = run_script(self.FILE, inputs=["4"])
+        assert "Banking Program" in out
+        assert "Main Menu" in out
+
+
+# ---------------------------------------------------------------------------

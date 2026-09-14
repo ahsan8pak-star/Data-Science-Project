@@ -62,7 +62,7 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
     ``python <relative_path>``.
 
     relative_path : path relative to the python/ folder, e.g.
-                    "algorithmic_data_converters/weight_converter.py"
+                    "unit_and_format_converters/weight_converter.py"
     inputs        : list of strings returned in order for each input() call
                     the script makes. If the script asks for more input than
                     was provided, an EOFError is raised (mirrors real stdin

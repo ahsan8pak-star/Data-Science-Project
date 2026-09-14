@@ -3,7 +3,7 @@ Pytest suite for every script under python/functional_programming/fundamental_to
 
 Each script is executed for real via run_script() (see conftest.py), so these
 tests exercise the actual coursework code rather than reimplementations of
-it. None of these four files call input(), so every test asserts against
+it. None of these fifteen files call input(), so every test asserts against
 either the module's own top-level variables (accessible straight off the
 executed module object) or the exact lines it printed.
 """

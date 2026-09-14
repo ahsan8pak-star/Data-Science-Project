@@ -186,7 +186,7 @@ class TestDice:
 
         """
         Confirms the cross-package import from
-        imperative_programming.logical_games.dice_game actually resolves
+        imperative_programming.interactive_games.dice_game actually resolves
         and its dice_art dict is used correctly, not just that a number
         gets printed.
         """

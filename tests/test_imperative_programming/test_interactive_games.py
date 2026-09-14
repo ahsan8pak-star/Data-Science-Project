@@ -1,5 +1,5 @@
 """
-Pytest suite for every script under python/logical_games/.
+Pytest suite for every script under python/interactive_games/.
 
 These are small interactive terminal games. Where a script relies on
 `random`, we patch it via run_script(..., patches=[...]) so the games become
@@ -12,7 +12,7 @@ import pytest
 from unittest.mock import patch
 from tests.test_imperative_programming.conftest import run_script
 
-FOLDER = "imperative_programming/logical_games"
+FOLDER = "imperative_programming/interactive_games"
 
 
 # ---------------------------------------------------------------------------
@@ -267,84 +267,6 @@ class TestHangmanGame:
         mod.display_answer("dog")
         captured = capsys.readouterr()
         assert captured.out.strip() == "d o g"
-
-
-# ---------------------------------------------------------------------------
-# login_status.py
-# ---------------------------------------------------------------------------
-class TestLoginStatus:
-    FILE = f"{FOLDER}/login_status.py"
-
-    def test_echoes_back_all_five_answers(self):
-        inputs = ["True", "False", "False", "False", "True"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Student: True" in out
-        assert "Admin: False" in out
-        assert "Online: True" in out
-
-    def test_regular_student_online_accident_choice(self):
-        inputs = ["True", "False", "False", "True", "True", "A"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "No problem. Try Again." in out
-
-    def test_regular_student_online_intended_choice(self):
-        inputs = ["True", "False", "False", "True", "True", "I"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Leave or we will suspend you permanently!" in out
-
-    def test_regular_student_online_unclear_choice(self):
-        inputs = ["True", "False", "False", "True", "True", "maybe"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Stop Messing Around! What is your answer?" in out
-
-    def test_not_a_regular_student_gets_welcome_message(self):
-        inputs = ["True", "False", "False", "False", "True"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Welcome to our university!" in out
-
-    def test_offline_user_gets_offline_message(self):
-        inputs = ["True", "False", "False", "True", "False"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "You are offline. You are unable to access this." in out
-
-    def test_stop_lying_branch_is_actually_unreachable(self):
-        
-        """
-        Genuine bug: `is_student[0].upper and is_admin[0].upper == "T"`
-        never calls `.upper()` on the first operand (missing parentheses),
-        so it evaluates a bound-method object which is always truthy,
-        while the second half compares a method object to "T" and is
-        always False. The AND is therefore always False, so "Stop Lying"
-        can never print even when both student and admin are "True".
-        """
-        
-        inputs = ["True", "True", "False", "False", "True"]
-        _, out = run_script(self.FILE, inputs=inputs)
-        assert "Stop Lying" not in out
-        assert "Welcome to our university!" in out
-
-    def test_empty_online_answer_raises_uncaught_index_error(self):
-        inputs = ["True", "False", "False", "True", ""]
-        with pytest.raises(IndexError):
-            run_script(self.FILE, inputs=inputs)
-
-    def test_own_value_error_except_is_unreachable_via_normal_input(self):
-        
-        """
-        The whole flow is wrapped in `except ValueError:`, but nothing in
-        it can actually raise a ValueError from typed input: .upper()
-        never raises one, and an empty string's [0] index raises
-        IndexError instead (confirmed above), which this except doesn't
-        even catch. This except clause is only reachable by making
-        input() itself raise ValueError artificially, as done here.
-        """
-        
-        val_err = patch(
-            "builtins.input",
-            side_effect=["True", "False", "False", "True", "True", ValueError],
-        )
-        _, out = run_script(self.FILE, patches=[val_err])
-        assert "Please type within boolean logic. True or False." in out
 
 
 # ---------------------------------------------------------------------------
