@@ -67,7 +67,7 @@ def read_file(file_path):
             yield line.strip()
 
 
-file_path = r"C:\Users\A.I.M\C.S\Data-Science-Project\python\imperative_programming\syntax_fundamentals\\"
+file_path = r"C:\Users\A.I.M\C.S\Data-Science-Project\python\imperative_programming\syntax_exercises\\"
 file_name = "activity_log.txt"
 file_directory = file_path + file_name
 
@@ -103,7 +103,7 @@ for n in counter:
 # --- EXAMPLE 2 ---
 # ----------------- 
 
-file_path = r"C:\Users\A.I.M\C.S\Data-Science-Project\python\imperative_programming\syntax_fundamentals\\"
+file_path = r"C:\Users\A.I.M\C.S\Data-Science-Project\python\imperative_programming\syntax_exercises\\"
 file_name = "aim.txt"
 file_directory = file_path + file_name
 

@@ -1,5 +1,5 @@
 try:
-    from python.imperative_programming.maths_science_projects.arithmetic_calculator import arithmetic
+    from python.imperative_programming.math_and_science_calculators.arithmetic_calculator import arithmetic
 
 except ImportError:
     from arithmetic_calculator import arithmetic
