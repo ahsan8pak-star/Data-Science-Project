@@ -424,12 +424,17 @@ Data-Science-Project/
 │   │
 │   └── Year 3/                             # Year 3 briefing documents
 │
+├── DEPENDENCIES.md                         # Tiered dependency catalogue separating all-rounder libraries from Windows dev kits
 ├── .gitignore                              # Multilayer safety network blocking binary artefacts, database dumps, and environment variables
 ├── .gitkeep                                # Version control placeholder file preserving empty directory architecture in Git
 ├── LICENSE                                 # MIT legal framework outlining permissions, open-source compliance, and liability limits
 ├── NOTES.md                                # Comprehensive engineering journal tracking milestone phases, study tracks, and resources
 ├── pyproject.toml                          # Central project configuration for build tools, test runners, and strict linters (Ruff/Black)
-└── README.md                               # Master structural roadmap, technical documentation, and portfolio overview
+├── README.md                               # Master structural roadmap, technical documentation, and portfolio overview
+├── requirements.in                         # Direct All-Rounder library source list (compiles to requirements.txt)
+├── requirements.txt                        # Frozen All-Rounder dependency set (pip-compile)
+├── requirements-win_dev.in                 # Direct Windows Dev Kits source list (compiles to requirements-win_dev.txt)
+└── requirements-win_dev.txt                # Frozen Windows Dev Kits dependency set (pip-compile)
 ```
 
 ---
@@ -459,5 +464,6 @@ Data-Science-Project/
 - [21]: Roadmap Guides: Data Science and Python learning-path references (`.pdf` / `.txt`) under `Roadmap/`, guiding the study phases.
 - [22]: Advanced Projects: ML experiments (`Machine Learning/`), media-playback interfaces (`Music Player/`), and Excel automation (`Transactions/`).
 - [23]: Courseworks Archive: Year 1–3 module briefings and the Java-to-Python CS1IP transposition pairs under `University Courseworks/`.
+- [24]: Dependencies: Tiered environment catalogue (`DEPENDENCIES.md`) splitting cross-platform All-Rounder libraries (`requirements.in`/`requirements.txt`) from Windows Dev Kits (`requirements-win_dev.in`/`requirements-win_dev.txt`).
 
 ---
