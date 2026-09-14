@@ -12,7 +12,8 @@ Every library installed in the project virtual environment (`.venv`, Python 3.14
 
 > The compiled `.txt` files are the **complete frozen inventory** (dependency closures, exact pins).
 > `DEPENDENCIES.md` documents the *meaningful* (declared) packages per tier; the full transitive
-> set for each tier lives in its compiled file.
+> set for each tier lives in its compiled file (regenerate both with `requirements_sync.py` —
+> see **Keeping Requirements Current** below).
 
 ---
 
@@ -68,7 +69,7 @@ Installed but intentionally **not pinned** in the requirements files (pip itself
 | `pip` | 26.2.1 | Package installer |
 | `setuptools` | 84.0.0 | `pyproject.toml` build backend |
 | `wheel` | 0.48.0 | Wheel archive builder |
-| `pip-tools` | 7.6.1 | `pip-compile`/`pip-sync` — generates Tiers A and B frozen files |
+| `pip-tools` | 7.6.1 | pip-compile/pip-sync — legacy curators of the frozen files (now superseded by `requirements_sync.py`) |
 | `pip-review` | 1.3.0 | Check for and apply package upgrades |
 | `build` | 1.6.0 | PEP 517 sdist/wheel builder |
 | `pyproject_hooks` | 1.2.0 | Invokes PEP 517 build backends |
@@ -88,24 +89,49 @@ can never diverge on versions:
 
 ## Keeping Requirements Current
 
-Run these from the repository root (venv active) whenever the environment changes:
+One command keeps the whole requirement set in sync with the live environment:
+
+`requirements_sync.py` walks the dependency graph of the **installed** packages and rewrites
+**both** compiled files (`requirements.txt` + `requirements-win_dev.txt`) to exactly match the
+as-installed versions, then audits the result. It is fully offline and deterministic — the
+audit is always CLEAN after a run, because a compile can never invent a version that is not
+actually installed.
 
 ```powershell
-# 1. Freeze Tier A (All-Rounder)  |  from requirements.in -> requirements.txt
-.venv\Scripts\python.exe -m piptools compile --no-index --output-file=requirements.txt requirements.in
+# 1. Regenerate BOTH compiled files and re-audit        (offline, safe)
+.venv\Scripts\python.exe requirements_sync.py
 
-# 2. Freeze Tier B (Windows Dev Kits)  |  constrained to equal Tier A versions
-.venv\Scripts\python.exe -m piptools compile --constraint=requirements.txt --no-index --output-file=requirements-win_dev.txt requirements-win_dev.in
+# ... or from VS Code:  Terminal > Run Task > "Sync: Update Requirements"
 
-# When ADDING a brand-new package, drop --no-index so pip can resolve/download it:
-.venv\Scripts\python.exe -m piptools compile --output-file=requirements.txt requirements.in
+# 2. Check for + apply package upgrades (needs network), then re-run step 1
+pip-review --auto
 
-# 3. Check for available upgrades
-pip-review
-
-# 4. Snapshot the live environment for a drift comparison like this catalogue
+# 3. Optional second view: snapshot the live environment
 .venv\Scripts\python.exe -m pip freeze
 ```
+
+**The constant-update loop** (repeat whenever the environment changes):
+
+1. `pip install <library>` into the venv.
+2. Declare the *direct* dependency in the right source file:
+   - `requirements.in` — libraries imported by project code (Tier A)
+   - `requirements-win_dev.in` — development tooling (Tier B)
+3. Run `requirements_sync.py` — it pins the new package + its whole closure at today's
+   versions in both compiled files and prints a drift report (which tier, which version).
+4. Periodically run `pip-review --auto` to pull upgrades, then re-run `requirements_sync.py`
+   so the compiled files track the upgraded environment.
+
+**Installing from the frozen files (fresh machine):**
+
+```powershell
+.venv\Scripts\python.exe -m pip install -r requirements.txt
+.venv\Scripts\python.exe -m pip install -r requirements-win_dev.txt
+```
+
+> The classic `pip-compile --no-index ...` commands from older versions of this catalogue are
+> **not** a reliable regeneration path: `--no-index` gives pip nothing to resolve from unless a
+> `--find-links` source is provided, so `pip-compile` cannot act as the offline source of truth.
+> `requirements_sync.py` is the maintained replacement for that workflow.
 
 ## Viewing the Environment
 
