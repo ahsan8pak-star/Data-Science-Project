@@ -11,10 +11,16 @@ import os
 import pytest
 import sys
 
+from PIL import Image
 from unittest.mock import patch
 from tests.test_imperative_programming.conftest import run_script
 
 FOLDER = "imperative_programming/unit_and_format_converters"
+
+GITHUB_USER_URL = "https://github.com/ahsan8pak-star"
+GITLAB_USER_URL = "https://gitlab.com/ahsan8pak-star"
+
+PNG_MAGIC = b"\x89PNG\r\n\x1a\n"
 
 # ---------------------------------------------------------------------------
 # fahrenheit_celsius_converter.py
@@ -299,4 +305,80 @@ class TestWeightConverter:
     def test_empty_unit_rejected(self):
         _, out = run_script(self.FILE, inputs=["10", ""])
         assert "Only pounds and kilos." in out
+
+
+# ---------------------------------------------------------------------------
+# qrcode_generator.py
+# ---------------------------------------------------------------------------
+
+class TestQRCodeGenerator:
+    FILE = f"{FOLDER}/qrcode_generator.py"
+
+    def _load_module(self, tmp_path):
+        mod, _ = run_script(
+            self.FILE,
+            inputs=[""],
+            patches=[patch("sys.argv", ["qrcode_generator.py"])],
+            cwd=tmp_path,
+        )
+        return mod
+
+    def test_make_qr_code_saves_png_to_the_given_directory(self, tmp_path):
+        mod = self._load_module(tmp_path)
+        result = mod.make_qr_code(GITHUB_USER_URL, output_dir=str(tmp_path))
+        assert result == str(tmp_path / "qrcode.png")
+        assert (tmp_path / "qrcode.png").exists()
+
+    def test_default_output_directory_is_the_working_directory(self, tmp_path, monkeypatch):
+        monkeypatch.chdir(tmp_path)
+        mod = self._load_module(tmp_path)
+        result = mod.make_qr_code(GITLAB_USER_URL)
+        assert result == str(tmp_path / "qrcode.png")
+        assert (tmp_path / "qrcode.png").exists()
+
+    def test_saved_png_is_a_valid_pillow_image(self, tmp_path):
+        mod = self._load_module(tmp_path)
+        image_path = mod.make_qr_code(GITHUB_USER_URL, output_dir=str(tmp_path))
+        with Image.open(image_path) as image:
+            assert image.format == "PNG"
+            assert image.size[0] > 0 and image.size[1] > 0
+
+    @pytest.mark.parametrize("url", [GITHUB_USER_URL, GITLAB_USER_URL])
+    def test_both_gallery_urls_encode_into_real_pngs(self, tmp_path, url):
+        mod = self._load_module(tmp_path)
+        image_path = mod.make_qr_code(url, output_dir=str(tmp_path))
+        with open(image_path, "rb") as handle:
+            assert handle.read(8) == PNG_MAGIC
+
+    def test_custom_output_file_name_is_respected(self, tmp_path):
+        mod = self._load_module(tmp_path)
+        result = mod.make_qr_code(
+            GITLAB_USER_URL,
+            output_dir=str(tmp_path),
+            output_file="gitlab_qr.png",
+        )
+        assert result == str(tmp_path / "gitlab_qr.png")
+        assert (tmp_path / "gitlab_qr.png").exists()
+        assert not (tmp_path / "qrcode.png").exists()
+
+    def test_run_saves_png_into_the_working_directory_and_prints_path(self, tmp_path):
+        _, out = run_script(
+            self.FILE,
+            inputs=[GITHUB_USER_URL],
+            patches=[patch("sys.argv", ["qrcode_generator.py"])],
+            cwd=tmp_path,
+        )
+        assert (tmp_path / "qrcode.png").exists()
+        assert "QR code image saved to:" in out
+        assert str(tmp_path / "qrcode.png") in out
+
+    def test_empty_url_input_reports_message_and_creates_no_file(self, tmp_path):
+        _, out = run_script(
+            self.FILE,
+            inputs=[""],
+            patches=[patch("sys.argv", ["qrcode_generator.py"])],
+            cwd=tmp_path,
+        )
+        assert "Nothing to encode; please provide a URL or link." in out
+        assert not (tmp_path / "qrcode.png").exists()
 
