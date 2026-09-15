@@ -405,6 +405,32 @@ class TestDuckTyping:
 
 
 # ---------------------------------------------------------------------------
+# generator.py
+# ---------------------------------------------------------------------------
+class TestGenerator:
+    FILE = f"{FOLDER}/generator.py"
+
+    def test_count_to_generator_counts_and_reports_execution_time(self):
+        _, out = run_script(self.FILE, inputs=["3", "2", "4", "3"])
+        assert "Finished counting to 3" in out
+        assert "Execution time is negligible (less than a second)." in out
+
+    def test_read_file_generator_reads_the_activity_log(self):
+        _, out = run_script(self.FILE, inputs=["3", "2", "4", "3"])
+        assert "System Check Completed" in out
+
+    def test_even_and_odd_square_generators_emit_matching_squares(self):
+        _, out = run_script(self.FILE, inputs=["3", "2", "4", "3"])
+        assert "16" in out  # 4**2 from even_squares up to 4
+        assert "9" in out  # 3**2 from odd_squares up to 3
+
+    def test_generator_expression_counter_emits_sequential_values(self):
+        _, out = run_script(self.FILE, inputs=["3", "2", "4", "3"])
+        assert "\n1\n" in out
+        assert "\n2\n" in out
+
+
+# ---------------------------------------------------------------------------
 # inheritance.py
 # ---------------------------------------------------------------------------
 class TestInheritance:
@@ -585,6 +611,23 @@ class TestMultiLevelInheritance:
         _, out = run_script(self.FILE)
         assert "Nemo is fleeing from its predators." in out
         assert "Dory is hunting its prey." in out
+
+
+# ---------------------------------------------------------------------------
+# multitasking.py
+# ---------------------------------------------------------------------------
+class TestMultitasking:
+    FILE = f"{FOLDER}/multitasking.py"
+
+    def test_all_three_chores_report_completion(self):
+        _, out = run_script(self.FILE)
+        assert "You finish cleaning Scooby Doo's bedroom." in out
+        assert "You took out the trash." in out
+        assert "You got mail!" in out
+
+    def test_all_chores_finish_before_completion_message(self):
+        _, out = run_script(self.FILE)
+        assert out.rstrip().endswith("All chores are complete!")
 
 
 # ---------------------------------------------------------------------------

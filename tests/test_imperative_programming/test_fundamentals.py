@@ -994,3 +994,93 @@ class TestLoginStatus:
         _, out = run_script(self.FILE, patches=[val_err])
         assert "Please type within boolean logic. True or False." in out
 
+
+# =====================================================================
+# 15. STRINGS
+# =====================================================================
+
+class TestStrings:
+    FILE = f"{FOLDER}/strings.py"
+
+    def test_case_methods_transform_the_padded_name(self):
+        _, out = run_script(self.FILE, inputs=["Ahsan"])
+        assert "  AhSaN " in out  # .swapcase() keeps surrounding spaces
+        assert " ahsan " in out  # .lower()
+        assert " AHSAN " in out  # .upper()
+
+    def test_strip_family_removes_whitespace_from_each_side(self):
+        _, out = run_script(self.FILE, inputs=["Ahsan"])
+        assert "AhSaN" in out  # .strip()
+        assert "AhSaN " in out  # .lstrip() keeps trailing space
+        assert " AhSaN" in out  # .rstrip() keeps leading space
+
+    def test_find_and_replace_are_case_sensitive(self):
+        _, out = run_script(self.FILE, inputs=["Ahsan"])
+        assert "-1" in out  # .find("s") -> no lowercase s
+        assert "4" in out  # .rfind("a")
+        assert " ahSaN " in out  # .replace("A", "a")
+
+    def test_split_join_and_list_based_operations(self):
+        _, out = run_script(self.FILE, inputs=["Ahsan"])
+        assert "[' A', 'SaN ']" in out  # .split("h")
+        assert "Hello AhSaN , Welcome!" in out  # .join([...])
+        assert "1" in out  # .count("A")
+
+    def test_boolean_and_identifier_checks(self):
+        _, out = run_script(self.FILE, inputs=["Ahsan"])
+        assert "False" in out  # isalpha/isdigit/islower/isupper/startswith etc.
+        assert "True" in out  # isprintable/isascii
+
+    def test_padding_methods(self):
+        _, out = run_script(self.FILE, inputs=["Ahsan"])
+        assert "   AhSaN" in out  # .center(10)
+        assert "000 AhSaN" in out  # .zfill(10)
+
+    def test_input_is_echoed_back_in_greeting(self):
+        _, out = run_script(self.FILE, inputs=["Ahsan"])
+        assert "Hey there, Ahsan" in out
+
+    def test_escape_sequences_and_formatting_table(self):
+        _, out = run_script(self.FILE, inputs=["Ahsan"])
+        assert "This is a back slash  symbol (\\)" in out
+        assert 'starts with "Hello, World!"' in out
+        assert " AhSaN \tA\t0" in out  # per-index table row
+
+
+# =====================================================================
+# 16. DATETIME
+# =====================================================================
+
+class TestDateTime:
+    FILE = f"{FOLDER}/date_time.py"
+
+    def test_date_and_time_objects_are_printed(self):
+        _, out = run_script(self.FILE)
+        assert "a = 00:00:00" in out
+        assert "b = 10:30:50" in out
+        assert "Current year:" in out
+
+    def test_strftime_formatting_variants(self):
+        _, out = run_script(self.FILE)
+        assert "time one:" in out
+        assert "time two:" in out
+
+    def test_strptime_parses_a_text_date(self):
+        _, out = run_script(self.FILE)
+        assert "date_string = 28th September, 2026" in out
+        assert "2026-09-28 00:00:00" in out
+
+    def test_timezone_conversions_are_printed(self):
+        _, out = run_script(self.FILE)
+        assert "EST:" in out
+        assert "BST:" in out
+
+    def test_compare_datetime_against_now(self):
+        _, out = run_script(self.FILE)
+        assert "left to meet the deadline." in out
+
+    def test_timedelta_arithmetic(self):
+        _, out = run_script(self.FILE)
+        assert "t3 =" in out
+        assert "Time left for new year:" in out
+

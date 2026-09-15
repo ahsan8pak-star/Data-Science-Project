@@ -115,7 +115,7 @@ structured history and keep the log scannable:
 
 - 92 imperative scripts, 19 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1122 passing tests, ~89% coverage. `conftest.py` per area provides
+- 1165 passing tests, ~89% coverage. `conftest.py` per area provides
   `run_script()` which runs scripts via `runpy` with mocked `input()` /
   `time.sleep()` and optional `cwd` for file-writing tests.
 - `scripts/execution_time.py`: interactive `tree /f`-style project map +

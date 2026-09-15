@@ -471,6 +471,33 @@ class TestFileWriter:
 
 
 # ---------------------------------------------------------------------------
+# file_handling.py
+# ---------------------------------------------------------------------------
+class TestFileHandling:
+    FILE = f"{FOLDER}/file_handling.py"
+
+    def test_report_existing_tracked_test_txt(self):
+        _, out = run_script(self.FILE)
+        assert "This file location" in out
+        assert "exists" in out
+        assert "This is a file" in out
+
+
+# ---------------------------------------------------------------------------
+# file_reader.py
+# ---------------------------------------------------------------------------
+class TestFileReader:
+    FILE = f"{FOLDER}/file_reader.py"
+
+    def test_reads_all_three_input_formats(self):
+        _, out = run_script(self.FILE)
+        assert "This is being read from file_reader.py" in out
+        assert "'gamertag': 'A.I.M'" in out
+        assert "Tag: A.I.M (str) | Score: 12500 (int) | Online: True (bool)" in out
+        assert "Tag: AimeeAsPanda (str) | Score: 0 (int) | Online: False (bool)" in out
+
+
+# ---------------------------------------------------------------------------
 # food_menu.py
 # ---------------------------------------------------------------------------
 class TestFoodMenu:
