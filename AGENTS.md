@@ -122,3 +122,59 @@ structured history and keep the log scannable:
   per-folder benchmark report (`PASS`/`FAIL`/`TIMEOUT`/`ERROR`).
 - Postgres is planned (`psycopg2` installed, `postgresql/sandbox/aim.sql`
   reserved) but not started.
+
+## References
+
+External study/project resources tracked in `NOTES.md`, plus the local module
+briefing documents under `university_courseworks/` (tracked in git; the
+accompanying `.pdf` / `.txt` copies are local-only).
+
+### Codedex Projects
+
+| Resource | Purpose | URL |
+| --- | --- | --- |
+| 50 Terminal Project Ideas | Beginner CLI Python project list | https://www.codedex.io/projects/50-terminal-project-ideas-using-python |
+| Roman Numeral Converter | Data-format conversion exercise | https://www.codedex.io/projects/convert-roman-numerals-with-python |
+| Word Guessing Game | Game-loop state machine exercise | https://www.codedex.io/projects/build-a-word-guessing-game-with-python |
+| Create a GIF | Pillow image generation | https://www.codedex.io/projects/create-a-gif-with-python |
+| Generate a QR Code | qrcode image output | https://www.codedex.io/projects/generate-a-qr-code-with-python |
+| Build Pong with PyGame | Real-time physics / collision engine | https://www.codedex.io/projects/build-pong-with-pygame |
+| Web Scrape Amazon with Beautiful Soup | DOM parsing / HTTP extraction | https://www.codedex.io/projects/web-scrape-amazon-with-beautiful-soup |
+| Build a Discord Bot | Async network event loops | https://www.codedex.io/projects/build-a-discord-bot-with-python |
+| Automated Scheduling Alert System via SMTP | Email automation / background tasks | https://www.codedex.io/projects/automate-secret-santa-emails-with-smtp |
+| Analyze Spreadsheet Data with Pandas & ChatGPT | DataFrames + LLM-driven EDA | https://www.codedex.io/projects/analyze-spreadsheet-data-with-pandas-chatgpt |
+| Visualize YouTube Data with Plotly | Multi-variable time-series visualisation | https://www.codedex.io/projects/visualize-youtube-data-with-plotly |
+| PostgreSQL Data Analysis | Relational database aggregates / `.groupby()` | https://www.codedex.io/projects/analyze-twitch-data-with-sqlite |
+| Analyze Custom Library Data with SciPy | Scientific statistics / variance models | https://www.codedex.io/projects/analyze-us-census-data-with-scipy |
+| Analyze Premier League / Baseball Stats (Pandas + Matplotlib) | Time-series wrangling / moving averages | https://www.codedex.io/projects/analyze-baseball-stats-with-pandas-and-matplotlib |
+| Predict Home Prices with Linear Regression | Supervised predictive modelling | https://www.codedex.io/projects/predict-home-prices-with-python-and-linear-regression |
+| Image Object Detection with Hugging Face | Computer vision / pre-trained transformers | https://www.codedex.io/projects/detect-hotdog-with-hugging-face |
+| Custom Search Engine with Exa AI | Dense vector semantics / neural indexes | https://www.codedex.io/projects/build-a-custom-search-engine-with-exa-ai |
+| Voice Virtual Assistant with ElevenLabs | Multimodal audio streaming | https://www.codedex.io/projects/create-a-voice-virtual-assistant-with-elevenlabs |
+
+### Roadmaps & Learning Platforms
+
+| Resource | Purpose | URL |
+| --- | --- | --- |
+| AI & Data Scientist Roadmap | Systems architecture guide | https://roadmap.sh/ai-data-scientist |
+| Business Case Modelling Tracks | Production analytics portfolios | https://learn.365datascience.com/projects/ |
+| Enterprise GenAI Projects | LLM vector and application implementations | https://www.projectpro.io/genai-projects |
+| Core Data Science Projects | Scaled production data-science implementations | https://www.projectpro.io/projects/data-science-projects |
+| Applied ML Algorithms | Supervised/unsupervised ML frameworks | https://www.projectpro.io/projects/data-science-projects/machine-learning-projects-in-python |
+| Neural Networks Projects | Deep learning production systems | https://www.projectpro.io/projects/data-science-projects/deep-learning-projects |
+
+### University Module Briefings (local, non-code)
+
+| Module | Purpose | File |
+| --- | --- | --- |
+| CS1AC | Applications of Computer Science (Year 1) | `university_courseworks/year1/CS1AC~0022~20256.html` |
+| CS1CA | Computer Systems Architecture (Year 1) | `university_courseworks/year1/CS1CA~0022~20256.html` |
+| CS1DB | Databases - group assessment (Year 1) | `university_courseworks/year1/CS1DB~0022~20256.html` |
+| CS1IP | Imperative Programming (Year 1) | `university_courseworks/year1/CS1IP~0022~20256.html` |
+| CS1MA | Mathematics and Computation (Year 1) | `university_courseworks/year1/CS1MA~0022~20256.html` |
+| CS1OP | Object-Oriented Programming (Year 1) | `university_courseworks/year1/CS1OP~0022~20256.html` |
+| CS2DA | Data Analytics (Year 2) | `university_courseworks/year2/CS2DA~0022~20267.htm` |
+| CS2ON | Operating Systems and Computer Networking (Year 2) | `university_courseworks/year2/CS2ON~0022~20267.htm` |
+| CS2PP | Python Programming (Year 2) | `university_courseworks/year2/CS2PP~0022~20267.htm` |
+| CS2SD | Software Systems Design (Year 2) | `university_courseworks/year2/CS2SD~0022~20267.htm` |
+| CS2SE | Software Engineering (Year 2) | `university_courseworks/year2/CS2SE~0022~20267.htm` |
