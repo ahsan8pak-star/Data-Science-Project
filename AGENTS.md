@@ -113,7 +113,7 @@ structured history and keep the log scannable:
 
 ## Feature Summary (what exists today)
 
-- 92 imperative scripts, 19 functional, 29 OOP, plus `advanced_projects`
+- 92 imperative scripts, 19 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
 - 1112 passing tests, ~93% coverage. `conftest.py` per area provides
   `run_script()` which runs scripts via `runpy` with mocked `input()` /
