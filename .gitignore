@@ -301,3 +301,8 @@ cmake-build-release/
 !requirements*.txt
 !requirements*.in
 
+# Root-level generated artifacts and placeholders left on disk by tests
+/.gitkeep
+/output.csv
+/output.json
+
