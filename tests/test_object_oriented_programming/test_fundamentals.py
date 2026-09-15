@@ -288,6 +288,42 @@ class TestConstructors:
 
 
 # ---------------------------------------------------------------------------
+# data_classes.py
+# ---------------------------------------------------------------------------
+class TestDataClasses:
+    FILE = f"{FOLDER}/data_classes.py"
+
+    def test_persons_are_printed_with_default_field_values(self):
+        _, out = run_script(self.FILE)
+        assert "Person(name='Ahsan', age=21, is_student=True)" in out
+        assert "Person(name='Aiman', age=19, is_student=True)" in out
+
+    def test_password_is_redacted_from_the_repr(self):
+        _, out = run_script(self.FILE)
+        assert "A.I.M1ndset" not in out
+        assert "aimee6panda" not in out
+
+    def test_is_student_defaults_to_true(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.Person("Nobody", 25, "secret").is_student is True
+
+    def test_different_person_objects_are_not_equal(self):
+        mod, _ = run_script(self.FILE)
+        assert (mod.person1 == mod.person2) is False
+
+    def test_equal_person_objects_compare_equal(self):
+        mod, _ = run_script(self.FILE)
+        a = mod.Person("Ahsan", 21, "pw1")
+        b = mod.Person("Ahsan", 21, "pw1")
+        assert a == b
+
+    def test_negative_age_raises_value_error(self):
+        mod, _ = run_script(self.FILE)
+        with pytest.raises(ValueError, match="Age cannot be negative"):
+            mod.Person("Bad", -1, "secret")
+
+
+# ---------------------------------------------------------------------------
 # decorator.py
 # ---------------------------------------------------------------------------
 class TestDecorator:
@@ -403,6 +439,40 @@ class TestInheritance:
         dog = mod.Dog("Rex")
         assert dog.name == "Rex"
         assert hasattr(dog, "eat") and hasattr(dog, "sleep") and hasattr(dog, "play")
+
+
+# ---------------------------------------------------------------------------
+# iterator.py
+# ---------------------------------------------------------------------------
+class TestIterator:
+    FILE = f"{FOLDER}/iterator.py"
+
+    def test_three_patched_rolls_are_printed(self):
+        fixed_roll = patch("random.randint", return_value=6)
+        _, out = run_script(self.FILE, patches=[fixed_roll])
+        assert out.splitlines() == ["6", "6", "6"]
+
+    def test_iter_returns_the_dice_object_itself(self):
+        mod, _ = run_script(self.FILE)
+        dice = mod.Dice(2)
+        assert iter(dice) is dice
+
+    def test_next_raises_stop_iteration_after_requested_roll_count(self):
+        mod, _ = run_script(self.FILE)
+        dice = mod.Dice(2)
+        assert next(dice) in range(1, 7)
+        assert next(dice) in range(1, 7)
+        with pytest.raises(StopIteration):
+            next(dice)
+
+    def test_count_remembers_position_between_calls(self):
+        mod, _ = run_script(self.FILE)
+        dice = mod.Dice(3)
+        assert dice.count == 0
+        next(dice)
+        assert dice.count == 1
+        next(dice)
+        assert dice.count == 2
 
 
 # ---------------------------------------------------------------------------
