@@ -30,3 +30,17 @@ python_functions = "test_*"
 addopts = "--strict-markers"
 pythonpath = ["python"]
 
+[tool.coverage.run]
+# Exclude generated/vendored and test-infrastructure files from coverage so the
+# report reflects only the real source under python/ and scripts/.
+omit = [
+    "*/__pycache__/*",
+    "*/pytest-of-*/*",
+    "*/AppData/Local/Temp/*",
+    "tests/*",
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+
