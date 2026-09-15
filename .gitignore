@@ -297,3 +297,7 @@ cmake-build-release/
 *.in
 *.ini
 
+# Requirements files are source config, not generated artifacts
+!requirements*.txt
+!requirements*.in
+
