@@ -22,6 +22,8 @@ agent (or future human) working on this project should read this first.
 | Run one test folder | `.venv/Scripts/python.exe -m pytest tests/test_imperative_programming/` |
 | Run one test file | `.venv/Scripts/python.exe -m pytest tests/test_imperative_programming/test_unit_and_format_converters.py` |
 | Coverage report (term + missing lines) | `.venv/Scripts/python.exe -m pytest --cov --cov-report=term-missing` |
+| Coverage scope limited to `python/` | `.venv/Scripts/python.exe -m pytest --cov=python` |
+| Clickable HTML coverage report | `.venv/Scripts/python.exe -m pytest --cov=python --cov-report=html` (writes to ignored `htmlcov/`) |
 | Interactive project tree + benchmark | `.venv/Scripts/python.exe scripts/execution_time.py` |
 | Project tree in non-interactive `--all` mode | `.venv/Scripts/python.exe scripts/execution_time.py --all` |
 
@@ -115,15 +117,25 @@ structured history and keep the log scannable:
 
 - 92 imperative scripts, 19 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1232 passing tests, ~98% coverage. `conftest.py` per area provides
-  `run_script()` which runs scripts via `runpy` with mocked `input()` /
-  `time.sleep()` and optional `cwd` for file-writing tests.
-- Coverage caps by design (do NOT "fix" the scripts to chase lines):
+- 1269 passing tests, ~99% coverage (180 files at 100%, including both
+  music-player GUIs). `conftest.py` per area provides `run_script()` which
+  runs scripts via `runpy` with mocked `input()` / `time.sleep()` and
+  optional `cwd` for file-writing tests.
+- Coverage caps by design (do NOT "fix" the scripts to chase lines): the
+  remaining 29 uncovered lines sit only in the eight capped scripts.
   `variables.py` (~84%) has hardcoded booleans whose nested
   "Stop Lying"/"Accident or Intented?"/offline branches are unreachable
   without editing source; OOP `generator.py` (~92%) has a dead
   `elif execution_time >= 3600` branch that can never fire after the
-  earlier `>= 60` elif; both sit above the 80% floor.
+  earlier `>= 60` elif; both sit above the 80% floor. Additional
+  dead-by-design caps documented during the full-path sweep:
+  `conditions.py` hardcodes `temperature = 25` / `name = "A.I.M"` so the
+  hot/bit-cold/cold branches and the name-while-loop body can never run;
+  `dictionaries.py` calls `capitals.clear()` before its keys()/values()/
+  items() loops so those loop bodies are unreachable; `abstract_classes.py`,
+  `device.py` and `polymorphism.py` keep `pass` bodies inside abstract
+  methods that can never be invoked; `login_status.py` compares a bound
+  method to a string (`is_admin[0].upper == "T"`), which is never True.
 - `scripts/execution_time.py`: interactive `tree /f`-style project map +
   per-folder benchmark report (`PASS`/`FAIL`/`TIMEOUT`/`ERROR`).
 - Postgres is planned (`psycopg2` installed, `postgresql/sandbox/aim.sql`
