@@ -31,8 +31,10 @@ addopts = "--strict-markers"
 pythonpath = ["python"]
 
 [tool.coverage.run]
-# Exclude generated/vendored and test-infrastructure files from coverage so the
-# report reflects only the real source under python/ and scripts/.
+# Scope the report to the real source tree under python/ (every .py file is
+# listed, even at 100%, because skip_covered is disabled below) and exclude
+# generated/vendored and test-infrastructure paths from coverage.
+source = ["python"]
 omit = [
     "*/__pycache__/*",
     "*/pytest-of-*/*",
@@ -44,5 +46,5 @@ omit = [
 
 [tool.coverage.report]
 show_missing = true
-skip_covered = true
+skip_covered = false
 
