@@ -28,6 +28,8 @@ from tests.test_advanced_projects.conftest import BASE_DIR, load_module
 
 MP3_TUI = "music_player/tui/mp3_tui_player.py"
 WAV_TUI = "music_player/tui/wav_tui_player.py"
+MP3_TUI_PATH = BASE_DIR / "music_player" / "tui" / "mp3_tui_player.py"
+WAV_TUI_PATH = BASE_DIR / "music_player" / "tui" / "wav_tui_player.py"
 MP3_GUI_PATH = BASE_DIR / "music_player" / "gui" / "mp3_gui_player.py"
 WAV_GUI_PATH = BASE_DIR / "music_player" / "gui" / "wav_gui_player.py"
 
@@ -271,6 +273,122 @@ class TestTuiEntryPoints:
 
 
 # ---------------------------------------------------------------------------
+# TUI menu loops (input()-driven song selection + in-track control menu)
+# ---------------------------------------------------------------------------
+class TestTuiMenuLoops:
+
+    @pytest.fixture(autouse=True)
+    def _load(self, audio_ctx):
+        self.mp3 = load_module(MP3_TUI)
+        self.wav = load_module(WAV_TUI)
+
+    @pytest.fixture()
+    def songs(self):
+        return ["alpha.mp3", "beta.mp3"]
+
+    @pytest.fixture()
+    def menu_path(self, songs):
+        """
+        Drive the outer track-selection menu and every in-track control
+        option once: play, pause, resume, forward, restart, loop track,
+        loop playlist, shuffle, stop file, back to track list, then quit.
+        """
+        return ["1", "1", "2", "3", "4", "6", "7", "8", "9", "10", "11", "Q"]
+
+    def test_mp3_full_menu_cycle(self, menu_path, songs, audio_ctx, capsys):
+        audio_ctx["pygame"].mixer.music.get_pos.return_value = 3000
+        with patch.object(self.mp3.MP3AudioPlayer, "get_mp3_files", return_value=songs), \
+                patch("os.path.exists", return_value=True), \
+                patch("builtins.input", side_effect=iter(menu_path)):
+            self.mp3.mp3_player()
+
+        out = capsys.readouterr().out
+        assert "Playing Music MP3 Player" in out
+        assert "Playback paused" in out
+        assert "Playing Resumed" in out
+        assert "Forward (-> Track 2)" in out
+        assert "Restarting current track" in out
+        assert "Loop Single Track : ENABLED" in out
+        assert "Loop Entire Playlist : ENABLED" in out
+        assert "Shuffle Playback : ENABLED" in out
+        assert "Stopped music file playback" in out
+        assert "Shutting down MP3 Player interface..." in out
+
+    def test_wav_full_menu_cycle(self, menu_path, songs, audio_ctx, capsys):
+        audio_ctx["pygame"].mixer.music.get_pos.return_value = 3000
+        with patch.object(self.wav.WAVAudioPlayer, "get_wav_files", return_value=songs), \
+                patch("os.path.exists", return_value=True), \
+                patch("builtins.input", side_effect=iter(menu_path)):
+            self.wav.wav_player()
+
+        out = capsys.readouterr().out
+        assert "Playing Music WAV Player" in out
+        assert "Playback paused" in out
+        assert "Forward (-> Track 2)" in out
+        assert "Loop Single Track : ENABLED" in out
+        assert "Shutdown WAV Player interface..." not in out  # quit via '0', not 'Q'
+        assert "Shutting down WAV Player interface..." in out
+
+    def test_mp3_error_paths_and_shuffle(self, songs, capsys):
+        """
+        Non-digit input, out-of-range track, shuffle-driven forward/
+        backward, an invalid in-track option, and hard quit via '0'.
+        """
+        with patch.object(self.mp3.MP3AudioPlayer, "get_mp3_files", return_value=songs), \
+                patch("os.path.exists", return_value=True), \
+                patch("random.choice", side_effect=lambda seq: seq[0]), \
+                patch("builtins.input", side_effect=iter(
+                    ["abc", "99", "2", "9", "4", "5", "12", "0"]
+                )):
+            self.mp3.mp3_player()
+
+        out = capsys.readouterr().out
+        assert "Please enter a valid numerical index." in out
+        assert "Selected track index out of range." in out
+        assert "Shuffle Playback : ENABLED" in out
+        assert "Forward (-> Track 1)" in out  # shuffle picks the other index
+        assert "Backward (-> Track 2)" in out
+        assert "Invalid choice" in out
+        assert "Audio engine player shut down" in out
+
+    def test_wav_error_paths_and_shuffle(self, songs, capsys):
+        with patch.object(self.wav.WAVAudioPlayer, "get_wav_files", return_value=songs), \
+                patch("os.path.exists", return_value=True), \
+                patch("random.choice", side_effect=lambda seq: seq[0]), \
+                patch("builtins.input", side_effect=iter(
+                    ["abc", "99", "2", "9", "4", "5", "12", "0"]
+                )):
+            self.wav.wav_player()
+
+        out = capsys.readouterr().out
+        assert "Please enter a valid numerical index." in out
+        assert "Shuffle Playback : ENABLED" in out
+        assert "Invalid choice" in out
+
+    def test_mp3_main_guard_catches_keyboard_interrupt(self, audio_ctx, capsys):
+        import runpy
+
+        with patch("os.path.isdir", return_value=True), \
+                patch("os.listdir", return_value=["alpha.mp3", "beta.mp3"]), \
+                patch("builtins.input", side_effect=KeyboardInterrupt()):
+            runpy.run_path(str(MP3_TUI_PATH), run_name="__main__")
+
+        out = capsys.readouterr().out
+        assert "MP3 player session terminated by user." in out
+
+    def test_wav_main_guard_catches_keyboard_interrupt(self, audio_ctx, capsys):
+        import runpy
+
+        with patch("os.path.isdir", return_value=True), \
+                patch("os.listdir", return_value=["alpha.wav", "beta.wav"]), \
+                patch("builtins.input", side_effect=KeyboardInterrupt()):
+            runpy.run_path(str(WAV_TUI_PATH), run_name="__main__")
+
+        out = capsys.readouterr().out
+        assert "WAV player session terminated by user." in out
+
+
+# ---------------------------------------------------------------------------
 # GUI wrappers (tkinter mocked; delegation to the TUI engine verified)
 # ---------------------------------------------------------------------------
 def _load_gui_module(path, module_name):
@@ -309,6 +427,94 @@ class TestMP3GUI:
 
         assert self.gui_mod.messagebox.showerror.call_count == 1
 
+    def test_select_folder_populates_track_list(self, audio_ctx):
+        self.gui_mod.filedialog.askdirectory.return_value = "/songs"
+        with patch.object(
+            self.gui_mod.MP3AudioPlayer, "get_mp3_files", return_value=["alpha.mp3", "beta.mp3"]
+        ):
+            self.gui._select_folder()
+
+        assert self.gui.player is not None
+        assert self.gui.folder_label.config.call_args_list
+        assert self.gui.track_listbox.insert.call_count == 2
+        self.gui.status_label.config.assert_called()
+
+    def test_playback_controls_guard_without_player(self):
+        self.gui.player = None
+        self.gui.mp3_files = []
+        self.gui._play()
+        self.gui._forward()
+        self.gui._backward()
+
+    def test_transport_controls_delegate_to_player(self, audio_ctx):
+        player = MagicMock(name="mp3_player", current_song="alpha.mp3", status="Active")
+        self.gui.player = player
+        self.gui.mp3_files = ["alpha.mp3", "beta.mp3"]
+        self.gui.current_idx = 0
+
+        self.gui._play(); player.play.assert_called()
+        self.gui._pause(); player.pause.assert_called()
+        self.gui._resume(); player.resume.assert_called()
+        self.gui._stop(); player.stop_music_file.assert_called()
+
+    def test_track_skip_updates_current_index(self, audio_ctx):
+        player = MagicMock(name="mp3_player", current_song="alpha.mp3", status="Active")
+        player.forward.return_value = 1
+        player.backward.return_value = 0
+        self.gui.player = player
+        self.gui.mp3_files = ["alpha.mp3", "beta.mp3"]
+
+        self.gui._forward()
+        assert self.gui.current_idx == 1
+        self.gui.track_listbox.selection_clear.assert_called()
+        self.gui.track_listbox.selection_set.assert_called_with(1)
+
+        self.gui._backward()
+        assert self.gui.current_idx == 0
+
+    def test_toggle_callbacks_sync_checkbox_var(self, audio_ctx):
+        player = MagicMock(name="mp3_player", current_song="alpha.mp3", status="Active")
+        self.gui.player = player
+        self.gui.loop_track_var.get.side_effect = [True, False, True]
+
+        self.gui._toggle_loop_track()
+        assert player.loop_track is True
+        self.gui._toggle_loop_playlist()
+        assert player.loop_playlist is False
+        self.gui._toggle_shuffle()
+        assert player.shuffle is True
+
+    def test_update_status_displays_now_playing(self, audio_ctx):
+        player = MagicMock(name="mp3_player", current_song="alpha.mp3", status="Active")
+        self.gui.player = player
+        self.gui._update_status()
+        text = self.gui.status_label.config.call_args[1].get("text", "")
+        assert "alpha.mp3" in text
+
+    def test_update_status_noop_without_song(self, audio_ctx):
+        player = MagicMock(name="mp3_player", current_song=None)
+        self.gui.player = player
+        self.gui._update_status()
+        self.gui.status_label.config.assert_not_called()
+
+    def test_on_track_select_sets_index(self):
+        self.gui.track_listbox.curselection.return_value = (3,)
+        self.gui._on_track_select(None)
+        assert self.gui.current_idx == 3
+
+    def test_on_track_select_ignores_empty_selection(self):
+        self.gui.track_listbox.curselection.return_value = ()
+        self.gui._on_track_select(None)
+        assert self.gui.current_idx == 0
+
+    def test_main_entry_point(self, audio_ctx):
+        self.gui_mod.main()
+        self.gui_mod.tk.Tk.return_value.mainloop.assert_called_once()
+
+    def test_main_guard_executes(self, audio_ctx):
+        import runpy
+        runpy.run_path(str(MP3_GUI_PATH), run_name="__main__")
+
 
 class TestWAVGUI:
 
@@ -326,4 +532,73 @@ class TestWAVGUI:
         self.gui_mod.filedialog.askdirectory.return_value = ""
         self.gui._select_folder()
         assert self.gui.player is None
+
+    def test_select_folder_populates_track_list(self, audio_ctx):
+        self.gui_mod.filedialog.askdirectory.return_value = "/songs"
+        with patch.object(
+            self.gui_mod.WAVAudioPlayer, "get_wav_files", return_value=["alpha.wav", "beta.wav"]
+        ):
+            self.gui._select_folder()
+
+        assert self.gui.player is not None
+        assert self.gui.track_listbox.insert.call_count == 2
+        self.gui.status_label.config.assert_called()
+
+    def test_playback_controls_guard_without_player(self):
+        self.gui.player = None
+        self.gui.wav_files = []
+        self.gui._play()
+        self.gui._forward()
+        self.gui._backward()
+
+    def test_transport_controls_delegate_to_player(self, audio_ctx):
+        player = MagicMock(name="wav_player", current_song="alpha.wav", status="Active")
+        self.gui.player = player
+        self.gui.wav_files = ["alpha.wav", "beta.wav"]
+        self.gui.current_idx = 0
+
+        self.gui._play(); player.play.assert_called()
+        self.gui._pause(); player.pause.assert_called()
+        self.gui._resume(); player.resume.assert_called()
+        self.gui._stop(); player.stop_music_file.assert_called()
+
+    def test_track_skip_updates_current_index(self, audio_ctx):
+        player = MagicMock(name="wav_player", current_song="alpha.wav", status="Active")
+        player.forward.return_value = 1
+        player.backward.return_value = 0
+        self.gui.player = player
+        self.gui.wav_files = ["alpha.wav", "beta.wav"]
+
+        self.gui._forward()
+        assert self.gui.current_idx == 1
+        self.gui.track_listbox.selection_set.assert_called_with(1)
+
+        self.gui._backward()
+        assert self.gui.current_idx == 0
+
+    def test_toggle_callbacks_sync_checkbox_var(self, audio_ctx):
+        player = MagicMock(name="wav_player", current_song="alpha.wav", status="Active")
+        self.gui.player = player
+        self.gui.loop_track_var.get.return_value = True
+        self.gui.shuffle_var.get.return_value = True
+
+        self.gui._toggle_loop_track()
+        assert player.loop_track is True
+        self.gui._toggle_shuffle()
+        assert player.shuffle is True
+
+    def test_update_status_displays_now_playing(self, audio_ctx):
+        player = MagicMock(name="wav_player", current_song="alpha.wav", status="Active")
+        self.gui.player = player
+        self.gui._update_status()
+        text = self.gui.status_label.config.call_args[1].get("text", "")
+        assert "alpha.wav" in text
+
+    def test_main_entry_point(self, audio_ctx):
+        self.gui_mod.main()
+        self.gui_mod.tk.Tk.return_value.mainloop.assert_called_once()
+
+    def test_main_guard_executes(self, audio_ctx):
+        import runpy
+        runpy.run_path(str(WAV_GUI_PATH), run_name="__main__")
 

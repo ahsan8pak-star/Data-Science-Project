@@ -425,64 +425,55 @@ class TestHelloWorld:
 class TestLists:
     FILE = f"{FOLDER}/lists.py"
 
-    def test_indexing_and_slicing_prints_before_the_crash(self):
-
+    @pytest.fixture(scope="class")
+    @classmethod
+    def output(cls):
         """
-        See test_pop_from_cleared_list_crashes below: the script never
-        reaches the end, so we only get to assert on what it printed up to
-        that point.
+        Run the script once and cache the captured stdout - lists.py prints
+        a lot (including the full `help(list)` text), so re-running per test
+        would be wasteful.
         """
-        
-        with pytest.raises(IndexError) as exc_info:
-            run_script(self.FILE)
-        
-        out = getattr(exc_info.value, "partial_output", "")
-        assert "Ahsan" in out
-        assert "Hamza" in out
-        assert "['Ahsan', 'Yahya', 'Matthew', 'Ahnaf', 'Hamza']" in out
+        _, out = run_script(cls.FILE)
+        return out
 
-    def test_pop_from_cleared_list_crashes(self):
-        
-        """
-        Genuine bug in the source script: `numbers.clear()` is called
-        immediately followed by `numbers.pop()` on the very next line, so
-        the script always raises IndexError at that point and never
-        reaches the sort/reverse/duplicates/matrix demos further down.
-        """
-        
-        with pytest.raises(IndexError):
-            run_script(self.FILE)
+    def test_indexing_and_slicing_printed(self, output):
+        assert "Ahsan" in output
+        assert "Hamza" in output
+        assert "['Ahsan', 'Yahya', 'Matthew', 'Ahnaf', 'Hamza']" in output
+        assert "['Matthew', 'Ahnaf', 'Hamza']" in output  # names[-3:]
+        assert "['Ahnaf', 'Hamza']" in output  # names[-2:]
 
-    def test_negative_index_slicing_present_before_crash(self):
-        with pytest.raises(IndexError) as exc_info:
-            run_script(self.FILE)
-        out = getattr(exc_info.value, "partial_output", "")
-        assert "['Matthew', 'Ahnaf', 'Hamza']" in out  # names[-3:]
+    def test_negative_index_slicing_printed(self, output):
+        assert "['Hamza']" in output  # names[-1:]
+        assert "['Ahsan', 'Yahya', 'Matthew']" in output  # names[:-3]
 
-    def test_empty_slice_present_before_crash(self):
-        with pytest.raises(IndexError) as exc_info:
-            run_script(self.FILE)
-        out = getattr(exc_info.value, "partial_output", "")
-        assert "[]" in out  # names[:0] and names[:-5]
+    def test_list_modification_prints_new_values(self, output):
+        assert "['Alpha', 'Beta', 'Charlie', 'Delta', 'Enigma']" in output
 
-    def test_list_mutability(self):
-        shopping_cart = ["bread", "milk"]
-        shopping_cart.append("tea")
+    def test_list_methods_run_to_completion(self, output):
+        # clear() is intentionally commented out, so pop()/sort()/reverse()
+        # operate on the real list instead of raising IndexError.
+        assert "[1, 2, 3, 4, 5]" in output
+        assert "True" in output  # 2 in numbers
+        assert "False" in output  # 21 in numbers
 
-        assert len(shopping_cart) == 3
-        assert shopping_cart[-1] == "tea"
+    def test_unpacking_and_sorted_present(self, output):
+        assert "['Charlie', 'Delta']" in output  # *rest
+        assert "Enigma" in output  # last_name
 
-    def test_matrix_and_duplicate_logic_never_reached(self):
-        
-        """
-        The identity-matrix and duplicate-removal demos live after the
-        clear()/pop() crash point, so they never actually execute.
-        """
-        
-        with pytest.raises(IndexError) as exc_info:
-            run_script(self.FILE)
-        out = getattr(exc_info.value, "partial_output", "")
-        assert "[1, 0, 0]" not in out
+    def test_duplicate_removal_and_max_min(self, output):
+        assert "[2, 4, 6, 3, 1]" in output  # uniques
+        assert "9" in output  # max
+        assert "2" in output  # min
+
+    def test_identity_matrix_renders(self, output):
+        assert "[1, 0, 0]" in output
+        assert "[0, 5, 0]" in output
+        assert "[0, 0, 9]" in output
+
+    def test_horizontal_matrix_and_comprehensions(self, output):
+        assert "[1, 2, 3, 4, 5, 6, 7, 8, 9]" in output
+        assert "class list(object)" in output  # dir()/help() inventory
 
 # =====================================================================
 # 8. MODULES
@@ -712,42 +703,33 @@ class TestScopeResolution:
 class TestSets:
     FILE = f"{FOLDER}/sets.py"
 
-    def test_script_crashes_on_deleted_variable(self):
-        with pytest.raises(NameError):
-            run_script(self.FILE)
+    def test_script_runs_to_completion(self):
+        _, out = run_script(self.FILE)
+        assert "False" in out
+        assert "True" in out
 
     def test_membership_checks_output(self):
-        with pytest.raises(NameError) as exc_info:
-            run_script(self.FILE)
-        out = getattr(exc_info.value, "partial_output", "")
-        assert "False" in out
+        _, out = run_script(self.FILE)
+        assert "6" in out  # len(fruits)
+        assert out.count("False") >= 3  # coconut, Apple, issubset, isdisjoint
 
-    def test_add_and_remove_print_none(self):
-        """
-        .add() and .remove() both return None, so wrapping them in
-        print() prints the literal word 'None'.
-        """
-        with pytest.raises(NameError) as exc_info:
-            run_script(self.FILE)
-        out = getattr(exc_info.value, "partial_output", "")
-        assert out.count("None") >= 2
+    def test_set_to_list_conversion_prints_empty_list(self):
+        _, out = run_script(self.FILE)
+        assert "[]" in out  # fruits was cleared, then list(fruits)
 
-    def test_len_of_original_set_is_printed(self):
-        with pytest.raises(NameError) as exc_info:
-            run_script(self.FILE)
-        out = getattr(exc_info.value, "partial_output", "")
-        assert "6" in out
+    def test_union_and_intersection_demos_run(self):
+        _, out = run_script(self.FILE)
+        assert "item" in out  # set literal elements survive in unions
+        assert "64" in out  # intersection of squares and cubes
 
-    def test_case_sensitive_membership_check(self):
-        with pytest.raises(NameError) as exc_info:
-            run_script(self.FILE)
-        out = getattr(exc_info.value, "partial_output", "")
-        assert out.count("False") >= 2
+    def test_subset_superset_and_difference_checks(self):
+        _, out = run_script(self.FILE)
+        assert out.count("True") >= 3  # issubset/issuperset/isdisjoint
+        assert out.count("False") >= 3
 
-    def test_set_uniqueness(self):
-        unique_ids = {101, 102, 102, 103}
-        assert len(unique_ids) == 3  # Verifies duplicate removal
-        assert 101 in unique_ids
+    def test_symmetric_difference_and_disjoint_sets(self):
+        _, out = run_script(self.FILE)
+        assert "g" in out  # letters from dragon-only difference
         
 # =====================================================================
 # 13. TUPLES

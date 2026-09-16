@@ -65,6 +65,12 @@ class TestAverageGrades:
         # (330 + 330) // 100 = 6
         assert mod.AverageGrades(grades, weights) == [6]
 
+    def test_main_guard_builds_default_gradebook_and_prints(self, capsys):
+        import runpy
+
+        runpy.run_path(str(AVERAGE_GRADES), run_name="__main__")
+        assert "[56, 43]" in capsys.readouterr().out
+
 
 # ---------------------------------------------------------------------------
 # ice_cream.py
@@ -176,6 +182,28 @@ class TestSevenSegment:
         # digit 4's sides are "|  |", digit 2's upper-right is "   |"
         assert out[1] == "|  |    |"
 
+    def test_main_guard_displays_valid_number(self, capsys):
+        import runpy
+
+        with patch("builtins.input", side_effect=["42"]):
+            runpy.run_path(str(SEVEN_SEGMENT), run_name="__main__")
+        assert " -- " in capsys.readouterr().out
+
+    def test_main_guard_negative_input_clamps_to_zero(self, capsys):
+        import runpy
+
+        with patch("builtins.input", side_effect=["-5"]):
+            runpy.run_path(str(SEVEN_SEGMENT), run_name="__main__")
+        out = capsys.readouterr().out.splitlines()
+        assert len(out) == 5
+
+    def test_main_guard_non_integer_shows_message(self, capsys):
+        import runpy
+
+        with patch("builtins.input", side_effect=["abc"]):
+            runpy.run_path(str(SEVEN_SEGMENT), run_name="__main__")
+        assert "Integers Only." in capsys.readouterr().out
+
 
 # ---------------------------------------------------------------------------
 # volume.py
@@ -198,6 +226,13 @@ class TestVolume:
 
     def test_zero_diameter_gives_zero_volume(self, mod):
         assert mod.Volume(0) == 0.0
+
+    def test_main_guard_prints_default_sphere_volume(self, mod, capsys):
+        import runpy
+
+        runpy.run_path(str(VOLUME), run_name="__main__")
+        printed = float(capsys.readouterr().out.strip())
+        assert printed == pytest.approx(mod.Volume(20.24))
 
 
 # ---------------------------------------------------------------------------
@@ -315,4 +350,85 @@ class TestSortComparison:
 
         csv_path = Path(mod_at.__file__).parent / "sort_comparison.csv"
         assert csv_path.exists()
+
+    def test_main_block_runs_end_to_end(self, tmp_path, capsys, monkeypatch):
+        """
+        Run the real script as `__main__` so the demo prints and the
+        sort_comparison() call below the `if __name__` guard execute (and
+        get attributed to the real file). A patched builtins.open
+        substitutes a tiny deck for sort10000.txt to keep the quadratic
+        bubble sort fast, and redirects the CSV output to tmp_path so the
+        repo tree stays clean.
+        """
+        import builtins
+        import io
+        import runpy
+
+        real_open = builtins.open
+        redirect = tmp_path / "sort_comparison.csv"
+
+        def fake_open(path, mode="r", *args, **kwargs):
+            path = str(path)
+            if path.endswith("sort10000.txt") and "w" not in mode:
+                deck = "\n".join(f"{n}H" for n in range(1, 11))
+                return io.StringIO(deck + "\n")
+            if path.endswith("sort_comparison.csv") and "w" in mode:
+                return real_open(redirect, mode, *args, **kwargs)
+            return real_open(path, mode, *args, **kwargs)
+
+        import builtins as _builtins
+        monkeypatch.setattr(_builtins, "open", fake_open)
+        runpy.run_path(str(COURSEWORK2 / "sort_comparison.py"), run_name="__main__")
+
+        out = capsys.readouterr().out
+        assert 'card_compare("4H", "4H") = 0' in out
+        assert "✓ CSV file 'sort_comparison.csv' generated successfully!" in out
+
+        csv_text = redirect.read_text()
+        assert csv_text.startswith(", 10, 100, 10\n")
+        assert "bubbleSort" in csv_text
+        assert "mergeSort" in csv_text
+
+    def test_main_block_reports_missing_data_files(self, capsys, monkeypatch):
+        """
+        Making sort10.txt unreadable triggers the FileNotFoundError branch
+        of the __main__ guard, which prints the "files must exist" note.
+        """
+        import builtins
+        import runpy
+
+        real_open = builtins.open
+
+        def fake_open(path, mode="r", *args, **kwargs):
+            if str(path).endswith("sort10.txt") and "w" not in mode:
+                raise FileNotFoundError(f"Cannot find file: {path}")
+            return real_open(path, mode, *args, **kwargs)
+
+        monkeypatch.setattr(builtins, "open", fake_open)
+        runpy.run_path(str(COURSEWORK2 / "sort_comparison.py"), run_name="__main__")
+
+        out = capsys.readouterr().out
+        assert "ERROR" in out
+        assert "Make sure the following files exist" in out
+
+    def test_main_block_catches_unexpected_errors(self, capsys, monkeypatch):
+        """
+        A non-FileNotFoundError failure inside sort_comparison() reaches
+        the generic `except Exception` handler of the guard.
+        """
+        import builtins
+        import runpy
+
+        real_open = builtins.open
+
+        def fake_open(path, mode="r", *args, **kwargs):
+            if str(path).endswith("sort10.txt") and "w" not in mode:
+                raise ValueError("boom")
+            return real_open(path, mode, *args, **kwargs)
+
+        monkeypatch.setattr(builtins, "open", fake_open)
+        runpy.run_path(str(COURSEWORK2 / "sort_comparison.py"), run_name="__main__")
+
+        out = capsys.readouterr().out
+        assert "An unexpected error occurred" in out
 

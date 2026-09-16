@@ -129,13 +129,11 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
                 except Exception as exc:
 
                     """
-                    A handful of the coursework scripts have genuine bugs
-                    that make them crash partway through (e.g. calling
-                    .clear() and then .pop() on the same list back to
-                    back). Rather than hide that, attach whatever was
-                    printed *before* the crash to the exception so tests
-                    can still assert on it, then let the real exception
-                    propagate.
+                    Robustness net for any script that still contains a
+                    genuine bug and crashes partway through. Rather than
+                    hide that, attach whatever was printed *before* the
+                    crash to the exception so tests can still assert on
+                    it, then let the real exception propagate.
                     """
 
                     setattr(exc, "partial_output", buf.getvalue())

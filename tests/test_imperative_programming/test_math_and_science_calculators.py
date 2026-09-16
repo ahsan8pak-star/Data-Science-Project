@@ -8,15 +8,36 @@ triangle_calculator.py) - exercising the real cross-file behaviour rather
 than testing each formula in isolation.
 """
 
+import importlib.util
 import math
 import pytest
 import sys
 
+from pathlib import Path
 from unittest.mock import patch
 from tests.test_imperative_programming.conftest import run_script
 from python.imperative_programming.math_and_science_calculators import arithmetic_iteration # imported for direct function testing
 
 FOLDER = "imperative_programming/math_and_science_calculators"
+
+_MATH_SOURCE_DIR = Path(__file__).resolve().parents[2] / "python" / FOLDER
+
+
+def _load_math_module(filename, name):
+    """
+    Import a calculator as a genuine module (so its globals can be patched)
+    without firing its `if __name__ == "__main__":` body. The folder is put
+    on sys.path so the file's own sibling imports resolve the same way they
+    do under run_script().
+    """
+    for entry in (str(Path(__file__).resolve().parents[2] / "python"), str(_MATH_SOURCE_DIR)):
+        if entry not in sys.path:
+            sys.path.insert(0, entry)
+    spec = importlib.util.spec_from_file_location(name, _MATH_SOURCE_DIR / filename)
+    mod = importlib.util.module_from_spec(spec)
+    sys.modules[name] = mod
+    spec.loader.exec_module(mod)
+    return mod
 
 
 # ---------------------------------------------------------------------------
@@ -1114,6 +1135,36 @@ class TestEuclideanDistanceCalculator:
         _, out = run_script(self.FILE, inputs=["2", "2", "", "4", "6"])
         assert "Euclidean Distance" not in out
 
+    def test_euclidean_function_rejects_mismatched_dimensions(self):
+        mod, _ = run_script(self.FILE, inputs=["2", "1", "2", "4", "6"])
+        with pytest.raises(ValueError, match="same number of dimensions"):
+            mod.euclidean_distance((1, 2), (3,))
+
+    def test_blank_dimension_defaults_to_two(self):
+        _, out = run_script(self.FILE, inputs=["", "1", "2", "4", "6"])
+        expected = math.sqrt((4 - 1) ** 2 + (6 - 2) ** 2)
+        assert f"Euclidean Distance: {expected:.2f}" in out
+
+    def test_invalid_dimension_prompts_again(self):
+        _, out = run_script(self.FILE, inputs=["abc", "2", "1", "2", "4", "6"])
+        assert "Invalid input. Please enter a whole number." in out
+        assert "Euclidean Distance: 5.00" in out
+
+    def test_zero_dimension_prompts_again(self):
+        _, out = run_script(self.FILE, inputs=["0", "2", "1", "2", "4", "6"])
+        assert "Error: Please enter a positive number of dimensions." in out
+        assert "Euclidean Distance: 5.00" in out
+
+    def test_blank_point_two_aborts(self):
+        _, out = run_script(self.FILE, inputs=["2", "1", "2", ""])
+        assert "Euclidean Distance" not in out
+
+    def test_mismatched_points_inside_calculate_reports_error(self, capsys):
+        mod = _load_math_module("euclidean_distance_calculator.py", "_euclid_cov_mod")
+        with patch.object(mod, "get_point_coordinates", side_effect=[(0.0,), (0.0, 1.0)]):
+            mod.calculate(2)
+        assert "Error: Both points must have the same number of dimensions." in capsys.readouterr().out
+
 
 # ---------------------------------------------------------------------------
 # gradient_calculator.py
@@ -1167,6 +1218,41 @@ class TestGradientCalculator:
         expected = (4 - 4) / (6 - 2)
         assert "Gradient from point a to point b" in out
         assert f"Gradient from point a to point b: {expected:.2f}" in out
+
+    def test_gradient_function_rejects_single_coordinate_point(self):
+        mod, _ = run_script(self.FILE, inputs=["2", "1", "2", "4", "6", "y"])
+        with pytest.raises(ValueError, match="at least two coordinates"):
+            mod.gradient((1,), (2, 3))
+
+    def test_gradient_function_rejects_mismatched_dimensions(self):
+        mod, _ = run_script(self.FILE, inputs=["2", "1", "2", "4", "6", "y"])
+        with pytest.raises(ValueError, match="same number of dimensions"):
+            mod.gradient((1, 2), (3, 4, 5))
+
+    def test_gradient_function_vertical_line_raises(self):
+        mod, _ = run_script(self.FILE, inputs=["2", "1", "2", "4", "6", "y"])
+        with pytest.raises(ZeroDivisionError):
+            mod.gradient((1, 2), (1, 9))
+
+    def test_blank_point_a_aborts_calculation(self):
+        _, out = run_script(self.FILE, inputs=["2", ""])
+        assert "Gradient" not in out
+
+    def test_blank_point_b_aborts_calculation(self):
+        _, out = run_script(self.FILE, inputs=["2", "1", "2", ""])
+        assert "Gradient" not in out
+
+    def test_vertical_line_in_cli_reports_error(self):
+        _, out = run_script(self.FILE, inputs=["2", "3", "5", "3", "9", "y"])
+        assert "Error: Gradient is undefined for a vertical line (x2 - x1 = 0)." in out
+
+    def test_mismatched_dimensions_inside_calculate_reports_error(self, capsys):
+        mod = _load_math_module("gradient_calculator.py", "_gradient_cov_mod")
+        with patch("builtins.input", return_value="y"), patch.object(
+            mod, "get_point_coordinates", side_effect=[(0.0, 0.0), (0.0, 0.0, 0.0)]
+        ):
+            mod.calculate(2)
+        assert "Error: Points must have the same number of dimensions." in capsys.readouterr().out
 
 
 # ---------------------------------------------------------------------------

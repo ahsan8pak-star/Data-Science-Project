@@ -14,8 +14,9 @@ import math
 import pytest
 import sys
 
+from pathlib import Path
 from unittest.mock import patch
-from tests.test_object_oriented_programming.conftest import run_script
+from tests.test_object_oriented_programming.conftest import PYTHON_DIR, run_script
 
 FOLDER = "object_oriented_programming/fundamental_topics"
 
@@ -109,34 +110,40 @@ class TestAggregation:
 class TestClasses:
     FILE = f"{FOLDER}/classes.py"
 
-    def test_script_crashes_on_misspelled_sibling_package_import(self):
+    def test_script_runs_to_completion(self):
+        _, out = run_script(self.FILE)
+        assert "Toyata Supra" in out
+        assert "BMW M3 GTR" in out
 
+    def test_car_attributes_and_methods_printed(self):
+        _, out = run_script(self.FILE)
+        assert "1998" in out
+        assert "White" in out
+        assert "You are driving a White Toyata Supra!" in out
+        assert "A priceless car, not worthy to be auctioned." in out
+
+    def test_person_demos_cover_both_branches(self):
+        _, out = run_script(self.FILE)
+        assert "Ahsan is speaking right now." in out
+        assert "Hamza. You may start after the first speech." in out
+        assert "Aiman, wait for the other person's turn." in out
+
+    def test_point_attributes_printed(self):
+        _, out = run_script(self.FILE)
+        assert "draw" in out
+        assert "move" in out
+        assert "1" in out
+        assert "2" in out
+        assert "3" in out
+        assert "4" in out
+
+    def test_imports_are_spelled_correctly(self):
         """
-        Genuine bug: the very first import in this file is
-        `from object_orienteded_programming.syntax_fundamentals.car import Car`
-        - "orienteded" is a typo for "oriented" (an extra "ed"). No such
-        package exists, so this raises ModuleNotFoundError immediately,
-        before a single line of the script's actual demo code (car1,
-        person1, point1, etc.) ever runs. The correctly-spelled imports
-        further down (person.py, point.py) are never even reached.
+        The sibling-package imports in classes.py must use the correct
+        spelling `object_oriented_programming` so the module loads.
         """
-
-        with pytest.raises(ModuleNotFoundError, match="object_orienteded_programming"):
-            run_script(self.FILE)
-
-    def test_no_output_is_produced_before_the_crash(self):
-
-        """
-        The crash happens on the module's very first executable statement
-        (after the docstring), so partial_output should be completely
-        empty - nothing from the car/person/point demo sections ever
-        gets a chance to print.
-        """
-
-        with pytest.raises(ModuleNotFoundError) as exc_info:
-            run_script(self.FILE)
-        out = getattr(exc_info.value, "partial_output", None)
-        assert out == ""
+        source = Path(PYTHON_DIR / f"{self.FILE}").read_text()
+        assert "object_orienteded_programming" not in source
 
 
 # ---------------------------------------------------------------------------
@@ -428,6 +435,38 @@ class TestGenerator:
         _, out = run_script(self.FILE, inputs=["3", "2", "4", "3"])
         assert "\n1\n" in out
         assert "\n2\n" in out
+
+    def test_count_to_reports_sub_minute_execution_time(self):
+        _, out = run_script(
+            self.FILE,
+            inputs=["3", "2", "4", "3"],
+            patches=[patch("time.time", side_effect=[100.0, 102.5])],
+        )
+        assert "Took 2.50 seconds to count to 3" in out
+
+    def test_count_to_reports_minutes_when_over_a_minute(self):
+        _, out = run_script(
+            self.FILE,
+            inputs=["3", "2", "4", "3"],
+            patches=[patch("time.time", side_effect=[100.0, 160.0])],
+        )
+        assert "Took 60.00 seconds, which is 1 minutes and 0.00 seconds to count to 3" in out
+
+    def test_keyboard_interrupt_in_main_reports_interruption(self):
+        calls = {"n": 0}
+
+        def interrupt_first_sleep(*args, **kwargs):
+            calls["n"] += 1
+            if calls["n"] == 1:
+                raise KeyboardInterrupt("simulating ctrl+c")
+            return None
+
+        _, out = run_script(
+            self.FILE,
+            inputs=["3", "2", "4", "3"],
+            patches=[patch("time.sleep", side_effect=interrupt_first_sleep)],
+        )
+        assert "Generator process interrupted by user." in out
 
 
 # ---------------------------------------------------------------------------

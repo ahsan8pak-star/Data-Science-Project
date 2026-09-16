@@ -469,6 +469,31 @@ class TestFileWriter:
         run_script(self.FILE, cwd=tmp_path)
         assert (tmp_path / "aim.txt").read_text() == "A.I.M"
 
+    def test_pre_existing_output_files_report_no_overwrite(self, tmp_path):
+        for name in ("output.txt", "output.json", "output.csv"):
+            (tmp_path / name).write_text("existing content", encoding="utf-8")
+
+        _, out = run_script(self.FILE, cwd=tmp_path)
+
+        assert out.count("already exists!") == 3
+        assert "No need to overwrite." in out
+
+    def test_append_permission_denied_reported(self, tmp_path):
+        real_open = open
+
+        def deny_append(*args, **kwargs):
+            mode = kwargs.get("mode") or (args[1] if len(args) > 1 else "r")
+            if "a" in mode:
+                raise PermissionError("append denied")
+            return real_open(*args, **kwargs)
+
+        _, out = run_script(
+            self.FILE,
+            cwd=tmp_path,
+            patches=[patch("builtins.open", side_effect=deny_append)],
+        )
+        assert "Error: Insufficient permissions to write to 'activity_log.txt'." in out
+
 
 # ---------------------------------------------------------------------------
 # file_handling.py
@@ -481,6 +506,21 @@ class TestFileHandling:
         assert "This file location" in out
         assert "exists" in out
         assert "This is a file" in out
+
+    def test_directory_path_reports_directory(self):
+        _, out = run_script(
+            self.FILE,
+            patches=[
+                patch("os.path.isfile", return_value=False),
+                patch("os.path.isdir", return_value=True),
+            ],
+        )
+        assert "This file location" in out
+        assert "That's a directory" in out
+
+    def test_missing_file_reports_non_existence(self):
+        _, out = run_script(self.FILE, patches=[patch("os.path.exists", return_value=False)])
+        assert "doesn't exist" in out
 
 
 # ---------------------------------------------------------------------------
@@ -495,6 +535,15 @@ class TestFileReader:
         assert "'gamertag': 'A.I.M'" in out
         assert "Tag: A.I.M (str) | Score: 12500 (int) | Online: True (bool)" in out
         assert "Tag: AimeeAsPanda (str) | Score: 0 (int) | Online: False (bool)" in out
+
+    def test_missing_files_report_not_found_for_every_format(self):
+        _, out = run_script(self.FILE, patches=[patch("builtins.open", side_effect=FileNotFoundError("missing"))])
+        assert out.count("Error: File Not Found.") == 3
+
+    def test_permission_denied_reports_authorisation_errors(self):
+        _, out = run_script(self.FILE, patches=[patch("builtins.open", side_effect=PermissionError("denied"))])
+        assert out.count("Administrative / Authroised Users Only!") == 2
+        assert "Administrative / Authorised Users Only!" in out
 
 
 # ---------------------------------------------------------------------------
@@ -817,32 +866,36 @@ class TestMultiply:
 class TestNumPad:
     FILE = f"{FOLDER}/num_pad.py"
 
-    def test_script_crashes_on_the_set_of_lists_assignment(self):
-        """
-        Genuine bug: despite the header comment saying to comment out the
-        invalid variants, the "2D set of lists (NOT VALID)" assignment is
-        left active and always raises TypeError (lists aren't hashable),
-        well before the later frozenset-based assignment or the print
-        loop are ever reached.
-        """
-        with pytest.raises(TypeError):
-            run_script(self.FILE)
+    def test_script_runs_to_completion(self):
+        _, out = run_script(self.FILE)
+        assert "1 2 3" in out
+        assert "4 5 6" in out
 
-    def test_crash_is_specifically_about_unhashable_type(self):
-        with pytest.raises(TypeError, match="unhashable"):
-            run_script(self.FILE)
+    def test_print_loop_shows_all_three_rows(self):
+        _, out = run_script(self.FILE)
+        lines = out.splitlines()
+        assert len(lines) == 3
+        tokens = {token.strip() for line in lines for token in line.split()}
+        assert tokens == {"1", "2", "3", "4", "5", "6", "7", "8", "9"}
 
-    def test_frozenset_variant_never_executes(self):
-        
+    def test_invalid_variants_are_commented_out(self):
         """
-        The valid frozenset-based num_pad assignment sits after the
-        crash point, so it's never actually reached or printed.
+        The two "(NOT VALID)" num_pad variants (2D set of lists and 2D set
+        of sets) are commented out so the script reaches the print loop.
+        The active variant is the frozenset-based one.
         """
-        
-        with pytest.raises(TypeError) as exc_info:
-            run_script(self.FILE)
-        out = getattr(exc_info.value, "partial_output", "")
-        assert out == ""  # nothing is printed before the crash
+        source = (PYTHON_SOURCE_DIR / self.FILE).read_text()
+        live_unhashable = [
+            line for line in source.splitlines()
+            if line.startswith("num_pad") and ("{[" in line or "{{" in line)
+        ]
+        assert not live_unhashable
+        assert "frozenset" in source
+
+    def test_no_row_exceeds_get_index_access(self):
+        _, out = run_script(self.FILE)
+        for line in out.splitlines():
+            assert len(line.split()) == 3  # every row renders 3 entries
 
 
 # ---------------------------------------------------------------------------

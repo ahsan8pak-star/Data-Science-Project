@@ -11,7 +11,11 @@ are stubbed via patching module-level `run`.
 """
 
 import importlib.metadata as md
+import runpy
+import sys
 from types import SimpleNamespace
+
+import pytest
 
 import requirements_sync as rs
 from packaging.requirements import Requirement
@@ -130,6 +134,32 @@ class TestTierClosure:
         assert state["requests"][1] == "requirements.in"
         assert state["certifi"][1] == "requests"
 
+    def test_duplicate_dependency_of_missing_package_is_skipped(self):
+        index = {
+            "a": _fake_dist("a", "1.0", requires=["ghost-pkg"]),
+            "b": _fake_dist("b", "1.0", requires=["ghost-pkg"]),
+        }
+        state, missing = rs.tier_closure(
+            [Requirement("a"), Requirement("b")], index, "requirements.in"
+        )
+        assert missing == {"ghost-pkg"}
+        assert "ghost-pkg" not in state
+
+    def test_extra_union_updates_state_and_repeat_dependency_is_skipped(self):
+        index = {
+            "requests": _fake_dist(
+                "requests", "2.32",
+                requires=["certifi>=2", "PyYAML; extra == 'yaml'"],
+            ),
+            "certifi": _fake_dist("certifi", "2026.1", requires=[]),
+            "pyyaml": _fake_dist("PyYAML", "6.0", requires=[]),
+        }
+        direct = [Requirement("requests"), Requirement("requests[yaml]"), Requirement("certifi")]
+        state, missing = rs.tier_closure(direct, index, "requirements.in")
+        assert state["requests"][0] == frozenset({"yaml"})
+        assert "pyyaml" in state
+        assert missing == set()
+
 
 class TestRun:
     def test_mocked_subprocess_invocation(self, monkeypatch, capsys):
@@ -235,4 +265,36 @@ class TestAudit:
         assert "=== ENVIRONMENT AUDIT ===" in out
         assert "Installed packages" in out
         assert "Audit:" in out
+
+
+class TestMain:
+    def test_default_sync_compiles_and_audits(self, monkeypatch, capsys):
+        monkeypatch.setattr(rs, "compile_from_installed", lambda: print("compiled"))
+        monkeypatch.setattr(rs, "audit", lambda: 0)
+        monkeypatch.setattr(sys, "argv", ["requirements_sync.py"])
+
+        assert rs.main() == 0
+        assert "compiled" in capsys.readouterr().out
+
+    def test_check_mode_skips_compile(self, monkeypatch, capsys):
+        monkeypatch.setattr(rs, "compile_from_installed", lambda: print("compiled"))
+        monkeypatch.setattr(rs, "audit", lambda: 7)
+        monkeypatch.setattr(sys, "argv", ["requirements_sync.py", "--check"])
+
+        assert rs.main() == 7
+        assert "compiled" not in capsys.readouterr().out
+
+    def test_outdated_flag_runs_upgrade_check(self, monkeypatch, capsys):
+        monkeypatch.setattr(rs, "audit", lambda: 0)
+        monkeypatch.setattr(rs, "run", lambda cmd: print(f"RUN {' '.join(cmd)}"))
+        monkeypatch.setattr(sys, "argv", ["requirements_sync.py", "--check", "--outdated"])
+
+        assert rs.main() == 0
+        assert "pip list --outdated" in capsys.readouterr().out
+
+    def test_main_guard_runs_check_mode(self, monkeypatch, capsys):
+        monkeypatch.setattr(sys, "argv", ["requirements_sync.py", "--check"])
+        with pytest.raises(SystemExit):
+            runpy.run_path(str(rs.ROOT / "requirements_sync.py"), run_name="__main__")
+        assert "=== ENVIRONMENT AUDIT ===" in capsys.readouterr().out
 
