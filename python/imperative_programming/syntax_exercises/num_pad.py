@@ -41,10 +41,10 @@ num_pad = ({1, 2, 3},
            {"*", 0, "#"})
 
 # 2D set of lists (NOT VALID) -> Reason: Lists are mutable, resulting its "identity" (hash) to be changed, breaking the logic of a set.
-num_pad = {[1, 2, 3],
-           [4, 5, 6],
-           [7, 8, 9],
-           ["*", 0, "#"]}
+# num_pad = {[1, 2, 3],
+#            [4, 5, 6],
+#            [7, 8, 9],
+#            ["*", 0, "#"]}
 
 # 2D set of tuples
 num_pad = {(1, 2, 3),
@@ -54,10 +54,10 @@ num_pad = {(1, 2, 3),
 
 # 2D set of sets (NOT VALID) -> Reason: Sets are also mutable, i.e. not hashable. You cannot place a standard set inside another set.
 # Use forzensets() instead to make a set immutable / hashable
-num_pad = {{1, 2, 3},
-           {4, 5, 6},
-           {7, 8, 9},
-           {"*", 0, "#"}}
+# num_pad = {{1, 2, 3},
+#            {4, 5, 6},
+#            {7, 8, 9},
+#            {"*", 0, "#"}}
 
 # an example of this VALID format
 num_pad = {frozenset({1, 2, 3}),

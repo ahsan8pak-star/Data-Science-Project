@@ -29,7 +29,7 @@ fruits.update(vegetables) # Updates (Similar to Add but uses an entire list inst
 
 fruits.clear() # Clears all items under the set 'fruits' -> Result: set()
 
-del vegetables # Deletes the list 'vegetables' i.e. removes completely of all the structure not only the items
+# del vegetables # Deletes the list 'vegetables' i.e. removes completely of all the structure not only the items
 
 
 """ Set <-> List """

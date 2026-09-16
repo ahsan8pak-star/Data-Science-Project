@@ -8,7 +8,7 @@
 car.py 
 """
 
-from object_orienteded_programming.syntax_fundamentals.car import Car # from car.py import class Car()
+from object_oriented_programming.syntax_fundamentals.car import Car # from car.py import class Car()
 
 car1 = Car("Toyata Supra", 1998, "White", True)
 

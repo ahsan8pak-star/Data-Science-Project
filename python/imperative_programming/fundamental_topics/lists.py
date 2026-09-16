@@ -72,7 +72,7 @@ numbers = [5, 2, 1, 7, 4]
 numbers.append(8) # [5, 2, 1, 7, 4, 8]
 numbers.insert(0, 3) # [3, 5, 2, 1, 7, 4]
 numbers.remove(7) # [5, 2, 1, 4]
-numbers.clear() # []
+# numbers.clear() # []
 numbers.count(1) # 1
 numbers.pop() # [5, 2, 1, 7]
 numbers.index(1) # 2
@@ -116,8 +116,8 @@ print(numbers) # [2, 1, 7, 4, 8] -> 5 is removed at index 0
 del numbers[2]
 print(numbers) # [5, 2, 7, 4, 8] -> 1 is removed at index 2
 
-del numbers[4]
-print(numbers) # [5, 2, 1, 7, 8] -> 4 is removed at index 4
+del numbers[-1]
+print(numbers)
 
 # del numbers
 # print(numbers) # NameError: name 'numbers' is not defined
