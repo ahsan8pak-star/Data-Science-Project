@@ -111,11 +111,13 @@ class TestClasses:
     FILE = f"{FOLDER}/classes.py"
 
     def test_script_runs_to_completion(self):
+        # Full-run smoke test: both car instantiations reach the print block.
         _, out = run_script(self.FILE)
         assert "Toyata Supra" in out
         assert "BMW M3 GTR" in out
 
     def test_car_attributes_and_methods_printed(self):
+        # The demo prints each attribute plus the driving/auction verdicts.
         _, out = run_script(self.FILE)
         assert "1998" in out
         assert "White" in out
@@ -123,12 +125,14 @@ class TestClasses:
         assert "A priceless car, not worthy to be auctioned." in out
 
     def test_person_demos_cover_both_branches(self):
+        # Speak()'s on/off switch: first call "speaks", the rest wait.
         _, out = run_script(self.FILE)
         assert "Ahsan is speaking right now." in out
         assert "Hamza. You may start after the first speech." in out
         assert "Aiman, wait for the other person's turn." in out
 
     def test_point_attributes_printed(self):
+        # draw()/move() verb calls print alongside the x/y/z attributes.
         _, out = run_script(self.FILE)
         assert "draw" in out
         assert "move" in out
@@ -437,6 +441,9 @@ class TestGenerator:
         assert "\n2\n" in out
 
     def test_count_to_reports_sub_minute_execution_time(self):
+        # Pinned time.time reads (start 100.0 / stop 102.5) force the
+        # sub-minute branch: "Took 2.50 seconds" instead of the seconds-only
+        # message a real near-instant run would print.
         _, out = run_script(
             self.FILE,
             inputs=["3", "2", "4", "3"],
@@ -445,6 +452,8 @@ class TestGenerator:
         assert "Took 2.50 seconds to count to 3" in out
 
     def test_count_to_reports_minutes_when_over_a_minute(self):
+        # 100.0 -> 160.0 = 60.00s delta crosses into the minutes branch,
+        # which reports whole minutes + leftover seconds.
         _, out = run_script(
             self.FILE,
             inputs=["3", "2", "4", "3"],
@@ -453,6 +462,9 @@ class TestGenerator:
         assert "Took 60.00 seconds, which is 1 minutes and 0.00 seconds to count to 3" in out
 
     def test_keyboard_interrupt_in_main_reports_interruption(self):
+        # The first sleep() inside main() raises KeyboardInterrupt (a real
+        # Ctrl+C), which the harness must surface so main's except branch
+        # prints the friendly interruption message instead of dying.
         calls = {"n": 0}
 
         def interrupt_first_sleep(*args, **kwargs):

@@ -1136,30 +1136,40 @@ class TestEuclideanDistanceCalculator:
         assert "Euclidean Distance" not in out
 
     def test_euclidean_function_rejects_mismatched_dimensions(self):
+        # Direct guard-clause check: len(point1) != len(point2) raises ValueError.
         mod, _ = run_script(self.FILE, inputs=["2", "1", "2", "4", "6"])
         with pytest.raises(ValueError, match="same number of dimensions"):
             mod.euclidean_distance((1, 2), (3,))
 
     def test_blank_dimension_defaults_to_two(self):
+        # Pressing Enter at the dimension prompt falls through to the 2D default.
         _, out = run_script(self.FILE, inputs=["", "1", "2", "4", "6"])
         expected = math.sqrt((4 - 1) ** 2 + (6 - 2) ** 2)
         assert f"Euclidean Distance: {expected:.2f}" in out
 
     def test_invalid_dimension_prompts_again(self):
+        # "abc" hits the int() ValueError branch, then "2" is accepted on re-prompt.
         _, out = run_script(self.FILE, inputs=["abc", "2", "1", "2", "4", "6"])
         assert "Invalid input. Please enter a whole number." in out
         assert "Euclidean Distance: 5.00" in out
 
     def test_zero_dimension_prompts_again(self):
+        # A non-positive dimension is rejected before the loop accepts "2".
         _, out = run_script(self.FILE, inputs=["0", "2", "1", "2", "4", "6"])
         assert "Error: Please enter a positive number of dimensions." in out
         assert "Euclidean Distance: 5.00" in out
 
     def test_blank_point_two_aborts(self):
+        # A blank coordinate for the second point makes get_point_coordinates
+        # return None, so calculate() returns before computing anything.
         _, out = run_script(self.FILE, inputs=["2", "1", "2", ""])
         assert "Euclidean Distance" not in out
 
     def test_mismatched_points_inside_calculate_reports_error(self, capsys):
+        # Load the module as a real import (so its globals are patchable), then
+        # feed calculate() two points of different lengths through the patched
+        # coordinate helper - exercising the len()!=len() branch inside
+        # calculate() that a normal script run can never reach.
         mod = _load_math_module("euclidean_distance_calculator.py", "_euclid_cov_mod")
         with patch.object(mod, "get_point_coordinates", side_effect=[(0.0,), (0.0, 1.0)]):
             mod.calculate(2)
@@ -1220,33 +1230,44 @@ class TestGradientCalculator:
         assert f"Gradient from point a to point b: {expected:.2f}" in out
 
     def test_gradient_function_rejects_single_coordinate_point(self):
+        # Guard clause: a point with fewer than two coordinates cannot define a gradient.
         mod, _ = run_script(self.FILE, inputs=["2", "1", "2", "4", "6", "y"])
         with pytest.raises(ValueError, match="at least two coordinates"):
             mod.gradient((1,), (2, 3))
 
     def test_gradient_function_rejects_mismatched_dimensions(self):
+        # Guard clause: both points must agree on the number of dimensions.
         mod, _ = run_script(self.FILE, inputs=["2", "1", "2", "4", "6", "y"])
         with pytest.raises(ValueError, match="same number of dimensions"):
             mod.gradient((1, 2), (3, 4, 5))
 
     def test_gradient_function_vertical_line_raises(self):
+        # x2 == x1 makes the denominator zero, so gradient() raises ZeroDivisionError.
         mod, _ = run_script(self.FILE, inputs=["2", "1", "2", "4", "6", "y"])
         with pytest.raises(ZeroDivisionError):
             mod.gradient((1, 2), (1, 9))
 
     def test_blank_point_a_aborts_calculation(self):
+        # A blank coordinate for point a makes get_point_coordinates return
+        # None, so calculate() returns before prompting for point b.
         _, out = run_script(self.FILE, inputs=["2", ""])
         assert "Gradient" not in out
 
     def test_blank_point_b_aborts_calculation(self):
+        # Same early return, but hit via a blank coordinate in the second point.
         _, out = run_script(self.FILE, inputs=["2", "1", "2", ""])
         assert "Gradient" not in out
 
     def test_vertical_line_in_cli_reports_error(self):
+        # A vertical pair (3,5) -> (3,9) surfaces the ZeroDivisionError through
+        # the CLI, which prints the friendly message instead of crashing.
         _, out = run_script(self.FILE, inputs=["2", "3", "5", "3", "9", "y"])
         assert "Error: Gradient is undefined for a vertical line (x2 - x1 = 0)." in out
 
     def test_mismatched_dimensions_inside_calculate_reports_error(self, capsys):
+        # A normal run always builds both points from the same dimensions, so
+        # the ValueError branch inside calculate() can only be reached by
+        # feeding it mismatched points via a patched coordinate helper.
         mod = _load_math_module("gradient_calculator.py", "_gradient_cov_mod")
         with patch("builtins.input", return_value="y"), patch.object(
             mod, "get_point_coordinates", side_effect=[(0.0, 0.0), (0.0, 0.0, 0.0)]

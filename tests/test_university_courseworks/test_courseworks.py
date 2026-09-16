@@ -66,6 +66,9 @@ class TestAverageGrades:
         assert mod.AverageGrades(grades, weights) == [6]
 
     def test_main_guard_builds_default_gradebook_and_prints(self, capsys):
+        # The __main__ guard runs AverageGrades() on the script's built-in
+        # gradebook/weights and prints [56, 43]; running the file directly
+        # attributes those lines to the real source for coverage.
         import runpy
 
         runpy.run_path(str(AVERAGE_GRADES), run_name="__main__")
@@ -183,6 +186,8 @@ class TestSevenSegment:
         assert out[1] == "|  |    |"
 
     def test_main_guard_displays_valid_number(self, capsys):
+        # Running as __main__ exercises the real input() prompt + render path;
+        # "42" renders the digit 4's top segment in the first output row.
         import runpy
 
         with patch("builtins.input", side_effect=["42"]):
@@ -190,6 +195,8 @@ class TestSevenSegment:
         assert " -- " in capsys.readouterr().out
 
     def test_main_guard_negative_input_clamps_to_zero(self, capsys):
+        # A negative value is clamped to 0 inside the guard, so the output
+        # is still a full 5-row digit grid instead of raising.
         import runpy
 
         with patch("builtins.input", side_effect=["-5"]):
@@ -198,6 +205,8 @@ class TestSevenSegment:
         assert len(out) == 5
 
     def test_main_guard_non_integer_shows_message(self, capsys):
+        # "abc" falls into the guard's ValueError branch, printing the
+        # "Integers Only." message instead of rendering a digit.
         import runpy
 
         with patch("builtins.input", side_effect=["abc"]):
@@ -228,6 +237,9 @@ class TestVolume:
         assert mod.Volume(0) == 0.0
 
     def test_main_guard_prints_default_sphere_volume(self, mod, capsys):
+        # The __main__ guard computes Volume(20.24) and prints it; comparing
+        # against mod.Volume(20.24) ties the printed value to the module
+        # without hardcoding the float literal.
         import runpy
 
         runpy.run_path(str(VOLUME), run_name="__main__")

@@ -470,6 +470,8 @@ class TestFileWriter:
         assert (tmp_path / "aim.txt").read_text() == "A.I.M"
 
     def test_pre_existing_output_files_report_no_overwrite(self, tmp_path):
+        # Seeding output.txt/.json/.csv up front flips each writer branch onto
+        # the "already exists!" guard instead of the normal create path.
         for name in ("output.txt", "output.json", "output.csv"):
             (tmp_path / name).write_text("existing content", encoding="utf-8")
 
@@ -479,6 +481,9 @@ class TestFileWriter:
         assert "No need to overwrite." in out
 
     def test_append_permission_denied_reported(self, tmp_path):
+        # The append branch (activity_log.txt) is forced into the
+        # PermissionError path by a wrapper that only rejects "a" modes,
+        # while ordinary file writes keep using the real builtins.open.
         real_open = open
 
         def deny_append(*args, **kwargs):
@@ -508,6 +513,8 @@ class TestFileHandling:
         assert "This is a file" in out
 
     def test_directory_path_reports_directory(self):
+        # Patch os.path.isfile False + os.path.isdir True to steer the
+        # script's branch check into the "That's a directory" message.
         _, out = run_script(
             self.FILE,
             patches=[
@@ -519,6 +526,8 @@ class TestFileHandling:
         assert "That's a directory" in out
 
     def test_missing_file_reports_non_existence(self):
+        # os.path.exists False sends the script's first check down the
+        # "doesn't exist" branch before it even looks at the file kind.
         _, out = run_script(self.FILE, patches=[patch("os.path.exists", return_value=False)])
         assert "doesn't exist" in out
 
@@ -537,10 +546,15 @@ class TestFileReader:
         assert "Tag: AimeeAsPanda (str) | Score: 0 (int) | Online: False (bool)" in out
 
     def test_missing_files_report_not_found_for_every_format(self):
+        # Every builtins.open in the script (txt, json, csv) raises
+        # FileNotFoundError, so the "File Not Found." message prints 3 times.
         _, out = run_script(self.FILE, patches=[patch("builtins.open", side_effect=FileNotFoundError("missing"))])
         assert out.count("Error: File Not Found.") == 3
 
     def test_permission_denied_reports_authorisation_errors(self):
+        # PermissionError from every open leaves the json/csv readers on the
+        # auth-fail branch; txt lacks that handler, hence only 2 "Authroised"
+        # messages plus the modern "Authorised" spelling for json.
         _, out = run_script(self.FILE, patches=[patch("builtins.open", side_effect=PermissionError("denied"))])
         assert out.count("Administrative / Authroised Users Only!") == 2
         assert "Administrative / Authorised Users Only!" in out
@@ -867,11 +881,13 @@ class TestNumPad:
     FILE = f"{FOLDER}/num_pad.py"
 
     def test_script_runs_to_completion(self):
+        # Smoke test: the (frozenset-based) num_pad prints all 9 digits.
         _, out = run_script(self.FILE)
         assert "1 2 3" in out
         assert "4 5 6" in out
 
     def test_print_loop_shows_all_three_rows(self):
+        # The pad renders as exactly three rows of three unique digits each.
         _, out = run_script(self.FILE)
         lines = out.splitlines()
         assert len(lines) == 3
