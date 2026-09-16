@@ -235,3 +235,4 @@ class TestAudit:
         assert "=== ENVIRONMENT AUDIT ===" in out
         assert "Installed packages" in out
         assert "Audit:" in out
+

@@ -315,3 +315,4 @@ class TestSortComparison:
 
         csv_path = Path(mod_at.__file__).parent / "sort_comparison.csv"
         assert csv_path.exists()
+

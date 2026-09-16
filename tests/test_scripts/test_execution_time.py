@@ -197,3 +197,4 @@ class TestMain:
         main()
 
         assert results == [PROJECT_ROOT / "python"]
+

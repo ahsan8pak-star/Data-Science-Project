@@ -28,3 +28,4 @@ def next_number():
 
 print("next_number():", next_number())
 print("next_number():", next_number())  # same "no input" but different output
+

@@ -21,3 +21,4 @@ print("Squares:", squares)
 print("Evens:", evens)
 print("Unique votes:", unique_votes)
 print("Name lengths:", lengths)
+

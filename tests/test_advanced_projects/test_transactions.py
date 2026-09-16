@@ -112,3 +112,4 @@ class TestPipelineMetadata:
 
         assert saved.max_row == original.max_row
         assert saved.max_column >= original.max_column
+

@@ -177,3 +177,4 @@ else:
 print("-" * 44)
 print(f"| {result_text:^40} |")
 print("-" * 44)
+

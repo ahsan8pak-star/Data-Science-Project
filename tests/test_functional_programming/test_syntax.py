@@ -84,3 +84,4 @@ class TestNumberPipeline:
         assert "Evens: [2, 4, 6, 8, 10]" in out
         assert "Squares of evens: [4, 16, 36, 64, 100]" in out
         assert "Sum of squares: 220" in out
+

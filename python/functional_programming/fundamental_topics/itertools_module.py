@@ -24,3 +24,4 @@ print("count first 5:", natural)
 print("cycle sample:", colours)
 print("repeat:", repeated)
 print("product:", outcomes)
+

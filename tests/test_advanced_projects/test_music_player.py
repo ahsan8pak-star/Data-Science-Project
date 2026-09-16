@@ -326,3 +326,4 @@ class TestWAVGUI:
         self.gui_mod.filedialog.askdirectory.return_value = ""
         self.gui._select_folder()
         assert self.gui.player is None
+

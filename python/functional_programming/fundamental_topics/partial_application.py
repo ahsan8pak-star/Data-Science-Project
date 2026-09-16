@@ -19,3 +19,4 @@ print("cube(3):", cube(3))
 # Fixing a style option for rounding
 formatted = partial(round, ndigits=2)
 print("formatted(3.14159):", formatted(3.14159))
+
