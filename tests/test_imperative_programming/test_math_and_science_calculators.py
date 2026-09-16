@@ -524,6 +524,31 @@ class TestArithmeticIteration:
         assert "Main Number Sequence List (with the starting number: 2.0): [5.0]" in out
         assert "Final Result: 5.0" in out
 
+    def test_package_import_failure_falls_back_to_sibling_module(self):
+
+        """
+        The try-import resolves via the full package path in normal runs,
+        so the `except ImportError` fallback (`from arithmetic_calculator
+        import arithmetic`) is forced here by making that one import raise.
+        """
+
+        import builtins
+
+        real_import = builtins.__import__
+
+        def fake_import(name, *args, **kwargs):
+            if name == "python.imperative_programming.math_and_science_calculators.arithmetic_calculator":
+                raise ImportError("simulated missing package path")
+            return real_import(name, *args, **kwargs)
+
+        inputs = ["+", "1", "2", "1", "3"]
+        _, out = run_script(
+            self.FILE,
+            inputs=inputs,
+            patches=[patch("builtins.__import__", side_effect=fake_import)],
+        )
+        assert "Final Result: 5.0" in out
+
     def test_subtraction_operator(self):
         inputs = ["-", "1", "10", "1", "4"]
         _, out = run_script(self.FILE, inputs=inputs)

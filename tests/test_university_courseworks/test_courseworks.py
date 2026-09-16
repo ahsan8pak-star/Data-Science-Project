@@ -134,6 +134,19 @@ class TestIceCream:
         assert "That's too many scoops to fit in a cone." in out
         assert "£1.68" in out
 
+    def test_main_guard_runs_real_order_and_prints_return_value(self, capsys):
+
+        # The __main__ guard drives the genuine input() prompt loop and then
+        # prints IceCream()'s (None) return value; running the file directly
+        # attributes those lines to the real source for coverage.
+        import runpy
+
+        with patch("builtins.input", side_effect=["v", "2"]):
+            runpy.run_path(str(ICE_CREAM), run_name="__main__")
+        out = capsys.readouterr().out
+        assert "£1.38" in out
+        assert "None" in out
+
 
 # ---------------------------------------------------------------------------
 # seven_segment.py

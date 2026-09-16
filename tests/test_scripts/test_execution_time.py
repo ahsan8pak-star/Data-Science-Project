@@ -7,6 +7,7 @@ subprocess.run is mocked in the benchmark tests so no real scripts spawn.
 """
 
 import subprocess
+from pathlib import Path
 
 import pytest
 
@@ -17,6 +18,10 @@ from scripts.execution_time import (
     print_directory_tree,
     resolve_folder,
 )
+
+# Absolute path so runpy's re-execution is attributed by coverage (a relative
+# co_filename is not mapped back to the measured source file).
+SCRIPT_PATH = Path(__file__).resolve().parents[2] / "scripts" / "execution_time.py"
 
 
 def _make_sample_tree(root):
@@ -69,6 +74,15 @@ class TestDirectoryTree:
         assert "├── beta\\" in out
         assert "│" in out
         assert "└── alpha.txt" in out
+
+    def test_path_that_cannot_be_iterated_returns_silently(self, tmp_path, capsys):
+
+        # iterdir() on a plain file raises NotADirectoryError (an OSError),
+        # which print_directory_tree swallows with a bare `return`.
+        target = tmp_path / "not_a_directory.py"
+        target.write_text("x = 1\n", encoding="utf-8")
+        print_directory_tree(target)
+        assert capsys.readouterr().out == ""
 
 
 class TestResolveFolder:
@@ -149,6 +163,27 @@ class TestExecuteProjectScripts:
         out = capsys.readouterr().out
         assert "TOTAL FILES: 0" in out
 
+    def test_file_outside_parent_falls_back_to_bare_name(self, tmp_path, capsys, monkeypatch):
+
+        # A .py file that cannot be expressed relative to base_path.parent
+        # raises ValueError inside the try, so the except stores just the
+        # file name and the row still renders as PASS.
+        from pathlib import Path
+
+        monkeypatch.setattr(Path, "rglob", lambda self, pattern: iter([Path("C:/outside/base.py")]))
+        monkeypatch.setattr(
+            "scripts.execution_time.subprocess.run",
+            lambda cmd, **kwargs: subprocess.CompletedProcess(
+                args=cmd, returncode=0, stdout="", stderr=""
+            ),
+        )
+
+        execute_project_scripts(tmp_path)
+        out = capsys.readouterr().out
+
+        assert "base.py" in out
+        assert "TOTAL FILES: 1" in out
+
 
 class TestMain:
     def _instal_main(self, tmp_path, monkeypatch, inputs):
@@ -197,4 +232,68 @@ class TestMain:
         main()
 
         assert results == [PROJECT_ROOT / "python"]
+
+    def test_unknown_folder_skips_and_prompts_again(self, tmp_path, monkeypatch, capsys):
+
+        # resolve_folder returns None for an unrecognised name, so main()
+        # hits the `if target is None: continue` guard and loops back to
+        # the prompt instead of benchmarking anything.
+        _, results = self._instal_main(tmp_path, monkeypatch, ["does_not_exist", "quit"])
+        from scripts.execution_time import main
+
+        main()
+
+        assert results == []
+        assert "Exiting." in capsys.readouterr().out
+
+
+class TestModuleLevelReconfigure:
+    def test_stdout_reconfigure_failure_is_swallowed(self, monkeypatch):
+
+        # Lines 10-11 only execute if reconfigure() itself raises. Swapping
+        # in a stdout whose reconfigure() throws proves the bare except keeps
+        # the module importing cleanly instead of crashing.
+        import io
+        import runpy
+        import sys
+
+        buffer = io.StringIO()
+        fake_stdout = type(
+            "FakeStdout",
+            (),
+            {
+                "write": buffer.write,
+                "reconfigure": lambda *args, **kwargs: (_ for _ in ()).throw(
+                    OSError("console cannot be reconfigured")
+                ),
+            },
+        )()
+
+        monkeypatch.setattr(sys, "stdout", fake_stdout)
+        runpy.run_path(str(SCRIPT_PATH), run_name="execution_time_reconfigure_probe")
+
+        assert buffer.getvalue() == ""
+
+
+class TestMainGuard:
+    def test_running_as_main_fires_the_guard(self, monkeypatch, capsys):
+
+        # run_name="__main__" triggers the module-level guard (line 160).
+        # "--all" skips the tree dump and subprocess.run is stubbed, so this
+        # only exercises main()'s --all branch through to the break.
+        import runpy
+        import sys
+
+        monkeypatch.setattr(
+            subprocess,
+            "run",
+            lambda cmd, **kwargs: subprocess.CompletedProcess(
+                args=cmd, returncode=0, stdout="", stderr=""
+            ),
+        )
+        monkeypatch.setattr(sys, "argv", ["scripts/execution_time.py", "--all"])
+
+        runpy.run_path(str(SCRIPT_PATH), run_name="__main__")
+
+        assert "is currently running" in capsys.readouterr().out
 

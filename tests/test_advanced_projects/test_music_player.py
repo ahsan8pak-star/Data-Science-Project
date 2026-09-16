@@ -250,6 +250,69 @@ class TestAudioPlayers:
         music = audio_ctx["pygame"].mixer.music
         assert music.play.call_count == len(calls)
 
+    def test_pause_when_idle_reports_not_playing(self, players, audio_ctx, capsys):
+
+        # A fresh player has no active playback; force get_busy() falsy so
+        # pause() skips the pause branch and falls into the else arm.
+        audio_ctx["pygame"].mixer.music.get_busy.return_value = False
+        for player in players.values():
+            player.pause()
+        assert "Track is not actively playing or already paused." in capsys.readouterr().out
+
+    def test_resume_without_a_pause_reports_not_paused(self, players, capsys):
+
+        # is_paused starts False, so resume() goes straight to its else arm.
+        for player in players.values():
+            player.resume()
+        assert "Track is not currently paused." in capsys.readouterr().out
+
+    def test_backward_at_start_respects_loop_playlist_off(self, players, capsys):
+
+        # backward() from index 0 with Loop Playlist OFF is unreachable via
+        # the forward-only menu cycle - drive it straight against the method.
+        for extension, player in players.items():
+            files = [f"alpha.{extension}"]
+            assert player.backward(files, 0) == 0
+        assert "Beginning of playlist reached" in capsys.readouterr().out
+
+    def test_restart_with_no_selected_track_reports(self, players, capsys):
+
+        # The full-menu cycle always restarts a track that is already
+        # playing, so the no-song else branch is hit directly here.
+        for player in players.values():
+            assert player.current_song is None
+            player.restart()
+        assert "No track selected to restart." in capsys.readouterr().out
+
+    @pytest.mark.parametrize(
+        "path,player_cls",
+        [(MP3_TUI, "MP3AudioPlayer"), (WAV_TUI, "WAVAudioPlayer")],
+    )
+    def test_init_reporting_audio_engine_failure(self, audio_ctx, capsys, path, player_cls):
+
+        # mixer.init() raising pygame.error (RuntimeError in the stub)
+        # must be caught and reported, not crash the constructor.
+        audio_ctx["pygame"].mixer.init.side_effect = RuntimeError("no sound device")
+        mod = load_module(path)
+        getattr(mod, player_cls)("C:/missing")
+        assert "[X] Audio engine initialisation failed: no sound device" in capsys.readouterr().out
+
+    @pytest.mark.parametrize(
+        "path,player_cls",
+        [(MP3_TUI, "MP3AudioPlayer"), (WAV_TUI, "WAVAudioPlayer")],
+    )
+    def test_play_reporting_playback_exception(self, audio_ctx, tmp_path, capsys, path, player_cls):
+
+        # music.play() raising pygame.error falls into the play() except
+        # branch: the method returns False and prints the error box.
+        audio_ctx["pygame"].mixer.music.play.side_effect = RuntimeError("decode failed")
+        song = tmp_path / "alpha.mp3"
+        song.write_bytes(b"")
+        mod = load_module(path)
+        player = getattr(mod, player_cls)(str(tmp_path))
+        assert player.play(song.name) is False
+        assert "[X] Playback Exception: decode failed" in capsys.readouterr().out
+
 
 # ---------------------------------------------------------------------------
 # TUI entry points (banner + empty-folder guard)
@@ -270,6 +333,30 @@ class TestTuiEntryPoints:
         with patch.object(self.wav.WAVAudioPlayer, "get_wav_files", return_value=[]):
             self.wav.wav_player()
         assert "No .wav files found" in capsys.readouterr().out
+
+    @pytest.mark.parametrize("path", [MP3_TUI_PATH, WAV_TUI_PATH])
+    def test_import_fallback_when_pygame_is_missing(self, path, capsys):
+
+        """
+        Forces `import pygame` to fail regardless of the stubbed
+        sys.modules entry, confirming lines 11-13 print the install hint
+        and exit(1) immediately for a machine without pygame.
+        """
+
+        import builtins
+        import runpy
+
+        real_import = builtins.__import__
+
+        def fake_import(name, *args, **kwargs):
+            if name in {"pygame", "pygame.mixer"}:
+                raise ModuleNotFoundError("No module named 'pygame'")
+            return real_import(name, *args, **kwargs)
+
+        with patch("builtins.__import__", side_effect=fake_import):
+            with pytest.raises(SystemExit):
+                runpy.run_path(str(path), run_name="__main__")
+        assert "Error: 'pygame' module is not installed." in capsys.readouterr().out
 
 
 # ---------------------------------------------------------------------------

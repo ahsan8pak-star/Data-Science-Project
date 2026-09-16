@@ -382,3 +382,15 @@ class TestQRCodeGenerator:
         assert "Nothing to encode; please provide a URL or link." in out
         assert not (tmp_path / "qrcode.png").exists()
 
+    def test_url_taken_from_command_line_argument(self, tmp_path):
+
+        # Passing a second argv entry takes the argv[1] branch, skipping the
+        # input() prompt entirely; the PNG still lands in the CWD.
+        _, out = run_script(
+            self.FILE,
+            patches=[patch("sys.argv", ["qrcode_generator.py", GITHUB_USER_URL])],
+            cwd=tmp_path,
+        )
+        assert (tmp_path / "qrcode.png").exists()
+        assert "QR code image saved to:" in out
+

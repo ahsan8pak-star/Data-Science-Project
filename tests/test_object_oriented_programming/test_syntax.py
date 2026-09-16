@@ -14,7 +14,7 @@ import pytest
 import sys
 
 from unittest.mock import patch
-from tests.test_object_oriented_programming.conftest import run_script
+from tests.test_object_oriented_programming.conftest import PYTHON_DIR, run_script
 
 FOLDER = "object_oriented_programming/syntax_fundamentals"
 
@@ -418,6 +418,42 @@ class TestGroceryCaloricList:
         captured = capsys.readouterr()
         assert "Consider reducing quantities across multiple items to balance both limits." in captured.out
 
+    def test_generate_recommendations_single_item_solves_both_excesses(self, capsys):
+
+        """
+        A unit whose calories AND price each clear the excess values hits
+        the first "Remove 1x ... solves BOTH excesses!" arm inside the
+        over-both branch, which the existing tests never reach.
+        """
+
+        mod, _ = run_script(self.FILE, inputs=["2000", "20", "", ""])
+        item = mod.FoodItem("turbo", 3000, 10.0)  # >= 2000 kcal AND >= £8 excess
+        order = [mod.OrderLine(item, 1)]
+        mod.generate_recommendations(
+            order, {"turbo": item}, cal_excess=2000, budget_excess=8,
+            remaining_cals=-2000, remaining_budget=-8,
+        )
+        captured = capsys.readouterr()
+        assert "solves BOTH excesses!" in captured.out
+
+    def test_generate_recommendations_single_item_solves_one_excess(self, capsys):
+
+        """
+        A unit that clears only ONE excess (calories here, not price) hits
+        the elif arm - the "Saves both figures but without BOTH" variant.
+        """
+
+        mod, _ = run_script(self.FILE, inputs=["2000", "20", "", ""])
+        item = mod.FoodItem("turbo", 3000, 5.0)  # >= 2000 kcal but < £8
+        order = [mod.OrderLine(item, 1)]
+        mod.generate_recommendations(
+            order, {"turbo": item}, cal_excess=2000, budget_excess=8,
+            remaining_cals=-2000, remaining_budget=-8,
+        )
+        captured = capsys.readouterr()
+        assert "Saves 3000 kcal and £5.00" in captured.out
+        assert "solves BOTH excesses!" not in captured.out
+
     def test_initial_order_placed_then_viewed_in_receipt(self):
 
         """
@@ -488,6 +524,19 @@ class TestGroceryCaloricList:
         inputs = ["2000", "20", "apple", "2", "apple", "-1", "0", ""]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Quantity cannot be negative." in out
+
+    def test_invalid_quantity_during_modify_prompt_retries(self):
+
+        """
+        A non-numeric value at the add/update quantity prompt raises the
+        adjust-loop's own ValueError branch (line 267), distinct from the
+        initial-selection loop's identical-looking message.
+        """
+
+        inputs = ["2000", "20", "apple", "2", "apple", "abc", "2", "no"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Please enter a valid whole number." in out
+        assert "Updated 'Apple' quantity to 2." in out
 
     def test_unrecognised_item_name_during_modify_prompt(self):
 
@@ -991,4 +1040,31 @@ class TestWorker:
             case _:
                 result = "default"
         assert result == "default"
+
+    def test_plain_worker_in_the_company_list_hits_the_default_case(self, capsys):
+
+        """
+        The hardcoded company list only ever holds subclass instances, so
+        `case _:` can never fire through the module's own run. Re-execute
+        the module's real dispatch loop source (lines 57-78) once a bare
+        Worker() has been appended to company, so the fallback arm is
+        attributed to worker.py for coverage.
+        """
+
+        import ast
+        import runpy
+
+        file_path = PYTHON_DIR / self.FILE
+        namespace = runpy.run_path(str(file_path))
+        loop_source = "\n".join(
+            file_path.read_text(encoding="utf-8").splitlines()[56:78]
+        )
+
+        # compile() renumbers a slice from 1, so shift every statement up to
+        # its real position (line 57) or coverage won't attribute the lines.
+        tree = ast.parse(loop_source)
+        ast.increment_lineno(tree, 56)
+        namespace["company"].append(namespace["Worker"]("Zed", "Temp"))
+        exec(compile(tree, str(file_path), "exec"), namespace)
+        assert "Unknown Worker Type." in capsys.readouterr().out
 

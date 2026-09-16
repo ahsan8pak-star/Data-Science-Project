@@ -1991,6 +1991,76 @@ class TestAlarmClock:
         captured = capsys.readouterr()
         assert "[X] Pygame Engine Error: Failed to initialise or load track" in captured.out
 
+    def test_set_alarm_handles_missing_file_raised_by_pygame(self, capsys):
+
+        """
+        The os.path.exists guard is mocked into "file found" and then the
+        actual music.load() call raises FileNotFoundError, reaching the
+        dedicated `except FileNotFoundError` branch (distinct from the
+        Pygame engine-error branch above).
+        """
+
+        mod, _ = run_script(self.FILE, inputs=["1", "02:30:00", "PM"])
+
+        with patch("os.path.exists", return_value=True), \
+             patch.object(mod.pygame.mixer, "init"), \
+             patch.object(mod.pygame.mixer.music, "load", side_effect=FileNotFoundError):
+            mod.set_alarm("14:30:00")
+
+        captured = capsys.readouterr()
+        assert "[X] Error: Sound file" in captured.out
+        assert "was not found." in captured.out
+
+    def test_set_alarm_playback_error_is_caught_and_reported(self, capsys):
+
+        """
+        music.play() raising pygame.error after the clock match: the
+        inner `except pygame.error` around playback prints the failure but
+        still winds the alarm loop down to the completion banner.
+        """
+
+        mod, _ = run_script(self.FILE, inputs=["1", "02:30:00", "PM"])
+
+        with patch("os.path.exists", return_value=True), \
+             patch.object(mod.pygame.mixer, "init"), \
+             patch.object(mod.pygame.mixer.music, "load"), \
+             patch.object(mod.pygame.mixer.music, "play", side_effect=mod.pygame.error("playback failed")), \
+             patch.object(mod.pygame.mixer.music, "get_busy", return_value=True), \
+             patch.object(mod.time, "sleep"), \
+             patch.object(mod.datetime, "datetime") as mock_dt:
+
+            mock_dt.now.return_value.strftime.return_value = "14:30:00"
+            mod.set_alarm("14:30:00")
+
+        captured = capsys.readouterr()
+        assert "TIMES UP!" in captured.out
+        assert "[X] Playback Exception: playback failed" in captured.out
+        assert "Alarm session completed successfully." in captured.out
+
+    def test_set_alarm_busy_wait_loop_ticks_until_playback_finishes(self, capsys):
+
+        """
+        get_busy() returning True once (then False) drives the blocking
+        `while pygame.mixer.music.get_busy(): time.sleep(1)` body, instead
+        of skipping it on the very first False like the main playback test.
+        """
+
+        mod, _ = run_script(self.FILE, inputs=["1", "02:30:00", "PM"])
+
+        with patch("os.path.exists", return_value=True), \
+             patch.object(mod.pygame.mixer, "init"), \
+             patch.object(mod.pygame.mixer.music, "load"), \
+             patch.object(mod.pygame.mixer.music, "play"), \
+             patch.object(mod.pygame.mixer.music, "get_busy", side_effect=[True, False]), \
+             patch.object(mod.time, "sleep"), \
+             patch.object(mod.datetime, "datetime") as mock_dt:
+
+            mock_dt.now.return_value.strftime.return_value = "14:30:00"
+            mod.set_alarm("14:30:00")
+
+        captured = capsys.readouterr()
+        assert "Alarm session completed successfully." in captured.out
+
 
 # ---------------------------------------------------------------------------
 

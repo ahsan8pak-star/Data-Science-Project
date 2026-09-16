@@ -10,6 +10,7 @@ from the file's own inline comments, since a couple of those comments are
 deliberately wrong about "expected vs actual" output.
 """
 
+import datetime
 import math
 import sys
 import pytest
@@ -1060,6 +1061,25 @@ class TestDateTime:
     def test_compare_datetime_against_now(self):
         _, out = run_script(self.FILE)
         assert "left to meet the deadline." in out
+
+    def test_deadline_met_branch_when_now_runs_past_target(self):
+
+        # today's real "now" is always before the 2030-01-02 target, so the
+        # DEADLINE MET arm is only reachable with a fake clock. datetime is a
+        # C type (attributes can't be patched), so a subclass with a fixed
+        # `now` classmethod is dropped into the module's `datetime` name.
+        import datetime as _dt
+
+        class _FutureDatetime(_dt.datetime):
+            @classmethod
+            def now(cls, tz=None):
+                return _dt.datetime(2031, 1, 1)
+
+        _, out = run_script(
+            self.FILE,
+            patches=[patch("datetime.datetime", new=_FutureDatetime)],
+        )
+        assert "DEADLINE MET!" in out
 
     def test_timedelta_arithmetic(self):
         _, out = run_script(self.FILE)

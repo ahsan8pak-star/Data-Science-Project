@@ -254,6 +254,15 @@ class TestClassVariables:
         # by calling level() on a student whose university now differs.
         assert student_a.university != student_b.university
 
+    def test_university_mismatch_else_branch_prints_warning(self, capsys):
+
+        # level() compares the module's THREE global students, so overriding
+        # one of them breaks the chained check and fires the else branch.
+        mod, _ = run_script(self.FILE)
+        mod.student1.university = "Manchester"
+        mod.student1.level()
+        assert "All students must be at the same university to do this." in capsys.readouterr().out
+
 
 # ---------------------------------------------------------------------------
 # composition.py
@@ -591,6 +600,14 @@ class TestMagicMethods:
         mod, _ = run_script(self.FILE)
         assert mod.book1["publisher"] == "Key 'publisher' was not found"
 
+    def test_getitem_returns_author_and_page_count(self):
+
+        # The module's own __getitem__ demo only reads book3["title"], so
+        # the "author" and "num_pages" elif arms are exercised here instead.
+        mod, _ = run_script(self.FILE)
+        assert mod.book1["author"] == "J.R.R. Tolkien"
+        assert mod.book1["num_pages"] == 310
+
 
 # ---------------------------------------------------------------------------
 # multiple_inheritance.py
@@ -716,6 +733,14 @@ class TestNestedClasses:
         assert "Bob Middleton : Doctor -> A&E" in out
         assert "Thomas Edward : Researcher -> Laboratory" in out
 
+    def test_organisation_employee_without_department_prints_name_and_role(self):
+
+        # Organisation employees are all added with a department in the
+        # module's own flow, so the e_depart-less else arm is hit directly.
+        mod, _ = run_script(self.FILE)
+        employee = mod.Organisation.Employee("Vera Song", "Paramedic")
+        assert employee.employee_details() == "Vera Song : Paramedic"
+
     def test_nested_employee_class_is_scoped_to_its_outer_class(self):
 
         """
@@ -801,6 +826,26 @@ class TestProperty:
         rectangle = mod.Rectangle(10, 10)
         rectangle.width = 25
         assert rectangle.width == "25.00cm"
+
+    def test_height_setter_accepts_valid_positive_value(self):
+        mod, _ = run_script(self.FILE)
+        rectangle = mod.Rectangle(10, 10)
+        rectangle.height = 25
+        assert rectangle.height == "25.00cm"
+
+    def test_height_getter_returns_centimeters_string(self):
+        # Drives the @property height getter directly (the module's own
+        # output only reads the underlying _height attribute via __str__).
+        mod, _ = run_script(self.FILE)
+        rectangle = mod.Rectangle(10, 10)
+        assert rectangle.height == "10.00cm"
+
+    def test_area_getter_returns_centimeters_squared(self):
+        # Drives the @property area getter directly (the module's own
+        # output computes the bounding box itself inside __str__).
+        mod, _ = run_script(self.FILE)
+        rectangle = mod.Rectangle(3, 4)
+        assert rectangle.area == "12.00cm²"
 
     def test_width_deleter_removes_the_underlying_attribute(self, capsys):
         mod, _ = run_script(self.FILE)
