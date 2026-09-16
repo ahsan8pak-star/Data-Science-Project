@@ -429,6 +429,13 @@ class TestMP3GUI:
         assert self.gui.mp3_files == []
         assert self.gui.current_idx == 0
 
+    def test_select_folder_returns_early_without_choice(self):
+        # Mirror of the WAV test: cancelling the folder dialog (empty string)
+        # leaves the player unbuilt instead of crashing.
+        self.gui_mod.filedialog.askdirectory.return_value = ""
+        self.gui._select_folder()
+        assert self.gui.player is None
+
     def test_select_folder_reporting_error_for_empty_folder(self, audio_ctx):
         # Choosing a folder with zero .mp3 files pops a messagebox error
         # instead of constructing a player.
@@ -578,6 +585,18 @@ class TestWAVGUI:
         assert self.gui.track_listbox.insert.call_count == 2
         self.gui.status_label.config.assert_called()
 
+    def test_select_folder_reporting_error_for_empty_folder(self, audio_ctx):
+        # Mirror of the MP3 test: an empty .wav folder pops a messagebox
+        # error via the showerror branch instead of building a player.
+        self.gui_mod.filedialog.askdirectory.return_value = "/empty/songs"
+        with patch.object(
+            self.gui_mod.WAVAudioPlayer, "get_wav_files", return_value=[]
+        ):
+            self.gui_mod.messagebox.showerror = MagicMock()
+            self.gui._select_folder()
+
+        assert self.gui_mod.messagebox.showerror.call_count == 1
+
     def test_playback_controls_guard_without_player(self):
         # Same no-player guard as the MP3 UI: buttons are safe to click.
         self.gui.player = None
@@ -627,6 +646,17 @@ class TestWAVGUI:
         self.gui._toggle_shuffle()
         assert player.shuffle is True
 
+    def test_toggle_loop_playlist_syncs_checkbox_var(self, audio_ctx):
+        # The Loop Playlist toggle existed but was never exercised; under the
+        # BooleanVar mock any var object drives it, so read loop_playlist_var
+        # and confirm the player flag follows.
+        player = MagicMock(name="wav_player", current_song="alpha.wav", status="Active")
+        self.gui.player = player
+        self.gui.loop_playlist_var.get.return_value = True
+
+        self.gui._toggle_loop_playlist()
+        assert player.loop_playlist is True
+
     def test_update_status_displays_now_playing(self, audio_ctx):
         # Status label shows the current track name, same as the MP3 UI.
         player = MagicMock(name="wav_player", current_song="alpha.wav", status="Active")
@@ -634,6 +664,18 @@ class TestWAVGUI:
         self.gui._update_status()
         text = self.gui.status_label.config.call_args[1].get("text", "")
         assert "alpha.wav" in text
+
+    def test_on_track_select_sets_index(self):
+        # Mirror of the MP3 test: clicking a listbox entry stores the index.
+        self.gui.track_listbox.curselection.return_value = (3,)
+        self.gui._on_track_select(None)
+        assert self.gui.current_idx == 3
+
+    def test_on_track_select_ignores_empty_selection(self):
+        # A deselection event (empty tuple) keeps the existing index.
+        self.gui.track_listbox.curselection.return_value = ()
+        self.gui._on_track_select(None)
+        assert self.gui.current_idx == 0
 
     def test_main_entry_point(self, audio_ctx):
         # main() starts the Tk event loop.
