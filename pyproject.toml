@@ -38,6 +38,8 @@ omit = [
     "*/pytest-of-*/*",
     "*/AppData/Local/Temp/*",
     "tests/*",
+    # Intentionally unparseable teaching stub (SyntaxError); cannot be measured.
+    "python/imperative_programming/fundamental_topics/main.py",
 ]
 
 [tool.coverage.report]
