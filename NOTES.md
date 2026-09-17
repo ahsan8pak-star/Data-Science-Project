@@ -115,33 +115,72 @@ covers Years 1-2; the Year 3 (2027/28) plan starts in summer 2027
 | 4 Expert | stack-spanning; CS/statistical depth; leads design |
 | 5 Master | near the top of a field; distinctive contributions |
 
+## Warm / Cold Definition (temperature of a skill)
+
+How "alive" a skill is decided by **two facts together**: months since last
+meaningful use, and whether the directory holds verifiable content for it.
+Recency alone fades fast; artifacts alone go stale.
+
+| Temperature | Months idle | Working | Directory content needed |
+| --- | --- | --- | --- |
+| **Warm** | 0 - 3 months (<= 13 weeks) | recall is instant; score = current capability | repeated, verifiable outputs (scripts, tests, reports) exercised in that window |
+| **Lukewarm** | 3 - 6 months | recall is slow; score ~0.5 below peak | artifacts retained but piled up; no fresh output since the last use |
+| **Cold** | >= 4 months (>= 16 weeks) | behave as latent ~1 best; score = residual, not peak | no artifact in the directory, or an empty stub (e.g. `aim.sql`, 0 lines) |
+
+A cold skill is rediscoverable, not counted. A warm skill with a thin
+directory (e.g. Python demos but no applied project) is warm *but shallow*:
+the ceiling, not the current score, is what the directory limits.
+
 ## Dimension Scores (Sep 2026)
 
-| Dimension | Score | Note |
-| --- | --- | --- |
-| Core Python | 2 | clean syntax; portability blind spots (absolute paths) |
-| OOP & metaprogramming | 1.5 - 2 | sklearn idiom strong when scaffolded; setter / dead-branch subtleties not yet foreseen |
-| Functional | 1.5 | demos only; applied functional project still missing |
-| Algorithms / decomposition | 1 | CS2DA is new territory |
-| Testing & tooling | 1 | can run/read; cannot yet author runpy/mock harnesses |
-| Debugging | 1.5 | import side-effects and dead branches found by tests/AI, not self-review |
-| Statistics / maths | 1 | applied IQR works; formal depth unproven |
-| SQL / storage | 0 - 1 | Postgres planned, not started |
-| Applied data/ML | 1.5 - 2 | data_outlier.py is the best file |
-| Git & professional practice | 3 | genuinely outranks code maturity |
+Column key: **Part** = realistic current read; the **+/- 0.5** band is the
+honest tolerance (progress sits at the low end on a bad day, potential at the
+high end on a strong day). **Temp** = warmth per the definition above.
+
+| Dimension | Part | +/- 0.5 | Temp | Evidence in directory | Progress -> Potential |
+| --- | --- | --- | --- | --- | --- |
+| Core Python | 2.0 | 1.5 - 2.5 | **Warm** | 180 scripts, 1269 tests, 15-week summer block just ended | CS2PP W7 set exercise + Jan group app -> 2.5 - 3 |
+| OOP & metaprogramming | 2.0 | 1.5 - 2.5 | Warm | 41 OOP scripts; dead-branch / setter gaps still visible | one solo multi-class build -> 2.5 |
+| Functional | 1.5 | 1.0 - 2.0 | Warm | 19 scripts, demos only, no applied project | one data pipeline in pure functions -> 2 - 2.5 |
+| Algorithms / decomposition | 1.0 | 0.5 - 1.5 | Lukewarm | CS1MA idle 4 months; `sort_comparison` benchmark only | CS2DA starts 28 Sep; open exam -> 2 - 2.5 by Jan |
+| Testing & tooling | 1.5 | 1.0 - 2.0 | Warm | pytest suite real but AI-authored (runpy/mock not yet self-written) | rebuild one harness from blank -> 2 |
+| Debugging | 1.5 | 1.0 - 2.0 | Warm | documented caps found by tests/AI, not self-review | discipline on branch order/`__main__` -> 2 |
+| Statistics / maths | 1.0 | 0.5 - 1.5 | Cold | CS1MA idle 4 months; applied IQR only | ride CS2DA revision -> 1.5 |
+| SQL / PostgreSQL | 1.0 | 0.5 - 1.5 | **Cold** | CS1DB taught Y1 (group work) but **16 weeks idle and `aim.sql` is empty** | first real schema + queries artifact -> 2 - 3 |
+| Java | 1.0 | 0.5 - 1.5 | **Cold** | 6 `.java` transposition files retained; **16 weeks idle** | transferable only; revisit only if electives need it |
+| MATLAB (CS1MA) | 1.0 | 0.5 - 1.5 | **Cold** | no `.m` artifact in the directory at all | ignore unless coursework demands it |
+| Applied data / ML | 2.0 | 1.5 - 2.5 | Warm | `data_outlier.py` is the best file; ML notebooks present | one clean solo model end-to-end -> 2.5 - 3 |
+| Git & professional practice | 3.0 | 2.5 - 3.5 | **Warm** | daily commits all summer; clean Conventional-Commits history; 4 mirrors | solo project + review process -> 4 |
 
 ## Verdict
 
-High Advanced Beginner -> entry-level Competent (overall ~1.5 - 2). Reads and
-follows better than designs and decomposes; professional practice ahead of
-code maturity - the strongest predictor the score rises next term.
+**Overall ~2.0 (band 1.5 - 2.5): High Advanced Beginner -> borderline
+Competent, on a Python-only warm surface.** Reads and follows better than it
+designs and decomposes (the lower band). Breadth from Year 1 (SQL, Java,
+MATLAB) is real but **cold** - residual ~1 each, rediscoverable in days once a
+clear window is spent, and none of it counts toward the current number until
+an artifact exists in the directory. The warm, verifiable surface today is
+Python plus professional practice - and professional practice is what most
+predicts the score rises this term.
 
 ## Four Moves to Competent
 
 1. **Decomposition:** solve CS2DA tree / greedy / DP problems unaided; the
-   open exams are the real test.
+   open exams are the real test (CS2DA starts 28 Sep - the first warm-able
+   algorithm window).
 2. **One solo end-to-end build:** transactions -> Postgres -> dashboard, with
-   no AI for the architecture decisions.
+   no AI for the architecture decisions; ship the first real `.sql` artifact
+   on the way (this both moves the Solo-build and thaws SQL).
 3. **Tooling authorship:** rebuild one runpy / mock test from a blank file.
 4. **Kill the blind spots:** portability, `__main__` hygiene and branch
    ordering - i.e. the current documented coverage caps.
+
+## Refresh cadence to hold
+
+- **SQL / Java:** plan a deliberate thaw (a ~1-2 week window) before Year 3
+  electives (CS3DV/CS3CS); until then they sit at residual ~1 and that is the
+  honest score.
+- **Python:** stays warm through CS2PP; the January assessment tightens the
+  2.0 - 2.5 band rather than widening it.
+- Re-score this snapshot after the CS2PP assessment week (Jan 2027), using
+  the same Part / +/- 0.5 / Temp rules.
