@@ -78,20 +78,22 @@ GUI, scikit-learn recommenders). Targeted gaps to close alongside the modules:
 
 ## Weekly Timetable (Teaching Weeks 1 - 12, 28 September - 17 December)
 
-| Week | Dates | CS2PP | CS2DA | CS2SE |
-| --- | --- | --- | --- | --- |
-| 1 | Mon 28 Sep - Sun 4 Oct | Python basics, data types, flow control; environment setup | Course intro, Big O review, arrays, lists, stacks, queues | Module intro, software architecture and standards |
-| 2 | Mon 5 Oct - Sun 11 Oct | Functional and OOP; packages, modules, environments | Trees: binary trees and traversals | Requirements engineering; group formation |
-| 3 | Mon 12 Oct - Sun 18 Oct | File I/O: open, read, write, CSV and JSON | Binary search trees; heaps | Iterative development and design |
-| 4 | Mon 19 Oct - Sun 25 Oct | NumPy arrays and vector operations | Graphs: adjacency representations, BFS and DFS | Testing, deployment, versioning |
-| 5 | Mon 26 Oct - Sun 1 Nov | Pandas DataFrames, slicing, groupby | Divide and Conquer: general method, merge and quick sort | Project planning and team management; Stage 1 drafting |
-| *6* | Mon 2 Nov - Sun 8 Nov | **Week Off - No Scheduled Study** | **Week Off - No Scheduled Study** | **Week Off - No Scheduled Study** |
-| 7 | Mon 9 Nov - Sun 15 Nov | **Coursework 1 due (40%)**; start scikit-learn | Greedy: Dijkstra shortest paths, Prim and Kruskal spanning trees | Risk and ethics; Stage 1 submission |
-| 8 | Mon 16 Nov - Sun 22 Nov | scikit-learn model training | Dynamic programming: general method, memoisation and tabulation | Group Stage 2 planning |
-| 9 | Mon 23 Nov - Sun 29 Nov | Image manipulation with Pillow | Dynamic programming: travelling salesperson, transitive closure | Stage 2 drafting |
-| 10 | Mon 30 Nov - Sun 6 Dec | GUI programming with tkinter | Technical report writing and trace analysis | Stage 2 refinement |
-| 11 | Mon 7 Dec - Sun 13 Dec | Web programming with Flask; group project integration | **Technical report due (50%)**; exam technique | **Stage 2 submission** |
-| 12 | Mon 14 Dec - Thu 17 Dec | Group project polish and demo dry-run | Revision and past papers | Reflection and portfolio commit |
+| Week | Dates | CS2PP | CS2DA | CS2SE | Covered? |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Mon 28 Sep - Sun 4 Oct | Python basics, data types, flow control; environment setup | Course intro, Big O review, arrays, lists, stacks, queues | Module intro, software architecture and standards | |
+| 2 | Mon 5 Oct - Sun 11 Oct | Functional and OOP; packages, modules, environments | Trees: binary trees and traversals | Requirements engineering; group formation | |
+| 3 | Mon 12 Oct - Sun 18 Oct | File I/O: open, read, write, CSV and JSON | Binary search trees; heaps | Iterative development and design | |
+| 4 | Mon 19 Oct - Sun 25 Oct | NumPy arrays and vector operations | Graphs: adjacency representations, BFS and DFS | Testing, deployment, versioning | |
+| 5 | Mon 26 Oct - Sun 1 Nov | Pandas DataFrames, slicing, groupby | Divide and Conquer: general method, merge and quick sort | Project planning and team management; Stage 1 drafting | |
+| *6* | Mon 2 Nov - Sun 8 Nov | **Week Off - No Scheduled Study** | **Week Off - No Scheduled Study** | **Week Off - No Scheduled Study** | n/a |
+| 7 | Mon 9 Nov - Sun 15 Nov | **Coursework 1 due (40%)**; start scikit-learn | Greedy: Dijkstra shortest paths, Prim and Kruskal spanning trees | Risk and ethics; Stage 1 submission | |
+| 8 | Mon 16 Nov - Sun 22 Nov | scikit-learn model training | Dynamic programming: general method, memoisation and tabulation | Group Stage 2 planning | |
+| 9 | Mon 23 Nov - Sun 29 Nov | Image manipulation with Pillow | Dynamic programming: travelling salesperson, transitive closure | Stage 2 drafting | |
+| 10 | Mon 30 Nov - Sun 6 Dec | GUI programming with tkinter | Technical report writing and trace analysis | Stage 2 refinement | |
+| 11 | Mon 7 Dec - Sun 13 Dec | Web programming with Flask; group project integration | **Technical report due (50%)**; exam technique | **Stage 2 submission** | |
+| 12 | Mon 14 Dec - Thu 17 Dec | Group project polish and demo dry-run | Revision and past papers | Reflection and portfolio commit | |
+
+\*Fill **Covered?** each pass-through (e.g. ✅ done, ◐ partial). Off weeks are marked `n/a`.
 
 ## Holiday Plan (20 December - 31 January)
 

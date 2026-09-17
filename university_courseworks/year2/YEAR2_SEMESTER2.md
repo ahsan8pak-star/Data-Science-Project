@@ -93,22 +93,24 @@ Semester 2. Design report **Stage 1 (group, 40%, due Teaching Week 7)** + **Stag
 
 ## Weekly Timetable (Teaching Weeks 1 - 12, 1 February - 28 May)
 
-| Week | Dates | CS2AI | CS2ON | CS2SD |
-| --- | --- | --- | --- | --- |
-| 1 | Mon 1 Feb - Sun 7 Feb | Module intro, agents, search problem | OS intro, processes and threads | OOAD intro, design process |
-| 2 | Mon 8 Feb - Sun 14 Feb | Uninformed and informed search (BFS, DFS, A-star) | Scheduling: FCFS, SJF, SRTF, priority, round robin | UML use case diagrams, requirements |
-| 3 | Mon 15 Feb - Sun 21 Feb | Knowledge representation, logic and reasoning | Memory management: segmentation, paging | UML class diagrams, domain modelling |
-| 4 | Mon 22 Feb - Sun 28 Feb | Expert systems and production rules | File systems and I/O management | UML sequence and activity diagrams |
-| *5* | Mon 1 Mar - Sun 7 Mar | **Times Off - 9:00 AM - 9:00 PM** | **Times Off - 9:00 AM - 9:00 PM** | **Times Off - 9:00 AM - 9:00 PM** |
-| 6 | Mon 8 Mar - Sun 14 Mar | Machine learning intro, decision trees | Networking intro, multi-tier, Ethernet | Stage 1 scoping (group); model validation |
-| 7 | Mon 15 Mar - Sun 21 Mar | Neural networks, evolutionary computation | TCP/IP, IP addressing, routing protocols | Stage 1 drafting finalisation; **submission (group, 40%)** |
-| 8 | Mon 22 Mar - Sun 28 Mar | Reasoning under uncertainty | Congestion control, application protocols | Ethics review; **formative assignment due (Teaching Week 8)** |
-| *EB* | Mon 29 Mar - Fri 9 Apr | **Times Off - 9:00 AM - 9:00 PM** | **Times Off - 9:00 AM - 9:00 PM** | **Times Off - 9:00 AM - 9:00 PM** |
-| 9 | Mon 12 Apr - Sun 18 Apr | CV and NLP ties to AI | Wireless networks, network security; technical report drafting (7 pages) | Stage 2 scoping (individual) |
-| 10 | Mon 19 Apr - Sun 25 Apr | Group coursework build-out | OS security, protection domains; **technical report submission (50%)** | Stage 2 drafting |
-| 11 | Mon 26 Apr - Sun 2 May | Group project integration | Technical report follow-up; exam preparation | Stage 2 UML completion |
-| 12 | Mon 3 May - Sun 9 May | Group submission and demo | Exam revision (assessment period) | **Stage 2 submission (individual, 60%)** |
-| AS | Mon 10 May - Fri 28 May | CS2AI assessment and revision | CS2ON written exam | Report follow-up; term ends Fri 28 May |
+| Week | Dates | CS2AI | CS2ON | CS2SD | Covered? |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Mon 1 Feb - Sun 7 Feb | Module intro, agents, search problem | OS intro, processes and threads | OOAD intro, design process | |
+| 2 | Mon 8 Feb - Sun 14 Feb | Uninformed and informed search (BFS, DFS, A-star) | Scheduling: FCFS, SJF, SRTF, priority, round robin | UML use case diagrams, requirements | |
+| 3 | Mon 15 Feb - Sun 21 Feb | Knowledge representation, logic and reasoning | Memory management: segmentation, paging | UML class diagrams, domain modelling | |
+| 4 | Mon 22 Feb - Sun 28 Feb | Expert systems and production rules | File systems and I/O management | UML sequence and activity diagrams | |
+| *5* | Mon 1 Mar - Sun 7 Mar | **Times Off - 9:00 AM - 9:00 PM** | **Times Off - 9:00 AM - 9:00 PM** | **Times Off - 9:00 AM - 9:00 PM** | n/a |
+| 6 | Mon 8 Mar - Sun 14 Mar | Machine learning intro, decision trees | Networking intro, multi-tier, Ethernet | Stage 1 scoping (group); model validation | |
+| 7 | Mon 15 Mar - Sun 21 Mar | Neural networks, evolutionary computation | TCP/IP, IP addressing, routing protocols | Stage 1 drafting finalisation; **submission (group, 40%)** | |
+| 8 | Mon 22 Mar - Sun 28 Mar | Reasoning under uncertainty | Congestion control, application protocols | Ethics review; **formative assignment due (Teaching Week 8)** | |
+| *EB* | Mon 29 Mar - Fri 9 Apr | **Times Off - 9:00 AM - 9:00 PM** | **Times Off - 9:00 AM - 9:00 PM** | **Times Off - 9:00 AM - 9:00 PM** | n/a |
+| 9 | Mon 12 Apr - Sun 18 Apr | CV and NLP ties to AI | Wireless networks, network security; technical report drafting (7 pages) | Stage 2 scoping (individual) | |
+| 10 | Mon 19 Apr - Sun 25 Apr | Group coursework build-out | OS security, protection domains; **technical report submission (50%)** | Stage 2 drafting | |
+| 11 | Mon 26 Apr - Sun 2 May | Group project integration | Technical report follow-up; exam preparation | Stage 2 UML completion | |
+| 12 | Mon 3 May - Sun 9 May | Group submission and demo | Exam revision (assessment period) | **Stage 2 submission (individual, 60%)** | |
+| AS | Mon 10 May - Fri 28 May | CS2AI assessment and revision | CS2ON written exam | Report follow-up; term ends Fri 28 May | |
+
+\*Fill **Covered?** each pass-through (e.g. ✅ done, ◐ partial). Off / assessment weeks are marked `n/a`.
 
 ## Summer Plan (from Monday 31 May 2027)
 
