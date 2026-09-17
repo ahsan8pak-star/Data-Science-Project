@@ -7,7 +7,8 @@ a C in Maths/Computer Science); IB 26 points (or 24 with HL4 Maths/Computer
 Science). *(Those figures match the page's August 2025 Clearing offers; the
 standard offer earlier in the 2025/26 cycle was **ABB** - see the Wayback
 captures below.)* The programme is accredited by **BCS, the Chartered
-Institute for IT** and covers C, C++, Java, Python and
+Institute for IT** (subject to reaccreditation in 2029 - per the 2026/27
+page) and covers C, C++, Java, Python and
 JavaScript across its modules.
 
 This file summarises, per academic year: dates, the modules taken, the
@@ -25,7 +26,7 @@ briefings, and each module's catalogue entry.
 | Entry year | Page | Status |
 | --- | --- | --- |
 | 2025/26 | https://www.reading.ac.uk/ready-to-study/study/2025/computer-science-ug/bsc-computer-science | redirects to the live 2026/27 page; original content visible through 4 Wayback captures (29 Apr - 15 Aug 2025) compared below |
-| 2026/27 | https://www.reading.ac.uk/ready-to-study/study/2026/computer-science-ug/bsc-computer-science | live; structure below is from this page |
+| 2026/27 | https://www.reading.ac.uk/ready-to-study/study/2026/computer-science-ug/bsc-computer-science | live (current entry year); structure below is from this page; 1 Wayback capture so far (7 Jun 2026) compared below |
 | 2027/28 | https://www.reading.ac.uk/ready-to-study/study/2027/computer-science-ug/bsc-computer-science | not live yet (404) - check later in Year 2 |
 
 ### 2025/26 page - Wayback captures (Apr - Aug 2025)
@@ -57,6 +58,37 @@ What this comparison tells us:
   2025), so "accredited by BCS" held true as the owner entered the programme.
   The live 2026/27 page's current accreditation wording is the one to keep
   using going forward.
+
+### 2026/27 page - Wayback captures (from 7 Jun 2026)
+
+This is the live entry-year page, so the captures below need less proving than
+2025/26 did - they exist to track how the page evolves during the owner's
+second year (offers, any Clearing window, briefing year-labels). Only one
+snapshot is archived so far; the Wayback Machine crawls pages on its own
+schedule, so more captures are expected later in the cycle and this table will
+grow row by row.
+
+| Captured | Snapshot | What the page showed |
+| --- | --- | --- |
+| 7 Jun 2026 | https://web.archive.org/web/20260607105005/https://www.reading.ac.uk/ready-to-study/study/2026/computer-science-ug/bsc-computer-science | Standard A-level offer **ABB**; UCAS G400, 3 years full time; BCS accredited "(subject to reaccreditation in 2029)"; Year-1/2/3 module structure exactly as listed below; disclaimer still says "modules that we currently offer for 2025/26 entry" (a one-year lag - the 2025/26 page showed the same lag); "Clearing" in site nav only, no offer change |
+
+What this comparison tells us:
+
+- The **module structure is confirmed by an independent snapshot** - Year 2
+  (the owner's current year) is exactly CS2DA, CS2ON, CS2AI, CS2PP, CS2SD,
+  CS2SE, and Year 3's Degree Project plus the two "choose two" option sets
+  match the list below, so the plan files stay aligned with the official page.
+- The **standard offer ABB** is unchanged from the 2025/26 cycle's normal
+  window. The BCC/IB-26 the owner entered with were that year's August
+  Clearing offers, so the same drop may reappear here in August 2026 - worth
+  re-capturing then.
+- The **BCS wording now reads "(subject to reaccreditation in 2029)"**,
+  matching the header above - the 2025/26 captures' "pending August 2025"
+  uncertainty has resolved into a fixed 2029 date.
+- The page still labels every module list "offered for **2025/26 entry**":
+  identical one-year lag to the 2025/26 page (which said 2024/25). The module
+  titles themselves are unchanged, so this is just a dating quirk to expect
+  going forward.
 
 ## Degree-Wide Rules (from the briefings)
 
