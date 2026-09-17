@@ -4,8 +4,10 @@ Rolling reference for the owner's undergraduate degree - **BSc Computer
 Science** (UCAS code **G400**, three-year full time) at **University of
 Reading**, Department of Computer Science. A-level entry **BCC** (or CCD with
 a C in Maths/Computer Science); IB 26 points (or 24 with HL4 Maths/Computer
-Science). The programme is accredited by **BCS, the Chartered Institute for
-IT** (subject to reaccreditation in 2029) and covers C, C++, Java, Python and
+Science). *(Those figures match the page's August 2025 Clearing offers; the
+standard offer earlier in the 2025/26 cycle was **ABB** - see the Wayback
+captures below.)* The programme is accredited by **BCS, the Chartered
+Institute for IT** and covers C, C++, Java, Python and
 JavaScript across its modules.
 
 This file summarises, per academic year: dates, the modules taken, the
@@ -22,9 +24,39 @@ briefings, and each module's catalogue entry.
 
 | Entry year | Page | Status |
 | --- | --- | --- |
-| 2025/26 | https://www.reading.ac.uk/ready-to-study/study/2025/computer-science-ug/bsc-computer-science | redirects to the live 2026/27 page; original content visible via the Wayback Machine: https://web.archive.org/web/20250601000000*/https://www.reading.ac.uk/ready-to-study/study/2025/computer-science-ug/bsc-computer-science |
+| 2025/26 | https://www.reading.ac.uk/ready-to-study/study/2025/computer-science-ug/bsc-computer-science | redirects to the live 2026/27 page; original content visible through 4 Wayback captures (29 Apr - 15 Aug 2025) compared below |
 | 2026/27 | https://www.reading.ac.uk/ready-to-study/study/2026/computer-science-ug/bsc-computer-science | live; structure below is from this page |
 | 2027/28 | https://www.reading.ac.uk/ready-to-study/study/2027/computer-science-ug/bsc-computer-science | not live yet (404) - check later in Year 2 |
+
+### 2025/26 page - Wayback captures (Apr - Aug 2025)
+
+All four snapshots are of the same URL. They let us compare how the page
+evolved during the owner's application year - the two key changes are the
+entry offers and the BCS accreditation wording. The first capture shows the
+page as it was during the normal application cycle; the later two show the
+Clearing window open.
+
+| Captured | Snapshot | What the page showed |
+| --- | --- | --- |
+| 29 Apr 2025 | https://web.archive.org/web/20250429232702/https://www.reading.ac.uk/ready-to-study/study/2025/computer-science-ug/bsc-computer-science | Standard A-level offer **ABB**; UCAS G400, 3 years full time; BCS accredited; Year-1 modules exactly as listed below (CS1CA, CS1DB, CS1MA, CS1IP, CS1OP + optional CS1AC); Green Flag 14 years; NSS 2024 94% |
+| 16 May 2025 | https://web.archive.org/web/20250516153554/https://www.reading.ac.uk/ready-to-study/study/2025/computer-science-ug/bsc-computer-science | Same standard offer **ABB**; "Clearing 2025" has entered the site navigation but the course has not yet changed |
+| 8 Aug 2025 | https://web.archive.org/web/20250808035704/https://www.reading.ac.uk/ready-to-study/study/2025/computer-science-ug/bsc-computer-science | **In Clearing**: "Clearing Offer - Please contact us to discuss entry requirements"; BCS now shown as "subject to reaccreditation in August 2025"; Green Flag 15 years; NSS 2025 91%; expanded facilities/labs section |
+| 15 Aug 2025 | https://web.archive.org/web/20250815000521/https://www.reading.ac.uk/ready-to-study/study/2025/computer-science-ug/bsc-computer-science | **Clearing offers published**: A level **BCC** (or CCD with a C in Maths/Computer Science), BTEC DMM, IB 26 points (or 24 with HL4 Maths/Computer Science), GCSE English C(4)/Maths B(6) - the figures the header above records |
+
+What this comparison tells us:
+
+- The **module structure never changed** across all four captures - Year 1
+  compulsory CS1CA/CS1DB/CS1MA/CS1IP/CS1OP plus optional CS1AC is stable, so
+  the redirect's current 2026/27 year-1 list and the briefings remain a safe
+  source for what was actually taught.
+- The recorded **A-level BCC / IB 26** figures are this page's **Clearing**
+  offers (published 15 Aug 2025). The standard offer advertised through the
+  application cycle was **ABB**; the drop to BCC/DMM happened once Clearing
+  opened, not before.
+- The August captures note BCS reaccreditation was then pending (due August
+  2025), so "accredited by BCS" held true as the owner entered the programme.
+  The live 2026/27 page's current accreditation wording is the one to keep
+  using going forward.
 
 ## Degree-Wide Rules (from the briefings)
 
