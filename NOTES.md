@@ -87,3 +87,56 @@ capability rather than years served.
 
 SQL -> statistics -> model building -> system building -> LLM orchestration.
 Job titles follow capability, not the reverse.
+
+---
+
+# Programming Level
+
+Baseline snapshot (Sep 2026), re-scored against this rubric each term using
+repo evidence and self-review rather than titles.
+
+University status: Year 2 undergraduate (2026/27) on the data-science degree
+pathway - `CS2DA`/`CS2PP`/`CS2SE` (Semester 1), `CS2AI`/`CS2ON`/`CS2SD`
+(Semester 2). Institution not named here by choice.
+
+## The Scale (0 - 5)
+
+| Level | What it looks like |
+| --- | --- |
+| 0 Beginner | print/variables only; copies verbatim; no testing |
+| 1 Advanced Beginner | multi-step scripts from tutorials; portability/design blind spots; tooling opaque |
+| 2 Competent | multi-file programs unaided; confident git/testing; handles novel specs |
+| 3 Proficient | idioms/patterns instinctive; architecture and performance awareness; mentors others |
+| 4 Expert | stack-spanning; CS/statistical depth; leads design |
+| 5 Master | near the top of a field; distinctive contributions |
+
+## Dimension Scores (Sep 2026)
+
+| Dimension | Score | Note |
+| --- | --- | --- |
+| Core Python | 2 | clean syntax; portability blind spots (absolute paths) |
+| OOP & metaprogramming | 1.5 - 2 | sklearn idiom strong when scaffolded; setter / dead-branch subtleties not yet foreseen |
+| Functional | 1.5 | demos only; applied functional project still missing |
+| Algorithms / decomposition | 1 | CS2DA is new territory |
+| Testing & tooling | 1 | can run/read; cannot yet author runpy/mock harnesses |
+| Debugging | 1.5 | import side-effects and dead branches found by tests/AI, not self-review |
+| Statistics / maths | 1 | applied IQR works; formal depth unproven |
+| SQL / storage | 0 - 1 | Postgres planned, not started |
+| Applied data/ML | 1.5 - 2 | data_outlier.py is the best file |
+| Git & professional practice | 3 | genuinely outranks code maturity |
+
+## Verdict
+
+High Advanced Beginner -> entry-level Competent (overall ~1.5 - 2). Reads and
+follows better than designs and decomposes; professional practice ahead of
+code maturity - the strongest predictor the score rises next term.
+
+## Four Moves to Competent
+
+1. **Decomposition:** solve CS2DA tree / greedy / DP problems unaided; the
+   open exams are the real test.
+2. **One solo end-to-end build:** transactions -> Postgres -> dashboard, with
+   no AI for the architecture decisions.
+3. **Tooling authorship:** rebuild one runpy / mock test from a blank file.
+4. **Kill the blind spots:** portability, `__main__` hygiene and branch
+   ordering - i.e. the current documented coverage caps.
