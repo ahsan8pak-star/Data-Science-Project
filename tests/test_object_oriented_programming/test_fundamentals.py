@@ -828,6 +828,9 @@ class TestProperty:
         assert rectangle.width == "25.00cm"
 
     def test_height_setter_accepts_valid_positive_value(self):
+
+        # Drives the @property height setter directly - the module's own
+        # flow only prints rectangles via __str__, so height is never set.
         mod, _ = run_script(self.FILE)
         rectangle = mod.Rectangle(10, 10)
         rectangle.height = 25

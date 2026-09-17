@@ -340,7 +340,10 @@ class TestTuiEntryPoints:
         """
         Forces `import pygame` to fail regardless of the stubbed
         sys.modules entry, confirming lines 11-13 print the install hint
-        and exit(1) immediately for a machine without pygame.
+        and exit(1) immediately for a machine without pygame. runpy runs
+        the file as `__main__`, exactly like `python file.py`, which is
+        the only way to fire that top-level import guard - a plain module
+        import would skip it.
         """
 
         import builtins
