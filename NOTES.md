@@ -57,3 +57,33 @@
 | **Core Data Science** | Scaled Production Industrial Implementations | [https://www.projectpro.io/projects/data-science-projects](https://www.projectpro.io/projects/data-science-projects) |
 | **Applied ML Algorithms** | Supervised and Unsupervised Machine Learning Frameworks | [https://www.projectpro.io/projects/data-science-projects/machine-learning-projects-in-python](https://www.projectpro.io/projects/data-science-projects/machine-learning-projects-in-python) |
 | **Neural Networks** | Deep Learning Production System Infrastructures | [https://www.projectpro.io/projects/data-science-projects/deep-learning-projects](https://www.projectpro.io/projects/data-science-projects/deep-learning-projects) |
+
+---
+
+# Career Direction
+
+The owner (A.I.M) intends to enter the job market after university via the
+ladder: **Data Analyst -> Data Science -> ML / AI models & agentics**. Work
+experience is the main gap, so each stage is exited on demonstrated
+capability rather than years served.
+
+## Stage Exit Criteria
+
+| Stage | Exit Criterion |
+| --- | --- |
+| Data Analyst | Solid SQL; one end-to-end pipeline built alone (e.g. transactions pipeline -> Postgres -> dashboard); can run and explain a t-test / regression to a non-technical stakeholder, unaided. |
+| Data Science | Own a model that is in active use by someone else; statistics done without AI-generated reasoning. |
+| ML / AI models & agentics | Own an end-to-end LLM / agentic system; capabilities kept ahead of job titles, as this field moves fast. |
+
+## Two Risk Habits to Manage
+
+- **Analyst plateau** (the BI-dashboard-operator trap): keep pulling analysis
+  work into Python/pandas on this repo; volunteer for pipeline and
+  data-quality tasks rather than only dashboards.
+- **Maths depth**: treat CS2MA and CS2DA as the deposit to withdraw later; the
+  data-science interview stage tests maths, not tools.
+
+## Capability-Based Timeline
+
+SQL -> statistics -> model building -> system building -> LLM orchestration.
+Job titles follow capability, not the reverse.

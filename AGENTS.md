@@ -8,6 +8,10 @@ agent (or future human) working on this project should read this first.
 - Personal data-science learning journey: Python (imperative → functional →
   object-oriented) → PostgreSQL → Machine Learning (visualisation, cleaning,
   modelling).
+- Authored by a single developer whose public identity is the initials
+  **A.I.M** (the hardcoded `name = "A.I.M"` in several scripts is that
+  personal signature, not placeholder text). The whole repo is his public
+  portfolio.
 - Python 3.14 venv lives at `.venv/`. Always invoke it explicitly.
 - All scripts live under `python/<paradigm>/<folder>/`. Tests live under
   `tests/<area>/` and mirror the source folders 1:1.
@@ -28,6 +32,15 @@ agent (or future human) working on this project should read this first.
 - Full week-by-week plans and readiness gaps live in the standalone
   `YEAR2_SEMESTER1.md` and `YEAR2_SEMESTER2.md`; keep them in sync when the
   module briefings or term dates change.
+
+## Career Direction
+
+- Post-university ladder (owner's own plan): **Data Analyst -> Data Science
+  -> ML / AI models & agentics**, exited on demonstrated capability rather
+  than tenure (work experience is the main gap).
+- Stage-by-stage exit criteria, the two risk habits (analyst plateau and
+  maths depth) and a capability-based timeline are tracked in `NOTES.md`
+  under `## Career Direction`.
 
 ## AI Collaboration Style
 
