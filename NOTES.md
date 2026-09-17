@@ -47,6 +47,84 @@
 
 ---
 
+### Summer 2026 Roadmap - Status as of Sep 2026
+
+Repo scan ground truth (Oct 2026 tools available): pandas 11 files, pygame 3,
+scipy 2, scikit-learn 2, numpy 2, matplotlib 1, openpyxl 1, qrcode 1;
+ZERO requests / bs4 / discord / smtplib / Pillow / plotly / psycopg2 /
+sqlite / torch / transformers / Exa / ElevenLabs.
+
+| Phase | Deliverables (weeks) | Status |
+| --- | --- | --- |
+| 1 | Terminal ideas, roman numeral, word guess (W1) | ~~done~~ |
+| 1 | GIF, QR code, Pong (W2) | ~~mostly done~~ (qrcode + pygame shipped; Pillow GIF not) |
+| 2 | Web scrapers + Discord bot + SMTP (W3-4) | not started (window relocated to Block II) |
+| 2 | Pandas + Plotly EDA (W5) | ~~pandas shipped~~; Plotly / OpenAI not |
+| 3 | Postgres + psycopg2 (W6) | ~~reserved only~~ - `aim.sql` is an empty stub; no queries |
+| 3 | SciPy stats (W7) | covered (2 files) |
+| 3 | Time-series wrangling (W8) | covered (pandas + matplotlib) |
+| 4 | Linear regression (W9) | covered (scikit-learn) |
+| 4 | Transformers + PyTorch (W10) | not started |
+| 4 | Exa search + ElevenLabs voice (W11-12) | not started |
+| 4 | Portfolio consolidation (W13) | done (nav sync, coverage audit, full-path sweep) |
+
+Deliverables shipped ~40%; the **two risk habits** explain the gap (analyst
+plateau for the missing analysis tooling, maths depth for the late weeks).
+Remaining phases roll into **Summer 2027 Block II** (below).
+
+---
+
+# Term-Time Maintenance Cadence (28 Sep 2026 - 28 May 2027)
+
+University term is **maintenance mode**: no new heavy learning phases. The
+day's job is to keep skills warm, not to extend the roadmap. Pass-throughs
+ring-fence the `python/` folder as a testing ground (never auto-committed) and
+log the day using the exact week frame of `university_courseworks/year2/`:
+
+## Week frame (matches YEAR2_SEMESTER1.md / YEAR2_SEMESTER2.md)
+
+| Year window | Weeks |
+| --- | --- |
+| S1 | W1 Mon 28 Sep - Sun 4 Oct | W2 Mon 5 Oct - Sun 11 Oct | W3 Mon 12 Oct - Sun 18 Oct | W4 Mon 19 Oct - Sun 25 Oct | W5 Mon 26 Oct - Sun 1 Nov | W6 Mon 2 Nov - Sun 8 Nov (**Week Off**) | W7 Mon 9 Nov - Sun 15 Nov (*CS2PP coursework 1 due*) | W8 Mon 16 Nov - Sun 22 Nov | W9 Mon 23 Nov - Sun 29 Nov | W10 Mon 30 Nov - Sun 6 Dec | W11 Mon 7 Dec - Sun 13 Dec (*CS2DA + CS2SE reports due*) | W12 Mon 14 Dec - Thu 17 Dec |
+| Winter | Sun 20 Dec 2026 - Sun 31 Jan 2027 (rest 20 Dec - 3 Jan; CS2PP assessment Jan) |
+| S2 | W1 Mon 1 Feb - Sun 7 Feb | W2 Mon 8 Feb - Sun 14 Feb | W3 Mon 15 Feb - Sun 21 Feb | W4 Mon 22 Feb - Sun 28 Feb | W5 Mon 1 Mar - Sun 7 Mar (**Times Off**) | W6 Mon 8 Mar - Sun 14 Mar | W7 Mon 15 Mar - Sun 21 Mar (*CS2SD Stage 1 due*) | W8 Mon 22 Mar - Sun 28 Mar | EB Mon 29 Mar - Fri 9 Apr (**Easter**) | W9 Mon 12 Apr - Sun 18 Apr | W10 Mon 19 Apr - Sun 25 Apr (*CS2ON report due*) | W11 Mon 26 Apr - Sun 2 May | W12 Mon 3 May - Sun 9 May (*CS2SD Stage 2 due*) | AS Mon 10 May - Fri 28 May (**assessments; term ends**) |
+
+## Maintenance log format
+
+Each pass-through appends one **dated row**. The row must **state the
+previous week(s) covered as of the logged day** (last session through today),
+in the module-plan's own week labels. Example: logging in on **Mon 5 Oct**
+you state **Week 1 (Mon 28 Sep - Sun 4 Oct)**; logging in on **Mon 12 Oct**
+you state **Weeks 1-2 (Mon 28 Sep - Sun 11 Oct)**, and so on. This forces a
+coverage check at every pass-through, so no week silently ages into a cold gap.
+
+| Logged on | Week(s) covered (since last log) | Python recheck? | README/.md checks? | Friday sprint? | Notes |
+| --- | --- | --- | --- | --- | --- |
+| *(one row per pass-through day)* | | | | | |
+
+Daily loop when passing through: Python recheck (rerun one lesson/script from
+the testing ground), README/`.md` upkeep and checks, and on Fridays the
+**career sprint**. Coursework-derived outputs are committed only on the
+owner's instruction.
+
+---
+
+# Summer 2027 - Block II (approx. 15 weeks, Jun - mid-Sep 2027)
+
+Full-pace learning window (per `YEAR2_SEMESTER2.md` Summer Plan, `Times Off`
+9:00 AM - 9:00 PM availability). Priority order:
+
+1. **SQL / PostgreSQL solo build first** (exit-criterion #1; Cold 16+ weeks):
+   ship the first real schema and queries into `postgresql/`, upgrading
+   `transactions.py` -> Postgres on the way (Four-Moves item 2).
+2. **Phase-2 leftovers** (web scraping, Flask web, Plotly visualisation).
+3. **Phase-4 leftovers** (transformers / PyTorch, Exa search, ElevenLabs
+   voice) + Year 3 groundwork (CS3IP outline, CS3AM basics).
+
+Re-score the Programming Level snapshot before Block II starts (early Jun).
+
+---
+
 # Long-Term Target Pathways (Penultimate & Graduate Milestones)
 
 | Development Target | Core Focus Area | Full Verification Resource URL |

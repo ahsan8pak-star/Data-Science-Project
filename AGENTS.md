@@ -106,6 +106,23 @@ agent (or future human) working on this project should read this first.
 7. **Keep README tree + `TREE_SKIP` in sync** when folders are added/removed.
    `TREE_SKIP` in `scripts/execution_time.py` excludes generated/vendored paths
    (`.git`, `.venv`, `.pytest_cache`, `__pycache__`, `.coverage`, `htmlcov`).
+8. **`python/` is a manual, AI-hand-off testing ground — NEVER auto-stage or
+   auto-commit anything under it.** The owner uses `python/` to check ideas
+   manually and commits those changes himself. Agents commit only the docs
+   they are explicitly asked to commit (`NOTES.md`, `AGENTS.md`, `README.md`,
+   `university_courseworks/`).
+
+## Term-Time Operating Cadence
+
+- Term time (university) = **maintenance mode**. Daily loop when the owner
+  passes through: Python recheck, README/`.md` upkeep and checks, Friday
+  career sprint. Heavy learning and new roadmap phases run in holidays only.
+- Each pass-through is logged as a dated row in `NOTES.md`'s maintenance log,
+  using the week frame of `university_courseworks/year2/`; the row states the
+  previous week(s) covered as of the logged day.
+- `postgresql/` will gain **experimental folders during term**; they are
+  learning scratch, full-pace work happens in Summer 2027 Block II. Never
+  force experimental files into a commit.
 
 ## Commit Conventions (Conventional Commits)
 
