@@ -95,9 +95,14 @@ Job titles follow capability, not the reverse.
 Baseline snapshot (Sep 2026), re-scored against this rubric each term using
 repo evidence and self-review rather than titles.
 
-University status: Year 2 undergraduate (2026/27) on the data-science degree
-pathway - `CS2DA`/`CS2PP`/`CS2SE` (Semester 1), `CS2AI`/`CS2ON`/`CS2SD`
-(Semester 2). Institution not named here by choice.
+University status: Year 2 undergraduate (2026/27) at **University of Reading**
+(Department of Computer Science), data-science degree pathway - `CS2DA`/
+`CS2PP`/`CS2SE` (Semester 1), `CS2AI`/`CS2ON`/`CS2SD` (Semester 2). Dates and
+module objectives for all three years (2025/26, 2026/27, 2027/28) with the
+official module-catalogue links live in `UNIVERSITY_MODULES.md`. Baseline
+covers Years 1-2; the Year 3 (2027/28) plan starts in summer 2027
+(`CS3IP`/`CS3AM` compulsory, electives `CS3DV`/`CS3VR`/`CS3BC`/`CS3CS`/
+`CS3IV`/`CS3TM`).
 
 ## The Scale (0 - 5)
 

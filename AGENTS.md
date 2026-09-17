@@ -196,7 +196,10 @@ structured history and keep the log scannable:
 
 External study/project resources tracked in `NOTES.md`, plus the local module
 briefing documents under `university_courseworks/` (tracked in git; the
-accompanying `.pdf` / `.txt` copies are local-only).
+accompanying `.pdf` / `.txt` copies are local-only). `UNIVERSITY_MODULES.md`
+is the rolling three-year reference (2025/26-2027/28) with academic dates,
+module semester splits, briefing instructions/objectives and the official
+University of Reading module-catalogue links for every module.
 
 ### Codedex Projects
 
@@ -247,3 +250,10 @@ accompanying `.pdf` / `.txt` copies are local-only).
 | CS2PP | Python Programming (Year 2) | `university_courseworks/year2/CS2PP~0022~20267.htm` |
 | CS2SD | Software Systems Design (Year 2) | `university_courseworks/year2/CS2SD~0022~20267.htm` |
 | CS2SE | Software Engineering (Year 2) | `university_courseworks/year2/CS2SE~0022~20267.htm` |
+| CS3IP | Individual Project (Year 3) | `university_courseworks/year3/year3-briefing-2025.txt` |
+| CS3AM | Artificial Intelligence and Machine Learning (Year 3) | `university_courseworks/year3/year3-briefing-2025.txt` |
+| CS3 elective group | DV/VR (S1), BC/CS/IV/TM (S2) - Year 3 | `university_courseworks/year3/year3-briefing-2025.txt` |
+
+> Dates, semester splits, briefing instructions/objectives and official
+> University of Reading module-catalogue links for every module across all
+> three years: see `UNIVERSITY_MODULES.md`.
