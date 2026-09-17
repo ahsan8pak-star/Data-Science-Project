@@ -12,8 +12,8 @@ This file summarises, per academic year: dates, the modules taken, the
 instructions/objectives from the official course pages and departmental
 briefings, and each module's catalogue entry.
 
-- Full week-by-week study plans for Year 2: `YEAR2_SEMESTER1.md`,
-  `YEAR2_SEMESTER2.md`.
+- Full week-by-week study plans for Year 2: `year2/YEAR2_SEMESTER1.md`,
+  `year2/YEAR2_SEMESTER2.md`.
 - Local briefing copies: `university_courseworks/year1`, `year2`, `year3`.
 - Catalogue links resolve for the owner's institutional login; school code is
   `MPS CS|MPS MATHST|MPS MET` throughout.
@@ -123,8 +123,8 @@ Mon 10 May - Fri 28 May).
   exam (2 hours).
 - CS2SD: design report Stage 1 (group, 40%, due Week 7) + Stage 2
   (individual, 60%, due Week 12).
-- Full week-by-week plans and readiness gaps: `YEAR2_SEMESTER1.md` /
-  `YEAR2_SEMESTER2.md`.
+- Full week-by-week plans and readiness gaps: `year2/YEAR2_SEMESTER1.md` /
+  `year2/YEAR2_SEMESTER2.md`.
 
 ### Catalogue links (Year 2, 2026/27)
 

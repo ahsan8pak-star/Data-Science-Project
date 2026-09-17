@@ -30,7 +30,8 @@ agent (or future human) working on this project should read this first.
   `CS2AI` Artificial Intelligence, `CS2ON` Operating Systems and Computer
   Networking, `CS2SD` Software Systems Design.
 - Full week-by-week plans and readiness gaps live in the standalone
-  `YEAR2_SEMESTER1.md` and `YEAR2_SEMESTER2.md`; keep them in sync when the
+  `university_courseworks/year2/YEAR2_SEMESTER1.md` and
+  `university_courseworks/year2/YEAR2_SEMESTER2.md`; keep them in sync when the
   module briefings or term dates change.
 
 ## Career Direction
@@ -196,7 +197,8 @@ structured history and keep the log scannable:
 
 External study/project resources tracked in `NOTES.md`, plus the local module
 briefing documents under `university_courseworks/` (tracked in git; the
-accompanying `.pdf` / `.txt` copies are local-only). `UNIVERSITY_MODULES.md`
+accompanying `.pdf` / `.txt` copies are local-only).
+`university_courseworks/UNIVERSITY_MODULES.md`
 is the rolling three-year reference (2025/26-2027/28) with academic dates,
 module semester splits, briefing instructions/objectives and the official
 University of Reading module-catalogue links for every module.
@@ -257,6 +259,6 @@ University of Reading module-catalogue links for every module.
 
 > Dates, semester splits, briefing instructions/objectives and official
 > University of Reading module-catalogue links for every module across all
-> three years: see `UNIVERSITY_MODULES.md`. Official BSc Computer Science
+> three years: see `university_courseworks/UNIVERSITY_MODULES.md`. Official BSc Computer Science
 > (UCAS G400) course pages: 2025/26, 2026/27 and 2027/28 entry (the 2025 page
 > redirects to 2026/27; the 2027 page is not live yet).
