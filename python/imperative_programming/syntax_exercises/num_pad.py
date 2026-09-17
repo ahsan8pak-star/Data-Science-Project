@@ -53,7 +53,7 @@ num_pad = {(1, 2, 3),
            ("*", 0, "#")}
 
 # 2D set of sets (NOT VALID) -> Reason: Sets are also mutable, i.e. not hashable. You cannot place a standard set inside another set.
-# Use forzensets() instead to make a set immutable / hashable
+# Use frozensets() instead to make a set immutable / hashable
 # num_pad = {{1, 2, 3},
 #            {4, 5, 6},
 #            {7, 8, 9},

@@ -117,7 +117,7 @@ del numbers[2]
 print(numbers) # [5, 2, 7, 4, 8] -> 1 is removed at index 2
 
 del numbers[-1]
-print(numbers)
+print(numbers) # [2, 3] -> 5 is removed from the end (last index)
 
 # del numbers
 # print(numbers) # NameError: name 'numbers' is not defined
