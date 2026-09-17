@@ -117,8 +117,9 @@ structured history and keep the log scannable:
 
 - 92 imperative scripts, 19 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1269 passing tests, ~99% coverage (180 files at 100%, including both
-  music-player GUIs). `conftest.py` per area provides `run_script()` which
+- 1269 passing tests, ~99% coverage (172 of the 180 tracked `python/`
+  files at 100%, including both music-player GUIs). `conftest.py` per area
+  provides `run_script()` which
   runs scripts via `runpy` with mocked `input()` / `time.sleep()` and
   optional `cwd` for file-writing tests.
 - Coverage caps by design (do NOT "fix" the scripts to chase lines): the
