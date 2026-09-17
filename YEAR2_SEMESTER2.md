@@ -5,9 +5,10 @@ turns their required topics into a week-by-week study timetable for the Spring t
 It mirrors the structure of `YEAR2_SEMESTER1.md` and sits as a standalone document so
 that `README.md` and `NOTES.md` remain untouched.
 
-> **CS2AI note.** The CS2AI module briefing is not present in `university_courseworks/`,
-> so its topic list is inferred from CS1AC (neural networks, evolutionary computation,
-> AI) and the Year 3 module CS3AM. Confirm the syllabus once the briefing is published.
+> **CS2AI note.** The CS2AI briefing now lives at
+> `university_courseworks/year2/CS2AI~0022~20267.htm` (verified against the
+> live catalogue, 1 April 2026). Syllabus below follows the catalogue aims and
+> indicative content.
 > Term dates follow the official University of Reading 2026/27 calendar.
 
 ## Module Dates
@@ -36,15 +37,25 @@ that `README.md` and `NOTES.md` remain untouched.
 
 ### CS2AI - Artificial Intelligence
 
-Semester 2, includes a groupwork element. Syllabus provisional (briefing not in repo);
-builds on CS1AC and feeds the Year 3 module CS3AM.
+Semester 2, 20 credits, Level 5. Convenor Dr Ferran Espuny Pujol.
+Pre-requisite: CS1MA (or MA1LA); co-requisite: CS2PP.
+**50% written exam (2 hours, remote unsupervised, Assessment Period)** +
+**50% group technical report (7 pages, 20 hours, due Teaching Week 12)**.
+
+Aims (from the catalogue): adversarial search, game theory, supervised /
+semi-supervised / unsupervised learning, reinforcement learning and
+artificial neural networks (incl. deep learning), applied to classification,
+regression, predictive modelling and information extraction. Learning
+outcomes: explain AI foundations; compare algorithms with ethical/risk/safety
+implications; analyse and formulate AI problems; use modern tools in a
+small-scale AI project.
 
 | Topic | Details |
 | --- | --- |
-| Problem Solving | Agents, uninformed and informed search (BFS, DFS, A-star) |
+| Problem Solving | Agents, uninformed and informed search (BFS, DFS, A-star), game theory / adversarial search |
 | Knowledge and Reasoning | Knowledge representation, logic, expert systems, reasoning under uncertainty |
-| Learning | Machine learning introduction, decision trees, neural networks |
-| Applications | Computer vision and NLP ties, evolutionary computation revisit |
+| Learning | Supervised, semi-supervised and unsupervised learning, reinforcement learning, neural networks and deep learning |
+| Applications | Classification, regression, predictive modelling, information extraction; ethics, risks and safety |
 
 ### CS2ON - Operating Systems and Computer Networking
 

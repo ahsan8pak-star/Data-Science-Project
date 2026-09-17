@@ -109,6 +109,14 @@ Mon 10 May - Fri 28 May).
   and OOP paradigms; integrate third-party libraries; apply clean-code best
   practice. Topics include data types, control flow, modules/OOP, I/O, errors
   and exceptions, GUI, web, data science and image manipulation.
+- **CS2AI (from the briefing now in the repo, `CS2AI~0022~20267.htm`):**
+  20 credits, Level 5, Semester 2, convenor Dr Ferran Espuny Pujol.
+  Pre-requisite CS1MA (or MA1LA); co-requisite CS2PP. Assessed **50% written
+  exam (2 hours, remote unsupervised)** + **50% group technical report (7
+  pages, due Teaching Week 12)**. Aims: adversarial search, game theory,
+  supervised/semi-supervised/unsupervised learning, reinforcement learning
+  and neural networks/deep learning, applied to classification, regression,
+  predictive modelling and information extraction.
 - CS2DA: 50% open exam + 50% technical report (7 pages, due Week 11).
 - CS2SE: group technical report Stage 1 (50%) + Stage 2 (50%).
 - CS2ON: 50% technical report (7 pages, due Teaching Week 10) + 50% written

@@ -246,6 +246,7 @@ University of Reading module-catalogue links for every module.
 | CS1MA | Mathematics and Computation (Year 1) | `university_courseworks/year1/CS1MA~0022~20256.html` |
 | CS1OP | Object-Oriented Programming (Year 1) | `university_courseworks/year1/CS1OP~0022~20256.html` |
 | CS2DA | Data Analytics (Year 2) | `university_courseworks/year2/CS2DA~0022~20267.htm` |
+| CS2AI | Artificial Intelligence (Year 2) | `university_courseworks/year2/CS2AI~0022~20267.htm` |
 | CS2ON | Operating Systems and Computer Networking (Year 2) | `university_courseworks/year2/CS2ON~0022~20267.htm` |
 | CS2PP | Python Programming (Year 2) | `university_courseworks/year2/CS2PP~0022~20267.htm` |
 | CS2SD | Software Systems Design (Year 2) | `university_courseworks/year2/CS2SD~0022~20267.htm` |
