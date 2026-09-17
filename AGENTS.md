@@ -14,6 +14,43 @@ agent (or future human) working on this project should read this first.
 - `README.md` describes the full architecture; keep its tree and headers in
   sync when folders/files move.
 
+## Year 2 Transition (2026/27)
+
+- The personal data-science journey has moved into **Year 2 of the degree**
+  (University of Reading, 2026/27): the repo's Python, PostgreSQL and ML work
+  now feeds the taught modules below instead of standing alone.
+- **Semester 1** (Mon 28 Sep 2026 – Thu 17 Dec 2026):
+  `CS2DA` Data Structures and Algorithms, `CS2PP` Programming in Python,
+  `CS2SE` Software Engineering & Professional Development.
+- **Semester 2** (Mon 1 Feb 2027 – Fri 28 May 2027):
+  `CS2AI` Artificial Intelligence, `CS2ON` Operating Systems and Computer
+  Networking, `CS2SD` Software Systems Design.
+- Full week-by-week plans and readiness gaps live in the standalone
+  `YEAR2_SEMESTER1.md` and `YEAR2_SEMESTER2.md`; keep them in sync when the
+  module briefings or term dates change.
+
+## AI Collaboration Style
+
+- **Level calibration:** the owner is early-intermediate — strong at writing
+  standalone coursework-style scripts and following process, but test-infra
+  internals (runpy, mocking, coverage) and metaprogramming are still being
+  learned. Explain realistically; never overstate or condescend.
+- **Explain "why" first, in plain English, then the code.** One concept per
+  answer; if jargon is unavoidable, define it in one line. Simpler is better —
+  no overcomplications or overengineering.
+- **Multi-AI cross-auditing:** the owner uses Claude, Gemini and OpenCode
+  together (same task and/or split by strength). Distinguish *fact* vs
+  *heuristic* vs *opinion*, flag where other tools would plausibly disagree,
+  and anchor every claim to repo ground truth (this file, the tests, and the
+  results of the commands shown).
+- **Verification culture:** show the exact command and its output for every
+  change; always cite commands the owner can re-run themselves.
+- **House style:** British English, SPaG-clean; comments explain *why* only
+  (no new comments unless useful or explicitly requested), matching the
+  one-line-statement-then-reason style already present.
+- **Rules always win:** never break the Project Rules below (frozen OOP lane,
+  coverage caps, `transactions.py` CWD quirk, no comment stripping, `.env`).
+
 ## Running Things
 
 | Task | Command |
