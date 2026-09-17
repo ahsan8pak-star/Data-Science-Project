@@ -22,7 +22,7 @@ briefings, and each module's catalogue entry.
 
 | Entry year | Page | Status |
 | --- | --- | --- |
-| 2025/26 | https://www.reading.ac.uk/ready-to-study/study/2025/computer-science-ug/bsc-computer-science | redirects to the live 2026/27 page |
+| 2025/26 | https://www.reading.ac.uk/ready-to-study/study/2025/computer-science-ug/bsc-computer-science | redirects to the live 2026/27 page; original content visible via the Wayback Machine: https://web.archive.org/web/20250601000000*/https://www.reading.ac.uk/ready-to-study/study/2025/computer-science-ug/bsc-computer-science |
 | 2026/27 | https://www.reading.ac.uk/ready-to-study/study/2026/computer-science-ug/bsc-computer-science | live; structure below is from this page |
 | 2027/28 | https://www.reading.ac.uk/ready-to-study/study/2027/computer-science-ug/bsc-computer-science | not live yet (404) - check later in Year 2 |
 
