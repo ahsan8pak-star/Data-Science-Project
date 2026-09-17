@@ -15,10 +15,10 @@ def shipping_label(*name, **location):
     ]
 
     # Dynamically looks up kwargs keys ( **location ) using the sequence template
-    for key, prefix in label_template: # Converts each key mentioned into its respective converted form on 'label_template'
+    for key, prefix in label_template: # Converts each key mentioned into its respective converted form of 'label_template'
         if value := location.get(key): # uses the Walrus operator (:=) to get 'location' key and assigns to 'value'
             cleaned_value = str(value).upper().replace(".", "").replace(",", "")
-            # converts all values to string, uppercases all, and replaces dots (.) and commas (,) into empty strings ("")
+            # converts all values to string, uppercases all, and replaces dots (.) and commas (,) with empty strings ("")
             print(f"{prefix}{cleaned_value}")
 
 # Executing using standard positional (*args) and keyword (**kwargs) syntax

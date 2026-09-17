@@ -1,4 +1,4 @@
-# Decorator = A function that extends the behavior of another function
+# Decorator = A function that extends the behaviour of another function
 # Without modifying the base function
 # Pass the base function as an argument to the decorator
 

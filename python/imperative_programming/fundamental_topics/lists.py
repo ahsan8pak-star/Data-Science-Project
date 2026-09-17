@@ -272,7 +272,7 @@ fruits = ["apple", "orange", "banana", "coconut"]
 
 uppercase_words = [fruit.upper() for fruit in fruits]
 # Output: ['APPLE', 'ORANGE', 'BANANA', 'COCONUT']
-# Reason: Runs the .upper() method on each fruit string to capitalize them.
+# Reason: Runs the .upper() method on each fruit string to capitalise them.
 
 fruit_chars = [fruit[0] for fruit in fruits]
 # Output: ['a', 'o', 'b', 'c']

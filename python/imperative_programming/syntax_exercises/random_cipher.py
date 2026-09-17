@@ -2,7 +2,7 @@
 Monoalphabetic Substitution Cipher / Random Substitution Cipher Encryption
 
 Unlike a standard Caesar Cipher (which shifts indices by a fixed numeric offset),
-this program creates a random substitution cipher. It creates a completely randomized 
+This program creates a random substitution cipher. It creates a completely randomised 
 mapping array ('key') where every unique character points to a shuffled counterpart.
 
 """
@@ -24,7 +24,7 @@ cipher_text = ""
 
 for letter in plain_text:
 
-    # Checks the input character existance in the tracked list to avoid ValueErrors
+    # Checks the input character existence in the tracked list to avoid ValueErrors
     if letter in chars:
         index = chars.index(letter) # Finds the position / index of the character / item (in the alphabet)
         cipher_text += key[index] # Swaps out the character at the exact same position in the scrambled key

@@ -40,7 +40,7 @@ num_pad = ({1, 2, 3},
            {7, 8, 9},
            {"*", 0, "#"})
 
-# 2D set of lists (NOT VALID) -> Reason: Lists are mutable, resulting its "identity" (hash) to be changed, breaking the logic of a set.
+# 2D set of lists (NOT VALID) -> Reason: Lists are mutable, resulting in its "identity" (hash) being changed, breaking the logic of a set.
 # num_pad = {[1, 2, 3],
 #            [4, 5, 6],
 #            [7, 8, 9],
@@ -67,7 +67,7 @@ num_pad = {frozenset({1, 2, 3}),
 # This for loop below will only take ONE TYPE of 'num_pad' being used
 for row in num_pad:
     for num in row:
-        print(num, end=" ") # Under EACH LIST being interated, ALL of its item will display on a single line i.e. goes to the next one after completion.
+        print(num, end=" ") # Under EACH LIST being iterated, ALL of its items will display on a single line i.e., goes to the next one after completion.
         # when n list is completed, n + 1 list is next to be iterated, etc.
     print() # This allows each new line to be printed after each iteration completed by each list
 
@@ -89,7 +89,7 @@ for row in num_pad:
 
 # Reason: for row in num_pad -> prints the list entirely in one row HORIZONTALLY
 # for num in row -> prints the columns (VERTICAL LISTS)
-# print(num, end=" ") -> Under EACH LIST being interated, ALL of its item will display on a single line i.e. goes to the next one after completion.
-# end=" " -> this allows EACH ITEM to have a whitespace to the next item i.e. have a spare empty space next to one another
-# print() -> This allows each new line to be printed after each iteration completed by each list ( \n funtion )
+# print(num, end=" ") -> Under EACH LIST being iterated, ALL of its items will display on a single line i.e., goes to the next one after completion.
+# end=" " -> this allows EACH ITEM to have a whitespace to the next item i.e., have a spare empty space next to one another
+# print() -> This allows each new line to be printed after each iteration completed by each list ( \n function )
 

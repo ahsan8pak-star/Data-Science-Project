@@ -7,7 +7,7 @@ class Rectangle:
         self._width = width
         self._height = height
 
-    @property # under (centimeters) cm units
+    @property # under (centimetres) cm units
     def width(self):
         return f"{self._width:.2f}cm"
 

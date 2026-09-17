@@ -332,7 +332,7 @@ for i in range(3):
 for x in range (5): # for 5 times
     for y in range(1, 11): # from 1 to 10 (11 exclusive)
         print(y, end=" ") # print 1-10, 5 times. [ end=" " ] allows spaces in between numbers
-    print() #  Allows each interation done (y) under a single line, meaning the next one will go to a new line (x)
+    print() # Allows each iteration done (y) under a single line, meaning the next one will go to a new line (x)
 
 # Expected Output:
 """

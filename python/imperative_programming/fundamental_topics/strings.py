@@ -13,12 +13,12 @@ print(Name.upper()) # all letters in upper case
 print(Name.title()) # first letter of each word in upper case, rest lower case
 # Expected Output: " Ahsan "
 # Actual Output:   " Ahsan "
-# Reason: The leading space is ignored as whitespace, making "AhSaN" the first word. Its first letter "A" stays capitalized, but `.title()` forces all subsequent letters ("hSaN") into lowercase, resulting in "hsan".
+# Reason: The leading space is ignored as whitespace, making "AhSaN" the first word. Its first letter "A" stays capitalised, but `.title()` forces all subsequent letters ("hSaN") into lowercase, resulting in "hsan".
 
-print(Name.capitalize()) # capitalizes ONLY the very first character of the string, lowers the rest
+print(Name.capitalize()) # capitalises ONLY the very first character of the string, lowers the rest
 # Expected Output: " ahsan "
 # Actual Output:   " ahsan "
-# Reason: The very first character is a space, which cannot be capitalized. Python then converts every single remaining character in the string to lowercase.
+# Reason: The very first character is a space, which cannot be capitalised. Python then converts every single remaining character in the string to lowercase.
 
 print(Name.swapcase()) # swaps the case of each letter 
 # Expected Output: " aHsAn "

@@ -101,7 +101,7 @@ def main():
                 # and extracts just the specific string row matching the current outer 'line' index loop.
                 # "  ".join(...) glues these matching string rows together horizontally with 2 spaces in between.
 
-                print(f"| {dice_line_string:^42} |") # Prints combined lines of dice faces, all centered aligned
+                print(f"| {dice_line_string:^42} |") # Prints combined lines of dice faces, all centre-aligned
 
             # Centre alignment (^) for desirable TUI
             print("----------------------------------------------")
