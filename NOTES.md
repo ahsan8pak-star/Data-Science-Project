@@ -217,7 +217,7 @@ high end on a strong day). **Temp** = warmth per the definition above.
 
 | Dimension | Part | +/- 0.5 | Temp | Evidence in directory | Progress -> Potential |
 | --- | --- | --- | --- | --- | --- |
-| Core Python | 2.0 | 1.5 - 2.5 | **Warm** | 180 scripts, 1269 tests, 15-week summer block just ended | CS2PP W7 set exercise + Jan group app -> 2.5 - 3 |
+| Core Python | 2.0 | 1.5 - 2.5 | **Warm** | 181 scripts, 1269 tests, 15-week summer block just ended | CS2PP W7 set exercise + Jan group app -> 2.5 - 3 |
 | OOP & metaprogramming | 2.0 | 1.5 - 2.5 | Warm | 41 OOP scripts; dead-branch / setter gaps still visible | one solo multi-class build -> 2.5 |
 | Functional | 1.5 | 1.0 - 2.0 | Warm | 19 scripts, demos only, no applied project | one data pipeline in pure functions -> 2 - 2.5 |
 | Algorithms / decomposition | 1.0 | 0.5 - 1.5 | Lukewarm | CS1MA idle 4 months; `sort_comparison` benchmark only | CS2DA starts 28 Sep; open exam -> 2 - 2.5 by Jan |
