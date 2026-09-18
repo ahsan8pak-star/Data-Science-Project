@@ -111,6 +111,15 @@ agent (or future human) working on this project should read this first.
    manually and commits those changes himself. Agents commit only the docs
    they are explicitly asked to commit (`NOTES.md`, `AGENTS.md`, `README.md`,
    `university_courseworks/`).
+9. **Entry points are content-named, not `def main()`.** The lane-wide sweep
+   replaced `def main()` with descriptive names (`launch_mp3_player`,
+   `summarise_grades`, `generate_qrcode`, ...); only
+   `imperative_programming/fundamental_topics/main.py` keeps `def main()` by
+   design. Keep new scripts on named entry points, and never regress the
+   renamed ones.
+10. **Text files are LF, enforced by `.gitattributes`** (`* text=auto eol=lf`,
+    with `.joblib` / `.xlsx` / `.pdf` marked binary). Do not reintroduce CRLF
+    or mixed endings when editing or creating files.
 
 ## Term-Time Operating Cadence
 

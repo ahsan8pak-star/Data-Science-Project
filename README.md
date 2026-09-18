@@ -169,7 +169,7 @@ All python files have been made into their respective folders from each programm
 | Count Up Timer | **Foundational default arguments and `import time`** |
 | Distance Calculator | **`floats` and user `input()` demonstration.** |
 | Divide | **`/` -> Division** |
-| Drink Script Example | **Applied `import` created modules with `def main` and `if __name__ == __main__:`** |
+| Drink Script Example | **Imports `favourite_food` from a created module and defines `favourite_drink`; runs standalone** |
 | Email Slicer | **Index formatting fundamentals** |
 | Even & Odd Loop Detector | **Fundamental conditional `for` loop and modulus operator (`%`)** |
 | Factorials | **Iterative Sequence Multiplication** |
@@ -177,7 +177,7 @@ All python files have been made into their respective folders from each programm
 | File Reader | **Read functions and string parsing fundamentals** |
 | File Writer | **File I/O fundamentals** |
 | Food Menu | **Dictionaries and/or sets and applied conditional loops** |
-| Food Script Example | **Applied `import` created modules with `def main` and `if __name__ == __main__:`** |
+| Food Script Example | **Exposes `favourite_food` for import and a content-named `show_food_script()` entry with a `__main__` guard** |
 | Grade Boundary Calculator | **Integers with conditional `if-else` loops** |
 | Hour Clock | **Fundamental `import time` and scaling it up to its real world resemblence through previous files made on such** |
 | Input / Output CSVs | *Go to `File Handling` for more* |

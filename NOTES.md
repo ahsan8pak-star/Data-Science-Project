@@ -101,6 +101,7 @@ coverage check at every pass-through, so no week silently ages into a cold gap.
 | Logged on | Week(s) covered (since last log) | Python recheck? | README/.md checks? | Friday sprint? | Notes |
 | --- | --- | --- | --- | --- | --- |
 | *(one row per pass-through day)* | | | | | |
+| Fri 18 Sep 2026 | None yet (pre-S1; term starts Mon 28 Sep) | Yes (full suite, 1269 passed) | Yes | No | Renamed `def main()` to content-named entry points across `python/` (11 scripts + GUI tests); enforced LF via `.gitattributes`; added 2 trailing blank lines repo-wide; CSV empty-row fix in `file_reader.py` |
 
 Daily loop when passing through: Python recheck (rerun one lesson/script from
 the testing ground), README/`.md` upkeep and checks, and on Fridays the
