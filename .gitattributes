@@ -1,1 +1,7 @@
-* text=auto
+# LF everywhere: canonical LF in the repo also on disk (Windows + WSL), so no mixed-EOL churn
+* text=auto eol=lf
+*.joblib binary
+*.xlsx binary
+*.pdf binary
+
+
