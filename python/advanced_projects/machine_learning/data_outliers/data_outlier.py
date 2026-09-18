@@ -22,3 +22,4 @@ class OutlierCapper(BaseEstimator, TransformerMixin):
         # Clip values to upper and lower IQR bounds
         return X.clip(lower = self.lower_bound_, upper = self.upper_bound_, axis = 1)
 
+

@@ -54,3 +54,4 @@ def calculate():
 if __name__ == "__main__": # allow this to act as an imported module
     calculate()
 
+

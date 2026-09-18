@@ -22,3 +22,4 @@ say_hi = greet("Hi")
 print(say_hello("Ahsan"))
 print(say_hi("Hamza"))
 
+

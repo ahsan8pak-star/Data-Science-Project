@@ -29,3 +29,4 @@ dice = Dice(3) # Prints 3 random numbers between 1 and 6
 for die in dice:
     print(die)
 
+

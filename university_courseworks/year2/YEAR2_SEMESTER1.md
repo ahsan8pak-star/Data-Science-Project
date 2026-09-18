@@ -118,3 +118,5 @@ remain **7:00 PM - 9:00 PM** on *Saturdays and Sundays*.
 - **CS2ON:** Operating Systems, and Computer Networking Overview -> **CS1CA**
 - **CS2SD:** Object-Oriented Analysis & Design, and UML Modelling -> **CS1OP**
 - **Semester 2 teaching begins Monday 1 February 2027**
+
+

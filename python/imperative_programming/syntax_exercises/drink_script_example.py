@@ -15,3 +15,4 @@ print("\nThis is SCRIPT 2!")
 print("\nPython is decent, but idk kinda mid")
 print("\nImma sleep chat.")
 
+

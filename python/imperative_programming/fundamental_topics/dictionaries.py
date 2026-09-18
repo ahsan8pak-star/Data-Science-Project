@@ -142,3 +142,4 @@ print(sorted_values) # sorts out by Capitals alphabetically
 # Output:
 # {'USA': 'Detroit', 'Russia': 'Moscow', 'India': 'New Delhi'}
 
+

@@ -297,3 +297,4 @@ class TestMainGuard:
 
         assert "is currently running" in capsys.readouterr().out
 
+

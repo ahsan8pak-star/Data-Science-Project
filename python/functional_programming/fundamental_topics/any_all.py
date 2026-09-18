@@ -22,3 +22,4 @@ print("Anyone scored 70+:", any_passed)
 print("Everyone scored 40+:", all_passed)
 print("Includes Python:", has_python)
 
+

@@ -40,3 +40,4 @@ print(Calculator.power(2, 3))
 print(Calculator.square_root(16))
 print(Calculator.square_root(-4)) # return error message
 
+

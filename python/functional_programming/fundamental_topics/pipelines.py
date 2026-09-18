@@ -30,3 +30,4 @@ scores = [55, 72, 38, 64, 91]
 average = reduce(lambda a, b: a + b, scores) / len(scores)
 print("Average score:", round(average, 2))
 
+

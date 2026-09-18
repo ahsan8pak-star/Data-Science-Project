@@ -457,3 +457,4 @@ class TestSortComparison:
         out = capsys.readouterr().out
         assert "An unexpected error occurred" in out
 
+

@@ -19,3 +19,5 @@ edge [fontname="helvetica"] ;
 8 [label="gini = 0.0\nsamples = 6\nvalue = [0, 6, 0, 0, 0]\nclass = Classical", fillcolor="#7be539"] ;
 0 -> 8 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
 }
+
+

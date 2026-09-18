@@ -36,3 +36,4 @@ print("-" * 30)  # Line Separator for School name and its students below
 for student in school.list_students():
     print(student)
 
+

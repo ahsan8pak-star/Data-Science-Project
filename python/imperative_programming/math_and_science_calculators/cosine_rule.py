@@ -103,3 +103,4 @@ def calculate(): # Main function for importing directly to triangle calculator
 if __name__ == "__main__":  # allows this to be an imported module by protecting the main execution
     calculate() # This allows the file to run if opened directly
 
+

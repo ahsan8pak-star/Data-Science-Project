@@ -51,3 +51,4 @@ print(item1["price"])   # __getitem__ -> 29.99
 print(item2["quantity"]) # __getitem__ -> 5
 print(item3["name"])    # __getitem__ -> Monitor
 
+

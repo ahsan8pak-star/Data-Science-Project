@@ -10,3 +10,4 @@ point = Point(5, 6)
 print(f"x = {point.x}") 
 print(f"y = {point.y}")
 
+

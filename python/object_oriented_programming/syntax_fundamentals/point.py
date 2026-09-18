@@ -6,3 +6,4 @@ class Point(): # Pascal Naming Convention - > Initialise every word in capital l
     def draw(self):
         print("draw")
 
+

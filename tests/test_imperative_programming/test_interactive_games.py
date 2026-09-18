@@ -526,3 +526,4 @@ class TestWordGuessingGame:
         assert "python" in mod.word_bank
         assert "ubuntu" in mod.word_bank
 
+

@@ -262,3 +262,5 @@ predicts the score rises this term.
   2.0 - 2.5 band rather than widening it.
 - Re-score this snapshot after the CS2PP assessment week (Jan 2027), using
   the same Part / +/- 0.5 / Temp rules.
+
+

@@ -93,3 +93,4 @@ for row in num_pad:
 # end=" " -> this allows EACH ITEM to have a whitespace to the next item i.e., have a spare empty space next to one another
 # print() -> This allows each new line to be printed after each iteration completed by each list ( \n function )
 
+

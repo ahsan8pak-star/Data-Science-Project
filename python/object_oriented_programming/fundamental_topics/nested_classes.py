@@ -123,3 +123,4 @@ for employee in employee_list:
     print(f"| {employee:<{max_content_len}} |")
 print("-" * total_width)
 
+

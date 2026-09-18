@@ -32,3 +32,4 @@ print("List B:", list_b)
 print("Sums (A + B):", sums)
 print("Products (A * B):", products)
 
+

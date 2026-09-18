@@ -128,3 +128,5 @@ The `Times Off` window applies throughout the Summer: **9:00 AM - 9:00 PM** with
 - **CS3AM**: Artificial Intelligence and Machine Learning Groundwork Ahead of Semester 1
 - Year 3 electives aligned with the data science direction: CS3DV (Data Integration and Information Visualisation), CS3CS (Cloud-based AI Solutions), CS3IV (Image Analysis and Visual Intelligence), CS3TM (Text Mining and NLP)
 - **Semester 3 / Final Year Teaching Begins Late September 2027**
+
+

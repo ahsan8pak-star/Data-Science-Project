@@ -5,3 +5,4 @@ def square(n):
 result = square(4)
 print(result)
 
+

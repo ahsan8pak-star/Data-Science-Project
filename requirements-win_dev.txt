@@ -102,3 +102,5 @@ webcolors==25.10.0    # via jsonschema
 webencodings==0.6.1    # via bleach
 websocket-client==1.9.2    # via jupyter-server
 widgetsnbextension==4.0.16    # via ipywidgets
+
+

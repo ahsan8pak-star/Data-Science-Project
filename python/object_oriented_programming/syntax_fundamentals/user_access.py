@@ -43,3 +43,4 @@ user2_access = user_access("user2", "securepass", "read")
 print(user1_access)  # Output: Access granted for user1 to perform write.
 print(user2_access)  # Output: Access denied for user2. Insufficient permissions for write.
 
+

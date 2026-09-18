@@ -9,3 +9,5 @@ updates:
     directory: "/" # Location of package manifests (looks for requirements.txt in root)
     schedule:
       interval: "weekly"
+
+

@@ -566,3 +566,4 @@ access_level = "Access Granted" if user_role == "admin" else "Access Denied"
 
 print(access_level)
 
+

@@ -76,3 +76,4 @@ print(part_time.contract_info())
 print("\n" + "-" * 40)
 print(full_time.contract_info())
 
+

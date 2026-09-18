@@ -16,3 +16,4 @@ def times_tables():
 if __name__ == "__main__":
     times_tables()
 
+

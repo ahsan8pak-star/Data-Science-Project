@@ -484,3 +484,4 @@ class TestPipelines:
         assert "Winners: ['Alina', 'Hamza']" in out
         assert "Average score: 64.0" in out
 
+

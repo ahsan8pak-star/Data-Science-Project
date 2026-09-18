@@ -130,3 +130,4 @@ class TestOutlierCapperPipeline:
         assert float(out["value_a"].max()) == pytest.approx(8.5)
         assert float(out["value_a"].min()) == pytest.approx(1.0)
 
+

@@ -16,4 +16,4 @@ class Person:
         else:
             print(f"{self.name}, wait for the other person's turn.")
 
-        
+

@@ -58,3 +58,4 @@ print(f"Price 13: {price:,}") # Comma (,) separator for at least the thousands p
 
 # Output: 1,234.56
 
+

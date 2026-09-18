@@ -68,3 +68,4 @@ shapes = [Circle(3), Square(4), Triangle(5, 6), FlatCake("Chocolate", 6, 6), Piz
 for shape in shapes:
     print(f"Area: {shape.area():.2f}")
 
+

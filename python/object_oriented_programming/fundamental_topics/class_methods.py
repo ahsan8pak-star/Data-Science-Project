@@ -56,3 +56,4 @@ print(UoS.details())
 print(Student.student_total())
 print(Student.average_grade())
 
+
