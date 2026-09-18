@@ -1,7 +1,7 @@
 # Word Frequency -> applies sorted() with a key and a lambda to tally repeated words
 
 
-def main():
+def print_word_frequency():
     words = ["python", "java", "python", "kotlin", "java", "python", "go"]
 
     unique_words = {w for w in words}
@@ -14,5 +14,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    print_word_frequency()
+
 

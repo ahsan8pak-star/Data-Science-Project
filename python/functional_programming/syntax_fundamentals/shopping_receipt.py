@@ -14,7 +14,7 @@ def total_price(basket):
     return reduce(lambda total, item: total + item[1] * item[2], basket, 0)
 
 
-def main():
+def print_shopping_receipt():
     basket = [
         ("Apple", 0.50, 4),
         ("Bread", 1.20, 2),
@@ -32,5 +32,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    print_shopping_receipt()
+
 

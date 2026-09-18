@@ -12,7 +12,7 @@ def average(scores):
     return reduce(lambda a, b: a + b, scores) / len(scores)
 
 
-def main():
+def summarise_grades():
     scores = [45, 62, 78, 91, 33, 58]
 
     passed = list(filter(pass_grade, scores))
@@ -26,5 +26,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    summarise_grades()
+
 
