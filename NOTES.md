@@ -6,44 +6,57 @@
 
 ## Timetable
 
-### Phase 1: Python Fundamentals & Utility Scripts (June)
+*Summer 2026 block (Jun 14 – Sep 21, now historical; kept as a tickable record. Unticked
+items roll into Summer 2027 Block II below.)*
 
-| Week / Dates | Tools Used | Project Builds & Full URL Source Links | Shift 1: Theory & Sandbox (10:00 AM – 12:30 PM) | Shift 2 & Daily Commit: Local Application (3:00 PM – 6:00 PM) | Weekly Hours |
-| --- | --- | --- | --- | --- | --- |
-| **Week 1**<br><br>June 14 – June 21 | Windows CMD, VS Code, Git, GitHub | 1. 50 Terminal Project Ideas<br><br>[https://www.codedex.io/projects/50-terminal-project-ideas-using-python](https://www.codedex.io/projects/50-terminal-project-ideas-using-python)<br><br>2. Roman Numeral Converter<br><br>[https://www.codedex.io/projects/convert-roman-numerals-with-python](https://www.codedex.io/projects/convert-roman-numerals-with-python)<br><br>3. Word Guessing Game<br><br>[https://www.codedex.io/projects/build-a-word-guessing-game-with-python](https://www.codedex.io/projects/build-a-word-guessing-game-with-python) | **Data Literacy Foundations:** Study structural string arrays, input-parsing data sanitation, conditional branch maps, and algorithmic data mapping patterns via dictionaries. | **Mon–Thu:** Build 3 modular scripts locally inside VS Code. Keep structural game loops and arithmetic parsing modules separated in their own files to prevent codebase congestion.<br><br>**Daily Commit (5:30-6:00):** Push logs to GitHub to establish an active engineering tracking record. | 28 – 35 Hours |
-| **Week 2**<br><br>June 22 – June 30 | Pygame, Pillow, VS Code, GitLab | 4. Create a GIF<br><br>[https://www.codedex.io/projects/create-a-gif-with-python](https://www.codedex.io/projects/create-a-gif-with-python)<br><br>5. Generate a QR Code<br><br>[https://www.codedex.io/projects/generate-a-qr-code-with-python](https://www.codedex.io/projects/generate-a-qr-code-with-python)<br><br>6. Build Pong with PyGame<br><br>[https://www.codedex.io/projects/build-pong-with-pygame](https://www.codedex.io/projects/build-pong-with-pygame) | **Multidimensional Arrays & RL Simulators:** Study programmatic image tensor compilation, file I/O matrices, and coordinate boundaries for real-time physics environments. | **Mon–Thu:** Construct local state machines. Write logic files for coordinate collision tracking and frame execution layers. Link local terminal to GitLab to mirror modular code tracks.<br><br>**Daily Commit (5:30-6:00):** Push stable engine versions to preserve dynamic environment scripts. | 28 – 35 Hours |
+### Phase 1: Python Fundamentals & Utility Scripts (Jun 14 – Jun 30)
 
----
-
-### Phase 2: Production Web Scraping, APIs & Automation (July)
-
-| Week / Dates | Tools Used | Project Builds & Full URL Source Links | Shift 1: Theory & Sandbox (10:00 AM – 12:30 PM) | Shift 2 & Daily Commit: Local Application (3:00 PM – 6:00 PM) | Weekly Hours |
-| --- | --- | --- | --- | --- | --- |
-| **Week 3**<br><br>July 2 – July 9 | Beautiful Soup, requests, VS Code, GitHub | 7. Web Scrape Amazon with Beautiful Soup<br><br>[https://www.codedex.io/projects/web-scrape-amazon-with-beautiful-soup](https://www.codedex.io/projects/web-scrape-amazon-with-beautiful-soup) | **Unstructured Data Ingestion:** Master HTML DOM structural node parsing, data extraction selectors, HTTP request header routing, and exception handling. | **Mon–Thu:** Code an end-to-end web scraping pipeline script. Isolate data extraction logic loops entirely from final CSV storage scripts to keep the files uncongested.<br><br>**Daily Commit (5:30-6:00):** Push clean parser updates to secure raw data scrapers. | 25 – 32 Hours |
-| **Week 4**<br><br>July 10 – July 16 | discord.py, smtplib, dotenv, GitLab | 8. Build a Discord Bot<br><br>[https://www.codedex.io/projects/build-a-discord-bot-with-python](https://www.codedex.io/projects/build-a-discord-bot-with-python)<br><br>9. Automated Scheduling Alert System via SMTP<br><br>[https://www.codedex.io/projects/automate-secret-santa-emails-with-smtp](https://www.codedex.io/projects/automate-secret-santa-emails-with-smtp) | **Asynchronous Operations & MLOps Prep:** Study network event loops, background worker task scheduling, and secure credentials isolation using local env variables (`.env`). | **Mon–Thu:** Deploy a real-time system bot interface. Integrate custom SMTP logic alerts designed to automatically dispatch status emails if your pipeline scripts run into errors.<br><br>**Daily Commit (5:30-6:00):** Commit secure token environments and network triggers cleanly. | 28 – 35 Hours |
-| **Week 5**<br><br>July 17 – July 23 | Pandas, Plotly, OpenAI API, GitHub | 10. Analyze Spreadsheet Data with Pandas & ChatGPT<br><br>[https://www.codedex.io/projects/analyze-spreadsheet-data-with-pandas-chatgpt](https://www.codedex.io/projects/analyze-spreadsheet-data-with-pandas-chatgpt)<br><br>11. Visualize YouTube Data with Plotly<br><br>[https://www.codedex.io/projects/visualize-youtube-data-with-plotly](https://www.codedex.io/projects/visualize-youtube-data-with-plotly) | **Augmented Business Intelligence:** Study vector DataFrames, statistical summary metrics, and automated LLM programmatic prompt tuning interfaces for EDA tasks. | **Mon–Thu:** Build workbook processing engines. Generate dynamic, multi-variable Plotly graphical files tracking system metrics. Isolate visual generation logic from raw files.<br><br>**Daily Commit (5:30-6:00):** Push structured analytics modules and dashboard scripts to main. | 28 – 35 Hours |
+- [x] **Week 1 — Data literacy & modular scripts** (Windows CMD, VS Code, Git, GitHub): string arrays, input sanitation, conditional branches, dictionary data mapping; three modular scripts kept source-separated; 28–35 h/wk
+    - [x] 50 Terminal Project Ideas — [codedex.io](https://www.codedex.io/projects/50-terminal-project-ideas-using-python)
+    - [x] Roman Numeral Converter — [codedex.io](https://www.codedex.io/projects/convert-roman-numerals-with-python)
+    - [x] Word Guessing Game — [codedex.io](https://www.codedex.io/projects/build-a-word-guessing-game-with-python)
+- [ ] **Week 2 — Multidimensional arrays & real-time simulators** (Pygame, Pillow, VS Code, GitLab): image tensors, file I/O matrices, collision/coordinate state machines; 28–35 h/wk
+    - [ ] Create a GIF with Pillow — [codedex.io](https://www.codedex.io/projects/create-a-gif-with-python)
+    - [x] Generate a QR Code — [codedex.io](https://www.codedex.io/projects/generate-a-qr-code-with-python)
+    - [x] Pong with PyGame — [codedex.io](https://www.codedex.io/projects/build-pong-with-pygame)
 
 ---
 
-### Phase 3: Relational Databases & Advanced Statistical Analytics (August)
+### Phase 2: Production Web Scraping, APIs & Automation (Jul 2 – Jul 23)
 
-| Week / Dates | Tools Used | Project Builds & Full URL Source Links | Shift 1: Theory & Sandbox (10:00 AM – 12:30 PM) | Shift 2 & Daily Commit: Local Application (3:00 PM – 6:00 PM) | Weekly Hours |
-| --- | --- | --- | --- | --- | --- |
-| **Week 6**<br><br>July 24 – July 31 | PostgreSQL, psycopg2, SQL Shell, GitLab | 12. PostgreSQL Data Analysis<br><br>[https://www.codedex.io/projects/analyze-twitch-data-with-sqlite](https://www.codedex.io/projects/analyze-twitch-data-with-sqlite) | **Enterprise Relational Storage:** Study relational database schema configuration, normalizations, relational key rules, and structural data aggregates (`.groupby()`). | **Mon–Thu:** Upgrade the baseline project from SQLite to local PostgreSQL servers. Write custom table normalizations and host SQL query scripts in separate `.sql` files.<br><br>**Daily Commit (5:30-6:00):** Commit clean relational tables and analytical query scripts. | 28 – 35 Hours |
-| **Week 7**<br><br> August 1 – August 7 | SciPy, NumPy, VS Code, GitHub | 13. Analyze Custom Xbox 360 Library Data with SciPy<br><br>[https://www.codedex.io/projects/analyze-us-census-data-with-scipy](https://www.codedex.io/projects/analyze-us-census-data-with-scipy) | **Scientific & Computational Mathematics:** Study statistical probability density curves, continuous math variance models, and analytical dataset transformations. | **Mon–Thu:** Swap default census files out. Ingest your personal physical and digital Xbox 360 catalog profiles to compute variance trends and dataset attributes.<br><br>**Daily Commit (5:30-6:00):** Push SciPy modeling files and math parsing scripts to main. | 28 – 35 Hours |
-| **Week 8**<br><br> August 8 – August 14 | Pandas, Matplotlib, VS Code, GitLab | 14. 2025-2026 Premier League Stats Analysis<br><br>[https://www.codedex.io/projects/analyze-baseball-stats-with-pandas-and-matplotlib](https://www.codedex.io/projects/analyze-baseball-stats-with-pandas-and-matplotlib) | **Time-Series Data Wrangling:** Map multi-index timeline patterns, data slicing, moving average equations, and league dataset sorting strategies. | **Mon–Thu:** Swap the baseball source file with target 2025-2026 Premier League football data parameters. Build scripts computing rolling averages and point differentials.<br><br>**Daily Commit (5:30-6:00):** Save time-series analysis transformations and matplotlib output scripts. | 28 – 35 Hours |
+- [ ] **Week 3 — Unstructured data ingestion** (Beautiful Soup, requests, VS Code, GitHub): HTML DOM node parsing, extraction selectors, HTTP headers, exception handling; scraper pipeline isolated from CSV storage; 25–32 h/wk
+    - [ ] Web Scrape Amazon with Beautiful Soup — [codedex.io](https://www.codedex.io/projects/web-scrape-amazon-with-beautiful-soup)
+- [ ] **Week 4 — Asynchronous operations & MLOps prep** (discord.py, smtplib, dotenv, GitLab): event loops, background task scheduling, `.env` credential isolation; SMTP error-alert dispatch; 28–35 h/wk
+    - [ ] Build a Discord Bot — [codedex.io](https://www.codedex.io/projects/build-a-discord-bot-with-python)
+    - [ ] SMTP Scheduling Alert System — [codedex.io](https://www.codedex.io/projects/automate-secret-santa-emails-with-smtp)
+- [ ] **Week 5 — Augmented business intelligence** (Pandas, Plotly, OpenAI API, GitHub): vector DataFrames, summary metrics, LLM prompt tuning for EDA; 28–35 h/wk
+    - [x] Spreadsheet analysis with Pandas — [codedex.io](https://www.codedex.io/projects/analyze-spreadsheet-data-with-pandas-chatgpt)
+    - [ ] YouTube visualisation with Plotly — [codedex.io](https://www.codedex.io/projects/visualize-youtube-data-with-plotly)
 
 ---
 
-### Phase 4: Applied AI & Machine Learning Capstones (September)
+### Phase 3: Relational Databases & Advanced Statistical Analytics (Jul 24 – Aug 14)
 
-| Week / Dates | Tools Used | Project Builds & Full URL Source Links | Shift 1: Theory & Sandbox (10:00 AM – 12:30 PM) | Shift 2 & Daily Commit: Local Application (3:00 PM – 6:00 PM) | Weekly Hours |
-| --- | --- | --- | --- | --- | --- |
-| **Week 9**<br><br>August 15 – August 20 | scikit-learn, NumPy, Pandas, GitHub | 15. Predict Home Prices with Linear Regression<br><br>[https://www.codedex.io/projects/predict-home-prices-with-python-and-linear-regression](https://www.codedex.io/projects/predict-home-prices-with-python-and-linear-regression) | **Supervised Predictive Modeling:** Understand linear algorithmic modeling structures, loss calculations, data training splits, and model feature weights. | **Mon–Thu:** Build a complete prediction script via scikit-learn. Isolate data manipulation scripts from final predictive modeling code blocks to remain decongested.<br><br>**Daily Commit (5:30-6:00):** Secure regression engines and evaluation metric logs on your profile. | 28 – 36 Hours |
-| **Week 10**<br><br>August 21 – August 27 | Hugging Face Transformers, PyTorch, GitLab | 16. Image Object Detection with Hugging Face<br><br>[https://www.codedex.io/projects/detect-hotdog-with-hugging-face](https://www.codedex.io/projects/detect-hotdog-with-hugging-face) | **Deep Learning Inference Systems:** Study computer vision mechanics, matrix tensor objects, and loading pre-trained weights into target pipeline architectures. | **Mon–Thu:** Code an image classification routing system locally. Ingest file pixel data vectors, deploy pre-trained transformer structures, and output confidence logs.<br><br>**Daily Commit (5:30-6:00):** Save PyTorch visual evaluation parameters and weights pipelines. | 28 – 35 Hours |
-| **Week 11**<br><br>August 28 – September 4 | Exa AI API, requests, VS Code, GitHub | 17. Build a Custom Search Engine with Exa AI<br><br>[https://www.codedex.io/projects/build-a-custom-search-engine-with-exa-ai](https://www.codedex.io/projects/build-a-custom-search-engine-with-exa-ai) | **Semantic Vectors & Neural Indexes:** Understand dense text embedding principles, API payload structure parsing, and vector-driven query search logic models. | **Mon–Thu:** Write modular AI search interfaces. Keep credentials code completely isolated from application search routing scripts to guarantee production safety.<br><br>**Daily Commit (5:30-6:00):** Push search engine integrations and API token management layers. | 28 – 35 Hours |
-| **Week 12**<br><br>September 5 – September 12 | ElevenLabs API, sounddevice, VS Code, GitLab | 18. Create a Voice Virtual Assistant with ElevenLabs<br><br>[https://www.codedex.io/projects/create-a-voice-virtual-assistant-with-elevenlabs](https://www.codedex.io/projects/create-a-voice-virtual-assistant-with-elevenlabs) | **Multimodal Generative Systems:** Learn audio stream binary parsing, data chunk serialization properties, and speech-to-text conversion loops. | **Mon–Thu:** Assemble a custom generative voice assistant logic script. Set up specialized utility module scripts to process audio data streams with minimum system latency.<br><br>**Daily Commit (5:30-6:00):** Sync voice processing engines and interface connections cleanly. | 28 – 35 Hours |
-| **Week 13**<br><br> September 13 – September 21 | Git CLI, GitHub, GitLab Workspace | 19. Master Portfolio Consolidation<br><br>*(Continuous Git Workflow Execution)* | **Production Infrastructure Documentation:** Analyze clear structural system maps, engineering documentation models, and source optimization design patterns. | **Mon–Thu:** Stop writing logic scripts. Audit your directories to eliminate duplication and organize all 18 completed engines into a polished portfolio layout.<br><br>**Daily Commit (5:30-6:00):** Perform final summer repository synchronizations across both remotes. | 25 – 30 Hours |
+- [ ] **Week 6 — Enterprise relational storage** (PostgreSQL, psycopg2, SQL Shell, GitLab): schema configuration, normalisation, relational keys, `.groupby()` aggregates; `aim.sql` is still an empty stub — reserved only; 28–35 h/wk
+    - [ ] PostgreSQL Data Analysis — [codedex.io](https://www.codedex.io/projects/analyze-twitch-data-with-sqlite)
+- [x] **Week 7 — Scientific & computational mathematics** (SciPy, NumPy, VS Code, GitHub): probability density curves, variance models, dataset transformations over the personal Xbox 360 catalog; 28–35 h/wk
+    - [x] Custom library analysis with SciPy — [codedex.io](https://www.codedex.io/projects/analyze-us-census-data-with-scipy)
+- [x] **Week 8 — Time-series data wrangling** (Pandas, Matplotlib, VS Code, GitLab): multi-index patterns, slicing, moving averages, league sorting; rolling averages and point differentials; 28–35 h/wk
+    - [x] Premier League stats analysis — [codedex.io](https://www.codedex.io/projects/analyze-baseball-stats-with-pandas-and-matplotlib)
+
+---
+
+### Phase 4: Applied AI & Machine Learning Capstones (Aug 15 – Sep 21)
+
+- [x] **Week 9 — Supervised predictive modelling** (scikit-learn, NumPy, Pandas, GitHub): linear regression, loss calculations, train/split, feature weights; 28–36 h/wk
+    - [x] Predict Home Prices — [codedex.io](https://www.codedex.io/projects/predict-home-prices-with-python-and-linear-regression)
+- [ ] **Week 10 — Deep learning inference systems** (Hugging Face Transformers, PyTorch, GitLab): computer vision, tensor objects, pre-trained weight loading; confidence-log output; 28–35 h/wk
+    - [ ] Image Object Detection with Hugging Face — [codedex.io](https://www.codedex.io/projects/detect-hotdog-with-hugging-face)
+- [ ] **Week 11 — Semantic vectors & neural indexes** (Exa AI API, requests, VS Code, GitHub): dense embeddings, API payload parsing, vector query logic; credentials isolated from routing; 28–35 h/wk
+    - [ ] Custom Search Engine with Exa AI — [codedex.io](https://www.codedex.io/projects/build-a-custom-search-engine-with-exa-ai)
+- [ ] **Week 12 — Multimodal generative systems** (ElevenLabs API, sounddevice, VS Code, GitLab): audio stream binary parsing, chunk serialisation, speech-to-text loops; 28–35 h/wk
+    - [ ] Voice Virtual Assistant with ElevenLabs — [codedex.io](https://www.codedex.io/projects/create-a-voice-virtual-assistant-with-elevenlabs)
+- [x] **Week 13 — Portfolio consolidation** (Git CLI, GitHub, GitLab Workspace): continuous git workflow, duplicate elimination, all 18 engines organised into a polished portfolio layout; 25–30 h/wk
 
 ---
 
