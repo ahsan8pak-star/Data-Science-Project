@@ -1,5 +1,5 @@
 {
-    "python.defaultInterpreterPath": "python",
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
     "python.languageServer": "Pylance",
     "python.analysis.typeCheckingMode": "basic",
     "python.analysis.autoImportCompletions": true,
@@ -38,9 +38,9 @@
         }
     ],
     "pylint.args": [
-        "--init-hook=import sys; sys.path.append('C:/Users/A.I.M/C.S/Data-Science-Project/Python')"
+        "--init-hook=import sys; sys.path.append('C:/Users/A.I.M/C.S/Data-Science-Project/python')"
     ],
     "python.analysis.extraPaths": [
-        "${workspaceFolder}/Python"
+        "${workspaceFolder}/python"
     ]
 }
