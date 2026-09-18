@@ -53,6 +53,9 @@ try:
         header = next(content)
 
         for line in content:
+            if not line:
+                continue
+
             # Strip whitespace added by spaces after commas in the CSV
             row = [cell.strip() for cell in line]
 
@@ -72,4 +75,5 @@ except FileNotFoundError:
 
 except PermissionError:
     print("\nAdministrative / Authorised Users Only!")
+
 
