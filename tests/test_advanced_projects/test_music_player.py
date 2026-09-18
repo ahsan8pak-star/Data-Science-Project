@@ -635,7 +635,7 @@ class TestMP3GUI:
 
     def test_main_entry_point(self, audio_ctx):
         # main() builds a Tk root and hands control to mainloop().
-        self.gui_mod.main()
+        self.gui_mod.launch_mp3_player()
         self.gui_mod.tk.Tk.return_value.mainloop.assert_called_once()
 
     def test_main_guard_executes(self, audio_ctx):
@@ -769,11 +769,12 @@ class TestWAVGUI:
 
     def test_main_entry_point(self, audio_ctx):
         # main() starts the Tk event loop.
-        self.gui_mod.main()
+        self.gui_mod.launch_wav_player()
         self.gui_mod.tk.Tk.return_value.mainloop.assert_called_once()
 
     def test_main_guard_executes(self, audio_ctx):
         # The __main__ guard reaches main() without error.
         import runpy
         runpy.run_path(str(WAV_GUI_PATH), run_name="__main__")
+
 

@@ -192,13 +192,14 @@ class WAVGUIPlayer:
             self.status_label.config(text=status_text)  # Updates the label widget text
 
 
-def main():
+def launch_wav_player():
     """(AI) Entry point: creates the tkinter root window and launches WAVGUIPlayer."""
     root = tk.Tk()
     WAVGUIPlayer(root)
     root.mainloop()
 
 
-if __name__ == "__main__":  # Standard Python guard: runs main() only when executed directly
-    main()
+if __name__ == "__main__":  # Standard Python guard: runs launch_wav_player() only when executed directly
+    launch_wav_player()
+
 

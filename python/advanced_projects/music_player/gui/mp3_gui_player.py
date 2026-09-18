@@ -192,13 +192,14 @@ class MP3GUIPlayer:
             self.status_label.config(text=status_text)  # Updates the label widget text
 
 
-def main():
+def launch_mp3_player():
     """(AI) Entry point: creates the tkinter root window and launches MP3GUIPlayer."""
     root = tk.Tk()
     MP3GUIPlayer(root)
     root.mainloop()
 
 
-if __name__ == "__main__":  # Standard Python guard: runs main() only when executed directly
-    main()
+if __name__ == "__main__":  # Standard Python guard: runs launch_mp3_player() only when executed directly
+    launch_mp3_player()
+
 
