@@ -61,7 +61,7 @@ def display_hint(hint):
 def display_answer(answer):
     print(" ".join(answer))
 
-def main():
+def play_hangman():
     answer = random.choice(animals) # randomly choses the animal word bank
     hint = ["_"] * len(answer) # ( _ ) underscores for guessing the word -> the whole purpose of hangman
     wrong_guesses = 0
@@ -110,5 +110,6 @@ def main():
             is_running = False # end the program
 
 if __name__ == "__main__":
-    main()
+    play_hangman()
+
 

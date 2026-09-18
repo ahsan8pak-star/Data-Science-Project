@@ -61,7 +61,7 @@ def withdraw(balance):
         print("\nInvalid Input. Numbers Only.")
         return 0
 
-def main():
+def run_banking_menu():
     balance = 0
     is_running = True
 
@@ -102,5 +102,6 @@ def main():
     print("\n>>> Shutting Down... <<<")
 
 if __name__ == '__main__':
-    main()
+    run_banking_menu()
+
 

@@ -35,7 +35,7 @@ dice_art = {
 }
 
 
-def main():
+def play_dice_race():
     
     while True: # Assumes the program running, hence becoming it all true
 
@@ -181,5 +181,6 @@ def main():
             break
 
 if __name__ == "__main__":
-    main()
+    play_dice_race()
+
 

@@ -3,7 +3,7 @@
 def favourite_food(food):
     print(f"\nYour favourite food is '{food.upper()}'!")
 
-def main():
+def show_food_script():
     print("\nYou are seeing SCRIPT 1!")
 
     favourite_food("chicken") # function being called
@@ -12,5 +12,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    show_food_script()
+
 

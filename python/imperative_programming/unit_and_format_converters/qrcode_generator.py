@@ -15,7 +15,7 @@ def make_qr_code(data, output_dir=None, output_file="qrcode.png"):
     return output_path
 
 
-def main():
+def generate_qrcode():
     if len(sys.argv) > 1:
         data = sys.argv[1]
     else:
@@ -30,5 +30,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    generate_qrcode()
+
 
