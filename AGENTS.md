@@ -209,13 +209,14 @@ structured history and keep the log scannable:
   `elif execution_time >= 3600` branch that can never fire after the
   earlier `>= 60` elif; both sit above the 80% floor. Additional
   dead-by-design caps documented during the full-path sweep:
-  `conditions.py` hardcodes `temperature = 25` / `name = "A.I.M"` so the
+  `conditions.py` (96%) hardcodes `temperature = 25` / `name = "A.I.M"` so the
   hot/bit-cold/cold branches and the name-while-loop body can never run;
-  `dictionaries.py` calls `capitals.clear()` before its keys()/values()/
-  items() loops so those loop bodies are unreachable; `abstract_classes.py`,
-  `device.py` and `polymorphism.py` keep `pass` bodies inside abstract
-  methods that can never be invoked; `login_status.py` compares a bound
-  method to a string (`is_admin[0].upper == "T"`), which is never True.
+  `dictionaries.py` (92%) calls `capitals.clear()` before its keys()/values()/
+  items() loops so those loop bodies are unreachable; `abstract_classes.py`
+  (92%), `device.py` (96%) and `polymorphism.py` (97%) keep `pass` bodies
+  inside abstract methods that can never be invoked; `login_status.py` (96%)
+  compares a bound method to a string (`is_admin[0].upper == "T"`), which is
+  never True.
 - `scripts/execution_time.py`: interactive `tree /f`-style project map +
   per-folder benchmark report (`PASS`/`FAIL`/`TIMEOUT`/`ERROR`).
 - Postgres is planned (`psycopg2` installed, `postgresql/sandbox/aim.sql`
