@@ -483,6 +483,19 @@ class TestLists:
 class TestModules:
     FILE = f"{FOLDER}/modules.py"
 
+    # Helper to silence the slow line in modules.py.
+    # Line 7 of modules.py calls help("modules"), which has Python scan
+    # and import EVERY installed package so it can list them all - that
+    # takes ~20 seconds. None of these tests care what that list contains,
+    # so we stub the scan to find nothing. (AI fix: added to stop the
+    # suite running ~3x longer than it needs to.)
+    @pytest.fixture(autouse=True)
+    def block_expensive_module_listing(self, monkeypatch):
+        import pkgutil
+        monkeypatch.setattr(
+            pkgutil, "walk_packages", lambda *args, **kwargs: iter(())
+        )
+
     def test_math_pi_imported_three_different_ways(self):
         _, out = run_script(self.FILE)
         assert out.count("3.14159") >= 3
