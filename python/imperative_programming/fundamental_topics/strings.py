@@ -211,4 +211,14 @@ print(f"{Name}\t{Name[5]}\t4") # Name[5] -> "N"
 print("This is a back slash  symbol (\\)")  # To write a back slash
 print("In every programming language it starts with \"Hello, World!\"")  # To write double quotes
 
+# Format specifications - comparing f-string parsing, .format(), and %-style
+
+print(f"Centred:  {Name:^15}")  # centres within 15 width
+print(f"Left:     {Name:<15}")  # left-aligned within 15 width
+print(f"Right:    {Name:>15}")  # right-aligned within 15 width
+print(f"Stripped: {Name.strip():^15}")  # strip() first so padding is symmetric
+print(f"Slice:    {Name[:4]}")  # first 4 characters of " AhSaN "
+print("Percentage: My name is %s" % Name.strip())  # %-style, the f-string predecessor
+print(f"Literal:  {'A.I.M \"N\" A.C.E'}")  # f-string with escaped inner quotes
+
 
