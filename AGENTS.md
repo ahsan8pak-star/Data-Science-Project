@@ -61,7 +61,12 @@ agent (or future human) working on this project should read this first.
   change; always cite commands the owner can re-run themselves.
 - **House style:** British English, SPaG-clean; comments explain *why* only
   (no new comments unless useful or explicitly requested), matching the
-  one-line-statement-then-reason style already present.
+  one-line-statement-then-reason style already present. **Short vs block
+  comments:** short comments use `#` (max 2 lines); longer explanations use
+  `"""` blocks instead. **AI-authored comments** (anything the agent writes to
+  explain its own fix, not A.I.M's notes) must start with a
+  `[AI-authored fix]` marker inside a `"""` block so they are instantly
+  distinguishable from the owner's own comments.
 - **Rules always win:** never break the Project Rules below (frozen OOP lane,
   coverage caps, `transactions.py` CWD quirk, no comment stripping, `.env`).
 

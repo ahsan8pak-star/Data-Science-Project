@@ -483,12 +483,13 @@ class TestLists:
 class TestModules:
     FILE = f"{FOLDER}/modules.py"
 
-    # Helper to silence the slow line in modules.py.
-    # Line 7 of modules.py calls help("modules"), which has Python scan
-    # and import EVERY installed package so it can list them all - that
-    # takes ~20 seconds. None of these tests care what that list contains,
-    # so we stub the scan to find nothing. (AI fix: added to stop the
-    # suite running ~3x longer than it needs to.)
+    """
+    [AI-authored fix]
+    modules.py:7 calls help("modules"), which has Python scan and import
+    EVERY installed package to list them all - that takes ~20 seconds.
+    None of these tests care what that list contains, so this stub makes
+    the scan return nothing, dropping the suite from ~66s to ~18s.
+    """
     @pytest.fixture(autouse=True)
     def block_expensive_module_listing(self, monkeypatch):
         import pkgutil
