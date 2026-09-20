@@ -116,6 +116,7 @@ coverage check at every pass-through, so no week silently ages into a cold gap.
 | *(one row per pass-through day)* | | | | | |
 | Fri 18 Sep 2026 | None yet (pre-S1; term starts Mon 28 Sep) | Yes (full suite, 1269 passed) | Yes | No | Renamed `def main()` to content-named entry points across `python/` (11 scripts + GUI tests); enforced LF via `.gitattributes`; added 2 trailing blank lines repo-wide; CSV empty-row fix in `file_reader.py` |
 | Sat 19 Sep 2026 | None yet (pre-S1; term starts Mon 28 Sep) | Yes (full suite, 1269 passed; coverage 5644 stmts, 29 miss, 99%) | Yes | No | Architecture check-up: all 29 uncovered lines verified as exactly the 8 documented dead-by-design caps (variables/conditions/generator/dictionaries/abstract_classes/device/polymorphism/login_status) - zero drift elsewhere; teaching scripts left frozen per cap rule; AGENTS cap labels now carry exact figures |
+| Sun 20 Sep 2026 | None yet (pre-S1; term starts Mon 28 Sep) | Yes (full suite, 1269 passed, 0 warnings, ~18.5s) | Yes | No | Suite speed fix: `TestModules` stubs `pkgutil.walk_packages` so `help("modules")` in `modules.py` no longer scans every installed package (~66s + 12 third-party warnings -> ~18.5s + 0); AGENTS house style now enforces `#` comments (max 2 lines) vs `"""` blocks, with AI-authored fixes marked `[AI-authored fix]`; README whitespace re-trimmed to the 2-blank-line invariant |
 
 Daily loop when passing through: Python recheck (rerun one lesson/script from
 the testing ground), README/`.md` upkeep and checks, and on Fridays the

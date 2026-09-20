@@ -201,7 +201,11 @@ structured history and keep the log scannable:
   (machine_learning notebooks, transactions xlsx pipeline, music player).
 - 1269 passing tests, ~99% coverage (172 of the 181 tracked `python/`
   files at 100%, including both music-player GUIs; the one never-imported
-  file is `imperative_programming/fundamental_topics/main.py`). `conftest.py`
+  file is `imperative_programming/fundamental_topics/main.py`). Full suite
+  now runs in ~18.5s with 0 warnings (`TestModules` stubs
+  `pkgutil.walk_packages`, so the `help("modules")` line in `modules.py`
+  no longer scans every installed package - that scan cost ~20s and
+  dragged in 12 third-party deprecation warnings). `conftest.py`
   per area
   provides `run_script()` which
   runs scripts via `runpy` with mocked `input()` / `time.sleep()` and
