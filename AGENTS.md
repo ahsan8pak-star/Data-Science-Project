@@ -66,9 +66,61 @@ agent (or future human) working on this project should read this first.
   `"""` blocks instead. **AI-authored comments** (anything the agent writes to
   explain its own fix, not A.I.M's notes) must start with a
   `[AI-authored fix]` marker inside a `"""` block so they are instantly
-  distinguishable from the owner's own comments.
+  distinguishable from the owner's own comments. **British Standard English
+  ALWAYS:** every agent-written word (docs, comments, replies, commit
+  messages) must use British spelling and phrasing - e.g. organise, colour,
+  behaviour, analyse, labelled - never Americanised forms (organize, color,
+  behavior, analyze, labeled).
 - **Rules always win:** never break the Project Rules below (frozen OOP lane,
   coverage caps, `transactions.py` CWD quirk, no comment stripping, `.env`).
+
+### Prompt Format (owner -> agent)
+
+For tasks (not one-off questions), give the agent a compact block:
+
+Goal: <the outcome, not the method>
+Files: <explicit paths or "everything under python/">
+Constraints: <rules that must not break, e.g. frozen OOP lane, caps>
+Verify: <tests to run + command, or "full suite before committing">
+Explain: <plain English, why first, one concept per answer> (optional)
+
+Example that mirrors how this repo actually worked:
+
+Goal: Speed up the test suite without touching any teaching script.
+Files: tests/ (TestModules class especially)
+Constraints: python/ scripts stay frozen; no new comments unless asked
+Verify: .venv/Scripts/python.exe -m pytest -q
+
+Capitalisation does not change how the agent reads the prompt - use
+normal sentence case and reserve ALL-CAPS for one or two critical words
+(e.g. a single NOT). Specificity reduces misreading; shouting does not.
+
+Misspellings in prose (e.g. "accoridngly", "out pytest") do not matter -
+the agent reads intent, not exact letters. What DOES matter is precision
+on identifiers the agent must resolve: file names, module/function/test
+names, command flags and expected output strings. Those should be exact.
+
+### Tool-choice recommendations (owner's assessment)
+
+The owner runs Claude, Gemini and OpenCode (Big Pickle) on the same
+task. Use each where it is strongest:
+
+- Big Pickle / OpenCode: strongest at plan -> execute -> verify in one
+  loop over the repo (reads files, edits, runs the pinned interpreter).
+  Best default for multi-file repo tasks given a Goal/Files/Constraints
+  block. Concise by default - add "full detail" when you want depth.
+- Claude: fantastic for code queries, small fixes and debugging issues -
+  its unique attribute is coding and programming. Use it when the ask
+  is code-specific; ask it to critique or patch, not to re-design.
+- Gemini: has the capability but is more general use - more generative
+  and broad than Claude's code focus. Use it for research sweeps,
+  long-context reading and open-ended ideas; treat its specific
+  line-level claims as candidates to verify, not ground truth.
+
+Shared weak spot to guard: all three pattern-match open prompts like
+"make it better" and over-reach without constraints. The
+Goal/Files/Constraints block exists precisely because of that - it is
+not a formality.
 
 ## Running Things
 
