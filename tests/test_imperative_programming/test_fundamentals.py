@@ -1043,6 +1043,16 @@ class TestStrings:
         assert 'starts with "Hello, World!"' in out
         assert " AhSaN \tA\t0" in out  # per-index table row
 
+    def test_format_specs_and_percentage_style(self):
+        _, out = run_script(self.FILE, inputs=["Ahsan"])
+        assert "Centred:       AhSaN" in out  # ^ centres Name within 15 width
+        assert "Left:      AhSaN" in out  # < keeps Name aligned left
+        assert "Right:             AhSaN" in out  # > pushes Name to the right
+        assert "Stripped:" in out  # strip() runs inside the format spec
+        assert "Slice:     AhS" in out  # [:4] parses out the first four chars
+        assert "Percentage: My name is AhSaN" in out  # %-style, the older syntax
+        assert 'Literal:  A.I.M "N" A.C.E' in out  # escaped quotes in an f-string
+
 
 # =====================================================================
 # 16. DATETIME
