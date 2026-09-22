@@ -1053,6 +1053,20 @@ class TestStrings:
         assert "Percentage: My name is AhSaN" in out  # %-style, the older syntax
         assert 'Literal:  A.I.M "N" A.C.E' in out  # escaped quotes in an f-string
 
+    def test_rightward_parsing_and_character_tables(self):
+        _, out = run_script(self.FILE, inputs=["AhSaN"])
+        assert "Casefold:   ' ahsan '" in out  # ß-folding: casefold() outdoes lower()
+        assert "Encode:     b' AhSaN '" in out  # the UTF-8 byte view, str's binary twin
+        assert "FormatMap:  AhSaN is my nickname" in out  # dict-backed .format() sibling
+        assert "MakeTrans:  {65: 64}" in out  # builds the table translate() consumes
+        assert "Translate:  ' @hSaN '" in out  # applies the table (A -> @)
+        assert "Partition:  (' A', 'h', 'SaN ')" in out  # 3-tuple: before, separator, after
+        assert "RPartition: (' AhS', 'a', 'N ')" in out  # same tuple, searched from the right
+        assert "RSplit:     [' AhS', 'N ']" in out  # right split, capped at one cut
+        assert "RIndex:     4" in out  # rightmost index (raises if absent, unlike rfind)
+        assert "RemPref:    'AhSaN '" in out  # strips exactly one leading space
+        assert "RemSuff:    ' AhSaN'" in out  # strips exactly one trailing space
+
 
 # =====================================================================
 # 16. DATETIME
