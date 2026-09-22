@@ -221,4 +221,19 @@ print(f"Slice:    {Name[:4]}")  # first 4 characters of " AhSaN "
 print("Percentage: My name is %s" % Name.strip())  # %-style, the f-string predecessor
 print(f"Literal:  {'A.I.M \"N\" A.C.E'}")  # f-string with escaped inner quotes
 
+# Searching and parsing that works from the right, plus character-substitution tables
+# string methods most tutorials skip - usually nobody writes them in a real script
+
+print(f"Casefold:   {Name.casefold()!r}")  # aggressive lower: handles ligatures, ß -> ss (unlike .lower())
+print(f"Encode:     {Name.encode('utf-8')}")  # the UTF-8 byte view, str's binary twin
+print(f"FormatMap:  {'{nick} is my nickname'.format_map({'nick': Name.strip()})}")  # dict-backed .format()
+print(f"MakeTrans:  {str.maketrans('A', '@')!r}")  # builds the table translate() consumes
+print(f"Translate:  {Name.translate(str.maketrans('A', '@'))!r}")  # applies the table (A -> @)
+print(f"Partition:  {Name.partition('h')!r}")  # 3-tuple: before, separator, after
+print(f"RPartition: {Name.rpartition('a')!r}")  # same tuple, but searches from the right
+print(f"RSplit:     {Name.rsplit('a', 1)!r}")  # right split, capped at one split
+print(f"RIndex:     {Name.rindex('a')}")  # rightmost index (raises if absent, unlike rfind -> -1)
+print(f"RemPref:    {Name.removeprefix(' ')!r}")  # strips exactly one leading space
+print(f"RemSuff:    {Name.removesuffix(' ')!r}")  # strips exactly one trailing space
+
 
