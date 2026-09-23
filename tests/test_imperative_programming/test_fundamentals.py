@@ -642,9 +642,95 @@ class TestNumbers:
         assert str(divmod(10, 3)) in out
 
     def test_underscore_separated_literals_parse_correctly(self):
+        mod, out = run_script(self.FILE)
+        assert mod.h == 1_000_000
+        assert mod.i == pytest.approx(0.000_001)
+        assert "1000000" in out
+
+    def test_int_bit_methods_probe(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.bit_num == 196
+        assert mod.bit_num.bit_count() == 3
+        assert mod.bit_num.bit_length() == 8
+        assert mod.big_endian == (196).to_bytes(2, byteorder="big")
+        assert mod.round_trip == 196
+
+    def test_int_to_bytes_literal_round_trips_probe(self):
+        mod, out = run_script(self.FILE)
+        assert mod.from_bytes_literal == 255
+        assert mod.need_two_bytes == (256).to_bytes(2, byteorder="big")
+        assert "255" in out
+        assert "b'\\x01\\x00'" in out
+
+    def test_decimal_exact_arithmetic_avoids_float_drift_probe(self):
+        mod, out = run_script(self.FILE)
+        assert mod.exact_sum == 0.3
+        assert mod.exact_sum == Decimal("0.3")
+        assert "0.3" in out
+        assert str(mod.exact_division).startswith("3.33")
+
+    def test_decimal_precision_context_is_block_scoped_probe(self):
+        mod, out = run_script(self.FILE)
+        assert "0.3333" in out
+        assert "0.3333333333333333333333333333" in out
+        assert mod.scale_compare is True
+        assert mod.accurate_sum == 1.0
+
+    def test_extended_math_families_fmod_fsum_pow_prod_comb_perm(self):
+        _, out = run_script(self.FILE)
+        assert "1.0" in out
+        assert "0.3" in out
+        assert "1024.0" in out
+        assert "24" in out
+        assert "120" in out
+        assert "10" in out
+        assert "20" in out
+
         mod, _ = run_script(self.FILE)
         assert mod.h == 1000000
         assert mod.i == pytest.approx(0.000001)
+
+    def test_int_bit_length_bit_count_to_and_from_bytes(self):
+        mod, out = run_script(self.FILE)
+        assert mod.bit_num == 196
+        assert "196" in out
+        assert mod.bit_num.bit_count() == 3
+        assert mod.bit_num.bit_length() == 8
+        assert mod.big_endian == (196).to_bytes(2, byteorder="big")
+        assert mod.round_trip == 196
+
+    def test_int_output_bytes_literals_round_trip(self):
+        _, out = run_script(self.FILE)
+        assert "b'\\x00\\xc4'" in out
+        assert "0x00c4" in out or "196" in out
+        assert "b'\\x01\\x00'" in out
+
+    def test_int_from_bytes_literal_and_two_byte_boundary(self):
+        mod, out = run_script(self.FILE)
+        assert mod.from_bytes_literal == 255
+        assert mod.big_endian == mod.need_two_bytes[0:2] or mod.need_two_bytes == (256).to_bytes(2, byteorder="big")
+
+    def test_decimal_exact_arithmetic_avoids_float_drift(self):
+        mod, out = run_script(self.FILE)
+        assert mod.exact_sum == 0.3
+        assert "0.3" in out
+        assert mod.exact_division == pytest.approx(3.333333333333333333333333333)
+        assert mod.scale_compare is True
+
+    def test_decimal_precision_context_blocks(self):
+        _, out = run_script(self.FILE)
+        assert "0.142857" in out
+        assert "0.3333" in out
+        assert "0.3333333333333333333333333333" in out
+
+    def test_extended_math_families_fmod_fsum_pow_prod_comb_perm(self):
+        mod, out = run_script(self.FILE)
+        assert "1.0" in out
+        assert "0.3" in out
+        assert "1024.0" in out
+        assert "24" in out
+        assert "10" in out
+        assert "20" in out
 
 
 # =====================================================================
