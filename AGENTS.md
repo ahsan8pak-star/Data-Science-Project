@@ -297,35 +297,35 @@ University of Reading module-catalogue links for every module.
 
 | Resource | Purpose | URL |
 | --- | --- | --- |
-| 50 Terminal Project Ideas | Beginner CLI Python project list | https://www.codedex.io/projects/50-terminal-project-ideas-using-python |
-| Roman Numeral Converter | Data-format conversion exercise | https://www.codedex.io/projects/convert-roman-numerals-with-python |
-| Word Guessing Game | Game-loop state machine exercise | https://www.codedex.io/projects/build-a-word-guessing-game-with-python |
-| Create a GIF | Pillow image generation | https://www.codedex.io/projects/create-a-gif-with-python |
-| Generate a QR Code | qrcode image output | https://www.codedex.io/projects/generate-a-qr-code-with-python |
-| Build Pong with PyGame | Real-time physics / collision engine | https://www.codedex.io/projects/build-pong-with-pygame |
-| Web Scrape Amazon with Beautiful Soup | DOM parsing / HTTP extraction | https://www.codedex.io/projects/web-scrape-amazon-with-beautiful-soup |
-| Build a Discord Bot | Async network event loops | https://www.codedex.io/projects/build-a-discord-bot-with-python |
-| Automated Scheduling Alert System via SMTP | Email automation / background tasks | https://www.codedex.io/projects/automate-secret-santa-emails-with-smtp |
-| Analyze Spreadsheet Data with Pandas & ChatGPT | DataFrames + LLM-driven EDA | https://www.codedex.io/projects/analyze-spreadsheet-data-with-pandas-chatgpt |
-| Visualize YouTube Data with Plotly | Multi-variable time-series visualisation | https://www.codedex.io/projects/visualize-youtube-data-with-plotly |
-| PostgreSQL Data Analysis | Relational database aggregates / `.groupby()` | https://www.codedex.io/projects/analyze-twitch-data-with-sqlite |
-| Analyze Custom Library Data with SciPy | Scientific statistics / variance models | https://www.codedex.io/projects/analyze-us-census-data-with-scipy |
-| Analyze Premier League / Baseball Stats (Pandas + Matplotlib) | Time-series wrangling / moving averages | https://www.codedex.io/projects/analyze-baseball-stats-with-pandas-and-matplotlib |
-| Predict Home Prices with Linear Regression | Supervised predictive modelling | https://www.codedex.io/projects/predict-home-prices-with-python-and-linear-regression |
-| Image Object Detection with Hugging Face | Computer vision / pre-trained transformers | https://www.codedex.io/projects/detect-hotdog-with-hugging-face |
-| Custom Search Engine with Exa AI | Dense vector semantics / neural indexes | https://www.codedex.io/projects/build-a-custom-search-engine-with-exa-ai |
-| Voice Virtual Assistant with ElevenLabs | Multimodal audio streaming | https://www.codedex.io/projects/create-a-voice-virtual-assistant-with-elevenlabs |
+| 50 Terminal Project Ideas | Beginner CLI Python project list | <https://www.codedex.io/projects/50-terminal-project-ideas-using-python> |
+| Roman Numeral Converter | Data-format conversion exercise | <https://www.codedex.io/projects/convert-roman-numerals-with-python> |
+| Word Guessing Game | Game-loop state machine exercise | <https://www.codedex.io/projects/build-a-word-guessing-game-with-python> |
+| Create a GIF | Pillow image generation | <https://www.codedex.io/projects/create-a-gif-with-python> |
+| Generate a QR Code | qrcode image output | <https://www.codedex.io/projects/generate-a-qr-code-with-python> |
+| Build Pong with PyGame | Real-time physics / collision engine | <https://www.codedex.io/projects/build-pong-with-pygame> |
+| Web Scrape Amazon with Beautiful Soup | DOM parsing / HTTP extraction | <https://www.codedex.io/projects/web-scrape-amazon-with-beautiful-soup> |
+| Build a Discord Bot | Async network event loops | <https://www.codedex.io/projects/build-a-discord-bot-with-python> |
+| Automated Scheduling Alert System via SMTP | Email automation / background tasks | <https://www.codedex.io/projects/automate-secret-santa-emails-with-smtp> |
+| Analyze Spreadsheet Data with Pandas & ChatGPT | DataFrames + LLM-driven EDA | <https://www.codedex.io/projects/analyze-spreadsheet-data-with-pandas-chatgpt> |
+| Visualize YouTube Data with Plotly | Multi-variable time-series visualisation | <https://www.codedex.io/projects/visualize-youtube-data-with-plotly> |
+| PostgreSQL Data Analysis | Relational database aggregates / `.groupby()` | <https://www.codedex.io/projects/analyze-twitch-data-with-sqlite> |
+| Analyze Custom Library Data with SciPy | Scientific statistics / variance models | <https://www.codedex.io/projects/analyze-us-census-data-with-scipy> |
+| Analyze Premier League / Baseball Stats (Pandas + Matplotlib) | Time-series wrangling / moving averages | <https://www.codedex.io/projects/analyze-baseball-stats-with-pandas-and-matplotlib> |
+| Predict Home Prices with Linear Regression | Supervised predictive modelling | <https://www.codedex.io/projects/predict-home-prices-with-python-and-linear-regression> |
+| Image Object Detection with Hugging Face | Computer vision / pre-trained transformers | <https://www.codedex.io/projects/detect-hotdog-with-hugging-face> |
+| Custom Search Engine with Exa AI | Dense vector semantics / neural indexes | <https://www.codedex.io/projects/build-a-custom-search-engine-with-exa-ai> |
+| Voice Virtual Assistant with ElevenLabs | Multimodal audio streaming | <https://www.codedex.io/projects/create-a-voice-virtual-assistant-with-elevenlabs> |
 
 ### Roadmaps & Learning Platforms
 
 | Resource | Purpose | URL |
 | --- | --- | --- |
-| AI & Data Scientist Roadmap | Systems architecture guide | https://roadmap.sh/ai-data-scientist |
-| Business Case Modelling Tracks | Production analytics portfolios | https://learn.365datascience.com/projects/ |
-| Enterprise GenAI Projects | LLM vector and application implementations | https://www.projectpro.io/genai-projects |
-| Core Data Science Projects | Scaled production data-science implementations | https://www.projectpro.io/projects/data-science-projects |
-| Applied ML Algorithms | Supervised/unsupervised ML frameworks | https://www.projectpro.io/projects/data-science-projects/machine-learning-projects-in-python |
-| Neural Networks Projects | Deep learning production systems | https://www.projectpro.io/projects/data-science-projects/deep-learning-projects |
+| AI & Data Scientist Roadmap | Systems architecture guide | <https://roadmap.sh/ai-data-scientist> |
+| Business Case Modelling Tracks | Production analytics portfolios | <https://learn.365datascience.com/projects/> |
+| Enterprise GenAI Projects | LLM vector and application implementations | <https://www.projectpro.io/genai-projects> |
+| Core Data Science Projects | Scaled production data-science implementations | <https://www.projectpro.io/projects/data-science-projects> |
+| Applied ML Algorithms | Supervised/unsupervised ML frameworks | <https://www.projectpro.io/projects/data-science-projects/machine-learning-projects-in-python> |
+| Neural Networks Projects | Deep learning production systems | <https://www.projectpro.io/projects/data-science-projects/deep-learning-projects> |
 
 ### University Module Briefings (local, non-code)
 
@@ -352,5 +352,3 @@ University of Reading module-catalogue links for every module.
 > three years: see `university_courseworks/UNIVERSITY_MODULES.md`. Official BSc Computer Science
 > (UCAS G400) course pages: 2025/26, 2026/27 and 2027/28 entry (the 2025 page
 > redirects to 2026/27; the 2027 page is not live yet).
-
-

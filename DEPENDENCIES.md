@@ -157,4 +157,3 @@ pip-review --auto
 > `.venv\Scripts\python.exe -m pip ...` form always targets the correct environment regardless
 > of which Python is on the PATH.
 
-
