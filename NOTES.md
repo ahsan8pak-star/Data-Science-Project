@@ -104,39 +104,39 @@ log the day using the exact week frame of `university_courseworks/year2/`:
 
 ## Teaching-lane never-method backlog (pytest seam)
 
-Repo-tracked copy of the owner's Batch A–F checklist (owner keeps a local
-list; this lived nowhere in the repo until now, so it could silently age).
-A "Batch" is one **block of never-before-demonstrated methods inside a
-teaching script** + the house probes that exercise it. `python/` lanes
+Repo-tracked copy of the owner's never-method checklist (owner keeps a
+local list; this lived nowhere in the repo until now, so it could silently
+age). Each row is one **block of never-before-demonstrated methods inside
+a teaching script** + the house probes that exercise it. `python/` lanes
 remain byte-frozen in the owner lane; probes are the agent lane.
 
-- [x] **Batch A — `sets.py` never-method block + probes** (e.g. `pop()`,
+- [x] **`sets.py` never-method block + probes** (e.g. `pop()`,
       `symmetric_difference_update()`, `difference_update()`, `update()`,
       `intersection_update()` families)
-- [x] **Batch B — `numbers.py` int/Decimal/math never-method block +
-      probes** (`bit_count`/`bit_length`/`to_bytes`/`from_bytes`; `Decimal`
+- [x] **`numbers.py` int/Decimal/math never-method block + probes**
+      (`bit_count`/`bit_length`/`to_bytes`/`from_bytes`; `Decimal`
       exact + precision-context blocks; `math.fsum`/`prod`/`comb`/`perm`/
       `fmod`). Block byte-frozen in owner lane; probes were probing
       `Decimal == float` and always failed — repaired value-safe
       (`str()`, `type(...).__name__`, `pytest.approx`) on Thu 24 Sep 2026;
       suite green 1281
-- [x] **Batch C — `itertools_module.py` — 14 never-method `itertool`
-      methods + probes** (`accumulate`/`batched`/`combinations(_with_
+- [x] **`itertools_module.py` — 14 never-method `itertool` methods +
+      probes** (`accumulate`/`batched`/`combinations(_with_`
       replacement)`/`compress`/`dropwhile`/`filterfalse`/`groupby`/
       `pairwise`/`permutations`/`starmap`/`takewhile`/`tee`/`zip_longest`;
       teaching file left in the owner lane, probes committed)
-- [x] **Batch D — `functools` homes (teaching lane)** —
+- [x] **`functools` homes (teaching lane)** —
       `cache`/`lru_cache`/`partial`/`reduce`/`singledispatch`/`wraps`
       + probes** (new teaching file `functools_module.py`; existing
       `partial_application.py`/`reduce.py` untouched)
-- [x] **Batch E — `statistics` teaching file — 12 never-methods + probes**
+- [x] **`statistics` teaching file — 12 never-methods + probes**
       (core measures: `mean`/`fmean`/`geometric_mean`/`harmonic_mean`/
       `median(_low/_high)`/`mode`/`multimode`/`stdev`/`variance`/`pstdev`;
       new teaching file `statistics_module.py` — placed in the functional
       lane because `imperative_programming/fundamental_topics/numbers.py`
       shadows the stdlib `numbers` module that `statistics` imports
       internally, so a copy there dies with a circular import)
-- [x] **Batch F — `bytes` + `dict.setdefault` (`decode`/`hex`/`fromhex` +
+- [x] **`bytes` + `dict.setdefault` (`decode`/`hex`/`fromhex` +
       neighbour home) + probes** (`numbers.py` gained a bytes/hex section;
       `dictionaries.py` gained a `setdefault()` block; both open lanes,
       probes committed)
@@ -156,7 +156,7 @@ coverage check at every pass-through, so no week silently ages into a cold gap.
 | Logged on | Week(s) covered (since last log) | Python recheck? | README/.md checks? | Friday sprint? | Notes |
 | --- | --- | --- | --- | --- | --- |
 | *(one row per pass-through day)* | | | | | |
-| Thu 24 Sep 2026 | None yet (pre-S1; term starts Mon 28 Sep) | Yes (full suite, 1296 passed, 0 warnings) | Yes | No | Batches C-F landed: `itertools_module.py` extended to all 20 public names; new `functools_module.py` + `statistics_module.py` teaching files (statistics placed in the functional lane - the imperative lane `numbers.py` shadows stdlib `numbers`, so a copy there dies on a `decimal` circular import); `numbers.py` bytes/hex block + `dictionaries.py` `setdefault()` block; probes committed, teaching files left in owner lane |
+| Thu 24 Sep 2026 | None yet (pre-S1; term starts Mon 28 Sep) | Yes (full suite, 1296 passed, 0 warnings) | Yes | No | Never-method backlog C-F landed: `itertools_module.py` extended to all 20 public names; new `functools_module.py` + `statistics_module.py` teaching files (statistics placed in the functional lane - the imperative lane `numbers.py` shadows stdlib `numbers`, so a copy there dies on a `decimal` circular import); `numbers.py` bytes/hex block + `dictionaries.py` `setdefault()` block; probes committed, teaching files left in owner lane |
 | Thu 24 Sep 2026 | None yet (pre-S1; term starts Mon 28 Sep) | Yes (full suite, 1281 passed, 0 warnings) | Yes | No | Seam repair: the dedicated `TestNumbers` decimal/underscore probes plus the legacy `test_decimal_exact_arithmetic_avoids_float_drift` asserted `Decimal == float` (`== 0.3`, `== Decimal("0.3")` without the import, `pytest.approx(3.333...)`) which always fails; rewrote them house-style with value-safe probes (`str(mod.exact_sum) == "0.3"`, `type(...).__name__ == "Decimal"`, `str(...).startswith("3.33")`). `numbers.py` left byte-frozen in the owner lane; suite green at 1281 |
 | Fri 18 Sep 2026 | None yet (pre-S1; term starts Mon 28 Sep) | Yes (full suite, 1269 passed) | Yes | No | Renamed `def main()` to content-named entry points across `python/` (11 scripts + GUI tests); enforced LF via `.gitattributes`; added 2 trailing blank lines repo-wide; CSV empty-row fix in `file_reader.py` |
 | Sat 19 Sep 2026 | None yet (pre-S1; term starts Mon 28 Sep) | Yes (full suite, 1269 passed; coverage 5644 stmts, 29 miss, 99%) | Yes | No | Architecture check-up: all 29 uncovered lines verified as exactly the 8 documented dead-by-design caps (variables/conditions/generator/dictionaries/abstract_classes/device/polymorphism/login_status) - zero drift elsewhere; teaching scripts left frozen per cap rule; AGENTS cap labels now carry exact figures |
@@ -328,48 +328,47 @@ predicts the score rises this term.
 Each pending row in the backlog above was re-checked **byte-exact today**
 so it cannot silently age from "planned" to "forgotten":
 
-- **Batch C - `itertools_module.py` - 14 never-method `itertool` methods
+- **`itertools_module.py` - 14 never-method `itertool` methods
   + probes** - byte-verified Thu 24 Sep 2026: file
   `python/functional_programming/fundamental_topics/itertools_module.py`
   **exists** and demonstrates **6** itertool methods (`chain`/`count`/
   `cycle`/`islice`/`product`/`repeat`); **8** legitimate itertool
   never-methods remain to be demonstrated + probed (pending owner lane)
-- **Batch D - `functools` homes (teaching lane)** (`cache`/`lru_cache`/
+- **`functools` homes (teaching lane)** (`cache`/`lru_cache`/
   `partial`/`reduce`/`singledispatch`/`wraps`) + probes** -
   byte-verified Thu 24 Sep 2026: **no `functools` teaching file present
   in the teaching lane** (pending owner lane)
-- **Batch E - `statistics` teaching file - 12 never-methods + probes** -
+- **`statistics` teaching file - 12 never-methods + probes** -
   byte-verified Thu 24 Sep 2026: **no `statistics` teaching file present
   in the teaching lane** (pending owner lane)
-- **Batch F - `bytes` + `dict.setdefault` (`decode`/`hex`/`fromhex` +
+- **`bytes` + `dict.setdefault` (`decode`/`hex`/`fromhex` +
   neighbour home) + probes** - byte-verified Thu 24 Sep 2026: **no
   `bytes` teaching file present in the teaching lane** (pending owner
   lane)
 - **Final - full suite + coverage caps exact + LF invariants** - runs on
   every pass-through; byte-verified green Thu 24 Sep 2026 (**1281
   passed**, coverage caps exact, LF invariants clean); hard gate before
-  S1 start Mon 28 Sep, pending Batch C-F
+  S1 start Mon 28 Sep, pending C-F
+### Byte-verified superseding stamp (Thu 24 Sep 2026, post C-F)
 
-### Byte-verified superseding stamp (Thu 24 Sep 2026, post-Batch C-F)
-
-Supersedes the base stamp above after Batches C-F landed. The base
+Supersedes the base stamp above after items C-F landed. The base
 stamp's **"8 legitimate itertool never-methods remain"** figure was a
 **counting error**: a byte-exact name scan of the current
 `itertools_module.py` shows **14** public names never previously used
 (20 total public names minus the 6 demonstrated) — the true backlog was
 14 all along, not 8.
 
-- **Batch C - `itertools_module.py`** - now demonstrates all **20**
+- **`itertools_module.py`** - now demonstrates all **20**
   public `itertools` names (the 6 baseline + 14 new: `accumulate`,
   `batched`, `combinations`, `combinations_with_replacement`, `compress`,
   `dropwhile`, `filterfalse`, `groupby`, `pairwise`, `permutations`,
   `starmap`, `takewhile`, `tee`, `zip_longest`); runs clean, ~40 tracked
   statements, 100% covered by probes
-- **Batch D - `functools_module.py`** - new teaching file demonstrating
+- **`functools_module.py`** - new teaching file demonstrating
   `cache`/`lru_cache`/`partial`/`reduce`/`singledispatch`/`wraps`;
   runs clean, ~35 tracked statements, 100% covered by probes; existing
   `partial_application.py`/`reduce.py` untouched
-- **Batch E - `statistics_module.py`** - new teaching file demonstrating
+- **`statistics_module.py`** - new teaching file demonstrating
   the 12 core measures; runs clean, 26 tracked statements, 100% covered
   by probes (floats asserted via `pytest.approx`). **Placement note:** the
   file lives in the **functional** lane, not next to `numbers.py`, because
@@ -377,7 +376,7 @@ stamp's **"8 legitimate itertool never-methods remain"** figure was a
   `numbers` module that `statistics` imports internally; a copy in the
   imperative lane fails with `ImportError: cannot import name 'Decimal'
   from partially initialized module 'decimal'` (circular import)
-- **Batch F - `numbers.py` + `dictionaries.py`** - `numbers.py` gained a
+- **`numbers.py` + `dictionaries.py`** - `numbers.py` gained a
   bytes/hex block (`encode`/`decode`/`hex`/`fromhex`/`upper`);
   `dictionaries.py` gained a `setdefault()` block; both run clean and are
   100% covered by probes. **Pre-existing quirk confirmed not introduced:**
