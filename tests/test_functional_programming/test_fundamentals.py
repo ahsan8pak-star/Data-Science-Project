@@ -3,12 +3,14 @@ Pytest suite for every script under python/functional_programming/fundamental_to
 
 Each script is executed for real via run_script() (see conftest.py), so these
 tests exercise the actual coursework code rather than reimplementations of
-it. None of these fifteen files call input(), so every test asserts against
+it. None of these seventeen files call input(), so every test asserts against
 either the module's own top-level variables (accessible straight off the
 executed module object) or the exact lines it printed.
 """
 
 from tests.test_functional_programming.conftest import run_script
+
+import pytest
 
 FOLDER = "functional_programming/fundamental_topics"
 
@@ -429,6 +431,105 @@ class TestItertoolsModule:
         assert "chain: [1, 2, 3, 4, 5, 6]" in out
         assert "repeat: ['A', 'A', 'A', 'A']" in out
         assert "product: [(1, 'head'), (1, 'tail'), (2, 'head'), (2, 'tail')]" in out
+
+    def test_accumulate_batched_and_combinatorics(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.running == [1, 3, 6, 10]
+        assert mod.batches == [(1, 2), (3, 4), (5, 6)]
+        assert mod.combos == [("A", "B"), ("A", "C"), ("B", "C")]
+        assert mod.combos_rep == [("A", "A"), ("A", "B"), ("A", "C"), ("B", "B"), ("B", "C"), ("C", "C")]
+
+    def test_selection_methods_keep_drop_filter_compress(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.selected == ["A", "C", "D"]
+        assert mod.after_drop == [3, 4, 1]
+        assert mod.rejected == [1, 3]
+        assert mod.until_stop == [1, 2]
+
+    def test_groupby_pairwise_permutations_and_starmap(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.grouped == {"A": ["A", "A"], "B": ["B", "B"], "C": ["C", "C"], "D": ["D", "D"]}
+        assert mod.pairs == [(1, 2), (2, 3), (3, 4)]
+        assert mod.perms == [("A", "B"), ("A", "C"), ("B", "A"), ("B", "C"), ("C", "A"), ("C", "B")]
+        assert mod.summed == [3, 7]
+
+    def test_tee_and_zip_longest_printed_output(self):
+        _, out = run_script(self.FILE)
+        assert "tee clone_a: [1, 2, 3]" in out
+        assert "tee clone_b: [1, 2, 3]" in out
+        assert "zip_longest: [(1, 'a'), (2, 'b'), ('?', 'c')]" in out
+
+
+# ---------------------------------------------------------------------------
+# functools_module.py
+# ---------------------------------------------------------------------------
+
+class TestFunctoolsModule:
+    FILE = f"{FOLDER}/functools_module.py"
+
+    def test_cache_reuses_the_stored_result(self):
+        mod, out = run_script(self.FILE)
+        assert mod.square(4) == 16
+        assert "cache: 16 25 16" in out
+
+    def test_lru_cache_keeps_only_the_most_recent_entries(self):
+        mod, out = run_script(self.FILE)
+        assert mod.double(2) == 4
+        assert "CacheInfo(hits=1, misses=2, maxsize=3, currsize=2)" in out
+
+    def test_partial_prefills_the_first_argument(self):
+        mod, out = run_script(self.FILE)
+        assert mod.times_two(5) == 10
+        assert mod.times_two(10) == 20
+
+    def test_reduce_folds_the_iterable_down_to_one_value(self):
+        mod, out = run_script(self.FILE)
+        assert mod.total == 15
+        assert "reduce: 15" in out
+
+    def test_singledispatch_routes_by_first_argument_type(self):
+        mod, out = run_script(self.FILE)
+        assert "integer: 42" in out
+        assert "text: hello" in out
+        assert "unknown: [1, 2]" in out
+
+    def test_wraps_copies_the_original_functions_metadata(self):
+        mod, out = run_script(self.FILE)
+        assert mod.greet() == "Hello!"
+        assert mod.greet.__name__ == "greet"
+        assert mod.greet.__doc__ == "Says a friendly hello."
+        assert "calling greet" in out
+
+
+# ---------------------------------------------------------------------------
+# statistics_module.py
+# ---------------------------------------------------------------------------
+
+class TestStatisticsModule:
+    FILE = f"{FOLDER}/statistics_module.py"
+
+    def test_central_tendency_measures(self):
+        mod, out = run_script(self.FILE)
+        assert mod.arithmetic_mean == 5
+        assert mod.float_mean == pytest.approx(5.0)
+        assert mod.geo_mean == pytest.approx(6.0)
+        assert mod.harmonic_mean == pytest.approx(2.0)
+        assert mod.middle_value == pytest.approx(4.5)
+        assert mod.lower_middle == 4
+        assert mod.upper_middle == 5
+        assert mod.most_common == 4
+        assert mod.all_modes == [4]
+
+    def test_spread_measures(self):
+        mod, out = run_script(self.FILE)
+        assert mod.sample_variance == pytest.approx(32 / 7)
+        assert mod.sample_deviation == pytest.approx(2.138089935299395)
+        assert mod.population_deviation == pytest.approx(2.0)
+
+    def test_dataset_is_fixed_and_shared(self):
+        mod, _ = run_script(self.FILE)
+        assert mod.ages == [2, 4, 4, 4, 5, 5, 7, 9]
+        assert len(mod.ages) == 8
 
 
 # ---------------------------------------------------------------------------

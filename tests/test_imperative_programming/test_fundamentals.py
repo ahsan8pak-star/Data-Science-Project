@@ -171,6 +171,12 @@ class TestDictionaries:
         capitals.update({"USA": "Detroit"})
         assert capitals["USA"] == "Detroit"
 
+    def test_setdefault_inserts_only_when_key_is_missing(self):
+        mod, out = run_script(self.FILE)
+        assert mod.scores == {"Ahsan": 85}
+        assert "85" in out  # setdefault returns the freshly inserted value
+        assert "10" not in out.splitlines()  # existing key keeps 85, new default ignored
+
 
 # =====================================================================
 # 3. EXCEPTIONS
@@ -731,6 +737,17 @@ class TestNumbers:
         assert "24" in out
         assert "10" in out
         assert "20" in out
+
+    def test_bytes_encode_decode_hex_probe(self):
+        mod, out = run_script(self.FILE)
+        assert mod.as_bytes == b"Ahsan"
+        assert mod.back_to_text == "Ahsan"
+        assert mod.hex_view == "416873616e"
+        assert mod.rebuilt_bytes == b"Ahsan"
+        assert mod.capital_hex == "416873616E"
+        assert "b'Ahsan'" in out
+        assert "416873616e" in out
+        assert "416873616E" in out
 
 
 # =====================================================================
