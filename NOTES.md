@@ -102,6 +102,36 @@ log the day using the exact week frame of `university_courseworks/year2/`:
 | Winter | Sun 20 Dec 2026 - Sun 31 Jan 2027 (rest 20 Dec - 3 Jan; CS2PP assessment Jan) |
 | S2 | W1 Mon 1 Feb - Sun 7 Feb | W2 Mon 8 Feb - Sun 14 Feb | W3 Mon 15 Feb - Sun 21 Feb | W4 Mon 22 Feb - Sun 28 Feb | W5 Mon 1 Mar - Sun 7 Mar (**Times Off**) | W6 Mon 8 Mar - Sun 14 Mar | W7 Mon 15 Mar - Sun 21 Mar (*CS2SD Stage 1 due*) | W8 Mon 22 Mar - Sun 28 Mar | EB Mon 29 Mar - Fri 9 Apr (**Easter**) | W9 Mon 12 Apr - Sun 18 Apr | W10 Mon 19 Apr - Sun 25 Apr (*CS2ON report due*) | W11 Mon 26 Apr - Sun 2 May | W12 Mon 3 May - Sun 9 May (*CS2SD Stage 2 due*) | AS Mon 10 May - Fri 28 May (**assessments; term ends**) |
 
+## Teaching-lane never-method backlog (pytest seam)
+
+Repo-tracked copy of the owner's Batch A–F checklist (owner keeps a local
+list; this lived nowhere in the repo until now, so it could silently age).
+A "Batch" is one **block of never-before-demonstrated methods inside a
+teaching script** + the house probes that exercise it. `python/` lanes
+remain byte-frozen in the owner lane; probes are the agent lane.
+
+- [x] **Batch A — `sets.py` never-method block + probes** (e.g. `pop()`,
+      `symmetric_difference_update()`, `difference_update()`, `update()`,
+      `intersection_update()` families)
+- [x] **Batch B — `numbers.py` int/Decimal/math never-method block +
+      probes** (`bit_count`/`bit_length`/`to_bytes`/`from_bytes`; `Decimal`
+      exact + precision-context blocks; `math.fsum`/`prod`/`comb`/`perm`/
+      `fmod`). Block byte-frozen in owner lane; probes were probing
+      `Decimal == float` and always failed — repaired value-safe
+      (`str()`, `type(...).__name__`, `pytest.approx`) on Thu 24 Sep 2026;
+      suite green 1281
+- [ ] **Batch C — `itertools_module.py` — 14 never-method `itertool`
+      methods + probes**
+- [ ] **Batch D — `functools` homes (teaching lane)** —
+      `cache`/`lru_cache`/`partial`/`reduce`/`singledispatch`/`wraps`
+      + probes**
+- [ ] **Batch E — `statistics` teaching file — 12 never-methods + probes**
+- [ ] **Batch F — `bytes` + `dict.setdefault` (`decode`/`hex`/`fromhex` +
+      neighbour home) + probes**
+- [ ] **Final — full suite + coverage caps exact + LF invariants** (runs on
+      every pass-through; hard gate before S1 start Mon 28 Sep, pending
+      Batch C–F)
+
 ## Maintenance log format
 
 Each pass-through appends one **dated row**. The row must **state the
