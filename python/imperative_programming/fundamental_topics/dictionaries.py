@@ -143,3 +143,13 @@ print(sorted_values) # sorts out by Capitals alphabetically
 # {'USA': 'Detroit', 'Russia': 'Moscow', 'India': 'New Delhi'}
 
 
+""" setdefault() - inserts a default only when the key is missing """
+
+scores = {} # starts empty, so every setdefault below is a fresh insert
+
+print(scores.setdefault("Ahsan", 85)) # key missing -> inserts Ahsan with 85 and returns it (prints 85)
+print(scores.setdefault("Ahsan", 10)) # key now exists -> returns the stored 85, ignoring the new default
+
+print(scores)
+
+

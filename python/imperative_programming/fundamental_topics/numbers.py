@@ -316,6 +316,31 @@ print(math.perm(5, 2)) # Number of ways to arrange 2 items selected from 5 (retu
 print(math.prod(range(1, 6))) # prod works on iterables (returns 120)
 
 
-# End of numbers.py - basic number handling, arithmetic, math module, integer bit methods and Decimal for exact calculations
+# Bytes and hex - the binary twins of text
+
+sample_text = "Ahsan" # A string ready to be stored or transmitted as raw bytes
+
+as_bytes = sample_text.encode("utf-8") # Encodes the text into its UTF-8 bytes (returns b'Ahsan')
+
+print(as_bytes)
+
+back_to_text = as_bytes.decode("utf-8") # Decodes the same bytes back into the original string (returns Ahsan)
+
+print(back_to_text)
+
+hex_view = as_bytes.hex() # Renders each byte as two lowercase hex digits (returns 416873616e)
+
+print(hex_view)
+
+rebuilt_bytes = bytes.fromhex(hex_view) # Parses the hex string back into the original bytes (returns b'Ahsan')
+
+print(rebuilt_bytes)
+
+capital_hex = as_bytes.hex().upper() # A common display form showing all hex digits in capitals (returns 416873616E)
+
+print(capital_hex)
+
+
+# End of numbers.py - basic number handling, arithmetic, math module, integer bit methods, Decimal for exact calculations and bytes/hex conversion
 
 
