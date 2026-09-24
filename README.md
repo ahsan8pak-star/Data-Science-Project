@@ -76,7 +76,9 @@ All fundamental and applied topics learnt in their respective folder, known as `
 | Currying | **Turning a multi-argument function into a chain of single-argument functions, i.e. `add(a, b)` becomes `add(a)(b)`** |
 | Filter | **`filter()` combined with lambda predicates to conditionally select items from a list - even and odd numbers, values both above and below a threshold, and non-empty strings** |
 | First-Class Functions | **Functions treated as values - stored in variables, passed as arguments, and returned from other functions** |
-| itertools Module | **`itertools` building blocks such as `chain`, `count`, `islice`, `cycle`, `repeat` and `product`** |
+| itertools Module | **`itertools` building blocks such as `chain`, `count`, `islice`, `cycle`, `repeat` and `product`, alongside combinatoric and lazy-iterator helpers (`accumulate`, `batched`, `combinations`, `permutations`, `groupby`, `pairwise`, `tee` and more)** |
+| functools Module | **`functools` higher-order helpers: `cache` / `lru_cache`, `partial`, `reduce`, `singledispatch` and `wraps`** |
+| statistics Module | **Core descriptive statistics over one-shot data: `mean`, `median` family, `mode`, `stdev` / `variance` and more** |
 | Lambda | **Anonymous one-expression functions assigned to variables, applied across arithmetic, comparison, and conditional (ternary) use cases** |
 | Map | **`map()` applying a lambda across single and multiple iterables - squaring/doubling values, type conversion, and pairwise combination of 2 lists** |
 | Partial Application | **`functools.partial` pre-filling arguments to create specialised versions of a general function** |
