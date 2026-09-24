@@ -249,11 +249,20 @@ structured history and keep the log scannable:
 
 ## Feature Summary (what exists today)
 
-- 92 imperative scripts, 19 functional, 41 OOP, plus `advanced_projects`
+- 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1269 passing tests, ~99% coverage (172 of the 181 tracked `python/`
+- 1296 passing tests, ~99% coverage (174 of the 183 tracked `python/`
   files at 100%, including both music-player GUIs; the one never-imported
-  file is `imperative_programming/fundamental_topics/main.py`). Full suite
+  file is `imperative_programming/fundamental_topics/main.py`). The two
+  newest functional teaching files are `functools_module.py` (cache,
+  lru_cache, partial, reduce, singledispatch, wraps) and
+  `statistics_module.py` (12 core measures) - the latter sits in the
+  functional lane because `imperative_programming/fundamental_topics/
+  numbers.py` shadows the stdlib `numbers` module that `statistics`
+  imports internally, so a copy there dies on a `decimal` circular
+  import. `itertools_module.py` now demonstrates all 20 public names, and
+  `numbers.py` / `dictionaries.py` gained a `bytes.hex` block and a
+  `setdefault` block respectively. Full suite
   now runs in ~18.5s with 0 warnings (`TestModules` stubs
   `pkgutil.walk_packages`, so the `help("modules")` line in `modules.py`
   no longer scans every installed package - that scan cost ~20s and
@@ -272,7 +281,7 @@ structured history and keep the log scannable:
   dead-by-design caps documented during the full-path sweep:
   `conditions.py` (96%) hardcodes `temperature = 25` / `name = "A.I.M"` so the
   hot/bit-cold/cold branches and the name-while-loop body can never run;
-  `dictionaries.py` (92%) calls `capitals.clear()` before its keys()/values()/
+  `dictionaries.py` (93%) calls `capitals.clear()` before its keys()/values()/
   items() loops so those loop bodies are unreachable; `abstract_classes.py`
   (92%), `device.py` (96%) and `polymorphism.py` (97%) keep `pass` bodies
   inside abstract methods that can never be invoked; `login_status.py` (96%)
