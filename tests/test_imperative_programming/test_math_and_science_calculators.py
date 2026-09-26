@@ -446,20 +446,22 @@ class TestArithmeticExpressions:
         assert "-8 // 6 = -2" in out  # floors toward negative infinity
         assert "-8 ** 6 = 262144" in out  # even exponent -> positive result
 
-    def test_zero_denominator_crashes_on_the_division_line_specifically(self):
+    def test_zero_denominator_reports_the_error_for_every_affected_operator(self):
         
         """
-        Genuine bug: format_result()'s "/" branch does f"{result:.2f}"
-        unconditionally, without checking whether arithmetic() actually
-        returned the "Error: Undefined..." string instead of a number.
-        Formatting a str with the ':.2f' spec raises ValueError, which
-        propagates straight out of calculate()'s own try block and is
-        swallowed by its own `except ValueError:` - a misleading message
-        for what's actually a zero-division case, not bad input. Because
-        "/" comes before "%" and "//" in the operators list, this also
-        means the loop dies right there: "%" and "//" (which WOULD have
-        handled a zero denominator safely, via the plain str(result)
-        fallback) never get a chance to print.
+        [AI-authored fix] format_result()'s "/" branch used to apply
+        f"{result:.2f}" unconditionally, without checking whether
+        arithmetic() had returned the "Error: Undefined..." string instead
+        of a number. Formatting a str with the ':.2f' spec raises
+        ValueError, which propagated out of calculate()'s own try block and
+        was swallowed by its own `except ValueError:` - so a zero divisor
+        produced the message "Invalid input. Please enter numeric values
+        only." about two perfectly valid numbers, and because "/" comes
+        before "%", "//" and "**" in the operators list, the loop died
+        there and those three results were never printed at all.
+
+        The guard now checks the type first, so the whole table prints and
+        the user is told what actually went wrong.
         """
         
         inputs = ["8", "0"]
@@ -467,12 +469,26 @@ class TestArithmeticExpressions:
         assert "8 + 0 = 8" in out
         assert "8 - 0 = 8" in out
         assert "8 * 0 = 0" in out
-        assert "Invalid input. Please enter numeric values only." in out
-        # confirms the loop died before reaching any of these
-        assert "8 / 0" not in out
-        assert "8 % 0" not in out
-        assert "8 // 0" not in out
-        assert "8 ** 0" not in out
+        assert "8 ** 0 = 1" in out
+
+        undefined = "Error: Undefined. You can't divide anything by 0."
+        assert f"8 / 0 = {undefined}" in out
+        assert f"8 % 0 = {undefined}" in out
+        assert f"8 // 0 = {undefined}" in out
+
+        assert "Invalid input. Please enter numeric values only." not in out
+
+    def test_zero_denominator_still_uses_two_decimal_places_for_real_division(self):
+        
+        """
+        [AI-authored fix] The type guard added to format_result()'s "/"
+        branch must not cost the two-decimal-place formatting that branch
+        exists for, so a genuine division result is still rounded to 2dp.
+        """
+        
+        inputs = ["8", "4"]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "8 / 4 = 2.00" in out
 
     def test_get_number_parses_int_when_possible(self):
         mod, _ = run_script(self.FILE, inputs=["8", "6"])

@@ -1098,20 +1098,46 @@ class TestLoginStatus:
         assert "Stop Lying" not in out
         assert "Welcome to our university!" in out
 
-    def test_empty_online_answer_raises_uncaught_index_error(self):
-        inputs = ["True", "False", "False", "True", ""]
-        with pytest.raises(IndexError):
-            run_script(self.FILE, inputs=inputs)
-
-    def test_own_value_error_except_is_unreachable_via_normal_input(self):
-
+    def test_empty_online_answer_is_handled_by_the_input_error_handler(self):
+        
         """
-        The whole flow is wrapped in `except ValueError:`, but nothing in
-        it can actually raise a ValueError from typed input: .upper()
-        never raises one, and an empty string's [0] index raises
-        IndexError instead (confirmed above), which this except doesn't
-        even catch. This except clause is only reachable by making
-        input() itself raise ValueError artificially, as done here.
+        [AI-authored fix] This used to be an uncaught IndexError. Every
+        answer is read as text and then indexed with [0] to inspect its
+        first character, so an empty answer raised
+        IndexError: string index out of range - a type the script's
+        `except ValueError:` could not catch, so the script died with a
+        traceback instead of a message. The handler now catches
+        (ValueError, IndexError).
+        """
+        
+        inputs = ["True", "False", "False", "True", ""]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Please type within boolean logic. True or False." in out
+
+    def test_empty_accident_or_intended_answer_is_handled_too(self):
+        
+        """
+        [AI-authored fix] The second [0] index in the script, on the
+        "Accident or Intented?" answer, crashed the same way and had no
+        test at all. Reaching it needs the elif to be taken, so the
+        answers are chosen to get there: online, not a student, and both
+        new and a regular student.
+        """
+        
+        inputs = ["False", "False", "True", "True", "True", ""]
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Please type within boolean logic. True or False." in out
+        assert "Stop Messing Around! What is your answer?" not in out
+
+    def test_own_value_error_except_still_catches_an_artificial_value_error(self):
+        
+        """
+        [AI-authored fix] Widening the handler to
+        `except (ValueError, IndexError):` must not stop it catching a
+        plain ValueError, so this keeps the artificial-input route covered.
+        Normal input can no longer reach the ValueError half - the
+        IndexError half is reachable via the two empty-answer tests above -
+        so it is provoked directly here.
         """
 
         val_err = patch(
