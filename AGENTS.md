@@ -281,7 +281,7 @@ structured history and keep the log scannable:
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1335 passing tests, ~99% line coverage and 98% branch coverage (171 of the
+- 1343 passing tests, ~99% line coverage and 98% branch coverage (171 of the
   182 measured `python/` files at 100% lines, including both
   music-player GUIs; the one never-imported file is
   `imperative_programming/fundamental_topics/main.py`, and the 161
@@ -343,7 +343,13 @@ structured history and keep the log scannable:
   compares a bound method to a string (`is_admin[0].upper == "T"`), which is
   never True.
 - `scripts/execution_time.py`: interactive `tree /f`-style project map +
-  per-folder benchmark report (`PASS`/`FAIL`/`TIMEOUT`/`ERROR`).
+  per-folder benchmark report over five statuses - `PASS` (ran and exited
+  cleanly), `INTERACTIVE` (stopped at an `input()` prompt, which is what 62 of
+  the 183 files do), `TIMEOUT` (ran past 2s), `FAIL` (raised a real error, now
+  only 2 files) and `ERROR` (the harness could not launch it). It benchmarks
+  `sys.executable` rather than a bare `python`, so it measures the pinned venv
+  interpreter, and derives `PROJECT_ROOT` from `__file__` rather than a baked
+  absolute path.
 - Postgres is planned (`psycopg2` installed, `postgresql/sandbox/aim.sql`
   reserved) but not started.
 

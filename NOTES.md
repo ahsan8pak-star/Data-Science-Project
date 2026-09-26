@@ -142,7 +142,7 @@ remain byte-frozen in the owner lane; probes are the agent lane.
       `dictionaries.py` gained a `setdefault()` block; both open lanes,
       probes committed)
 - [x] **Final — full suite + coverage caps exact + LF invariants** (runs on
-      every pass-through; suite green 1335 at ~99% line and 98% branch
+      every pass-through; suite green 1343 at ~99% line and 98% branch
       coverage, with the same
       29 dead-by-design lines in exactly the 8 documented caps)
 
@@ -713,3 +713,52 @@ intentional behaviour pinned by AGENTS.md rules 3 and 4. Neither file is
 gitignored, so a `git add .` after running the audit would have committed both.
 They were deleted. If a future run produces them again, that is the reason, and
 it is not a bug to fix.
+
+## Benchmark report accuracy (Sat 26 Sep 2026)
+
+The `scripts/execution_time.py` report was reporting **67 FAIL** out of 183
+files, which read as "two thirds of the repo is broken". Almost none of it was
+true, and the cause was three separate faults in the harness itself rather than
+in the scripts.
+
+| Fault | Effect | Fix |
+| --- | --- | --- |
+| It spawned bare `python`, which resolved to the **system** Python at `AppData\Local\Programs\Python\Python314`, not the venv | every measurement was taken against the wrong interpreter, and it contradicted the rule that the repo is pinned to `.venv/Scripts/python.exe` | benchmark `sys.executable`, i.e. whichever interpreter is running the tool |
+| It configured **its own** stdout for UTF-8 but never passed that to the children | 3 scripts that print box-drawing art died with `UnicodeEncodeError` on a `cp1252` console and were scored as failures that were not their fault. `dice.py` alone went from `UnicodeEncodeError` to `PASS` | pass `env` with `PYTHONIOENCODING=utf-8` to each child, and decode with `encoding="utf-8", errors="replace"` |
+| `PROJECT_ROOT` was a literal `Path(r"C:\Users\A.I.M\...")` | the harness only worked on one machine, and broke on a folder rename | derive it from `__file__` (`<root>/scripts/` -> parent) |
+
+The dominant number, though, was a **labelling** problem. 60 of the 67 failures
+were scripts stopping at an `input()` prompt and getting `EOFError`, because the
+report runs them with no stdin. Those are not failures - they are interactive
+scripts being measured non-interactively, which is exactly what the tool's own
+comment claimed `TIMEOUT` was for ("Flags interactive files requiring user
+input"). The tool was reporting the same fact under two different labels,
+`TIMEOUT` for 4 files that happened to hang first and `FAIL` for 60 that got
+EOF first, so `FAIL` carried no information at all.
+
+`INTERACTIVE` is now a status of its own, and the report prints a legend. The
+distinction from `TIMEOUT` is worth keeping rather than collapsing: a script
+that asks for input immediately and one that runs past 2s are different
+situations, and lumping them together hid the second behind the first.
+
+**Result: 67 FAIL -> 2**, and PASS rose 112 -> 113 because the encoding fix
+genuinely repaired scripts rather than relabelling them.
+
+| Status | Before | After | Files |
+| --- | --- | --- | --- |
+| `PASS` | 112 | 113 | ran and exited cleanly |
+| `INTERACTIVE` | - | 62 | stopped at an `input()` prompt |
+| `TIMEOUT` | 4 | 6 | ran past 2s |
+| `FAIL` | **67** | **2** | raised a real error |
+| `ERROR` | 0 | 0 | harness could not launch it |
+
+The two remaining `FAIL`s are both deliberate and documented: `main.py` is the
+teaching file whose `SyntaxError` is the point, and `numbers.py` cannot import
+`decimal` because its own filename shadows the stdlib module (see the runnability
+audit above). Neither is worth "fixing".
+
+To be explicit about what this did and did not do: **62 files were relabelled,
+not repaired.** They still stop at an `input()` prompt, exactly as before. What
+changed is that the report now says so, which is what makes the remaining 2
+visible. Suite 1335 -> 1343 (8 new tests for the harness, which is at 99%
+coverage on its own lines once measured with `--cov=scripts`).
