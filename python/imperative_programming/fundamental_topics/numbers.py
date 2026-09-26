@@ -6,9 +6,23 @@ order of precedence, and the maths functions in the math module. It also
 carries a bytes.hex demonstration. Note this file deliberately shadows a
 standard-library module name inside this folder, which is why the statistics
 module lives in the functional lane rather than here.
+
+[AI-authored fix] That shadowing used to stop this file running. A directly-run
+script puts its own folder first on sys.path, so `from decimal import ...` below
+made the real stdlib `decimal` import *this* file as `numbers`, which then died
+on a circular import about 60 lines in - everything from the Decimal sections
+onwards never displayed. Dropping this file's own folder from sys.path leaves
+the real stdlib `numbers` reachable, so both Decimal sections now run. Under
+pytest nothing changes, because the real `numbers` is already cached by then.
 """
 
 import math # Investigate more at https://docs.python.org/3/library/math.html
+import os
+import sys
+
+_OWN_DIR = os.path.dirname(os.path.abspath(__file__))
+
+sys.path[:] = [entry for entry in sys.path if os.path.abspath(entry or os.curdir) != _OWN_DIR]
 
 
 a = 1 # Integer
