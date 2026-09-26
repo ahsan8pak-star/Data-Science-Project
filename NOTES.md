@@ -595,3 +595,90 @@ text, and nothing else in `python/` uses them.
 - **The 3 remaining pinned defects** (the always-truthy invalid-input check in
   `rock_paper_scissors.py`'s `play_round()`, the `login_status.py` predicates,
   and the missing guard in `area_of_circle.py`) stay per rule 11.
+
+## Standalone runnability audit (Sat 26 Sep 2026)
+
+The suite mocks `input()`, so a script can pass all 1335 tests and still fail
+for a real user. Every one of the 161 non-`__init__.py` files was therefore run
+as an actual process, with piped input, and classified by what it did:
+
+| Outcome | Files | Verdict |
+| --- | --- | --- |
+| Ran without a traceback | 139 | Fine |
+| Ran out of the audit's canned input | 6 | Artefact of the audit, not a fault |
+| Blocked on a prompt or a timer | 8 | By design - `modules.py`, `multitasking.py` (`while True` input loops), the three clock/timer scripts, `generator.py`, and the two pygame GUIs (no display) |
+| **Could not start at all** | **3** | Real, now investigated below |
+| **Crashed on a cp1252 console** | **1** | Real, environmental |
+
+### Fixed: two files that could only ever run under pytest
+
+`pyproject.toml` sets `pythonpath = ["python"]`, so a bare
+`from imperative_programming...` / `from object_oriented_programming...`
+resolves during a test run and **nowhere else**. `drink_script_example.py` and
+`classes.py` both died with `ModuleNotFoundError` the moment anyone tried to
+run them from a terminal - which is the whole point of a portfolio script.
+
+Both now use the fallback idiom the repo already had in
+`arithmetic_expressions.py` and `arithmetic_iteration.py` (package path first,
+bare sibling second). `classes.py` additionally needed its siblings'
+*folder* on the path, because `car.py`, `person.py` and `point.py` live in
+`syntax_fundamentals/` rather than beside it, so it appends that directory -
+the same `sys.path` line `triangle_calculator.py` uses for its cross-folder
+imports. Both files now run from the repo root **and** from their own folder,
+and the suite is unchanged at 1335.
+
+Worth keeping in mind: a test importing a module and a person running the
+file are not the same code path. `import numbers` and `__main__` differ, and
+`sys.path` differs, so "covered by pytest" never implied "runnable".
+
+### Not fixed: numbers.py cannot be run directly, and cannot be
+
+`numbers.py` dies with a circular `ImportError`:
+
+    File ".../fundamental_topics/numbers.py", line 221, in <module>
+        from decimal import Decimal, getcontext, localcontext
+    ImportError: cannot import name 'Decimal' from partially initialized
+    module 'decimal' (most likely due to a circular import)
+
+This is a **stdlib naming constraint, not a bug in the file**. The chain is
+`decimal` -> `import numbers` -> finds *this* file because its directory is
+first on `sys.path` when run as a script -> this file does
+`from decimal import Decimal` -> `decimal` is only half-built. Moving the
+import to the top of the file, or importing it twice, changes nothing: it was
+verified on a scratch copy and still fails. Only two things would fix it -
+renaming the file, or dropping the `Decimal` demo - and both cost more than
+the defect:
+
+- **Renaming** `numbers.py` would move a file that 16 tests reference, that
+  the coverage docs name, and that is one of the repo's oldest teaching files.
+- **Dropping the demo** removes a genuinely useful demonstration (that
+  `0.1 + 0.2 != 0.3` in binary floating point), and 2 assertions check
+  `exact_sum` is a `Decimal`.
+
+It is harmless under pytest, where the file is imported as
+`fundamental_topics.numbers` rather than shadowing the stdlib. The existing
+note in `AGENTS.md` explains why `statistics_module.py` lives in the
+functional lane for the same reason; this extends it - `numbers.py` is
+additionally *unrunnable on its own*. The `decimal` import is also duplicated
+at the top of the file and again further down, so the demo runs twice, which
+is harmless but redundant.
+
+### Not fixed: one file cannot print on a default Windows console
+
+`dice_game.py` raises `UnicodeEncodeError: 'charmap' codec can't encode
+character U+2500` on a stock `cp1252` console, because its 189-character ASCII
+art uses box-drawing and braille glyphs outside that code page. It is
+environmental, not a code fault - the art is correct and the file is fine on a
+UTF-8 terminal.
+
+It was left alone deliberately. Substituting the art would contradict the
+tests, which assert box-drawing characters directly
+(`test_syntax.py:216` expects `┌─────────┐`), and rewriting 40-odd art lines to
+ASCII would change what the file demonstrates. The fix belongs to the
+environment, not the source: run it in a UTF-8 terminal, or set
+`PYTHONIOENCODING=utf-8` before starting Python.
+
+Worth separating from that: `iterator.py` also contains a non-ASCII `->`
+arrow, but only inside **comments**, so it can never reach stdout and is not a
+crash risk. A repo-wide scan for characters unencodable in `cp1252` found just
+two files, and only one of them prints them.
