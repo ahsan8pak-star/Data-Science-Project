@@ -224,6 +224,13 @@ against the repo rather than ground truth.
     an error string in `arithmetic_expressions.py`'s `format_result()`,
     which killed the results loop and reported bad input for valid numbers,
     and the uncaught `IndexError` on an empty answer in `login_status.py`.
+    A third defect was repaired after the audit:
+    `fundamental_topics/numbers.py`'s `decimal` circular import,
+    which killed the file ~60 lines in whenever run directly
+    (the test harness hid it because the real stdlib `numbers`
+    is already cached under pytest). Fixed by dropping the file's
+    own folder from `sys.path` at the top; direct run now exits
+    0, benchmark row FAIL -> PASS, suite unchanged at 1350.
     Full detail in
     `NOTES.md`.
 
