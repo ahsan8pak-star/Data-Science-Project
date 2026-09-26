@@ -177,6 +177,18 @@ not a formality.
 10. **Text files are LF, enforced by `.gitattributes`** (`* text=auto eol=lf`,
     with `.joblib` / `.xlsx` / `.pdf` marked binary). Do not reintroduce CRLF
     or mixed endings when editing or creating files.
+11. **Documented source defects stay defective.** Coursework scripts under
+    `python/` are not repaired. Where a script has a real bug, a test pins
+    the buggy behaviour and its docstring names the defect, so the problem
+    stays visible instead of being quietly deleted — the same treatment as
+    rules 3 and 4. Fixing one means editing `python/` *and* rewriting the
+    test that documents it, which erases the record; that is the owner's
+    call, not a cleanup. Current list, with the test that pins each:
+    `rock_paper_scissors.py:113` (always-truthy
+    `isdigit() != "r" or "p" or "s"`), `modules.py` (`e` shadowed by tuple
+    unpacking), `login_status.py` (missing `.upper()` parentheses),
+    `area_of_circle.py` (no `__main__` guard) and `arithmetic_calculator.py`
+    (`:.2f` applied to an error string). Full detail in `NOTES.md`.
 
 ## Term-Time Operating Cadence
 

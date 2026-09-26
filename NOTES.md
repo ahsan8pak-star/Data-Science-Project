@@ -421,9 +421,36 @@ than `or`, so it parses as `(player_choice.isdigit() != "r") or "p" or
 "s"`, and a non-empty string is always truthy - the condition is
 **always true**, so the "Invalid input" branch fires on every valid choice
 and the skip arc is unreachable. `.isdigit()` also returns a bool, never
-compares equal to `"r"`. Left as-is: `python/` is the owner's lane, and
-this is coursework to demonstrate the branch, not to be correct. Worth a
-deliberate decision before the file is shown to anyone.
+compares equal to `"r"`.
+
+The correct one-liner is
+`if player_choice not in ("r", "p", "s"):`, verified on a scratch copy
+outside the repo: `r`/`p`/`s` then print no warning and `x`/`5` do.
+**Not applied** - see the convention below.
+
+### Known source defects, documented rather than fixed
+
+This repo does not repair defects in `python/`. Coursework scripts stay as
+written and the defect is pinned by a test whose docstring names it, so
+the bug stays visible instead of being quietly deleted. This mirrors
+AGENTS.md's existing "intentional, do not fix" rules for
+`transactions.py`'s filename and `qrcode_generator.py`'s CWD-relative
+saves. `python/` is also the owner's lane, so agents never commit there.
+
+| Script | Defect | Pinned by |
+| --- | --- | --- |
+| `rock_paper_scissors.py:113` | `isdigit() != "r" or "p" or "s"` is always truthy, so "Invalid input" prints on every valid move | `test_invalid_input_message_always_prints` |
+| `modules.py` | `from math import e` is shadowed on the next line by `a, b, c, d, e = 1, 2, 3, 4, 5`, so `e ** x` uses 5 not 2.718... | `TestModules` (test_fundamentals.py:549) |
+| `login_status.py` | `is_student[0].upper and is_admin[0].upper == "T"` misses the parentheses on the first operand, so the AND is always False and "Stop Lying" can never print | `TestLoginStatus` (test_fundamentals.py:1088) |
+| `area_of_circle.py` | Defines `calculate_area()` and `area_of_circle()` but has no `__main__` guard, so running the file does nothing at all | `TestAreaOfCircle` (test_math_and_science_calculators.py:112) |
+| `arithmetic_calculator.py` | `format_result()`'s `/` branch applies `:.2f` unconditionally; on a zero-division the result is the string "Error: Undefined...", so formatting raises `ValueError` that its own `except ValueError` swallows into a misleading "bad input" message | `TestArithmeticCalculator` (test_math_and_science_calculators.py:452) |
+
+Fixing any of these means editing `python/` **and** rewriting the test that
+documents it, which erases the record. That is a deliberate call for the
+owner, not a cleanup. Two further arcs are unreachable rather than buggy:
+`triangle_calculator.py:56` (the elif chain is exhaustive once
+`missing != 1` has returned) and `file_handling.py:17` (the path is
+hardcoded to a real file at line 9, so it can never be a directory).
 
 Judgement on the original question - is the per-file allocation reasonable?
 **Broadly yes, with volume inverted at the margins.** 174 of 183 files are
