@@ -185,10 +185,14 @@ not a formality.
     test that documents it, which erases the record; that is the owner's
     call, not a cleanup. Current list, with the test that pins each:
     `rock_paper_scissors.py:113` (always-truthy
-    `isdigit() != "r" or "p" or "s"`), `modules.py` (`e` shadowed by tuple
-    unpacking), `login_status.py` (missing `.upper()` parentheses),
-    `area_of_circle.py` (no `__main__` guard) and `arithmetic_calculator.py`
-    (`:.2f` applied to an error string). Full detail in `NOTES.md`.
+    `isdigit() != "r" or "p" or "s"`), `login_status.py:16` and `:19`
+    (missing `.upper()` parentheses, so the AND is always False),
+    `area_of_circle.py` (no `__main__` guard) and
+    `arithmetic_expressions.py:20` (`:.2f` applied to an error string,
+    which kills the results loop and prints a misleading message).
+    `modules.py` is deliberately **not** on this list — the `e` shadowing is
+    the "Module Conflict Example" the file exists to demonstrate. Full
+    detail in `NOTES.md`.
 
 ## Term-Time Operating Cadence
 

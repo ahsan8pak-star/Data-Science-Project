@@ -439,11 +439,30 @@ saves. `python/` is also the owner's lane, so agents never commit there.
 
 | Script | Defect | Pinned by |
 | --- | --- | --- |
-| `rock_paper_scissors.py:113` | `isdigit() != "r" or "p" or "s"` is always truthy, so "Invalid input" prints on every valid move | `test_invalid_input_message_always_prints` |
-| `modules.py` | `from math import e` is shadowed on the next line by `a, b, c, d, e = 1, 2, 3, 4, 5`, so `e ** x` uses 5 not 2.718... | `TestModules` (test_fundamentals.py:549) |
-| `login_status.py` | `is_student[0].upper and is_admin[0].upper == "T"` misses the parentheses on the first operand, so the AND is always False and "Stop Lying" can never print | `TestLoginStatus` (test_fundamentals.py:1088) |
-| `area_of_circle.py` | Defines `calculate_area()` and `area_of_circle()` but has no `__main__` guard, so running the file does nothing at all | `TestAreaOfCircle` (test_math_and_science_calculators.py:112) |
-| `arithmetic_calculator.py` | `format_result()`'s `/` branch applies `:.2f` unconditionally; on a zero-division the result is the string "Error: Undefined...", so formatting raises `ValueError` that its own `except ValueError` swallows into a misleading "bad input" message | `TestArithmeticCalculator` (test_math_and_science_calculators.py:452) |
+| `rock_paper_scissors.py:113` | `isdigit() != "r" or "p" or "s"` is always truthy, so "Invalid input" prints on every valid move | `TestRockPaperScissors::test_invalid_input_message_always_prints` |
+| `login_status.py:16` **and `:19`** | Both predicates miss the parentheses: `is_student[0].upper and is_admin[0].upper == "T"` and `is_new[0].upper and is_regular[0].upper == "T"`. The first operand is a bound method (always truthy) and the second compares a method object to `"T"` (always False), so the AND is always False. "Stop Lying" can never print, and the `elif` degrades to a bare `is_regular` check that ignores `is_new` | `TestLoginStatus::test_stop_lying_branch_is_actually_unreachable` |
+| `area_of_circle.py` | Defines `calculate_area()` and `area_of_circle()` but has no `__main__` guard, so running the file does nothing at all | `TestAreaOfCircle::test_running_directly_produces_no_output_at_all` |
+| `arithmetic_expressions.py:20` | `format_result()`'s `/` branch applies `:.2f` unconditionally. On a zero divisor `arithmetic()` returns the string `"Error: Undefined..."`, so `f"{result:.2f}"` raises `ValueError`, which `calculate()`'s own `except ValueError` swallows. Measured consequence: with a zero second operand the loop dies at `/`, so `%`, `//` and `**` **never print**, and the user is told "Invalid input" about two valid numbers | `TestArithmeticExpressions::test_zero_denominator_crashes_on_the_division_line_specifically` |
+
+Two corrections to an earlier draft of this section, both found by reading
+the source rather than trusting the test docstrings:
+
+- `modules.py` was listed here and **should not be**. The shadowing of `e`
+  is the lesson, not the bug: line 28 is `""" Module Conflict Example """`,
+  line 40 says *"Reason: exponential value (e) has been replaced by
+  integer 5"* and line 42 *"Solution: use 'import math' instead and it'll
+  be 'math.e'"*. The only genuine flaw is cosmetic - the Solution block's
+  inline comments (`# 5`, `# 25`, ... under `math.e ** n`) are stale, since
+  `math.e ** 1` is 2.71828... The block's *code* is correct.
+- The `format_result` defect was attributed to `arithmetic_calculator.py`,
+  which has no such function. It lives in `arithmetic_expressions.py`,
+  which is the file that actually calls it (line 59).
+
+Note what the four test names have in common: every one asserts that the
+code is broken (`..._is_actually_unreachable`, `..._produces_no_output_at_all`,
+`..._always_prints`, `..._crashes_...`). They are the right call under the
+convention, but they are also the clearest single measure of how much of
+`python/` is knowingly misbehaving.
 
 Fixing any of these means editing `python/` **and** rewriting the test that
 documents it, which erases the record. That is a deliberate call for the
