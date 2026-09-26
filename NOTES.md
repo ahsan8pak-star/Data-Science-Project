@@ -141,7 +141,8 @@ remain byte-frozen in the owner lane; probes are the agent lane.
       `dictionaries.py` gained a `setdefault()` block; both open lanes,
       probes committed)
 - [x] **Final — full suite + coverage caps exact + LF invariants** (runs on
-      every pass-through; suite green 1296 at ~99% coverage with the same
+      every pass-through; suite green 1330 at ~99% line and 98% branch
+      coverage, with the same
       29 dead-by-design lines in exactly the 8 documented caps)
 
 ## Maintenance log format
@@ -156,6 +157,7 @@ coverage check at every pass-through, so no week silently ages into a cold gap.
 | Logged on | Week(s) covered (since last log) | Python recheck? | README/.md checks? | Friday sprint? | Notes |
 | --- | --- | --- | --- | --- | --- |
 | *(one row per pass-through day)* | | | | | |
+| Sat 26 Sep 2026 | None yet (pre-S1; term starts Mon 28 Sep) | Yes (full suite, 1330 passed, 0 warnings) | Yes | No | Branch-coverage audit. `branch = true` added to `[tool.coverage.run]`: line coverage read 99% while 99 branch directions had never run. Closed 49 of them with 38 tests - `sine_rule.py` (21 arcs, all its `get_float_input()` falsy guards), both music GUIs (13, the `if self.player:` no-op paths), `cosine_rule.py` (4), `triangle_calculator.py` (5 + the module guard), `grocery_caloric_list.py` (4 + the module guard); all six now 100% branch. Judged the per-file test allocation reasonable, with volume inverted at the margins; the five 9-line operator scripts keep their 24 tests deliberately as edge-case teaching |
 | Fri 25 Sep 2026 | None yet (pre-S1; term starts Mon 28 Sep) | No (no code changed; docs + git only) | Yes | No | Git-history rework: squashed the "Batch" vocabulary out of every commit message on `main` (reworded the numbers.py tick commit, rebuilt the 6 feature commits on top, verified byte-identical tree + zero "Batch"/"batches" labels, only the genuine `itertools.batched()` method name remains); reset GitHub main then force-pushed GitHub + GitLab Project + Backup all to the same commit so all four mirrors sit together on one clean line; NOTES.md never-method backlog headers renamed from "Batch A-F" labels to descriptive names |
 | Thu 24 Sep 2026 | None yet (pre-S1; term starts Mon 28 Sep) | Yes (full suite, 1296 passed, 0 warnings) | Yes | No | Never-method backlog C-F landed: `itertools_module.py` extended to all 20 public names; new `functools_module.py` + `statistics_module.py` teaching files (statistics placed in the functional lane - the imperative lane `numbers.py` shadows stdlib `numbers`, so a copy there dies on a `decimal` circular import); `numbers.py` bytes/hex block + `dictionaries.py` `setdefault()` block; probes committed, teaching files left in owner lane |
 | Thu 24 Sep 2026 | None yet (pre-S1; term starts Mon 28 Sep) | Yes (full suite, 1281 passed, 0 warnings) | Yes | No | Seam repair: the dedicated `TestNumbers` decimal/underscore probes plus the legacy `test_decimal_exact_arithmetic_avoids_float_drift` asserted `Decimal == float` (`== 0.3`, `== Decimal("0.3")` without the import, `pytest.approx(3.333...)`) which always fails; rewrote them house-style with value-safe probes (`str(mod.exact_sum) == "0.3"`, `type(...).__name__ == "Decimal"`, `str(...).startswith("3.33")`). `numbers.py` left byte-frozen in the owner lane; suite green at 1281 |
@@ -389,5 +391,48 @@ stamp's **"8 legitimate itertool never-methods remain"** figure was a
   5830 stmts / **29 miss / 99%**; the same 29 lines sit only in the 8
   documented dead-by-design caps (incl. `dictionaries.py` now 93% of a
   larger file); LF invariants clean; hard gate satisfied
+
+## Branch-coverage audit (Sat 26 Sep 2026)
+
+`[tool.coverage.run]` now sets `branch = true`. Line coverage had read 99%
+while **99 branch directions across 28 files had never executed** - a file
+could sit at 100% lines with a fifth of its branches unexercised, because a
+test can *reach* a line without ever taking the other way through it.
+
+Closed 49 arcs with 38 tests. The pattern behind nearly all of them: each
+`get_float_input()` guard had only ever been handed a valid float, so its
+falsy path (a blank answer returning `None`) never ran. Files taken to
+**100% branch**: `sine_rule.py` (21 arcs), `mp3_gui_player.py` (6),
+`wav_gui_player.py` (7), `cosine_rule.py` (4), `grocery_caloric_list.py`
+(4). `triangle_calculator.py` closed 6 of 7.
+
+**The 50 arcs still open, and why:**
+
+| Count | Category |
+| --- | --- |
+| 10 | The 4 documented dead-by-design caps (`conditions.py`, `dictionaries.py`, `variables.py`, `generator.py`) - unreachable without editing source |
+| 18 | `if __name__ == "__main__":` import guards on leaf scripts. Reachable, but only by importing each file under a second name, and it asserts nothing about behaviour. Already covered for the two composite scripts siblings actually import (`triangle_calculator.py`, `grocery_caloric_list.py`) |
+| 22 | Assorted single edges, 1-2 per file |
+
+**One is a genuine source bug, not a test gap.**
+`rock_paper_scissors.py:113` reads
+`if player_choice.isdigit() != "r" or "p" or "s":`. `!=` binds tighter
+than `or`, so it parses as `(player_choice.isdigit() != "r") or "p" or
+"s"`, and a non-empty string is always truthy - the condition is
+**always true**, so the "Invalid input" branch fires on every valid choice
+and the skip arc is unreachable. `.isdigit()` also returns a bool, never
+compares equal to `"r"`. Left as-is: `python/` is the owner's lane, and
+this is coursework to demonstrate the branch, not to be correct. Worth a
+deliberate decision before the file is shown to anyone.
+
+Judgement on the original question - is the per-file allocation reasonable?
+**Broadly yes, with volume inverted at the margins.** 174 of 183 files are
+at 100% lines and 149 of 182 branch-bearing files at 100% branches, so
+nothing meaningful is untested. The five 9-line operator scripts
+(`add/divide/subtract/multiply/square.py`) hold 24 tests between them, which
+is far more than their single `def` needs - kept deliberately, since each
+test demonstrates a boundary case and this is a teaching portfolio. The
+real shortfall was never volume; it was *assertion depth* in the six largest
+branch surfaces, which is what this audit fixed.
 
 

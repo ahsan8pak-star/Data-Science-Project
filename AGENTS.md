@@ -129,7 +129,7 @@ not a formality.
 | Run the full test suite | `.venv/Scripts/python.exe -m pytest` |
 | Run one test folder | `.venv/Scripts/python.exe -m pytest tests/test_imperative_programming/` |
 | Run one test file | `.venv/Scripts/python.exe -m pytest tests/test_imperative_programming/test_unit_and_format_converters.py` |
-| Coverage report (term + missing lines) | `.venv/Scripts/python.exe -m pytest --cov --cov-report=term-missing` |
+| Coverage report (term + missing lines + branch) | `.venv/Scripts/python.exe -m pytest --cov --cov-report=term-missing` |
 | Coverage scope limited to `python/` | `.venv/Scripts/python.exe -m pytest --cov=python` |
 | Clickable HTML coverage report | `.venv/Scripts/python.exe -m pytest --cov=python --cov-report=html` (writes to ignored `htmlcov/`) |
 | Interactive project tree + benchmark | `.venv/Scripts/python.exe scripts/execution_time.py` |
@@ -251,9 +251,16 @@ structured history and keep the log scannable:
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1296 passing tests, ~99% coverage (174 of the 183 tracked `python/`
-  files at 100%, including both music-player GUIs; the one never-imported
-  file is `imperative_programming/fundamental_topics/main.py`). The two
+- 1330 passing tests, ~99% line coverage and 98% branch coverage (174 of
+  the 183 tracked `python/` files at 100% lines, including both
+  music-player GUIs; the one never-imported file is
+  `imperative_programming/fundamental_topics/main.py`). Branch coverage is
+  enabled in `[tool.coverage.run]` because line coverage alone read 99%
+  while 99 branch directions had never executed - `sine_rule.py` was at
+  100% lines with 21 of its 92 branches unexercised. A 2026 audit closed
+  49 of those arcs (38 tests); the 50 still open are 10 in the documented
+  dead-by-design caps, 18 `if __name__ == "__main__"` import guards on
+  leaf scripts, and 22 assorted single edges. The two
   newest functional teaching files are `functools_module.py` (cache,
   lru_cache, partial, reduce, singledispatch, wraps) and
   `statistics_module.py` (12 core measures) - the latter sits in the
@@ -263,7 +270,7 @@ structured history and keep the log scannable:
   import. `itertools_module.py` now demonstrates all 20 public names, and
   `numbers.py` / `dictionaries.py` gained a `bytes.hex` block and a
   `setdefault` block respectively. Full suite
-  now runs in ~18.5s with 0 warnings (`TestModules` stubs
+  now runs in ~21s with 0 warnings (`TestModules` stubs
   `pkgutil.walk_packages`, so the `help("modules")` line in `modules.py`
   no longer scans every installed package - that scan cost ~20s and
   dragged in 12 third-party deprecation warnings). `conftest.py`
