@@ -340,8 +340,11 @@ history.
   `statistics_module.py` (12 core measures) - the latter sits in the
   functional lane because `imperative_programming/fundamental_topics/
   numbers.py` shadows the stdlib `numbers` module that `statistics`
-  imports internally, so a copy there dies on a `decimal` circular
-  import. `itertools_module.py` now demonstrates all 20 public names, and
+  imports internally, so a copy placed there dies on
+  `AttributeError: module 'numbers' has no attribute 'Number'`. That
+  placement still stands even though `numbers.py` itself now runs clean
+  standalone, because the shadowing - not the crash - is the problem.
+  `itertools_module.py` now demonstrates all 20 public names, and
   `numbers.py` / `dictionaries.py` gained a `bytes.hex` block and a
   `setdefault` block respectively. Full suite
   now runs in ~21s with 0 warnings (`TestModules` stubs
@@ -382,7 +385,9 @@ history.
   per-folder benchmark report over five statuses - `PASS` (ran and exited
   cleanly), `INTERACTIVE` (stopped at an `input()` prompt, which is what 62 of
   the 183 files do), `TIMEOUT` (ran past 2s), `FAIL` (raised a real error, now
-  only 2 files) and `ERROR` (the harness could not launch it). It benchmarks
+  only `main.py`, whose `IndentationError` is the deliberate teaching stub
+  pinned by `test_fundamentals.py`) and `ERROR` (the harness could not launch
+  it, currently none). It benchmarks
   `sys.executable` rather than a bare `python`, so it measures the pinned venv
   interpreter, and derives `PROJECT_ROOT` from `__file__` rather than a baked
   absolute path.
