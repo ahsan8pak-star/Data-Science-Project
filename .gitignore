@@ -306,4 +306,15 @@ cmake-build-release/
 /output.csv
 /output.json
 
+# CWD-relative writes from the two scripts that save into whatever directory
+# they are launched from (AGENTS.md rules 3 and 4 - both behaviours are
+# intentional and pinned by tests that point them at tmp_path). Harmless for a
+# test run, which never writes here, but running either script from the repo
+# root - or the execution_time.py benchmark, which launches all 183 files with
+# the repo root as CWD - drops these two at the top level, where a careless
+# `git add .` would commit them. The .txt/.json/.csv siblings are already
+# covered above.
+/transactionv1.xlsx
+/qrcode.png
+
 
