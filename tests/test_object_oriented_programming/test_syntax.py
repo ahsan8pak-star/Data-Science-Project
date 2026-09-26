@@ -1215,9 +1215,15 @@ class TestWorker:
         """
         The hardcoded company list only ever holds subclass instances, so
         `case _:` can never fire through the module's own run. Re-execute
-        the module's real dispatch loop source (lines 57-78) once a bare
-        Worker() has been appended to company, so the fallback arm is
-        attributed to worker.py for coverage.
+        the module's real dispatch loop source once a bare Worker() has been
+        appended to company, so the fallback arm is attributed to worker.py
+        for coverage.
+
+        The loop is located by searching for its `for worker in company:`
+        line rather than by a hard-coded slice, so adding a module docstring
+        or a class above it cannot silently shift the window onto the wrong
+        lines - which is exactly what happened when worker.py gained a
+        docstring and this test failed on the stale bounds.
         """
 
         import ast
@@ -1225,14 +1231,18 @@ class TestWorker:
 
         file_path = PYTHON_DIR / self.FILE
         namespace = runpy.run_path(str(file_path))
-        loop_source = "\n".join(
-            file_path.read_text(encoding="utf-8").splitlines()[56:78]
+
+        source_lines = file_path.read_text(encoding="utf-8").splitlines()
+        start = next(
+            i for i, line in enumerate(source_lines)
+            if line.startswith("for worker in company:")
         )
+        loop_source = "\n".join(source_lines[start:start + 22])
 
         # compile() renumbers a slice from 1, so shift every statement up to
-        # its real position (line 57) or coverage won't attribute the lines.
+        # its real position (the `for` line) or coverage won't attribute them.
         tree = ast.parse(loop_source)
-        ast.increment_lineno(tree, 56)
+        ast.increment_lineno(tree, start)
         namespace["company"].append(namespace["Worker"]("Zed", "Temp"))
         exec(compile(tree, str(file_path), "exec"), namespace)
         assert "Unknown Worker Type." in capsys.readouterr().out
