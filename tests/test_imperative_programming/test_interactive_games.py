@@ -2,7 +2,7 @@
 Pytest suite for every script under python/interactive_games/.
 
 These are small interactive terminal games. Where a script relies on
-`random`, we patch it via run_script(..., patches=[...]) so the games become
+`random`, it is patched via run_script(..., patches=[...]) so the games become
 fully deterministic and finish in a bounded number of turns instead of
 looping forever.
 """
@@ -107,7 +107,7 @@ class TestDiceGame:
 
         """
         Answering anything other than 'y'/'yes' the FIRST time still
-        starts one round; here we play twice then quit, so the win banner
+        starts one round; here the test plays twice then quits, so the win banner
         should appear twice.
         """
         

@@ -15,7 +15,7 @@ import sys
 
 from pathlib import Path
 
-# Walk up until we find the repository root (named 'Data-Science-Project').
+# Walk up until the repository root (named 'Data-Science-Project') is found.
 PROJECT_ROOT = Path(__file__).resolve()
 while PROJECT_ROOT.name != 'Data-Science-Project':
     PROJECT_ROOT = PROJECT_ROOT.parent

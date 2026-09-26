@@ -51,7 +51,7 @@ PYTHON_SOURCE_DIR = PROJECT_ROOT / 'python'
 TESTS_DIR = Path(__file__).resolve().parent
 PYTHON_DIR = PROJECT_ROOT / "python"
 
-# Force the terminal execution to automatically see your code directories
+# Force the terminal execution to automatically see the project's code directories
 sys.path.insert(0, str(PYTHON_DIR))
 
 

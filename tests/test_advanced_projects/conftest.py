@@ -37,7 +37,7 @@ while PROJECT_ROOT.name != 'Data-Science-Project':
 
 BASE_DIR = PROJECT_ROOT / 'python' / 'advanced_projects'
 
-# Force the terminal execution to automatically see your code directories
+# Force the terminal execution to automatically see the project's code directories
 sys.path.insert(0, str(BASE_DIR))
 
 

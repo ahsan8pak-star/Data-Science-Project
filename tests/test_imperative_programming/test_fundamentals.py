@@ -3,7 +3,7 @@ Pytest suite for every script under python/fundamental_topics/.
 
 Most of these files are teaching scratchpads: fixed top-level statements
 with no functions to call. For those, run_script() executes the real file
-and we assert against (a) the module's own top-level variables (accessible
+and the suite asserts against (a) the module's own top-level variables (accessible
 straight off the executed module object) and (b) key lines of what it
 actually printed - computed independently in the test rather than copied
 from the file's own inline comments, since a couple of those comments are
