@@ -15,7 +15,7 @@ How it works (fully offline):
      both closures are computed from the same installation, shared packages can
      never diverge - no cross-file constraint needed.
   3. AUDIT : compares every installed package against both compiled files and
-     prints live-version tables you can paste straight into DEPENDENCIES.md.
+     prints live-version tables that can be pasted straight into DEPENDENCIES.md.
 
 Because pins are derived from what is actually installed, the audit is always
 clean after a run - a compile can never invent versions that are not present.
