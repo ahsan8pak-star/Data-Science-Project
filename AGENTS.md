@@ -163,11 +163,18 @@ not a formality.
 7. **Keep README tree + `TREE_SKIP` in sync** when folders are added/removed.
    `TREE_SKIP` in `scripts/execution_time.py` excludes generated/vendored paths
    (`.git`, `.venv`, `.pytest_cache`, `__pycache__`, `.coverage`, `htmlcov`).
-8. **`python/` is a manual, AI-hand-off testing ground — NEVER auto-stage or
-   auto-commit anything under it.** The owner uses `python/` to check ideas
-   manually and commits those changes himself. Agents commit only the docs
-   they are explicitly asked to commit (`NOTES.md`, `AGENTS.md`, `README.md`,
-   `university_courseworks/`).
+8. **Any file type may be staged and committed — `python/` included.**
+   Agents follow the Conventional Commit table below for every commit
+   (`feat`, `fix`, `docs`, `refactor`, `test`, `style`, `chore`, `ci`),
+   scoped to the file when that reads better, e.g.
+   `fix(login_status.py): catch the empty-answer IndexError`. The previous
+   ring-fence on `python/` is lifted: those scripts are the owner's
+   portfolio and practice material, **not** the assessed coursework, which
+   lives in `university_courseworks/` (for example the marked CS1IP scripts
+   are `university_courseworks/year1/cs1ip/coursework1/*.py`). Two
+   consequences still apply: never commit `.env` (rule 6), and never
+   rewrite a script's *behaviour* just to tidy it, because documented
+   defects are pinned by tests on purpose (rule 11).
 9. **Entry points are content-named, not `def main()`.** The lane-wide sweep
    replaced `def main()` with descriptive names (`launch_mp3_player`,
    `summarise_grades`, `generate_qrcode`, ...); only
@@ -177,23 +184,26 @@ not a formality.
 10. **Text files are LF, enforced by `.gitattributes`** (`* text=auto eol=lf`,
     with `.joblib` / `.xlsx` / `.pdf` marked binary). Do not reintroduce CRLF
     or mixed endings when editing or creating files.
-11. **Documented source defects stay defective.** Coursework scripts under
-    `python/` are not repaired. Where a script has a real bug, a test pins
-    the buggy behaviour and its docstring names the defect, so the problem
-    stays visible instead of being quietly deleted — the same treatment as
-    rules 3 and 4. Fixing one means editing `python/` *and* rewriting the
-    test that documents it, which erases the record; that is the owner's
-    call, not a cleanup. Current list, with the test that pins each:
-    `rock_paper_scissors.py:113` (always-truthy
+11. **Documented source defects stay defective — unless the defect is a
+    crash or a false result, which get fixed.** Coursework scripts under
+    `python/` are not repaired for tidiness. Where a script's misbehaviour
+    is the *point* of the exercise, a test pins it and its docstring names
+    the defect, so the problem stays visible instead of being quietly
+    deleted — the same treatment as rules 3 and 4. Fixing one means editing
+    `python/` *and* rewriting the test that documents it, which erases the
+    record; that is the owner's call, not a cleanup. Still on the list,
+    with the test that pins each: `rock_paper_scissors.py:113` (always-truthy
     `isdigit() != "r" or "p" or "s"`), `login_status.py:16` and `:19`
     (truthiness used where a comparison to `"T"` is needed, so "Stop Lying"
-    is unreachable and the `elif` ignores `is_new`),
-    `area_of_circle.py` (no `__main__` guard) and
-    `arithmetic_expressions.py:20` (`:.2f` applied to an error string,
-    which kills the results loop and prints a misleading message).
-    `modules.py` is deliberately **not** on this list — the `e` shadowing is
-    the "Module Conflict Example" the file exists to demonstrate. Full
-    detail in `NOTES.md`.
+    is unreachable and the `elif` ignores `is_new`), and
+    `area_of_circle.py` (no `__main__` guard). `modules.py` is deliberately
+    **not** on this list — the `e` shadowing is the "Module Conflict Example"
+    the file exists to demonstrate. Two defects have been repaired rather
+    than pinned, because both made the program lie or crash: the `:.2f` on
+    an error string in `arithmetic_expressions.py`, which killed the results
+    loop and reported bad input for valid numbers, and the uncaught
+    `IndexError` on an empty answer in `login_status.py`. Full detail in
+    `NOTES.md`.
 
 ## Term-Time Operating Cadence
 
@@ -268,7 +278,7 @@ structured history and keep the log scannable:
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1330 passing tests, ~99% line coverage and 98% branch coverage (174 of
+- 1332 passing tests, ~99% line coverage and 98% branch coverage (174 of
   the 183 tracked `python/` files at 100% lines, including both
   music-player GUIs; the one never-imported file is
   `imperative_programming/fundamental_topics/main.py`). Branch coverage is
@@ -379,6 +389,22 @@ University of Reading module-catalogue links for every module.
 | CS3IP | Individual Project (Year 3) | `university_courseworks/year3/year3-briefing-2025.txt` |
 | CS3AM | Artificial Intelligence and Machine Learning (Year 3) | `university_courseworks/year3/year3-briefing-2025.txt` |
 | CS3 elective group | DV/VR (S1), BC/CS/IV/TM (S2) - Year 3 | `university_courseworks/year3/year3-briefing-2025.txt` |
+
+### Assessed Coursework Scripts (marked work — handle with care)
+
+| Module | Folder | What is in it |
+| --- | --- | --- |
+| CS1IP | `university_courseworks/year1/cs1ip/coursework1/` | The marked scripts: `average_grades.py`, `hello.py`, `ice_cream.py`, `seven_segment.py`, `volume.py`, each with a `.java` counterpart |
+| CS1IP | `university_courseworks/year1/cs1ip/coursework2/` | `sort10.txt` and its sorting script |
+
+These are the **submitted, marked** artefacts, so they carry a different
+risk profile from the rest of the repo: behaviour that was correct on
+submission day should not be changed casually, and nothing in `python/`
+duplicates them (checked — only the filename `volume.py` coincides, as an
+unrelated calculator script under `math_and_science_calculators/`). The
+`python/` tree is the owner's own learning and portfolio material and is
+covered by `tests/`; this folder is not, so there is no test safety net
+here. Read the relevant briefing before editing anything in it.
 
 > Dates, semester splits, briefing instructions/objectives and official
 > University of Reading module-catalogue links for every module across all
