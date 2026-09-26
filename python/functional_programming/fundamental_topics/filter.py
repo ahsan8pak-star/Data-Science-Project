@@ -10,7 +10,7 @@ words = ["hello", "", "world", "", "python", ""]
 evens = list(filter(lambda x: x % 2 == 0, numbers))
 odds = list(filter(lambda x: x % 2 == 1, numbers))
 
-# Threshold predicate (mirrors lamda.py's own age_check style)
+# Threshold predicate (mirrors lambda.py's own age_check style)
 adults = list(filter(lambda age: age >= 18, ages))
 minors = list(filter(lambda age: age < 18, ages))
 
