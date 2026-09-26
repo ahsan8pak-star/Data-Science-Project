@@ -17,7 +17,10 @@ def get_number(prompt):
 
 def format_result(op, result):
     if op == "/":
-        return f"{result:.2f}"  # division always shows 2 decimal places
+        if isinstance(result, (int, float)):
+            return f"{result:.2f}"  # division always shows 2 decimal places
+
+        return str(result)
 
     if isinstance(result, float) and result.is_integer():
         return str(int(result))  # e.g. 14.0 -> "14", not "14.0"

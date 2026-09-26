@@ -34,7 +34,7 @@ try:
     else:
         print(f"{is_online}. You are offline. You are unable to access this.")
 
-except ValueError:
+except (ValueError, IndexError):
     print("Please type within boolean logic. True or False.")
 
 
