@@ -1,6 +1,6 @@
 # File Ranking Framework
 
-**Purpose:** Rank every Python file under `python/` on a 0-100 scale across four criteria. Record results chunk-wise by subfolder in `RANKINGS.md`.
+**Purpose:** Rank every Python file under `python/` on a 0-100 scale across four criteria. Record results chunk-wise by subfolder in `FILE_SCORES.md`.
 
 **Executor:** Any AI model with read/write access to this repo. Full context is in `AGENTS.md`, `NOTES.md`, `pyproject.toml`, and git history.
 
@@ -104,7 +104,7 @@ Each file is scored on four criteria, weighted as follows:
    - Score each criterion
    - Calculate weighted final score
    - Write a sincere comment explaining the score
-3. Append results to `RANKINGS.md`
+3. Append results to `FILE_SCORES.md`
 
 ### Direct Run Test
 
@@ -181,7 +181,7 @@ Within each subfolder, process sub-subfolders alphabetically.
 
 ---
 
-## Output Format in RANKINGS.md
+## Output Format in FILE_SCORES.md
 
 ```markdown
 ## python/<subfolder>/<sub-subfolder>

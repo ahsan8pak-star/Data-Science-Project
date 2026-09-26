@@ -1,7 +1,7 @@
 # File Rankings
 
 Ranked 0-100 across Fixability (40%), Readability (25%), Durability (20%), Robustness (15%).
-See `FILE_RANKING_FRAMEWORK.md` for the full rubric.
+See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 

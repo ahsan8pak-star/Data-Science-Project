@@ -412,6 +412,15 @@ history.
   `sys.executable` rather than a bare `python`, so it measures the pinned venv
   interpreter, and derives `PROJECT_ROOT` from `__file__` rather than a baked
   absolute path.
+- `FILE_RANKING_GUIDE.md` and `FILE_SCORES.md`: a 0-100 scoring guide and the
+  results for all 161 non-`__init__` Python files under `python/`, ranked across
+  Fixability (40%), Readability (25%), Durability (20%) and Robustness (15%).
+  Each entry carries a criterion-by-criterion breakdown and a sincere comment
+  naming what works, what does not, why the score, and what would fix it.
+  Overall average: 77.5/100 (band C — Serviceable). Only 10 files score below
+  70; the weakest are `conditions.py` and `variables.py` (55 each), both low
+  for stylistic reasons (hardcoded values, deliberate defects) rather than
+  functional ones. See `FILE_SCORES.md` for the full breakdown.
 - Postgres is planned (`psycopg2` installed, `postgresql/sandbox/aim.sql`
   reserved) but not started.
 
