@@ -186,7 +186,8 @@ not a formality.
     call, not a cleanup. Current list, with the test that pins each:
     `rock_paper_scissors.py:113` (always-truthy
     `isdigit() != "r" or "p" or "s"`), `login_status.py:16` and `:19`
-    (missing `.upper()` parentheses, so the AND is always False),
+    (truthiness used where a comparison to `"T"` is needed, so "Stop Lying"
+    is unreachable and the `elif` ignores `is_new`),
     `area_of_circle.py` (no `__main__` guard) and
     `arithmetic_expressions.py:20` (`:.2f` applied to an error string,
     which kills the results loop and prints a misleading message).

@@ -440,7 +440,7 @@ saves. `python/` is also the owner's lane, so agents never commit there.
 | Script | Defect | Pinned by |
 | --- | --- | --- |
 | `rock_paper_scissors.py:113` | `isdigit() != "r" or "p" or "s"` is always truthy, so "Invalid input" prints on every valid move | `TestRockPaperScissors::test_invalid_input_message_always_prints` |
-| `login_status.py:16` **and `:19`** | Both predicates miss the parentheses: `is_student[0].upper and is_admin[0].upper == "T"` and `is_new[0].upper and is_regular[0].upper == "T"`. The first operand is a bound method (always truthy) and the second compares a method object to `"T"` (always False), so the AND is always False. "Stop Lying" can never print, and the `elif` degrades to a bare `is_regular` check that ignores `is_new` | `TestLoginStatus::test_stop_lying_branch_is_actually_unreachable` |
+| `login_status.py:16` **and `:19`** | Two *different* mistakes, one symptom. At `:16` neither operand is valid: `is_student[0].upper` is an un-called bound method (always truthy) and `is_admin[0].upper == "T"` compares a method object to a string (always False), so the AND is always False and "Stop Lying" can never print. At `:19` `is_new[0].upper()` *is* called correctly and returns `"T"` or `"F"`, but the result is then used directly as a boolean - and both are non-empty strings, so it is always truthy. The `elif` therefore degrades to a bare `is_regular` check that silently ignores `is_new` | `TestLoginStatus::test_stop_lying_branch_is_actually_unreachable` |
 | `area_of_circle.py` | Defines `calculate_area()` and `area_of_circle()` but has no `__main__` guard, so running the file does nothing at all | `TestAreaOfCircle::test_running_directly_produces_no_output_at_all` |
 | `arithmetic_expressions.py:20` | `format_result()`'s `/` branch applies `:.2f` unconditionally. On a zero divisor `arithmetic()` returns the string `"Error: Undefined..."`, so `f"{result:.2f}"` raises `ValueError`, which `calculate()`'s own `except ValueError` swallows. Measured consequence: with a zero second operand the loop dies at `/`, so `%`, `//` and `**` **never print**, and the user is told "Invalid input" about two valid numbers | `TestArithmeticExpressions::test_zero_denominator_crashes_on_the_division_line_specifically` |
 
@@ -470,6 +470,20 @@ owner, not a cleanup. Two further arcs are unreachable rather than buggy:
 `triangle_calculator.py:56` (the elif chain is exhaustive once
 `missing != 1` has returned) and `file_handling.py:17` (the path is
 hardcoded to a real file at line 9, so it can never be a directory).
+
+### Unhandled crash paths (not pinned by any test)
+
+`login_status.py` indexes the first character of every answer, so an empty
+answer raises an uncaught `IndexError` - the `except ValueError:` at line
+37 cannot catch it. Two confirmed paths: an empty answer to any of the five
+prompts (`:16` reaches `is_student[0]` first) and an empty answer to
+"Accident or Intented?" (`:22` reaches `choice[0]`). Verified identical
+before and after the predicate fix, so repairing the dead branches neither
+causes nor cures them. The existing handler already prints the right
+message ("Please type within boolean logic. True or False."), so widening
+it to `except (ValueError, IndexError):` would make it live. Until then the
+`except ValueError` at line 37 is itself unreachable, since the body between
+it and the `try` performs no numeric conversion.
 
 Judgement on the original question - is the per-file allocation reasonable?
 **Broadly yes, with volume inverted at the margins.** 174 of 183 files are
