@@ -1126,6 +1126,32 @@ class TestCosineRule:
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Error: Impossible triangle. These sides cannot connect." in out
 
+    @pytest.mark.parametrize(
+        "inputs",
+        [
+            ["side", "ac", "5", "", "60"],
+            ["side", "bc", "4", "", "60"],
+            ["angle", "", "4", "5"],
+            ["angle", "3", "4", "5", "Z"],
+        ],
+        ids=[
+            "ac_side_c_blank",
+            "bc_side_c_blank",
+            "angle_side_a_blank",
+            "unknown_angle_letter_has_no_case",
+        ],
+    )
+    def test_unresolved_guard_prints_no_result(self, inputs):
+        """
+        [AI-authored fix] Branch-coverage audit: cosine_rule.py held 100% line
+        coverage with four branch directions unexercised - the falsy side of
+        each three-way `if a and b and c:` guard (a blank answer makes
+        get_float_input return None), plus the fall-out of the final
+        `case "C":`, which has no `case _` to catch an unrecognised letter.
+        """
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Result" not in out
+
     def test_find_angle_b_success_case(self):
         
         """
@@ -1733,6 +1759,68 @@ class TestSineRule:
         b = (8 * math.sin(math.radians(40))) / math.sin(math.radians(70))
         assert f"Result: Side b is {round(b, 2)}" in out
 
+    @pytest.mark.parametrize(
+        "inputs",
+        [
+            ["angle", "ab", "3", "4", "A", ""],
+            ["angle", "ab", "3", "4", "B", ""],
+            ["angle", "ac", "", "5", "A", "30"],
+            ["angle", "ac", "3", "5", "A", ""],
+            ["angle", "ac", "3", "5", "C", ""],
+            ["angle", "bc", "", "6", "B", "35"],
+            ["angle", "bc", "4", "6", "B", ""],
+            ["angle", "bc", "4", "6", "C", ""],
+            ["side", "AB", "30", "", "a", "5"],
+            ["side", "AB", "30", "60", "a", ""],
+            ["side", "AB", "30", "60", "b", ""],
+            ["side", "AB", "30", "60", "z", ""],
+            ["side", "AC", "40", "", "a", "6"],
+            ["side", "AC", "40", "70", "a", ""],
+            ["side", "AC", "40", "70", "c", ""],
+            ["side", "AC", "40", "70", "z", ""],
+            ["side", "BC", "50", "", "b", "7"],
+            ["side", "BC", "50", "60", "b", ""],
+            ["side", "BC", "50", "60", "c", ""],
+            ["side", "BC", "50", "60", "z", ""],
+            ["neither"],
+        ],
+        ids=[
+            "ab_known_angle_a_blank",
+            "ab_known_angle_b_blank",
+            "ac_side_a_blank",
+            "ac_known_angle_a_blank",
+            "ac_known_angle_c_blank",
+            "bc_side_b_blank",
+            "bc_known_angle_b_blank",
+            "bc_known_angle_c_blank",
+            "AB_angle_b_blank",
+            "AB_known_side_a_blank",
+            "AB_known_side_b_blank",
+            "AB_known_side_unknown",
+            "AC_angle_c_blank",
+            "AC_known_side_a_blank",
+            "AC_known_side_c_blank",
+            "AC_known_side_unknown",
+            "BC_angle_c_blank",
+            "BC_known_side_b_blank",
+            "BC_known_side_c_blank",
+            "BC_known_side_unknown",
+            "target_neither_angle_nor_side",
+        ],
+    )
+    def test_unresolved_guard_prints_no_result(self, inputs):
+        """
+        [AI-authored fix] Branch-coverage audit: sine_rule.py sat at 100% line
+        coverage with 21 branch directions never executed, because every
+        get_float_input() guard had only ever been handed a *valid* float, so
+        the falsy path (blank answer -> None) never ran. The same applied to
+        each match's unknown known_side letter and to the unknown target. Each
+        case below blanks exactly one prompt, or sends one letter the match
+        ignores, and asserts the case resolves to silence instead of a result.
+        """
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Result" not in out
+
 
 # ---------------------------------------------------------------------------
 # square_number_times_tables.py
@@ -2048,6 +2136,51 @@ class TestTriangleCalculator:
         inputs = ["D", "4", "10", "4", "6"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Result: Area is 20.0" in out
+
+    @pytest.mark.parametrize(
+        "inputs",
+        [
+            ["B", "4", "", "6"],
+            ["A", "4", "", "", "6"],
+            ["D", "4", "", "", "6"],
+            ["C", "5", "", "", "6"],
+            ["D", "5", "", "", "", "6"],
+        ],
+        ids=[
+            "equilateral_area_side_blank",
+            "right_area_both_legs_blank",
+            "default_area_base_and_height_blank",
+            "isosceles_perimeter_both_sides_blank",
+            "default_perimeter_all_three_sides_blank",
+        ],
+    )
+    def test_unresolved_measure_guard_prints_no_result(self, inputs):
+        """
+        [AI-authored fix] Branch-coverage audit: area() and perimeter() were at
+        100% line coverage with each of their five `if a:`, `if a and b:` and
+        `if b and h:` measure guards only ever satisfied. A blank answer makes
+        the local get_float_input() return None, so each guard silently skips
+        its result - a path that had never run.
+        """
+        _, out = run_script(self.FILE, inputs=inputs)
+        assert "Result" not in out
+
+    def test_module_guard_allows_import_without_running_the_menu(self):
+        """
+        [AI-authored fix] The `if __name__ == "__main__":` guard exists so
+        sibling scripts can import this one safely, but every test ran it
+        through run_script(), which always sets __name__ to "__main__" - so
+        the import path itself was never taken. Running it under any other
+        name proves the guard holds and the functions are still exported.
+        """
+        import runpy
+
+        from tests.test_imperative_programming.conftest import PYTHON_DIR
+
+        namespace = runpy.run_path(str(PYTHON_DIR / self.FILE), run_name="triangle_calculator")
+        assert callable(namespace["area"])
+        assert callable(namespace["perimeter"])
+        assert callable(namespace["pythagoras"])
 
 
 # ---------------------------------------------------------------------------

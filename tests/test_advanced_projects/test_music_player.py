@@ -532,6 +532,25 @@ class TestMP3GUI:
         assert self.gui.mp3_files == []
         assert self.gui.current_idx == 0
 
+    def test_transport_and_toggle_handlers_are_safe_with_no_active_player(self):
+        """
+        [AI-authored fix] Branch-coverage audit: all six `if self.player:`
+        guards in the transport and checkbox-sync handlers were only ever
+        taken with a live player, because every other test built one first.
+        Firing the handlers before any folder is chosen proves each guard
+        short-circuits into a harmless no-op rather than dereferencing None.
+        """
+        assert self.gui.player is None
+
+        self.gui._pause()
+        self.gui._resume()
+        self.gui._stop()
+        self.gui._toggle_loop_track()
+        self.gui._toggle_loop_playlist()
+        self.gui._toggle_shuffle()
+
+        assert self.gui.player is None
+
     def test_select_folder_returns_early_without_choice(self):
         # Mirror of the WAV test: cancelling the folder dialog (empty string)
         # leaves the player unbuilt instead of crashing.
@@ -711,6 +730,28 @@ class TestWAVGUI:
         self.gui._play()
         self.gui._forward()
         self.gui._backward()
+
+    def test_transport_and_toggle_handlers_are_safe_with_no_active_player(self):
+        """
+        [AI-authored fix] Branch-coverage audit: the existing
+        test_playback_controls_guard_without_player covers _play/_forward/
+        _backward, but the six `if self.player:` guards in the transport and
+        checkbox-sync handlers had only ever run against a live player, and
+        _update_status()'s `if self.player and self.player.current_song:`
+        never saw a falsy player at all. All seven stay silent no-ops.
+        """
+        self.gui.player = None
+        self.gui.wav_files = []
+
+        self.gui._pause()
+        self.gui._resume()
+        self.gui._stop()
+        self.gui._toggle_loop_track()
+        self.gui._toggle_loop_playlist()
+        self.gui._toggle_shuffle()
+        self.gui._update_status()
+
+        assert self.gui.player is None
 
     def test_transport_controls_delegate_to_player(self, audio_ctx):
         # Buttons delegate into the real player methods via the pygame mock.

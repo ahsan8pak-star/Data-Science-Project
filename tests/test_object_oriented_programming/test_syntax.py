@@ -487,6 +487,98 @@ class TestGroceryCaloricList:
         assert "Saves 3000 kcal and £5.00" in captured.out
         assert "solves BOTH excesses!" not in captured.out
 
+    def test_calorie_only_recommendation_skips_items_below_the_excess(self, capsys):
+        """
+        [AI-authored fix] Branch-coverage audit: the over-calories-only branch
+        loops the order filtering on `if unit_cal >= cal_excess`, but every
+        existing case used a single order line that always cleared the
+        threshold, so the False side (skip this line, keep looping) had never
+        run. Adding a second, cheaper line exercises the skip.
+        """
+        mod, _ = run_script(self.FILE, inputs=["2000", "20", "", ""])
+        coconut = mod.FoodItem("coconut", 354, 2.50)
+        apple = mod.FoodItem("apple", 72, 0.50)
+        order = [mod.OrderLine(coconut, 6), mod.OrderLine(apple, 2)]
+        mod.generate_recommendations(
+            order, {"coconut": coconut, "apple": apple},
+            cal_excess=124, budget_excess=-5.0,
+            remaining_cals=-124, remaining_budget=5.0,
+        )
+        captured = capsys.readouterr()
+        assert "Remove 1x 'Coconut'" in captured.out
+        assert "Remove 1x 'Apple'" not in captured.out
+
+    def test_budget_only_recommendation_skips_items_below_the_excess(self, capsys):
+        """
+        [AI-authored fix] The mirror case for the over-budget-only branch: its
+        `if unit_price >= budget_excess` loop had likewise only ever seen a
+        line that cleared the threshold, leaving the skip untested.
+        """
+        mod, _ = run_script(self.FILE, inputs=["2000", "20", "", ""])
+        coconut = mod.FoodItem("coconut", 354, 2.50)
+        apple = mod.FoodItem("apple", 72, 0.50)
+        order = [mod.OrderLine(coconut, 2), mod.OrderLine(apple, 2)]
+        mod.generate_recommendations(
+            order, {"coconut": coconut, "apple": apple},
+            cal_excess=-100.0, budget_excess=1.0,
+            remaining_cals=100.0, remaining_budget=-1.0,
+        )
+        captured = capsys.readouterr()
+        assert "Remove 1x 'Coconut'" in captured.out
+        assert "Remove 1x 'Apple'" not in captured.out
+
+    def test_within_limits_skips_catalogue_items_that_cannot_fit(self, capsys):
+        """
+        [AI-authored fix] In the within-both-limits branch the catalogue loop
+        guards `if max_qty > 0` before appending, but the existing case left
+        enough headroom for every item, so nothing was ever skipped. A tight
+        remaining_cals makes the apple's max quantity compute to 0 while the
+        cheaper item still fits, exercising the skip with additions non-empty.
+        """
+        mod, _ = run_script(self.FILE, inputs=["2000", "20", "", ""])
+        apple = mod.FoodItem("apple", 72, 0.50)
+        crumb = mod.FoodItem("crumb", 5, 0.05)
+        mod.generate_recommendations(
+            [], {"apple": apple, "crumb": crumb},
+            cal_excess=-1000, budget_excess=-10,
+            remaining_cals=10, remaining_budget=10,
+        )
+        captured = capsys.readouterr()
+        assert "Optional Additions" in captured.out
+        assert "Add up to 2x 'Crumb'" in captured.out
+        assert "Apple" not in captured.out
+
+    def test_within_limits_reports_no_additions_when_nothing_fits(self, capsys):
+        """
+        [AI-authored fix] The same branch's trailing `if additions:` guard was
+        only ever true. A remaining allowance too small for any single unit
+        empties the list, so the "Optional Additions" heading is skipped
+        entirely - the path a real user hits at the end of a tight budget.
+        """
+        mod, _ = run_script(self.FILE, inputs=["2000", "20", "", ""])
+        apple = mod.FoodItem("apple", 72, 0.50)
+        mod.generate_recommendations(
+            [], {"apple": apple},
+            cal_excess=-1000, budget_excess=-10,
+            remaining_cals=1, remaining_budget=0.01,
+        )
+        captured = capsys.readouterr()
+        assert "Nice! You are within both your Caloric and Budget limits." in captured.out
+        assert "Optional Additions" not in captured.out
+
+    def test_module_guard_allows_import_without_running_the_tracker(self):
+        """
+        [AI-authored fix] The `if __name__ == "__main__":` guard was never
+        taken on its False side, because run_script() always executes the file
+        as __main__. Loading it under its own name proves the classes are
+        importable and that no interactive session starts on import.
+        """
+        import runpy
+
+        namespace = runpy.run_path(str(PYTHON_DIR / self.FILE), run_name="grocery_caloric_list")
+        assert namespace["FoodItem"].__name__ == "FoodItem"
+        assert namespace["OrderLine"].__name__ == "OrderLine"
+
     def test_initial_order_placed_then_viewed_in_receipt(self):
 
         """
