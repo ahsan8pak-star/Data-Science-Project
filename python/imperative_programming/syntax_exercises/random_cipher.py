@@ -10,11 +10,11 @@ mapping array ('key') where every unique character points to a shuffled counterp
 import random
 import string
 
-# Creates main sequence containing spaces, punctuations, digits, and letters
+# Creates main sequence containing spaces, punctuation, digits, and letters
 chars = " " + string.punctuation + string.digits + string.ascii_letters 
 chars = list(chars) 
 
-# Create an identical copy of the character pool and randomly scramble it to act as our cipher key
+# Create an identical copy of the character pool and randomly scramble it to act as the cipher key
 key = chars.copy() 
 random.shuffle(key) 
 

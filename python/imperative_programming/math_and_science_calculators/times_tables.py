@@ -5,7 +5,7 @@ def times_tables():
     # Ask the user for the number of tables (up to which times table to print)
     tables = int(input("Enter how many times you want to do this i.e. from up to which times tables: "))
     
-    # The outer loop controls which times table we are on (e.g., 0, 1, 2...)
+    # The outer loop controls which times table is being processed (e.g., 0, 1, 2...)
     for i in range(0, tables + 1):
         print(f"\n{i} Times Table(s)")
         

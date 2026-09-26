@@ -1,6 +1,6 @@
 import math
 
-# This functions alone helps other functions to be called out without to type down input() constantly and repeatly
+# This helper function lets other functions run without repeatedly typing input()
 
 def get_float_input(prompt): 
     

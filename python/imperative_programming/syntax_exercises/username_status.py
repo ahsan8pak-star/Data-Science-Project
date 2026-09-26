@@ -20,6 +20,6 @@ else:
 
 # [ not any(char.isdigit() for char in username) ] -> makes sure the username doesn't contain any digits i.e. numbers MIXED within the string
 # The reason for this is to include other characters such as symbols like . , / , \ , | , etc.
-# otherwise, else will be exceuted -> [ "Bye!" ]
+# otherwise, else will be executed -> [ "Bye!" ]
 
 
