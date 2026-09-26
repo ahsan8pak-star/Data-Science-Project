@@ -35,6 +35,10 @@ pythonpath = ["python"]
 # listed, even at 100%, because skip_covered is disabled below) and exclude
 # generated/vendored and test-infrastructure paths from coverage.
 source = ["python"]
+# [AI] branch = true: line coverage alone reported 99% while 99 branch
+# directions had never run - six files sat at 100% lines with a fifth of their
+# branches unexercised. Branch figures are now part of the standard report.
+branch = true
 omit = [
     "*/__pycache__/*",
     "*/pytest-of-*/*",
