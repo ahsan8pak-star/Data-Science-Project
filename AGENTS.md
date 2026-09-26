@@ -280,7 +280,38 @@ structured history and keep the log scannable:
   push URLs: GitHub Project, GitHub Backup, GitLab Project, GitLab Backup.
 - Push once to `origin`, and all 4 mirrors update:
   `git push origin main`
-- Never force-push to `main`.
+- **Never force-push `main`.** That history is the portfolio's public face and
+  every mirror follows it, so rewriting it is the one destructive git action
+  left here.
+- **Force-pushing a branch is allowed**, with `git push --force-with-lease`
+  rather than `--force` so a stale local ref cannot clobber someone else's
+  work. This is the correction path: when a pushed commit is wrong, branch
+  from `main`, amend or re-commit there, force-push the branch, and open a
+  pull request rather than editing `main` in place. `--force-with-lease`
+  refuses when the remote has moved since the last fetch, which is exactly the
+  case a blind `--force` would destroy.
+- This holds on **all four mirrors**, backups included. A branch that is
+  rewritten on the GitHub Project but not on the GitLab Backup is a half-fixed
+  correction, and the backups exist to be restorable, so they should get the
+  same shape. `main` still carries the rule above on every mirror, backup
+  namespaces not excepted.
+- **Additions do not need per-instance approval.** New source files, new tests,
+  new documentation sections, new folders, and new remotes or branches may be
+  added and committed under the Conventional Commit table above without asking
+  first. The two standing limits are unchanged: never commit `.env` (rule 6),
+  and never repair a documented defect just to tidy it (rule 11). Everything
+  else that would once have prompted a question — "may I add this file?", "may
+  I create this branch?" — is pre-approved.
+
+### Correcting something already pushed
+
+Because `main` is not rewritten, a mistake that reached `main` is fixed in a
+follow-up commit rather than an amend-and-force. That is the normal path, and
+it is preferable: the history shows the correction and why, which is worth more
+to a reader than a tidy log. Reach for a branch and a pull request only when
+the wrong content must be replaced rather than added to - typically because it
+leaks something, or because a rewritten file would misrepresent the repo's
+history.
 
 ## Feature Summary (what exists today)
 

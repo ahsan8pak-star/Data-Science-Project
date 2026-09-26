@@ -812,3 +812,48 @@ live in is the repository root, which must not gain an empty placeholder, and
 the existing `/.gitkeep` rule is already there for a different reason.
 
 Suite 1343 -> 1350.
+
+## Git permissions: branch force-push and additions (Sat 26 Sep 2026)
+
+Two permissions were tightened in `AGENTS.md`, both requested explicitly:
+
+**Force-pushing a branch is now allowed**, with `--force-with-lease` rather
+than `--force`. Until now the only stated rule was "Never force-push `main`",
+which left the branch case ambiguous and arguably blocked the correction
+workflow - if a pushed commit is wrong, branch from `main`, re-commit there,
+force-push the branch and open a pull request. That workflow needs a branch
+force-push, and the old wording did not clearly grant it.
+
+`--force-with-lease` is the specific form, not `--force`, because it refuses
+when the remote has moved since the last fetch. That is precisely the situation
+where a blind `--force` destroys someone else's work, so the safe variant is
+the permitted one. `main` is still never force-pushed, on any of the four
+mirrors.
+
+This applies to **all four mirrors, backups included** - a branch rewritten on
+the GitHub Project but not on the GitLab Backup is a half-fixed correction, and
+the backups only earn their name if they carry the same shape.
+
+**Additions no longer need per-instance approval.** New source files, tests,
+documentation sections, folders, remotes and branches may be added and
+committed under the Conventional Commit table without asking first. Two limits
+survive unchanged, because they are about protecting content rather than
+process:
+
+- never commit `.env` (rule 6) - local credentials
+- never repair a documented defect just to tidy it (rule 11) - the defect is
+  pinned by a test on purpose, so "tidying" it erases the record
+
+A new **"Correcting something already pushed"** subsection records the
+preference order, which was previously implicit: since `main` is not rewritten,
+a mistake that reached `main` is fixed in a *follow-up commit* rather than an
+amend-and-force. That is the normal path and the preferable one, because the
+history then shows the correction and the reason for it, which is worth more
+to a reader than a tidy log. A branch and a pull request are for the rarer case
+where content must be *replaced* rather than added to - typically because it
+leaks something, or because a rewritten file would misrepresent the repo's
+history.
+
+Nothing about the four mirrors needed changing to make this work: both `origin`
+and `github` already carry all four push URLs, and `git push origin main`
+already updates every one. Only the documented permission was missing.
