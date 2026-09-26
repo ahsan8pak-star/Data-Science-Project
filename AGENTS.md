@@ -131,10 +131,11 @@ Free, Ling 3.0 Flash Fin Free, Muse Spark 1.3 Free and MiMo
 not from inside a conversation — an agent cannot switch its own
 model mid-session.
 
-This conversation runs on `space-bunny-free`. The same discipline
-applies regardless of model: give a Goal/Files/Constraints block,
-and treat any model's line-level claims as candidates to verify
-against the repo rather than ground truth.
+An agent cannot reliably self-identify which model is processing a
+conversation — do not trust a claim of the form "I am model X" made by
+the agent itself. The same discipline applies regardless of model: give a
+Goal/Files/Constraints block, and treat any model's line-level claims as
+candidates to verify against the repo rather than ground truth.
 
 ## Running Things
 
