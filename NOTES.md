@@ -142,7 +142,7 @@ remain byte-frozen in the owner lane; probes are the agent lane.
       `dictionaries.py` gained a `setdefault()` block; both open lanes,
       probes committed)
 - [x] **Final — full suite + coverage caps exact + LF invariants** (runs on
-      every pass-through; suite green 1332 at ~99% line and 98% branch
+      every pass-through; suite green 1335 at ~99% line and 98% branch
       coverage, with the same
       29 dead-by-design lines in exactly the 8 documented caps)
 
@@ -516,3 +516,69 @@ real shortfall was never volume; it was *assertion depth* in the six largest
 branch surfaces, which is what this audit fixed.
 
 
+## Module docstring sweep (Sat 26 Sep 2026)
+
+All **161** non-`__init__.py` files under `python/` now open with a module
+docstring, up from 13. This is the single largest readability change in the
+repo's history, and it is the one change that touches almost every file.
+
+The rule applied: a docstring must state the **concept** the file teaches and
+the **trap** it contains, never restate the filename. The reference standard is
+`modules.py`, which has always had a docstring plus explicit `Reason:` /
+`Solution:` lines - a deliberate demonstration, not a bug.
+
+The first attempt at this was scripted and had to be thrown away. Deriving a
+docstring from the first three lines of code produced things like
+`"""Module for print("triple(5):", triple(5)) print("triple(5):", ...)"""`
+and, in `login_status.py`, a docstring that had harvested one of my own
+"Bug preserved" comments three times over. Every one of those files already
+had a good one-line concept comment directly below, so the script
+*duplicated* existing documentation badly - worse than leaving it alone. Where
+a file already explained itself, the concept comment was **promoted** into the
+docstring rather than replaced by a generated one.
+
+Two things worth remembering from the sweep:
+
+- Adding a docstring shifts every line below it, and one test
+  (`TestWorker::test_plain_worker_in_the_company_list_hits_the_default_case`)
+  re-executes a slice of `worker.py` by hard-coded line numbers to reach an
+  unreachable `case _:` arm. It broke immediately, and now **locates the loop
+  by searching for its `for worker in company:` line** instead, so a docstring
+  or a new class can never silently move the window. It was the only test
+  coupled to source line numbers.
+- The four 9-line operator scripts (`add/divide/multiply/subtract/square.py`)
+  have no trailing newline, so a single-line docstring gets concatenated onto
+  the `def` and produces a `SyntaxError`. Caught by the suite, fixed by
+  inserting the newline; worth remembering before editing those four.
+
+Net effect: **1332 -> 1335 tests** (3 added for the RPS game loop below), and
+coverage is unchanged at 99% lines / 5826 statements. Docstrings count as
+statements, so the total rose by exactly the number of files documented; the
+30 uncovered lines did not move.
+
+### rock_paper_scissors.py: the game loop, covered
+
+The restructure of `rock_paper_scissors.py` into `play_game()` with a
+first-to-3 loop added behaviour no test reached - the suite supplies a single
+input, so the loop always exited through `EOFError` and the two end-of-game
+announcements never ran. That was a genuine 4-line coverage regression
+introduced in `1441a64`, not by the docstrings, and it was only visible once
+the docstrings had moved the file count and prompted a fresh report.
+
+Fixed with three tests that actually play the game to 3: the player winning,
+the computer winning, and a run of ties that proves a tied round moves neither
+score. The emoji in the announcements were also removed - house style is plain
+text, and nothing else in `python/` uses them.
+
+### Deliberately not changed
+
+- **`fahrenheit_to_celcius`** - flagged as a misspelling, but the spelling is
+  consistent across all four functions in the module and pinned by four test
+  assertions. Renaming it breaks tests to correct a name that is
+  *internally coherent*, so it stays.
+- **`def arithmetic (num1, op, num2)`** - the space before the bracket is
+  cosmetic only; Python's grammar allows it and all nine call sites use
+  `arithmetic(...)` normally. Tidied since it was zero-risk, but it was never
+  a bug, and the analysis that called it "impossible to call" was wrong.
+- **The 3 remaining pinned defects** (`rock_paper_scissors.py:153`,
+  `login_status.py` predicates, `area_of_circle.py` guard) stay per rule 11.

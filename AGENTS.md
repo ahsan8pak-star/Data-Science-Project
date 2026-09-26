@@ -278,7 +278,7 @@ structured history and keep the log scannable:
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1332 passing tests, ~99% line coverage and 98% branch coverage (174 of
+- 1335 passing tests, ~99% line coverage and 98% branch coverage (174 of
   the 183 tracked `python/` files at 100% lines, including both
   music-player GUIs; the one never-imported file is
   `imperative_programming/fundamental_topics/main.py`). Branch coverage is
