@@ -1,5 +1,5 @@
 # Aggregation = Represents a relationship where 1 Object (Whole)
-# Contains refrences at least 1 Independent Objects (parts)
+# Contains references to at least 1 Independent Object (part)
 
 class Library:
     def __init__(self, name):

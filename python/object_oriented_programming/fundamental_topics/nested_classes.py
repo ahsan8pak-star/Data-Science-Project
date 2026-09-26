@@ -4,8 +4,8 @@
 #     class Inner:
 
 # Allows logical closely related group classes
-# Encapsulates private details irrelavent to the outer class
-# Keeps namesspaces clean -> reduces naming conflicts
+# Encapsulates private details irrelevant to the outer class
+# Keeps namespaces clean -> reduces naming conflicts
 
 class Company:
     print("\nCompanies Sells Products") # Test company class before employee class run

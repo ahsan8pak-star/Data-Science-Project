@@ -1,5 +1,5 @@
 # Has its dedicated file to act as a import module 
-# Reasons: Cleaner code structure and allows various attribites (variables) to be inputted
+# Reasons: Cleaner code structure and allows various attributes (variables) to be inputted
 
 class Car:
     

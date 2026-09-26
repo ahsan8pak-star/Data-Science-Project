@@ -56,7 +56,7 @@ class FlatCake: # Since 'def area(self)', This passes through a No AttributeErro
 
 # Solution:
 # Bring the child class 'Circle' as a parent class to Pizza
-# Use super() to include constructor and its attribute to undego D.R.Y
+# Use super() to include constructor and its attribute to undergo D.R.Y
 class Pizza(Circle):
     def __init__ (self, toppings, radius):
         super().__init__(radius)

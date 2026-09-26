@@ -1,4 +1,4 @@
-# Abstract Classes: Can't be instantiatied (i.e. can't be used for its main constructor e.g. def __init__ (self...):)
+# Abstract Classes: Can't be instantiated (i.e. can't be used for its main constructor e.g. def __init__ (self...):)
 # Contain abstract methods, declaring no implementation
 # Prevents Instantiation of the class itself (prevents error executable files)
 # Require 'children' (child classes) to use inherited abstract methods
