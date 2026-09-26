@@ -19,6 +19,9 @@ from scripts.execution_time import (
     resolve_folder,
 )
 
+# [AI] Those five names are the tool's whole public surface, imported directly so
+# each helper can be driven without entering the interactive main() loop.
+
 # Absolute path so runpy's re-execution is attributed by coverage (a relative
 # co_filename is not mapped back to the measured source file).
 SCRIPT_PATH = Path(__file__).resolve().parents[2] / "scripts" / "execution_time.py"

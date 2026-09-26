@@ -15,6 +15,8 @@ session-scoped fixture rather than a plain `import` statement.
 import pandas as pd
 import pytest
 
+# [AI] Three specific scikit-learn names rather than the package: the two bases
+# the capper must subclass, and Pipeline for the end-to-end integration test.
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.pipeline import Pipeline
 

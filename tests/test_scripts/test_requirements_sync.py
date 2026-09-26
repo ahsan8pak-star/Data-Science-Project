@@ -18,6 +18,8 @@ from types import SimpleNamespace
 import pytest
 
 import requirements_sync as rs
+# [AI] Requirement is the single name taken from packaging; it parses the pinned
+# specifier strings so the audit can compare them against the live installation.
 from packaging.requirements import Requirement
 
 

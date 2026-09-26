@@ -19,6 +19,8 @@ from unittest.mock import patch
 from tests.test_imperative_programming.conftest import run_script
 
 # Direct imports required to resolve specific test execution errors
+# [AI] Each of the four below takes one function by name instead of the whole
+# module, so the direct-call tests assert on return values, not printed output.
 from imperative_programming.syntax_exercises.factorials import factorial                  # Resolves NameError
 from imperative_programming.syntax_exercises.food_script_example import favourite_food    # Resolves ModuleNotFoundError
 from imperative_programming.syntax_exercises.drink_script_example import favourite_drink  # Resolves ModuleNotFoundError

@@ -11,6 +11,8 @@ import os
 import pytest
 import sys
 
+# [AI] Only Image is taken from PIL: the QR test reopens the saved PNG to prove
+# it decodes as a real picture rather than a zero-byte placeholder.
 from PIL import Image
 from unittest.mock import patch
 from tests.test_imperative_programming.conftest import run_script

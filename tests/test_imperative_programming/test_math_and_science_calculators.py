@@ -16,7 +16,18 @@ import sys
 from pathlib import Path
 from unittest.mock import patch
 from tests.test_imperative_programming.conftest import run_script
-from python.imperative_programming.math_and_science_calculators import arithmetic_iteration # imported for direct function testing
+
+"""
+[AI-authored fix] This is the suite's one narrow import, and it deliberately
+breaks the regular consistent route. pyproject.toml sets pythonpath = ["python"],
+so sibling modules reach a script as imperative_programming.<folder>.<module>
+while this one adds a python. segment. Both spellings resolve, but they build two
+separate module objects, so an identity check spanning the two would disagree.
+The module is also taken by name rather than run through run_script() because
+the tests below assert on generate_sequence()'s return values and
+arithmetic_iteration()'s early stop, neither of which printed output can show.
+"""
+from python.imperative_programming.math_and_science_calculators import arithmetic_iteration
 
 FOLDER = "imperative_programming/math_and_science_calculators"
 
