@@ -44,6 +44,10 @@ def _load_math_module(filename, name):
 # area.py
 # ---------------------------------------------------------------------------
 class TestArea:
+    """
+    area.py's rectangle area, decimal rounding, the zero case and the
+    negative-dimension gap, plus get_float_input() called directly.
+    """
     FILE = f"{FOLDER}/area.py"
 
     def test_valid_area(self):
@@ -85,6 +89,10 @@ class TestArea:
 # area_of_circle.py
 # ---------------------------------------------------------------------------
 class TestAreaOfCircle:
+    """
+    area_of_circle.py - radius validation, the boxed output, direct calls and the
+    TypeError and KeyboardInterrupt branches; silent on a plain import.
+    """
     FILE = f"{FOLDER}/area_of_circle.py"
 
     def test_running_directly_produces_no_output_at_all(self):
@@ -173,6 +181,10 @@ class TestAreaOfCircle:
 # area_of_triangle.py
 # ---------------------------------------------------------------------------
 class TestAreaOfTriangle:
+    """
+    area_of_triangle.py - base and height area, blank input skipping the
+    result, decimal rounding and non-numeric handling.
+    """
     FILE = f"{FOLDER}/area_of_triangle.py"
 
     def test_valid_area(self):
@@ -214,6 +226,10 @@ class TestAreaOfTriangle:
 # area_volume_calculator.py
 # ---------------------------------------------------------------------------
 class TestAreaAndVolumeCalculator:
+    """
+    area_and_volume_calculator.py's menu dispatching to the area and volume
+    helpers, including invalid and empty choices.
+    """
     FILE = f"{FOLDER}/area_volume_calculator.py"
 
     def test_area_choice(self):
@@ -256,6 +272,10 @@ class TestAreaAndVolumeCalculator:
 # arithmetic_calculator.py
 # ---------------------------------------------------------------------------
 class TestArithmeticCalculator:
+    """
+    arithmetic_calculator.py - the chained operations, floor division and
+    modulo by zero, decimal-place and significant-figure rounding.
+    """
     FILE = f"{FOLDER}/arithmetic_calculator.py"
 
     def test_addition_chain_with_no_rounding(self):
@@ -343,6 +363,11 @@ class TestArithmeticCalculator:
 # arithmetic_expressions.py
 # ---------------------------------------------------------------------------
 class TestArithmeticExpressions:
+    """
+    arithmetic_expressions.py - integer, float and negative output, get_number()
+    parsing, format_result() trailing-zero rules, the sibling import fallback
+    and the isolated zero-division guards.
+    """
     FILE = f"{FOLDER}/arithmetic_expressions.py"
 
     def test_fallback_import_path_used_when_qualified_import_unavailable(self):
@@ -515,6 +540,11 @@ class TestArithmeticExpressions:
 # arithmetic_iteration.py
 # ---------------------------------------------------------------------------
 class TestArithmeticIteration:
+    """
+    arithmetic_iteration.py - every operator across a generated sequence, the
+    sibling import fallback, argument validation and the early break on
+    division by zero.
+    """
     FILE = f"{FOLDER}/arithmetic_iteration.py"
 
     def test_addition_full_happy_path(self):
@@ -651,6 +681,10 @@ class TestArithmeticIteration:
 # ---------------------------------------------------------------------------
 
 class TestAnnualRateCalculator:
+    """
+    annual_rate_calculator.py - the rate projection, income, currency and time
+    validation, decimal places and the negative-time case.
+    """
     FILE = f"{FOLDER}/annual_rate_calculator.py"
 
     def test_valid_calculation(self):
@@ -711,6 +745,10 @@ class TestAnnualRateCalculator:
 # card_validator.py
 # ---------------------------------------------------------------------------
 class TestCardValidator:
+    """
+    card_validator.py - Luhn validation across Visa, Mastercard, Amex and
+    Discover, separator stripping and validate() called directly.
+    """
     FILE = f"{FOLDER}/card_validator_program.py"  # was pointing at a non-existent file
 
     def test_valid_visa_number(self):
@@ -753,6 +791,10 @@ class TestCardValidator:
 # circle_calculator.py
 # ---------------------------------------------------------------------------
 class TestCircleCalculator:
+    """
+    circle_calculator.py's menu delegating to the area and circumference
+    scripts, including how KeyboardInterrupt is handled in both places.
+    """
     FILE = f"{FOLDER}/circle_calculator.py"
 
     def test_option_1_delegates_to_area_of_circle(self):
@@ -849,6 +891,10 @@ class TestCircleCalculator:
 # circumference_of_circle.py
 # ---------------------------------------------------------------------------
 class TestCircumferenceOfCircle:
+    """
+    circumference_of_circle.py - radius validation, the boxed output, decimal
+    and larger radii, plus the TypeError and KeyboardInterrupt branches.
+    """
     FILE = f"{FOLDER}/circumference_of_circle.py"
 
     def test_valid_radius_when_run_directly(self):
@@ -914,6 +960,10 @@ class TestCircumferenceOfCircle:
 # compound_debt_calculator.py
 # ---------------------------------------------------------------------------
 class TestCompoundDebtCalculator:
+    """
+    compound_debt_calculator.py - compound growth on a negative amount, the
+    zero rate and zero time cases and non-numeric rate handling.
+    """
     FILE = f"{FOLDER}/compound_debt_calculator.py"
 
     def test_negative_amount_computes_debt(self):
@@ -957,6 +1007,10 @@ class TestCompoundDebtCalculator:
 # compound_interest_rate.py
 # ---------------------------------------------------------------------------
 class TestCompoundInterestRate:
+    """
+    compound_interest_rate.py - compound interest, the amount guards, a
+    ten-year projection and the echoed year count.
+    """
     FILE = f"{FOLDER}/compound_interest_rate.py"
 
     def test_positive_amount_computes_interest(self):
@@ -997,6 +1051,11 @@ class TestCompoundInterestRate:
 # cosine_rule.py
 # ---------------------------------------------------------------------------
 class TestCosineRule:
+    """
+    cosine_rule.py - solving for each side and each angle, impossible
+    triangles, blank and non-numeric input, and its silence when
+    triangle_calculator.py imports it.
+    """
     FILE = f"{FOLDER}/cosine_rule.py"
 
     def test_find_side_c_given_ab_and_angle(self):
@@ -1120,6 +1179,10 @@ class TestCosineRule:
 # ---------------------------------------------------------------------------
 
 class TestEuclideanDistanceCalculator:
+    """
+    euclidean_distance_calculator.py - 1D to 5D points, the default and
+    re-prompted dimension, blank input and mismatched-dimension errors.
+    """
     FILE = f"{FOLDER}/euclidean_distance_calculator.py"
 
     def test_1d_coordinates(self):
@@ -1205,6 +1268,10 @@ class TestEuclideanDistanceCalculator:
 # gradient_calculator.py
 # ---------------------------------------------------------------------------
 class TestGradientCalculator:
+    """
+    gradient_calculator.py - gradients in both directions, sign, 1D rejection,
+    horizontal and vertical lines, blanks and dimension mismatches.
+    """
     FILE = f"{FOLDER}/gradient_calculator.py"
 
     def test_gradient_from_point_a_to_point_b(self):
@@ -1305,6 +1372,10 @@ class TestGradientCalculator:
 # perimeter_of_triangle.py
 # ---------------------------------------------------------------------------
 class TestPerimeterOfTriangle:
+    """
+    perimeter_of_triangle.py - three-side totals, missing and zero sides,
+    decimal rounding and non-numeric input.
+    """
     FILE = f"{FOLDER}/perimeter_of_triangle.py"
 
     def test_valid_perimeter(self):
@@ -1336,6 +1407,10 @@ class TestPerimeterOfTriangle:
 # pythagoras_theorem.py
 # ---------------------------------------------------------------------------
 class TestPythagorasTheorem:
+    """
+    pythagoras_theorem.py - finding the hypotenuse or either side, the 5-12-13
+    case, the exactly-two-values rule and impossible triangles.
+    """
     FILE = f"{FOLDER}/pythagoras_theorem.py"
 
     def test_find_hypotenuse(self):
@@ -1379,6 +1454,10 @@ class TestPythagorasTheorem:
 # simple_debt_calculator.py
 # ---------------------------------------------------------------------------
 class TestSimpleDebtCalculator:
+    """
+    simple_debt_calculator.py - simple-interest debt, the amount guards, a
+    one-year term and the echoed annual rate.
+    """
     FILE = f"{FOLDER}/simple_debt_calculator.py"
 
     def test_negative_amount_computes_debt(self):
@@ -1419,6 +1498,10 @@ class TestSimpleDebtCalculator:
 # simple_interest_rate.py
 # ---------------------------------------------------------------------------
 class TestSimpleInterestRate:
+    """
+    simple_interest_rate.py - simple interest, the amount guards, a
+    five-year term and the echoed initial amount.
+    """
     FILE = f"{FOLDER}/simple_interest_rate.py"
 
     def test_positive_amount_computes_interest(self):
@@ -1459,6 +1542,11 @@ class TestSimpleInterestRate:
 # sine_rule.py
 # ---------------------------------------------------------------------------
 class TestSineRule:
+    """
+    sine_rule.py - the full solve matrix for sides and angles, impossible
+    triangle domain errors, blank and non-numeric input, and unknown-angle
+    messages.
+    """
     FILE = f"{FOLDER}/sine_rule.py"
 
     def test_blank_input_returns_none_without_crashing(self):
@@ -1639,6 +1727,11 @@ class TestSineRule:
 # square_number_times_tables.py
 # ---------------------------------------------------------------------------
 class TestSquareNumberTimesTables:
+    """
+    square_number_times_tables.py - square rows up to the limit, the zero and
+    negative cases, the header line, non-numeric input and the sibling
+    times_tables import.
+    """
     FILE = f"{FOLDER}/square_number_times_tables.py"
 
     @pytest.fixture(autouse=True)
@@ -1731,6 +1824,10 @@ class TestSquareNumberTimesTables:
 # times_tables.py
 # ---------------------------------------------------------------------------
 class TestTimesTables:
+    """
+    times_tables.py - the column and table grid, asymmetric and zero dimensions,
+    negative tables and non-numeric input.
+    """
     FILE = f"{FOLDER}/times_tables.py"
 
     def test_single_column_single_table(self):
@@ -1816,6 +1913,11 @@ class TestTimesTables:
 # triangle_calculator.py
 # ---------------------------------------------------------------------------
 class TestTriangleCalculator:
+    """
+    triangle_calculator.py - menu dispatch by triangle type, right, isosceles,
+    equilateral and scalene area and perimeter, and the Pythagoras block's
+    own input rules.
+    """
     FILE = f"{FOLDER}/triangle_calculator.py"
 
     def test_right_triangle_area_then_quit(self):
@@ -1941,6 +2043,10 @@ class TestTriangleCalculator:
 # Volume.py
 # ---------------------------------------------------------------------------
 class TestVolume:
+    """
+    volume.py's cuboid volume, decimal rounding, the zero-depth case, the
+    negative-dimension gap and each non-numeric prompt caught.
+    """
     FILE = f"{FOLDER}/volume.py"
 
     def test_valid_volume(self):

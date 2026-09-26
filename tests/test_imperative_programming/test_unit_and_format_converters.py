@@ -27,6 +27,10 @@ PNG_MAGIC = b"\x89PNG\r\n\x1a\n"
 # ---------------------------------------------------------------------------
 
 class TestFahrenheitCelsiusConverter:
+    """
+    Both conversion directions in fahrenheit_celsius_converter.py, the
+    default unit path, prompt defaults, case folding and the -40 equal point.
+    """
     FILE = f"{FOLDER}/fahrenheit_celsius_converter.py"
 
     def test_fahrenheit_to_celsius_function_directly(self):
@@ -81,6 +85,10 @@ class TestFahrenheitCelsiusConverter:
 # ---------------------------------------------------------------------------
 
 class TestPhoneConverter:
+    """
+    Digit-to-word mapping in phone_converter.py, length limits (10 digits),
+    the invalid marker and the empty/non-digit rejections.
+    """
     FILE = f"{FOLDER}/phone_converter.py"
 
     def test_num_maps_every_digit_to_its_word(self):
@@ -126,6 +134,10 @@ class TestPhoneConverter:
 # ---------------------------------------------------------------------------
 
 class TestRomanNumeralsConverter:
+    """
+    Symbol values and roman-to-int parsing in roman_numerals_converter.py,
+    unknown symbols, empty input, repeated numerals and mixed case.
+    """
     FILE = f"{FOLDER}/roman_numeral_converter.py"
 
     def test_get_value_for_each_symbol(self):
@@ -193,6 +205,10 @@ class TestRomanNumeralsConverter:
 # ---------------------------------------------------------------------------
 
 class TestTimeConverter:
+    """
+    Unit lookup and conversion in time_converter.py - known and
+    out-of-range units, the menu, non-numeric input and KeyboardInterrupt.
+    """
     FILE = f"{FOLDER}/time_converter.py"
 
     def test_get_unit_info_known_cases(self):
@@ -260,6 +276,10 @@ class TestTimeConverter:
 # ---------------------------------------------------------------------------
 
 class TestWeightConverter:
+    """
+    Pounds/kilograms conversion in weight_converter.py, unit and weight
+    validation, case folding and the negative-weight gap.
+    """
     FILE = f"{FOLDER}/weight_converter.py"
 
     def test_zero_weight_rejected(self):
@@ -312,6 +332,10 @@ class TestWeightConverter:
 # ---------------------------------------------------------------------------
 
 class TestQRCodeGenerator:
+    """
+    PNG generation in qrcode_generator.py - real Pillow images written to
+    the CWD, custom file names, the URL argument and empty input.
+    """
     FILE = f"{FOLDER}/qrcode_generator.py"
 
     def _load_module(self, tmp_path):

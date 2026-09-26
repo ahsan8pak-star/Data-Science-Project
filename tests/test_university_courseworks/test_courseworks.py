@@ -32,6 +32,10 @@ HELLO = COURSEWORK1 / "hello.py"
 # average_grades.py
 # ---------------------------------------------------------------------------
 class TestAverageGrades:
+    """
+    CS1IP average_grades.py - component weighting, the None and empty
+    cases, integer flooring and the main guard's default gradebook.
+    """
 
     @pytest.fixture(scope="class")
     @classmethod
@@ -79,6 +83,10 @@ class TestAverageGrades:
 # ice_cream.py
 # ---------------------------------------------------------------------------
 class TestIceCream:
+    """
+    CS1IP ice_cream.py - pricing constants, scoop counts, the free third
+    flavour and every rejected-input retry.
+    """
 
     @pytest.fixture(scope="class")
     @classmethod
@@ -152,6 +160,10 @@ class TestIceCream:
 # seven_segment.py
 # ---------------------------------------------------------------------------
 class TestSevenSegment:
+    """
+    CS1IP seven_segment.py - the seven segment patterns, default fallback,
+    zero and multi-digit rendering, and the main guard's input handling.
+    """
 
     @pytest.fixture(scope="class")
     @classmethod
@@ -231,6 +243,10 @@ class TestSevenSegment:
 # volume.py
 # ---------------------------------------------------------------------------
 class TestVolume:
+    """
+    CS1IP volume.py - sphere volume against the analytic formula, zero
+    diameter and the main guard's default.
+    """
 
     @pytest.fixture(scope="class")
     @classmethod
@@ -264,6 +280,9 @@ class TestVolume:
 # hello.py
 # ---------------------------------------------------------------------------
 class TestHello:
+    """
+    CS1IP hello.py's greeting naming the student number.
+    """
 
     @pytest.fixture(scope="class")
     @classmethod
@@ -284,6 +303,11 @@ class TestHello:
 # coursework2/sort_comparison.py
 # ---------------------------------------------------------------------------
 class TestSortComparison:
+    """
+    CS1IP sort_comparison.py - suit priority and card ordering including
+    ten-plus ranks, bubble sort against merge sort, non-mutating sorts, file
+    reading, CSV output and the main block's error reporting.
+    """
 
     @pytest.fixture(scope="class")
     @classmethod

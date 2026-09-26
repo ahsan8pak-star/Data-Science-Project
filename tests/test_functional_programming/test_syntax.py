@@ -16,6 +16,10 @@ FOLDER = "functional_programming/syntax_fundamentals"
 # ---------------------------------------------------------------------------
 
 class TestShoppingReceipt:
+    """
+    reduce() totalling a shopping basket in shopping_receipt.py, plus the
+    printed receipt lines.
+    """
     FILE = f"{FOLDER}/shopping_receipt.py"
 
     def test_total_price_reduces_the_basket(self):
@@ -41,6 +45,10 @@ class TestShoppingReceipt:
 # ---------------------------------------------------------------------------
 
 class TestGradeSummary:
+    """
+    Helper functions behind the grade summary in grade_summary.py and the
+    printed summary output.
+    """
     FILE = f"{FOLDER}/grade_summary.py"
 
     def test_helpers_behave_as_expected(self):
@@ -62,6 +70,9 @@ class TestGradeSummary:
 # ---------------------------------------------------------------------------
 
 class TestWordFrequency:
+    """
+    Counter-based word tallies in word_frequency.py.
+    """
     FILE = f"{FOLDER}/word_frequency.py"
 
     def test_printed_word_tallies(self):
@@ -77,6 +88,9 @@ class TestWordFrequency:
 # ---------------------------------------------------------------------------
 
 class TestNumberPipeline:
+    """
+    A functional pipeline over numbers in number_pipeline.py.
+    """
     FILE = f"{FOLDER}/number_pipeline.py"
 
     def test_printed_pipeline_lines(self):

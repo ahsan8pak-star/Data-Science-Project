@@ -35,6 +35,11 @@ def _make_sample_tree(root):
 
 
 class TestDirectoryTree:
+    """
+    The tree /f-style renderer in execution_time.py - directories before
+    files, trailing backslashes, connector glyphs, TREE_SKIP exclusions and
+    silent handling of an uniterable path.
+    """
     def test_lists_files_and_nested_directories(self, tmp_path, capsys):
         _make_sample_tree(tmp_path)
         print_directory_tree(tmp_path)
@@ -86,6 +91,10 @@ class TestDirectoryTree:
 
 
 class TestResolveFolder:
+    """
+    Folder-name resolution in execution_time.py - bare names, relative and
+    absolute paths, trailing backslashes, ambiguity and non-folders.
+    """
     @pytest.fixture()
     def _project(self, tmp_path, monkeypatch):
         monkeypatch.setattr("scripts.execution_time.PROJECT_ROOT", tmp_path)
@@ -126,6 +135,10 @@ class TestResolveFolder:
 
 
 class TestExecuteProjectScripts:
+    """
+    Per-folder benchmarking in execution_time.py - every status in the
+    report, a missing directory and the bare-name fallback.
+    """
     def _install_fake_subprocess(self, monkeypatch):
         order = ["pass", "fail", "timeout", "error"]
 
@@ -186,6 +199,10 @@ class TestExecuteProjectScripts:
 
 
 class TestMain:
+    """
+    The interactive main() of execution_time.py - a typed folder, the whole
+    python/ tree, the --all flag and re-prompting on an unknown name.
+    """
     def _instal_main(self, tmp_path, monkeypatch, inputs):
         folder = tmp_path / "python" / "syntax_exercises"
         folder.mkdir(parents=True)
@@ -248,6 +265,9 @@ class TestMain:
 
 
 class TestModuleLevelReconfigure:
+    """
+    The module-level stdout reconfigure, whose failure must stay silent.
+    """
     def test_stdout_reconfigure_failure_is_swallowed(self, monkeypatch):
 
         # Lines 10-11 only execute if reconfigure() itself raises. Swapping
@@ -276,6 +296,9 @@ class TestModuleLevelReconfigure:
 
 
 class TestMainGuard:
+    """
+    The if __name__ guard that fires the tool when run as a script.
+    """
     def test_running_as_main_fires_the_guard(self, monkeypatch, capsys):
 
         # run_name="__main__" triggers the module-level guard (line 160).

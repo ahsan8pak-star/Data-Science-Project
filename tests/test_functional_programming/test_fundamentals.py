@@ -20,6 +20,10 @@ FOLDER = "functional_programming/fundamental_topics"
 # ---------------------------------------------------------------------------
 
 class TestFilter:
+    """
+    filter() over the even/odd, adult/minor and truthy splits in filter.py,
+    with the source lists left unmutated.
+    """
     FILE = f"{FOLDER}/filter.py"
 
     def test_even_odd_split(self):
@@ -74,6 +78,10 @@ class TestFilter:
 # ---------------------------------------------------------------------------
 
 class TestLambda:
+    """
+    lambda.py - arithmetic, comparison, string and boolean lambdas, the age
+    ternary boundary and the printed call order.
+    """
     FILE = f"{FOLDER}/lambda.py"
 
     def test_arithmetic_lambdas_directly(self):
@@ -126,6 +134,10 @@ class TestLambda:
 # ---------------------------------------------------------------------------
 
 class TestMap:
+    """
+    map() over single and multiple iterables in map.py, including the
+    string-to-float conversion and untouched source lists.
+    """
     FILE = f"{FOLDER}/map.py"
 
     def test_single_iterable_map_squares_and_doubles(self):
@@ -169,6 +181,10 @@ class TestMap:
 # ---------------------------------------------------------------------------
 
 class TestZip:
+    """
+    zip() pairing in zip.py - printed order, positional pairing rather than by
+    value, and the declared list lengths.
+    """
     FILE = f"{FOLDER}/zip.py"
 
     def test_all_three_people_printed(self):
@@ -211,6 +227,9 @@ class TestZip:
 # ---------------------------------------------------------------------------
 
 class TestReduce:
+    """
+    reduce() folding in reduce.py, with source iterables left unmutated.
+    """
     FILE = f"{FOLDER}/reduce.py"
 
     def test_accumulation_results(self):
@@ -238,6 +257,10 @@ class TestReduce:
 # ---------------------------------------------------------------------------
 
 class TestSorted:
+    """
+    sorted() returning new lists in sorted.py while leaving the source order
+    intact.
+    """
     FILE = f"{FOLDER}/sorted.py"
 
     def test_sorts_return_new_lists(self):
@@ -262,6 +285,10 @@ class TestSorted:
 # ---------------------------------------------------------------------------
 
 class TestComprehensions:
+    """
+    List, set and dict comprehensions in comprehensions.py, including
+    duplicate removal by the set form.
+    """
     FILE = f"{FOLDER}/comprehensions.py"
 
     def test_list_comprehensions(self):
@@ -289,6 +316,10 @@ class TestComprehensions:
 # ---------------------------------------------------------------------------
 
 class TestFirstClassFunctions:
+    """
+    first_class_functions.py - handlers holding function references and
+    functions manufactured at runtime.
+    """
     FILE = f"{FOLDER}/first_class_functions.py"
 
     def test_handlers_capture_function_references(self):
@@ -319,6 +350,10 @@ class TestFirstClassFunctions:
 # ---------------------------------------------------------------------------
 
 class TestClosures:
+    """
+    closures.py - multipliers remembering their factor and a counter
+    remembering its state between calls.
+    """
     FILE = f"{FOLDER}/closures.py"
 
     def test_multipliers_remember_their_factor(self):
@@ -347,6 +382,9 @@ class TestClosures:
 # ---------------------------------------------------------------------------
 
 class TestPartialApplication:
+    """
+    functools.partial prefilling leading arguments in partial_application.py.
+    """
     FILE = f"{FOLDER}/partial_application.py"
 
     def test_partials_prefill_arguments(self):
@@ -367,6 +405,9 @@ class TestPartialApplication:
 # ---------------------------------------------------------------------------
 
 class TestCurrying:
+    """
+    Curried callables in currying.py, each taking one argument at a time.
+    """
     FILE = f"{FOLDER}/currying.py"
 
     def test_curried_functions_take_one_argument_at_a_time(self):
@@ -390,6 +431,9 @@ class TestCurrying:
 # ---------------------------------------------------------------------------
 
 class TestAnyAll:
+    """
+    any() and all() in any_all.py, including the empty-iterable semantics.
+    """
     FILE = f"{FOLDER}/any_all.py"
 
     def test_predicate_results(self):
@@ -416,6 +460,10 @@ class TestAnyAll:
 # ---------------------------------------------------------------------------
 
 class TestItertoolsModule:
+    """
+    itertools_module.py - the building blocks, accumulate, combinatorics,
+    selection methods, groupby, starmap, tee and zip_longest.
+    """
     FILE = f"{FOLDER}/itertools_module.py"
 
     def test_building_blocks_produce_expected_lists(self):
@@ -465,6 +513,10 @@ class TestItertoolsModule:
 # ---------------------------------------------------------------------------
 
 class TestFunctoolsModule:
+    """
+    functools_module.py - cache, lru_cache eviction, partial, reduce,
+    singledispatch dispatch and wraps metadata.
+    """
     FILE = f"{FOLDER}/functools_module.py"
 
     def test_cache_reuses_the_stored_result(self):
@@ -506,6 +558,10 @@ class TestFunctoolsModule:
 # ---------------------------------------------------------------------------
 
 class TestStatisticsModule:
+    """
+    statistics_module.py's central tendency and spread measures over one
+    shared fixed dataset.
+    """
     FILE = f"{FOLDER}/statistics_module.py"
 
     def test_central_tendency_measures(self):
@@ -537,6 +593,10 @@ class TestStatisticsModule:
 # ---------------------------------------------------------------------------
 
 class TestPureFunctions:
+    """
+    pure_functions.py - a deterministic pure function beside an impure one
+    that mutates external state.
+    """
     FILE = f"{FOLDER}/pure_functions.py"
 
     def test_pure_function_is_deterministic(self):
@@ -565,6 +625,9 @@ class TestPureFunctions:
 # ---------------------------------------------------------------------------
 
 class TestPipelines:
+    """
+    pipelines.py - chained stages over a source list that stays unmodified.
+    """
     FILE = f"{FOLDER}/pipelines.py"
 
     def test_pipeline_stages(self):

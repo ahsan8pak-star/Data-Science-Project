@@ -30,6 +30,9 @@ def _fake_dist(name, version, requires=None):
 
 
 class TestNorm:
+    """
+    Name canonicalisation - case folded and separators unified.
+    """
     def test_canonicalizes_case_and_separators(self):
         assert rs.norm("requests") == "requests"
         assert rs.norm("PyQt5") == "pyqt5"
@@ -38,6 +41,10 @@ class TestNorm:
 
 
 class TestReadDirect:
+    """
+    Parsing requirements.txt directly - comments, blank lines, extra
+    specifiers and the repository's real file.
+    """
     def test_skips_comments_and_blank_lines(self, tmp_path):
         f = tmp_path / "reqs.in"
         f.write_text("# comment\n\npip\n   \n# another\npytest-pretty\n", encoding="utf-8")
@@ -60,6 +67,10 @@ class TestReadDirect:
 
 
 class TestInstalledIndex:
+    """
+    The installed-distribution index, with canonical keys and values
+    preserved.
+    """
     def test_keys_are_canonical_and_values_are_preserved(self, monkeypatch):
         fake_left = SimpleNamespace(metadata={"Name": "requests"})
         fake_center = SimpleNamespace(metadata={"Name": "Scikit_Learn"})
@@ -76,6 +87,10 @@ class TestInstalledIndex:
 
 
 class TestDepsFor:
+    """
+    Base dependencies always included, with the extra-gated package
+    appearing only when the extra is wanted.
+    """
     def test_base_dependencies_always_included(self):
         dist = _fake_dist("requests", "1.0", requires=["certifi>=2"])
         deps = rs.deps_for(dist, frozenset())
@@ -100,6 +115,10 @@ class TestDepsFor:
 
 
 class TestTierClosure:
+    """
+    Walking the installed dependency graph - extras unlocking packages,
+    uninstalled packages reported as missing and duplicates skipped.
+    """
     def _index(self):
         certifi = _fake_dist("certifi", "2026.1", requires=[])
         requests = _fake_dist("requests", "2.32", requires=["certifi>=2", "PyYAML; extra == 'yaml'"])
@@ -168,6 +187,9 @@ class TestTierClosure:
 
 
 class TestRun:
+    """
+    The subprocess wrapper, exercised with a mocked run().
+    """
     def test_mocked_subprocess_invocation(self, monkeypatch, capsys):
         calls = []
 
@@ -183,6 +205,10 @@ class TestRun:
 
 
 class TestCompileFromInstalled:
+    """
+    Writing the pinned closure to the output files, warning on any
+    missing package.
+    """
     def test_writes_pinned_closure_to_output_files(self, tmp_path, monkeypatch, capsys):
         out_a = tmp_path / "requirements.txt"
         out_b = tmp_path / "requirements-win_dev.txt"
@@ -233,6 +259,9 @@ class TestCompileFromInstalled:
 
 
 class TestParseCompiled:
+    """
+    Reading pinned names back out of a frozen requirements file.
+    """
     def test_extracts_pinned_names_from_frozen_file(self, tmp_path):
         f = tmp_path / "requirements.txt"
         f.write_text(
@@ -251,6 +280,9 @@ class TestParseCompiled:
 
 
 class TestTable:
+    """
+    The markdown version table, showing missing installed packages.
+    """
     def test_prints_markdown_rows_with_versions(self, capsys):
         rs.table("Tier A", ["requests", "numpy"], {"requests": "2.32", "numpy": "1.26"}, "A")
         out = capsys.readouterr().out
@@ -264,6 +296,9 @@ class TestTable:
 
 
 class TestAudit:
+    """
+    The audit step - exit code and printed dependency caps when in sync.
+    """
     def test_in_sync_returns_zero_and_prints_caps(self, capsys):
         code = rs.audit()
         out = capsys.readouterr().out
@@ -274,6 +309,10 @@ class TestAudit:
 
 
 class TestMain:
+    """
+    The CLI of requirements_sync.py - default sync, --check skipping the
+    compile, the outdated upgrade check and the main guard.
+    """
     def test_default_sync_compiles_and_audits(self, monkeypatch, capsys):
         # No flags -> compile_from_installed() runs, then audit() runs; the
         # argv is stubbed so argparse consumes it instead of the test runner's.

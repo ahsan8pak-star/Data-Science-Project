@@ -19,6 +19,10 @@ FOLDER = "imperative_programming/interactive_games"
 # dice_game.py
 # ---------------------------------------------------------------------------
 class TestDiceGame:
+    """
+    The player/computer dice loop in dice_game.py - round outcomes, ASCII
+    art integrity, the welcome banner and the replay prompt.
+    """
     FILE = f"{FOLDER}/dice_game.py"
 
     @staticmethod
@@ -120,6 +124,10 @@ class TestDiceGame:
 # haiku_madlibs.py
 # ---------------------------------------------------------------------------
 class TestHaikuMadlibs:
+    """
+    Prompted haiku assembly in haiku_madlibs.py - template selection,
+    chapter headers, the final recap and empty input handling.
+    """
     FILE = f"{FOLDER}/haiku_madlibs.py"
 
     def test_all_three_verses_built_from_input(self):
@@ -201,6 +209,10 @@ class TestHaikuMadlibs:
 # hangman_game.py
 # ---------------------------------------------------------------------------
 class TestHangmanGame:
+    """
+    The hangman state machine - win, loss, repeat guesses, input validation,
+    case folding, the hint display and both display helpers called directly.
+    """
     FILE = f"{FOLDER}/hangman_game.py"
 
     def test_win_by_guessing_all_letters(self):
@@ -273,6 +285,10 @@ class TestHangmanGame:
 # number_guessing_game.py
 # ---------------------------------------------------------------------------
 class TestNumberGuessingGame:
+    """
+    Guessing rounds in number_guessing_game.py - hints, exp awards, attempt
+    exhaustion and the exp cap across rounds.
+    """
     FILE = f"{FOLDER}/number_guessing_game.py"
 
     def test_correct_first_guess_wins_immediately(self):
@@ -342,6 +358,10 @@ class TestNumberGuessingGame:
 # quiz_game.py
 # ---------------------------------------------------------------------------
 class TestQuizGame:
+    """
+    Scoring and presentation in quiz_game.py - perfect/partial/zero scores,
+    case-insensitive answers, answer reveals and per-question separators.
+    """
     FILE = f"{FOLDER}/quiz_game.py"
 
     def test_perfect_score(self):
@@ -398,6 +418,10 @@ class TestQuizGame:
 # rock_paper_scissors.py
 # ---------------------------------------------------------------------------
 class TestRockPaperScissors:
+    """
+    Outcome logic in rock_paper_scissors.py - win/loss/tie messages, the
+    always-printed invalid-input notice and the art helper called directly.
+    """
     FILE = f"{FOLDER}/rock_paper_scissors.py"
 
     def test_player_wins(self):
@@ -477,6 +501,10 @@ class TestRockPaperScissors:
 # word_guessing_game.py
 # ---------------------------------------------------------------------------
 class TestWordGuessingGame:
+    """
+    The hangman-style word game - win, attempt loss, revealed answer,
+    replay, progress display, case folding and the word bank.
+    """
     FILE = f"{FOLDER}/word_guessing_game.py"
 
     def test_win_by_guessing_all_letters(self):

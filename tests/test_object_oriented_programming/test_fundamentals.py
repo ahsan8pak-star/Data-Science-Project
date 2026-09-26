@@ -25,6 +25,10 @@ FOLDER = "object_oriented_programming/fundamental_topics"
 # abstract_classes.py
 # ---------------------------------------------------------------------------
 class TestAbstractClasses:
+    """
+    abstract_classes.py - the abstract Vehicle base that cannot be
+    instantiated and its three concrete subclasses; the script is silent.
+    """
     FILE = f"{FOLDER}/abstract_classes.py"
 
     def test_script_produces_no_output(self):
@@ -81,6 +85,10 @@ class TestAbstractClasses:
 # aggregation.py
 # ---------------------------------------------------------------------------
 class TestAggregation:
+    """
+    Aggregation in aggregation.py - a Library holding Books in the order they
+    were added.
+    """
     FILE = f"{FOLDER}/aggregation.py"
 
     def test_full_output_sequence(self):
@@ -108,6 +116,10 @@ class TestAggregation:
 # classes.py
 # ---------------------------------------------------------------------------
 class TestClasses:
+    """
+    classes.py - Car, Person and Point attribute and method demos, both
+    Person branches and the corrected import spelling.
+    """
     FILE = f"{FOLDER}/classes.py"
 
     def test_script_runs_to_completion(self):
@@ -154,6 +166,10 @@ class TestClasses:
 # class_methods.py
 # ---------------------------------------------------------------------------
 class TestClassMethods:
+    """
+    class_methods.py - five Student instances, the totals and average
+    computed across them, including the zero-student case.
+    """
     FILE = f"{FOLDER}/class_methods.py"
 
     def test_all_five_student_details_printed(self):
@@ -208,6 +224,11 @@ class TestClassMethods:
 # class_variables.py
 # ---------------------------------------------------------------------------
 class TestClassVariables:
+    """
+    class_variables.py - a university class variable shared across three
+    students, the graduating and continuing messages, and the mismatch
+    branches normal flow cannot reach.
+    """
     FILE = f"{FOLDER}/class_variables.py"
 
     def test_all_three_students_share_the_same_university_class_variable(self):
@@ -268,6 +289,10 @@ class TestClassVariables:
 # composition.py
 # ---------------------------------------------------------------------------
 class TestComposition:
+    """
+    composition.py - Cars composed of an Engine and four Wheel components
+    that stay independent of each other.
+    """
     FILE = f"{FOLDER}/composition.py"
 
     def test_both_cars_displayed_correctly(self):
@@ -293,6 +318,9 @@ class TestComposition:
 # constructors.py
 # ---------------------------------------------------------------------------
 class TestConstructors:
+    """
+    The Point constructor in constructors.py, called directly and via output.
+    """
     FILE = f"{FOLDER}/constructors.py"
 
     def test_point_coordinates_printed(self):
@@ -311,6 +339,10 @@ class TestConstructors:
 # data_classes.py
 # ---------------------------------------------------------------------------
 class TestDataClasses:
+    """
+    dataclasses.py - default field values, the redacted password in repr,
+    equality semantics and the negative-age ValueError.
+    """
     FILE = f"{FOLDER}/data_classes.py"
 
     def test_persons_are_printed_with_default_field_values(self):
@@ -347,6 +379,10 @@ class TestDataClasses:
 # decorator.py
 # ---------------------------------------------------------------------------
 class TestDecorator:
+    """
+    decorator.py - outer-to-inner application order and all three decorator
+    flavours, with the decorated function called directly.
+    """
     FILE = f"{FOLDER}/decorator.py"
 
     def test_decorators_apply_in_outer_to_inner_print_order(self):
@@ -386,6 +422,10 @@ class TestDecorator:
 # duck_typing.py
 # ---------------------------------------------------------------------------
 class TestDuckTyping:
+    """
+    duck_typing.py - a Plane satisfying the animal interface without
+    inheriting from it, processed in list order.
+    """
     FILE = f"{FOLDER}/duck_typing.py"
 
     def test_duck_sequence(self):
@@ -428,6 +468,10 @@ class TestDuckTyping:
 # generator.py
 # ---------------------------------------------------------------------------
 class TestGenerator:
+    """
+    generator.py - count_to's execution-time reporting, the activity-log
+    reader, even/odd square generators and the KeyboardInterrupt report.
+    """
     FILE = f"{FOLDER}/generator.py"
 
     def test_count_to_generator_counts_and_reports_execution_time(self):
@@ -494,6 +538,10 @@ class TestGenerator:
 # inheritance.py
 # ---------------------------------------------------------------------------
 class TestInheritance:
+    """
+    inheritance.py - base Animal methods, each subclass's own speak/walk
+    overrides and the methods they inherit unchanged.
+    """
     FILE = f"{FOLDER}/inheritance.py"
 
     def test_base_animal_instances_use_their_own_methods(self):
@@ -531,6 +579,10 @@ class TestInheritance:
 # iterator.py
 # ---------------------------------------------------------------------------
 class TestIterator:
+    """
+    iterator.py - a patched dice roll, __iter__ returning itself,
+    StopIteration after the requested count and position kept between calls.
+    """
     FILE = f"{FOLDER}/iterator.py"
 
     def test_three_patched_rolls_are_printed(self):
@@ -565,6 +617,10 @@ class TestIterator:
 # magic_methods.py
 # ---------------------------------------------------------------------------
 class TestMagicMethods:
+    """
+    magic_methods.py - __str__, __eq__, ordering, __add__, __contains__
+    and __getitem__ including its unknown-key fallback.
+    """
     FILE = f"{FOLDER}/magic_methods.py"
 
     def test_str_magic_method(self):
@@ -613,6 +669,10 @@ class TestMagicMethods:
 # multiple_inheritance.py
 # ---------------------------------------------------------------------------
 class TestMultipleInheritance:
+    """
+    multiple_inheritance.py - Son and Daughter inheriting from both
+    Father and Mother without sharing their state.
+    """
     FILE = f"{FOLDER}/multiple_inheritance.py"
 
     def test_son_inherits_from_both_father_and_mother(self):
@@ -642,6 +702,10 @@ class TestMultipleInheritance:
 # multi_level_inheritance.py
 # ---------------------------------------------------------------------------
 class TestMultiLevelInheritance:
+    """
+    multi_level_inheritance.py - definition-time class body output and a
+    Fish combining Prey and Predator behaviour across three levels.
+    """
     FILE = f"{FOLDER}/multi_level_inheritance.py"
 
     def test_class_body_print_statements_fire_at_definition_time(self):
@@ -685,6 +749,10 @@ class TestMultiLevelInheritance:
 # multitasking.py
 # ---------------------------------------------------------------------------
 class TestMultitasking:
+    """
+    multitasking.py - three interleaved chores all reporting completion
+    before the final message.
+    """
     FILE = f"{FOLDER}/multitasking.py"
 
     def test_all_three_chores_report_completion(self):
@@ -702,6 +770,10 @@ class TestMultitasking:
 # nested_classes.py
 # ---------------------------------------------------------------------------
 class TestNestedClasses:
+    """
+    nested_classes.py - class body headers firing first, then the company
+    and organisation employee tables with department handling.
+    """
     FILE = f"{FOLDER}/nested_classes.py"
 
     def test_both_class_body_headers_print_before_any_table_output(self):
@@ -757,6 +829,10 @@ class TestNestedClasses:
 # polymorphism.py
 # ---------------------------------------------------------------------------
 class TestPolymorphism:
+    """
+    polymorphism.py - five shape areas in order, a FlatCake satisfying the
+    interface by duck typing and Pizza reusing Circle's area via super().
+    """
     FILE = f"{FOLDER}/polymorphism.py"
 
     def test_all_five_shape_areas_printed_in_order(self):
@@ -797,6 +873,10 @@ class TestPolymorphism:
 # property.py
 # ---------------------------------------------------------------------------
 class TestProperty:
+    """
+    property.py - computed areas, setters rejecting non-positive values,
+    unit-suffixed getters and both deleters removing the attribute.
+    """
     FILE = f"{FOLDER}/property.py"
 
     def test_all_three_rectangles_printed_with_computed_areas(self):
@@ -871,6 +951,10 @@ class TestProperty:
 # static_methods.py
 # ---------------------------------------------------------------------------
 class TestStaticMethods:
+    """
+    static_methods.py - seven employee info lines and a job-role static
+    method callable without any instance.
+    """
     FILE = f"{FOLDER}/static_methods.py"
 
     def test_all_seven_employee_info_lines_printed(self):
@@ -897,6 +981,10 @@ class TestStaticMethods:
 # super.py
 # ---------------------------------------------------------------------------
 class TestSuper:
+    """
+    super.py - area and description for Circle, Square and Triangle, with the
+    super() chain running the child description before the parent's.
+    """
     FILE = f"{FOLDER}/super.py"
 
     def test_circle_area_and_filled_description(self):

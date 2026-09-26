@@ -318,6 +318,10 @@ class TestAudioPlayers:
 # TUI entry points (banner + empty-folder guard)
 # ---------------------------------------------------------------------------
 class TestTuiEntryPoints:
+    """
+    Console entry points for both players - the empty-folder error
+    report and the import fallback taken when pygame is absent.
+    """
 
     @pytest.fixture(autouse=True)
     def _load(self, audio_ctx):
@@ -366,6 +370,10 @@ class TestTuiEntryPoints:
 # TUI menu loops (input()-driven song selection + in-track control menu)
 # ---------------------------------------------------------------------------
 class TestTuiMenuLoops:
+    """
+    The interactive menu loop of each console player - a full cycle, the
+    error and shuffle paths, and KeyboardInterrupt caught by the main guard.
+    """
 
     @pytest.fixture(autouse=True)
     def _load(self, audio_ctx):
@@ -501,6 +509,11 @@ def _load_gui_module(path, module_name):
 
 
 class TestMP3GUI:
+    """
+    The MP3 pygame GUI - window setup, folder selection, guarded playback and
+    transport controls, track skipping, loop/playlist checkbox syncing,
+    status updates and the main guard.
+    """
 
     @pytest.fixture(autouse=True)
     def _build(self, audio_ctx):
@@ -645,6 +658,10 @@ class TestMP3GUI:
 
 
 class TestWAVGUI:
+    """
+    The WAV pygame GUI - the same window, folder, playback, transport, track
+    and status behaviour as the MP3 player, with its own checkbox syncing.
+    """
 
     @pytest.fixture(autouse=True)
     def _build(self, audio_ctx):

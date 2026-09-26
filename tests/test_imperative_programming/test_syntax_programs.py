@@ -33,6 +33,10 @@ FOLDER = "imperative_programming/syntax_exercises"
 # add.py
 # ---------------------------------------------------------------------------
 class TestAdd:
+    """
+    The single add() function in add.py - its printed output, the function
+    called directly, and the sign, float, zero and identity edge cases.
+    """
     FILE = f"{FOLDER}/add.py"
 
     def test_output(self):
@@ -69,6 +73,10 @@ class TestAdd:
 # checkout_system.py
 # ---------------------------------------------------------------------------
 class TestCheckoutSystem:
+    """
+    Basket totals in checkout_system.py - zero and multiple items, item names
+    with spaces, two-decimal rounding and uncaught non-numeric input.
+    """
     FILE = f"{FOLDER}/checkout_system.py"
 
     def test_zero_quantity(self):
@@ -117,6 +125,10 @@ class TestCheckoutSystem:
 # count_up_timer.py
 # ---------------------------------------------------------------------------
 class TestCountUpTimer:
+    """
+    count_up_timer.py - the default start argument, every printed value, the
+    return-None contract and a custom start value called directly.
+    """
     FILE = f"{FOLDER}/count_up_timer.py"
 
     def test_ten_calls_all_print_times_up(self):
@@ -178,6 +190,10 @@ class TestCountUpTimer:
 # distance_calculator.py
 # ---------------------------------------------------------------------------
 class TestDistanceCalculator:
+    """
+    Euclidean distance in distance_calculator.py - positive, reversed and
+    identical points, decimal rounding and uncaught non-numeric input.
+    """
     FILE = f"{FOLDER}/distance_calculator.py"
 
     def test_positive_distance(self):
@@ -205,6 +221,10 @@ class TestDistanceCalculator:
 # divide.py
 # ---------------------------------------------------------------------------
 class TestDivide:
+    """
+    The divide() function in divide.py - printed output, direct calls,
+    division by zero, negatives and the float return type.
+    """
     FILE = f"{FOLDER}/divide.py"
 
     def test_output(self):
@@ -234,6 +254,10 @@ class TestDivide:
 # drink_script_example.py
 # ---------------------------------------------------------------------------
 class TestDrinkScriptExample:
+    """
+    drink_script_example.py's missing __name__ guard, so a plain import runs it
+    immediately, plus its foods() helper called directly.
+    """
     FILE = "imperative_programming/syntax_exercises/drink_script_example.py" # Full path for the module cache cleaner
     MODULE_PATH = "imperative_programming.syntax_exercises.drink_script_example"
 
@@ -274,6 +298,10 @@ class TestDrinkScriptExample:
 # email_slicer.py
 # ---------------------------------------------------------------------------
 class TestEmailSlicer:
+    """
+    Prompted email parsing in email_slicer.py - username/domain split, missing
+    @ and missing dot, empty-input reprompt, quit and KeyboardInterrupt.
+    """
     FILE = f"{FOLDER}/email_slicer.py"
 
 
@@ -322,6 +350,10 @@ class TestEmailSlicer:
 # even_odd_detector.py
 # ---------------------------------------------------------------------------
 class TestEvenOddLoopDetector:
+    """
+    even_odd_loop_detector.py's single pass over a fixed number list, printing
+    the evens before the odds without needing any input.
+    """
     FILE = f"{FOLDER}/even_odd_detector.py"
 
     def test_even_and_odd_counts(self):
@@ -356,6 +388,10 @@ class TestEvenOddLoopDetector:
 # food_script_example.py
 # ---------------------------------------------------------------------------
 class TestFoodScriptExample:
+    """
+    food_script_example.py's if __name__ guard - silent on a plain import, runs
+    when executed directly, plus its favourite_food() helper.
+    """
     FILE = "imperative_programming/syntax_exercises/food_script_example.py" # Full path for the module cache cleaner
     MODULE_PATH = "imperative_programming.syntax_exercises.food_script_example"
 
@@ -397,6 +433,10 @@ class TestFoodScriptExample:
 # factorials.py
 # ---------------------------------------------------------------------------
 class TestFactorials:
+    """
+    factorials.py - direct recursive calls, the script block's prompts, the 0 and
+    1 base cases, RecursionError on negatives and non-numeric input.
+    """
 
     def test_factorial_of_five(self):
         assert factorial(5) == 120
@@ -449,6 +489,10 @@ class TestFactorials:
 # file_writer.py
 # ---------------------------------------------------------------------------
 class TestFileWriter:
+    """
+    File writing in file_writer.py - the greeting output, greet() called
+    directly, overwrite-not-append behaviour and the caught permission error.
+    """
     FILE = f"{FOLDER}/file_writer.py"
 
     def test_writes_greeting_to_file(self, tmp_path):
@@ -504,6 +548,10 @@ class TestFileWriter:
 # file_handling.py
 # ---------------------------------------------------------------------------
 class TestFileHandling:
+    """
+    os.path existence checks in file_handling.py for an existing file, a
+    directory path and a missing path.
+    """
     FILE = f"{FOLDER}/file_handling.py"
 
     def test_report_existing_tracked_test_txt(self):
@@ -536,6 +584,10 @@ class TestFileHandling:
 # file_reader.py
 # ---------------------------------------------------------------------------
 class TestFileReader:
+    """
+    Reading three input formats in file_reader.py, with not-found and
+    permission-denied paths reported per format.
+    """
     FILE = f"{FOLDER}/file_reader.py"
 
     def test_reads_all_three_input_formats(self):
@@ -564,6 +616,10 @@ class TestFileReader:
 # food_menu.py
 # ---------------------------------------------------------------------------
 class TestFoodMenu:
+    """
+    food_menu.py's nine-item menu - quantity aggregation, case-insensitive
+    lookups, silently ignored invalid items, quit and the payment prompt.
+    """
     FILE = f"{FOLDER}/food_menu.py"
 
     def test_menu_lists_all_nine_items_with_prices(self):
@@ -620,6 +676,10 @@ class TestFoodMenu:
 # grade_boundary_calculator.py
 # ---------------------------------------------------------------------------
 class TestGradeBoundaryCalculator:
+    """
+    grade_boundary_calculator.py's banded scores, the lying and out-of-range
+    checks, the exact 90 and 50 boundaries and the always-printed /100 line.
+    """
     FILE = f"{FOLDER}/grade_boundary_calculator.py"
 
     @pytest.mark.parametrize(
@@ -674,6 +734,10 @@ class TestGradeBoundaryCalculator:
 # hour_clock.py
 # ---------------------------------------------------------------------------
 class TestHourClock:
+    """
+    hour_clock.py - the full h/m/s countdown, per-field range rejection, the
+    all-zero and non-digit cases, and the instant countdown() helper.
+    """
     FILE = f"{FOLDER}/hour_clock.py"
 
     def test_value_error_except_branch(self):
@@ -717,6 +781,10 @@ class TestHourClock:
 # leap_year.py
 # ---------------------------------------------------------------------------
 class TestLeapYear:
+    """
+    leap_year.py - the century rules, year zero, negative multiples of four,
+    non-numeric input and is_leap() called directly.
+    """
     FILE = f"{FOLDER}/leap_year.py"
 
     @pytest.mark.parametrize("year, expected", [("2024", "True"), ("2023", "False")])
@@ -747,6 +815,10 @@ class TestLeapYear:
 # math_module.py + math_file.py
 # ---------------------------------------------------------------------------
 class TestMathModuleAndMathFile:
+    """
+    math module constants and functions alongside the sibling math_file.py,
+    whose top-level code must run on import and in call order.
+    """
     MODULE_FILE = f"{FOLDER}/math_module.py"
     IMPORTER_FILE = f"{FOLDER}/math_file.py"
 
@@ -819,6 +891,10 @@ class TestMathModuleAndMathFile:
 # minute_timer.py
 # ---------------------------------------------------------------------------
 class TestMinuteTimer:
+    """
+    minute_timer.py - the countdown, the 60-plus-seconds rejection, non-digit
+    input, zero padding and the zero case.
+    """
     FILE = f"{FOLDER}/minute_timer.py"
 
     def test_value_error_except_branch(self):
@@ -854,6 +930,10 @@ class TestMinuteTimer:
 # Multiply.py
 # ---------------------------------------------------------------------------
 class TestMultiply:
+    """
+    The multiply() function in multiply.py - output, direct calls, times zero
+    and two negatives giving a positive.
+    """
     FILE = f"{FOLDER}/multiply.py"
 
     def test_output(self):
@@ -878,6 +958,10 @@ class TestMultiply:
 # num_pad.py
 # ---------------------------------------------------------------------------
 class TestNumPad:
+    """
+    numpad.py's three-row print loop, the commented-out invalid variants and
+    the get_index() bounds each row relies on.
+    """
     FILE = f"{FOLDER}/num_pad.py"
 
     def test_script_runs_to_completion(self):
@@ -920,6 +1004,10 @@ class TestNumPad:
 import textwrap
 
 class TestNumberMatrixDisplay:
+    """
+    number_matrix_display.py building an n-by-n multiplication matrix for
+    n = 0 to 5, with negative input rejected.
+    """
     FILE = f"{FOLDER}/number_matrix_display.py"
 
     def test_matrix_for_n_zero(self):
@@ -997,6 +1085,10 @@ class TestNumberMatrixDisplay:
 # prime_numbers.py
 # ---------------------------------------------------------------------------
 class TestPrimeNumbers:
+    """
+    prime_numbers.py - detection for zero, negatives and a large prime,
+    non-numeric input and is_prime() called directly.
+    """
     FILE = f"{FOLDER}/prime_numbers.py"
 
     @pytest.mark.parametrize("n, is_prime", [("2", True), ("17", True), ("1", False), ("4", False)])
@@ -1044,6 +1136,11 @@ class TestPrimeNumbers:
 # ---------------------------------------------------------------------------
 
 class TestRandomCipher:
+    """
+    random_cipher.py - deterministic encryption from the reversed key,
+    matching decryption, pass-through of unknown characters and the key/chars
+    permutation invariant.
+    """
     FILE = f"{FOLDER}/random_cipher.py"
 
     @staticmethod
@@ -1143,6 +1240,10 @@ class TestRandomCipher:
 # random_colour_generator.py
 # ---------------------------------------------------------------------------
 class TestRandomColourGenerator:
+    """
+    random_colour_generator.py - hex/rgb/octal/hsl menu aliases, the default and
+    error cases, count validation and real hex output.
+    """
     FILE = f"{FOLDER}/random_colour_generator.py"
 
     def test_hexadecimal_option_via_menu_number(self):
@@ -1341,6 +1442,10 @@ class TestRandomColourGenerator:
 # reverse_list_program.py
 # ---------------------------------------------------------------------------
 class TestReverseListProgram:
+    """
+    reverse_list_program.py - the sort-then-reverse choice, alpha and numeric
+    detection and rejection, whitespace stripping and edge-case lists.
+    """
     FILE = f"{FOLDER}/reverse_list_program.py"
 
     def test_reverse_list_function_directly(self):
@@ -1471,6 +1576,10 @@ class TestReverseListProgram:
 # seconds_countdown.py
 # ---------------------------------------------------------------------------
 class TestSecondsCountdown:
+    """
+    seconds_countdown.py - the countdown, the 60-plus rejection, non-digit input,
+    zero padding and the zero case.
+    """
     FILE = f"{FOLDER}/seconds_countdown.py"
 
     def test_value_error_except_branch(self):
@@ -1506,6 +1615,10 @@ class TestSecondsCountdown:
 # shipping_label.py
 # ---------------------------------------------------------------------------
 class TestShippingLabel:
+    """
+    shipping_label.py's template - name cleaning, floor and street prefixes,
+    missing and falsy keywords, comma stripping and positional joining.
+    """
     FILE = f"{FOLDER}/shipping_label.py"
 
     def test_full_name_is_joined_uppercased_and_dot_free(self):
@@ -1574,6 +1687,10 @@ class TestShippingLabel:
 # shopping_cart.py
 # ---------------------------------------------------------------------------
 class TestShoppingCart:
+    """
+    shopping_cart.py - the KeyboardInterrupt and EOFError branches, both checkout
+    prompts, invalid prices caught and the cart() helper.
+    """
     FILE = f"{FOLDER}/shopping_cart.py"
 
     def test_keyboard_interrupt_branch(self):
@@ -1623,6 +1740,10 @@ class TestShoppingCart:
 # Square.py
 # ---------------------------------------------------------------------------
 class TestSquare:
+    """
+    The square() function in square.py - output, direct calls, a negative
+    input and zero.
+    """
     FILE = f"{FOLDER}/square.py"
 
     def test_output(self):
@@ -1647,6 +1768,10 @@ class TestSquare:
 # Subtract.py
 # ---------------------------------------------------------------------------
 class TestSubtract:
+    """
+    The subtract() function in subtract.py - output, direct calls,
+    self-subtraction and subtracting a negative.
+    """
     FILE = f"{FOLDER}/subtract.py"
 
     def test_output(self):
@@ -1671,6 +1796,10 @@ class TestSubtract:
 # symbol_generator.py
 # ---------------------------------------------------------------------------
 class TestSymbolGenerator:
+    """
+    symbol_generator.py's symbol grid, letter and digit rejection, non-numeric
+    rows caught and the zero-row and single-row cases.
+    """
     FILE = f"{FOLDER}/symbol_generator.py"
 
     def test_grid_of_symbols_printed(self):
@@ -1703,6 +1832,10 @@ class TestSymbolGenerator:
 # username_status.py
 # ---------------------------------------------------------------------------
 class TestUsernameStatus:
+    """
+    username_status.py - the length and character rules, the exactly-twelve
+    boundary and whitespace stripped before validation.
+    """
     FILE = f"{FOLDER}/username_status.py"
 
     def test_valid_username_welcomed(self):
@@ -2067,6 +2200,10 @@ class TestAlarmClock:
 # banking_program.py
 # ---------------------------------------------------------------------------
 class TestBankingProgram:
+    """
+    banking_program.py - deposit and withdrawal validation, a full session,
+    the balance shown directly and the menu banner.
+    """
     FILE = f"{FOLDER}/banking_program.py"
 
     def test_show_balance_direct(self, capsys):

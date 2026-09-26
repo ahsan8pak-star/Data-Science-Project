@@ -26,6 +26,10 @@ FOLDER = "imperative_programming/fundamental_topics"
 # =====================================================================
 
 class TestConditions:
+    """
+    Branch selection, loop control and operator precedence in
+    conditions.py, with its day-name helper called directly.
+    """
     FILE = f"{FOLDER}/conditions.py"
 
     def test_temperature_branch(self):
@@ -104,6 +108,10 @@ class TestConditions:
 # =====================================================================
 
 class TestDictionaries:
+    """
+    Dict mutation in dictionaries.py - get defaults, pop/popitem state,
+    the clear() quirk and setdefault.
+    """
     FILE = f"{FOLDER}/dictionaries.py"
 
     def test_dictionary_values(self):
@@ -183,6 +191,10 @@ class TestDictionaries:
 # =====================================================================
 
 class TestExceptions:
+    """
+    try/except coverage across both blocks of exceptions.py, including
+    the finally clause and the generic branch forced via mocked input.
+    """
     FILE = f"{FOLDER}/exceptions.py"
 
     # ---- Block 1: age input (try/except ValueError) ----
@@ -305,6 +317,10 @@ class TestExceptions:
 # =====================================================================
 
 class TestFormats:
+    """
+    Format-specifier output in formats.py, checked against real Python
+    formatting semantics.
+    """
     FILE = f"{FOLDER}/formats.py"
 
     def test_price_formatting_matches_python_semantics(self):
@@ -352,6 +368,10 @@ class TestFormats:
 # =====================================================================
 
 class TestFunctions:
+    """
+    Default arguments, *args and **kwargs in functions.py, exercised both
+    by a full script run and by calling the functions directly.
+    """
     FILE = f"{FOLDER}/functions.py"
 
     def test_script_output(self):
@@ -400,6 +420,10 @@ class TestFunctions:
 # =====================================================================
 
 class TestHelloWorld:
+    """
+    hello_world.py's single print line, checked for exact case, line
+    count and punctuation.
+    """
     FILE = f"{FOLDER}/hello_world.py"
 
     def test_prints_hello_world(self):
@@ -430,6 +454,10 @@ class TestHelloWorld:
 # =====================================================================
 
 class TestLists:
+    """
+    List indexing, slicing, methods and comprehensions in lists.py - the
+    class-scoped output fixture runs the script once and caches stdout.
+    """
     FILE = f"{FOLDER}/lists.py"
 
     @pytest.fixture(scope="class")
@@ -487,6 +515,10 @@ class TestLists:
 # =====================================================================
 
 class TestModules:
+    """
+    modules.py's three import styles for math.pi, and the e-shadows-Euler
+    bug the script leaves in place.
+    """
     FILE = f"{FOLDER}/modules.py"
 
     """
@@ -562,6 +594,10 @@ class TestModules:
 # =====================================================================
 
 class TestModuleImportExamples:
+    """
+    The deliberately broken main.py sibling - a real SyntaxError, plus a
+    docstring typo that is harmless by comparison.
+    """
     MAIN_FILE = f"{FOLDER}/main.py"
 
     def test_main_py_has_a_syntax_error_and_cannot_be_parsed(self):
@@ -598,6 +634,10 @@ class TestModuleImportExamples:
 # =====================================================================
 
 class TestNumbers:
+    """
+    Numeric literals, bit methods, bytes hex and Decimal precision in
+    numbers.py, alongside a few plain operator sanity checks.
+    """
     FILE = f"{FOLDER}/numbers.py"
 
     def test_numeric_literals(self):
@@ -755,6 +795,10 @@ class TestNumbers:
 # =====================================================================
 
 class TestScopeResolution:
+    """
+    LEGB lookup order in scope_resolution.py - local, enclosed, global
+    and built-in bindings, and locals that never leak to the namespace.
+    """
     FILE = f"{FOLDER}/scope_resolution.py"
 
     def test_local_scope_prints_each_functions_own_value(self):
@@ -819,6 +863,9 @@ class TestScopeResolution:
 # =====================================================================
 
 class TestSets:
+    """
+    Set membership, algebra and comparison methods demonstrated in sets.py.
+    """
     FILE = f"{FOLDER}/sets.py"
 
     def test_script_runs_to_completion(self):
@@ -854,6 +901,9 @@ class TestSets:
 # =====================================================================
 
 class TestTuples:
+    """
+    Indexing, unpacking, count/index methods and immutability in tuples.py.
+    """
     FILE = f"{FOLDER}/tuples.py"
 
     def test_tuple_indexing(self):
@@ -896,6 +946,10 @@ class TestTuples:
 # =====================================================================
 
 class TestTypeConversionTypeCasting:
+    """
+    int/float/str/boolean conversion in type_conversion_type_casting.py,
+    including int() truncating rather than rounding.
+    """
     FILE = f"{FOLDER}/type_conversion_type_casting.py"
 
     def test_string_conversions(self):
@@ -935,6 +989,10 @@ class TestTypeConversionTypeCasting:
 # =====================================================================
 
 class TestVariables:
+    """
+    Assignment and arithmetic in variables.py, including the branches its
+    hardcoded booleans leave unreachable.
+    """
     FILE = f"{FOLDER}/variables.py"
 
     def test_string_intro_lines(self):
@@ -1021,6 +1079,10 @@ class TestVariables:
 # login_status.py
 # ---------------------------------------------------------------------------
 class TestLoginStatus:
+    """
+    The nested-loop questionnaire in login_status.py, including the two
+    branches that normal input can never reach.
+    """
     FILE = f"{FOLDER}/login_status.py"
 
     def test_echoes_back_all_five_answers(self):
@@ -1100,6 +1162,10 @@ class TestLoginStatus:
 # =====================================================================
 
 class TestStrings:
+    """
+    String method families in strings.py - case, strip, find/replace,
+    split/join, padding, escape sequences and format specs.
+    """
     FILE = f"{FOLDER}/strings.py"
 
     def test_case_methods_transform_the_padded_name(self):
@@ -1176,6 +1242,10 @@ class TestStrings:
 # =====================================================================
 
 class TestDateTime:
+    """
+    date, datetime, strftime/strptime, timezone conversion and timedelta
+    arithmetic in date_time.py.
+    """
     FILE = f"{FOLDER}/date_time.py"
 
     def test_date_and_time_objects_are_printed(self):

@@ -23,6 +23,10 @@ FOLDER = "object_oriented_programming/syntax_fundamentals"
 # bank_account.py
 # ---------------------------------------------------------------------------
 class TestBankAccount:
+    """
+    bank_account.py - initial details, deposit and withdrawal confirmations,
+    non-positive and over-balance rejections and get_balance().
+    """
     FILE = f"{FOLDER}/bank_account.py"
 
     def test_initial_account_details_printed(self):
@@ -67,6 +71,10 @@ class TestBankAccount:
 # calculator.py
 # ---------------------------------------------------------------------------
 class TestCalculator:
+    """
+    calculator.py - all four operations in order, static methods needing no
+    instance, and divide/sqrt returning error strings rather than raising.
+    """
     FILE = f"{FOLDER}/calculator.py"
 
     def test_all_operations_printed_in_order(self):
@@ -98,6 +106,10 @@ class TestCalculator:
 # car.py
 # ---------------------------------------------------------------------------
 class TestCar:
+    """
+    car.py - drive and stop called directly and both for-sale description
+    branches; the script itself is silent.
+    """
     FILE = f"{FOLDER}/car.py"
 
     def test_script_produces_no_output(self):
@@ -141,6 +153,10 @@ class TestCar:
 # device.py
 # ---------------------------------------------------------------------------
 class TestDevice:
+    """
+    device.py - an abstract base that cannot be instantiated, three concrete
+    devices and their turn-on/turn-off message blocks.
+    """
     FILE = f"{FOLDER}/device.py"
 
     def test_device_cannot_be_instantiated_directly(self):
@@ -175,6 +191,10 @@ class TestDevice:
 # dice.py
 # ---------------------------------------------------------------------------
 class TestDice:
+    """
+    dice.py - the rolled number against a patched random value, the matching
+    ASCII art, and the art import not triggering dice_game's own main.
+    """
     FILE = f"{FOLDER}/dice.py"
 
     def test_rolled_number_matches_the_patched_random_value(self):
@@ -221,6 +241,10 @@ class TestDice:
 # employee_contract.py
 # ---------------------------------------------------------------------------
 class TestEmployeeContract:
+    """
+    employee_contract.py - part-time and full-time employees combining
+    Worker with Student or Graduate through explicit parent __init__ calls.
+    """
     FILE = f"{FOLDER}/employee_contract.py"
 
     def test_part_time_employee_combines_worker_and_student_info(self):
@@ -257,6 +281,10 @@ class TestEmployeeContract:
 # food.py
 # ---------------------------------------------------------------------------
 class TestFood:
+    """
+    food.py - dessert, treat, cold and hot drink chains separated by dashed
+    lines, with Dessert several subclass levels deep.
+    """
     FILE = f"{FOLDER}/food.py"
 
     def test_dessert_chain_output(self):
@@ -297,6 +325,11 @@ class TestFood:
 # grocery_caloric_list.py
 # ---------------------------------------------------------------------------
 class TestGroceryCaloricList:
+    """
+    grocery_caloric_list.py - menu display, ordering and modify flows, the
+    receipt totals and every generate_recommendations() calorie/budget
+    combination.
+    """
     FILE = f"{FOLDER}/grocery_caloric_list.py"
 
     def test_get_positive_float_rejects_non_numeric_then_non_positive_then_accepts(self):
@@ -555,6 +588,10 @@ class TestGroceryCaloricList:
 # item.py
 # ---------------------------------------------------------------------------
 class TestItem:
+    """
+    item.py - __str__, __eq__, price ordering, __add__ summing prices and a
+    case-insensitive __contains__ over the item name.
+    """
     FILE = f"{FOLDER}/item.py"
 
     def test_str_magic_method(self):
@@ -601,6 +638,10 @@ class TestItem:
 # order.py
 # ---------------------------------------------------------------------------
 class TestOrder:
+    """
+    order.py - five orders with class-level totals and average cost, the
+    overall stats block and fresh class variables per script run.
+    """
     FILE = f"{FOLDER}/order.py"
 
     def test_all_five_order_details_printed(self):
@@ -647,6 +688,10 @@ class TestOrder:
 # payment.py
 # ---------------------------------------------------------------------------
 class TestPayment:
+    """
+    payment.py - four payment types, card masking to the last four digits and
+    the base class refusing an unoverridden process().
+    """
     FILE = f"{FOLDER}/payment.py"
 
     def test_all_four_payment_types_processed(self):
@@ -685,6 +730,10 @@ class TestPayment:
 # person.py
 # ---------------------------------------------------------------------------
 class TestPerson:
+    """
+    person.py - talk() across the is_talking flag and the exact age-twenty
+    boundary; the script is silent.
+    """
     FILE = f"{FOLDER}/person.py"
 
     def test_script_produces_no_output(self):
@@ -730,6 +779,10 @@ class TestPerson:
 # point.py
 # ---------------------------------------------------------------------------
 class TestPoint:
+    """
+    point.py - move() and draw() called directly, and the absence of any
+    defined constructor.
+    """
     FILE = f"{FOLDER}/point.py"
 
     def test_script_produces_no_output(self):
@@ -775,6 +828,10 @@ class TestPoint:
 # real_estate.py
 # ---------------------------------------------------------------------------
 class TestRealEstate:
+    """
+    real_estate.py - five property descriptions, comma-formatted prices, the
+    setter rejecting non-positive values and a read-only name property.
+    """
     FILE = f"{FOLDER}/real_estate.py"
 
     def test_all_five_property_descriptions_printed(self):
@@ -819,6 +876,10 @@ class TestRealEstate:
 # restaurant.py
 # ---------------------------------------------------------------------------
 class TestRestaurant:
+    """
+    restaurant.py - Indian, Chinese and Japanese details, a Menu composed
+    into each restaurant and definition-order printing.
+    """
     FILE = f"{FOLDER}/restaurant.py"
 
     def test_indian_restaurant_details(self):
@@ -859,6 +920,10 @@ class TestRestaurant:
 # school.py
 # ---------------------------------------------------------------------------
 class TestSchool:
+    """
+    school.py - school details, three listed students, the separator line and
+    remove_student() matching a real instance or no-oping.
+    """
     FILE = f"{FOLDER}/school.py"
 
     def test_school_name_and_address_printed(self):
@@ -907,6 +972,10 @@ class TestSchool:
 # sports.py
 # ---------------------------------------------------------------------------
 class TestSports:
+    """
+    sports.py - four sport details from nested classes scoped under Sports and
+    printed in definition order.
+    """
     FILE = f"{FOLDER}/sports.py"
 
     def test_all_four_sport_details_printed(self):
@@ -935,6 +1004,10 @@ class TestSports:
 # user_access.py
 # ---------------------------------------------------------------------------
 class TestUserAccess:
+    """
+    user_access.py - login and permission checks running in that order, with
+    access granted, denied, and an unknown username failing login.
+    """
     FILE = f"{FOLDER}/user_access.py"
 
     def test_valid_login_and_sufficient_permission_grants_access(self):
@@ -988,6 +1061,10 @@ class TestUserAccess:
 # worker.py
 # ---------------------------------------------------------------------------
 class TestWorker:
+    """
+    worker.py - match-case dispatch across five worker types, list order with
+    separators, and a plain Worker hitting the default case.
+    """
     FILE = f"{FOLDER}/worker.py"
 
     def test_manager_dispatch(self):
