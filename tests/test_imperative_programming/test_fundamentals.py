@@ -85,18 +85,18 @@ class TestConditions:
         assert "Access Granted" in out
         assert "The letter 'z' is missing." in out
 
-    def test_conditions_admission(self):
-        def check_admission(age):
-            if age < 12:
-                return "Child ticket"
-            elif age < 65:
-                return "Standard ticket"
+    def test_conditions_parking_tariff_bands(self):
+        def tariff_for(hours):
+            if hours <= 1:
+                return "Free"
+            elif hours <= 4:
+                return "£3.50"
             else:
-                return "Senior ticket"
+                return "£9.00"
 
-        assert check_admission(5) == "Child ticket"
-        assert check_admission(25) == "Standard ticket"
-        assert check_admission(70) == "Senior ticket"
+        assert tariff_for(1) == "Free"
+        assert tariff_for(4) == "£3.50"
+        assert tariff_for(9) == "£9.00"
 
 
 # =====================================================================
@@ -158,18 +158,18 @@ class TestDictionaries:
         assert "None" in lines
 
     def test_dictionary_operations(self):
-        user_profile = {"name": "Ahsan", "role": "Developer"}
-        assert user_profile["name"] == "Ahsan"
+        pantry = {"rice": 2, "pasta": 1}
+        assert pantry["rice"] == 2
 
         # Testing dynamic key addition
-        user_profile["language"] = "python"
-        assert "language" in user_profile
-        assert user_profile["language"] == "python"
+        pantry["lentils"] = 3
+        assert "lentils" in pantry
+        assert pantry["lentils"] == 3
 
     def test_dictionary_update_overwrites_existing_key(self):
-        capitals = {"USA": "Washington D.C."}
-        capitals.update({"USA": "Detroit"})
-        assert capitals["USA"] == "Detroit"
+        stock = {"Bolts": 12}
+        stock.update({"Bolts": 40})
+        assert stock["Bolts"] == 40
 
     def test_setdefault_inserts_only_when_key_is_missing(self):
         mod, out = run_script(self.FILE)
@@ -218,14 +218,14 @@ class TestExceptions:
         assert mod.age == 30
 
     def test_exceptions_handling(self):
-        def safe_divide(numerator, denominator):
-            if denominator == 0:
-                raise ZeroDivisionError("Cannot divide by zero.")
-            return numerator / denominator
+        def safe_square_root(number):
+            if number < 0:
+                raise ValueError("Negative numbers have no real square root.")
+            return number ** 0.5
 
-        with pytest.raises(ZeroDivisionError):
-            safe_divide(10, 0)
-        assert safe_divide(10, 2) == 5.0
+        with pytest.raises(ValueError):
+            safe_square_root(-4)
+        assert safe_square_root(16) == 4.0
 
     # ---- Block 2: reciprocal calculator (try/except x4/finally) ----
 
@@ -343,8 +343,8 @@ class TestFormats:
         def format_gbp_currency(value):
             return f"£{value:.2f}"
 
-        assert format_gbp_currency(5) == "£5.00"
-        assert format_gbp_currency(12.346) == "£12.35"  # British rounding rules
+        assert format_gbp_currency(7.5) == "£7.50"
+        assert format_gbp_currency(8.126) == "£8.13"  # British rounding rules
 
 
 # =====================================================================
@@ -388,11 +388,11 @@ class TestFunctions:
         assert mod.name.__name__ == "name"
 
     def test_function_signatures(self):
-        def calculate_total_cost(price, tax_rate=0.20):  # 20% standard UK VAT
-            return price + (price * tax_rate)
+        def apply_discount(price, discount=0.10):
+            return price - (price * discount)
 
-        assert calculate_total_cost(100) == 120.0        # Uses default parameter
-        assert calculate_total_cost(100, 0.05) == 105.0   # Uses custom argument
+        assert apply_discount(200) == 180.0       # Uses default parameter
+        assert apply_discount(200, 0.25) == 150.0  # Uses custom argument
 
 
 # =====================================================================
@@ -411,10 +411,10 @@ class TestHelloWorld:
         assert len(out.strip().splitlines()) == 1
 
     def test_hello_world_greeting(self):
-        def get_greeting():
-            return "Hello, World!"
+        def farewell_message():
+            return "Goodbye, A.I.M!"
 
-        assert get_greeting() == "Hello, World!"
+        assert farewell_message() == "Goodbye, A.I.M!"
 
     def test_output_is_case_sensitive(self):
         _, out = run_script(self.FILE)
@@ -639,9 +639,9 @@ class TestNumbers:
 
     def test_numbers_maths_operators(self):
         # Modulo remainder logic
-        assert 10 % 3 == 1
+        assert 17 % 5 == 2
         # Exponent logic
-        assert 2 ** 3 == 8
+        assert 3 ** 4 == 81
 
     def test_divmod_returns_quotient_and_remainder_tuple(self):
         _, out = run_script(self.FILE)
@@ -801,18 +801,18 @@ class TestScopeResolution:
         or enclosing binding exists.
         """
         
-        x = "global"
+        x = 100
 
         def outer():
-            x = "enclosed"
+            x = 200
 
             def inner():
-                return x  # resolves to "enclosed", not "global"
+                return x  # resolves to 200, not 100
 
             return inner()
 
-        assert outer() == "enclosed"
-        assert x == "global"
+        assert outer() == 200
+        assert x == 100
 
 # =====================================================================
 # 12. SETS
@@ -884,11 +884,11 @@ class TestTuples:
         assert mod.result == 6  # 1 * 2 * 3
 
     def test_tuple_immutability(self):
-        london_coordinates = (51.5074, -0.1278)
-        assert london_coordinates[0] == 51.5074
+        rgb_colour = (255, 128, 0)
+        assert rgb_colour[0] == 255
 
         with pytest.raises(TypeError):
-            london_coordinates[0] = 52.0000  # type: ignore
+            rgb_colour[0] = 128  # type: ignore
 
 
 # =====================================================================
@@ -925,9 +925,9 @@ class TestTypeConversionTypeCasting:
         assert int(mod.c) == 3  # int(3.14) truncates to 3, doesn't round
 
     def test_type_casting(self):
-        assert int("42") == 42
-        assert float("3.14") == 3.14
-        assert str(2026) == "2026"
+        assert int("7") == 7
+        assert float("2.5") == 2.5
+        assert str(1999) == "1999"
 
 
 # =====================================================================
@@ -1000,13 +1000,13 @@ class TestVariables:
             run_script(self.FILE, inputs=["2", "not-a-number"])
 
     def test_variable_reassignment(self):
-        primary_score = 100
-        backup_score = primary_score
+        stock_count = 100
+        stock_record = stock_count
 
-        primary_score = 250
+        stock_count = 250
 
-        assert backup_score == 100
-        assert primary_score == 250
+        assert stock_record == 100
+        assert stock_count == 250
 
     def test_favourite_team_line_is_static(self):
         _, out = run_script(self.FILE, inputs=["1", "1"])
