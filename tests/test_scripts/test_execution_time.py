@@ -1,7 +1,9 @@
 """
 Pytest suite for scripts/execution_time.py - the dev harness that renders a
 `tree /f`-style directory map of the project and benchmarks every .py file
-under a user-selected folder (PASS / FAIL / TIMEOUT / ERROR + timings).
+under a user-selected folder (PASS / INTERACTIVE / TIMEOUT / FAIL / ERROR +
+timings). INTERACTIVE is separate from FAIL because 62 of the 183 files stop
+at an input() prompt, and folding those into FAIL hid the 2 real errors.
 
 subprocess.run is mocked in the benchmark tests so no real scripts spawn.
 """
@@ -199,6 +201,99 @@ class TestExecuteProjectScripts:
 
         assert "base.py" in out
         assert "TOTAL FILES: 1" in out
+
+
+class TestStatusClassification:
+    """
+    How a child's outcome maps to a status. 62 of the 183 files stop at an
+    input() prompt, and calling those FAIL buried the two real errors; the
+    separate INTERACTIVE status is what makes FAIL mean something.
+    """
+    def _row_for_solo(self, tmp_path, capsys, monkeypatch, returncode, stderr=""):
+        """
+        Returns the status word on solo.py's own report row. The report also
+        prints a legend naming every status, so assertions have to target the
+        row rather than the whole output.
+        """
+        (tmp_path / "solo.py").write_text("print(1)\n", encoding="utf-8")
+        monkeypatch.setattr(
+            "scripts.execution_time.subprocess.run",
+            lambda cmd, **kw: subprocess.CompletedProcess(
+                args=cmd, returncode=returncode, stdout="", stderr=stderr
+            ),
+        )
+        execute_project_scripts(tmp_path)
+        out = capsys.readouterr().out
+        for line in out.splitlines():
+            if "solo.py" in line:
+                for word in ("PASS", "INTERACTIVE", "TIMEOUT", "FAIL", "ERROR"):
+                    if word in line:
+                        return word
+        raise AssertionError(f"no status on solo.py's row:\n{out}")
+
+    def test_clean_exit_is_pass(self, tmp_path, capsys, monkeypatch):
+        assert self._row_for_solo(tmp_path, capsys, monkeypatch, 0) == "PASS"
+
+    def test_stopping_at_input_is_interactive_not_fail(self, tmp_path, capsys, monkeypatch):
+        status = self._row_for_solo(
+            tmp_path, capsys, monkeypatch, 1,
+            stderr="Traceback (most recent call last):\nEOFError: EOF when reading a line\n",
+        )
+        assert status == "INTERACTIVE"
+
+    def test_any_other_error_is_still_fail(self, tmp_path, capsys, monkeypatch):
+        status = self._row_for_solo(
+            tmp_path, capsys, monkeypatch, 1,
+            stderr="Traceback (most recent call last):\nImportError: cannot import name 'x'\n",
+        )
+        assert status == "FAIL"
+
+    def test_empty_stderr_failure_is_fail(self, tmp_path, capsys, monkeypatch):
+        # The harness must not infer interactivity from a bare non-zero exit
+        assert self._row_for_solo(tmp_path, capsys, monkeypatch, 1) == "FAIL"
+
+
+class TestChildEnvironment:
+    """
+    The interpreter the benchmark spawns, and the encoding its children get.
+    Both were wrong and both silently mis-scored files.
+    """
+    def test_benchmark_uses_the_running_interpreter_not_bare_python(self):
+        import sys as _sys
+        from scripts.execution_time import BENCHMARK_PYTHON
+        assert BENCHMARK_PYTHON == _sys.executable
+        assert Path(BENCHMARK_PYTHON).name.lower().startswith("python")
+
+    def test_child_env_forces_utf8_stdout(self):
+        from scripts.execution_time import CHILD_ENV
+        assert CHILD_ENV.get("PYTHONIOENCODING") == "utf-8"
+
+    def test_children_receive_the_env_and_utf8_decoding(self, tmp_path, capsys, monkeypatch):
+        (tmp_path / "solo.py").write_text("print(1)\n", encoding="utf-8")
+        seen = {}
+
+        def fake_run(cmd, **kwargs):
+            seen["cmd"] = cmd
+            seen["kwargs"] = kwargs
+            return subprocess.CompletedProcess(args=cmd, returncode=0, stdout="", stderr="")
+
+        monkeypatch.setattr("scripts.execution_time.subprocess.run", fake_run)
+        execute_project_scripts(tmp_path)
+        capsys.readouterr()
+
+        from scripts.execution_time import BENCHMARK_PYTHON
+        assert seen["cmd"][0] == BENCHMARK_PYTHON
+        assert seen["kwargs"]["env"]["PYTHONIOENCODING"] == "utf-8"
+        assert seen["kwargs"]["encoding"] == "utf-8"
+        assert seen["kwargs"]["errors"] == "replace"
+
+    def test_project_root_is_the_scripts_parent_not_a_baked_path(self):
+        # A literal machine path would break the harness on any other machine;
+        # deriving it from __file__ means the assertion is structural, not textual.
+        assert (PROJECT_ROOT / "scripts" / "execution_time.py").is_file()
+        source = SCRIPT_PATH.read_text(encoding="utf-8")
+        assert 'Path(r"C:' not in source
+        assert "Path(__file__).resolve().parent.parent" in source
 
 
 class TestMain:

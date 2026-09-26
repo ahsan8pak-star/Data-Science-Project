@@ -1,3 +1,4 @@
+import os
 import sys
 import time
 import subprocess
@@ -10,10 +11,27 @@ if hasattr(sys.stdout, "reconfigure"):
     except Exception:
         pass
 
-PROJECT_ROOT = Path(r"C:\Users\A.I.M\C.S\Data-Science-Project")
+# Derived from this file's own location (the tool lives in <root>/scripts/) so the
+# harness works on any machine and after a folder rename. Tests monkeypatch it.
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+# Benchmark the interpreter that is running the tool, which by the documented
+# command is the pinned venv one. Spawning a bare "python" resolved to the
+# system Python instead, so the report was measuring a different interpreter.
+BENCHMARK_PYTHON = sys.executable
+
+# Children inherit this so their own stdout is UTF-8 too. Without it a script
+# that prints box-drawing art dies with UnicodeEncodeError on a cp1252 console,
+# which the report then scores as a failure that is not the script's fault.
+CHILD_ENV = {**os.environ, "PYTHONIOENCODING": "utf-8"}
 
 # Generated / vendored folders and files skipped in the tree display (and never benchmarked)
 TREE_SKIP = {".git", ".venv", ".pytest_cache", "__pycache__", ".coverage", "htmlcov"}
+
+# A non-zero exit whose traceback ends at input() means the script wanted a
+# human, not that it is broken. That is a distinct outcome from hanging past
+# the timeout, and reporting it as FAIL buried it among real errors.
+INTERACTIVE_MARKER = "EOFError"
 
 
 def execute_project_scripts(target_directory):
@@ -39,16 +57,26 @@ def execute_project_scripts(target_directory):
             # Execute the file.
             # timeout = 2 is crucial to prevent scripts with input() loops from freezing the execution.
             process = subprocess.run(
-                ["python", str(file_path)],
+                [BENCHMARK_PYTHON, str(file_path)],
                 capture_output=True,
-                text=True,
+                encoding="utf-8",
+                errors="replace",
+                env=CHILD_ENV,
                 timeout=2
             )
 
-            status = "PASS" if process.returncode == 0 else "FAIL"
+            if process.returncode == 0:
+                status = "PASS"
+
+            elif INTERACTIVE_MARKER in (process.stderr or ""):
+                # Stopped asking for input, not broken
+                status = "INTERACTIVE"
+
+            else:
+                status = "FAIL"
 
         except subprocess.TimeoutExpired:
-            status = "TIMEOUT"  # Flags interactive files requiring user input
+            status = "TIMEOUT"  # Ran past the timeout without ever returning
 
         except Exception:
             status = "ERROR"  # Flags unexpected errors during execution
@@ -70,6 +98,16 @@ def execute_project_scripts(target_directory):
         print(f"{name:<105} {status:<15} {t:>6.3f}s")
 
     print("-" * 138)
+
+    tally = {}
+    for _, status, _t in results:
+        tally[status] = tally.get(status, 0) + 1
+
+    print(
+        "  PASS = ran and exited cleanly    INTERACTIVE = stopped at input()    "
+        "TIMEOUT = ran past 2s\n"
+        "  FAIL = raised a real error       ERROR      = harness could not launch it"
+    )
     print(f"TOTAL FILES: {len(results):<93} TOTAL TIME: {total_time:.2f}s")
     print("=" * 138 + "\n")
 
