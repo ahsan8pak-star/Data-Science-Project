@@ -192,17 +192,20 @@ not a formality.
     deleted — the same treatment as rules 3 and 4. Fixing one means editing
     `python/` *and* rewriting the test that documents it, which erases the
     record; that is the owner's call, not a cleanup. Still on the list,
-    with the test that pins each: `rock_paper_scissors.py:113` (always-truthy
-    `isdigit() != "r" or "p" or "s"`), `login_status.py:16` and `:19`
-    (truthiness used where a comparison to `"T"` is needed, so "Stop Lying"
-    is unreachable and the `elif` ignores `is_new`), and
-    `area_of_circle.py` (no `__main__` guard). `modules.py` is deliberately
+    with the test that pins each: the always-truthy
+    `isdigit() != "r" or "p" or "s"` in `rock_paper_scissors.py`'s
+    `play_round()`, the two predicates in `login_status.py`'s
+    `check_access_status()` (truthiness used where a comparison to `"T"` is
+    needed, so "Stop Lying" is unreachable and the `elif` ignores
+    `is_new`), and `area_of_circle.py` (no `__main__` guard). `modules.py` is
+    deliberately
     **not** on this list — the `e` shadowing is the "Module Conflict Example"
     the file exists to demonstrate. Two defects have been repaired rather
     than pinned, because both made the program lie or crash: the `:.2f` on
-    an error string in `arithmetic_expressions.py`, which killed the results
-    loop and reported bad input for valid numbers, and the uncaught
-    `IndexError` on an empty answer in `login_status.py`. Full detail in
+    an error string in `arithmetic_expressions.py`'s `format_result()`,
+    which killed the results loop and reported bad input for valid numbers,
+    and the uncaught `IndexError` on an empty answer in `login_status.py`.
+    Full detail in
     `NOTES.md`.
 
 ## Term-Time Operating Cadence
@@ -278,16 +281,24 @@ structured history and keep the log scannable:
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1335 passing tests, ~99% line coverage and 98% branch coverage (174 of
-  the 183 tracked `python/` files at 100% lines, including both
+- 1335 passing tests, ~99% line coverage and 98% branch coverage (173 of the
+  182 measured `python/` files at 100% lines, including both
   music-player GUIs; the one never-imported file is
-  `imperative_programming/fundamental_topics/main.py`). Branch coverage is
+  `imperative_programming/fundamental_topics/main.py`, and the 161
+  non-`__init__.py` files are the number a docstring sweep covers). Branch
+  coverage is
   enabled in `[tool.coverage.run]` because line coverage alone read 99%
   while 99 branch directions had never executed - `sine_rule.py` was at
   100% lines with 21 of its 92 branches unexercised. A 2026 audit closed
-  49 of those arcs (38 tests); the 50 still open are 10 in the documented
-  dead-by-design caps, 18 `if __name__ == "__main__"` import guards on
-  leaf scripts, and 22 assorted single edges. The two
+  49 of those arcs (38 tests); **53 remain open across 28 files**. An earlier
+  draft split those into "10 in caps, 18 import guards, 22 assorted", but that
+  arithmetic was never verifiable: coverage only names 16 of the 53 arcs (the
+  other 37 carry no line numbers in the report), so any precise per-category
+  split is a guess. What is solid: 21 of them are in the four documented
+  dead-by-design caps (`conditions.py` 12, `dictionaries.py` 4,
+  `variables.py` 3, `generator.py` 2), the largest single contributor being
+  `conditions.py`, whose hardcoded `temperature = 25` makes most of its
+  branches unreachable. The rest are spread thin, one or two per file. The two
   newest functional teaching files are `functools_module.py` (cache,
   lru_cache, partial, reduce, singledispatch, wraps) and
   `statistics_module.py` (12 core measures) - the latter sits in the
@@ -306,19 +317,22 @@ structured history and keep the log scannable:
   runs scripts via `runpy` with mocked `input()` / `time.sleep()` and
   optional `cwd` for file-writing tests.
 - Coverage caps by design (do NOT "fix" the scripts to chase lines): the
-  remaining 29 uncovered lines sit only in the eight capped scripts.
-  `variables.py` (~84%) has hardcoded booleans whose nested
-  "Stop Lying"/"Accident or Intented?"/offline branches are unreachable
-  without editing source; OOP `generator.py` (~92%) has a dead
+  remaining 30 uncovered lines sit only in the nine capped scripts -
+  `variables.py` (8), `conditions.py` (6), `generator.py` (5),
+  `dictionaries.py` (4), `abstract_classes.py` (2), `device.py` (2), and one
+  each in `login_status.py`, `polymorphism.py` and `rock_paper_scissors.py`.
+  `variables.py` (75%) has hardcoded booleans whose nested
+  "Stop Lying"/"Accident or Intended?"/offline branches are unreachable
+  without editing source; OOP `generator.py` (90%) has a dead
   `elif execution_time >= 3600` branch that can never fire after the
-  earlier `>= 60` elif; both sit above the 80% floor. Additional
+  earlier `>= 60` elif. Additional
   dead-by-design caps documented during the full-path sweep:
-  `conditions.py` (96%) hardcodes `temperature = 25` / `name = "A.I.M"` so the
+  `conditions.py` (92%) hardcodes `temperature = 25` / `name = "A.I.M"` so the
   hot/bit-cold/cold branches and the name-while-loop body can never run;
-  `dictionaries.py` (93%) calls `capitals.clear()` before its keys()/values()/
+  `dictionaries.py` (88%) calls `capitals.clear()` before its keys()/values()/
   items() loops so those loop bodies are unreachable; `abstract_classes.py`
   (92%), `device.py` (96%) and `polymorphism.py` (97%) keep `pass` bodies
-  inside abstract methods that can never be invoked; `login_status.py` (96%)
+  inside abstract methods that can never be invoked; `login_status.py` (93%)
   compares a bound method to a string (`is_admin[0].upper == "T"`), which is
   never True.
 - `scripts/execution_time.py`: interactive `tree /f`-style project map +

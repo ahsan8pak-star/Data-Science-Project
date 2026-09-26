@@ -407,17 +407,25 @@ falsy path (a blank answer returning `None`) never ran. Files taken to
 `wav_gui_player.py` (7), `cosine_rule.py` (4), `grocery_caloric_list.py`
 (4). `triangle_calculator.py` closed 6 of 7.
 
-**The 50 arcs still open, and why:**
+**The 53 arcs still open, and why (28 files):**
 
-| Count | Category |
-| --- | --- |
-| 10 | The 4 documented dead-by-design caps (`conditions.py`, `dictionaries.py`, `variables.py`, `generator.py`) - unreachable without editing source |
-| 18 | `if __name__ == "__main__":` import guards on leaf scripts. Reachable, but only by importing each file under a second name, and it asserts nothing about behaviour. Already covered for the two composite scripts siblings actually import (`triangle_calculator.py`, `grocery_caloric_list.py`) |
-| 22 | Assorted single edges, 1-2 per file |
+| Category | Count | Confidence |
+| --- | --- | --- |
+| The 4 documented dead-by-design caps - `conditions.py` 12, `dictionaries.py` 4, `variables.py` 3, `generator.py` 2 | 21 | Exact. `conditions.py` alone is 12 arcs, all from its hardcoded `temperature = 25` making the hot/bit-cold/cold branches unreachable |
+| Everything else | 32 | Spread thin, 1-2 per file across 24 files |
+
+A previous draft of this table claimed "10 caps / 18 `__main__` import guards /
+22 assorted". That split was never verifiable and has been withdrawn: coverage
+names only 16 of the 53 arcs in its `Missing` column (the other 37 appear as a
+count with no line numbers), so the guard and "assorted" figures were
+inference dressed up as measurement. Of the 16 named, exactly one is a
+`__main__` guard (`generator.py`) and 9 sit in the caps. Treat any
+per-category breakdown beyond the caps as unknown until the remaining arcs are
+named individually.
 
 **One is a genuine source bug, not a test gap.**
-`rock_paper_scissors.py:113` reads
-`if player_choice.isdigit() != "r" or "p" or "s":`. `!=` binds tighter
+Inside `rock_paper_scissors.py`, in `play_round()`, the invalid-input check
+reads `if player_choice.isdigit() != "r" or "p" or "s":`. `!=` binds tighter
 than `or`, so it parses as `(player_choice.isdigit() != "r") or "p" or
 "s"`, and a non-empty string is always truthy - the condition is
 **always true**, so the "Invalid input" branch fires on every valid choice
@@ -443,8 +451,8 @@ merely demonstrates a dead branch is not.
 
 | Script | Defect | Pinned by |
 | --- | --- | --- |
-| `rock_paper_scissors.py:113` | `isdigit() != "r" or "p" or "s"` is always truthy, so "Invalid input" prints on every valid move | `TestRockPaperScissors::test_invalid_input_message_always_prints` |
-| `login_status.py:16` **and `:19`** | Two *different* mistakes, one symptom. At `:16` neither operand is valid: `is_student[0].upper` is an un-called bound method (always truthy) and `is_admin[0].upper == "T"` compares a method object to a string (always False), so the AND is always False and "Stop Lying" can never print. At `:19` `is_new[0].upper()` *is* called correctly and returns `"T"` or `"F"`, but the result is then used directly as a boolean - and both are non-empty strings, so it is always truthy. The `elif` therefore degrades to a bare `is_regular` check that silently ignores `is_new` | `TestLoginStatus::test_stop_lying_branch_is_actually_unreachable` |
+| `rock_paper_scissors.py`, in `play_round()` | `isdigit() != "r" or "p" or "s"` is always truthy, so "Invalid input" prints on every valid move | `TestRockPaperScissors::test_invalid_input_message_always_prints` |
+| `login_status.py`, in `check_access_status()` | Two *different* mistakes, one symptom. On the first predicate neither operand is valid: `is_student[0].upper` is an un-called bound method (always truthy) and `is_admin[0].upper == "T"` compares a method object to a string (always False), so the AND is always False and "Stop Lying" can never print. On the `elif` `is_new[0].upper()` *is* called correctly and returns `"T"` or `"F"`, but the result is then used directly as a boolean - and both are non-empty strings, so it is always truthy. The `elif` therefore degrades to a bare `is_regular` check that silently ignores `is_new` | `TestLoginStatus::test_stop_lying_branch_is_actually_unreachable` |
 | `area_of_circle.py` | Defines `calculate_area()` and `area_of_circle()` but has no `__main__` guard, so running the file does nothing at all | `TestAreaOfCircle::test_running_directly_produces_no_output_at_all` |
 
 Two corrections to an earlier draft of this section, both found by reading
@@ -470,17 +478,18 @@ convention, but they are also the clearest single measure of how much of
 Fixing any of these means editing `python/` **and** rewriting the test that
 documents it, which erases the record. That is a deliberate call for the
 owner, not a cleanup. Two further arcs are unreachable rather than buggy:
-`triangle_calculator.py:56` (the elif chain is exhaustive once
-`missing != 1` has returned) and `file_handling.py:17` (the path is
-hardcoded to a real file at line 9, so it can never be a directory).
+`triangle_calculator.py`, where the `elif` chain is exhaustive once
+`missing != 1` has returned, and `file_handling.py`, whose `os.path.isdir`
+branch can never fire because `file_path` is built from a filename that exists,
+so it is never a directory.
 
 ### Unhandled crash paths — fixed, but kept here as the record
 
 `login_status.py` indexed the first character of every answer, so an empty
 answer raised an uncaught `IndexError` - the `except ValueError:` at line
 37 could not catch that type. Two confirmed paths: an empty answer to any
-of the five prompts (`:16` reaches `is_student[0]` first) and an empty
-answer to "Accident or Intended?" (`:22` reaches `choice[0]`). Verified
+of the five prompts (the first predicate reached is `is_student[0]`) and an
+empty answer to "Accident or Intended?" (`choice[0]`). Verified
 identical before and after the predicate repair, so the dead branches
 neither caused nor cured them.
 
@@ -498,17 +507,20 @@ merely demonstrates a dead branch.
 
 | Script | Was | Now |
 | --- | --- | --- |
-| `arithmetic_expressions.py:20` | `format_result()`'s `/` branch applied `:.2f` unconditionally, so a zero divisor raised `ValueError`, was swallowed by `calculate()`'s own handler, and the results loop died at `/` - so `%`, `//` and `**` never printed and the user was told "Invalid input" about two valid numbers | the branch type-checks first, so all seven operators print, `/` `%` and `//` show the real "Error: Undefined..." message, and `** 0 = 1` is no longer lost |
-| `login_status.py:37` | uncaught `IndexError` on an empty answer, at two separate sites | caught and reported; clean exit |
+| `arithmetic_expressions.py`, in `format_result()` | The `/` branch applied `:.2f` unconditionally, so a zero divisor raised `ValueError`, was swallowed by `calculate()`'s own handler, and the results loop died at `/` - so `%`, `//` and `**` never printed and the user was told "Invalid input" about two valid numbers | the branch type-checks first, so all seven operators print, `/` `%` and `//` show the real "Error: Undefined..." message, and `** 0 = 1` is no longer lost |
+| `login_status.py`, the module-level handler | uncaught `IndexError` on an empty answer, at two separate sites | `except (ValueError, IndexError)`, so both are caught and reported; clean exit |
 
 Neither fix changed line or branch coverage materially (99% lines, 50 open
 branch directions, unchanged), and both are covered by tests that were
 confirmed to fail against the unfixed source.
 
 Judgement on the original question - is the per-file allocation reasonable?
-**Broadly yes, with volume inverted at the margins.** 174 of 183 files are
-at 100% lines and 149 of 182 branch-bearing files at 100% branches, so
-nothing meaningful is untested. The five 9-line operator scripts
+**Broadly yes, with volume inverted at the margins.** 173 of 182 measured files
+are at 100% lines, and 75 of the 103 files that contain a branch at all are at
+100% branches, so nothing meaningful is untested. (An earlier draft of this
+line said "149 of 182 branch-bearing files", which counted *all* files as
+branch-bearing; only 103 contain a branch, so 75 is the honest denominator and
+the 149 figure was never meaningful.) The five 9-line operator scripts
 (`add/divide/subtract/multiply/square.py`) hold 24 tests between them, which
 is far more than their single `def` needs - kept deliberately, since each
 test demonstrates a boundary case and this is a teaching portfolio. The
@@ -580,5 +592,6 @@ text, and nothing else in `python/` uses them.
   cosmetic only; Python's grammar allows it and all nine call sites use
   `arithmetic(...)` normally. Tidied since it was zero-risk, but it was never
   a bug, and the analysis that called it "impossible to call" was wrong.
-- **The 3 remaining pinned defects** (`rock_paper_scissors.py:153`,
-  `login_status.py` predicates, `area_of_circle.py` guard) stay per rule 11.
+- **The 3 remaining pinned defects** (the always-truthy invalid-input check in
+  `rock_paper_scissors.py`'s `play_round()`, the `login_status.py` predicates,
+  and the missing guard in `area_of_circle.py`) stay per rule 11.
