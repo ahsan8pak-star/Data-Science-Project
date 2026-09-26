@@ -515,7 +515,7 @@ branch directions, unchanged), and both are covered by tests that were
 confirmed to fail against the unfixed source.
 
 Judgement on the original question - is the per-file allocation reasonable?
-**Broadly yes, with volume inverted at the margins.** 173 of 182 measured files
+**Broadly yes, with volume inverted at the margins.** 171 of 182 measured files
 are at 100% lines, and 75 of the 103 files that contain a branch at all are at
 100% branches, so nothing meaningful is untested. (An earlier draft of this
 line said "149 of 182 branch-bearing files", which counted *all* files as
@@ -682,3 +682,34 @@ Worth separating from that: `iterator.py` also contains a non-ASCII `->`
 arrow, but only inside **comments**, so it can never reach stdout and is not a
 crash risk. A repo-wide scan for characters unencodable in `cp1252` found just
 two files, and only one of them prints them.
+
+### What the runnability fix cost, stated plainly
+
+Making those two files runnable outside pytest **raised the uncovered-line
+count from 30 to 38**, and both figures are now in `AGENTS.md`. The 8 new
+lines are the `except ImportError:` fallback bodies (three in `classes.py`, one
+in `drink_script_example.py`) plus the `sys.path.append(...)` block. None of
+them can ever execute under a test run, because `pythonpath = ["python"]`
+satisfies the first import and the fallback is never reached.
+
+That is the same shape as the 18 `__main__` import-guard arcs already open, and
+the trade was taken deliberately: 8 permanently-uncovered lines in exchange for
+two files that run at all. The alternative - leaving `classes.py` and
+`drink_script_example.py` raising `ModuleNotFoundError` on every direct
+invocation - is strictly worse for a portfolio, so the lines were spent.
+
+The alternative of tagging the fallbacks `# pragma: no cover` was considered
+and rejected: the repo has no pragma convention today, and introducing one to
+hide 8 lines is a larger change than the problem. If that convention is ever
+adopted, these 8 lines and the `except ImportError` block in
+`classes.py`/`drink_script_example.py` are the natural first candidates.
+
+### Side effect worth knowing about
+
+Running every script as a real process wrote `qrcode.png` and
+`transactionv1.xlsx` into the repository root, because `qrcode_generator.py`
+and `transactions.py` save relative to the **current working directory** - the
+intentional behaviour pinned by AGENTS.md rules 3 and 4. Neither file is
+gitignored, so a `git add .` after running the audit would have committed both.
+They were deleted. If a future run produces them again, that is the reason, and
+it is not a bug to fix.

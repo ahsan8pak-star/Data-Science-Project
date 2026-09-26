@@ -281,7 +281,7 @@ structured history and keep the log scannable:
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1335 passing tests, ~99% line coverage and 98% branch coverage (173 of the
+- 1335 passing tests, ~99% line coverage and 98% branch coverage (171 of the
   182 measured `python/` files at 100% lines, including both
   music-player GUIs; the one never-imported file is
   `imperative_programming/fundamental_topics/main.py`, and the 161
@@ -317,10 +317,17 @@ structured history and keep the log scannable:
   runs scripts via `runpy` with mocked `input()` / `time.sleep()` and
   optional `cwd` for file-writing tests.
 - Coverage caps by design (do NOT "fix" the scripts to chase lines): the
-  remaining 30 uncovered lines sit only in the nine capped scripts -
-  `variables.py` (8), `conditions.py` (6), `generator.py` (5),
-  `dictionaries.py` (4), `abstract_classes.py` (2), `device.py` (2), and one
-  each in `login_status.py`, `polymorphism.py` and `rock_paper_scissors.py`.
+  remaining 38 uncovered lines sit only in the eleven capped scripts -
+  `variables.py` (8), `conditions.py` (6), `classes.py` (6),
+  `generator.py` (5), `dictionaries.py` (4), `abstract_classes.py` (2),
+  `device.py` (2), `drink_script_example.py` (2), and one each in
+  `login_status.py`, `polymorphism.py` and `rock_paper_scissors.py`. The 8
+  lines in `classes.py` and `drink_script_example.py` are the
+  `except ImportError:` fallback bodies and the `sys.path` block added when
+  those two files were made runnable outside pytest; they cannot execute under
+  a test run, because `pythonpath = ["python"]` satisfies the first import
+  before the fallback is ever reached. That is the deliberate price of two
+  files that run at all - see the runnability audit in `NOTES.md`.
   `variables.py` (75%) has hardcoded booleans whose nested
   "Stop Lying"/"Accident or Intended?"/offline branches are unreachable
   without editing source; OOP `generator.py` (90%) has a dead
