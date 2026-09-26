@@ -1,7 +1,7 @@
-# Mad libs is a game where you guess what word it would be for the next sentence
-# This program will only take user inputs alone for this.
+# Mad libs is a game where the player guesses the word that fits the next sentence
+# This program only takes user inputs alone for this.
 
-import random # essentaial to randomise the placements of certain language techniques.
+import random # essential to randomise the placements of certain language techniques.
 
 
 # Verse 1

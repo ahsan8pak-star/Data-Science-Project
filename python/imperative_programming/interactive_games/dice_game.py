@@ -58,7 +58,7 @@ def play_dice_race():
     
             # Display Current Board Standings
             # Centre alignment (^) for desirable TUI
-            # Player centre alignment one less due to its extra whitepace
+            # Player centre alignment one less due to its extra whitespace
             print("\n==============================================")
             print(f"| {'CURRENT SCORE':^42} |") 
             print("==============================================")
@@ -79,8 +79,8 @@ def play_dice_race():
             player_dice = [] 
             player_round_score = 0
         
-            # Loop exactly the number of times decided by our random dice count
-            # Use '_' for variable name due to the lack of tracking index numbers i.e. unecessary
+            # Loop exactly the number of times decided by the random dice count
+            # Use '_' for variable name due to the lack of tracking index numbers i.e. unnecessary
             for _ in range(num_of_dice):
 
                 roll = random.randint(1, 6) # 1 to 6 -> both inclusive

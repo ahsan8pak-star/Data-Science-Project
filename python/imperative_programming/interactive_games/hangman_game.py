@@ -23,7 +23,7 @@ hangman_art = {0: ("   ",
                    "/ \\")}
 
 # Below is a word bank. It doesn't have to be about animals nor does it have to be extensively long
-# Using a tuple is great for this since it's an Ordered, Unchangable array of items
+# Using a tuple is great for this since it's an Ordered, Unchangeable array of items
 
 animals = ("aardvark", "alligator", "alpaca", "ant", "anteater", "antelope", "ape", "armadillo", 
          "baboon", "badger", "bat", "bear", "beaver", "bee", "bison", "boar", "buffalo", "butterfly", 

@@ -5,7 +5,7 @@ import random
 # Has to be lowercase to avoid functional errors based on line 27-28
 word_bank = ['python', 'java', 'lua', 'gitlab', 'github', 'copilot', 'powershell', 'linux', 'windows', 'arch', 'ubuntu'] 
 
-# Outer loop: Keeps the whole game restarting so you can play multiple rounds
+# Outer loop: Keeps the whole game restarting so the player can play multiple rounds
 while True: 
 
     # Randomly picks one word from the word bank list
@@ -44,13 +44,13 @@ while True:
         # Runs if the guessed letter is not in the word
         else:
         
-            # Subtracts 1 from your remaining turns
+            # Subtracts 1 from the player's remaining turns
             attempts -= 1
         
             # Tells the player they missed and shows how many turns are left
             print('Wrong guess! Attempts left: ' + str(attempts)) 
             
-        # Checks if there are no underscores left (meaning you found all the letters)
+        # Checks if there are no underscores left (meaning all the letters have been found)
         if '_' not in guessedWord:
         
             # Celebrates the win and shows the completed word
@@ -59,7 +59,7 @@ while True:
             # Stops the game loop immediately
             break
 
-    # Runs if you run out of turns and the word is still hidden
+    # Runs if the player runs out of turns and the word is still hidden
     if attempts == 0 and '_' in guessedWord:
 
         # Game over message and reveals the final answer
