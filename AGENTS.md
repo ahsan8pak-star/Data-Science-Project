@@ -122,6 +122,20 @@ Shared weak spot to guard: all three pattern-match open prompts like
 Goal/Files/Constraints block exists precisely because of that - it is
 not a formality.
 
+### Free-tier model rotation (OpenCode)
+
+The seven free OpenCode models rotated are: Big Pickle Free,
+Space Bunny Free, Nemotron 3.5 Lightning Free, Nemotron 3 Ultra
+Free, Ling 3.0 Flash Fin Free, Muse Spark 1.3 Free and MiMo
+-V2.6-Flash Free. Rotation is selected in the OpenCode console,
+not from inside a conversation — an agent cannot switch its own
+model mid-session.
+
+This conversation runs on `space-bunny-free`. The same discipline
+applies regardless of model: give a Goal/Files/Constraints block,
+and treat any model's line-level claims as candidates to verify
+against the repo rather than ground truth.
+
 ## Running Things
 
 | Task | Command |
