@@ -16,7 +16,31 @@ OOP files build on. The sibling import below was originally misspelled
 car.py 
 """
 
-from object_oriented_programming.syntax_fundamentals.car import Car # from car.py import class Car()
+import os
+import sys
+
+# [AI-authored fix] Car, Person and Point live in a *different* folder
+# (syntax_fundamentals/), so unlike a same-folder sibling they are not on
+# sys.path by default. This is the sys.path idiom triangle_calculator.py
+# already uses for its cross-folder imports; without it this file only runs
+# under pytest, where pythonpath = ["python"] supplies the package instead.
+sys.path.append(
+    os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+        "syntax_fundamentals",
+    )
+)
+
+# The bare `object_oriented_programming....` paths below only resolve when
+# python/ is on sys.path, which pytest arranges via pythonpath = ["python"]
+# but a plain `python <file>` run does not. The try/except pairs are the
+# fallback idiom already used by arithmetic_expressions.py and
+# arithmetic_iteration.py, so the file runs both under pytest and directly.
+try:
+    from object_oriented_programming.syntax_fundamentals.car import Car # from car.py import class Car()
+
+except ImportError:
+    from car import Car
 
 car1 = Car("Toyata Supra", 1998, "White", True)
 
@@ -67,7 +91,11 @@ car2.description()
 person.py
 """
 
-from object_oriented_programming.syntax_fundamentals.person import Person
+try:
+    from object_oriented_programming.syntax_fundamentals.person import Person
+
+except ImportError:
+    from person import Person
 
 person1 = Person("Ahsan", 21, True)
 person2 = Person("Hamza", 20, False)
@@ -82,7 +110,11 @@ person3.talk()
 point.pt
 """
 
-from object_oriented_programming.syntax_fundamentals.point import Point
+try:
+    from object_oriented_programming.syntax_fundamentals.point import Point
+
+except ImportError:
+    from point import Point
 
 point1 = Point() # variable = class
 point1.draw() # "draw"
