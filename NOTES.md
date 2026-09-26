@@ -142,7 +142,7 @@ remain byte-frozen in the owner lane; probes are the agent lane.
       `dictionaries.py` gained a `setdefault()` block; both open lanes,
       probes committed)
 - [x] **Final — full suite + coverage caps exact + LF invariants** (runs on
-      every pass-through; suite green 1343 at ~99% line and 98% branch
+      every pass-through; suite green 1350 at ~99% line and 98% branch
       coverage, with the same
       29 dead-by-design lines in exactly the 8 documented caps)
 
@@ -762,3 +762,53 @@ not repaired.** They still stop at an `input()` prompt, exactly as before. What
 changed is that the report now says so, which is what makes the remaining 2
 visible. Suite 1335 -> 1343 (8 new tests for the harness, which is at 99%
 coverage on its own lines once measured with `--cov=scripts`).
+
+## CWD-relative artefacts and the PR reviewer (Sat 26 Sep 2026)
+
+The question was what happens to someone who clones the repo, checks out a
+branch, and runs things - because a contributor should not be able to commit a
+generated binary by accident.
+
+Measured first, rather than assumed:
+
+- **A full `pytest` run writes nothing to the repo root.** Deleted both
+  artefacts, ran all 1350 tests, and the working tree stayed clean. The suite
+  already does the right thing: `transactions.py` and `qrcode_generator.py` are
+  tested with `monkeypatch.chdir(tmp_path)`, and `file_writer.py` writes
+  `aim.txt` / `output.txt` / `activity_log.txt` / `output.json` / `output.csv`
+  the same way. That is the same discipline the mp3 and wav player tests use
+  when they take a `tmp_path` folder.
+- **The benchmark is the real source.** `execution_time.py` launches all 183
+  files with the repo root as CWD, so `transactions.py` drops
+  `transactionv1.xlsx` there. Reproduced: run the benchmark, the file appears.
+- **A manual terminal run drops both.** `qrcode_generator.py` with input writes
+  `qrcode.png` to `os.getcwd()`. Under the benchmark it never gets that far -
+  it raises `EOFError` at the prompt before reaching the save - which is why
+  the benchmark creates one artefact and a human creates two.
+
+Every CWD-writing script was then checked against `.gitignore`, and the gap was
+smaller than expected - only two of the seven artefacts were unprotected:
+
+| Artefact | Written by | Already ignored? |
+| --- | --- | --- |
+| `transactionv1.xlsx` | `transactions.py` | **no - gap** |
+| `qrcode.png` | `qrcode_generator.py` | **no - gap** |
+| `aim.txt`, `output.txt`, `activity_log.txt` | `file_writer.py` | yes, by the global `*.txt` rule |
+| `output.json`, `output.csv` | `file_writer.py` | yes, already listed explicitly |
+
+The two gaps are now ignored with a root-anchored path, added to the existing
+"Root-level generated artifacts" section rather than a new one, and the comment
+there records why the behaviour is intentional (AGENTS.md rules 3 and 4) so
+nobody "fixes" the ignore rule instead of the script.
+
+`tests/test_scripts/test_repo_hygiene.py` is the guard, so the hazard cannot be
+reintroduced silently. Seven tests: each artefact must be ignored, must not be
+tracked, and must be absent from the working tree. Both ignore tests were
+verified to fail when the two `.gitignore` lines are removed, and the
+working-tree tests verified to fail with the file present.
+
+A `.gitkeep` was considered and is not wanted here: the folder these would
+live in is the repository root, which must not gain an empty placeholder, and
+the existing `/.gitkeep` rule is already there for a different reason.
+
+Suite 1343 -> 1350.

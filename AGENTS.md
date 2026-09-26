@@ -134,6 +134,7 @@ not a formality.
 | Clickable HTML coverage report | `.venv/Scripts/python.exe -m pytest --cov=python --cov-report=html` (writes to ignored `htmlcov/`) |
 | Interactive project tree + benchmark | `.venv/Scripts/python.exe scripts/execution_time.py` |
 | Project tree in non-interactive `--all` mode | `.venv/Scripts/python.exe scripts/execution_time.py --all` |
+| Repo hygiene guards (CWD artefacts stay ignored) | `.venv/Scripts/python.exe -m pytest tests/test_scripts/test_repo_hygiene.py` |
 
 > Use the Windows venv python (`.venv/Scripts/python.exe`), NOT a plain `python`
 > / `python3` — the repo is pinned to that interpreter.
@@ -153,7 +154,11 @@ not a formality.
    with `monkeypatch.chdir(tmp_path)`.
 4. **`qrcode_generator.py` saves PNGs relative to the CWD** (uses
    `os.getcwd()`), so tests can point it at `tmp_path`. Do not hardcode the
-   script's own directory.
+   script's own directory. Both of these outputs are `.gitignore`d at the
+   repo root — running either script from the root, or the
+   `execution_time.py` benchmark (which launches all files with the root as
+   CWD), drops the artefact there. `tests/test_scripts/test_repo_hygiene.py`
+   guards that, so a contributor cannot reintroduce the hazard.
 5. **Keep the OOP lane frozen and the imperative lane clean** — files added to
    `python/imperative_programming/` should match their folder's theme exactly
    (`syntax_exercises`, `unit_and_format_converters`, `interactive_games`,
@@ -281,7 +286,7 @@ structured history and keep the log scannable:
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1343 passing tests, ~99% line coverage and 98% branch coverage (171 of the
+- 1350 passing tests, ~99% line coverage and 98% branch coverage (171 of the
   182 measured `python/` files at 100% lines, including both
   music-player GUIs; the one never-imported file is
   `imperative_programming/fundamental_topics/main.py`, and the 161
