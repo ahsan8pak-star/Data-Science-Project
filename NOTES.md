@@ -39,7 +39,7 @@ items roll into Summer 2027 Block II below.)*
 
 - [ ] **Week 6 — Enterprise relational storage** (PostgreSQL, psycopg2, SQL Shell, GitLab): schema configuration, normalisation, relational keys, `.groupby()` aggregates; `aim.sql` is still an empty stub — reserved only; 28–35 h/wk
     - [ ] PostgreSQL Data Analysis — [codedex.io](https://www.codedex.io/projects/analyze-twitch-data-with-sqlite)
-- [x] **Week 7 — Scientific & computational mathematics** (SciPy, NumPy, VS Code, GitHub): probability density curves, variance models, dataset transformations over the personal Xbox 360 catalog; 28–35 h/wk
+- [x] **Week 7 — Scientific & computational mathematics** (SciPy, NumPy, VS Code, GitHub): probability density curves, variance models, dataset transformations over the personal Xbox 360 catalogue; 28–35 h/wk
     - [x] Custom library analysis with SciPy — [codedex.io](https://www.codedex.io/projects/analyze-us-census-data-with-scipy)
 - [x] **Week 8 — Time-series data wrangling** (Pandas, Matplotlib, VS Code, GitLab): multi-index patterns, slicing, moving averages, league sorting; rolling averages and point differentials; 28–35 h/wk
     - [x] Premier League stats analysis — [codedex.io](https://www.codedex.io/projects/analyze-baseball-stats-with-pandas-and-matplotlib)
@@ -192,7 +192,7 @@ Re-score the Programming Level snapshot before Block II starts (early Jun).
 | Development Target | Core Focus Area | Full Verification Resource URL |
 | --- | --- | --- |
 | **Systems Architecture** | AI & Data Scientist Infrastructure Guide | [https://roadmap.sh/ai-data-scientist](https://roadmap.sh/ai-data-scientist) |
-| **Analytics Portfolios** | Production Business Case Modeling Tracks | [https://learn.365datascience.com/projects/](https://learn.365datascience.com/projects/) |
+| **Analytics Portfolios** | Production Business Case Modelling Tracks | [https://learn.365datascience.com/projects/](https://learn.365datascience.com/projects/) |
 | **Enterprise GenAI** | Large Language Model Vector and Application Implementations | [https://www.projectpro.io/genai-projects](https://www.projectpro.io/genai-projects) |
 | **Core Data Science** | Scaled Production Industrial Implementations | [https://www.projectpro.io/projects/data-science-projects](https://www.projectpro.io/projects/data-science-projects) |
 | **Applied ML Algorithms** | Supervised and Unsupervised Machine Learning Frameworks | [https://www.projectpro.io/projects/data-science-projects/machine-learning-projects-in-python](https://www.projectpro.io/projects/data-science-projects/machine-learning-projects-in-python) |

@@ -60,9 +60,9 @@ All fundamental and applied topics learnt in their respective folder, known as `
 | Class Methods | **Alternative to `Static Methods`. *Go to `Nested Classes` and `Static Methods` for further context*** |
 | Magic Methods | **Branch of `Class Methods` and `Constructors`. *Refer to `Nested Classes` for further context*** |
 | Decorator | **Unique method used to make functions into attributes. *Go to `Abstract Methods` and `Class Methods` for more information*** |
-| Property | **Combination of functions as attributes i.e. objects functioning as its own attributes. *Go to `Decorator` , `Magic Methods` and `Class Methods` for its full responses*** |
+| Property | **Combination of functions as attributes i.e. objects functioning as its own attributes. *Go to `Decorator`, `Magic Methods` and `Class Methods` for its full responses*** |
 | Iterator | **`__iter__` and `__next__` as OOP alternatives to `while` loops and (index) increments respectively** |
-| Generator | **`yeild` method as an alternative to `return` within `def` blocks i.e. an iterator function** |
+| Generator | **`yield` method as an alternative to `return` within `def` blocks i.e. an iterator function** |
 
 ---
 
@@ -165,7 +165,7 @@ All python files have been made into their respective folders from each programm
 | Activity Log.txt | *Go to `File Handling` for more* |
 | Add | **`+` -> Addition** |
 | AIM.txt | *Go to `File Writer` for more* |
-| Alarm Clock | **`import datetime`, `import time` ,`import os` and `import pygame`, with the application of alarm clocks via personalised / customised sound files when time's up** |
+| Alarm Clock | **`import datetime`, `import time`, `import os` and `import pygame`, with the application of alarm clocks via personalised / customised sound files when time's up** |
 | Banking Program | **Applied arithmetic formulas under fintech, error catching, `def` functions and `match case` with TUI displays** |
 | Checkout System | **User `input()` and type conversions** |
 | Count Up Timer | **Foundational default arguments and `import time`** |
@@ -265,11 +265,11 @@ This is where university modules and its coursework goes under for the applicati
 
 | File Name | Topics Covered |
 | --- | --- |
-| Average Grades | **`Python Fundamental Topics` -> `Imperative Programming` -> `Lists & Matrices` , `Loops & State Control` , `Conditions & Control Flow` , `Functions` and `Main`** |
+| Average Grades | **`Python Fundamental Topics` -> `Imperative Programming` -> `Lists & Matrices`, `Loops & State Control`, `Conditions & Control Flow`, `Functions` and `Main`** |
 | Hello | **`Python Fundamental Topics` -> `Imperative Programming` -> `Environment & Execution`** |
-| Ice Cream | **`Python Fundamental Topics` -> `Imperative Programming` -> `Conditions & Control Flow` , `Loops & State Control` and `Exceptions`** |
-| Seven Segment | **`Python Fundamental Topics` -> `Imperative Programming` -> `Lists & Matrices` , `Loops & State Control` , `Conditions & Control Flow` , `Functions` and `Main`** |
-| Volume | **`Python Fundamental Topics` -> `Imperative Programming` -> `Functions` , `Modules` and `Arithmetic & Maths Operations`** |
+| Ice Cream | **`Python Fundamental Topics` -> `Imperative Programming` -> `Conditions & Control Flow`, `Loops & State Control` and `Exceptions`** |
+| Seven Segment | **`Python Fundamental Topics` -> `Imperative Programming` -> `Lists & Matrices`, `Loops & State Control`, `Conditions & Control Flow`, `Functions` and `Main`** |
+| Volume | **`Python Fundamental Topics` -> `Imperative Programming` -> `Functions`, `Modules` and `Arithmetic & Maths Operations`** |
 
 ---
 
@@ -277,7 +277,7 @@ This is where university modules and its coursework goes under for the applicati
 
 | File Name | Topics Covered |
 |---|---|
-| Sort Comparison | **`Python Fundamental Topics` -> `Imperative Programming` -> `Lists & Matrices` , `Loops & State Control` , `Conditions & Control Flow` , `Functions` , `Modules` and `Main`** |
+| Sort Comparison | **`Python Fundamental Topics` -> `Imperative Programming` -> `Lists & Matrices`, `Loops & State Control`, `Conditions & Control Flow`, `Functions`, `Modules` and `Main`** |
 
 ---
 
@@ -335,7 +335,7 @@ This is for extensive and multi-level applications such as machine learning and 
 
 ### Phase 2: Data Structures & Algorithmic Logic (Jun 29 – Jul 26)
 
-- [x] **Week 5 — Data collection models** (Coddy.tech, W3Schools, VS Code, GitHub, The Forage): lists, dictionaries, tuples, sets with multi-level key lookups; in-memory catalog of 85 sports/racing games; 28–35 h/wk
+- [x] **Week 5 — Data collection models** (Coddy.tech, W3Schools, VS Code, GitHub, The Forage): lists, dictionaries, tuples, sets with multi-level key lookups; in-memory catalogue of 85 sports/racing games; 28–35 h/wk
   - [ ] Friday — Forage: profile setup, Data Analytics virtual internships (unverified)
 - [x] **Week 6 — Functional abstraction** (Coddy.tech, VS Code, GitLab, The Forage): `def` functions, arguments, returns, local/global scope; refactor loops into a reusable search utility; 28–35 h/wk
   - [ ] Friday — Forage: virtual simulation modules, spreadsheet cleaning and client summaries (unverified)
