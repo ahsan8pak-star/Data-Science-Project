@@ -1,6 +1,6 @@
 """ Tuples """
 
-# Ordered and Unchangable, allowing duplicated items
+# Ordered and Unchangeable, allowing duplicated items
 
 numbers = (1, 2, 3) # Immutable = can't be changed at all
 

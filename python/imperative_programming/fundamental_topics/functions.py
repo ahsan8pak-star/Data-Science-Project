@@ -32,7 +32,7 @@ def hello(greeting, title, first, last): # Standard parameters i.e. basic / gene
 
 
 hello("Hello", title="Mr.", last="Iqbal", first="Ahsan") # Keyword - various parameter types for various inputs in out of order, i.e. unordered
-# Positional Argument ( "Hello" ) + Keyword Arguement ( title="Mr.", last="Iqbal", first="Ahsan" )
+# Positional Argument ( "Hello" ) + Keyword Argument ( title="Mr.", last="Iqbal", first="Ahsan" )
 
 
 def divide(*numbers): # xArgs - *numbers allows the function to accept a variable number of arguments.
@@ -47,9 +47,9 @@ print(divide(5, 4, 2)) # Output: 2.5
 
 def fullname(*name): # ARGS -> allows passing multiple NON-KEY(WORD) arguments
    
-   # ( * ) -> Unpacking Operator for ARGS i.e. unpacks / separates the whole arguement into individual items
+   # ( * ) -> Unpacking Operator for ARGS i.e. unpacks / separates the whole argument into individual items
    
-   print(f"Hello, ", end=" ") # Positional Arguement
+   print(f"Hello, ", end=" ") # Positional Argument
 
    for word in name: # Every Non-Key argument under the variable 'args'
        print(word, end=" ") # print them individually in every whitespace separated

@@ -1,6 +1,6 @@
 """ Module Descriptions """
 
-# Files containing specific porgrams to execute wihin the program
+# Files containing specific programs to execute within the program
 # 'import' -> include modules
 # Useful to use other in-built programs, making the program reusable
 

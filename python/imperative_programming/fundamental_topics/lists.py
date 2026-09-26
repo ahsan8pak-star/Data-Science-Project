@@ -90,7 +90,7 @@ print(numbers.count(1)) # 1
 
 number = numbers.copy()
 print(number) # [5, 2, 1, 7, 4]
-# This when we can do whatever we do that new list (number)
+# copy() creates a new independent list (number), so changes to it do not alter the original list.
 
 """Unpacking Lists"""
 

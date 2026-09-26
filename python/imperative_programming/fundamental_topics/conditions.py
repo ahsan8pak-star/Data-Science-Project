@@ -65,8 +65,8 @@ for num in range (1, 11, 2):
 7
 9
 """
-# Reason: for num in range (1, 11, 2) -> (START, END, STEP) -> It goes theough every 2nd step / index of that range between 1 and 10.
-# It doesn't mean every number divisble by 2 i.e. even is shown, rather it's for odd numbers due to its starting point being odd (1).
+# Reason: for num in range (1, 11, 2) -> (START, END, STEP) -> It goes through every 2nd step / index of that range between 1 and 10.
+# It doesn't mean every number divisible by 2 i.e. even is shown, rather it's for odd numbers due to its starting point being odd (1).
 
 
 age = 15
@@ -355,7 +355,7 @@ for x in range (5): # for 5 times
 # for y in range (1, 11) -> from number 1 to 10 (11 is exclusive)
 # print(y, end=" ") # print 1-10 (function y). 
 # end=" " -> This is the most crucial bit since this prevents all numbers printed vertically
-# print() -> This means once the y function has been exceuted, repeat it under function x in a new line.
+# print() -> This means once the y function has been executed, it is repeated under function x in a new line.
 # This means repeat number 1 to 10 being outputted 5 times under each new line.
 
 
@@ -528,7 +528,7 @@ while True: # This creates an infinite loop because the condition is always True
 # (repeated 5 times)
 
 # Reason: The while loop is designed to run indefinitely because the condition 'True' is always satisfied. 
-# However, we added a break condition to stop it after 5 iterations for testing purposes.
+# However, a break condition was added to stop it after 5 iterations for testing purposes.
 
 
 """Conditional Expressions"""

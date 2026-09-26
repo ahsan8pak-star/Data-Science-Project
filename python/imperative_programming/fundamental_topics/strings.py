@@ -48,7 +48,7 @@ print(Name.find("s")) # finds the index of the first occurrence of lowercase "s"
 print(Name.rfind("a")) # finds the index of the first occurrence of lowercase "a", starting on the left hand side (from 0) 
 # Expected Output: 4
 # Actual Output:   4
-# Reason: The string contains an lowercase "a" at index 4, starting from index 0 asceding order (far left) and goes to the right.
+# Reason: The string contains a lowercase "a" at index 4, starting from index 0 ascending order (far left) and goes to the right.
 
 print(Name.replace("A", "a")) # replaces all occurrences of "A" with "a" 
 # Expected Output: " ahSaN "
