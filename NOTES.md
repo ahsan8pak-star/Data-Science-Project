@@ -91,8 +91,9 @@ Remaining phases roll into **Summer 2027 Block II** (below).
 
 University term is **maintenance mode**: no new heavy learning phases. The
 day's job is to keep skills warm, not to extend the roadmap. Pass-throughs
-ring-fence the `python/` folder as a testing ground (never auto-committed) and
-log the day using the exact week frame of `university_courseworks/year2/`:
+keep the `python/` lane clean and green (it is the owner's own portfolio
+material and is committed like any other file) and log the day using the
+exact week frame of `university_courseworks/year2/`:
 
 ## Week frame (matches YEAR2_SEMESTER1.md / YEAR2_SEMESTER2.md)
 
@@ -141,7 +142,7 @@ remain byte-frozen in the owner lane; probes are the agent lane.
       `dictionaries.py` gained a `setdefault()` block; both open lanes,
       probes committed)
 - [x] **Final — full suite + coverage caps exact + LF invariants** (runs on
-      every pass-through; suite green 1330 at ~99% line and 98% branch
+      every pass-through; suite green 1332 at ~99% line and 98% branch
       coverage, with the same
       29 dead-by-design lines in exactly the 8 documented caps)
 
@@ -435,14 +436,16 @@ written and the defect is pinned by a test whose docstring names it, so
 the bug stays visible instead of being quietly deleted. This mirrors
 AGENTS.md's existing "intentional, do not fix" rules for
 `transactions.py`'s filename and `qrcode_generator.py`'s CWD-relative
-saves. `python/` is also the owner's lane, so agents never commit there.
+saves. Since AGENTS.md rule 8 was lifted, `python/` is committed like any
+other file, so the only real brake on a repair is rule 11's judgement call:
+a defect that makes the program lie or crash is worth fixing, one that
+merely demonstrates a dead branch is not.
 
 | Script | Defect | Pinned by |
 | --- | --- | --- |
 | `rock_paper_scissors.py:113` | `isdigit() != "r" or "p" or "s"` is always truthy, so "Invalid input" prints on every valid move | `TestRockPaperScissors::test_invalid_input_message_always_prints` |
 | `login_status.py:16` **and `:19`** | Two *different* mistakes, one symptom. At `:16` neither operand is valid: `is_student[0].upper` is an un-called bound method (always truthy) and `is_admin[0].upper == "T"` compares a method object to a string (always False), so the AND is always False and "Stop Lying" can never print. At `:19` `is_new[0].upper()` *is* called correctly and returns `"T"` or `"F"`, but the result is then used directly as a boolean - and both are non-empty strings, so it is always truthy. The `elif` therefore degrades to a bare `is_regular` check that silently ignores `is_new` | `TestLoginStatus::test_stop_lying_branch_is_actually_unreachable` |
 | `area_of_circle.py` | Defines `calculate_area()` and `area_of_circle()` but has no `__main__` guard, so running the file does nothing at all | `TestAreaOfCircle::test_running_directly_produces_no_output_at_all` |
-| `arithmetic_expressions.py:20` | `format_result()`'s `/` branch applies `:.2f` unconditionally. On a zero divisor `arithmetic()` returns the string `"Error: Undefined..."`, so `f"{result:.2f}"` raises `ValueError`, which `calculate()`'s own `except ValueError` swallows. Measured consequence: with a zero second operand the loop dies at `/`, so `%`, `//` and `**` **never print**, and the user is told "Invalid input" about two valid numbers | `TestArithmeticExpressions::test_zero_denominator_crashes_on_the_division_line_specifically` |
 
 Two corrections to an earlier draft of this section, both found by reading
 the source rather than trusting the test docstrings:
@@ -471,19 +474,36 @@ owner, not a cleanup. Two further arcs are unreachable rather than buggy:
 `missing != 1` has returned) and `file_handling.py:17` (the path is
 hardcoded to a real file at line 9, so it can never be a directory).
 
-### Unhandled crash paths (not pinned by any test)
+### Unhandled crash paths — fixed, but kept here as the record
 
-`login_status.py` indexes the first character of every answer, so an empty
-answer raises an uncaught `IndexError` - the `except ValueError:` at line
-37 cannot catch it. Two confirmed paths: an empty answer to any of the five
-prompts (`:16` reaches `is_student[0]` first) and an empty answer to
-"Accident or Intented?" (`:22` reaches `choice[0]`). Verified identical
-before and after the predicate fix, so repairing the dead branches neither
-causes nor cures them. The existing handler already prints the right
-message ("Please type within boolean logic. True or False."), so widening
-it to `except (ValueError, IndexError):` would make it live. Until then the
-`except ValueError` at line 37 is itself unreachable, since the body between
-it and the `try` performs no numeric conversion.
+`login_status.py` indexed the first character of every answer, so an empty
+answer raised an uncaught `IndexError` - the `except ValueError:` at line
+37 could not catch that type. Two confirmed paths: an empty answer to any
+of the five prompts (`:16` reaches `is_student[0]` first) and an empty
+answer to "Accident or Intended?" (`:22` reaches `choice[0]`). Verified
+identical before and after the predicate repair, so the dead branches
+neither caused nor cured them.
+
+**Repaired.** The handler is now `except (ValueError, IndexError):`, which
+needs no new logic: the existing message ("Please type within boolean
+logic. True or False.") was already the right one for an empty answer, and
+the `ValueError` half had been unreachable from normal input because the
+guarded body performs no numeric conversion. Both crash paths are now
+covered by tests, including the second one, which had none. This is the
+pattern to prefer: a defect that makes the program *lie* (reporting bad
+input for valid numbers) or *crash* is worth repairing, unlike one that
+merely demonstrates a dead branch.
+
+### Repaired defects, with the measured before/after
+
+| Script | Was | Now |
+| --- | --- | --- |
+| `arithmetic_expressions.py:20` | `format_result()`'s `/` branch applied `:.2f` unconditionally, so a zero divisor raised `ValueError`, was swallowed by `calculate()`'s own handler, and the results loop died at `/` - so `%`, `//` and `**` never printed and the user was told "Invalid input" about two valid numbers | the branch type-checks first, so all seven operators print, `/` `%` and `//` show the real "Error: Undefined..." message, and `** 0 = 1` is no longer lost |
+| `login_status.py:37` | uncaught `IndexError` on an empty answer, at two separate sites | caught and reported; clean exit |
+
+Neither fix changed line or branch coverage materially (99% lines, 50 open
+branch directions, unchanged), and both are covered by tests that were
+confirmed to fail against the unfixed source.
 
 Judgement on the original question - is the per-file allocation reasonable?
 **Broadly yes, with volume inverted at the margins.** 174 of 183 files are
