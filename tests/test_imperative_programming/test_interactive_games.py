@@ -470,6 +470,51 @@ class TestRockPaperScissors:
         assert "HEAD TO HEAD" in out
         assert "MATCH RESULT" in out
 
+    def test_player_wins_the_game_after_three_rounds(self):
+        
+        """
+        [AI-authored fix] The game loop runs to a score of 3, so it needs
+        more than the single round the other tests here play. random.choice
+        is pinned to "s" and the player always answers "r", so rock beats
+        scissors three times and the player wins the match. This is what
+        covers the loop's exit condition and the win announcement.
+        """
+        
+        fixed_choice = patch("random.choice", return_value="s")
+        _, out = run_script(self.FILE, inputs=["r", "r", "r"], patches=[fixed_choice])
+        assert "You: 3 | Computer: 0" in out
+        assert "Congratulations! You won the game!" in out
+        assert "Computer won the game" not in out
+
+    def test_computer_wins_the_game_after_three_rounds(self):
+        
+        """
+        [AI-authored fix] The mirror of the three-round player win: the
+        computer always answers "s" to a player who always plays "r", so
+        the computer takes all three rounds. Covers the opposite arm of the
+        end-of-game announcement.
+        """
+        
+        fixed_choice = patch("random.choice", return_value="s")
+        _, out = run_script(self.FILE, inputs=["p", "p", "p"], patches=[fixed_choice])
+        assert "You: 0 | Computer: 3" in out
+        assert "Computer won the game. Better luck next time!" in out
+
+    def test_a_tie_does_not_move_the_score(self):
+        
+        """
+        [AI-authored fix] A tied round must leave both scores where they
+        were. Three ties therefore never end the game, so the input list
+        runs out and main() reports that the game ended unexpectedly -
+        which also covers the EOFError handler in main().
+        """
+        
+        fixed_choice = patch("random.choice", return_value="r")
+        _, out = run_script(self.FILE, inputs=["r", "r", "r"], patches=[fixed_choice])
+        assert "It's a TIE!" in out
+        assert "Score - You: 0 | Computer: 0" in out
+        assert "Game ended unexpectedly." in out
+
     def test_computer_wins_with_rock_beats_scissors(self):
         fixed_choice = patch("random.choice", return_value="r")
         _, out = run_script(self.FILE, inputs=["s"], patches=[fixed_choice])

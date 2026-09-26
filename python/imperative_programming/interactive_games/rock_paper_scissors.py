@@ -1,3 +1,15 @@
+"""
+Rock, paper, scissors - best of five against the computer.
+
+Structured as one function per step: display_art() for the ASCII art,
+get_player_choice() for validated input, determine_outcome() for the rules,
+and play_round() tying them together inside play_game()'s score loop. One
+deliberate defect is preserved and pinned by a test: the invalid-input check
+tests player_choice.isdigit() != "r" or "p" or "s", where != binds tighter
+than or, so the condition is always true and the warning prints for every
+valid move. The game then plays the round anyway.
+"""
+
 import random
 
 
@@ -171,9 +183,9 @@ def play_game():
         display_result(result_type, message, winner_art_choice, player_score, computer_score)
 
     if player_score == 3:
-        print("\n🎉 Congratulations! You won the game!")
+        print("\nCongratulations! You won the game!")
     else:
-        print("\n😔 Computer won the game. Better luck next time!")
+        print("\nComputer won the game. Better luck next time!")
 
 
 def main():
