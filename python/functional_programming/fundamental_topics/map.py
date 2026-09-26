@@ -1,3 +1,15 @@
+"""
+map() - applies a given function to every item in one or more iterables,
+returning a new iterable of the results.
+
+    map(function, iterable, ...) -> map object
+
+Commonly paired with a lambda so no separate named function is needed. The
+result is lazy, so it must be wrapped in list() or tuple() to view it. With
+two iterables it consumes both in step, which is what makes it the tidiest
+element-wise alternative to a manual index loop.
+"""
+
 # map() = Applies a given function to every item in one or more iterables, returning a new iterable of the results.
 # Commonly paired with a lambda so no separate named function is needed.
 # map(function, iterable, ...) -> map object (must wrap in list()/tuple() to view)

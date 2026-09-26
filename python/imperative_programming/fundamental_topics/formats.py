@@ -1,3 +1,14 @@
+"""
+Format specifiers.
+
+    {Value : flags}
+
+format() and f-strings format a value according to its type: fixed decimal
+places, thousands separators, percentages, padding and alignment. The colon
+is what introduces the spec, and everything after it is type-specific, so the
+same braces format very different things.
+"""
+
 # Format Specifiers
 # {Value : flags}
 # formats values based on the type of flags

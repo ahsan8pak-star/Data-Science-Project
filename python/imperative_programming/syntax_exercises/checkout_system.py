@@ -1,3 +1,11 @@
+"""
+Checkout - item price, quantity and a total with VAT.
+
+Reads the item and price at module level before any function, so the file
+prompts the moment it is run. Keep the parsing and the arithmetic apart:
+float() on the price is what raises ValueError for a non-numeric entry.
+"""
+
 item = input("Item: ")
 price = float(input("Price: "))
 quantity = int(input("Amount: "))

@@ -1,3 +1,13 @@
+"""
+Class variables - attributes shared by every instance, against instance
+variables that belong to one object.
+
+Assignment to a class variable inside a method rebinds it for the whole class,
+whereas mutating it (a list append, say) is visible everywhere. The level()
+method below depends on shared state, which is also why a test has to override
+an instance to reach its other branch.
+"""
+
 # Class Variables = Global variable i.e. shared amongst all class instances
 
 # Defined outside the constructor

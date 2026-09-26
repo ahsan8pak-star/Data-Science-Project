@@ -1,3 +1,12 @@
+"""
+Real estate - property validation across House, Flat, Apartment and Building.
+
+A hierarchy of property types sharing a base, where each subclass enforces its
+own rules, so a caller cannot construct an invalid property. The clearest
+inheritance example in the folder, and the counterpart to aggregation.py's
+"held but not owned".
+"""
+
 # Property validation example
 # Real Estate -> House, Flat, Apartment, Building, Mansion
 

@@ -1,3 +1,12 @@
+"""
+Magic methods - the dunder methods Python calls implicitly.
+
+Dunder stands for double underscore, and there is no truth to
+__str__() + __str__(): the name is conventional. The ones worth memorising
+are __str__ (for people), __repr__ (for developers), __eq__, __len__ and
+__add__.
+"""
+
 # Magic methods = Dunder methods (double underscore -> __) __init__, __str__, __eq__
 # Automatically called by many Python's built-in operations.
 # Allows Developers to define or customise the object's behaviour

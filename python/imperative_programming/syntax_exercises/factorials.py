@@ -1,3 +1,11 @@
+"""
+Factorials - n! by iterative and recursive routes, plus the zero and negative
+cases.
+
+0! is 1 by definition, and the negative case is rejected rather than looping
+forever, which is what makes the bounds check worth demonstrating.
+"""
+
 def factorial(n):
     if n == 0 or n == 1: # confirms if the number is 0 or 1
         return 1 # result from these two special case scenarios

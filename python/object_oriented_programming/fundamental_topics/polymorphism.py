@@ -1,3 +1,11 @@
+"""
+Polymorphism - one interface, several implementations, chosen at runtime.
+
+The same call reaches a different method depending on the object's class,
+which is what lets a collection of unrelated types share one loop. The abstract
+bodies use pass and can never be invoked, so those lines are a documented cap.
+"""
+
 # Polymorphism = Objects taking Many Forms
 
 # Two ways to achieve this:

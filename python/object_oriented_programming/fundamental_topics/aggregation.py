@@ -1,3 +1,12 @@
+"""
+Aggregation - one object holds a reference to another, which may exist
+independently.
+
+The distinction from composition is ownership: here the parts can outlive the
+whole, and nothing about their lifetime is enforced. Comparing this file with
+composition.py is the point of having both.
+"""
+
 # Aggregation = Represents a relationship where 1 Object (Whole)
 # Contains references to at least 1 Independent Object (part)
 

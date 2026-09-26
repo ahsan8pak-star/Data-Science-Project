@@ -1,3 +1,10 @@
+"""
+Item - the line on an order: a product, a quantity and a price.
+
+Subclasses nothing and is subclassed by nothing; it is the value object an
+Order holds, which keeps the order logic free of pricing detail.
+"""
+
 class Item:
     def __init__(self, name, price, quantity):
         self.name = name

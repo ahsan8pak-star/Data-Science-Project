@@ -1,3 +1,10 @@
+"""
+Minute timer - counts a set number of minutes down to zero.
+
+The same countdown shape as seconds_countdown.py but parameterised in minutes,
+and it raises a ValueError on a non-numeric input before the loop starts.
+"""
+
 import time
 
 def countdown(total_seconds):

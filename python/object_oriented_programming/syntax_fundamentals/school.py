@@ -1,3 +1,10 @@
+"""
+School - a name, an address and the students and staff it holds.
+
+Aggregation example: the School keeps references to Student and Teacher
+objects that exist independently of it, rather than owning their lifetimes.
+"""
+
 class School:
     def __init__(self, name, address):
         self.name = name

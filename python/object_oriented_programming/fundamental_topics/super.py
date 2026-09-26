@@ -1,3 +1,11 @@
+"""
+super() - calling the parent class's implementation of a method.
+
+Necessary whenever a subclass overrides something the parent also implements,
+since super() lets both run. It follows the method resolution order rather
+than naming a class, which is what keeps multiple inheritance correct.
+"""
+
 # super() -> Function used in a child's class (subclass) to call methods from the parent's class (superclass)
 # Extends the functionality of the inherited methods
 

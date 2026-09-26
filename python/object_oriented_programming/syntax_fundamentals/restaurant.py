@@ -1,3 +1,11 @@
+"""
+Restaurant - a venue that composes Food items into a meal.
+
+Holds a menu and produces orders from it, delegating pricing to the food
+models. Pairs with grocery_caloric_list.py, which does the same job for
+groceries rather than a restaurant.
+"""
+
 class Menu:
     def __init__(self, items):
         self.items = items

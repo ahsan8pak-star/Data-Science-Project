@@ -1,3 +1,12 @@
+"""
+Time converter - seconds, minutes, hours and days into one another.
+
+get_unit_info() returns the factors and labels for a chosen unit, so adding a
+unit means extending one table rather than writing another branch. Also
+catches KeyboardInterrupt, so Ctrl-C exits with a message instead of a
+traceback.
+"""
+
 def get_unit_info(time_choice):
     
     # Returns both the seconds multiplier and the text name of the unit.

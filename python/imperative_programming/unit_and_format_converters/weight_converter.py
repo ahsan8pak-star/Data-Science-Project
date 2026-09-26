@@ -1,3 +1,11 @@
+"""
+Weight converter - pounds, kilograms, stones and ounces.
+
+Prompts for a weight and prints the same value in every unit. Reads a float
+directly from input() and catches ValueError for anything non-numeric, which
+is the pattern the other converters in this folder follow.
+"""
+
 weight = input("Weight: ")
 if len(weight) == 0 or weight == "0":
     print("You must weigh something")

@@ -1,3 +1,11 @@
+"""
+Inheritance - a subclass extending and overriding a base class.
+
+super() calls the parent implementation rather than duplicating it, so an
+override can extend the original behaviour instead of replacing it blindly.
+The two classes here cover the override and the super() call.
+"""
+
 # Inheritance = Allows a class to inherit attributes and methods from another class
 # Helps with code reusability and extensibility 
 # e.g. class Child(Parent)

@@ -1,3 +1,12 @@
+"""
+statistics - the standard library's measures of central tendency and spread.
+
+Demonstrates the twelve core measures on one small fixed dataset: mean,
+median, mode, and the trimmed variants, plus the distribution measures
+variance, standard deviation and quantiles. Every function here takes a data
+series and returns a number, with no external state.
+"""
+
 import statistics # Investigate more at https://docs.python.org/3/library/statistics.html
 
 ages = [2, 4, 4, 4, 5, 5, 7, 9] # A small fixed dataset used by every demonstration below

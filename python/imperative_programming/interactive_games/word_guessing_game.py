@@ -1,3 +1,11 @@
+"""
+Word guessing - unscramble a word from a shuffled bank of its letters.
+
+Shuffles a COPY of the letter pool and leaves the original in build order, so
+the answer stays reconstructible; a test pins that distinction. The outer
+while True loop draws successive rounds until the player quits.
+"""
+
 # Uses a random function for selecting the words
 import random
 

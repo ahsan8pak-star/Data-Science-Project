@@ -1,3 +1,12 @@
+"""
+User access - a login check against a hardcoded credential table.
+
+login_check() compares a username and password against a dictionary defined in
+the function, and the demonstration calls sit at module level, so running the
+file performs a login immediately. The credentials are fixed sample data, not
+anything real.
+"""
+
 def login_check(username, password):
     user_db = {
         'user1': 'password123',

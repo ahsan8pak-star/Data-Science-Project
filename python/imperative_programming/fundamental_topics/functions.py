@@ -1,3 +1,13 @@
+"""
+Functions - defining a function with def, and the scope rules that follow.
+
+Covers a function that returns a value versus one that only prints, a
+function that mutates a value versus one that returns a new one, and why a
+global statement is usually a sign the function wants a parameter instead.
+The module-level calls at the bottom show that nothing runs until it is
+called, which is what makes a function reusable.
+"""
+
 def name(): # def - define function
     print("A.I.M")
 

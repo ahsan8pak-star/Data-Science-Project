@@ -1,3 +1,11 @@
+"""
+Nested classes - a class declared inside another class body.
+
+An inner class is a normal class whose name is scoped to the outer one; it
+does not close over the outer instance. Useful for namespacing a helper type
+that only makes sense alongside its owner.
+"""
+
 # Nested Classes = Class within a class
 
 # class Outer:

@@ -1,3 +1,12 @@
+"""
+Quiz - multiple choice questions with a running score.
+
+Holds the questions, options and answers as module-level tuples, then walks
+them together, treating a malformed answer as incorrect rather than crashing.
+The data-at-the-top shape makes adding questions a matter of extending the
+tuples.
+"""
+
 questions = ("How many elements are in the periodic table?: ",
              "Which animal lays the largest eggs?: ",
              "What is the most abundant gas in Earth's atmosphere?: ",

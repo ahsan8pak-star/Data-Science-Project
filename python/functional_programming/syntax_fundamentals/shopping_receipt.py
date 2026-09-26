@@ -1,3 +1,11 @@
+"""
+Shopping receipt - formats a basket and totals it.
+
+print_shopping_receipt() builds the itemised lines and the total together, so
+the layout and the arithmetic stay in step. The receipt is a string, which
+makes it straightforward to test without capturing printed output.
+"""
+
 # Shopping Receipt -> applies map(), filter() and reduce() to a small shopping basket
 
 

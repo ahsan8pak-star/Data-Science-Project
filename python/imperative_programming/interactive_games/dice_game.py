@@ -1,3 +1,13 @@
+"""
+Dice race - two players roll against each other and the higher total wins.
+
+Uses random.choice() for the throws and plays out the whole game inside one
+long function, so the display, the scoring and the turn loop are interleaved
+rather than separated. play_dice_race() is the single entry point, which makes
+this a useful counter-example to the function-per-step structure used in
+rock_paper_scissors.py.
+"""
+
 import random
 
 # Dictionary instead of def case switch to ease of memory management and readability

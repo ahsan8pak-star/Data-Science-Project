@@ -1,3 +1,11 @@
+"""
+Combined area and volume calculator for a cuboid, driven by a menu.
+
+Extends area_volume() to the three dimensions a box needs, and imports its
+helpers from the single-dimension scripts. The sys.path manipulation at the
+top is what lets those sibling imports resolve.
+"""
+
 import sys
 import os
 

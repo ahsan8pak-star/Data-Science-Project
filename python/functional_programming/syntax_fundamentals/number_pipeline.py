@@ -1,3 +1,11 @@
+"""
+Number pipeline - chaining filter, map and reduce over one list.
+
+Nothing in the chain mutates the original, so each stage is a new value and
+the whole pipeline can be re-run. The stages are named variables, which is
+what makes the data's route through the functions readable.
+"""
+
 # Number Pipeline -> a basic filter -> map -> reduce data flow
 
 

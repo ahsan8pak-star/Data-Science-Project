@@ -1,3 +1,17 @@
+"""
+Cosine rule - solving an unknown side or angle of a triangle from two known
+sides and the included angle, or from three sides.
+
+    a^2 = b^2 + c^2 - 2bc.cos(A)
+
+The match/case branches each correspond to a different set of known values,
+since the formula rearranges depending on what is missing. There is also an
+inverse form, cos(A) = (b^2 + c^2 - a^2) / 2bc, used when the angle is the
+unknown. The get_float_input() helper checks its own __name__, so importing
+this module from triangle_calculator.py silently yields None instead of
+prompting - a documented quirk with a test pinning it.
+"""
+
 import math
 
 # This helper function lets other functions run without repeatedly typing input()

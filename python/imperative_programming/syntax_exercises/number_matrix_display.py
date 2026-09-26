@@ -1,3 +1,11 @@
+"""
+Matrix display - prints numbered patterns in the console.
+
+A display exercise rather than a calculation: the work is in the spacing and
+the row/column loop. The comment block at the top records the intended
+output, which is the only place it is written down.
+"""
+
 # 1 1 1 1 1
 # 2 1 2 4 8
 # 3 1 3 9 27

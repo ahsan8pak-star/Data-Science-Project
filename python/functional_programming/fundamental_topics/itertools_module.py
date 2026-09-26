@@ -1,3 +1,11 @@
+"""
+itertools - efficient building blocks for working with iterators.
+
+Provides infinite counters, chained iterables, repeated values, and
+combinatorics. Everything here is lazy and iterator-based, so it composes into
+pipelines without building intermediate lists.
+"""
+
 # itertools = A module of efficient building blocks for working with iterators.
 # Provides infinite counters, chained iterables, repeated values, and combinatorics.
 

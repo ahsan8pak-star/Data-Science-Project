@@ -1,3 +1,12 @@
+"""
+Decorators - a function that wraps another to extend its behaviour.
+
+@wraps copies the wrapped function's name and docstring, which is why it is
+worth importing: without it the decorated function reports itself as
+"wrapper". A decorator with arguments needs the extra layer, since the call
+itself is then the argument to be decorated.
+"""
+
 # Decorator = A function that extends the behaviour of another function
 # Without modifying the base function
 # Pass the base function as an argument to the decorator

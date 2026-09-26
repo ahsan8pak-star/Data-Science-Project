@@ -1,3 +1,12 @@
+"""
+Dates and times - the datetime and zoneinfo standard-library modules.
+
+Covers the difference between date, time, datetime and timedelta, arithmetic
+on timedeltas, and converting a naive datetime into a named timezone with
+ZoneInfo. The timezone-aware case is the one worth remembering: mixing aware
+and naive datetimes raises TypeError on comparison.
+"""
+
 import datetime
 from zoneinfo import ZoneInfo
 

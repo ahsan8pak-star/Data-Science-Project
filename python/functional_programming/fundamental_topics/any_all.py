@@ -1,3 +1,14 @@
+"""
+any() and all() - quantifiers over an iterable.
+
+any(iterable) returns True if AT LEAST ONE item is truthy.
+all(iterable) returns True if EVERY item is truthy.
+Both return a bool, and both short-circuit: any() stops at the first
+truthy item, all() stops at the first falsy one. On an empty iterable any()
+is False and all() is True, which follows from the quantifier logic rather
+than being a special case.
+"""
+
 # any() = Returns True if AT LEAST ONE item is truthy.
 # all() = Returns True if EVERY item is truthy.
 # any(iterable) -> bool     all(iterable) -> bool

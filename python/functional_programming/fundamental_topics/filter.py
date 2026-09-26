@@ -1,3 +1,15 @@
+"""
+filter() - builds a new iterable containing only the items for which a given
+function returns True.
+
+    filter(function, iterable) -> filter object
+
+Commonly paired with a lambda so no separate named function is needed. The
+result is lazy, so it must be wrapped in list() or tuple() to view it. Keep
+it for a real predicate; a simple condition is usually clearer as a
+comprehension.
+"""
+
 # filter() = Builds a new iterable containing only the items where a given function returns True for each item.
 # Commonly paired with a lambda so no separate named function is needed.
 # filter(function, iterable) -> filter object (must wrap in list() / tuple() to view)

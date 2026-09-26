@@ -1,3 +1,14 @@
+"""
+Login status - a nested questionnaire branching on five yes/no answers.
+
+Asks whether the user is a student, an admin, new, a regular student and
+online, then decides what to print. Two deliberate defects are preserved and
+pinned by tests: the predicates on lines 16 and 19 use truthiness where a
+comparison to "T" is needed, so "Stop Lying" is unreachable and the elif
+ignores is_new. The IndexError handling is a genuine repair - an empty answer
+raised an uncaught IndexError that except ValueError could not catch.
+"""
+
 def get_boolean_answer(prompt):
     return input(prompt).strip()
 

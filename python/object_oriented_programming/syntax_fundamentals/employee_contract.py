@@ -1,3 +1,12 @@
+"""
+Multiple inheritance - combining a worker with a student or a graduate.
+
+PartTimeEmployee mixes Worker with Student, FullTimeEmployee mixes Worker with
+Graduate. It is the clearest multiple-inheritance example in the folder, and
+also the clearest demonstration of the diamond problem, since both sides
+descend from the same base and super() has to resolve the shared ancestor.
+"""
+
 # Worker + Student = PartTimeEmployee 
 # Worker + Graduate = FullTimeEmployee
 

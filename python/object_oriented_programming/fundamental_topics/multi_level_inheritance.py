@@ -1,3 +1,12 @@
+"""
+Multi-level inheritance - a chain of three classes, each inheriting from the
+one above.
+
+Kept beside multiple_inheritance.py because both are discouraged: a deep chain
+makes it hard to say which __init__ actually runs. super() is what keeps the
+chain cooperative rather than accidental.
+"""
+
 # Multi Level Inheritance = Inherits Parent class from another Parent
 # Parent C <- Parent B <- Parent A
 

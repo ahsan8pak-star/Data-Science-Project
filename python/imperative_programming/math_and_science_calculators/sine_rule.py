@@ -1,3 +1,16 @@
+"""
+Sine rule - solving a triangle from two angles and one side, or two sides and
+an angle.
+
+    a / sin(A) = b / sin(B) = c / sin(C)
+
+Where cosine_rule.py works from sides and one included angle, this one needs
+only a single side plus two angles, and also handles the ambiguous case
+(two angles and a side opposite one of them admits two triangles). The
+match/case branches are near-duplicates differing only in which value is
+solved for; the -1 <= sin(B) <= 1 domain check guards each one.
+"""
+
 import math
 
 # This function alone helps other functions to be called out without having to type down input() constantly and repeatedly

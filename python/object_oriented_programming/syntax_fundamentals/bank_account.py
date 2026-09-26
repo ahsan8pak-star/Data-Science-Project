@@ -1,3 +1,11 @@
+"""
+BankAccount - a domain model for an account balance.
+
+Holds the account number, holder and balance, exposes deposit() and withdraw(),
+and rejects an overdraft. get_str() formats the details for display, which is
+the __str__ work the model owns rather than the caller.
+"""
+
 class BankAccount():
     def __init__(self, account_number, account_holder, balance=0):
         self.account_number = account_number

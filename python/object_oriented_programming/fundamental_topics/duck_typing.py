@@ -1,3 +1,12 @@
+"""
+Duck typing - what an object can do, not what class it is.
+
+No isinstance check anywhere; the code simply calls the methods it needs and
+cares whether they exist. A class that is not a Shape at all will work as long
+as it supplies the right methods, which is the idea Python's own protocols rest
+on.
+"""
+
 # "Duck Typing" -> "Looks like a duck, acts like a duck, must be a duck"
 # e.g. ducks quack, eat bread, and swim and float in water
 

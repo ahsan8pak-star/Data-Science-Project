@@ -1,3 +1,11 @@
+"""
+Username validator - checks length, characters and whether it is taken.
+
+Reads and strips the username at module level, so running the file prompts
+immediately. The conditionals are ordered cheapest-first, so an obviously
+invalid name is rejected before the length is measured.
+"""
+
 username = input("Username: ").strip() # Allows the user to write down the username clearly
 # it'll automatically strip / compress after execution
 

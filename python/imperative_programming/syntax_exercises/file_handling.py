@@ -1,3 +1,12 @@
+"""
+File handling - opening a file and reading its lines.
+
+Detection is by extension rather than by sniffing content, and the path is
+hardcoded to a file that exists in the repository, so the "is it a directory"
+branch is unreachable without editing the source. Reads with a with-statement,
+so the file closes even if the body raises.
+"""
+
 # Python file detection
 
 import os # operating system

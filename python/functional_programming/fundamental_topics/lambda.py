@@ -1,3 +1,12 @@
+"""
+Lambda functions - small anonymous functions for one-time use.
+
+They take any number of arguments but are limited to a single expression, and
+they bind no name, which keeps the namespace clean. Most useful with a
+higher-order function that expects a callable: sort(), map(), filter(),
+reduce().
+"""
+
 # Lambda function = A small anonymous function for a one time use ('throw away' function)
 # They take any number of arguments, but have only 1 expression
 # Helps keep the namespace clean and is useful with higher-order functions

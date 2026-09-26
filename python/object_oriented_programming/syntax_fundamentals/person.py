@@ -1,3 +1,11 @@
+"""
+Person - a name, an age and a formatted description.
+
+The base model for person-shaped classes across this folder, and the simplest
+thing to point an inherited method at. Defines the class only, so running the
+file produces no output - which a test pins.
+"""
+
 class Person:
 
     def __init__(self, name, age, is_talking):

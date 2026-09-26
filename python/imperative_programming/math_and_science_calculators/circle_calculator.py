@@ -1,3 +1,12 @@
+"""
+Circle calculator, presenting area and circumference together.
+
+Imports area_of_circle() from the sibling script and computes the
+circumference itself, so the two results sit side by side for comparison. The
+ValueError handler is not reachable through normal input, since the guarded
+body performs no numeric conversion; a test reaches it artificially.
+"""
+
 from area_of_circle import area_of_circle
 from circumference_of_circle import circumference
 

@@ -1,3 +1,11 @@
+"""
+@dataclass - a class whose fields, __init__ and __repr__ are generated.
+
+Saves the boilerplate a plain class repeats for every attribute, and
+field(default_factory=list) is the idiom for a mutable default, since a shared
+list default is the classic dataclass bug.
+"""
+
 # Data Class = A special kind of class designed mostly for holding data, without writing plenty of boilerplate code for regular classes.
 # They automatically generate: _init__, __repr__, __eq_ (Python 3.7+)
 

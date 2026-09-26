@@ -1,3 +1,14 @@
+"""
+Comprehensions - a shorthand way to build a new iterable from another.
+
+    [expression for item in iterable if condition]
+
+One line in place of a loop that appends to a list. The condition is
+optional, and the outer bracket may be a set or a dict, which is how the
+same syntax produces a set comprehension or a dict comprehension. Read them
+as "for each item, give me this", not as a for loop.
+"""
+
 # Comprehensions = A shorthand way to build a new iterable from another.
 # [expression for item in iterable if condition] -> compact loops
 

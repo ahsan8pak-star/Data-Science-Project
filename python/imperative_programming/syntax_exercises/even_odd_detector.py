@@ -1,3 +1,11 @@
+"""
+Even or odd - remainders as the test for divisibility.
+
+n % 2 == 0 identifies an even number. The file also sweeps 0 to 10, which
+shows why a leading zero in a result is a formatting artefact rather than a
+numbering error.
+"""
+
 # For finding all even numbers from 0 to 10
 
 count  = 0

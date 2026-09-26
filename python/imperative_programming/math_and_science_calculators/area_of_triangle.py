@@ -1,3 +1,12 @@
+"""
+Area of a triangle, using base times height over two.
+
+Also demonstrates the helper-function pattern used across this folder: one
+function prompts for input and delegates to a pure calculation function, so
+the arithmetic can be tested without touching input(). The module-level
+squares the radius to keep the value positive.
+"""
+
 # This helper function lets other functions run without repeatedly typing input()
 
 def get_float_input(prompt): 

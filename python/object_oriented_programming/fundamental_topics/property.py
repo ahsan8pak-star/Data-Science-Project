@@ -1,3 +1,11 @@
+"""
+@property - a method that is read, written and deleted like an attribute.
+
+The getter runs on access, and the setter can validate before assigning, which
+is how a class controls its own invariants without the caller doing it. The
+alternative, a plain attribute, permits invalid state.
+"""
+
 # @property = Decorator used to define a method as a property (it can be accessed like an attribute)
 # Adds additional logic when reading, writing, or deleting attributes
 # Provides a getter, setter, and deleter method

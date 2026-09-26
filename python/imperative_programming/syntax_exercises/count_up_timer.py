@@ -1,3 +1,10 @@
+"""
+Count-up timer - prints an incrementing number each second.
+
+time.sleep() paces the loop, which is why the test suite patches it to return
+immediately instead of actually waiting.
+"""
+
 import time
 
 def count(end, start=0): # prevents an error when the user starts their input as START rather than END

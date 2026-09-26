@@ -1,3 +1,13 @@
+"""
+Transactions - reads an Excel workbook and writes a summary with a bar chart.
+
+Reads the transaction sheet, groups and totals it with openpyxl, then saves a
+new workbook containing both the figures and a BarChart. The save is relative
+to the CURRENT WORKING DIRECTORY via a bare wb.save(...), writing
+transactionv1.xlsx. That is intentional and is pinned by a test using
+monkeypatch.chdir(tmp_path); do not "fix" it to an absolute path.
+"""
+
 import openpyxl as xl
 from openpyxl.chart import BarChart, Reference
 from pathlib import Path

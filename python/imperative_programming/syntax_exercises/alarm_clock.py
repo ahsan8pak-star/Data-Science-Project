@@ -1,3 +1,12 @@
+"""
+Alarm clock - sets an alarm and plays a tone when it is reached.
+
+Uses datetime to compare the target time against now in a polling loop, and
+pygame to make the noise, with the pygame import guarded so the file still
+imports on a machine without it. Every sleep() is mocked in tests, which is
+what keeps the suite fast.
+"""
+
 import datetime
 import os
 import time

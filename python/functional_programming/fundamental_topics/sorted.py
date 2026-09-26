@@ -1,3 +1,14 @@
+"""
+sorted() - returns a NEW sorted list without changing the original.
+
+    sorted(iterable, key=..., reverse=...) -> list
+
+Commonly paired with a lambda as the key to sort by a chosen feature. Contrast
+list.sort(), which sorts in place and returns None: sorted() is the safe
+choice whenever the original must survive, and it accepts any iterable, not
+just a list.
+"""
+
 # sorted() = Returns a NEW sorted list without changing the original.
 # Commonly paired with a lambda to sort by a chosen feature.
 # sorted(iterable, key=..., reverse=...) -> list

@@ -1,3 +1,12 @@
+"""
+Runs a chain of arithmetic operations, feeding each result into the next.
+
+Unlike arithmetic_expressions.py, which shows every operator side by side,
+this one threads a running total through the operator list, so the final
+answer depends on the order. Stops early on a division-by-zero error string
+rather than wasting further memory.
+"""
+
 # Importing the arithmetic function from the arithmetic_calculator module.
 try:
     from python.imperative_programming.math_and_science_calculators.arithmetic_calculator import arithmetic

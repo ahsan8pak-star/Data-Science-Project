@@ -1,3 +1,12 @@
+"""
+Perimeter of a triangle, the sum of its three sides.
+
+Sits alongside area_of_triangle.py and uses the same helper pattern: one
+function prompts, the other calculates. Doubles the total to normalise a
+triangle inequality check, which is why the multiplied value appears in the
+output.
+"""
+
 # This helper function lets other functions run without repeatedly typing input()
 
 def get_float_input(prompt): 

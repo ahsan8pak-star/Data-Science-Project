@@ -1,3 +1,11 @@
+"""
+Prints multiplication tables.
+
+The base generator that square_number_times_tables.py imports and filters.
+Because it returns its rows rather than only printing them, the caller can
+select from the result instead of re-deriving the arithmetic.
+"""
+
 def times_tables():
     # Ask the user for the number of columns (how long each times table should be)
     columns = int(input("Enter the number of columns you want the times table to be extended: "))

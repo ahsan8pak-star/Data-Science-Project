@@ -1,3 +1,11 @@
+"""
+Sports - a hierarchy for Football, Basketball, Cricket and Tennis.
+
+Each subclass adds the rules particular to that sport, and the shared
+behaviour stays in the base. Another hierarchy beside real_estate.py, showing
+the same pattern applied to a different domain.
+"""
+
 # Sports -> Football, Basketball, Cricket, Tennis
 
 class Sports:

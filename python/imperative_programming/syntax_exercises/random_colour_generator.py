@@ -1,3 +1,11 @@
+"""
+Random colour generator - picks hex colours for styling.
+
+Uses random.randint() across the three RGB channels, and random_colours() both
+generates and prints, so the display and the generation are not separable.
+Repeated calls are what demonstrate the spread across the range.
+"""
+
 from random import randint
 
 def random_colours():

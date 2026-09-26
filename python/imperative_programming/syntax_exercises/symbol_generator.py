@@ -1,3 +1,11 @@
+"""
+Symbol generator - random strings for use as passwords or ids.
+
+Chooses from a character pool and joins the picks, wrapping the input handling
+in try/except so a non-numeric length is reported rather than raised. The
+length is validated before any character is drawn.
+"""
+
 try:
     rows = int(input("Enter # of rows: "))
     columns = int(input("Enter # of columns: "))

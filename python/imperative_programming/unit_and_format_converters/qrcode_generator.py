@@ -1,3 +1,12 @@
+"""
+QR code generator - encodes text and saves the result as a PNG.
+
+Writes to os.getcwd() rather than to a path beside the script, which is a
+deliberate choice: tests point it at a temporary directory with
+monkeypatch.chdir() and assert the file lands there. Keep it that way rather
+than hardcoding the script's own directory.
+"""
+
 import os
 import sys
 

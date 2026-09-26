@@ -1,3 +1,10 @@
+"""
+Countdown - counts down from a chosen number of seconds.
+
+The mirror image of count_up_timer.py, and the pair shows the same loop shape
+in both directions. sleep() is again mocked in tests so the run is instant.
+"""
+
 import time
 
 def countdown(total_seconds):

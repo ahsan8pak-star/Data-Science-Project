@@ -1,3 +1,11 @@
+"""
+Grade summary - averages a set of scores and reports each as pass or fail.
+
+pass_grade() holds the threshold, average() returns the mean, and
+summarise_grades() ties them together, so the pass mark is a named value
+rather than a number buried in a comparison.
+"""
+
 # Grade Summary -> applies filter(), reduce() and any()/all() to student results
 
 

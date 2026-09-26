@@ -1,3 +1,13 @@
+"""
+Euclidean distance between two points in n dimensions.
+
+    d = sqrt(sum((x1 - x2)^2 ...))
+
+Generalised to any number of dimensions, which is why the input helpers ask
+for a count first. Also supplies get_dimensions() and get_point_coordinates(),
+which gradient_calculator.py imports rather than duplicating.
+"""
+
 import math
 
 

@@ -1,3 +1,11 @@
+"""
+The importer half of the two-file math example.
+
+Imports from math_module, which is a bare sibling import and therefore only
+resolves when the folder is on sys.path. The smallest demonstration that
+importing is how one file gets at another's names.
+"""
+
 import math_module
 
 pi_result = math_module.pi

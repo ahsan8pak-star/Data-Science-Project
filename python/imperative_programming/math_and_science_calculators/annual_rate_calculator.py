@@ -1,3 +1,13 @@
+"""
+Annual rate calculator - compound growth expressed as an annual percentage
+rate, with currency symbols and percent formatting.
+
+Unlike the simple interest scripts, this one back-solves the rate from a
+starting and ending balance, which is what a lender or investor actually has.
+It handles a ZeroDivisionError, since a zero starting balance makes the
+denominator vanish.
+"""
+
 try: # A more accurate annual rate calculator with currency (£/$) and symbols like percentages (%)
     
     time = int(input("Enter the time period (in years): "))

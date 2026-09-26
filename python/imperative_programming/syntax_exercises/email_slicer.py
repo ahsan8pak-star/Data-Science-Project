@@ -1,3 +1,11 @@
+"""
+Email slicer - splits an address into username, domain and TLD.
+
+String indexing rather than split(), so the position of the @ and the dot
+decides the slices. Raises a specific ValueError when the address is
+malformed, which is what lets the pytest cases target the error path.
+"""
+
 # Essential for the specific Exception to be called via pytest cases to be executed as a function
 def slice_email(email):
             

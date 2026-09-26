@@ -1,3 +1,11 @@
+"""
+Shipping label - formats a name and address using *args and **kwargs.
+
+*name collects the name parts positionally and **location collects the
+address fields by keyword, then a fixed-width block is printed. The
+signature is the exercise: variable positional and keyword arguments.
+"""
+
 def shipping_label(*name, **location):
 
     # *name captures positional args as a tuple: ("Dr.", "Nobody", "Knows")

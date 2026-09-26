@@ -1,3 +1,12 @@
+"""
+WAV player, terminal UI.
+
+The same interface and menu handling as the MP3 player, against uncompressed
+audio. Kept as a sibling rather than a subclass so each file stands alone and
+the shared behaviour is visible by comparison instead of hidden behind an
+inheritance chain.
+"""
+
 import os
 import random
 import sys

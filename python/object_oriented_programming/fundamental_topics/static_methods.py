@@ -1,3 +1,11 @@
+"""
+@staticmethod - a method with no self and no cls.
+
+It cannot touch instance or class state, so it is really a function that
+happens to live in the class body. Group it here only when it belongs to the
+concept the class represents; otherwise a module-level function is clearer.
+"""
+
 # Static Methods = Methods belonging to classes rather than objects (instance)
 # Usually used for general utility functions
 

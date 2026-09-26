@@ -1,3 +1,11 @@
+"""
+Calculator - arithmetic as a class rather than free functions.
+
+Exists to contrast with the plain add()/divide() functions in the imperative
+lane: the same four operations, carried as state and methods. Useful for
+seeing what object orientation costs when there is no state to justify it.
+"""
+
 # Calculator -> add, subtract, divide, multiply, power, square root
 
 class Calculator:

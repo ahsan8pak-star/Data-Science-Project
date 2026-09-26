@@ -1,3 +1,11 @@
+"""
+Circumference of a circle, 2 * pi * r.
+
+The counterpart to area_of_circle.py, and the one that DOES carry an
+__main__ guard, so running the file prompts for a radius. Comparing the two
+siblings is the clearest illustration of what the guard is for.
+"""
+
 import math
 
 

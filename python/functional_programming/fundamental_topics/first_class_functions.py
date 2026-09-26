@@ -1,3 +1,12 @@
+"""
+First-class functions - functions can be treated like any other value.
+
+They can be stored in variables, passed as arguments, and returned from other
+functions. This is the property that makes map(), filter(), sorted(key=) and
+decorators possible at all: each takes a function and calls it later, so the
+function has to survive being held onto as data.
+"""
+
 # First-class functions = Functions can be treated like any other value.
 # They can be stored in variables, passed as arguments, and returned from other functions.
 

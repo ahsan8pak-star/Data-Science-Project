@@ -1,3 +1,12 @@
+"""
+Multiple inheritance - a class inheriting from two bases at once.
+
+The diamond problem is the reason this is usually avoided: with a shared
+ancestor, super() and method resolution order decide which version runs. The
+MRO is what resolves it, and super() follows the MRO rather than picking a
+class by name.
+"""
+
 # Multiple Inheritance = A Single Child Class Inherits Multiple (more than 2) Parent Classes
 # Child C -> Parent A & B
 

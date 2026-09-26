@@ -1,3 +1,11 @@
+"""
+Multitasking - apparent concurrency from threads, processes and asyncio.
+
+Threads share memory and suit I/O, processes avoid the GIL and suit CPU work,
+and asyncio is cooperative rather than parallel. Comparing the three is the
+exercise. Part of the frozen OOP lane, so its imports are left as they are.
+"""
+
 # multithreading = Used to perform multiple tasks concurrently (multitasking)
 # Good for I/O bound tasks like reading files or fetching data from APIs
 

@@ -1,3 +1,12 @@
+"""
+Device - an abstract base for the device hierarchy.
+
+ABC plus @abstractmethod means Device cannot be instantiated, and a subclass
+that omits an abstract method fails at construction rather than at call time.
+The bodies are pass and can never be invoked, so those lines are a documented
+coverage cap.
+"""
+
 from abc import ABC, abstractmethod 
 
 class Device(ABC):

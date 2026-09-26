@@ -1,3 +1,11 @@
+"""
+Times tables filtered to square numbers.
+
+Imports times_tables() from its sibling and selects the rows whose index is
+itself a perfect square, so the output is a sparse subset - 1, 4, 9, 16 and
+so on. Demonstrates reusing a sibling function rather than repeating it.
+"""
+
 from times_tables import times_tables
 
 def square_number():

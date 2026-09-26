@@ -1,3 +1,13 @@
+"""
+Dictionaries - key/value pairs, and the methods for reading them.
+
+A dict maps unique keys to values and preserves insertion order from 3.7, so
+lookup is by key rather than position. Covers keys(), values() and items() for
+iteration, get() with a default instead of a KeyError, and update(). Note the
+capitals.clear() call below: it empties the dictionary before the loops that
+follow, which is why those loop bodies cannot be covered.
+"""
+
 # Dictionary =  a collection of {key:value} pairs
 # Ordered and Changeable, but No Duplicates
 """

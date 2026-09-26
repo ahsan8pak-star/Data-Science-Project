@@ -1,3 +1,12 @@
+"""
+Roman numerals - converts an integer to Roman and back.
+
+get_value() is a per-character lookup used to convert to Roman, while the
+reverse direction scans left to right and subtracts when the next symbol is
+larger (the standard "if a smaller value precedes a larger one, subtract it"
+rule). Also demonstrates the subtractive forms IV, IX, XL, XC, CD and CM.
+"""
+
 def get_value(char): # Case Switch for Roman Numerals Individually
 
     match char:

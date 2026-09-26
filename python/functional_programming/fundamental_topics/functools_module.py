@@ -1,3 +1,11 @@
+"""
+functools - higher-order functions for working with other functions.
+
+cache/lru_cache memoise results, partial pre-fills arguments, reduce folds an
+iterable, singledispatch routes on the first argument's type, and wraps copies
+metadata from a wrapped function onto its decorator.
+"""
+
 # functools = Higher-order functions for working with other functions.
 # cache/lru_cache memoise results, partial pre-fills arguments, reduce
 # folds an iterable, singledispatch routes on type, wraps copies metadata.

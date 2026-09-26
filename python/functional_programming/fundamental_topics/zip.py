@@ -1,3 +1,12 @@
+"""
+zip() - combines multiple iterables (lists, tuples, sets, dicts) into a single
+iterator of tuples.
+
+This makes managing multiple indices easier, since each pass yields one item
+per iterable already aligned. It stops at the shortest iterable, and strict=True
+turns a length mismatch into an error instead of silently discarding the rest.
+"""
+
 # zip() = Combines multiple iterables (lists, tuples, sets, dict) into a single iterator of tuples.
 # Makes managing multiple indices easier.
 

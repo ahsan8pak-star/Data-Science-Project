@@ -1,3 +1,4 @@
+"""multiply(x, y) - third of the four single-operation exercises."""
 def multiply(x, y):
     return x * y
 

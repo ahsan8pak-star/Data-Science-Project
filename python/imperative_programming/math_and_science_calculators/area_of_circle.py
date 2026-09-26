@@ -1,3 +1,12 @@
+"""
+Area of a circle, pi * r squared.
+
+Kept deliberately without an __main__ guard, which is the asymmetry this file
+exists to demonstrate against circumference_of_circle.py, its sibling that
+does have one. Running this file therefore produces no output at all, and a
+test pins that. circle_calculator.py imports area_of_circle() from here.
+"""
+
 import math
 
 def calculate_area(radius):

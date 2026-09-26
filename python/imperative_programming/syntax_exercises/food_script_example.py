@@ -1,3 +1,11 @@
+"""
+Sibling-import example - favourite_food() and favourite_drink() take a
+parameter and return a sentence.
+
+Should run standalone OR as an imported module, which is the import
+arrangement drink_script_example.py depends on.
+"""
+
 # This file should run only standalone OR imported as a module
 
 def favourite_food(food):

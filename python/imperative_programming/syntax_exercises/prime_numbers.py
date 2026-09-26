@@ -1,3 +1,11 @@
+"""
+Primes - is_prime(n) by trial division up to the square root.
+
+Tests divisors only to sqrt(n) because any composite has a factor at or below
+it, which is the optimisation the exercise is really about. Also enumerates a
+range of primes, and the generator version yields them one at a time.
+"""
+
 def is_prime(n):
     
     # Assume the number is prime and tries to find other numbers which aren't i.e. counter examples

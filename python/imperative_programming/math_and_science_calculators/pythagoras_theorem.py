@@ -1,3 +1,13 @@
+"""
+Pythagoras' theorem - the hypotenuse of a right-angled triangle.
+
+    c = sqrt(a^2 + b^2)
+
+The classic a^2 + b^2 = c^2 rearranged to solve for the longest side. The
+branches handle which of the three sides is the unknown and validate the
+input, and negative values are rejected before the square root is taken.
+"""
+
 import math
 
 # This helper function lets other functions run without repeatedly typing input()

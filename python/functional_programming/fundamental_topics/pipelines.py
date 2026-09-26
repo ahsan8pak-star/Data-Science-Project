@@ -1,3 +1,12 @@
+"""
+Pipelines - passing data through a chain of functional steps
+(filter -> map -> sorted -> reduce) without changing any input list.
+
+Each step returns a NEW value and the original data stays untouched, so a
+pipeline is safe to run more than once and easy to reason about in isolation.
+The cost is that each intermediate collection has to be held at once.
+"""
+
 # Pipeline = Passing data through a chain of functional steps
 # (filter -> map -> sorted -> reduce) without changing any input list.
 # Each step returns a NEW value; the original data stays untouched.

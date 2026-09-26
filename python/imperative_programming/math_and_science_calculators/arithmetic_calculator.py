@@ -1,4 +1,14 @@
-def arithmetic (num1, op, num2):
+"""
+The arithmetic() function, shared by several other calculators.
+
+Dispatches on the operator with a match statement and returns either a number
+or, for division by zero, an error STRING rather than raising. That choice is
+deliberate and is the reason the calling scripts can check
+type(result) is str instead of wrapping every call in try/except. The three
+division operators (/, //, %) each guard num2 == 0 separately.
+"""
+
+def arithmetic(num1, op, num2):
     
     match op:
         case "+":

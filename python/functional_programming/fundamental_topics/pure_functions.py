@@ -1,3 +1,13 @@
+"""
+Pure functions - always return the same output for the same input, and never
+change anything outside themselves (no side effects).
+
+A pure function is trivially testable and safe to reuse, because nothing
+external can change underneath it. The module also keeps a deliberately
+impure counterpart that mutates a module-level counter, so the difference is
+visible side by side.
+"""
+
 # Pure function = Always returns the same output for the same input,
 # and never changes anything outside itself (no side effects).
 

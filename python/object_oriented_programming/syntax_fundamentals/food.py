@@ -1,3 +1,10 @@
+"""
+Food - a model of a menu item, and the base other food classes extend.
+
+Holds a name and a price and formats itself for display. Composed into the
+meal and restaurant models rather than used alone.
+"""
+
 # Food -> Snack -> Dessert / Treats
 # Food -> Drink -> Cold Drink / Hot Drink
 

@@ -1,3 +1,13 @@
+"""
+Gradient of a straight line between two points, rise over run.
+
+    m = (y2 - y1) / (x2 - x1)
+
+Imports its input helpers from euclidean_distance_calculator.py, so the two
+share one way of collecting coordinates. A vertical line has x2 == x1 and
+raises ZeroDivisionError, which is caught and explained.
+"""
+
 from euclidean_distance_calculator import get_dimensions, get_point_coordinates
 
 

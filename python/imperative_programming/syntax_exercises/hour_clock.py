@@ -1,3 +1,11 @@
+"""
+Hour clock - advances a 12-hour clock face one second at a time.
+
+Wraps at 60 seconds, 60 minutes and 12 hours, so it carries three nested
+boundaries in one loop. The modulo resets are the interesting part; the sleep
+between ticks is mocked in tests.
+"""
+
 import time
 
 def countdown(total_seconds):

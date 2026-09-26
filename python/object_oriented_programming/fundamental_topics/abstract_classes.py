@@ -1,3 +1,12 @@
+"""
+Abstract classes - a base class that cannot be instantiated.
+
+The abstractmethod decorator marks methods a subclass must override, and
+ABCMetaclass enforces it at construction time rather than at call time, so the
+error arrives when the object is created. The pass bodies below are therefore
+unreachable and cannot be covered; a test pins that.
+"""
+
 # Abstract Classes: Can't be instantiated (i.e. can't be used for its main constructor e.g. def __init__ (self...):)
 # Contain abstract methods, declaring no implementation
 # Prevents Instantiation of the class itself (prevents error executable files)

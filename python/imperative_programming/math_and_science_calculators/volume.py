@@ -1,3 +1,11 @@
+"""
+Volume of a cuboid, x * y * z, and the two-dimensional case beside it.
+
+Keeps both volume(x, y, z) and calculate() in one file, so the contrast
+between a named calculation and a prompt-and-display wrapper is visible in a
+single place.
+"""
+
 def volume (x, y, z):
     return x * y * z
 

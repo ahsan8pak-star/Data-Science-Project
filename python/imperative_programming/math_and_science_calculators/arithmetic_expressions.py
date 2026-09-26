@@ -1,3 +1,14 @@
+"""
+Applies every arithmetic operator to one pair of numbers and prints a results
+table.
+
+Imports arithmetic() from its sibling and layers formatting on top:
+format_result() gives division two decimal places, strips a trailing .0 from
+whole-number floats, and passes a zero-division error string through
+unformatted. The menu banner here duplicates the one in the sibling script,
+which is the sort of repetition this folder is prone to.
+"""
+
 try:
     from python.imperative_programming.math_and_science_calculators.arithmetic_calculator import arithmetic
 

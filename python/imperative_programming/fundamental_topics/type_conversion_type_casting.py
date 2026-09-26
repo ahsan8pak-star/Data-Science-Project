@@ -1,3 +1,13 @@
+"""
+Type conversion and type casting.
+
+str(), int(), float() and bool() convert between types, and type() reports
+what a value actually is. The distinction that matters: int("3.14") raises
+ValueError because the string is not a whole number, while int(3.14) silently
+truncates to 3. Converting a string that does not look like a number is an
+error; converting a number to int is a decision about precision.
+"""
+
 a = "A.I.M"
 b = 8
 c = 3.14

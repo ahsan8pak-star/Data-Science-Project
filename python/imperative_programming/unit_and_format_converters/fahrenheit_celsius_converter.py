@@ -1,3 +1,12 @@
+"""
+Fahrenheit to Celsius and back, with a formatted conversion table.
+
+Two small functions, fahrenheit_to_celcius() and celcius_to_fahrenheit(), each
+paired with a printer that lays the results out in a column. The spellings
+"celcius" for "celsius" are consistent across the module and are pinned by
+four test assertions, so they are left as they are rather than half-renamed.
+"""
+
 def fahrenheit_to_celcius(f):
 
     c = 5/9 * (f - 32) 

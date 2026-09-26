@@ -1,3 +1,11 @@
+"""
+Composition - building one object out of others that it owns.
+
+The parts are passed in and held for the object's lifetime, so they cannot
+outlive it, which is what separates this from aggregation.py. Delegation is
+the usual pattern: the container forwards a call to the part.
+"""
+
 # Composition = The composed object owns its components
 # Can't exist independently (always dependent) -> "owns-a" relationship
 

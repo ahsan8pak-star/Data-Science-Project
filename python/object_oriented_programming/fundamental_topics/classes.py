@@ -1,3 +1,11 @@
+"""
+Classes - defining a class, instantiating it, and attributes on the object.
+
+The plainest object-oriented example in the repo, and the baseline the other
+OOP files build on. The sibling import below was originally misspelled
+(orienteded) and was corrected rather than rewritten.
+"""
+
 # Object = "Bundle" of related attributes (variables) and methods (functions)
 # e.g. phone, cup, book
 

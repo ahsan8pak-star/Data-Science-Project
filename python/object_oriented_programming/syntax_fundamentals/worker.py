@@ -1,3 +1,11 @@
+"""
+Worker - a base class extended by Manager and Developer.
+
+Holds a name and a position, with subclasses adding their own detail. The
+company list and the print loop are at module level, so the file both defines
+the hierarchy and demonstrates it when run.
+"""
+
 class Worker():
     def __init__(self, name, position):
         self.name = name

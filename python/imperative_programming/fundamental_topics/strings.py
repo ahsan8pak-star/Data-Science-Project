@@ -1,3 +1,13 @@
+"""
+Strings - indexing, slicing, methods and formatting.
+
+Strings are immutable and indexable, and [START : END : STEP] works the same
+way as it does for lists. Covers the common str methods, f-string formatting,
+and the whitespace-handling methods. The help(str) call prints the full method
+list; the test suite stubs that out because scanning every installed method
+costs roughly twenty seconds.
+"""
+
 Name = " AhSaN "
 
 print(help(str)) # Entire list of strings methods

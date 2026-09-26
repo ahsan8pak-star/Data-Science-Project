@@ -1,3 +1,11 @@
+"""
+Phone keypad - maps the digits 0-9 to the letters printed on each key.
+
+num(phone) walks a string of digits and expands each one, so it is a lookup
+table expressed as a match statement. The classic gotcha is the letters
+mapped to both 7 and 9, which this handles explicitly.
+"""
+
 def num(phone): # Mapping a numeric digit to its string word from 0 to 9
     match phone:
         case 0:

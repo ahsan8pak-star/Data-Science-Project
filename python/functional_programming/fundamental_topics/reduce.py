@@ -1,3 +1,15 @@
+"""
+reduce() - accumulates an iterable down to a single value by applying a
+function to pairs of items.
+
+    from functools import reduce
+    reduce(function, iterable) -> single value
+
+It works like a running total, flowing through each item once. The function
+receives an accumulator and the next item, and it is the first argument, so
+remember reduce(function, iterable) rather than the reverse.
+"""
+
 # reduce() = Accumulates an iterable down to a single value by applying a function to pairs of items.
 # Works like a running total, flowing through each item once.
 # from functools import reduce     reduce(function, iterable) -> single value

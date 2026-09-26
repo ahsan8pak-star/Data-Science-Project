@@ -1,3 +1,13 @@
+"""
+MP3 player, tkinter GUI.
+
+A window version of the terminal player: track list on the left, transport
+controls and a volume slider on the right, with the tkinter event loop driving
+playback. The sys.path line is there so the terminal player module can be
+imported alongside it, and the pygame import is guarded for the same reason as
+in the TUI version.
+"""
+
 import os  # Standard library: file path operations and directory resolution
 import sys  # Standard library: modifies sys.path to locate tui modules
 import tkinter as tk  # Standard library: GUI toolkit for building the player window

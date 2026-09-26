@@ -1,3 +1,11 @@
+"""
+Area of a rectangle from two sides.
+
+The smallest of the geometry calculators, kept as the plain example the
+rectangle-based scripts build on. area(x, y) is deliberately a single
+unvalidated call: validation lives in the callers that prompt.
+"""
+
 def area (x, y):
     return x * y
 

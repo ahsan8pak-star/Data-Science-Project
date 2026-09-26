@@ -1,3 +1,12 @@
+"""
+Variables - naming, assignment and the basic data types.
+
+Covers string, int, float and bool literals, reassignment, and the naming
+rules Python enforces. Also demonstrates that a string is truthy even when it
+reads as false, which is the trap the boolean branches below are built to
+expose. The name and identity details here are A.I.M's own.
+"""
+
 # Strings
 
 first_name = "Ahsan"

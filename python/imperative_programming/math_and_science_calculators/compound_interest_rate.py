@@ -1,3 +1,13 @@
+"""
+Compound interest - the growth on a principal over a number of periods.
+
+    A = P(1 + r/100)^t
+
+Kept deliberately parallel to compound_debt_calculator.py, which computes
+the same figure; the pair shows how one formula serves two different
+framings. Both catch ZeroDivisionError on a zero rate.
+"""
+
 def compound_interest(p, r, t):
 
     a = p * ((1 + r / 100) ** t)  # A = P(1 + r/100)^n

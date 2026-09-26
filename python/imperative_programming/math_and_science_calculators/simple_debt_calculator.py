@@ -1,3 +1,13 @@
+"""
+Simple debt - interest charged on the original principal only.
+
+    A = P(1 + rt)
+
+The flat-interest counterpart to compound_debt_calculator.py. Because the
+principal never grows, the interest is P * r * t and no exponent appears.
+A zero rate raises ZeroDivisionError, which is caught.
+"""
+
 def simple_debt(p, r, t):
 
     a = p * (1 + (r * t) / 100) # a = p + (p * r * t) / 100

@@ -1,3 +1,11 @@
+"""
+Banking - balance, deposit, withdraw and interest in one menu-driven program.
+
+Covers the arithmetic, the conditionals and the loop in a single realistic
+scenario. show_balance() is separated from the menu dispatch so the balance
+formatting can be read on its own.
+"""
+
 def show_balance(balance):
 
     print("\n---------------------------")

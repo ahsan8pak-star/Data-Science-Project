@@ -1,3 +1,11 @@
+"""
+Order - a collection of items with a total.
+
+Composes Item objects rather than inheriting from them, so an order can hold
+many different item types. add_item() appends and total() walks the items,
+which is the composition example in the OOP lane.
+"""
+
 class Order:
 
     total_revenue = 0 

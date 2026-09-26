@@ -1,3 +1,14 @@
+"""
+Compound debt - what a balance grows to when interest is itself charged on
+the accumulating total.
+
+    A = P(1 + r/100)^t
+
+The difference from simple_debt_calculator.py is entirely the exponent: here
+each period's interest joins the balance and earns interest in turn. Dividing
+by zero raises ZeroDivisionError, which is caught and reported.
+"""
+
 def compound_debt(p, r, t):
 
     a = p * ((1 + r / 100) ** t)  # A = P(1 + r/100)^n

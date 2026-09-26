@@ -1,3 +1,13 @@
+"""
+Closures - a nested function that remembers a value from its outer function
+even after the outer function has finished running.
+
+make_multiplier() returns multiply(), and multiply() keeps hold of `factor`
+from the enclosing call. Nothing is passed in at call time, so the value
+survives independently of the outer frame. The usual reason to reach for
+this is to attach behaviour to data without a class.
+"""
+
 # Closure = A nested function that remembers ("captures") a value from its outer function
 # even after the outer function has finished running.
 

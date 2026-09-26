@@ -1,3 +1,10 @@
+"""
+Food menu - a dictionary of items and prices, with lookup and a total.
+
+The data lives in a module-level dict, so adding an item is a matter of
+extending it. Iteration over .items() is what pairs each name with its price.
+"""
+
 menu = {
     "pizza": 2.99,
     "nachos": 3.99,

@@ -1,3 +1,15 @@
+"""
+partial() - pre-fills some of a function's arguments, producing a specialised
+version with those values locked in.
+
+    from functools import partial
+    partial(function, argument) -> new function with the argument bound
+
+The complement to currying: currying splits a call into a chain of
+single-argument calls, partial fixes some arguments up front and leaves the
+rest free.
+"""
+
 # partial() = Pre-fills some of a function's arguments, creating a specialised version.
 # from functools import partial     partial(function, argument) -> new function with the argument locked in
 

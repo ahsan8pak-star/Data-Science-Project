@@ -1,3 +1,12 @@
+"""
+Number guessing - find a hidden number from higher/lower feedback.
+
+Tracks an experience score that rises while the guesses are close and falls
+when they are not, which gives the loop a second progress signal beyond the
+attempt count. The hidden value comes from random, so the number of attempts
+is the only thing a test can predict.
+"""
+
 import random
 
 EXP = 0 # Started with

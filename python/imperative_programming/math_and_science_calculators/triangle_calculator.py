@@ -1,3 +1,14 @@
+"""
+Triangle calculator - dispatches to the sine or cosine rule depending on
+which values the user supplies.
+
+The sys.path manipulation at the top exists so the sibling imports of
+sine_rule and cosine_rule resolve when the file is run directly. Since those
+two modules check their own __name__, importing them here means their input
+helpers return None instead of prompting, which is a documented quirk with a
+test pinning it.
+"""
+
 import sys
 import os
 

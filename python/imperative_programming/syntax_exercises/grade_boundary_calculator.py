@@ -1,3 +1,11 @@
+"""
+Grade boundaries - maps a score out of 100 to a letter grade.
+
+The elif ladder encodes the thresholds in descending order, so the first
+match wins. Out-of-range scores are rejected first, which is why the range
+check has to come before any of the grade bands.
+"""
+
 grade = input("Score (out of 100): ")
 
 print(f"{int(grade)} / 100")

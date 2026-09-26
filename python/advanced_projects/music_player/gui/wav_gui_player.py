@@ -1,3 +1,11 @@
+"""
+WAV player, tkinter GUI.
+
+Mirrors the MP3 GUI against uncompressed audio, and is the pair most worth
+comparing side by side: identical structure, one file per format, and the
+differences are all in the audio handling rather than the interface.
+"""
+
 import os  # Standard library: file path operations and directory resolution
 import sys  # Standard library: modifies sys.path to locate tui modules
 import tkinter as tk  # Standard library: GUI toolkit for building the player window

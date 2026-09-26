@@ -1,3 +1,11 @@
+"""
+Payment - how an order is paid for.
+
+Models the transaction and the method it went through, and validates that an
+amount is present before accepting it. Separated from Order so the pricing and
+the payment terms stay independent.
+"""
+
 # Payment -> Cash, Card, BankTransfer
 
 class Payment:

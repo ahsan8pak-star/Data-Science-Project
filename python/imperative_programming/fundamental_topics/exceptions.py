@@ -1,3 +1,13 @@
+"""
+Exceptions - error handling, mainly used for catching errors.
+
+The point of try/except is to let a program print an explanation and carry on
+instead of crashing. The bare except catches everything, which is usually too
+blunt; naming the exception keeps the handler honest. Note the difference
+between raise, which reports a problem, and assert, which checks an invariant
+and can be stripped out entirely by running Python with -O.
+"""
+
 # Exceptions are mainly used for Error Catching
 # That means it'll allow the error message to be outputted without crashing the program
 

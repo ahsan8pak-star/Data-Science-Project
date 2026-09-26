@@ -1,3 +1,10 @@
+"""
+Reverse a list - the in-place and the copy-returning routes.
+
+Taking arr[::-1] is the concise answer; the loop builds the reversed list by
+hand, which is the version worth writing once to see why the slice exists.
+"""
+
 def reverse_list(arr):
     # Takes an array as a parameter and returns the reverse of the array.
     return arr[::-1]

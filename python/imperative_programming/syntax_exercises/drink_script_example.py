@@ -1,3 +1,11 @@
+"""
+Sibling-import example, importing favourite_food from food_script_example.py.
+
+Should run ONLY standalone, and the comment at the top says so. Kept as the
+pairing to food_script_example.py: the two together show the difference
+between a module safe to import and one that assumes it owns the terminal.
+"""
+
 # This file should run ONLY standalone 
 
 from imperative_programming.syntax_exercises.food_script_example import favourite_food # from [FOLDER NAME]...[FILENAME] import [FUNCTION]

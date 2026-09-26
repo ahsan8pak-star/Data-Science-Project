@@ -1,3 +1,11 @@
+"""
+Leap year - the full Gregorian rule, not the naive every-fourth-year version.
+
+A year is a leap year when divisible by 4, except centuries are not, unless
+divisible by 400. That two-step exception is the whole point of the exercise;
+is_leap(year) returns the boolean directly.
+"""
+
 def is_leap(year):
     
     leap = False # Assumes it's false since we have no confirmation at the start

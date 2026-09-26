@@ -1,3 +1,11 @@
+"""
+Hangman - guess a hidden word one letter at a time before the lives run out.
+
+Builds a word bank, tracks guessed letters so repeats are handled, and draws
+the gallows as the remaining lives shrink. Lives are the loop condition, which
+is why a correct guess neither advances nor ends the turn.
+"""
+
 import random # essential to randomly get the words within its oen word back
 
 hangman_art = {0: ("   ",

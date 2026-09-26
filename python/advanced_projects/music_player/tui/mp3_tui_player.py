@@ -1,3 +1,14 @@
+"""
+MP3 player, terminal UI.
+
+Lists the tracks in a folder, then drives playback from the keyboard: play,
+pause, stop, next, previous and shuffle. The menu is redrawn in place with
+ANSI escapes, and keyboard playback uses pygame rather than an external player
+so it works the same on every platform. The pygame import is guarded so the
+module still imports on a machine without it, which changes what the class can
+do rather than breaking the import.
+"""
+
 import os
 import random
 import sys

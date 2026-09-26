@@ -1,3 +1,14 @@
+"""
+Simple interest - the interest earned on a principal over a period, without
+compounding.
+
+    I = P r t
+
+The simplest of the interest calculators, and the base case the compound
+ones are contrasted against. The rate is read as a percentage, so 5 becomes
+0.05 in the calculation.
+"""
+
 def simple_interest(p, r, t):
 
     a = p * (1 + (r * t) / 100) # a = p + (p * r * t) / 100

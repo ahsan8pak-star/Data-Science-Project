@@ -1,3 +1,13 @@
+"""
+Numbers - the int, float and complex numeric types and the math module.
+
+Covers the arithmetic operators, integer division versus true division, the
+order of precedence, and the maths functions in the math module. It also
+carries a bytes.hex demonstration. Note this file deliberately shadows a
+standard-library module name inside this folder, which is why the statistics
+module lives in the functional lane rather than here.
+"""
+
 import math # Investigate more at https://docs.python.org/3/library/math.html
 
 

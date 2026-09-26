@@ -1,3 +1,11 @@
+"""
+Iterators - __iter__ and __next__ behind the for loop.
+
+__iter__ returns the iterator and __next__ returns the next item or raises
+StopIteration to end it. Writing them by hand is what makes the protocol
+visible; most of the time a generator or iter() does the same job.
+"""
+
 # Iterator = An object that returns elements one at a time from a sequence (or data stream)
 # and remembers its position between calls.
 

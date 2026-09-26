@@ -1,3 +1,11 @@
+"""
+Shopping cart - add items, update quantities and total the basket.
+
+cart() holds the items in a dictionary keyed by name, so a repeated add
+updates the quantity rather than duplicating the row. Totalling walks
+.items() and multiplies price by count.
+"""
+
 def cart():
 
     # Starting Point

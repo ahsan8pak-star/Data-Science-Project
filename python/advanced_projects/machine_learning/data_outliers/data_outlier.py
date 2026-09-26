@@ -1,3 +1,12 @@
+"""
+Data outlier detection - a scikit-learn transformer that flags unusual rows.
+
+Fits on a feature matrix, computes a per-row score, and writes a boolean
+column marking the rows that fall outside the chosen quantile. Implements the
+BaseEstimator and TransformerMixin interfaces so it composes into a Pipeline,
+and the docstring examples show the intended DataFrame in and out.
+"""
+
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
 

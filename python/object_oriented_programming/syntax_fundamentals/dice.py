@@ -1,3 +1,12 @@
+"""
+Dice - a die that rolls, and the ASCII art in a sibling module.
+
+Imports its art from the imperative dice_game module, a deliberate
+cross-paradigm import to show a reusable component moving between folders.
+Part of the frozen OOP lane, so the sys.path setup and the import are left
+exactly as they are.
+"""
+
 import os
 import sys
 

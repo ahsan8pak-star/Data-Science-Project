@@ -1,3 +1,14 @@
+"""
+Currying - turning one function that takes multiple arguments into a chain
+of functions that each take a single argument.
+
+    add(a, b)  becomes  add(a)(b)
+
+Useful when an argument is fixed early and reused, or when a function has to
+satisfy a callback that expects exactly one parameter. The counterpart is
+partial application, where some arguments are bound up front instead.
+"""
+
 # Currying = Turning one function that takes multiple arguments
 # into a chain of functions that each take a single argument.
 # add(a, b) becomes add(a)(b)

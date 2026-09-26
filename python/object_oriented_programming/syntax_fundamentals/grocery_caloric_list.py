@@ -1,3 +1,13 @@
+"""
+Grocery caloric list - a menu, an order, a receipt and a recommendation.
+
+FoodItem is the model; the module-level routine then drives the whole
+interaction, from choosing items to totalling calories and cost through to
+recommending a healthier swap. The longest function in the repo, and the
+clearest candidate for splitting into menu, order, receipt and recommend
+steps - a natural follow-on from the rock_paper_scissors.py restructure.
+"""
+
 class FoodItem:
     def __init__(self, name, calories, price):
         self.name = name

@@ -1,3 +1,13 @@
+"""
+Mad libs - the player supplies words that fill the gaps in a poem.
+
+The player guesses the word that fits the next line, and the words are then
+substituted into a haiku template, so the same prompts produce a different
+poem each run. Word choice is free text, so this file also shows why
+.stdin handling differs from the strict numeric parsers elsewhere in the
+repo.
+"""
+
 # Mad libs is a game where the player guesses the word that fits the next sentence
 # This program only takes user inputs alone for this.
 
