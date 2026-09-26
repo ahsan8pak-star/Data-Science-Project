@@ -55,7 +55,7 @@ def bubble_sort(lst):
         for j in range(n - i - 1):
             # Compare adjacent cards using card_compare
             if card_compare(sorted_list[j], sorted_list[j + 1]) > 0:
-                # Python allows you to swap variables in one clean line
+                # Python allows variables to be swapped in one clean line
                 sorted_list[j], sorted_list[j + 1] = sorted_list[j + 1], sorted_list[j]
                 
     return sorted_list

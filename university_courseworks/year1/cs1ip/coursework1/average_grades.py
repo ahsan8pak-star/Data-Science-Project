@@ -17,7 +17,7 @@ def AverageGrades(grades, weights):
         for j in range(comps):
             total_sum += grades[i][j] * weights[j]
         
-        # Integer division in Python is // (or / if you want floating point)
+        # Integer division in Python is // (or / for floating-point division)
         result[i] = total_sum // 100
 
     return result
