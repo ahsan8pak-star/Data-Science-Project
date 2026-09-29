@@ -362,13 +362,50 @@ structured history and keep the log scannable:
 
 ### Correcting something already pushed
 
-Because `main` is not rewritten, a mistake that reached `main` is fixed in a
-follow-up commit rather than an amend-and-force. That is the normal path, and
-it is preferable: the history shows the correction and why, which is worth more
-to a reader than a tidy log. Reach for a branch and a pull request only when
-the wrong content must be replaced rather than added to - typically because it
-leaks something, or because a rewritten file would misrepresent the repo's
-history.
+**A mistake on `main` is corrected on a branch, never on `main` directly.**
+The sequence is: open a branch, commit the fix there with a subject stating
+both the change and the issue behind it, verify the fix properly, then
+force-push the branch and open a pull request. `main` itself is never
+force-pushed, so a bad commit is not erased - it is superseded.
+
+The owner's wording, which is the rule: *"if a mistake is made on main, please
+make a pull request, review it, investigate, check, and after creating a
+branch to fix, stating the git commit fix and the issue behind it, force push
+it in when all parts have been fixed - i.e. met the satisfied functions with
+little to no bugs, especially when running and executing user inputs."*
+
+That last clause is the part that matters most: the branch is not ready on
+"the tests pass" alone. Before force-pushing, the fix has to be shown working
+under the way a user actually meets the code:
+
+- the **full suite green**, run more than once, not once;
+- for a change to a script, the script **executed for real** with representative
+  user input, not merely imported - `scripts/execution_time.py --all` when
+  anything under `python/` changed, since that is the only harness that runs
+  every file standalone;
+- for a change to the CWD-relative writers (`transactions.py`,
+  `qrcode_generator.py`), run them and confirm the artefact lands where the
+  rule intends and that no stray file reaches the repo root;
+- the behaviour that was wrong **reproduced before the fix** and shown absent
+  after it, so the fix is demonstrated rather than asserted;
+- any test added to prove it is confirmed to **fail against the old code**,
+  otherwise it may be passing for an unrelated reason.
+
+**When a follow-up commit is still the right answer.** A branch and a pull
+request cost a review and a merge; that is worth it when the wrong content
+must be *replaced* rather than merely countered. A one-line doc fix, a typo in
+a comment, or a correction that a reader benefits from seeing in the log is
+better served by an honest follow-up commit on `main` - the history then shows
+the mistake *and* the correction, which is worth more to a reader than a tidy
+log. The deciding question is whether the wrong state was ever useful to
+anyone: if it was, keep it visible and correct it forward; if it was pure
+noise, supersede it on a branch.
+
+**Force-pushing the branch is expected** once the fix is verified, and
+`--force-with-lease` is used rather than `--force` so a stale local ref cannot
+clobber someone else's work. The same applies on all four mirrors: a branch
+rewritten on the GitHub Project must get the same shape on the GitLab Backup,
+or the correction is half-applied.
 
 ## Feature Summary (what exists today)
 
