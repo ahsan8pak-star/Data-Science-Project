@@ -24,6 +24,7 @@ already-collected pytest session, and cost milliseconds.
 
 import io
 import re
+import subprocess
 import tokenize
 from pathlib import Path
 
@@ -302,3 +303,82 @@ class TestDocNumbersAgreeWithEachOther:
         assert a.group(1) == g.group(1), (
             f"AGENTS.md says {a.group(1)} passing, guide says {g.group(1)}"
         )
+
+
+class TestCommitMessagesCarryAScope:
+    """
+    AGENTS.md rule 12: every commit subject must name the file or folder it
+    touched, in parentheses, after the Conventional Commits type.
+
+    [AI-authored fix] Five consecutive commits in the 29 Sep 2026 session were
+    written without one ("docs: reconcile FILE_SCORES.md heading scores..."),
+    which is what the rule existed to prevent, so writing it in two places
+    plainly was not enough. This reads the real history and fails the suite,
+    which is the only form of the rule an agent cannot talk its way past.
+
+    `git log --oneline` shows only the subject, so the scope is the part that
+    actually makes a long history readable. The check starts at the commit
+    that introduced this guard, because the ~550 commits before it predate the
+    numbered rule and cannot be judged by it - main is never force-pushed, so
+    rewriting them is not an option and would be the wrong fix anyway. Every
+    commit from this one onward is held to the standard.
+    """
+    TYPES = ("feat", "fix", "docs", "refactor", "test", "style", "chore", "ci")
+
+    @staticmethod
+    def _rule_start():
+        """
+        The commit that added this file, i.e. where the rule starts applying.
+
+        Found by asking git rather than hardcoding a hash, so the guard
+        survives a rebase or a squash of the commits that follow it.
+        """
+        added = subprocess.run(
+            ["git", "log", "--diff-filter=A", "--format=%H", "-1", "--",
+             "tests/test_scripts/test_repo_doc_numbers.py"],
+            cwd=REPO_ROOT, capture_output=True, text=True, check=True,
+        ).stdout.strip()
+        if not added:
+            # Not yet committed - this is the run that creates the guard, so
+            # there is nothing after the boundary to check yet.
+            return None
+        return added
+
+    def _subjects_since_rule(self):
+        """Subjects of every commit from the rule's adoption up to HEAD."""
+        start = self._rule_start()
+        if start is None:
+            return []
+        result = subprocess.run(
+            ["git", "log", "--format=%s", f"{start}~1..HEAD"],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        return [line for line in result.stdout.splitlines() if line.strip()]
+
+    def test_history_is_readable(self):
+        assert self._rule_start(), "could not locate the rule's adoption commit"
+
+    def test_every_subject_names_a_file_or_folder(self):
+        offenders = [
+            subject
+            for subject in self._subjects_since_rule()
+            if not re.match(rf"({'|'.join(self.TYPES)})\([^)]+\):\s+\S", subject)
+        ]
+        assert offenders == [], (
+            "commit subjects must be '<type>(<file or folder>): <what changed>'; "
+            f"these do not name a scope: {offenders}"
+        )
+
+    def test_no_non_standard_prefix(self):
+        # rule: avoid file(...) style prefixes - they break commitlint and
+        # Semantic Release, which only understand the standard types.
+        allowed = set(self.TYPES)
+        offenders = [
+            subject
+            for subject in self._subjects_since_rule()
+            if subject.split("(", 1)[0].rstrip(":").strip() not in allowed
+        ]
+        assert offenders == [], f"non-standard commit type used: {offenders}"

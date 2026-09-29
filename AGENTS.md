@@ -234,6 +234,17 @@ candidates to verify against the repo rather than ground truth.
     0, benchmark row FAIL -> PASS, suite unchanged at 1350.
     Full detail in
     `NOTES.md`.
+12. **Every commit message carries a scope naming the file or folder it
+    touched.** `fix(generator.py): resolve import error`, not
+    `fix: resolve import error`. The Conventional Commits type still leads so
+    linters and Semantic Release keep working; the parenthesised scope is what
+    makes the history scannable in `git log --oneline`, where the subject is
+    all you see. For a multi-file change, scope to the folder
+    (`docs(university_courseworks/year2/): add holiday weekly tables`) or name
+    the principal file. A commit with no scope at all is wrong even when the
+    prefix is right - this was violated five times in a row during the 29 Sep
+    2026 session and had to be promoted from a "rule of thumb" to a numbered
+    rule to stop the drift.
 
 ## Term-Time Operating Cadence
 
@@ -288,10 +299,19 @@ structured history and keep the log scannable:
 - **Moving / relocating a file** → `refactor`.
   - `git mv <old_path> <new_path>` then
     `git commit -m "refactor: relocate <file_name>"`
-- **Referencing a specific file** → use the file name as the *scope* inside
-  parentheses, e.g. `refactor(alarm_clock.py): move to syntax_exercises`,
-  `fix(generator.py): resolve import error`. This keeps the standard prefix
-  (machine-readable) while keeping the file explicit (human-readable).
+- **Every commit message carries a scope naming the file or folder it
+  touched** - this is mandatory, not a style preference. The Conventional
+  Commits prefix still leads, with the name in parentheses straight after:
+  `fix(generator.py): resolve import error`,
+  `refactor(alarm_clock.py): move to syntax_exercises`,
+  `test(test_ranking_docs.py): guard heading drift`,
+  `docs(FILE_SCORES.md): align headings with table finals`. For a change
+  spanning many files, scope to the folder or area instead
+  (`docs(university_courseworks/year2/): add holiday weekly tables`) or, if
+  that still reads badly, name the principal file. A commit with no scope at
+  all is wrong even when the prefix is right. This keeps the type
+  machine-readable for linters and Semantic Release while keeping the subject
+  human-readable.
 - **Avoid non-standard prefixes** like `file(...)`. They work for solo repos
   but break commit linters (`commitlint`), changelog generators, and Semantic
   Release, which only understand the standard types.
