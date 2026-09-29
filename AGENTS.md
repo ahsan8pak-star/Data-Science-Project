@@ -312,6 +312,15 @@ structured history and keep the log scannable:
   all is wrong even when the prefix is right. This keeps the type
   machine-readable for linters and Semantic Release while keeping the subject
   human-readable.
+- **Sequence the work easiest-and-safest first, hardest-and-riskiest last.**
+  Order steps so difficulty and risk rise together - a docstring, a guard
+  test, a mechanical rename, a frozen-lane change, a history rewrite - rather
+  than doing the delicate thing first and building on an unverified baseline.
+  Each step leaves the suite green, so when the risky step runs there is
+  already a known-good state to fall back to. State the ordering up front
+  before touching anything, and re-verify between steps rather than batching.
+  The point is that a mistake made at step 1 is caught by a cheap test, while
+  the same mistake at step 5 is caught by a reviewer.
 - **Avoid non-standard prefixes** like `file(...)`. They work for solo repos
   but break commit linters (`commitlint`), changelog generators, and Semantic
   Release, which only understand the standard types.
