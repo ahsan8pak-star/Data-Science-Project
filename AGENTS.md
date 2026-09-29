@@ -243,10 +243,12 @@ candidates to verify against the repo rather than ground truth.
 - **The owner's real contact hours govern scheduling** (confirmed Mon 28 Sep
   2026): Monday 11:00 AM - 4:00 PM (home 6:00 PM), Tuesday 2:00 PM - 6:00 PM
   (home 8:00 PM, tired), Wednesday **free**, Thursday 9:00 AM - 4:00 PM (home
-  6:00 PM), Friday **free**. So Wednesday and Friday are the deep-work days
-  (~6 hrs each in two blocks), Monday and Thursday are 2.5-hour late-evening
-  maintenance slots, Tuesday takes a **morning block (8:30 AM - 10:30 AM)**
-  before its late finish with the evening left as rest, and Saturday/Sunday are
+  6:00 PM), Friday **free**. So Wednesday is the single deep-work day
+  (~6 hrs in two blocks: 9 AM - noon, 2 PM - 5 PM), Monday and Thursday are
+  2-hour late-evening maintenance slots (7 PM - 9 PM), Friday holds the career
+  sprint plus a review block (2 PM - 4 PM and 7 PM - 9 PM), Tuesday takes a
+  **morning block (8:30 AM - 10:30 AM)** before its late finish with the
+  evening left as rest, and Saturday/Sunday are
   a fixed **7:00 PM - 9:00 PM** review slot that is the same in semester and
   holidays - only holiday weekdays expand (to the 9:00 AM - 9:00 PM Times Off
   window). Per-day tables live in `NOTES.md` and both

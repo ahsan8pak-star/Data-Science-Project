@@ -23,11 +23,11 @@ block sits in the morning because the day ends late.
 
 | Day | Status | Session |
 | --- | --- | --- |
-| Monday | Study (late) | University 11:00 AM - 4:00 PM, home by 6:00 PM -> study 6:30 PM - 9:00 PM |
+| Monday | Study (late) | University 11:00 AM - 4:00 PM, home by 6:00 PM -> study 7:00 PM - 9:00 PM |
 | Tuesday | Study (morning) | Study 8:30 AM - 10:30 AM, then university 2:00 PM - 6:00 PM, home by 8:00 PM -> **evening rest** |
-| Wednesday | Study (deep) | Free -> 9:00 AM - 12:00 PM and 1:30 PM - 4:30 PM (6 hrs, 2 blocks) |
-| Thursday | Study (late) | University 9:00 AM - 4:00 PM, home by 6:00 PM -> study 6:30 PM - 9:00 PM |
-| Friday | Study (deep + career sprint) | Free -> 9:00 AM - 12:00 PM and 1:30 PM - 4:30 PM (6 hrs, 2 blocks) |
+| Wednesday | Study (deep) | Free -> 9:00 AM - 12:00 PM and 2:00 PM - 5:00 PM (6 hrs, 2 blocks) |
+| Thursday | Study (late) | University 9:00 AM - 4:00 PM, home by 6:00 PM -> study 7:00 PM - 9:00 PM |
+| Friday | Study (deep + career sprint) | Free -> 2:00 PM - 4:00 PM and 7:00 PM - 9:00 PM (4 hrs, 2 blocks) |
 | Saturday | Study (light + review) | 7:00 PM - 9:00 PM (2 hrs, one block) |
 | Sunday | Study (light + review) | 7:00 PM - 9:00 PM (2 hrs, one block) |
 
@@ -35,12 +35,12 @@ Saturday and Sunday are fixed at **7:00 PM - 9:00 PM in semester AND holidays** 
 the weekend slot never moves; only the weekday blocks differ between term and
 holiday time.
 
-**Term-time total: ~23 hrs/week** (Wed 6 + Fri 6 + Tue 2 + Sat 2 + Sun 2 + Mon
-2.5 + Thu 2.5). Note this is *scheduled availability*, not a target - the
-previous template nominally reached 28 hrs by stacking a 12-hour Wednesday,
-which was neither realistic nor sustainable. The real gain here is shape, not
-size: the work is front-loaded into the two genuinely free days instead of
-spread across every evening.
+**Term-time total: ~20 hrs/week** (Wed 6 + Tue 2 + Fri 4 + Sat 2 + Sun 2 + Mon 2 +
+Thu 2). Note this is *scheduled availability*, not a target - the previous
+template nominally reached 28 hrs by stacking a 12-hour Wednesday, which was
+neither realistic nor sustainable. The real gain here is shape, not size: the
+work is front-loaded into the two genuinely free days instead of spread across
+every evening.
 
 > **Tuesday's block is in the morning because the evening is gone.** With a
 > 2:00 PM - 6:00 PM day and an 8:00 PM arrival home, the only sane study

@@ -34,15 +34,15 @@ in semester and holidays alike.
 
 | Day | Status | Session |
 | --- | --- | --- |
-| Monday | Study (late) | University 11:00 AM - 4:00 PM, home by 6:00 PM -> study 6:30 PM - 9:00 PM |
+| Monday | Study (late) | University 11:00 AM - 4:00 PM, home by 6:00 PM -> study 7:00 PM - 9:00 PM |
 | Tuesday | Study (morning) | Study 8:30 AM - 10:30 AM, then university 2:00 PM - 6:00 PM, home by 8:00 PM -> **evening rest** |
-| Wednesday | Study (deep) | Free -> 9:00 AM - 12:00 PM and 1:30 PM - 4:30 PM (6 hrs, 2 blocks) |
-| Thursday | Study (late) | University 9:00 AM - 4:00 PM, home by 6:00 PM -> study 6:30 PM - 9:00 PM |
-| Friday | Study (deep + career sprint) | Free -> 9:00 AM - 12:00 PM and 1:30 PM - 4:30 PM (6 hrs, 2 blocks) |
+| Wednesday | Study (deep) | Free -> 9:00 AM - 12:00 PM and 2:00 PM - 5:00 PM (6 hrs, 2 blocks) |
+| Thursday | Study (late) | University 9:00 AM - 4:00 PM, home by 6:00 PM -> study 7:00 PM - 9:00 PM |
+| Friday | Study (deep + career sprint) | Free -> 2:00 PM - 4:00 PM and 7:00 PM - 9:00 PM (4 hrs, 2 blocks) |
 | Saturday | Study (light + review) | 7:00 PM - 9:00 PM (2 hrs, one block) |
 | Sunday | Study (light + review) | 7:00 PM - 9:00 PM (2 hrs, one block) |
 
-**Term-time total: ~23 hrs/week**. See the Tuesday note in
+**Term-time total: ~20 hrs/week**. See the Tuesday note in
 `YEAR2_SEMESTER1.md` - Tuesday's study happens in the morning so the evening
 stays restful.
 

@@ -182,19 +182,19 @@ all-evenings template:
 
 | Day | University | Home by | Effective study window |
 | --- | --- | --- | --- |
-| Monday | 11:00 AM - 4:00 PM | 6:00 PM | 6:30 PM - 9:00 PM (2.5 hrs, late) |
+| Monday | 11:00 AM - 4:00 PM | 6:00 PM | 7:00 PM - 9:00 PM (2 hrs, late) |
 | Tuesday | 2:00 PM - 6:00 PM | 8:00 PM | 8:30 AM - 10:30 AM (2 hrs, morning, BEFORE university); evening rest |
-| Wednesday | Free | - | 9:00 AM - 12:00 PM + 1:30 PM - 4:30 PM (6 hrs, deep) |
-| Thursday | 9:00 AM - 4:00 PM | 6:00 PM | 6:30 PM - 9:00 PM (2.5 hrs, late) |
-| Friday | Free | - | 9:00 AM - 12:00 PM + 1:30 PM - 4:30 PM (6 hrs, deep + career sprint) |
+| Wednesday | Free | - | 9:00 AM - 12:00 PM + 2:00 PM - 5:00 PM (6 hrs, deep) |
+| Thursday | 9:00 AM - 4:00 PM | 6:00 PM | 7:00 PM - 9:00 PM (2 hrs, late) |
+| Friday | Free | - | 2:00 PM - 4:00 PM + 7:00 PM - 9:00 PM (4 hrs, deep + career sprint) |
 | Saturday | Free | - | 7:00 PM - 9:00 PM (2 hrs, review) - fixed, same in semester and holidays |
 | Sunday | Free | - | 7:00 PM - 9:00 PM (2 hrs, review) - fixed, same in semester and holidays |
 
 Saturday and Sunday never move: **7:00 PM - 9:00 PM** in semester and holidays
 alike. Holiday **weekdays** are the difference - they open up to the full
 `Times Off` window (9:00 AM - 9:00 PM), which is deliberately larger than term
-weekdays. Term-time total is therefore ~23 hrs/week (Wed 6 + Fri 6 + Tue 2 +
-Sat 2 + Sun 2 + Mon 2.5 + Thu 2.5).
+weekdays. Term-time total is therefore ~20 hrs/week (Wed 6 + Tue 2 + Fri 4 +
+Sat 2 + Sun 2 + Mon 2 + Thu 2).
 
 Three consequences for the maintenance log, all of which change how the
 existing cadence should be read:
@@ -204,10 +204,11 @@ existing cadence should be read:
    is in fact free, and it is now the single biggest block in the week. The
    `python/` recheck, README/`.md` upkeep and the largest single piece of
    module reading belong here.
-2. **Friday is no longer a 2-hour evening slot.** It is a full free day, so the
-   **career sprint** moves from a two-hour Friday slot to a first-class
-   morning-plus-afternoon block - the same day the sprint is already assigned
-   to, just no longer squeezed.
+2. **Friday is an afternoon-plus-evening day, not a morning day.** It is a
+   full free day, so the **career sprint** runs 2:00 PM - 4:00 PM with a
+   7:00 PM - 9:00 PM block held as overflow/social-hours work - the same day
+   the sprint is already assigned to, just reshaped to avoid an early-morning
+   start on a day that had a late night on Thursday.
 3. **Tuesday's study sits in the morning, not the evening.** With a 2:00 PM -
    6:00 PM finish and an 8:00 PM arrival, an evening block starts far too late
    and was always going to be skipped; the work instead runs 8:30 AM - 10:30 AM
