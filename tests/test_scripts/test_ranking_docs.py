@@ -48,6 +48,10 @@ BANDS = {
     "F": (0, 49, "Critical"),
 }
 
+# [AI] The three patterns below are matched line-by-line against the sheet, so
+# they are anchored with ^...$ and pre-compiled once at import. CRITERION_RE
+# carries re.M because findall() scans the whole worked-example block in the
+# guide, where ^/$ must anchor per line rather than per string.
 HEADING_RE = re.compile(
     r"^### (?P<rel>[\w./]+\.py) — \*\*(?P<score>\d+)/100\*\* "
     r"\((?P<band>[A-F]) — (?P<label>[^)]*)\)\s*$"
@@ -61,7 +65,16 @@ FINAL_RE = re.compile(r"^\| \*\*Final\*\* \| \| \| \*\*(?P<final>\d+)\*\* \|$")
 
 
 class Entry:
-    """One scored file, parsed out of FILE_SCORES.md."""
+    """
+    One scored file, parsed out of FILE_SCORES.md.
+
+    [AI] criteria holds the raw criterion scores keyed by name, while
+    weighted_cells keeps the *printed* cell beside the criterion it came from.
+    Keeping both is what lets one entry be checked two ways - the printed cells
+    must agree with the criteria, and the Final must agree with their sum -
+    without re-parsing the table. A doc that disagreed with itself would
+    otherwise pass whichever half was read first.
+    """
 
     def __init__(self, path, score, band, label, criteria, weighted_cells, final):
         self.path = path
@@ -74,14 +87,18 @@ class Entry:
 
     @property
     def name(self):
+        """Basename, for matching against a doc that names files without paths."""
         return self.path.rsplit("/", 1)[-1]
 
     def weighted_total(self):
+        """The four criteria recombined on the 0-100 scale, unrounded."""
         return sum(
             score * WEIGHTS[name] for name, score in self.criteria.items()
         ) / 100
 
     def __repr__(self):
+        # Without this, a failing parametrised run prints 161 identical-looking
+        # objects and the useful path never reaches the terminal.
         return f"<Entry {self.path} final={self.final}>"
 
 
@@ -89,13 +106,13 @@ def _round_half_up(value):
     """
     Round to the nearest whole number, sending an exact half upwards.
 
-    The sheet has always been predominantly half-up (50 of its 59 exact-.5
-    weighted sums), and the nine exceptions disagreed with entries of an
-    identical sum - rock_paper_scissors.py at 74.5 became 75 while
-    qrcode_generator.py at 74.5 became 74 - so half-up is the intended
-    convention and the minority is the defect. Python's built-in round() is
-    not usable here because it breaks ties to even, which would make
-    74.5 round down and 76.5 round down as well.
+    [AI-authored fix] The sheet has always been predominantly half-up (50 of
+    its 59 exact-.5 weighted sums), and the nine exceptions disagreed with
+    entries of an identical sum - rock_paper_scissors.py at 74.5 became 75
+    while qrcode_generator.py at 74.5 became 74 - so half-up is the intended
+    convention and the minority was the defect; this helper is what the nine
+    were corrected with. Python's built-in round() is not usable here because
+    it breaks ties to even, which would send 74.5 down as well as 76.5.
     """
     return int(math.floor(value + 0.5))
 

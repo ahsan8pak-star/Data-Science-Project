@@ -134,9 +134,11 @@ class TestResolveFolder:
         assert resolve_folder("does_not_exist") is None
 
     def test_unknown_name_explains_itself(self, _project, capsys):
-        # Returning None is right - the caller re-prompts - but doing that
-        # silently made a typo indistinguishable from pressing Enter. The
-        # ambiguous case above already printed a list; this is its counterpart.
+        """
+        [AI-authored fix] Returning None is right - the caller re-prompts - but
+        doing that silently made a typo indistinguishable from pressing Enter.
+        The ambiguous case above already printed a list; this is its counterpart.
+        """
         assert resolve_folder("does_not_exist") is None
         assert "No folder matches 'does_not_exist'" in capsys.readouterr().out
 

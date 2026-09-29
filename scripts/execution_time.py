@@ -161,9 +161,12 @@ def resolve_folder(choice):
         print("Type the full path for the folder you want.")
 
     else:
-        # Without this the caller just re-prompts, so a typo is indistinguishable
-        # from a mis-typed-but-happened-to-be-ignored input. Matches the
-        # ambiguous case above, which already explains itself.
+        """
+        [AI-authored fix] A mistyped folder used to return None with nothing
+        printed, so main() just re-prompted and the typo was indistinguishable
+        from pressing Enter. The ambiguous case above already explains itself;
+        this is its counterpart, and the wording points at the two ways out.
+        """
         print(f"[!] No folder matches '{choice}'. Pick one from the tree above, "
               "or press Enter to run the whole python/ folder.")
 

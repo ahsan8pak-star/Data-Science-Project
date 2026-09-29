@@ -29,6 +29,8 @@ from pathlib import Path
 
 import pytest
 
+# Walk up out of tests/ so the guards work regardless of the invocation
+# directory; pytest's rootdir is not a reliable base for a repo-level test.
 REPO_ROOT = Path(__file__).resolve().parents[2]
 AGENTS_MD = REPO_ROOT / "AGENTS.md"
 NOTES_MD = REPO_ROOT / "NOTES.md"
@@ -44,6 +46,7 @@ def _flat(path):
 
 
 def _non_init_modules():
+    """The 161 modules a docstring sweep covers - __init__.py excluded."""
     return sorted(
         p for p in PYTHON_ROOT.rglob("*.py") if p.name != "__init__.py"
     )
@@ -53,15 +56,14 @@ def _has_statement(path):
     """
     True when the file contains something coverage would count as a statement.
 
-    This is an approximation, not a parser: an empty __init__.py and a
-    module whose whole body is a docstring are the two shapes the docs treat
-    as unmeasured, and a line-based check separates them. Using the real
-    parser would mean importing coverage internals, which is not worth the
-    coupling for a guard.
+    [AI-authored fix] This approximates coverage's own definition rather than
+    importing it. The two shapes the docs treat as unmeasured are an empty
+    __init__.py and a module whose whole body is a docstring
+    (sandbox/aim.py), and a token scan separates them: a docstring arrives as a
+    single STRING token, so a file made only of one yields no NAME tokens.
+    Depending on coverage internals for a guard would cost more coupling than
+    the approximation is worth.
     """
-    import io
-    import tokenize
-
     try:
         with open(path, "rb") as handle:
             tokens = list(tokenize.tokenize(io.BytesIO(handle.read()).readline))
@@ -122,6 +124,10 @@ class TestParadigmFileCounts:
     in that lane, so a file added or moved without updating the summary would
     otherwise go unnoticed.
     """
+    # [AI] Each value is (count, the word AGENTS.md uses for that lane). The
+    # stems are not derivable from the folder names - the OOP lane is written
+    # "41 OOP", not "41 object_oriented_programming" - so both halves are
+    # spelled out here and the test greps for the documented wording.
     EXPECTED = {
         "imperative_programming": ("92", "imperative"),
         "functional_programming": ("21", "functional"),
@@ -201,6 +207,10 @@ class TestDeadByDesignCapsAreIdentityChecked:
     asserts the total is internally consistent with the per-file figures the
     docs record.
     """
+    # [AI] filename -> uncovered lines, as the coverage report counted them on
+    # the 29 Sep 2026 audit. The per-file figures are the load-bearing part:
+    # sum() has to equal 38 and the map has to hold 11 entries, so dropping a
+    # cap or inventing one is a test failure rather than a silent edit.
     CAPS = {
         "variables.py": 8,
         "conditions.py": 6,
