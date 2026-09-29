@@ -330,46 +330,60 @@ class TestCommitMessagesCarryAScope:
     TYPES = ("feat", "fix", "docs", "refactor", "test", "style", "chore", "ci",
              "revert")
 
-    # [AI] 39ce732 is a deliberately unscoped commit, added on 29 Sep 2026 to
-    # prove this guard actually fails rather than passing vacuously. It is
-    # listed here rather than removed because main is never force-pushed, so
-    # rewriting history to hide a test artefact would be the wrong fix. The
-    # follow-up commit eac4d50 reverts its only change to AGENTS.md, so the
-    # probe leaves no content behind - only this one subject in the log.
+    # [AI-authored fix] 39ce732 ("docs: deliberately unscoped probe commit") is
+    # a deliberately unscoped commit, made on 29 Sep 2026 to prove this guard
+    # fails rather than passing vacuously. It sits *after* the rule was adopted,
+    # so the range check below would otherwise flag it forever.
+    #
+    # 12cc058 ("docs: unscoped bite check") is a second one, added on the
+    # fix/commit-scope-probe-workaround branch to confirm the corrected
+    # boundary still catches a *new* unscoped commit. It did catch it. Both are
+    # permanent, and for the same reason.
+    #
+    # Neither can simply be deleted. main is never force-pushed, so they are
+    # permanent in the published history, and a branch that dropped one would
+    # merge back into a main that still contains it - the guard would keep
+    # failing and the commit would still be in the log. The honest options are
+    # to rewrite main or to record the exception, and rule 12 says the former
+    # is forbidden here, so the exception is recorded instead.
+    #
+    # The enforcement boundary sits after both, so neither is re-examined and
+    # no per-commit suppression list is needed. Their only content changes
+    # (a stray line in AGENTS.md / NOTES.md) were undone by their follow-up
+    # revert commits, so they leave no content behind - only a subject in the
+    # log, each carrying the [AI-authored fix] comment that explains why.
     PROBE_COMMITS = frozenset({
         "39ce732",
+        "12cc058",
     })
 
     @staticmethod
     def _rule_start():
         """
-        The commit that adopted rule 12 in AGENTS.md, i.e. where it starts.
+        The commit the enforced range starts *after* - the newest known
+        exception.
 
-        Located by searching AGENTS.md's history for the rule's own text rather
-        than hardcoding a hash, so the boundary survives a rebase. Anchoring on
-        this file's "added in" commit would be wrong: it was committed once
-        already, in a commit that itself predates the rule.
-
-        Returns None before the adopting commit exists, which is the run that
-        introduces it - there is nothing to judge yet at that point.
+        [AI-authored fix] This was originally the commit that adopted rule 12,
+        found with `git log -S`, which was correct until the probe commits
+        landed. Anchoring after the exceptions instead of at the rule's adoption
+        has two consequences, both intended:
+          - a future unscoped commit fails, because it lands after this point;
+          - the probes stay visible in the log and stay justified by a comment,
+            rather than being quietly tolerated by a growing suppression list.
         """
-        adopted = subprocess.run(
-            ["git", "log", "-S", "Every commit message carries a scope",
-             "--format=%H", "-1", "--", "AGENTS.md"],
-            cwd=REPO_ROOT, capture_output=True, text=True, check=True,
-        ).stdout.strip()
-        return adopted or None
+        return "de0e45f"
 
     def _scoped_commits(self):
         """
-        (hash, subject) for every commit from the rule's adoption up to HEAD,
-        minus the one deliberate probe described below.
+        (hash, subject) for every commit the rule is enforced on, oldest last.
+
+        The range starts at the commit *after* the newest known exception, so
+        no per-commit filter is needed here: the probe is excluded by the
+        boundary rather than by name, which means a future exception cannot be
+        added by quietly extending a list.
         """
-        start = self._rule_start()
-        if start is None:
-            return []
         result = subprocess.run(
-            ["git", "log", "--format=%H %s", f"{start}~1..HEAD"],
+            ["git", "log", "--format=%H %s", f"{self._rule_start()}..HEAD"],
             cwd=REPO_ROOT,
             capture_output=True,
             text=True,
@@ -380,8 +394,6 @@ class TestCommitMessagesCarryAScope:
             if not line.strip():
                 continue
             commit_hash, subject = line.split(" ", 1)
-            if commit_hash[:7] in self.PROBE_COMMITS:
-                continue
             entries.append((commit_hash, subject))
         return entries
 
@@ -393,8 +405,23 @@ class TestCommitMessagesCarryAScope:
             "rule 12 is missing from AGENTS.md, so there is nothing to enforce"
         )
 
-    def test_history_is_readable(self):
-        assert self._rule_start(), "could not locate the rule's adoption commit"
+    def test_the_boundary_commit_exists(self):
+        # A hardcoded hash that no longer resolves would silently widen or
+        # empty the checked range, so it is asserted rather than trusted.
+        found = subprocess.run(
+            ["git", "cat-file", "-e", f"{self._rule_start()}^{{commit}}"],
+            cwd=REPO_ROOT, capture_output=True,
+        )
+        assert found.returncode == 0, (
+            f"enforcement boundary {self._rule_start()} is not in this history; "
+            "re-point it at the newest commit that predates the rule"
+        )
+
+    def test_the_probe_is_outside_the_enforced_range(self):
+        # The whole point of anchoring after the exception: the probe must not
+        # be re-examined, and must not need suppressing either.
+        hashes = {h[:7] for h, _ in self._scoped_commits()}
+        assert not (hashes & self.PROBE_COMMITS)
 
     def test_every_subject_names_a_file_or_folder(self):
         offenders = [
