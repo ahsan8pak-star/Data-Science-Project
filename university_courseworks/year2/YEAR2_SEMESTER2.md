@@ -125,23 +125,78 @@ Semester 2. Design report **Stage 1 (group, 40%, due Teaching Week 7)** + **Stag
 
 \*Fill **Covered?** each pass-through (e.g. ✅ done, ◐ partial). Off / assessment weeks are marked `n/a`.
 
-## Summer Plan (from Monday 31 May 2027)
+## Holiday Weekly Tables
+
+Each holiday break has its own weekly table. Every one follows the same
+rules: weekdays open up to the full `Times Off` window — **9:00 AM - 9:00 PM**
+(30 - 60 minute break per 1:30 - 2 hours worked) — which is deliberately
+**larger** than term weekdays; weekends never move, staying the fixed
+**7:00 PM - 9:00 PM** slot from semester. Breaks differ only in focus, not
+in shape.
+
+### Week Off (Monday 1 March - Sunday 7 March) — Revision & Catch-up
+
+A normal Times Off week: regular revision and catching up, no new material.
+
+| Day | Status | Session |
+| --- | --- | --- |
+| Mon - Fri | Times Off (revision + catch-up) | 9:00 AM - 9:00 PM (1:30 - 2 hrs work, 30 - 60 min break) |
+| Saturday | Times Off (revision + catch-up) | 7:00 PM - 9:00 PM |
+| Sunday | Times Off (revision + catch-up) | 7:00 PM - 9:00 PM |
+
+### Easter Break (Monday 29 March - Friday 9 April) — Revision & Catch-up
+
+A normal Times Off window over the Easter fortnight; recovery plus revision.
+
+| Day | Status | Session |
+| --- | --- | --- |
+| Mon - Fri | Times Off (revision + catch-up) | 9:00 AM - 9:00 PM (1:30 - 2 hrs work, 30 - 60 min break) |
+| Saturday | Times Off (revision + catch-up) | 7:00 PM - 9:00 PM |
+| Sunday | Times Off (revision + catch-up) | 7:00 PM - 9:00 PM |
+
+### Assessment Period (Monday 10 May - Friday 28 May) — Module Review & Minor Fixes
+
+More emphasis on the taught modules: code review and minor fixes rather than
+new heavy learning.
+
+| Day | Status | Session |
+| --- | --- | --- |
+| Mon - Fri | Times Off (module review + minor fixes) | 9:00 AM - 9:00 PM (1:30 - 2 hrs work, 30 - 60 min break) |
+| Saturday | Times Off (module review + minor fixes) | 7:00 PM - 9:00 PM |
+| Sunday | Times Off (module review + minor fixes) | 7:00 PM - 9:00 PM |
+
+Focus per module:
+- **CS2AI:** Assessment and revision
+- **CS2ON:** Written exam preparation
+- **CS2SD:** Any remaining report follow-up
+
+### Summer Weekday Tables (from Monday 31 May 2027)
 
 The `Times Off` window applies throughout the Summer: **9:00 AM - 9:00 PM** with a
-30 - 60 minutes break for every 1:30 - 2 hours worked. Holiday weekdays are
-therefore **larger** than term weekdays, while weekends do not change:
-Saturday and Sunday remain **7:00 PM - 9:00 PM**, the same fixed slot as term.
+30 - 60 minutes break for every 1:30 - 2 hours worked.
 
-### Rest (June)
+#### Rest (June) — Light Maintenance
 
 - Recovery period; light maintenance within the Times Off window
 - Optional sessions for gentle catch-up
 
-### Year 3 Preparation (July - September)
+| Day | Status | Session |
+| --- | --- | --- |
+| Mon - Fri | Times Off (light maintenance) | 9:00 AM - 9:00 PM (1:30 - 2 hrs work, 30 - 60 min break) |
+| Saturday | Times Off (light maintenance) | 7:00 PM - 9:00 PM |
+| Sunday | Times Off (light maintenance) | 7:00 PM - 9:00 PM |
+
+#### Year 3 Preparation (July - September) — Full-Pace Block II
 
 - Final Year Project **CS3IP**: Shortlist Ideas, Draft a Project Outline, Prepare to Contact a Supervisor *Early*
 - **CS3AM**: Artificial Intelligence and Machine Learning Groundwork Ahead of Semester 1
 - Year 3 electives aligned with the data science direction: CS3DV (Data Integration and Information Visualisation), CS3CS (Cloud-based AI Solutions), CS3IV (Image Analysis and Visual Intelligence), CS3TM (Text Mining and NLP)
 - **Semester 3 / Final Year Teaching Begins Late September 2027**
+
+| Day | Status | Session |
+| --- | --- | --- |
+| Mon - Fri | Times Off (full-pace Block II) | 9:00 AM - 9:00 PM (1:30 - 2 hrs work, 30 - 60 min break) |
+| Saturday | Times Off (full-pace Block II) | 7:00 PM - 9:00 PM |
+| Sunday | Times Off (full-pace Block II) | 7:00 PM - 9:00 PM |
 
 

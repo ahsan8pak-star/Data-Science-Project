@@ -196,6 +196,15 @@ alike. Holiday **weekdays** are the difference - they open up to the full
 weekdays. Term-time total is therefore ~20 hrs/week (Wed 6 + Tue 2 + Fri 4 +
 Sat 2 + Sun 2 + Mon 2 + Thu 2).
 
+Each holiday break carries its own weekly table - `## Holiday Weekly Tables`
+in `university_courseworks/year2/YEAR2_SEMESTER1.md` and
+`YEAR2_SEMESTER2.md`. All follow the same shape (weekdays 9 AM - 9 PM Times
+Off, weekends fixed 7 PM - 9 PM) and differ only in focus: Week Off weeks and
+Easter are revision + catch-up, assessment periods are module review + minor
+fixes, the S1 winter break opens with a deliberate rest week, and Summer is
+light maintenance in June then full-pace Block II from July. Those tables are
+the authority for any maintenance-log row that lands inside a break.
+
 Three consequences for the maintenance log, all of which change how the
 existing cadence should be read:
 

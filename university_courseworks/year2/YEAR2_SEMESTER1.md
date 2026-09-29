@@ -108,7 +108,7 @@ GUI, scikit-learn recommenders). Targeted gaps to close alongside the modules:
 | 3 | Mon 12 Oct - Sun 18 Oct | File I/O: open, read, write, CSV and JSON | Binary search trees; heaps | Iterative development and design | |
 | 4 | Mon 19 Oct - Sun 25 Oct | NumPy arrays and vector operations | Graphs: adjacency representations, BFS and DFS | Testing, deployment, versioning | |
 | 5 | Mon 26 Oct - Sun 1 Nov | Pandas DataFrames, slicing, groupby | Divide and Conquer: general method, merge and quick sort | Project planning and team management; Stage 1 drafting | |
-| *6* | Mon 2 Nov - Sun 8 Nov | **Week Off - No Scheduled Study** | **Week Off - No Scheduled Study** | **Week Off - No Scheduled Study** | n/a |
+| *6* | Mon 2 Nov - Sun 8 Nov | **Week Off - Times Off, 9:00 AM - 9:00 PM** | **Week Off - Times Off, 9:00 AM - 9:00 PM** | **Week Off - Times Off, 9:00 AM - 9:00 PM** | n/a |
 | 7 | Mon 9 Nov - Sun 15 Nov | **Coursework 1 due (40%)**; start scikit-learn | Greedy: Dijkstra shortest paths, Prim and Kruskal spanning trees | Risk and ethics; Stage 1 submission | |
 | 8 | Mon 16 Nov - Sun 22 Nov | scikit-learn model training | Dynamic programming: general method, memoisation and tabulation | Group Stage 2 planning | |
 | 9 | Mon 23 Nov - Sun 29 Nov | Image manipulation with Pillow | Dynamic programming: travelling salesperson, transitive closure | Stage 2 drafting | |
@@ -118,28 +118,63 @@ GUI, scikit-learn recommenders). Targeted gaps to close alongside the modules:
 
 \*Fill **Covered?** each pass-through (e.g. ✅ done, ◐ partial). Off weeks are marked `n/a`.
 
-## Holiday Plan (20 December - 31 January)
+## Holiday Weekly Tables
 
-Holiday time is deliberately **larger** than term time: weekdays open up to the
-full `Times Off` window — **9:00 AM - 9:00 PM** (30 - 60 minute break per
-1:30 - 2 hours worked) — versus term's 2 - 6 hour blocks. Weekends do **not**
-change: Saturday and Sunday stay **7:00 PM - 9:00 PM**, the same fixed slot as
-term, so the two periods differ on weekdays only.
+Each holiday break has its own weekly table. Every one follows the same
+rules: weekdays open up to the full `Times Off` window — **9:00 AM - 9:00 PM**
+(30 - 60 minute break per 1:30 - 2 hours worked) — which is deliberately
+**larger** than term weekdays; weekends never move, staying the fixed
+**7:00 PM - 9:00 PM** slot from semester. Breaks differ only in focus, not
+in shape.
 
-### Winter Break Rest (Sunday 20 December - Sunday 3 January)
+### Week Off (Monday 2 November - Sunday 8 November) — Revision & Catch-up
 
-- No Scheduled Weekday Sessions
-- Light Daily Reading / Revision Only
-- *Optional* Weekend Sessions for Quick Refreshers / Reminders (still 7:00 PM - 9:00 PM)
+A normal Times Off week: regular revision and catching up, no new material.
 
-### January Assessment (Monday 4 January - Sunday 24 January)
+| Day | Status | Session |
+| --- | --- | --- |
+| Mon - Fri | Times Off (revision + catch-up) | 9:00 AM - 9:00 PM (1:30 - 2 hrs work, 30 - 60 min break) |
+| Saturday | Times Off (revision + catch-up) | 7:00 PM - 9:00 PM |
+| Sunday | Times Off (revision + catch-up) | 7:00 PM - 9:00 PM |
 
-- **CS2DA:** Focused Exam Revision, Past Papers, Algorithm Traces
-- **CS2PP:** Group Application Project Submission and In-Person Demonstration (Semester 1, Assessment Week 2)
+### Winter Break Rest (Sunday 20 December - Sunday 3 January) — Rest
+
+Deliberate recovery window inside the holiday; the Times Off window stands as
+availability, but rest is the point.
+
+| Day | Status | Session |
+| --- | --- | --- |
+| Mon - Fri | No scheduled sessions | Rest; optional light daily reading |
+| Saturday | Optional | 7:00 PM - 9:00 PM (quick refreshers / reminders) |
+| Sunday | Optional | 7:00 PM - 9:00 PM (quick refreshers / reminders) |
+
+### January Assessment (Monday 4 January - Sunday 24 January) — Module Review & Minor Fixes
+
+More emphasis on the taught modules: code review and minor fixes rather than
+new heavy learning.
+
+| Day | Status | Session |
+| --- | --- | --- |
+| Mon - Fri | Times Off (module review + minor fixes) | 9:00 AM - 9:00 PM (1:30 - 2 hrs work, 30 - 60 min break) |
+| Saturday | Times Off (module review + minor fixes) | 7:00 PM - 9:00 PM |
+| Sunday | Times Off (module review + minor fixes) | 7:00 PM - 9:00 PM |
+
+Focus per module:
+- **CS2DA:** Focused exam revision, past papers, algorithm traces
+- **CS2PP:** Group application project submission and in-person demonstration
 - **CS2SE:** Any remaining report follow-up / catch-up
 
-### Semester 2 Preparation (Monday 25 January - Sunday 31 January)
+### Semester 2 Preparation (Monday 25 January - Sunday 31 January) — S2 Preview
 
+Lightgrounded preview of the Semester 2 modules ahead of teaching.
+
+| Day | Status | Session |
+| --- | --- | --- |
+| Mon - Fri | Times Off (S2 preview) | 9:00 AM - 9:00 PM (1:30 - 2 hrs work, 30 - 60 min break) |
+| Saturday | Times Off (S2 preview) | 7:00 PM - 9:00 PM |
+| Sunday | Times Off (S2 preview) | 7:00 PM - 9:00 PM |
+
+Preview per module:
 - **CS2AI:** Artificial Intelligence Fundamentals, and Neural Networks Preview -> **CS1AC**
 - **CS2ON:** Operating Systems, and Computer Networking Overview -> **CS1CA**
 - **CS2SD:** Object-Oriented Analysis & Design, and UML Modelling -> **CS1OP**
