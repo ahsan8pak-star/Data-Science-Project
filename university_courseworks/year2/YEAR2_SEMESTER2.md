@@ -37,10 +37,10 @@ the contact days are maintenance-only, and Tuesday is rest.
 | Wednesday | Study (deep) | Free -> 9:00 AM - 12:00 PM and 1:30 PM - 4:30 PM (6 hrs, 2 blocks) |
 | Thursday | Study (late) | University 9:00 AM - 4:00 PM, home by 6:00 PM -> study 6:30 PM - 9:00 PM |
 | Friday | Study (deep + career sprint) | Free -> 9:00 AM - 12:00 PM and 1:30 PM - 4:30 PM (6 hrs, 2 blocks) |
-| Saturday | Study (light + review) | 6:00 PM - 9:00 PM (3 hrs, one block) |
-| Sunday | Study (light + review) | 6:00 PM - 9:00 PM (3 hrs, one block) |
+| Saturday | Study (light + review) | 7:00 PM - 9:00 PM (2 hrs, one block) |
+| Sunday | Study (light + review) | 7:00 PM - 9:00 PM (2 hrs, one block) |
 
-**Term-time total: ~23 hrs/week**. See the Tuesday note in
+**Term-time total: ~21 hrs/week**. See the Tuesday note in
 `YEAR2_SEMESTER1.md` - Tuesday is the load-bearing rest day and should not
 carry assessment work.
 
