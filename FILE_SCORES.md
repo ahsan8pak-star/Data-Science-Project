@@ -803,7 +803,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### area_of_triangle.py — **74/100** (C — Serviceable)
+### area_of_triangle.py — **75/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -811,7 +811,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 | Readability | 75 | 25% | 18.8 |
 | Durability | 70 | 20% | 14.0 |
 | Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **74** |
+| **Final** | | | **75** |
 
 **Comment:** Clean helper-function pattern with `get_float_input()` returning None for empty input. The `if b and h:` check at line 32 is always truthy for non-zero floats, so the else branch is unreachable. The `round((b * h) / 2, 2)` is correct. The docstring mentions "module-level squares the radius" which is stale copy-paste from another file. No `__main__` guard.
 
@@ -901,7 +901,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### circumference_of_circle.py — **74/100** (C — Serviceable)
+### circumference_of_circle.py — **75/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -909,7 +909,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 | Readability | 75 | 25% | 18.8 |
 | Durability | 70 | 20% | 14.0 |
 | Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **74** |
+| **Final** | | | **75** |
 
 **Comment:** The counterpart to `area_of_circle.py` — this one HAS the `__main__` guard. The `calculate_circumference()` function uses a variable named `area` to store circumference (confusing naming). The exception handling matches `area_of_circle.py`. The docstring correctly explains the asymmetry. No issues beyond the naming.
 
@@ -985,7 +985,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### perimeter_of_triangle.py — **74/100** (C — Serviceable)
+### perimeter_of_triangle.py — **75/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -993,13 +993,13 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 | Readability | 75 | 25% | 18.8 |
 | Durability | 70 | 20% | 14.0 |
 | Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **74** |
+| **Final** | | | **75** |
 
 **Comment:** Simple perimeter calculator using the helper-function pattern. The `get_float_input()` returns None for empty input. The `if a and b and c:` check is always truthy for non-None values. The `round(a + b + c, 2)` is correct. The docstring mentions "doubles the total to normalise a triangle inequality check" which is confusing — the code does not do this. No `__main__` guard.
 
 ---
 
-### pythagoras_theorem.py — **74/100** (C — Serviceable)
+### pythagoras_theorem.py — **75/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1007,7 +1007,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 | Readability | 75 | 25% | 18.8 |
 | Durability | 70 | 20% | 14.0 |
 | Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **74** |
+| **Final** | | | **75** |
 
 **Comment:** Clean Pythagorean theorem calculator. The `missing = [a, b, c].count(None)` check is elegant. The `if c <= b:` validation is correct. Deductions: the `for c <= b:` on line 50 is a no-op (should be `if`). The `calculate()` function is clear. No `__main__` guard.
 
@@ -1351,7 +1351,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### hour_clock.py — **74/100** (C — Serviceable)
+### hour_clock.py — **75/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1359,7 +1359,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 | Readability | 75 | 25% | 18.8 |
 | Durability | 70 | 20% | 14.0 |
 | Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **74** |
+| **Final** | | | **75** |
 
 **Comment:** 57-line hour clock with input validation. The `countdown()` function is correct. The `isdigit()` check is appropriate. The bound checks for minutes and seconds are correct. Deductions: no `__main__` guard. The `time.sleep(1)` calls make it slow without mocking. The `except ValueError` is unreachable (isdigit check prevents it).
 
@@ -1491,7 +1491,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### random_colour_generator.py — **74/100** (C — Serviceable)
+### random_colour_generator.py — **75/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1499,7 +1499,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 | Readability | 75 | 25% | 18.8 |
 | Durability | 70 | 20% | 14.0 |
 | Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **74** |
+| **Final** | | | **75** |
 
 **Comment:** 67-line random colour generator with hex, RGB, octal, and HSL output. The `match colour_type` block with pipe `|` patterns is correct. The `randint(0, 0xFFFFFF)` for hex is correct. Deductions: the `case "2" | "rgb" | "r" | "b" | "g":` pattern includes "b" and "g" which are ambiguous (could be blue or green). The `case "4" | "hsl" | "hs" | "hu" | "hue" | "saturation" | "lightness" | "h" | "s" | "l":` pattern is overly broad. Has `__main__` guard.
 
@@ -1647,7 +1647,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### qrcode_generator.py — **74/100** (C — Serviceable)
+### qrcode_generator.py — **75/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1655,7 +1655,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 | Readability | 75 | 25% | 18.8 |
 | Durability | 70 | 20% | 14.0 |
 | Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **74** |
+| **Final** | | | **75** |
 
 **Comment:** Clean QR code generator. The `make_qr_code()` function with `output_dir` parameter is flexible. The CWD-relative save is intentional (rule 4) and documented. Has `__main__` guard. Deductions: no input validation on the URL. The `sys.argv` handling is minimal.
 
@@ -1929,7 +1929,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### multitasking.py — **64/100** (D — Weak)
+### multitasking.py — **65/100** (D — Weak)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1937,7 +1937,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 | Readability | 65 | 25% | 16.3 |
 | Durability | 60 | 20% | 12.0 |
 | Robustness | 55 | 15% | 8.3 |
-| **Final** | | | **64** |
+| **Final** | | | **65** |
 
 **Comment:** Multitasking demonstration. Exit 124 (timeout — runs indefinitely). The threading/multiprocessing pattern is present. Deductions: no `__main__` guard. The multitasking is unclear. No error handling. The timeout makes it untestable without mocking.
 
@@ -2115,7 +2115,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### grocery_caloric_list.py — **64/100** (D — Weak)
+### grocery_caloric_list.py — **65/100** (D — Weak)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -2123,7 +2123,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 | Readability | 65 | 25% | 16.3 |
 | Durability | 60 | 20% | 12.0 |
 | Robustness | 55 | 15% | 8.3 |
-| **Final** | | | **64** |
+| **Final** | | | **65** |
 
 **Comment:** Grocery caloric list at 286 lines. Exit 1 (interactive). The class structure is present. Deductions: no `__main__` guard. The caloric list logic is unclear. No error handling. The file is long and complex.
 

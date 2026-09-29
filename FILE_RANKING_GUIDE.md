@@ -128,16 +128,24 @@ Record: passed/failed count, any errors.
 
 ## Pre-Verified Scores (by this session)
 
-These files have been directly examined and fixed. Use as baseline:
+These files have been directly examined and fixed. Use as baseline. The
+criteria and the resulting **Final** are the ones carried in
+`FILE_SCORES.md`; the two documents are kept in step by
+`tests/test_scripts/test_ranking_docs.py`, which fails if they drift apart.
 
 | File | Fixability | Readability | Durability | Robustness | **Final** | Notes |
 |------|-----------|-------------|------------|------------|-----------|-------|
-| `fundamental_topics/numbers.py` | 90 | 75 | 85 | 70 | **80** | Fixed: sys.path de-shadowing. Minor: adds os/sys to teaching file |
-| `math_and_science_calculators/arithmetic_expressions.py` | 90 | 70 | 85 | 70 | **80** | Fixed: .2f guard. EXPERSSIONS typo pinned by test (left) |
+| `fundamental_topics/numbers.py` | 90 | 75 | 85 | 70 | **82** | Fixed: sys.path de-shadowing. Minor: adds os/sys to teaching file |
+| `math_and_science_calculators/arithmetic_expressions.py` | 90 | 70 | 85 | 70 | **81** | Fixed: .2f guard. EXPERSSIONS typo pinned by test (left) |
 | `fundamental_topics/area_of_circle.py` | 70 | 80 | 85 | 75 | **76** | Left defective per rule 11 (asymmetry demo); adding guard breaks 8 tests |
-| `fundamental_topics/main.py` | 90 | 70 | 95 | 80 | **85** | Intentional IndentationError; pinned by test; documented teaching stub |
-| `fundamental_topics/login_status.py` | 70 | 65 | 80 | 55 | **68** | Predicates at 16/19 dead by design (rule 11); IndexError fixed |
-| `interactive_games/rock_paper_scissors.py` | 70 | 75 | 80 | 60 | **71** | isdigit() always-truthy pinned (rule 11); restructured into functions |
+| `fundamental_topics/main.py` | 90 | 75 | 85 | 80 | **84** | Intentional IndentationError; pinned by test; documented teaching stub |
+| `fundamental_topics/login_status.py` | 70 | 65 | 60 | 60 | **65** | Predicates at 16/19 dead by design (rule 11); IndexError fixed |
+| `interactive_games/rock_paper_scissors.py` | 80 | 75 | 70 | 65 | **75** | isdigit() always-truthy pinned (rule 11); restructured into functions |
+
+The rounding convention is half away from zero, so an exact `.5` weighted sum
+goes up. It has to be stated rather than left implicit, because the two
+natural alternatives disagree: banker's rounding sends 74.5 down, and
+truncation sends every 69.5 down instead of up.
 
 ---
 
@@ -186,7 +194,7 @@ Within each subfolder, process sub-subfolders alphabetically.
 ```markdown
 ## python/<subfolder>/<sub-subfolder>
 
-### filename.py — **80/100** (B — Strong)
+### filename.py — **81/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
