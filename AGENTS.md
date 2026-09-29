@@ -240,9 +240,18 @@ candidates to verify against the repo rather than ground truth.
 - Term time (university) = **maintenance mode**. Daily loop when the owner
   passes through: Python recheck, README/`.md` upkeep and checks, Friday
   career sprint. Heavy learning and new roadmap phases run in holidays only.
+- **The owner's real contact hours govern scheduling** (confirmed Mon 28 Sep
+  2026): Monday 11:00 AM - 4:00 PM (home 6:00 PM), Tuesday 2:00 PM - 6:00 PM
+  (home 8:00 PM, tired), Wednesday **free**, Thursday 9:00 AM - 4:00 PM (home
+  6:00 PM), Friday **free**. So Wednesday and Friday are the deep-work days
+  (~6 hrs each in two blocks), Monday and Thursday are 2.5-hour late-evening
+  maintenance slots, and **Tuesday is rest** - never schedule assessment work
+  or claim study there. Per-day tables live in `NOTES.md` and both
+  `YEAR2_SEMESTER*.md` files; those are the authority, not this summary.
 - Each pass-through is logged as a dated row in `NOTES.md`'s maintenance log,
   using the week frame of `university_courseworks/year2/`; the row states the
-  previous week(s) covered as of the logged day.
+  previous week(s) covered as of the logged day. The log records what was
+  done, not a quota - a rest Tuesday is a legitimate `No`.
 - `postgresql/` will gain **experimental folders during term**; they are
   learning scratch, full-pace work happens in Summer 2027 Block II. Never
   force experimental files into a commit.

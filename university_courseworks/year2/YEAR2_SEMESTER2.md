@@ -23,15 +23,26 @@ that `README.md` and `NOTES.md` remain untouched.
 
 ## Weekly Study Template
 
+Anchored on the owner's confirmed **Semester 2** contact hours, which are
+assumed to mirror Semester 1 (Monday 11:00 AM - 4:00 PM, Tuesday 2:00 PM -
+6:00 PM, Thursday 9:00 AM - 4:00 PM, with Wednesday and Friday free).
+*Re-confirm before term starts in case the S2 timetable differs.* The shape
+is the same as `YEAR2_SEMESTER1.md`: the two free days carry the deep work,
+the contact days are maintenance-only, and Tuesday is rest.
+
 | Day | Status | Session |
 | --- | --- | --- |
-| Monday | Study | 5:00 PM - 9:00 PM (break: 6:30 PM - 7:30 PM) |
-| Tuesday | Study | 7:00 PM - 9:00 PM |
-| Wednesday | Study | 9:00 AM - 9:00 PM (break: 30 - 60 minutes -> work: 1:30 - 2 hours) |
-| Thursday | Study | 5:00 PM - 9:00 PM (break: 6:30 PM - 7:30 PM) |
-| Friday | Study | 4:00 PM - 6:00 PM |
-| Saturday | Study | 7:00 PM - 9:00 PM |
-| Sunday | Study | 7:00 PM - 9:00 PM |
+| Monday | Study (late) | University 11:00 AM - 4:00 PM, home by 6:00 PM -> study 6:30 PM - 9:00 PM |
+| Tuesday | Rest / optional light | University 2:00 PM - 6:00 PM, home by 8:00 PM -> **rest by default** (tired); optional 20-minute review only |
+| Wednesday | Study (deep) | Free -> 9:00 AM - 12:00 PM and 1:30 PM - 4:30 PM (6 hrs, 2 blocks) |
+| Thursday | Study (late) | University 9:00 AM - 4:00 PM, home by 6:00 PM -> study 6:30 PM - 9:00 PM |
+| Friday | Study (deep + career sprint) | Free -> 9:00 AM - 12:00 PM and 1:30 PM - 4:30 PM (6 hrs, 2 blocks) |
+| Saturday | Study | 10:00 AM - 1:00 PM and 2:30 PM - 5:00 PM (5.5 hrs, 2 blocks) |
+| Sunday | Study (light + review) | 2:00 PM - 5:00 PM (3 hrs, one block) |
+
+**Term-time total: ~25.5 hrs/week**. See the Tuesday note in
+`YEAR2_SEMESTER1.md` - Tuesday is the load-bearing rest day and should not
+carry assessment work.
 
 ## Modules and Required Topics
 

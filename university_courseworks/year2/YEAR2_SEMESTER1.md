@@ -16,15 +16,33 @@ project so that `README.md` and `NOTES.md` remain untouched.
 
 ## Weekly Study Template
 
+Anchored on the owner's confirmed **Semester 1** contact hours. Wednesday and
+Friday are the only full free days, so they carry the deep work; the four
+contact days are maintenance-only, and Tuesday is deliberately light because
+it is a late finish.
+
 | Day | Status | Session |
 | --- | --- | --- |
-| Monday | Study | 5:00 PM - 9:00 PM (break 6:30 PM - 7:30 PM) |
-| Tuesday | Study | 7:00 PM - 9:00 PM |
-| Wednesday | Study | 9:00 AM - 9:00 PM (break: 30 - 60 minutes -> work: 1:30 - 2 hours) |
-| Thursday | Study | 5:00 PM - 9:00 PM (break 6:30 PM - 7:30 PM) |
-| Friday | Study | 4:00 PM - 6:00 PM |
-| Saturday | Study | 7:00 PM - 9:00 PM |
-| Sunday | Study | 7:00 PM - 9:00 PM |
+| Monday | Study (late) | University 11:00 AM - 4:00 PM, home by 6:00 PM -> study 6:30 PM - 9:00 PM |
+| Tuesday | Rest / optional light | University 2:00 PM - 6:00 PM, home by 8:00 PM -> **rest by default** (tired); optional 20-minute review only |
+| Wednesday | Study (deep) | Free -> 9:00 AM - 12:00 PM and 1:30 PM - 4:30 PM (6 hrs, 2 blocks) |
+| Thursday | Study (late) | University 9:00 AM - 4:00 PM, home by 6:00 PM -> study 6:30 PM - 9:00 PM |
+| Friday | Study (deep + career sprint) | Free -> 9:00 AM - 12:00 PM and 1:30 PM - 4:30 PM (6 hrs, 2 blocks) |
+| Saturday | Study | 10:00 AM - 1:00 PM and 2:30 PM - 5:00 PM (5.5 hrs, 2 blocks) |
+| Sunday | Study (light + review) | 2:00 PM - 5:00 PM (3 hrs, one block) |
+
+**Term-time total: ~25.5 hrs/week** (Wed 6 + Fri 6 + Sat 5.5 + Sun 3 + Mon 2.5 +
+Thu 2.5). Note this is *scheduled availability*, not a target - the previous
+template nominally reached 28 hrs by stacking a 12-hour Wednesday, which was
+neither realistic nor sustainable. The real gain here is shape, not size: the
+work is front-loaded into the two genuinely free days instead of spread across
+every evening.
+
+> **Tuesday is the load-bearing rest day.** Two of five contact days already
+> end with a long commute; a third evening of study after a 2:00 PM - 6:00 PM
+> day is where the streak breaks. Do not schedule assessment work for
+> Tuesday. If Tuesday has to be used (deadline week), keep it to a 20-minute
+> retrieval check, not new material.
 
 ## Modules and Required Topics
 

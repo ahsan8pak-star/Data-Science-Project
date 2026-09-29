@@ -175,6 +175,44 @@ the testing ground), README/`.md` upkeep and checks, and on Fridays the
 **career sprint**. Coursework-derived outputs are committed only on the
 owner's instruction.
 
+### Confirmed weekly availability (Mon 28 Sep 2026)
+
+The owner's real Semester 1 contact hours, replacing the earlier assumed
+all-evenings template:
+
+| Day | University | Home by | Effective study window |
+| --- | --- | --- | --- |
+| Monday | 11:00 AM - 4:00 PM | 6:00 PM | 6:30 PM - 9:00 PM (2.5 hrs, late) |
+| Tuesday | 2:00 PM - 6:00 PM | 8:00 PM | Rest by default (tired); 20-minute review optional |
+| Wednesday | Free | - | 9:00 AM - 12:00 PM + 1:30 PM - 4:30 PM (6 hrs, deep) |
+| Thursday | 9:00 AM - 4:00 PM | 6:00 PM | 6:30 PM - 9:00 PM (2.5 hrs, late) |
+| Friday | Free | - | 9:00 AM - 12:00 PM + 1:30 PM - 4:30 PM (6 hrs, deep + career sprint) |
+
+Three consequences for the maintenance log, all of which change how the
+existing cadence should be read:
+
+1. **Wednesday is now a real study day, not a filler day.** The old template
+   gave it 9:00 AM - 9:00 PM because it was assumed to be a leftover day; it
+   is in fact free, and it is now the single biggest block in the week. The
+   `python/` recheck, README/`.md` upkeep and the largest single piece of
+   module reading belong here.
+2. **Friday is no longer a 2-hour evening slot.** It is a full free day, so the
+   **career sprint** moves from a two-hour Friday slot to a first-class
+   morning-plus-afternoon block - the same day the sprint is already assigned
+   to, just no longer squeezed.
+3. **Tuesday is a rest day, not a study day.** The old template had Tuesday
+   7:00 PM - 9:00 PM. With a 2:00 PM - 6:00 PM finish and an 8:00 PM arrival,
+   the owner has explicitly marked this window as *free due to tiredness*.
+   Maintenance log rows should not claim Tuesday study, and deadline weeks
+   should keep Tuesday to a 20-minute retrieval check rather than new
+   material.
+
+The maintenance log table's **Friday sprint?** column is therefore better read
+as "Friday career sprint done?", and a `No` in a week where the sprint ran on
+the second Friday block is still a `No`. Where a pass-through happens on a
+Tuesday, log it as rest rather than as a missed study day - the log records
+what was done, not a quota to meet.
+
 ---
 
 # Summer 2027 - Block II (approx. 15 weeks, Jun - mid-Sep 2027)
