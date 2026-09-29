@@ -28,10 +28,10 @@ it is a late finish.
 | Wednesday | Study (deep) | Free -> 9:00 AM - 12:00 PM and 1:30 PM - 4:30 PM (6 hrs, 2 blocks) |
 | Thursday | Study (late) | University 9:00 AM - 4:00 PM, home by 6:00 PM -> study 6:30 PM - 9:00 PM |
 | Friday | Study (deep + career sprint) | Free -> 9:00 AM - 12:00 PM and 1:30 PM - 4:30 PM (6 hrs, 2 blocks) |
-| Saturday | Study | 10:00 AM - 1:00 PM and 2:30 PM - 5:00 PM (5.5 hrs, 2 blocks) |
-| Sunday | Study (light + review) | 2:00 PM - 5:00 PM (3 hrs, one block) |
+| Saturday | Study (light + review) | 6:00 PM - 9:00 PM (3 hrs, one block) |
+| Sunday | Study (light + review) | 6:00 PM - 9:00 PM (3 hrs, one block) |
 
-**Term-time total: ~25.5 hrs/week** (Wed 6 + Fri 6 + Sat 5.5 + Sun 3 + Mon 2.5 +
+**Term-time total: ~23 hrs/week** (Wed 6 + Fri 6 + Sat 3 + Sun 3 + Mon 2.5 +
 Thu 2.5). Note this is *scheduled availability*, not a target - the previous
 template nominally reached 28 hrs by stacking a 12-hour Wednesday, which was
 neither realistic nor sustainable. The real gain here is shape, not size: the
@@ -116,7 +116,7 @@ GUI, scikit-learn recommenders). Targeted gaps to close alongside the modules:
 ## Holiday Plan (20 December - 31 January)
 
 The `Weekly Study Template` **(above)** applies throughout the holiday. Weekend sessions
-remain **7:00 PM - 9:00 PM** on *Saturdays and Sundays*.
+remain **6:00 PM - 9:00 PM** on *Saturdays and Sundays*.
 
 ### Winter Break Rest (Sunday 20 December - Sunday 3 January)
 
