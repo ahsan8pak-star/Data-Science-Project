@@ -923,5 +923,3 @@ history.
 Nothing about the four mirrors needed changing to make this work: both `origin`
 and `github` already carry all four push URLs, and `git push origin main`
 already updates every one. Only the documented permission was missing.
-
-bite-check
