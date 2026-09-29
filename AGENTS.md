@@ -374,7 +374,7 @@ history.
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1431 passing tests, ~99% line coverage and 95% branch coverage (148 of the
+- 1435 passing tests, ~99% line coverage and 95% branch coverage (148 of the
   159 measured `python/` files at 100% lines, including both
   music-player GUIs; the one never-imported file is
   `imperative_programming/fundamental_topics/main.py`, and the 161

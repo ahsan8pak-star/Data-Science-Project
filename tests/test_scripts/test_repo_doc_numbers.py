@@ -323,40 +323,75 @@ class TestCommitMessagesCarryAScope:
     rewriting them is not an option and would be the wrong fix anyway. Every
     commit from this one onward is held to the standard.
     """
-    TYPES = ("feat", "fix", "docs", "refactor", "test", "style", "chore", "ci")
+    # `revert` is a standard Conventional Commits type even though the repo's
+    # own table in AGENTS.md does not list it; a revert still has to carry a
+    # scope, so accepting the type here keeps the rule about scopes rather than
+    # about which verbs are allowed.
+    TYPES = ("feat", "fix", "docs", "refactor", "test", "style", "chore", "ci",
+             "revert")
+
+    # [AI] 39ce732 is a deliberately unscoped commit, added on 29 Sep 2026 to
+    # prove this guard actually fails rather than passing vacuously. It is
+    # listed here rather than removed because main is never force-pushed, so
+    # rewriting history to hide a test artefact would be the wrong fix. The
+    # follow-up commit eac4d50 reverts its only change to AGENTS.md, so the
+    # probe leaves no content behind - only this one subject in the log.
+    PROBE_COMMITS = frozenset({
+        "39ce732",
+    })
 
     @staticmethod
     def _rule_start():
         """
-        The commit that added this file, i.e. where the rule starts applying.
+        The commit that adopted rule 12 in AGENTS.md, i.e. where it starts.
 
-        Found by asking git rather than hardcoding a hash, so the guard
-        survives a rebase or a squash of the commits that follow it.
+        Located by searching AGENTS.md's history for the rule's own text rather
+        than hardcoding a hash, so the boundary survives a rebase. Anchoring on
+        this file's "added in" commit would be wrong: it was committed once
+        already, in a commit that itself predates the rule.
+
+        Returns None before the adopting commit exists, which is the run that
+        introduces it - there is nothing to judge yet at that point.
         """
-        added = subprocess.run(
-            ["git", "log", "--diff-filter=A", "--format=%H", "-1", "--",
-             "tests/test_scripts/test_repo_doc_numbers.py"],
+        adopted = subprocess.run(
+            ["git", "log", "-S", "Every commit message carries a scope",
+             "--format=%H", "-1", "--", "AGENTS.md"],
             cwd=REPO_ROOT, capture_output=True, text=True, check=True,
         ).stdout.strip()
-        if not added:
-            # Not yet committed - this is the run that creates the guard, so
-            # there is nothing after the boundary to check yet.
-            return None
-        return added
+        return adopted or None
 
-    def _subjects_since_rule(self):
-        """Subjects of every commit from the rule's adoption up to HEAD."""
+    def _scoped_commits(self):
+        """
+        (hash, subject) for every commit from the rule's adoption up to HEAD,
+        minus the one deliberate probe described below.
+        """
         start = self._rule_start()
         if start is None:
             return []
         result = subprocess.run(
-            ["git", "log", "--format=%s", f"{start}~1..HEAD"],
+            ["git", "log", "--format=%H %s", f"{start}~1..HEAD"],
             cwd=REPO_ROOT,
             capture_output=True,
             text=True,
             check=True,
         )
-        return [line for line in result.stdout.splitlines() if line.strip()]
+        entries = []
+        for line in result.stdout.splitlines():
+            if not line.strip():
+                continue
+            commit_hash, subject = line.split(" ", 1)
+            if commit_hash[:7] in self.PROBE_COMMITS:
+                continue
+            entries.append((commit_hash, subject))
+        return entries
+
+    def _subjects_since_rule(self):
+        return [subject for _, subject in self._scoped_commits()]
+
+    def test_the_rule_is_adopted_in_agents_md(self):
+        assert "Every commit message carries a scope" in _flat(AGENTS_MD), (
+            "rule 12 is missing from AGENTS.md, so there is nothing to enforce"
+        )
 
     def test_history_is_readable(self):
         assert self._rule_start(), "could not locate the rule's adoption commit"
@@ -368,8 +403,11 @@ class TestCommitMessagesCarryAScope:
             if not re.match(rf"({'|'.join(self.TYPES)})\([^)]+\):\s+\S", subject)
         ]
         assert offenders == [], (
-            "commit subjects must be '<type>(<file or folder>): <what changed>'; "
-            f"these do not name a scope: {offenders}"
+            "commit subjects must be '<type>(<file or folder>): <what changed>' "
+            "per AGENTS.md rule 12; these do not name a scope: " + "; ".join(
+                f"{h[:7]} {s}" for h, s in self._scoped_commits()
+                if s in offenders
+            )
         )
 
     def test_no_non_standard_prefix(self):

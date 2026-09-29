@@ -237,5 +237,5 @@ After ranking each subfolder:
 .venv/Scripts/python.exe -m pytest tests/test_scripts/test_repo_hygiene.py -q 2>&1 | tail -3
 ```
 
-Target: the full suite green (1431 passed at the time of writing) and 0 failed.
+Target: the full suite green (1435 passed at the time of writing) and 0 failed.
 Only `main.py` should be FAIL in the benchmark.
