@@ -311,7 +311,12 @@ structured history and keep the log scannable:
   that still reads badly, name the principal file. A commit with no scope at
   all is wrong even when the prefix is right. This keeps the type
   machine-readable for linters and Semantic Release while keeping the subject
-  human-readable.
+  human-readable. **Merge commits are exempt**: the forge generates their
+  subject from its own template, so no amount of discipline puts a scope on
+  one, and since branch-and-PR is now the default correction path every
+  correction would otherwise add a violation. The guard skips them by parent
+  count rather than by matching the word "Merge", so a squash or rebase merge
+  is covered too.
 - **Sequence the work easiest-and-safest first, hardest-and-riskiest last.**
   Order steps so difficulty and risk rise together - a docstring, a guard
   test, a mechanical rename, a frozen-lane change, a history rewrite - rather
