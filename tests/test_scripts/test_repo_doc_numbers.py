@@ -456,3 +456,167 @@ class TestCommitMessagesCarryAScope:
             if subject.split("(", 1)[0].rstrip(":").strip() not in allowed
         ]
         assert offenders == [], f"non-standard commit type used: {offenders}"
+
+
+class TestProgressionDocClaims:
+    """
+    PROGRESSION.md is the newest document in the repo and quotes more numbers
+    than any other: commit counts, module counts, test totals, coverage
+    percentages, the quality mean, and the ranking band distribution.
+
+    [AI-authored fix] It was written after the drift audit that found 112
+    stale headings, a wrong branch-coverage figure and a wrong file
+    denominator, so writing a new document full of figures without a test
+    would repeat the exact failure the audit was about. Each claim below is
+    recomputed from the tree or from git rather than trusted.
+    """
+    DOC = REPO_ROOT / "PROGRESSION.md"
+
+    def _flat(self):
+        return " ".join(self.DOC.read_text(encoding="utf-8").split())
+
+    def _git(self, *args):
+        return subprocess.run(
+            ["git", *args], cwd=REPO_ROOT,
+            capture_output=True, text=True, check=True,
+        ).stdout
+
+    # ---- the document exists and is wired in -------------------------------
+
+    def test_the_document_exists(self):
+        assert self.DOC.is_file(), "PROGRESSION.md is missing"
+
+    def test_readme_and_agents_reference_it(self):
+        for doc in (README_MD, AGENTS_MD):
+            assert "PROGRESSION.md" in doc.read_text(encoding="utf-8"), (
+                f"{doc.name} does not reference PROGRESSION.md"
+            )
+
+    def test_it_uses_the_nickname_not_a_real_name(self):
+        # The repo's convention is that A.I.M is the public signature. The
+        # remote URLs are the one legitimate place the account name appears,
+        # so this only checks the prose body of the document.
+        body = self.DOC.read_text(encoding="utf-8")
+        assert "ahsan8pak-star" not in body, (
+            "PROGRESSION.md names the account rather than the A.I.M nickname"
+        )
+
+    # ---- git-derived claims -------------------------------------------------
+
+    def test_start_date_is_the_first_commit(self):
+        # git gives 2026-06-04; the document writes it as prose ("4 June
+        # 2026"), so the check is on the ISO form's presence or an equivalent
+        # long-form date, not the raw git string.
+        first = self._git("log", "--reverse", "--format=%ad", "--date=short").split()[0]
+        year, month, day = first.split("-")
+        months = ["January", "February", "March", "April", "May", "June",
+                  "July", "August", "September", "October", "November",
+                  "December"]
+        long_form = f"{int(day)} {months[int(month) - 1]} {year}"
+        flat = self._flat()
+        assert long_form in flat or first in flat, (
+            f"PROGRESSION.md does not state the real first-commit date "
+            f"({first} / {long_form})"
+        )
+
+    def test_total_commit_count(self):
+        """
+        Checked as an exact figure, not a substring search. A substring test
+        passes while *any* occurrence is still correct, so editing one of two
+        mentions slipped through in review - the other mention kept the phrase
+        alive. Every number the document states is now required to appear with
+        the right value and no wrong value beside it.
+        """
+        count = int(self._git("rev-list", "--count", "HEAD").strip())
+        flat = self._flat()
+        assert f"{count} commits" in flat, (
+            f"PROGRESSION.md does not state the real commit count {count}"
+        )
+        # A stale figure must not survive anywhere in the document.
+        for stale in re.findall(r"\b(\d{2,4}) commits\b", flat):
+            assert int(stale) == count, (
+                f"PROGRESSION.md states {stale} commits, but the repository has "
+                f"{count}; a superseded figure has come back"
+            )
+
+    def test_lane_module_counts(self):
+        flat = self._flat()
+        for lane in ("imperative_programming", "functional_programming",
+                     "object_oriented_programming", "advanced_projects"):
+            actual = len([
+                p for p in (REPO_ROOT / "python" / lane).rglob("*.py")
+                if p.name != "__init__.py"
+            ])
+            assert f"| {actual} |" in flat or f"| {actual} " in flat, (
+                f"PROGRESSION.md does not state {actual} modules for {lane}"
+            )
+
+    def test_total_module_count(self):
+        actual = len([
+            p for p in (REPO_ROOT / "python").rglob("*.py")
+            if p.name != "__init__.py"
+        ])
+        assert f"{actual} non-`__init__` files" in self._flat(), (
+            f"PROGRESSION.md does not state the real module total {actual}"
+        )
+
+    # ---- suite-derived claims ----------------------------------------------
+
+    def test_test_count_matches_the_session(self, request):
+        claimed = re.search(r"(\d{3,4}) tests", self._flat())
+        assert claimed, "PROGRESSION.md states no test count"
+        if not _is_full_run(request):
+            pytest.skip("suite-wide count only meaningful on a full-suite run")
+        actual = len(request.session.items)
+        assert int(claimed.group(1)) == actual, (
+            f"PROGRESSION.md says {claimed.group(1)} tests, the suite collects "
+            f"{actual}"
+        )
+
+    # ---- ranking-derived claims --------------------------------------------
+
+    def test_quality_mean_is_recomputed(self):
+        entries = re.findall(
+            r"### [\w./]+\.py — \*\*(\d+)/100\*\* \([A-F] —", 
+            (REPO_ROOT / "FILE_SCORES.md").read_text(encoding="utf-8"),
+        )
+        scores = [int(s) for s in entries]
+        assert len(scores) == 161, "expected 161 ranked files"
+        mean = round(sum(scores) / len(scores), 1)
+        assert f"{mean}/100" in self._flat(), (
+            f"PROGRESSION.md does not state the recomputed mean {mean}/100"
+        )
+
+    def test_band_distribution(self):
+        text = (REPO_ROOT / "FILE_SCORES.md").read_text(encoding="utf-8")
+        bands = [
+            m.group(1) for m in re.finditer(
+                r"### [\w./]+\.py — \*\*\d+/100\*\* \(([A-F]) —", text
+            )
+        ]
+        flat = self._flat()
+        for band in "ABCDE":
+            actual = bands.count(band)
+            if actual == 0:
+                continue
+            assert f"| {band} |" in flat and f"| {actual} |" in flat, (
+                f"PROGRESSION.md does not state {actual} files in band {band}"
+            )
+
+    def test_retired_figures_appear_only_as_corrections(self):
+        """
+        The retired figures (98% branch, 171 of 182) are legitimate in this
+        document precisely because section 3.3 explains they were wrong and
+        what replaced them. What must never happen is a retired figure
+        presented as the current one, so each occurrence has to sit next to
+        the figure that superseded it.
+        """
+        flat = self._flat()
+        for retired, current in (("171 of 182", "148 of 159"),
+                                 ("98% branch", "95%")):
+            for match in re.finditer(re.escape(retired), flat):
+                window = flat[match.start():match.start() + 200]
+                assert current in window, (
+                    f"'{retired}' is quoted in PROGRESSION.md without the "
+                    f"'{current}' that superseded it, so it reads as current"
+                )

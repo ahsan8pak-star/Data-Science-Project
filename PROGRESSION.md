@@ -1,0 +1,421 @@
+# Progression and AI Collaboration Review
+
+A review of the 16-week Data Science project that began on **Thursday 4 June
+2026** and ran to **Tuesday 29 September 2026** — 713 commits across four
+months, mirrored to GitHub and GitLab, and pinned here so the claims can be
+checked rather than taken on trust.
+
+The document has three parts: what A.I.M built and in what order, where the
+mistakes were and what they cost, and how AI assistants were used throughout
+(including the point where two of them were dropped for terminal work).
+
+Every figure below is either read straight from the repository or produced by a
+command shown beside it. Where a number is an estimate rather than a
+measurement, it says so.
+
+---
+
+## 1. The shape of the project
+
+| | |
+| --- | --- |
+| Author | A.I.M |
+| Started | 4 June 2026 (first commit: `Initial commit`) |
+| Reviewed | 29 September 2026 |
+| Duration | 17 weeks (the 16-week Summer 2026 plan plus a one-week overlap into September) |
+| Commits | 713 |
+| Peak effort | 28–36 h/week recorded across most weeks |
+| Source modules | 161 non-`__init__` files under `python/` |
+| Test suite | 1447 tests, all passing |
+| Coverage | 99% line, 95% branch |
+| Quality mean | 77.6/100 across 161 ranked files |
+| Mirrors | 4 (GitHub project + backup, GitLab project + backup) |
+
+### The three programming lanes
+
+The project is organised as a deliberate climb, not a flat pile of scripts.
+Each lane answers a different question about how code is put together.
+
+| Lane | Modules | What it teaches |
+| --- | --- | --- |
+| `imperative_programming/` | 92 | Top-to-bottom execution: state that changes, loops, conditionals, `input()` |
+| `functional_programming/` | 21 | Behaviour as values: comprehensions, `map`/`filter`/`reduce`, closures, `functools` |
+| `object_oriented_programming/` | 41 | State as encapsulated objects: inheritance, descriptors, magic methods, abstract bases |
+| `advanced_projects/` | 6 | Things with real inputs: a music player with two GUIs, an xlsx pipeline, a scikit-learn transformer |
+
+Plus `sandbox/aim.py`, a scratch file kept deliberately outside the tested
+lanes so experiments cannot affect the suite.
+
+The 92 → 21 → 41 shape is worth reading correctly. Imperative has the most
+files because it is where fundamentals get drilled; functional is smaller
+because each script has to *earn* abstraction rather than loop; OOP sits
+between because it is a language A.I.M already knew from CS1OP but now has to
+use for structure rather than for its own sake.
+
+---
+
+## 2. Progression: beginner to where A.I.M is now
+
+This is a self-assessment calibrated against the repository, not a
+self-congratulatory narrative. The evidence for each stage is a commit or a
+file that could not have existed before it.
+
+### Stage 1 — Beginner (Weeks 1–2, June): the terminal and Git
+
+The first commits are `Created JSON Files to allow the IDE to run programs
+locally` and `Imported PostgreSQL Folder to do SQL Command and scripting`.
+Read those literally: a person learning to make a program run, and reaching
+for configuration before understanding why it needed configuring. Git arrives
+in the same fortnight (`git init`, `git status`, staging), and the habit of a
+daily push snapshot is established immediately — which is why there are 713
+commits rather than a dozen.
+
+Also from this period, and still visible in the code today: the decision to
+keep the scratch `.sql` file under `postgresql/sandbox/` reserved but unused,
+rather than deleting it. Nothing depends on it, and it has cost nothing.
+
+### Stage 2 — Beginner-plus (Weeks 3–5): syntax as the main event
+
+Weeks 3 and 4 are conditionals and loops, in volume: `Added a NOT logical
+operation example`, `updated conditions file to include an extra example on
+while loops`, `Made a Prime Number Function to practice with numerical values`.
+The commit subjects from this era are the clearest signal of the level: long,
+narrative, and frequently explaining the reasoning *in the message*
+(`Updated the following: - Included "U" to complete the word "Undefined" on
+line 17 - replaced print("") to compress the file memory...`). That is a
+beginner documenting decisions for themselves, because nothing else recorded
+them.
+
+Week 5 introduces the first data structures (lists, dictionaries, tuples,
+sets, with the 85-game catalogue), and the tests start appearing
+(`file(test logic): created a test case for its respective file`).
+
+### Stage 3 — Intermediate (Weeks 6–9, July): abstraction and objects
+
+Week 6 refactors loops into a reusable function — the first time the code is
+restructured for reuse rather than for the algorithm. By Week 9 the
+constructor, class attributes and inheritance are all in use, and the first
+`__init__.py` files appear to make folders importable.
+
+Two things distinguish this stage from the last one. First, the commit
+subjects shorten: `feat: implement filter.py and map.py in functional_programming`
+is terse because the work no longer needs narrating. Second, the code
+defends itself — `chore: add OOP syntax fundamentals practice files` is
+followed a few weeks later by `test: implement comprehensive automated test
+suite for all Python modules`, which is the moment the project stops being a
+demonstration and starts having a safety net.
+
+### Stage 4 — Intermediate-plus (Weeks 10–12, August): data work and real defects
+
+NumPy, then Pandas, then cleaning and `groupby()`. This is also where the
+project's most valuable judgement appears, and it is a judgement about *not*
+fixing things.
+
+`chore: update VS Code settings to resolve Windows interpreter fallback` is
+routine. The significant commits are these:
+
+- `chore: 'rename Python' to 'python' due to folder rename change from 'Python' to 'python' to prevent pytest crashes`
+- `fix: resolve pytest collection errors and refactor test suite`
+- `chore: removed module.__name__ = "__main__" due to many pytest errors as it was a brute force to read all scripts not just math science project folder files`
+
+Each records a problem found by the tooling rather than by inspection, and
+each records the fix being *partial* — `"brute force"` is A.I.M's own word for
+a test harness that was doing the wrong thing. Recognising that a failing
+test suite can be the suite's fault is an intermediate-level insight, and it
+is the direct ancestor of everything in Section 3.
+
+### Stage 5 — Advanced in process, intermediate in code (Weeks 13–16, Sept)
+
+The capstone weeks bring pipeline ingestion, statistical transformation and
+the production README. Here the difficulty moves out of the Python and into
+the workflow: branch-and-pull-request review, four-way mirroring, and the
+rule system in `AGENTS.md` that now governs every change.
+
+**The honest calibration, which `AGENTS.md` itself records: early-intermediate.**
+A.I.M is strong at writing standalone coursework-style scripts and at
+following process reliably. Still being learned are test-infrastructure
+internals (runpy, mocking, coverage measurement) and metaprogramming. That is
+a real and specific position, and it is the reason this document separates
+*what A.I.M does* from *what the assistants do* — the boundary is drawn there,
+not blurred.
+
+The evidence that this is now stable rather than lucky: the project has
+accumulated rules that a beginner would not think to write. Rule 11 (documented
+defects stay defective), the coverage caps, the four-way mirror discipline, and
+the commit-scope requirement are all the work of someone who has been burned by
+the corresponding mistake and decided it should not happen again.
+
+### Where the code scores
+
+The file-ranking pass gives an external, if blunt, measure. Across 161 files:
+
+| Band | Range | Files | Reading |
+| --- | --- | --- | --- |
+| A | 90–100 | 12 | Exemplary — runs clean, well-documented, durable |
+| B | 80–89 | 50 | Strong — minor issues, mostly clean |
+| C | 70–79 | 88 | Serviceable — documented defects or minor fragility |
+| D | 60–69 | 9 | Weak — real bugs, fragile, or hard to read |
+| E | 50–59 | 2 | Poor — multiple issues, likely to break |
+
+Mean 77.6, and the two lowest files are `conditions.py` and `variables.py` at
+56. Those two are low for *stylistic* reasons, not functional ones:
+`conditions.py` hardcodes `temperature = 25` and runs 569 lines, and both
+files are demonstrations of dead-by-design branches that rule 11 pins in place
+with tests. A 56 that is a deliberate teaching artefact is a different thing
+from a 56 that is a broken file, and the rubric is blunt enough to not
+distinguish them — which is itself worth knowing about the score.
+
+---
+
+## 3. Corrections, mistakes, and what they cost
+
+This section is the point of the review. None of the following is tidied up.
+
+### 3.1 The mistakes A.I.M made
+
+**The folder rename that broke collection.** Renaming `Python` to `python`
+(the repo is on a case-insensitive Windows filesystem) silently changed what
+`import` resolved. It was caught by pytest rather than by inspection, and the
+fix was in the test configuration, not the code. The commit subject records
+the lesson: `to prevent pytest crashes`.
+
+**A `decimal` circular import that killed a file ~60 lines in.**
+`fundamental_topics/numbers.py` died whenever run directly, because
+`decimal` → `_pydecimal` → `import numbers` resolved to the teaching file
+itself, which re-entered and asked `decimal` for `Decimal` while `decimal` was
+still half-initialised. The test harness hid it completely, because the real
+stdlib `numbers` is already cached in `sys.modules` under pytest. Fixed by
+dropping the file's own folder from `sys.path`.
+
+This is the most instructive bug in the project, and the reason it is written
+up at length in `NOTES.md`: *the test suite was green and the program was
+still broken*. The only way to catch it was to run the file the way a user
+would — which is why `scripts/execution_time.py` exists.
+
+**A formatting guard that made the program lie.** `arithmetic_expressions.py`
+applied a `:.2f` format to an *error string*, which killed the results loop
+and reported bad input for numbers that were perfectly valid. Unlike the
+defects that were kept, this one was repaired: a program that reports a valid
+input as invalid is lying, and rule 11 only protects deliberate teaching
+artefacts, not lies.
+
+**An uncaught `IndexError` on an empty answer** in `login_status.py`,
+repaired for the same reason.
+
+**Two `./` vs `../` corrections** in `sine_rule.py`'s trigonometry, where
+angle ranges were mishandled so that valid inputs such as 100 degrees were
+rejected.
+
+### 3.2 The mistakes the assistants made
+
+These are recorded because the assistants are part of the method, and their
+errors are part of the record.
+
+**A `git reset --hard` that destroyed unsaved work.** During a routine
+cleanup of a test probe, a `git reset --hard` wiped an in-progress fix along
+with the probe. The fix had to be re-applied from scratch. The lesson is
+recorded in the workflow: prefer a soft reset plus a targeted restore over a
+hard one, and always check `git status` before a reset on a branch carrying
+uncommitted work.
+
+**Two probe commits left permanently in the history.** To prove the
+commit-scope guard actually failed rather than passing vacuously, deliberately
+unscoped commits were created. They worked; cleaning them up did not. Because
+`main` is never force-pushed (rule 12), those commits are permanent, and the
+guard carries an explicit exemption for them with a comment explaining why.
+
+**A merge commit that broke the guard it had just passed.** The first
+correction to `main` arrived as `44eb1c1 Merge pull request #11 from ...` —
+a subject generated by the forge, carrying no scope. The commit-scope guard
+immediately failed on `main` itself. This was the most instructive failure of
+the workflow: a rule strict enough to punish correct behaviour gets ignored,
+and then protects nothing. The fix was to exempt merge commits by parent count
+rather than to loosen the rule, and to record the exemption in rule 12 so it
+stays a stated rule rather than a hidden carve-out.
+
+**A test that asserted the wrong denominator.** An early version of the
+coverage guard computed 160 measured files where coverage measures 159,
+because it counted 22 empty `__init__.py` files and `sandbox/aim.py` but
+forgot that `main.py` — the deliberate `IndentationError` stub — is excluded
+from the report entirely for being unparseable. The number was wrong by one
+and the test caught it.
+
+### 3.3 The mistakes the documentation made
+
+Worth its own subsection, because documentation drift is the most common
+failure mode in a self-directed project and the hardest to notice.
+
+The feature summary claimed **98% branch coverage** when the real figure was
+95%, and **171 of 182 files at 100% lines** when it was 148 of 159. The
+`182` was the number of rows the coverage table prints, which includes 23
+files containing no statements at all; the honest denominator is the 159 files
+that actually carry at least one.
+
+A checklist said **29 dead-by-design lines in exactly 8 caps** when coverage
+reported 38 lines across 11. The ranking sheet itself had **112 of 161
+headings** that had drifted away from their own tables, a duplicated section
+that made 167 entries out of 161 files, and **9 entries** that rounded an exact
+`.5` weighted sum downward while 50 rounded it upward — including
+`rock_paper_scissors.py` at 74.5 → 75 next to `qrcode_generator.py` at
+74.5 → 74, the same sum with two answers.
+
+**Every one of these is now pinned by a test** in
+`tests/test_scripts/test_repo_doc_numbers.py` and
+`tests/test_scripts/test_ranking_docs.py`. The generalisation: a fact written
+in prose and never recomputed is a fact that will be wrong, and the only
+durable answer is to make the stale number fail the build.
+
+---
+
+## 4. AI collaboration: what was used, and how
+
+### 4.1 The three assistants and their division of labour
+
+A.I.M ran three assistants over the project and used them deliberately
+differently, as recorded in `AGENTS.md`:
+
+| Assistant | Used for | Why |
+| --- | --- | --- |
+| **OpenCode** (plan → execute → verify) | Multi-file repo work; reading, editing, running the pinned interpreter in one loop | Best at holding a repo-wide task to completion; the default for anything spanning several files |
+| **Claude** | Code queries, small fixes, debugging | Its distinguishing strength is code specifically — ask it to critique or patch, not to redesign |
+| **Gemini** | Research sweeps, long-context reading, open-ended ideas | More generative and broad; its line-level claims are candidates to verify, not ground truth |
+
+The shared failure mode, recorded because it applies to all three: each one
+pattern-matches an open prompt like "make it better" and over-reaches. The
+`Goal / Files / Constraints / Verify` block exists precisely to prevent that.
+
+### 4.2 What replaced what, and why
+
+**Gemini and Claude were replaced by OpenCode for terminal usage.** The
+change was not that the others became worse; it was that OpenCode could do the
+whole loop in one place. A.I.M's own summary: OpenCode is strongest at
+*plan → execute → verify over the repo* — it reads the files, makes the
+edits, and runs `.venv/Scripts/python.exe -m pytest` itself. Claude and
+Gemini remained in use for code-specific critique and research respectively,
+but the terminal work — the part where a change is only real once the pinned
+interpreter agrees — consolidated onto one assistant that could verify its own
+work in the same turn.
+
+The practical benefit is visible in this document's own history: the ranking
+reconciliation above was found by writing a test that read the markdown and
+compared it to the tree, not by re-reading the prose. An assistant that can
+run the check can close the loop; one that can only suggest a check leaves it
+open.
+
+### 4.3 Model rotation, and why it matters
+
+Within OpenCode, A.I.M rotates across **seven free models** — Big Pickle Free,
+Space Bunny Free, Nemotron 3.5 Lightning Free, Nemotron 3 Ultra Free, Ling 3.0
+Flash Fin Free, Muse Spark 1.3 Free and MiMo-V2.6-Flash Free. The rotation is
+selected in the console, not from inside a conversation: an agent cannot switch
+its own model mid-session.
+
+**An agent cannot reliably self-identify which model is processing a
+conversation.** This is stated in `AGENTS.md` because the false claim was
+actually made and written into the repository — the line
+`This conversation runs on space-bunny-free` had to be removed and replaced
+with this note. A model's self-report is not evidence.
+
+The rotation is worth the effort for a reason that is easy to miss: **the same
+prompt handled by different models surfaces different mistakes.** Asking two
+models the same question and comparing where they disagree is a cheap second
+opinion that does not depend on either being right. In practice A.I.M treats
+every model's line-level claim — including a line-level claim from the model
+currently writing the code — as a *candidate* to be verified against the repo,
+never as ground truth. The test suite is the arbiter.
+
+### 4.4 The rules that keep the collaboration honest
+
+Three conventions, all added because the failure they prevent actually
+happened:
+
+1. **Verification culture.** Every change is accompanied by the exact command
+   and its output, so A.I.M can re-run it himself. A claim without a command
+   is an opinion.
+2. **Fact vs heuristic vs opinion.** Claims are labelled, and the repo is the
+   final authority — this file, the tests, and the results of the commands
+   shown.
+3. **AI-authored comments are marked.** Anything an assistant writes to explain
+   its own fix starts with an `[AI-authored fix]` marker inside a `"""` block,
+   so it is instantly distinguishable from A.I.M's own notes. Comments explain
+   *why*, not *what*; short notes use `#` (max two lines), longer ones use
+   `"""` blocks.
+
+---
+
+## 5. The corrections loop, as practised
+
+The project's correction workflow is recorded in `AGENTS.md` and was used
+twice during this review:
+
+> A mistake on `main` is corrected on a branch, never on `main` directly. Open
+> a branch, commit the fix with a subject stating both the change and the issue
+> behind it, verify it properly, then force-push the branch and open a pull
+> request. `main` is never force-pushed, so a bad commit is not erased — it is
+> superseded.
+
+Verification before force-push means more than "the tests pass":
+
+- the full suite green, run **more than once**;
+- for a change to a script, the script **executed for real** with
+  representative user input — `scripts/execution_time.py --all` is the only
+  harness that runs every file standalone;
+- the wrong behaviour **reproduced before the fix** and shown absent after;
+- any test added to prove a fix confirmed to **fail against the old code**,
+  otherwise it may be passing for an unrelated reason.
+
+Branch and PR work is force-pushed with `--force-with-lease` so a stale local
+ref cannot clobber someone else's work, and the same shape is applied to all
+four mirrors — a correction applied on the GitHub Project and not on the
+GitLab backup is a half-applied correction. That discipline caught a real
+drift during this review: after two merges reached only the GitHub Project, two
+mirrors were found lagging at an older commit.
+
+---
+
+## 6. Where the project stands
+
+| | |
+| --- | --- |
+| Tests | 1436 passing, 0 failing |
+| Coverage | 99% line, 95% branch |
+| Quality mean | 77.6/100 over 161 files |
+| Document drift | 0 known — all numeric claims test-guarded |
+| Mirrors | 4, synchronised |
+| Frozen lane | `object_oriented_programming/` — `decorator.py`, `generator.py`, `multitasking.py`, `dice.py` |
+
+Next, per the roadmap in `README.md`: Year 2 (CS2DA Data Analytics, CS2PP
+Python Programming, CS2SE Software Engineering, then CS2AI, CS2ON, CS2SD),
+followed by Summer 2027 Block II and the Year 3 project work.
+
+---
+
+## Verifying this document
+
+Every claim above is checkable. The commands that regenerate the figures:
+
+```bash
+# Project span and commit counts
+git log --reverse --format="%ad" --date=short | head -1
+git log -1 --format="%ad" --date=short
+git rev-list --count HEAD
+git log --format="%ad" --date=format:%Y-%m | sort | uniq -c
+
+# Suite and coverage
+.venv/Scripts/python.exe -m pytest -q
+.venv/Scripts/python.exe -m pytest --cov=python --cov-report=term-missing
+
+# Module counts per lane
+find python -name "*.py" ! -name "__init__.py" | wc -l
+find python/imperative_programming -name "*.py" ! -name "__init__.py" | wc -l
+
+# Quality mean, recomputed from the score sheet
+# (see tests/test_scripts/test_ranking_docs.py for the checked calculation)
+
+# Every file run standalone, the way a user meets it
+.venv/Scripts/python.exe scripts/execution_time.py --all
+```
+
+The numeric claims in this file and in `AGENTS.md` are pinned by
+`tests/test_scripts/test_repo_doc_numbers.py`, so a stale figure fails the
+suite instead of quietly misleading the next reader.

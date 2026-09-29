@@ -425,7 +425,7 @@ or the correction is half-applied.
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1436 passing tests, ~99% line coverage and 95% branch coverage (148 of the
+- 1447 passing tests, ~99% line coverage and 95% branch coverage (148 of the
   159 measured `python/` files at 100% lines, including both
   music-player GUIs; the one never-imported file is
   `imperative_programming/fundamental_topics/main.py`, and the 161
@@ -517,6 +517,14 @@ or the correction is half-applied.
   reserved) but not started.
 
 ## References
+
+`PROGRESSION.md` is the narrative review of the 16-week run from 4 June 2026:
+the stages of learning and what evidences each, the corrections and mistakes
+made by both A.I.M and the assistants, and how the AI collaboration was
+arranged - including the point where Claude and Gemini were replaced by
+OpenCode for terminal work, and the seven-model free rotation. Its numeric
+claims are test-guarded by `tests/test_scripts/test_repo_doc_numbers.py`, so a
+stale figure there fails the suite like any other.
 
 External study/project resources tracked in `NOTES.md`, plus the local module
 briefing documents under `university_courseworks/` (tracked in git; the
