@@ -7,7 +7,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ## python/advanced_projects/
 
-### machine_learning/data_outliers/data_outlier.py — **72/100** (C — Serviceable)
+### machine_learning/data_outliers/data_outlier.py — **70/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -21,7 +21,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### music_player/gui/mp3_gui_player.py — **78/100** (C — Serviceable)
+### music_player/gui/mp3_gui_player.py — **79/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -35,7 +35,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### music_player/gui/wav_gui_player.py — **78/100** (C — Serviceable)
+### music_player/gui/wav_gui_player.py — **79/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -49,7 +49,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### music_player/tui/mp3_tui_player.py — **82/100** (B — Strong)
+### music_player/tui/mp3_tui_player.py — **81/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -63,7 +63,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### music_player/tui/wav_tui_player.py — **82/100** (B — Strong)
+### music_player/tui/wav_tui_player.py — **81/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -77,7 +77,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### transactions/transactions.py — **75/100** (C — Serviceable)
+### transactions/transactions.py — **74/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -109,7 +109,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ## python/functional_programming/fundamental_topics/
 
-### any_all.py — **92/100** (A — Exemplary)
+### any_all.py — **93/100** (A — Exemplary)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -123,7 +123,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### closures.py — **90/100** (A — Exemplary)
+### closures.py — **92/100** (A — Exemplary)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -137,7 +137,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### comprehensions.py — **90/100** (A — Exemplary)
+### comprehensions.py — **92/100** (A — Exemplary)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -151,7 +151,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### currying.py — **85/100** (B — Strong)
+### currying.py — **88/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -165,7 +165,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### filter.py — **88/100** (B — Strong)
+### filter.py — **91/100** (A — Exemplary)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -179,7 +179,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### first_class_functions.py — **88/100** (B — Strong)
+### first_class_functions.py — **91/100** (A — Exemplary)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -193,7 +193,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### functools_module.py — **90/100** (A — Exemplary)
+### functools_module.py — **92/100** (A — Exemplary)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -207,7 +207,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### itertools_module.py — **92/100** (A — Exemplary)
+### itertools_module.py — **94/100** (A — Exemplary)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -221,7 +221,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### lambda.py — **85/100** (B — Strong)
+### lambda.py — **88/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -235,7 +235,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### map.py — **88/100** (B — Strong)
+### map.py — **91/100** (A — Exemplary)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -249,7 +249,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### partial_application.py — **85/100** (B — Strong)
+### partial_application.py — **88/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -263,7 +263,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### pipelines.py — **88/100** (B — Strong)
+### pipelines.py — **91/100** (A — Exemplary)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -277,7 +277,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### pure_functions.py — **85/100** (B — Strong)
+### pure_functions.py — **88/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -291,7 +291,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### reduce.py — **85/100** (B — Strong)
+### reduce.py — **88/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -305,7 +305,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### sorted.py — **85/100** (B — Strong)
+### sorted.py — **88/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -319,7 +319,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### statistics_module.py — **92/100** (A — Exemplary)
+### statistics_module.py — **94/100** (A — Exemplary)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -333,7 +333,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### zip.py — **80/100** (B — Strong)
+### zip.py — **85/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -349,7 +349,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ## python/functional_programming/syntax_fundamentals/
 
-### grade_summary.py — **85/100** (B — Strong)
+### grade_summary.py — **88/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -363,7 +363,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### number_pipeline.py — **85/100** (B — Strong)
+### number_pipeline.py — **88/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -377,7 +377,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### shopping_receipt.py — **82/100** (B — Strong)
+### shopping_receipt.py — **85/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -391,7 +391,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### word_frequency.py — **80/100** (B — Strong)
+### word_frequency.py — **85/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -407,7 +407,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ## python/imperative_programming/fundamental_topics/
 
-### conditions.py — **55/100** (D — Weak)
+### conditions.py — **56/100** (E — Poor)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -435,7 +435,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### dictionaries.py — **65/100** (D — Weak)
+### dictionaries.py — **64/100** (D — Weak)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -449,7 +449,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### exceptions.py — **75/100** (C — Serviceable)
+### exceptions.py — **73/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -463,7 +463,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### formats.py — **70/100** (C — Serviceable)
+### formats.py — **71/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -477,7 +477,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### functions.py — **65/100** (D — Weak)
+### functions.py — **66/100** (D — Weak)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -491,7 +491,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### hello_world.py — **92/100** (A — Exemplary)
+### hello_world.py — **93/100** (A — Exemplary)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -505,7 +505,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### lists.py — **60/100** (D — Weak)
+### lists.py — **61/100** (D — Weak)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -533,7 +533,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### main.py — **85/100** (B — Strong)
+### main.py — **84/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -547,7 +547,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### modules.py — **75/100** (C — Serviceable)
+### modules.py — **72/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -561,7 +561,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### numbers.py — **80/100** (B — Strong)
+### numbers.py — **82/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -589,7 +589,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### sets.py — **75/100** (C — Serviceable)
+### sets.py — **74/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -603,7 +603,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### strings.py — **65/100** (D — Weak)
+### strings.py — **64/100** (D — Weak)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -617,7 +617,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### tuples.py — **75/100** (C — Serviceable)
+### tuples.py — **76/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -645,7 +645,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### variables.py — **55/100** (D — Weak)
+### variables.py — **56/100** (E — Poor)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -661,7 +661,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ## python/imperative_programming/interactive_games/
 
-### dice_game.py — **72/100** (C — Serviceable)
+### dice_game.py — **70/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -675,7 +675,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### haiku_madlibs.py — **65/100** (D — Weak)
+### haiku_madlibs.py — **64/100** (D — Weak)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -689,7 +689,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### hangman_game.py — **78/100** (C — Serviceable)
+### hangman_game.py — **76/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -803,7 +803,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### area_of_triangle.py — **75/100** (C — Serviceable)
+### area_of_triangle.py — **74/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -817,7 +817,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### area_volume_calculator.py — **72/100** (C — Serviceable)
+### area_volume_calculator.py — **70/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -831,7 +831,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### arithmetic_calculator.py — **78/100** (C — Serviceable)
+### arithmetic_calculator.py — **77/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -845,7 +845,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### arithmetic_expressions.py — **80/100** (B — Strong)
+### arithmetic_expressions.py — **81/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -859,7 +859,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### arithmetic_iteration.py — **75/100** (C — Serviceable)
+### arithmetic_iteration.py — **73/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -901,7 +901,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### circumference_of_circle.py — **75/100** (C — Serviceable)
+### circumference_of_circle.py — **74/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -943,7 +943,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### cosine_rule.py — **78/100** (C — Serviceable)
+### cosine_rule.py — **76/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -957,7 +957,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### euclidean_distance_calculator.py — **85/100** (B — Strong)
+### euclidean_distance_calculator.py — **84/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -971,7 +971,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### gradient_calculator.py — **82/100** (B — Strong)
+### gradient_calculator.py — **81/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -985,7 +985,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### perimeter_of_triangle.py — **75/100** (C — Serviceable)
+### perimeter_of_triangle.py — **74/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -999,7 +999,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### pythagoras_theorem.py — **75/100** (C — Serviceable)
+### pythagoras_theorem.py — **74/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1041,7 +1041,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### sine_rule.py — **78/100** (C — Serviceable)
+### sine_rule.py — **76/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1055,7 +1055,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### square_number_times_tables.py — **70/100** (C — Serviceable)
+### square_number_times_tables.py — **71/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1069,7 +1069,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### times_tables.py — **75/100** (C — Serviceable)
+### times_tables.py — **76/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1083,7 +1083,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### triangle_calculator.py — **75/100** (C — Serviceable)
+### triangle_calculator.py — **73/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1113,7 +1113,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ## python/imperative_programming/syntax_exercises/
 
-### add.py — **85/100** (B — Strong)
+### add.py — **87/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1127,7 +1127,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### alarm_clock.py — **78/100** (C — Serviceable)
+### alarm_clock.py — **76/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1141,7 +1141,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### banking_program.py — **72/100** (C — Serviceable)
+### banking_program.py — **70/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1155,7 +1155,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### checkout_system.py — **70/100** (C — Serviceable)
+### checkout_system.py — **71/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1183,7 +1183,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### distance_calculator.py — **70/100** (C — Serviceable)
+### distance_calculator.py — **71/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1197,7 +1197,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### divide.py — **85/100** (B — Strong)
+### divide.py — **87/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1211,7 +1211,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### drink_script_example.py — **75/100** (C — Serviceable)
+### drink_script_example.py — **76/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1225,7 +1225,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### email_slicer.py — **72/100** (C — Serviceable)
+### email_slicer.py — **70/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1239,7 +1239,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### even_odd_detector.py — **75/100** (C — Serviceable)
+### even_odd_detector.py — **77/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1253,7 +1253,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### factorials.py — **72/100** (C — Serviceable)
+### factorials.py — **70/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1267,7 +1267,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### file_handling.py — **75/100** (C — Serviceable)
+### file_handling.py — **77/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1295,7 +1295,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### file_writer.py — **75/100** (C — Serviceable)
+### file_writer.py — **77/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1351,7 +1351,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### hour_clock.py — **75/100** (C — Serviceable)
+### hour_clock.py — **74/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1379,7 +1379,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### math_file.py — **75/100** (C — Serviceable)
+### math_file.py — **77/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1421,7 +1421,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### multiply.py — **85/100** (B — Strong)
+### multiply.py — **87/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1435,7 +1435,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### num_pad.py — **75/100** (C — Serviceable)
+### num_pad.py — **77/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1491,7 +1491,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### random_colour_generator.py — **75/100** (C — Serviceable)
+### random_colour_generator.py — **74/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1533,7 +1533,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### shipping_label.py — **75/100** (C — Serviceable)
+### shipping_label.py — **77/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1547,7 +1547,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### shopping_cart.py — **75/100** (C — Serviceable)
+### shopping_cart.py — **77/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1561,7 +1561,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### square.py — **85/100** (B — Strong)
+### square.py — **87/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1575,7 +1575,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### subtract.py — **85/100** (B — Strong)
+### subtract.py — **87/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1619,93 +1619,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ## python/imperative_programming/unit_and_format_converters/
 
-### fahrenheit_celsius_converter.py — **78/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 70 | 15% | 10.5 |
-| **Final** | | | **77** |
-
-**Comment:** Clean bidirectional temperature converter. The `fahrenheit_to_celcius()` and `celcius_to_fahrenheit()` functions are pure and reusable. The `format_celcius()` and `format_fahrenheit()` functions handle output. The docstring correctly notes the "celcius" spelling is deliberate and pinned by tests. Deductions: no `__main__` guard. The `try/except ValueError` is correct. The input validation is minimal.
-
----
-
-### phone_converter.py — **72/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **70** |
-
-**Comment:** Phone keypad mapper using match/case. The `num()` function is clean. The `while True` loop with input validation is correct. Deductions: no `__main__` guard. The `result += word + " "` pattern is inefficient (string concatenation in a loop). The `Seperates` comment has a typo ("Separates").
-
----
-
-### qrcode_generator.py — **75/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **74** |
-
-**Comment:** Clean QR code generator using the `qrcode` library. The `make_qr_code()` function with `output_dir` parameter is flexible. The `os.makedirs(output_dir, exist_ok=True)` is correct. The CWD-relative save is intentional (rule 4). Has `__main__` guard. Deductions: no input validation on the URL. The `sys.argv` handling is minimal.
-
----
-
-### roman_numeral_converter.py — **75/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **74** |
-
-**Comment:** Roman numeral converter with bidirectional logic. The `get_value()` function with match/case is clean. The `roman_to_int()` function correctly handles subtractive notation. The `try/except ValueError` is appropriate. Deductions: no `__main__` guard. The `raise ValueError()` on line 21 is bare (no message). The input validation is minimal.
-
----
-
-### time_converter.py — **78/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 70 | 15% | 10.5 |
-| **Final** | | | **77** |
-
-**Comment:** Comprehensive time converter with 10 units. The `get_unit_info()` function returning `(multiplier, name)` is elegant and extensible. The `display_menu()` function is clear. The `try/except ValueError` and `except KeyboardInterrupt` are correct. Deductions: no `__main__` guard. The `int(current_choice)` conversion could raise `ValueError` for non-numeric input. The `final_answer` could be very large or very small.
-
----
-
-### weight_converter.py — **70/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 60 | 15% | 9.0 |
-| **Final** | | | **70** |
-
-**Comment:** Simple weight converter with pounds and kilograms. The `try/except ValueError` is correct. The `unit.lower()[0]` check is a nice shortcut. Deductions: no `__main__` guard. The `w / 0.45` calculation could raise `ZeroDivisionError` if 0.45 were 0 (impossible but not defensive). The `new` variable is not rounded.
-
----
-
-## python/imperative_programming/unit_and_format_converters/
-
-### fahrenheit_celsius_converter.py — **75/100** (C — Serviceable)
+### fahrenheit_celsius_converter.py — **77/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1733,7 +1647,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### qrcode_generator.py — **75/100** (C — Serviceable)
+### qrcode_generator.py — **74/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1761,7 +1675,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### time_converter.py — **75/100** (C — Serviceable)
+### time_converter.py — **77/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1805,7 +1719,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### aggregation.py — **80/100** (B — Strong)
+### aggregation.py — **81/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1819,7 +1733,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### class_methods.py — **80/100** (B — Strong)
+### class_methods.py — **81/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1833,7 +1747,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### class_variables.py — **80/100** (B — Strong)
+### class_variables.py — **81/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1861,7 +1775,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### composition.py — **80/100** (B — Strong)
+### composition.py — **81/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1917,7 +1831,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### duck_typing.py — **80/100** (B — Strong)
+### duck_typing.py — **81/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1931,7 +1845,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### generator.py — **70/100** (C — Serviceable)
+### generator.py — **68/100** (D — Weak)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1959,7 +1873,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### iterator.py — **80/100** (B — Strong)
+### iterator.py — **81/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -1987,7 +1901,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### multi_level_inheritance.py — **80/100** (B — Strong)
+### multi_level_inheritance.py — **81/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -2001,7 +1915,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### multiple_inheritance.py — **80/100** (B — Strong)
+### multiple_inheritance.py — **81/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -2015,7 +1929,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### multitasking.py — **65/100** (D — Weak)
+### multitasking.py — **64/100** (D — Weak)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -2029,7 +1943,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### nested_classes.py — **78/100** (C — Serviceable)
+### nested_classes.py — **77/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -2057,7 +1971,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### property.py — **80/100** (B — Strong)
+### property.py — **81/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -2071,7 +1985,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### static_methods.py — **80/100** (B — Strong)
+### static_methods.py — **81/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -2085,7 +1999,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### super.py — **80/100** (B — Strong)
+### super.py — **81/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -2103,7 +2017,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 **Note:** This folder is frozen per AGENTS.md rule 1 — files must not be moved, renamed, or have imports rewritten. Scores reflect the frozen state.
 
-### bank_account.py — **78/100** (C — Serviceable)
+### bank_account.py — **77/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -2117,7 +2031,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### calculator.py — **78/100** (C — Serviceable)
+### calculator.py — **77/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -2131,7 +2045,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### car.py — **80/100** (B — Strong)
+### car.py — **81/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -2173,7 +2087,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### employee_contract.py — **78/100** (C — Serviceable)
+### employee_contract.py — **77/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -2187,7 +2101,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### food.py — **78/100** (C — Serviceable)
+### food.py — **77/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -2201,7 +2115,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### grocery_caloric_list.py — **65/100** (D — Weak)
+### grocery_caloric_list.py — **64/100** (D — Weak)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -2215,7 +2129,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### item.py — **78/100** (C — Serviceable)
+### item.py — **77/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -2229,7 +2143,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### order.py — **78/100** (C — Serviceable)
+### order.py — **77/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -2243,7 +2157,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### payment.py — **78/100** (C — Serviceable)
+### payment.py — **77/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -2257,7 +2171,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### person.py — **80/100** (B — Strong)
+### person.py — **81/100** (B — Strong)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -2285,7 +2199,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### real_estate.py — **78/100** (C — Serviceable)
+### real_estate.py — **77/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -2299,7 +2213,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### restaurant.py — **78/100** (C — Serviceable)
+### restaurant.py — **77/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -2313,7 +2227,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### school.py — **78/100** (C — Serviceable)
+### school.py — **77/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -2327,7 +2241,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### sports.py — **78/100** (C — Serviceable)
+### sports.py — **77/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|
@@ -2341,7 +2255,7 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-### user_access.py — **78/100** (C — Serviceable)
+### user_access.py — **77/100** (C — Serviceable)
 
 | Criterion | Score | Weight | Weighted |
 |-----------|-------|--------|----------|

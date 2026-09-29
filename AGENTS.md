@@ -433,8 +433,8 @@ history.
   Fixability (40%), Readability (25%), Durability (20%) and Robustness (15%).
   Each entry carries a criterion-by-criterion breakdown and a sincere comment
   naming what works, what does not, why the score, and what would fix it.
-  Overall average: 77.5/100 (band C — Serviceable). Only 10 files score below
-  70; the weakest are `conditions.py` and `variables.py` (55 each), both low
+  Overall average: 77.5/100 (band C — Serviceable). Only 11 files score below
+  70; the weakest are `conditions.py` and `variables.py` (56 each), both low
   for stylistic reasons (hardcoded values, deliberate defects) rather than
   functional ones. See `FILE_SCORES.md` for the full breakdown.
 - Postgres is planned (`psycopg2` installed, `postgresql/sandbox/aim.sql`
