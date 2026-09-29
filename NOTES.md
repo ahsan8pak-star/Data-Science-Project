@@ -142,9 +142,9 @@ remain byte-frozen in the owner lane; probes are the agent lane.
       `dictionaries.py` gained a `setdefault()` block; both open lanes,
       probes committed)
 - [x] **Final — full suite + coverage caps exact + LF invariants** (runs on
-      every pass-through; suite green 1350 at ~99% line and 98% branch
+      every pass-through; suite green at ~99% line and 95% branch
       coverage, with the same
-      29 dead-by-design lines in exactly the 8 documented caps)
+      38 dead-by-design lines in exactly the 11 documented caps)
 
 ## Maintenance log format
 

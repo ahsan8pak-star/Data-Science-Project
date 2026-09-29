@@ -354,12 +354,17 @@ history.
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1350 passing tests, ~99% line coverage and 98% branch coverage (171 of the
-  182 measured `python/` files at 100% lines, including both
+- 1431 passing tests, ~99% line coverage and 95% branch coverage (148 of the
+  159 measured `python/` files at 100% lines, including both
   music-player GUIs; the one never-imported file is
   `imperative_programming/fundamental_topics/main.py`, and the 161
-  non-`__init__.py` files are the number a docstring sweep covers). Branch
-  coverage is
+  non-`__init__.py` files are the number a docstring sweep covers). The 159
+  counts files that carry at least one statement. The coverage table prints
+  182 rows because it also lists 23 files that have none - 22 empty
+  `__init__.py` files and `sandbox/aim.py`, a docstring-only scratch file -
+  which report 100% without anything having run; `main.py` is excluded from
+  the report entirely because its deliberate `IndentationError` stops it
+  being parsed. Branch coverage is
   enabled in `[tool.coverage.run]` because line coverage alone read 99%
   while 99 branch directions had never executed - `sine_rule.py` was at
   100% lines with 21 of its 92 branches unexercised. A 2026 audit closed

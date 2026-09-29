@@ -160,6 +160,13 @@ def resolve_folder(choice):
             print(f"    - {match}")
         print("Type the full path for the folder you want.")
 
+    else:
+        # Without this the caller just re-prompts, so a typo is indistinguishable
+        # from a mis-typed-but-happened-to-be-ignored input. Matches the
+        # ambiguous case above, which already explains itself.
+        print(f"[!] No folder matches '{choice}'. Pick one from the tree above, "
+              "or press Enter to run the whole python/ folder.")
+
     return None
 
 
