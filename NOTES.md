@@ -183,10 +183,18 @@ all-evenings template:
 | Day | University | Home by | Effective study window |
 | --- | --- | --- | --- |
 | Monday | 11:00 AM - 4:00 PM | 6:00 PM | 6:30 PM - 9:00 PM (2.5 hrs, late) |
-| Tuesday | 2:00 PM - 6:00 PM | 8:00 PM | Rest by default (tired); 20-minute review optional |
+| Tuesday | 2:00 PM - 6:00 PM | 8:00 PM | 8:30 AM - 10:30 AM (2 hrs, morning, BEFORE university); evening rest |
 | Wednesday | Free | - | 9:00 AM - 12:00 PM + 1:30 PM - 4:30 PM (6 hrs, deep) |
 | Thursday | 9:00 AM - 4:00 PM | 6:00 PM | 6:30 PM - 9:00 PM (2.5 hrs, late) |
 | Friday | Free | - | 9:00 AM - 12:00 PM + 1:30 PM - 4:30 PM (6 hrs, deep + career sprint) |
+| Saturday | Free | - | 7:00 PM - 9:00 PM (2 hrs, review) - fixed, same in semester and holidays |
+| Sunday | Free | - | 7:00 PM - 9:00 PM (2 hrs, review) - fixed, same in semester and holidays |
+
+Saturday and Sunday never move: **7:00 PM - 9:00 PM** in semester and holidays
+alike. Holiday **weekdays** are the difference - they open up to the full
+`Times Off` window (9:00 AM - 9:00 PM), which is deliberately larger than term
+weekdays. Term-time total is therefore ~23 hrs/week (Wed 6 + Fri 6 + Tue 2 +
+Sat 2 + Sun 2 + Mon 2.5 + Thu 2.5).
 
 Three consequences for the maintenance log, all of which change how the
 existing cadence should be read:
@@ -200,18 +208,23 @@ existing cadence should be read:
    **career sprint** moves from a two-hour Friday slot to a first-class
    morning-plus-afternoon block - the same day the sprint is already assigned
    to, just no longer squeezed.
-3. **Tuesday is a rest day, not a study day.** The old template had Tuesday
-   7:00 PM - 9:00 PM. With a 2:00 PM - 6:00 PM finish and an 8:00 PM arrival,
-   the owner has explicitly marked this window as *free due to tiredness*.
-   Maintenance log rows should not claim Tuesday study, and deadline weeks
-   should keep Tuesday to a 20-minute retrieval check rather than new
-   material.
+3. **Tuesday's study sits in the morning, not the evening.** With a 2:00 PM -
+   6:00 PM finish and an 8:00 PM arrival, an evening block starts far too late
+   and was always going to be skipped; the work instead runs 8:30 AM - 10:30 AM
+   BEFORE leaving for university. The evening stays rest by default. Maintenance
+   log rows should not claim Tuesday evening study, and deadline weeks should
+   keep Tuesday evening to a 20-minute retrieval check rather than new material.
+4. **Weekends are a fixed slot, not a variable one.** Saturday and Sunday are
+   7:00 PM - 9:00 PM in semester AND holidays; only holiday weekdays expand (to
+   the 9:00 AM - 9:00 PM Times Off window). So a weekend pass-through is the same
+   2-hour review block in either period.
 
 The maintenance log table's **Friday sprint?** column is therefore better read
 as "Friday career sprint done?", and a `No` in a week where the sprint ran on
-the second Friday block is still a `No`. Where a pass-through happens on a
-Tuesday, log it as rest rather than as a missed study day - the log records
-what was done, not a quota to meet.
+the second Friday block is still a `No`. Where a Wednesday/Friday pass-through
+happens, log the morning block as done; where a Tuesday is passed through, log
+the morning block and note the evening was rest - the log records what was
+done, not a quota to meet.
 
 ---
 

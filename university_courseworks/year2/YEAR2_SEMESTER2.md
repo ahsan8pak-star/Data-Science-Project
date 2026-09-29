@@ -28,21 +28,23 @@ assumed to mirror Semester 1 (Monday 11:00 AM - 4:00 PM, Tuesday 2:00 PM -
 6:00 PM, Thursday 9:00 AM - 4:00 PM, with Wednesday and Friday free).
 *Re-confirm before term starts in case the S2 timetable differs.* The shape
 is the same as `YEAR2_SEMESTER1.md`: the two free days carry the deep work,
-the contact days are maintenance-only, and Tuesday is rest.
+Monday and Thursday are late-evening maintenance slots, Tuesday takes a
+morning block, and Saturdays and Sundays are a fixed 7:00 PM - 9:00 PM slot
+in semester and holidays alike.
 
 | Day | Status | Session |
 | --- | --- | --- |
 | Monday | Study (late) | University 11:00 AM - 4:00 PM, home by 6:00 PM -> study 6:30 PM - 9:00 PM |
-| Tuesday | Rest / optional light | University 2:00 PM - 6:00 PM, home by 8:00 PM -> **rest by default** (tired); optional 20-minute review only |
+| Tuesday | Study (morning) | Study 8:30 AM - 10:30 AM, then university 2:00 PM - 6:00 PM, home by 8:00 PM -> **evening rest** |
 | Wednesday | Study (deep) | Free -> 9:00 AM - 12:00 PM and 1:30 PM - 4:30 PM (6 hrs, 2 blocks) |
 | Thursday | Study (late) | University 9:00 AM - 4:00 PM, home by 6:00 PM -> study 6:30 PM - 9:00 PM |
 | Friday | Study (deep + career sprint) | Free -> 9:00 AM - 12:00 PM and 1:30 PM - 4:30 PM (6 hrs, 2 blocks) |
 | Saturday | Study (light + review) | 7:00 PM - 9:00 PM (2 hrs, one block) |
 | Sunday | Study (light + review) | 7:00 PM - 9:00 PM (2 hrs, one block) |
 
-**Term-time total: ~21 hrs/week**. See the Tuesday note in
-`YEAR2_SEMESTER1.md` - Tuesday is the load-bearing rest day and should not
-carry assessment work.
+**Term-time total: ~23 hrs/week**. See the Tuesday note in
+`YEAR2_SEMESTER1.md` - Tuesday's study happens in the morning so the evening
+stays restful.
 
 ## Modules and Required Topics
 
@@ -126,7 +128,9 @@ Semester 2. Design report **Stage 1 (group, 40%, due Teaching Week 7)** + **Stag
 ## Summer Plan (from Monday 31 May 2027)
 
 The `Times Off` window applies throughout the Summer: **9:00 AM - 9:00 PM** with a
-30 - 60 minutes break for every 1:30 - 2 hours worked. Weekend sessions remain per the `Weekly Study Template`.
+30 - 60 minutes break for every 1:30 - 2 hours worked. Holiday weekdays are
+therefore **larger** than term weekdays, while weekends do not change:
+Saturday and Sunday remain **7:00 PM - 9:00 PM**, the same fixed slot as term.
 
 ### Rest (June)
 

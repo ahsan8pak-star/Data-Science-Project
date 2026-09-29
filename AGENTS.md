@@ -245,13 +245,17 @@ candidates to verify against the repo rather than ground truth.
   (home 8:00 PM, tired), Wednesday **free**, Thursday 9:00 AM - 4:00 PM (home
   6:00 PM), Friday **free**. So Wednesday and Friday are the deep-work days
   (~6 hrs each in two blocks), Monday and Thursday are 2.5-hour late-evening
-  maintenance slots, and **Tuesday is rest** - never schedule assessment work
-  or claim study there. Per-day tables live in `NOTES.md` and both
+  maintenance slots, Tuesday takes a **morning block (8:30 AM - 10:30 AM)**
+  before its late finish with the evening left as rest, and Saturday/Sunday are
+  a fixed **7:00 PM - 9:00 PM** review slot that is the same in semester and
+  holidays - only holiday weekdays expand (to the 9:00 AM - 9:00 PM Times Off
+  window). Per-day tables live in `NOTES.md` and both
   `YEAR2_SEMESTER*.md` files; those are the authority, not this summary.
 - Each pass-through is logged as a dated row in `NOTES.md`'s maintenance log,
   using the week frame of `university_courseworks/year2/`; the row states the
   previous week(s) covered as of the logged day. The log records what was
-  done, not a quota - a rest Tuesday is a legitimate `No`.
+  done, not a quota - a Tuesday logged with only its morning block is a
+  legitimate partial, and a rest evening is not a missed session.
 - `postgresql/` will gain **experimental folders during term**; they are
   learning scratch, full-pace work happens in Summer 2027 Block II. Never
   force experimental files into a commit.

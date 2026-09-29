@@ -17,32 +17,37 @@ project so that `README.md` and `NOTES.md` remain untouched.
 ## Weekly Study Template
 
 Anchored on the owner's confirmed **Semester 1** contact hours. Wednesday and
-Friday are the only full free days, so they carry the deep work; the four
-contact days are maintenance-only, and Tuesday is deliberately light because
-it is a late finish.
+Friday are the only full free days, so they carry the deep work; the three
+contact days (Monday, Tuesday, Thursday) carry shorter blocks, and Tuesday's
+block sits in the morning because the day ends late.
 
 | Day | Status | Session |
 | --- | --- | --- |
 | Monday | Study (late) | University 11:00 AM - 4:00 PM, home by 6:00 PM -> study 6:30 PM - 9:00 PM |
-| Tuesday | Rest / optional light | University 2:00 PM - 6:00 PM, home by 8:00 PM -> **rest by default** (tired); optional 20-minute review only |
+| Tuesday | Study (morning) | Study 8:30 AM - 10:30 AM, then university 2:00 PM - 6:00 PM, home by 8:00 PM -> **evening rest** |
 | Wednesday | Study (deep) | Free -> 9:00 AM - 12:00 PM and 1:30 PM - 4:30 PM (6 hrs, 2 blocks) |
 | Thursday | Study (late) | University 9:00 AM - 4:00 PM, home by 6:00 PM -> study 6:30 PM - 9:00 PM |
 | Friday | Study (deep + career sprint) | Free -> 9:00 AM - 12:00 PM and 1:30 PM - 4:30 PM (6 hrs, 2 blocks) |
 | Saturday | Study (light + review) | 7:00 PM - 9:00 PM (2 hrs, one block) |
 | Sunday | Study (light + review) | 7:00 PM - 9:00 PM (2 hrs, one block) |
 
-**Term-time total: ~21 hrs/week** (Wed 6 + Fri 6 + Sat 2 + Sun 2 + Mon 2.5 +
-Thu 2.5). Note this is *scheduled availability*, not a target - the previous
-template nominally reached 28 hrs by stacking a 12-hour Wednesday, which was
-neither realistic nor sustainable. The real gain here is shape, not size: the
-work is front-loaded into the two genuinely free days instead of spread across
-every evening.
+Saturday and Sunday are fixed at **7:00 PM - 9:00 PM in semester AND holidays** -
+the weekend slot never moves; only the weekday blocks differ between term and
+holiday time.
 
-> **Tuesday is the load-bearing rest day.** Two of five contact days already
-> end with a long commute; a third evening of study after a 2:00 PM - 6:00 PM
-> day is where the streak breaks. Do not schedule assessment work for
-> Tuesday. If Tuesday has to be used (deadline week), keep it to a 20-minute
-> retrieval check, not new material.
+**Term-time total: ~23 hrs/week** (Wed 6 + Fri 6 + Tue 2 + Sat 2 + Sun 2 + Mon
+2.5 + Thu 2.5). Note this is *scheduled availability*, not a target - the
+previous template nominally reached 28 hrs by stacking a 12-hour Wednesday,
+which was neither realistic nor sustainable. The real gain here is shape, not
+size: the work is front-loaded into the two genuinely free days instead of
+spread across every evening.
+
+> **Tuesday's block is in the morning because the evening is gone.** With a
+> 2:00 PM - 6:00 PM day and an 8:00 PM arrival home, the only sane study
+> window is 8:30 AM - 10:30 AM before leaving. The evening after that long day
+> stays rest - do not schedule assessment work there. If a deadline week
+> forces Tuesday evening, keep it to a 20-minute retrieval check, not new
+> material.
 
 ## Modules and Required Topics
 
@@ -115,14 +120,17 @@ GUI, scikit-learn recommenders). Targeted gaps to close alongside the modules:
 
 ## Holiday Plan (20 December - 31 January)
 
-The `Weekly Study Template` **(above)** applies throughout the holiday. Weekend sessions
-remain **7:00 PM - 9:00 PM** on *Saturdays and Sundays*.
+Holiday time is deliberately **larger** than term time: weekdays open up to the
+full `Times Off` window — **9:00 AM - 9:00 PM** (30 - 60 minute break per
+1:30 - 2 hours worked) — versus term's 2 - 6 hour blocks. Weekends do **not**
+change: Saturday and Sunday stay **7:00 PM - 9:00 PM**, the same fixed slot as
+term, so the two periods differ on weekdays only.
 
 ### Winter Break Rest (Sunday 20 December - Sunday 3 January)
 
 - No Scheduled Weekday Sessions
 - Light Daily Reading / Revision Only
-- *Optional* Weekend Sessions for Quick Refreshers / Reminders
+- *Optional* Weekend Sessions for Quick Refreshers / Reminders (still 7:00 PM - 9:00 PM)
 
 ### January Assessment (Monday 4 January - Sunday 24 January)
 
