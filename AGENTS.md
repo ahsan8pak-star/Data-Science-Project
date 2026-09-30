@@ -253,13 +253,26 @@ candidates to verify against the repo rather than ground truth.
     an error string in `arithmetic_expressions.py`'s `format_result()`,
     which killed the results loop and reported bad input for valid numbers,
     and the uncaught `IndexError` on an empty answer in `login_status.py`.
-    A third defect was repaired after the audit:
-    `fundamental_topics/numbers.py`'s `decimal` circular import,
-    which killed the file ~60 lines in whenever run directly
-    (the test harness hid it because the real stdlib `numbers`
-    is already cached under pytest). Fixed by dropping the file's
-    own folder from `sys.path` at the top; direct run now exits
-    0, benchmark row FAIL -> PASS, suite unchanged at 1350.
+      A third defect was repaired after the audit:
+      `fundamental_topics/numbers.py`'s `decimal` circular import,
+      which killed the file ~60 lines in whenever run directly
+      (the test harness hid it because the real stdlib `numbers`
+      is already cached under pytest). Fixed by dropping the file's
+      own folder from `sys.path` at the top; direct run now exits
+      0, benchmark row FAIL -> PASS, suite unchanged at 1350.
+      A fourth was repaired on 30 Sep 2026, this time by the owner rather
+      than an assistant: `fundamental_topics/main.py` had carried a
+      deliberate `IndentationError` since June — `def main():` with only a
+      comment as its body, which is not a statement — and A.I.M added `pass`.
+      It is now a working `__main__` guard example, it is measured by coverage
+      like every other file, and the two tests that asserted it raised
+      `SyntaxError` were rewritten to assert the opposite. Worth recording
+      because it is the first repair on this list made by the owner, and
+      because it showed the cost: one line of code moved a measured
+      denominator, a coverage count, the benchmark FAIL count, the
+      lowest-ranked file, the sheet's mean, and two figures in three documents.
+      The guards caught every one, which is the first time they have all fired
+      on a single change.
     Full detail in
     `NOTES.md`.
 12. **Every commit message carries a scope naming the file or folder it
@@ -465,7 +478,7 @@ or the correction is half-applied.
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1526 passing tests, ~99% line coverage and 95% branch coverage (149 of the
+- 1527 passing tests, ~99% line coverage and 95% branch coverage (149 of the
   160 measured `python/` files at 100% lines, including both music-player
   GUIs; the 160 non-`__init__.py` files are the number a docstring sweep
   covers). The 160 counts files that carry at least one statement. The
@@ -535,11 +548,11 @@ or the correction is half-applied.
   never True.
 - `scripts/execution_time.py`: interactive `tree /f`-style project map +
   per-folder benchmark report over five statuses - `PASS` (ran and exited
-  cleanly), `INTERACTIVE` (stopped at an `input()` prompt, which is what 62 of
-  the 182 files do),   `TIMEOUT` (ran past 2s), `FAIL` (raised a real error, currently none —
-  `main.py` was the only one until A.I.M added `pass` on 30 Sep 2026, which
-  makes it a `PASS`) and `ERROR` (the harness could not launch it, currently
-  none). It benchmarks
+    cleanly), `INTERACTIVE` (stopped at an `input()` prompt, which is what 62 of
+    the 183 files the harness walks do), `TIMEOUT` (ran past 2s), `FAIL` (raised
+    a real error, currently none — `main.py` was the only one until A.I.M added
+    `pass` on 30 Sep 2026, which makes it a `PASS`) and `ERROR` (the harness
+    could not launch it, currently none). It benchmarks
   `sys.executable` rather than a bare `python`, so it measures the pinned venv
   interpreter, and derives `PROJECT_ROOT` from `__file__` rather than a baked
   absolute path.

@@ -66,7 +66,8 @@ DELIBERATE = {
         "a bound method is compared to a string, so 'Stop Lying' is unreachable"
     ),
     "python/imperative_programming/fundamental_topics/main.py": (
-        "an IndentationError stub that exists to demonstrate the parse error"
+        "a docstring typo - it reads _name_ where it means __name__ - in "
+        "teaching material, so it is visible rather than silent"
     ),
     "python/imperative_programming/fundamental_topics/abstract_classes.py": (
         "abstract methods keep pass bodies that can never be invoked"
@@ -375,10 +376,11 @@ def score_risk(signals, rel):
         score -= 12
         notes.append(("-", "dead code implies an edit that was not finished"))
     if rel in DELIBERATE:
-        notes.append(
-            "+ defect is named in the docstring and pinned by a test, so the "
-            "risk is visible rather than silent"
-        )
+        notes.append((
+            "+",
+            "defect is named in the docstring and pinned by a test, so the "
+            "risk is visible rather than silent",
+        ))
         score = max(score, 72)
     return max(0, min(100, score)), notes
 

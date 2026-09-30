@@ -255,6 +255,34 @@ class TestScoreSheetCoverage:
         duplicates = sorted({s for s in sections if sections.count(s) > 1})
         assert duplicates == []
 
+    def test_no_comment_leaks_a_sign_or_a_stray_marker(self, entries):
+        """
+        A rendered comment must never show the machinery that built it.
+
+        [AI] Implicit string concatenation looks identical to a (sign, text)
+        tuple in source, so a note written as
+        `notes.append(("- x " "y"))` parses as a plain string and is treated as
+        a weakness. It shipped once, in main.py's entry, where a strength
+        appeared under Weaknesses with a leading `+`. Nothing else catches it:
+        the overlap assertion only fires on a phrase listed twice, and a
+        mis-signed note appears exactly once.
+        """
+        text = SCORES_MD.read_text(encoding="utf-8")
+        offenders = []
+        for block in text.split("### ")[1:]:
+            name = block.split(" \u2014")[0]
+            for marker in ("Works", "Weaknesses"):
+                clause = re.search(r"\*\*" + marker + r":\*\* ([^\n]*)", block)
+                if clause is None:
+                    continue
+                if re.search(r"(^|; )[+-] ", clause.group(1)):
+                    offenders.append(name + " under " + marker)
+        assert offenders == [], (
+            "a rendered comment leaks a + or - sign, which means the note was "
+            "written as a plain string rather than a (sign, text) tuple: "
+            + str(offenders)
+        )
+
     def test_every_entry_carries_a_comment(self, entries):
         """
         Each entry is expected to say what works, what does not, why it

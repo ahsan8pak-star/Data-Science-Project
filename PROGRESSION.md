@@ -30,7 +30,7 @@ Where a number is an estimate rather than a measurement, it says so.
 | Commits | 714 at the end of the run (historical — see the note below) |
 | Peak effort | 28–36 h/week recorded across most weeks |
 | Source modules | 160 non-`__init__` files under `python/` |
-| Test suite | 1526 tests, all passing |
+| Test suite | 1527 tests, all passing |
 | Coverage | 99% line, 95% branch |
 | Quality mean | 84.6/100 across 160 ranked files |
 | Mirrors | 4 (GitHub project + backup, GitLab project + backup) |
@@ -249,6 +249,17 @@ Mean 84.6. The spread is much narrower than the previous pass, and that is the
 finding rather than a disappointment: 133 of 160 files sit in A or B because
 the repository is in good shape, not because the rubric is generous. **No file
 scores in band E**, and the only two below 70 share a single structural cause.
+
+Two things about how the score is built are worth stating here, because both
+change the reading of the numbers. The weights are not one set but two: a
+**learning** script is judged on readability at 35%, because a reader has to
+learn the idea from it, while an **applied** project is judged on fixability
+and robustness at 30% each, because a user has to rely on it. Tier is measured
+rather than declared — third-party import, hardcoded path, or class interface —
+which is 8 files against 152. And thirteen files tie at 91, so "top three" is
+not a claim about quality but about alphabetical order among equals; the sheet
+breaks the tie on path, and `functools_module.py` leads only because it sorts
+first.
 
 They are `strings.py` at 64 and `variables.py` at 69, both flat scripts with no
 function boundary: 321 and 175 lines respectively, so a reader has to hold the
@@ -484,7 +495,7 @@ mirrors were found lagging at an older commit.
 
 | | |
 | --- | --- |
-| Tests | 1526 passing, 0 failing |
+| Tests | 1527 passing, 0 failing |
 | Coverage | 99% line, 95% branch |
 | Quality mean | 84.6/100 over 160 files |
 | Document drift | 0 known — all numeric claims test-guarded |
@@ -505,7 +516,8 @@ log unchanged has left the record behind. Newest first.
 
 | Date | Session | What changed | What it taught |
 | --- | --- | --- | --- |
-| 30 Sep 2026 | Progression review & code review | Reconciled the ranking sheet: deduped a 167-entry document down to the 161 real files, aligned all 161 headings to their own tables, normalised 9 entries that rounded an exact `.5` downward against 50 that rounded up, and corrected the guide's pre-verified table and worked example. Corrected four stale figures in the docs (98%→95% branch, 171/182→148/159, "29 lines in 8 caps"→38 in 11, 1350→1526 tests). Fixed a silent failure in `execution_time.py` where a mistyped folder re-prompted with no output. Added 94 guard tests across three files. Wrote this review. | A fact written in prose and never recomputed is a fact that will be wrong. The ranking sheet had 112 of 161 headings disagreeing with their own tables and nobody noticed, because nothing compared them. The fix was not to re-read the prose more carefully — it was to make the stale number fail the suite. |
+| 30 Sep 2026 | Progression review & code review | Reconciled the ranking sheet: deduped a 167-entry document down to the 161 real files, aligned all 161 headings to their own tables, normalised 9 entries that rounded an exact `.5` downward against 50 that rounded up, and corrected the guide's pre-verified table and worked example. Corrected four stale figures in the docs (98%→95% branch, 171/182→148/159, "29 lines in 8 caps"→38 in 11, 1350→1527 tests). Fixed a silent failure in `execution_time.py` where a mistyped folder re-prompted with no output. Added 94 guard tests across three files. Wrote this review. | A fact written in prose and never recomputed is a fact that will be wrong. The ranking sheet had 112 of 161 headings disagreeing with their own tables and nobody noticed, because nothing compared them. The fix was not to re-read the prose more carefully — it was to make the stale number fail the suite. |
+| 30 Sep 2026 | Documentation brought into line with the rescore and the repair | Swept every markdown file for figures the guards do not cover, and found four that had gone stale: the benchmark's file count, the maintenance log's test count, the README's ranking description, and the two-tier weighting and tie-break, which were in the generated sheet but not explained in prose. Also fixed a defect in the scorer itself, where a note written as two adjacent strings rather than a `(sign, text)` tuple rendered a strength under **Weaknesses** with a stray `+`. | The guards check arithmetic - weighted cells against criteria, totals against the tree - and none of them reads a sentence. A ranking scheme documented only inside a generated table is invisible to anyone who has not regenerated it, which is how 'four criteria' and '161 files' survived a rescore to five and 160. The sign leak is the more interesting one: implicit string concatenation looks exactly like a tuple in source, so it passed the overlap assertion and shipped in main.py's entry until it was read by eye. Verified it bites by injecting the fault before trusting it. |
 | 30 Sep 2026 | main.py repaired; the IndentationError stub now runs | A.I.M added `pass` to `fundamental_topics/main.py`, which had carried a deliberate `IndentationError` since June. The file now parses, runs, and appears in coverage; two tests that asserted it raises `SyntaxError` were rewritten to assert the opposite, and its `pyproject.toml` coverage omit was removed. | A three-line fix that only *looks* small. It moved the measured denominator, the files-at-100% count, the benchmark FAIL count, the lowest-scored file, the mean from 84.4 to 84.6, and two documented figures in three files - and the guards caught every one, which is the first time they have all fired on the same change. The tests were the real cost: they pinned a defect that had been legitimately repaired, so correct code failed the suite. That is exactly what rule 11 warns about, and the fix is to move the test forward rather than break the code back. |
 | 30 Sep 2026 | File ranking rescored on two tiers, Risk added | Rescored all 160 files on five criteria with per-tier weighting — learning material judged on readability (35%), applied projects on fixability and robustness (30% each) — and made every score generated from measured signals by `scripts/measure_ranking_signals.py` and `scripts/score_ranking.py`. Mean 84.4, spread 50-92, with 43 A / 89 B / 25 C / 2 D / 1 E. | The first pass scored four criteria with one flat weighting and was written by eye, so a disputed mark could not be traced to anything. Three findings changed the shape of the work: 81 of 160 files have no functions at all, and a rubric that awarded near-full marks for 'nothing undocumented' rewarded exactly the flat scripts a reader struggles with; starting every criterion from 100 and deducting produced a 98.4 mean that could not tell a perfect file from a broken one; and float arithmetic made the sheet disagree with its own guard by a tenth, because 96 * 0.15 is 14.399999999999999 in binary. |
 | 30 Sep 2026 | Post-merge fix: four counting paths still read the disk | After PR #13 merged, four guards still counted modules with `rglob`, so they counted the newly untracked practice file and then broke when it went missing. Re-pointed all four at git and removed a hardcoded 161 that would have invited bumping itself. Added a skip so a fresh clone without the sandbox passes. | The failure surfaced the moment `git checkout` deleted the untracked file, which is a sharper test than any I could have written: a guard that reads the filesystem cannot tell an intentional untracking from an accident. A literal like 161 inside an assertion is worse still - it fails for a real reason and invites a maintainer to change the number rather than the cause. The suite now passes with the practice file present and absent, which is the condition that actually matters. |
