@@ -91,22 +91,6 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 
 ---
 
-## python/sandbox/
-
-### aim.py — **95/100** (A — Exemplary)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 95 | 25% | 23.8 |
-| Durability | 90 | 20% | 18.0 |
-| Robustness | 90 | 15% | 13.5 |
-| **Final** | | | **95** |
-
-**Comment:** Seven lines, a clear docstring stating it is a scratch file for experiments, nothing depends on it. It cannot crash, cannot break the suite, and cannot be affected by refactoring. This is exactly what a sandbox file should be.
-
----
-
 ## python/functional_programming/fundamental_topics/
 
 ### any_all.py — **93/100** (A — Exemplary)

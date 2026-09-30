@@ -6,17 +6,21 @@ the row/column loop. The comment block at the top records the intended
 output, which is the only place it is written down.
 """
 
-# 1 1 1 1 1
-# 2 1 2 4 8
-# 3 1 3 9 27
-# 4 1 4 16 64
-# 5 1 5 25 125
+"""
+1 1 1 1 1
+2 1 2 4 8
+3 1 3 9 27
+4 1 4 16 64
+5 1 5 25 125
+"""
 
-# 1st column: 1, 2, 3, 4, 5 -> n + 1
-# 2nd column: 1, 1, 1, 1, 1 -> n
-# 3rd column: 1, 2, 3, 4, 5 -> n + 1
-# 4th column: 1, 4, 9, 16, 25 -> n^2
-# 5th column: 1, 8, 27, 64, 125 -> n^3
+"""
+1st column: 1, 2, 3, 4, 5 -> n + 1
+2nd column: 1, 1, 1, 1, 1 -> n
+3rd column: 1, 2, 3, 4, 5 -> n + 1
+4th column: 1, 4, 9, 16, 25 -> n^2
+5th column: 1, 8, 27, 64, 125 -> n^3
+"""
 
 def display_number_matrix(n):
     """Display the matrix pattern for a non-negative integer n."""

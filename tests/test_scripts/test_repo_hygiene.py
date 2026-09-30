@@ -87,3 +87,60 @@ class TestRepoIsCleanAfterATestRun:
             f"{name} is sitting in the repo root. Delete it; it is generated."
         )
 
+
+class TestPracticeSandboxStaysUntracked:
+    """
+    python/sandbox/aim.py is practice reference material, not repo content.
+
+    [AI] Written after a real incident: the file held genuine practice code,
+    a `git add -A` swept it into a commit, and the code was then lost when a
+    later restore of the same path overwrote it. Two rules now exist because
+    of that, and both are worth enforcing rather than trusting:
+
+      - the file is gitignored, so `git add .` cannot pick it up;
+      - it is untracked, so the ignore rule is not merely decorative.
+
+    Both halves matter. An ignore entry for a file that is already tracked
+    does nothing at all, and the file would still be swept into commits while
+    the rule looked satisfied.
+    """
+    SANDBOX = "python/sandbox/aim.py"
+
+    def test_the_practice_file_is_gitignored(self):
+        result = subprocess.run(
+            ["git", "check-ignore", "-q", self.SANDBOX],
+            cwd=REPO_ROOT, capture_output=True,
+        )
+        assert result.returncode == 0, (
+            f"{self.SANDBOX} is not gitignored, so a `git add .` can commit "
+            "practice code into the repository"
+        )
+
+    def test_the_practice_file_is_not_tracked(self):
+        listed = subprocess.run(
+            ["git", "ls-files", "--error-unmatch", self.SANDBOX],
+            cwd=REPO_ROOT, capture_output=True, text=True,
+        )
+        assert listed.returncode != 0, (
+            f"{self.SANDBOX} is tracked by git. An ignore rule does not apply "
+            "to a tracked file, so it is still committable. Untrack it with "
+            "`git rm --cached python/sandbox/aim.py`."
+        )
+
+    def test_the_sandbox_folder_itself_stays_tracked(self):
+        """
+        The ignore rule is scoped to the one file on purpose.
+
+        python/sandbox/__init__.py must remain tracked, or the package becomes
+        unimportable and the lane stops being a package. Untracking aim.py must
+        not take the folder with it.
+        """
+        listed = subprocess.run(
+            ["git", "ls-files", "python/sandbox/"],
+            cwd=REPO_ROOT, capture_output=True, text=True, check=True,
+        ).stdout.split()
+        assert "python/sandbox/__init__.py" in listed, (
+            "python/sandbox/__init__.py is no longer tracked; untracking "
+            "aim.py must not untrack the package"
+        )
+

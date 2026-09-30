@@ -104,9 +104,11 @@ def play_hangman():
 
         if "_" not in hint: # if all letters are correctly guessed
             display_hangman(wrong_guesses) # BEFORE the full stickman TUI display
-            # i.e. 6: o
-            #        /|\
-            #        / \
+            """
+            i.e. 6: o
+                   /|\
+                   / \
+            """
             display_answer(answer) # show correct answer
             print("YOU WIN!")
             is_running = False # end the program

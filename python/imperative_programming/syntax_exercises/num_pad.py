@@ -40,11 +40,13 @@ num_pad = ({1, 2, 3},
            {7, 8, 9},
            {"*", 0, "#"})
 
-# 2D set of lists (NOT VALID) -> Reason: Lists are mutable, resulting in its "identity" (hash) being changed, breaking the logic of a set.
-# num_pad = {[1, 2, 3],
-#            [4, 5, 6],
-#            [7, 8, 9],
-#            ["*", 0, "#"]}
+"""
+2D set of lists (NOT VALID) -> Reason: Lists are mutable, resulting in its "identity" (hash) being changed, breaking the logic of a set.
+num_pad = {[1, 2, 3],
+           [4, 5, 6],
+           [7, 8, 9],
+           ["*", 0, "#"]}
+"""
 
 # 2D set of tuples
 num_pad = {(1, 2, 3),
@@ -52,12 +54,14 @@ num_pad = {(1, 2, 3),
            (7, 8, 9),
            ("*", 0, "#")}
 
-# 2D set of sets (NOT VALID) -> Reason: Sets are also mutable, i.e. not hashable. A standard set cannot be placed inside another set.
-# Use frozensets() instead to make a set immutable / hashable
-# num_pad = {{1, 2, 3},
-#            {4, 5, 6},
-#            {7, 8, 9},
-#            {"*", 0, "#"}}
+"""
+2D set of sets (NOT VALID) -> Reason: Sets are also mutable, i.e. not hashable. A standard set cannot be placed inside another set.
+Use frozensets() instead to make a set immutable / hashable
+num_pad = {{1, 2, 3},
+           {4, 5, 6},
+           {7, 8, 9},
+           {"*", 0, "#"}}
+"""
 
 # an example of this VALID format
 num_pad = {frozenset({1, 2, 3}),
@@ -87,9 +91,11 @@ for row in num_pad:
 * 0 #
 """
 
-# Reason: for row in num_pad -> prints the list entirely in one row HORIZONTALLY
-# for num in row -> prints the columns (VERTICAL LISTS)
-# print(num, end=" ") -> Under EACH LIST being iterated, ALL of its items will display on a single line i.e., goes to the next one after completion.
-# end=" " -> this allows EACH ITEM to have a whitespace to the next item i.e., have a spare empty space next to one another
-# print() -> This allows each new line to be printed after each iteration completed by each list ( \n function )
+"""
+Reason: for row in num_pad -> prints the list entirely in one row HORIZONTALLY
+for num in row -> prints the columns (VERTICAL LISTS)
+print(num, end=" ") -> Under EACH LIST being iterated, ALL of its items will display on a single line i.e., goes to the next one after completion.
+end=" " -> this allows EACH ITEM to have a whitespace to the next item i.e., have a spare empty space next to one another
+print() -> This allows each new line to be printed after each iteration completed by each list ( \n function )
+"""
 

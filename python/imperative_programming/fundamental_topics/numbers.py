@@ -71,9 +71,11 @@ print(type(i)) # Float
 
 print(i)
 
-# Reason for these outputs:
-# type() can only determine float, int, and complex types of numbers
-# Meaning all these numbers are either int or float based on their value, not their representation.
+"""
+Reason for these outputs:
+type() can only determine float, int, and complex types of numbers
+Meaning all these numbers are either int or float based on their value, not their representation.
+"""
 
 
 # Basic arithmetic operations with numbers

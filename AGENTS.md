@@ -86,7 +86,11 @@ agent (or future human) working on this project should read this first.
   Single-line `#` comments are fine and preferred for one-liners; the limit
   applies to *consecutive* `#` lines only, so `# note` followed by unrelated
   code is unaffected. Inline trailing comments (`x = 5  # why`) are unaffected
-  too — the rule governs standalone comment blocks. **AI-authored comments**
+  too — the rule governs standalone comment blocks. The rule applies to **every
+  tracked `.py` file in the repository**, not only to newly written ones; the
+  two standing exemptions are the frozen OOP lane (rule 1) and the marked CS1IP
+  coursework (rule 8), which are named in the guard rather than left implicit.
+  **AI-authored comments**
   (anything the agent writes to explain its own fix, not A.I.M's notes) must
   start with a
   `[AI-authored fix]` marker inside a `"""` block so they are instantly
@@ -461,15 +465,15 @@ or the correction is half-applied.
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1523 passing tests, ~99% line coverage and 95% branch coverage (148 of the
+- 1527 passing tests, ~99% line coverage and 95% branch coverage (148 of the
   159 measured `python/` files at 100% lines, including both
   music-player GUIs; the one never-imported file is
   `imperative_programming/fundamental_topics/main.py`, and the 161
   non-`__init__.py` files are the number a docstring sweep covers). The 159
   counts files that carry at least one statement. The coverage table prints
-  182 rows because it also lists 23 files that have none - 22 empty
-  `__init__.py` files and `sandbox/aim.py`, a docstring-only scratch file -
-  which report 100% without anything having run; `main.py` is excluded from
+  182 rows because it also lists 22 files that have no statement - the empty
+  `__init__.py` files - which report 100% without anything having run; `main.py`
+  is excluded from
   the report entirely because its deliberate `IndentationError` stops it
   being parsed. Branch coverage is
   enabled in `[tool.coverage.run]` because line coverage alone read 99%
@@ -533,7 +537,7 @@ or the correction is half-applied.
 - `scripts/execution_time.py`: interactive `tree /f`-style project map +
   per-folder benchmark report over five statuses - `PASS` (ran and exited
   cleanly), `INTERACTIVE` (stopped at an `input()` prompt, which is what 62 of
-  the 183 files do), `TIMEOUT` (ran past 2s), `FAIL` (raised a real error, now
+  the 182 files do), `TIMEOUT` (ran past 2s), `FAIL` (raised a real error, now
   only `main.py`, whose `IndentationError` is the deliberate teaching stub
   pinned by `test_fundamentals.py`) and `ERROR` (the harness could not launch
   it, currently none). It benchmarks
@@ -541,11 +545,11 @@ or the correction is half-applied.
   interpreter, and derives `PROJECT_ROOT` from `__file__` rather than a baked
   absolute path.
 - `FILE_RANKING_GUIDE.md` and `FILE_SCORES.md`: a 0-100 scoring guide and the
-  results for all 161 non-`__init__` Python files under `python/`, ranked across
+  results for all 160 non-`__init__` Python files under `python/`, ranked across
   Fixability (40%), Readability (25%), Durability (20%) and Robustness (15%).
   Each entry carries a criterion-by-criterion breakdown and a sincere comment
   naming what works, what does not, why the score, and what would fix it.
-  Overall average: 77.6/100 (band C — Serviceable). Only 11 files score below
+  Overall average: 77.5/100 (band C — Serviceable). Only 11 files score below
   70; the weakest are `conditions.py` and `variables.py` (56 each), both low
   for stylistic reasons (hardcoded values, deliberate defects) rather than
   functional ones. See `FILE_SCORES.md` for the full breakdown.

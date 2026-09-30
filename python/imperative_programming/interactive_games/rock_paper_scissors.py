@@ -147,9 +147,11 @@ def play_round():
     player_choice = get_player_choice()
     computer_choice = get_computer_choice()
 
-    # Bug preserved: this condition is always True due to operator precedence
-    # player_choice.isdigit() returns bool, != "r" compares bool to string (always True),
-    # then OR'd with truthy strings "p" and "s"
+    """
+    Bug preserved: this condition is always True due to operator precedence
+    player_choice.isdigit() returns bool, != "r" compares bool to string (always True),
+    then OR'd with truthy strings "p" and "s"
+    """
     if player_choice.isdigit() != "r" or "p" or "s":
         print("Invalid input. Please choose 'r', 'p', or 's'.")
 

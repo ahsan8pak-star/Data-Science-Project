@@ -24,11 +24,13 @@ def deposit():
             print("Enter Positive Deposits.")
             return 0
 
-        # Checks for 2 conditions:
-        # 1) If a decimal point ( . ) is present [Important for Condition 2]
-        # 2) If the digits after the decimal point is greater than 2 [ESSENTIAL]
-
         elif "." in user_input and len(user_input.split(".")[1]) > 2:
+
+            """
+            Checks for 2 conditions:
+            1) If a decimal point ( . ) is present [Important for Condition 2]
+            2) If the digits after the decimal point is greater than 2 [ESSENTIAL]
+            """
             print("\nInvalid Amount.")
             print("Funds have to be within 2 decimal places.")
             return 0

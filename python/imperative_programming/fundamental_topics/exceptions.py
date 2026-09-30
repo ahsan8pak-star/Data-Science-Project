@@ -20,10 +20,12 @@ except ValueError: # Very common example
 
 """ Another Example """
 
-# Exception = An event that interrupts the flow of a program
-# (e.g. ZeroDivisionError, TypeError, ValueError)
-# Main methods for exception handling / error catching:
-# 1.try, 2.except, 3.finally
+"""
+Exception = An event that interrupts the flow of a program
+(e.g. ZeroDivisionError, TypeError, ValueError)
+Main methods for exception handling / error catching:
+1.try, 2.except, 3.finally
+"""
 
 try:
     number = int(input("Enter an integer for the reciprocal as a decimal: "))

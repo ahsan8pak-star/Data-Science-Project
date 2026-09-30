@@ -9,9 +9,11 @@ is what introduces the spec, and everything after it is type-specific, so the
 same braces format very different things.
 """
 
-# Format Specifiers
-# {Value : flags}
-# formats values based on the type of flags
+"""
+Format Specifiers
+{Value : flags}
+formats values based on the type of flags
+"""
 
 price = 1234.56
 
@@ -25,9 +27,11 @@ print(f"Price 2: {price:.2g}") # Converts to 2 significant figures in scientific
 
 print(f"Price 3: {price:.4}") # Converts to 4 significant figures in scientific notation form (round up the last digit)
 
-# Expected Output: 1235
-# Actual Output: 1.235e+03
-# Reason: Due to its large price value, it's under scientific notation.
+"""
+Expected Output: 1235
+Actual Output: 1.235e+03
+Reason: Due to its large price value, it's under scientific notation.
+"""
 
 print(f"Price 4: {price:010}") # Pads with zeros (0s) to width 10 (up to 10 value places)
 

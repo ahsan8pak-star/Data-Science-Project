@@ -9,9 +9,11 @@ choice whenever the original must survive, and it accepts any iterable, not
 just a list.
 """
 
-# sorted() = Returns a NEW sorted list without changing the original.
-# Commonly paired with a lambda to sort by a chosen feature.
-# sorted(iterable, key=..., reverse=...) -> list
+"""
+sorted() = Returns a NEW sorted list without changing the original.
+Commonly paired with a lambda to sort by a chosen feature.
+sorted(iterable, key=..., reverse=...) -> list
+"""
 
 
 names = ["Alina", "Hamza", "Zara", "Bilal", "Ahsan"]

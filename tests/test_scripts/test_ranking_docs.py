@@ -25,6 +25,7 @@ Nothing here writes to the repository; every check is a read.
 
 import math
 import re
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -160,11 +161,22 @@ def _parse_scores_sheet():
 
 
 def _real_module_paths():
-    """Every non-__init__ module under python/, as repo-relative POSIX paths."""
+    """
+    Every tracked non-__init__ module under python/, repo-relative POSIX.
+
+    [AI] Tracked files, not whatever is on disk. The score sheet describes the
+    repository, so an untracked practice file must not be counted as a module
+    awaiting a score - sandbox/aim.py is gitignored on purpose, and reading it
+    here would have let the sheet claim to rank a file the repo does not
+    contain. rglob() also walked .pyc-adjacent scratch copies.
+    """
+    tracked = subprocess.run(
+        ["git", "ls-files", "python"],
+        cwd=REPO_ROOT, capture_output=True, text=True, check=True,
+    ).stdout.split()
     return sorted(
-        path.relative_to(REPO_ROOT).as_posix()
-        for path in (REPO_ROOT / "python").rglob("*.py")
-        if path.name != "__init__.py"
+        path for path in tracked
+        if path.endswith(".py") and not path.endswith("__init__.py")
     )
 
 

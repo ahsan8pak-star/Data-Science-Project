@@ -21,9 +21,11 @@ from tests.test_object_oriented_programming.conftest import PYTHON_DIR, run_scri
 FOLDER = "object_oriented_programming/fundamental_topics"
 
 
-# ---------------------------------------------------------------------------
-# abstract_classes.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+abstract_classes.py
+---------------------------------------------------------------------------
+"""
 class TestAbstractClasses:
     """
     abstract_classes.py - the abstract Vehicle base that cannot be
@@ -81,9 +83,11 @@ class TestAbstractClasses:
         assert isinstance(mod.boat, mod.Boat)
 
 
-# ---------------------------------------------------------------------------
-# aggregation.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+aggregation.py
+---------------------------------------------------------------------------
+"""
 class TestAggregation:
     """
     Aggregation in aggregation.py - a Library holding Books in the order they
@@ -112,9 +116,11 @@ class TestAggregation:
         assert library.list_book() == ["Test Book by Test Author"]
 
 
-# ---------------------------------------------------------------------------
-# classes.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+classes.py
+---------------------------------------------------------------------------
+"""
 class TestClasses:
     """
     classes.py - Car, Person and Point attribute and method demos, both
@@ -162,9 +168,11 @@ class TestClasses:
         assert "object_orienteded_programming" not in source
 
 
-# ---------------------------------------------------------------------------
-# class_methods.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+class_methods.py
+---------------------------------------------------------------------------
+"""
 class TestClassMethods:
     """
     class_methods.py - five Student instances, the totals and average
@@ -220,9 +228,11 @@ class TestClassMethods:
         assert FreshStudent.average_grade() == "No Students. No Grade."
 
 
-# ---------------------------------------------------------------------------
-# class_variables.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+class_variables.py
+---------------------------------------------------------------------------
+"""
 class TestClassVariables:
     """
     class_variables.py - a university class variable shared across three
@@ -285,9 +295,11 @@ class TestClassVariables:
         assert "All students must be at the same university to do this." in capsys.readouterr().out
 
 
-# ---------------------------------------------------------------------------
-# composition.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+composition.py
+---------------------------------------------------------------------------
+"""
 class TestComposition:
     """
     composition.py - Cars composed of an Engine and four Wheel components
@@ -314,9 +326,11 @@ class TestComposition:
         assert wheel.size == 21
 
 
-# ---------------------------------------------------------------------------
-# constructors.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+constructors.py
+---------------------------------------------------------------------------
+"""
 class TestConstructors:
     """
     The Point constructor in constructors.py, called directly and via output.
@@ -335,9 +349,11 @@ class TestConstructors:
         assert point.y == 20
 
 
-# ---------------------------------------------------------------------------
-# data_classes.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+data_classes.py
+---------------------------------------------------------------------------
+"""
 class TestDataClasses:
     """
     dataclasses.py - default field values, the redacted password in repr,
@@ -375,9 +391,11 @@ class TestDataClasses:
             mod.Person("Bad", -1, "secret")
 
 
-# ---------------------------------------------------------------------------
-# decorator.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+decorator.py
+---------------------------------------------------------------------------
+"""
 class TestDecorator:
     """
     decorator.py - outer-to-inner application order and all three decorator
@@ -418,9 +436,11 @@ class TestDecorator:
         assert "Here is your mint ice cream." in captured.out
 
 
-# ---------------------------------------------------------------------------
-# duck_typing.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+duck_typing.py
+---------------------------------------------------------------------------
+"""
 class TestDuckTyping:
     """
     duck_typing.py - a Plane satisfying the animal interface without
@@ -464,9 +484,11 @@ class TestDuckTyping:
         assert out.find("QUACK!") < out.find("Moo!") < out.find("FLY!!!")
 
 
-# ---------------------------------------------------------------------------
-# generator.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+generator.py
+---------------------------------------------------------------------------
+"""
 class TestGenerator:
     """
     generator.py - count_to's execution-time reporting, the activity-log
@@ -494,9 +516,11 @@ class TestGenerator:
         assert "\n2\n" in out
 
     def test_count_to_reports_sub_minute_execution_time(self):
-        # Pinned time.time reads (start 100.0 / stop 102.5) force the
-        # sub-minute branch: "Took 2.50 seconds" instead of the seconds-only
-        # message a real near-instant run would print.
+        """
+        Pinned time.time reads (start 100.0 / stop 102.5) force the
+        sub-minute branch: "Took 2.50 seconds" instead of the seconds-only
+        message a real near-instant run would print.
+        """
         _, out = run_script(
             self.FILE,
             inputs=["3", "2", "4", "3"],
@@ -515,9 +539,11 @@ class TestGenerator:
         assert "Took 60.00 seconds, which is 1 minutes and 0.00 seconds to count to 3" in out
 
     def test_keyboard_interrupt_in_main_reports_interruption(self):
-        # The first sleep() inside main() raises KeyboardInterrupt (a real
-        # Ctrl+C), which the harness must surface so main's except branch
-        # prints the friendly interruption message instead of dying.
+        """
+        The first sleep() inside main() raises KeyboardInterrupt (a real
+        Ctrl+C), which the harness must surface so main's except branch
+        prints the friendly interruption message instead of dying.
+        """
         calls = {"n": 0}
 
         def interrupt_first_sleep(*args, **kwargs):
@@ -534,9 +560,11 @@ class TestGenerator:
         assert "Generator process interrupted by user." in out
 
 
-# ---------------------------------------------------------------------------
-# inheritance.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+inheritance.py
+---------------------------------------------------------------------------
+"""
 class TestInheritance:
     """
     inheritance.py - base Animal methods, each subclass's own speak/walk
@@ -575,9 +603,11 @@ class TestInheritance:
         assert hasattr(dog, "eat") and hasattr(dog, "sleep") and hasattr(dog, "play")
 
 
-# ---------------------------------------------------------------------------
-# iterator.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+iterator.py
+---------------------------------------------------------------------------
+"""
 class TestIterator:
     """
     iterator.py - a patched dice roll, __iter__ returning itself,
@@ -613,9 +643,11 @@ class TestIterator:
         assert dice.count == 2
 
 
-# ---------------------------------------------------------------------------
-# magic_methods.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+magic_methods.py
+---------------------------------------------------------------------------
+"""
 class TestMagicMethods:
     """
     magic_methods.py - __str__, __eq__, ordering, __add__, __contains__
@@ -665,9 +697,11 @@ class TestMagicMethods:
         assert mod.book1["num_pages"] == 310
 
 
-# ---------------------------------------------------------------------------
-# multiple_inheritance.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+multiple_inheritance.py
+---------------------------------------------------------------------------
+"""
 class TestMultipleInheritance:
     """
     multiple_inheritance.py - Son and Daughter inheriting from both
@@ -698,9 +732,11 @@ class TestMultipleInheritance:
         assert not hasattr(son, "father_name")  # Son's __init__ doesn't call super().__init__()
 
 
-# ---------------------------------------------------------------------------
-# multi_level_inheritance.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+multi_level_inheritance.py
+---------------------------------------------------------------------------
+"""
 class TestMultiLevelInheritance:
     """
     multi_level_inheritance.py - definition-time class body output and a
@@ -745,9 +781,11 @@ class TestMultiLevelInheritance:
         assert "Dory is hunting its prey." in out
 
 
-# ---------------------------------------------------------------------------
-# multitasking.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+multitasking.py
+---------------------------------------------------------------------------
+"""
 class TestMultitasking:
     """
     multitasking.py - three interleaved chores all reporting completion
@@ -766,9 +804,11 @@ class TestMultitasking:
         assert out.rstrip().endswith("All chores are complete!")
 
 
-# ---------------------------------------------------------------------------
-# nested_classes.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+nested_classes.py
+---------------------------------------------------------------------------
+"""
 class TestNestedClasses:
     """
     nested_classes.py - class body headers firing first, then the company
@@ -825,9 +865,11 @@ class TestNestedClasses:
         assert mod.Company.Employee is not mod.Organisation.Employee
 
 
-# ---------------------------------------------------------------------------
-# polymorphism.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+polymorphism.py
+---------------------------------------------------------------------------
+"""
 class TestPolymorphism:
     """
     polymorphism.py - five shape areas in order, a FlatCake satisfying the
@@ -869,9 +911,11 @@ class TestPolymorphism:
         assert pizza.area() == pytest.approx(math.pi * 25)
 
 
-# ---------------------------------------------------------------------------
-# property.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+property.py
+---------------------------------------------------------------------------
+"""
 class TestProperty:
     """
     property.py - computed areas, setters rejecting non-positive values,
@@ -947,9 +991,11 @@ class TestProperty:
         assert not hasattr(rectangle, "_height")
 
 
-# ---------------------------------------------------------------------------
-# static_methods.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+static_methods.py
+---------------------------------------------------------------------------
+"""
 class TestStaticMethods:
     """
     static_methods.py - seven employee info lines and a job-role static
@@ -977,9 +1023,11 @@ class TestStaticMethods:
         assert mod.Employee.valid_job_role("Astronaut") is False
 
 
-# ---------------------------------------------------------------------------
-# super.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+super.py
+---------------------------------------------------------------------------
+"""
 class TestSuper:
     """
     super.py - area and description for Circle, Square and Triangle, with the

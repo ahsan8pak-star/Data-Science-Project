@@ -6,9 +6,11 @@ override can extend the original behaviour instead of replacing it blindly.
 The two classes here cover the override and the super() call.
 """
 
-# Inheritance = Allows a class to inherit attributes and methods from another class
-# Helps with code reusability and extensibility
-# e.g. class Child(Parent)
+"""
+Inheritance = Allows a class to inherit attributes and methods from another class
+Helps with code reusability and extensibility
+e.g. class Child(Parent)
+"""
 
 class Animal:
     def __init__(self, name): # Constructor

@@ -317,4 +317,9 @@ cmake-build-release/
 /transactionv1.xlsx
 /qrcode.png
 
+# python/sandbox/aim.py is practice reference material, not repository content.
+# It is untracked on purpose: a careless `git add .` once swept real practice
+# code into a commit, and this rule stops that recurring. The folder and its
+# __init__.py stay tracked so the import path is not broken.
+/python/sandbox/aim.py
 

@@ -58,13 +58,17 @@ class FlatCake: # Since 'def area(self)', This passes through a No AttributeErro
     def area(self):
         return  self.length * self.height
 
-# Problem:
-# Due to not having 'def area()' this cause an AttributeError
-# Since this is using an abstract class requiring ALL its abstract methods
+"""
+Problem:
+Due to not having 'def area()' this cause an AttributeError
+Since this is using an abstract class requiring ALL its abstract methods
+"""
 
-# Solution:
-# Bring the child class 'Circle' as a parent class to Pizza
-# Use super() to include constructor and its attribute to undergo D.R.Y
+"""
+Solution:
+Bring the child class 'Circle' as a parent class to Pizza
+Use super() to include constructor and its attribute to undergo D.R.Y
+"""
 class Pizza(Circle):
     def __init__ (self, toppings, radius):
         super().__init__(radius)

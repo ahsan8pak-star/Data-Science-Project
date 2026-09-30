@@ -10,9 +10,11 @@ it for a real predicate; a simple condition is usually clearer as a
 comprehension.
 """
 
-# filter() = Builds a new iterable containing only the items where a given function returns True for each item.
-# Commonly paired with a lambda so no separate named function is needed.
-# filter(function, iterable) -> filter object (must wrap in list() / tuple() to view)
+"""
+filter() = Builds a new iterable containing only the items where a given function returns True for each item.
+Commonly paired with a lambda so no separate named function is needed.
+filter(function, iterable) -> filter object (must wrap in list() / tuple() to view)
+"""
 
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 ages = [15, 18, 12, 21, 17, 25, 16]

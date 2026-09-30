@@ -15,22 +15,28 @@ if hasattr(sys.stdout, "reconfigure"):
 # harness works on any machine and after a folder rename. Tests monkeypatch it.
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
-# Benchmark the interpreter that is running the tool, which by the documented
-# command is the pinned venv one. Spawning a bare "python" resolved to the
-# system Python instead, so the report was measuring a different interpreter.
+"""
+Benchmark the interpreter that is running the tool, which by the documented
+command is the pinned venv one. Spawning a bare "python" resolved to the
+system Python instead, so the report was measuring a different interpreter.
+"""
 BENCHMARK_PYTHON = sys.executable
 
-# Children inherit this so their own stdout is UTF-8 too. Without it a script
-# that prints box-drawing art dies with UnicodeEncodeError on a cp1252 console,
-# which the report then scores as a failure that is not the script's fault.
+"""
+Children inherit this so their own stdout is UTF-8 too. Without it a script
+that prints box-drawing art dies with UnicodeEncodeError on a cp1252 console,
+which the report then scores as a failure that is not the script's fault.
+"""
 CHILD_ENV = {**os.environ, "PYTHONIOENCODING": "utf-8"}
 
 # Generated / vendored folders and files skipped in the tree display (and never benchmarked)
 TREE_SKIP = {".git", ".venv", ".pytest_cache", "__pycache__", ".coverage", "htmlcov"}
 
-# A non-zero exit whose traceback ends at input() means the script wanted a
-# human, not that it is broken. That is a distinct outcome from hanging past
-# the timeout, and reporting it as FAIL buried it among real errors.
+"""
+A non-zero exit whose traceback ends at input() means the script wanted a
+human, not that it is broken. That is a distinct outcome from hanging past
+the timeout, and reporting it as FAIL buried it among real errors.
+"""
 INTERACTIVE_MARKER = "EOFError"
 
 

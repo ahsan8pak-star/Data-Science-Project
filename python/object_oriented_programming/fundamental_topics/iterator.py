@@ -9,10 +9,12 @@ visible; most of the time a generator or iter() does the same job.
 # Iterator = An object that returns elements one at a time from a sequence (or data stream)
 # and remembers its position between calls.
 
-# A Python object is an iterator if it has:
-# __iter__() → Returns the iterator object itself
-# __next__() → Returns the next item in the sequence
-# (raises StopIteration when there's no more items)
+"""
+A Python object is an iterator if it has:
+__iter__() → Returns the iterator object itself
+__next__() → Returns the next item in the sequence
+(raises StopIteration when there's no more items)
+"""
 
 import random
 

@@ -6,9 +6,11 @@ class itself with no instance, which is how alternative constructors are
 usually written. @staticmethod below it takes neither, and is the contrast.
 """
 
-# Class Method = Allows operations related to the class itself
-# Use (cls) as first parameter under @classmethod, representing the class itself
-# Used for Class-Level Data -> Requires Access to the Class itself directly
+"""
+Class Method = Allows operations related to the class itself
+Use (cls) as first parameter under @classmethod, representing the class itself
+Used for Class-Level Data -> Requires Access to the Class itself directly
+"""
 
 class Student:
 
