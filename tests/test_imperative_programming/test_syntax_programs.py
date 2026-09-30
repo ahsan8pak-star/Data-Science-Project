@@ -1972,7 +1972,15 @@ def test_aim_py_imports_and_runs_cleanly():
     A sandbox is scratch space. Requiring it to stay empty is not guarding
     anything, so the test now asserts what it claims to: the file imports,
     runs, and exits without error. Output is free, and the file is free.
+
+    [AI] The file is untracked on purpose, so it is absent from a fresh clone
+    and this test has to skip rather than fail. Without the skip, every other
+    clone of the repository fails the suite on a file it was never given: the
+    guard was only ever satisfied by the machine that happened to have
+    practice code lying in its own sandbox.
     """
+    if not (PYTHON_SOURCE_DIR / "sandbox" / "aim.py").is_file():
+        pytest.skip("python/sandbox/aim.py is untracked and not present")
 
     run_script("sandbox/aim.py")
 

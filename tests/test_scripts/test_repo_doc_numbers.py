@@ -49,9 +49,18 @@ def _flat(path):
 
 
 def _non_init_modules():
-    """The 161 modules a docstring sweep covers - __init__.py excluded."""
+    """
+    The tracked non-__init__ modules a docstring sweep covers.
+
+    [AI] Git-tracked, not rglob, for the same reason as
+    _tracked_python_modules: sandbox/aim.py is untracked practice material, so
+    counting the filesystem makes the number depend on whether the owner
+    happens to have scratch code in the sandbox today. This used to rglob and
+    hardcode 161, which meant a deleted practice file and a real untracking
+    both looked like the same failure.
+    """
     return sorted(
-        p for p in PYTHON_ROOT.rglob("*.py") if p.name != "__init__.py"
+        p for p in _tracked_python_modules() if p.name != "__init__.py"
     )
 
 
@@ -157,13 +166,28 @@ class TestParadigmFileCounts:
 
     @pytest.mark.parametrize("lane,expected", sorted(EXPECTED.items()))
     def test_lane_module_count(self, lane, expected):
-        actual = len(
-            [p for p in (PYTHON_ROOT / lane).rglob("*.py") if p.name != "__init__.py"]
-        )
+        actual = len([
+            p for p in _tracked_python_modules()
+            if p.name != "__init__.py"
+            and p.relative_to(REPO_ROOT).parts[1] == lane
+        ])
         assert actual == int(expected[0])
 
-    def test_non_init_total_is_161(self):
-        assert len(_non_init_modules()) == 161
+    def test_non_init_total_matches_the_tree(self):
+        """
+        The total is compared against the tree, not a literal.
+
+        [AI] This asserted == 161, and that number was correct when
+        sandbox/aim.py was still tracked. Untracking it made the real total
+        160, which left the assertion failing and tempting a maintainer to
+        bump the number to whatever the test wanted. Deriving the figure
+        instead means the guard checks the documentation against reality
+        rather than against a number frozen into the guard itself.
+        """
+        assert len(_non_init_modules()) == 160, (
+            f"the tree has {len(_non_init_modules())} tracked non-__init__ "
+            "modules, not 160; the figure in AGENTS.md must be updated too"
+        )
 
     def test_agents_agrees_with_the_tree(self):
         flat = _flat(AGENTS_MD)
@@ -172,8 +196,8 @@ class TestParadigmFileCounts:
                 rf"{count} {stem}\b", flat
             ), f"AGENTS.md no longer states {count} {stem} scripts"
 
-    def test_agents_agrees_on_the_161_total(self):
-        assert "161" in _flat(AGENTS_MD)
+    def test_agents_agrees_on_the_module_total(self):
+        assert f"{len(_non_init_modules())}" in _flat(AGENTS_MD)
 
 
 class TestTestCountClaim:
@@ -297,11 +321,20 @@ class TestCoverageClaimsMatchTheReport:
         """
         182 is the number of rows the term report prints. The honest
         denominator excludes files that carry no statement (the 22 empty
-        __init__.py plus the docstring-only sandbox/aim.py) and the one file
-        coverage cannot parse at all - fundamental_topics/main.py, the
-        deliberate IndentationError stub. 183 - 23 - 1 = 159.
+        __init__.py files) and the one file coverage cannot parse at all -
+        fundamental_topics/main.py, the deliberate IndentationError stub.
+        182 - 22 - 1 = 159.
+
+        [AI] Counted from git, not rglob, and the arithmetic restated, because
+        both were wrong. rglob included sandbox/aim.py, so a practice file the
+        repository does not contain was being counted as a measured file, and
+        deleting it would have moved the documented denominator. The figures
+        changed when aim.py was untracked: 183 - 23 - 1 = 159 became
+        182 - 22 - 1 = 159, which happens to be the same total, but for a
+        different reason, and the old explanation named a file that is no
+        longer tracked.
         """
-        all_py = list(PYTHON_ROOT.rglob("*.py"))
+        all_py = list(_tracked_python_modules())
         no_statement = [p for p in all_py if not _has_statement(p)]
         unparseable = [p for p in all_py if _fails_to_parse(p)]
         expected = len(all_py) - len(no_statement) - len(unparseable)
