@@ -137,4 +137,3 @@ point2.y = 4
 print(point2.x)
 print(point2.y)
 
-

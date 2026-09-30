@@ -36,6 +36,7 @@ from pathlib import Path
 import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+_TRIPLES = ('"""', "'''")
 SYNTAX = REPO_ROOT / "python" / "imperative_programming" / "syntax_exercises"
 
 # fixture filename -> the teaching script that references it by name.
@@ -231,10 +232,10 @@ class TestDataFilesUseLfAndNoTrailingWhitespace:
 
 
 
-class TestPythonFilesEndWithTwoBlankLines:
+class TestPythonFilesEndWithOneBlankLine:
     """
-    [AI] The house convention is that a Python file ends with the last line of
-    code, then two empty lines - that is, exactly three trailing newlines.
+    [AI] The house convention is that a file ends with the last line of
+    code, then one empty line - that is, exactly two trailing newlines.
     `scripts/repair_test_numbers_seam.py` documents the same invariant ("LF-only,
     exactly three trailing LF, no BOM, no trailing whitespace on any line, no
     CRLF"), so the rule already existed in prose and was not held anywhere.
@@ -275,18 +276,18 @@ class TestPythonFilesEndWithTwoBlankLines:
             raw = raw[:-1]
         return count
 
-    def test_every_python_file_ends_with_exactly_three_newlines(self):
+    def test_every_python_file_ends_with_exactly_two_newlines(self):
         wrong = []
         for path in self._python_files():
             rel = path.relative_to(REPO_ROOT).as_posix()
             if rel in self.EXEMPT:
                 continue
             count = self._trailing_newlines(path)
-            if count != 3:
+            if count != 2:
                 wrong.append(f"{rel} (has {count})")
         assert wrong == [], (
-            "Python files must end with the last line of code followed by two "
-            "empty lines, i.e. exactly three trailing newlines; wrong: "
+            "Python files must end with the last line of code followed by one "
+            "empty line, i.e. exactly two trailing newlines; wrong: "
             + "; ".join(sorted(wrong))
         )
 
@@ -367,4 +368,179 @@ class TestPythonSourceHasNoTrailingWhitespace:
             + "; ".join(sorted(offenders)[:12])
         )
 
+
+
+
+class TestMultiLineDocstringsUseTheHouseStructure:
+    """
+    [AI] A multi-line docstring opens with the triple quote alone on its own
+    line, carries its summary on the next, and closes with the triple quote
+    alone on its own line. That is the form in the house reference
+    (scripts/repair_test_numbers_seam.py) and it is what makes a docstring
+    read as a block rather than as a paragraph that happens to be quoted.
+
+    The failure it prevents is subtle: opening the quotes on the same line as
+    the summary is valid Python and renders identically, so nothing catches it
+    and it spreads. Three files had drifted, including one written during
+    this work.
+
+    Single-line docstrings are exempt and must stay exempt. A one-line
+    docstring written as quotes, text and quotes on one line is the correct
+    compact form, and forcing it onto four lines would make the code worse
+    rather than better.
+
+    The check parses with tokenize rather than grepping for quotes, so it
+    reads actual string literals - a hash comment that mentions quotes is
+    not a docstring and must not be mistaken for one.
+    """
+
+    SKIP_DIRS = {".venv", "__pycache__", "htmlcov", ".git", ".pytest_cache",
+                 "node_modules"}
+
+    def _sources(self):
+        return [
+            p for p in REPO_ROOT.rglob("*.py")
+            if not (self.SKIP_DIRS & set(p.relative_to(REPO_ROOT).parts))
+        ]
+
+    def _multiline_strings(self, path):
+        """Yield the raw text of every multi-line string literal in a file."""
+        try:
+            with open(path, "rb") as handle:
+                tokens = list(tokenize.tokenize(io.BytesIO(handle.read()).readline))
+        except (tokenize.TokenError, SyntaxError, IndentationError, ValueError):
+            return
+        for token in tokens:
+            if token.type == tokenize.STRING and "\n" in token.string:
+                yield token.string
+
+    def test_multi_line_strings_open_and_close_on_their_own_lines(self):
+        offenders = []
+        for path in self._sources():
+            for text in self._multiline_strings(path):
+                parts = text.split("\n")
+                rel = path.relative_to(REPO_ROOT).as_posix()
+                if parts[0].strip() not in _TRIPLES:
+                    offenders.append(
+                        f"{rel}: opens as {parts[0].strip()[:40]!r} - the "
+                        "quotes should be alone on their own line"
+                    )
+                    continue
+                if parts[-1].strip() not in _TRIPLES:
+                    offenders.append(
+                        f"{rel}: closes as {parts[-1].strip()[-40:]!r} - the "
+                        "quotes should be alone on their own line"
+                    )
+        assert offenders == [], (
+            "multi-line docstrings must open and close with the triple quote "
+            "alone on its own line: " + "; ".join(sorted(offenders)[:8])
+        )
+
+    def test_the_house_reference_docstring_matches(self):
+        """
+        The file the convention is quoted from has to follow it, or the
+        convention is being described rather than followed.
+        """
+        path = REPO_ROOT / "scripts" / "repair_test_numbers_seam.py"
+        if not path.is_file():
+            pytest.skip("the house reference script is not present")
+        docstring = next(iter(self._multiline_strings(path)), None)
+        assert docstring is not None, "no multi-line docstring found"
+        parts = docstring.split("\n")
+        assert parts[0].strip() in _TRIPLES
+        assert parts[-1].strip() in _TRIPLES
+
+class TestCommentRunsUseHashOrTripleQuoteNotBoth:
+    """
+    [AI] AGENTS.md house style: two lines is the absolute maximum for a run of
+    hash comments, and three or more consecutive hash lines must become a
+    triple-quoted block. The block form is the one in the house reference -
+    quotes alone on their own lines, summary first, a blank line, then the
+    explanation.
+
+    Scope is deliberately narrow. The guard covers only the files written
+    during this work, because the repository already carries a few hundred
+    longer runs in A.I.M's own teaching scripts and older tests, and rule 2
+    protects those: coursework scripts are heavily commented on purpose and
+    their comments must not be stripped. Converting them is A.I.M's decision,
+    not an agent's, so they are reported rather than rewritten.
+
+    Two shapes are deliberately outside the rule, per AGENTS.md: an inline
+    trailing comment (`x = 5  # why`) is not a standalone block, and a
+    single hash comment followed by unrelated code is unaffected - the limit
+    is on *consecutive* hash lines.
+    """
+
+    GOVERNED = {
+        "tests/test_scripts/test_ranking_docs.py",
+        "tests/test_scripts/test_repo_doc_numbers.py",
+        "tests/test_scripts/test_data_files.py",
+    }
+
+    @staticmethod
+    def _overlong_runs(path):
+        """Line numbers of hash-comment runs longer than two lines."""
+        lines = path.read_bytes().replace(b"\r\n", b"\n").decode(
+            "utf-8").split("\n")
+        runs = []
+        current = []
+        for index, line in enumerate(lines, 1):
+            if line.strip().startswith("#"):
+                current.append(index)
+            else:
+                if current:
+                    runs.append(current)
+                current = []
+        if current:
+            runs.append(current)
+        return [run for run in runs if len(run) > 2]
+
+    def test_no_governed_file_has_a_hash_run_longer_than_two_lines(self):
+        offenders = {}
+        for rel in sorted(self.GOVERNED):
+            path = REPO_ROOT / rel
+            if not path.is_file():
+                continue
+            runs = self._overlong_runs(path)
+            if runs:
+                offenders[rel] = [run[0] for run in runs]
+        assert offenders == {}, (
+            "a run of three or more hash comments must become a "
+            + _TRIPLES
+            + " block; overlong runs at: "
+            + str(offenders)
+        )
+
+    def test_the_house_reference_uses_the_block_form(self):
+        """
+        scripts/repair_test_numbers_seam.py is quoted as the reference for
+        this rule, so it has to obey it.
+        """
+        path = REPO_ROOT / "scripts" / "repair_test_numbers_seam.py"
+        if not path.is_file():
+            pytest.skip("the house reference script is not present")
+        assert self._overlong_runs(path) == []
+
+    def test_the_longer_runs_elsewhere_are_reported_not_rewritten(self):
+        """
+        Counts the runs rule 2 protects, so the debt stays visible in the
+        suite instead of being quietly forgotten. If this number falls, files
+        have been converted deliberately rather than by accident.
+        """
+        skip = {".venv", "__pycache__", "htmlcov", ".git", ".pytest_cache"}
+        protected = 0
+        for path in REPO_ROOT.rglob("*.py"):
+            rel = path.relative_to(REPO_ROOT).as_posix()
+            if skip & set(path.relative_to(REPO_ROOT).parts):
+                continue
+            if rel in self.GOVERNED:
+                continue
+            try:
+                protected += len(self._overlong_runs(path))
+            except UnicodeDecodeError:
+                continue
+        assert protected > 0, (
+            "no protected overlong runs remain - if they were converted on "
+            "purpose, update this guard's scope rather than deleting it"
+        )
 

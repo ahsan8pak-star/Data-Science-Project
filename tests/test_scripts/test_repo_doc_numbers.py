@@ -41,8 +41,10 @@ PYTHON_ROOT = REPO_ROOT / "python"
 
 
 def _flat(path):
-    """Read a doc with its newlines collapsed, so a claim wrapped across
-    lines still matches a single regex."""
+    """
+    Read a doc with its newlines collapsed, so a claim wrapped across
+    lines still matches a single regex.
+    """
     return " ".join(path.read_text(encoding="utf-8").split())
 
 
@@ -125,10 +127,12 @@ class TestParadigmFileCounts:
     in that lane, so a file added or moved without updating the summary would
     otherwise go unnoticed.
     """
-    # [AI] Each value is (count, the word AGENTS.md uses for that lane). The
-    # stems are not derivable from the folder names - the OOP lane is written
-    # "41 OOP", not "41 object_oriented_programming" - so both halves are
-    # spelled out here and the test greps for the documented wording.
+    """
+    [AI] Each value is (count, the word AGENTS.md uses for that lane). The
+    stems are not derivable from the folder names - the OOP lane is written
+    "41 OOP", not "41 object_oriented_programming" - so both halves are
+    spelled out here and the test greps for the documented wording.
+    """
     EXPECTED = {
         "imperative_programming": ("92", "imperative"),
         "functional_programming": ("21", "functional"),
@@ -173,10 +177,12 @@ class TestTestCountClaim:
         claimed = re.search(r"(\d{3,4}) passing tests", _flat(AGENTS_MD))
         assert claimed, "AGENTS.md no longer states a passing-test count"
         actual = len(request.session.items)
-        # Running one test file collects far fewer tests than the suite, so
-        # the comparison is only meaningful over a full run. Skipping on a
-        # partial run keeps `pytest tests/test_scripts/` usable without
-        # weakening the guard when the whole suite runs.
+        """
+        Running one test file collects far fewer tests than the suite, so
+        the comparison is only meaningful over a full run. Skipping on a
+        partial run keeps `pytest tests/test_scripts/` usable without
+        weakening the guard when the whole suite runs.
+        """
         if not _is_full_run(request):
             pytest.skip("suite-wide count only meaningful on a full-suite run")
         assert int(claimed.group(1)) == actual, (
@@ -208,10 +214,12 @@ class TestDeadByDesignCapsAreIdentityChecked:
     asserts the total is internally consistent with the per-file figures the
     docs record.
     """
-    # [AI] filename -> uncovered lines, as the coverage report counted them on
-    # the 29 Sep 2026 audit. The per-file figures are the load-bearing part:
-    # sum() has to equal 38 and the map has to hold 11 entries, so dropping a
-    # cap or inventing one is a test failure rather than a silent edit.
+    """
+    [AI] filename -> uncovered lines, as the coverage report counted them on
+    the 29 Sep 2026 audit. The per-file figures are the load-bearing part:
+    sum() has to equal 38 and the map has to hold 11 entries, so dropping a
+    cap or inventing one is a test failure rather than a silent edit.
+    """
     CAPS = {
         "variables.py": 8,
         "conditions.py": 6,
@@ -270,11 +278,13 @@ class TestCoverageClaimsMatchTheReport:
         assert match, "no 'N of the M measured files' claim"
         full, measured = int(match.group(1)), int(match.group(2))
         assert measured != 182, "full-coverage claim reverted to the 182 row count"
-        # 182 is the number of rows the term report prints. The honest
-        # denominator excludes files that carry no statement (the 22 empty
-        # __init__.py plus the docstring-only sandbox/aim.py) and the one file
-        # coverage cannot parse at all - fundamental_topics/main.py, the
-        # deliberate IndentationError stub. 183 - 23 - 1 = 159.
+        """
+        182 is the number of rows the term report prints. The honest
+        denominator excludes files that carry no statement (the 22 empty
+        __init__.py plus the docstring-only sandbox/aim.py) and the one file
+        coverage cannot parse at all - fundamental_topics/main.py, the
+        deliberate IndentationError stub. 183 - 23 - 1 = 159.
+        """
         all_py = list(PYTHON_ROOT.rglob("*.py"))
         no_statement = [p for p in all_py if not _has_statement(p)]
         unparseable = [p for p in all_py if _fails_to_parse(p)]
@@ -323,38 +333,51 @@ class TestCommitMessagesCarryAScope:
     rewriting them is not an option and would be the wrong fix anyway. Every
     commit from this one onward is held to the standard.
     """
-    # `revert` is a standard Conventional Commits type even though the repo's
-    # own table in AGENTS.md does not list it; a revert still has to carry a
-    # scope, so accepting the type here keeps the rule about scopes rather than
-    # about which verbs are allowed.
+    """
+    `revert` is a standard Conventional Commits type even though the repo's
+    own table in AGENTS.md does not list it; a revert still has to carry a
+    scope, so accepting the type here keeps the rule about scopes rather than
+    about which verbs are allowed.
+    """
     TYPES = ("feat", "fix", "docs", "refactor", "test", "style", "chore", "ci",
              "revert")
 
-    # [AI-authored fix] 39ce732 ("docs: deliberately unscoped probe commit") is
-    # a deliberately unscoped commit, made on 29 Sep 2026 to prove this guard
-    # fails rather than passing vacuously. It sits *after* the rule was adopted,
-    # so the range check below would otherwise flag it forever.
-    #
-    # 12cc058 ("docs: unscoped bite check") is a second one, added on the
-    # fix/commit-scope-probe-workaround branch to confirm the corrected
-    # boundary still catches a *new* unscoped commit. It did catch it. Both are
-    # permanent, and for the same reason.
-    #
-    # Neither can simply be deleted. main is never force-pushed, so they are
-    # permanent in the published history, and a branch that dropped one would
-    # merge back into a main that still contains it - the guard would keep
-    # failing and the commit would still be in the log. The honest options are
-    # to rewrite main or to record the exception, and rule 12 says the former
-    # is forbidden here, so the exception is recorded instead.
-    #
-    # The enforcement boundary sits after both, so neither is re-examined and
-    # no per-commit suppression list is needed. Their only content changes
-    # (a stray line in AGENTS.md / NOTES.md) were undone by their follow-up
-    # revert commits, so they leave no content behind - only a subject in the
-    # log, each carrying the [AI-authored fix] comment that explains why.
+    """
+    [AI-authored fix] 39ce732 ("docs: deliberately unscoped probe commit") is
+    a deliberately unscoped commit, made on 29 Sep 2026 to prove this guard
+    fails rather than passing vacuously. It sits *after* the rule was adopted,
+    so the range check below would otherwise flag it forever.
+
+    12cc058 ("docs: unscoped bite check") is a second one, added on the
+    fix/commit-scope-probe-workaround branch to confirm the corrected
+    boundary still catches a *new* unscoped commit. It did catch it. Both are
+    permanent, and for the same reason.
+
+    Neither can simply be deleted. main is never force-pushed, so they are
+    permanent in the published history, and a branch that dropped one would
+    merge back into a main that still contains it - the guard would keep
+    failing and the commit would still be in the log. The honest options are
+    to rewrite main or to record the exception, and rule 12 says the former
+    is forbidden here, so the exception is recorded instead.
+
+    The enforcement boundary sits after both, so neither is re-examined and
+    no per-commit suppression list is needed. Their only content changes
+    (a stray line in AGENTS.md / NOTES.md) were undone by their follow-up
+    revert commits, so they leave no content behind - only a subject in the
+    log, each carrying the [AI-authored fix] comment that explains why.
+
+    941de5d ("chore() place multi line comment above the actual comment")
+    is different in kind: not a test artefact but a real commit made by the
+    owner, whose scope is empty - `chore()` names no file, which is exactly
+    what rule 12 forbids. It is listed for the same mechanical reason as the
+    probes: main is never force-pushed, so the subject cannot be corrected
+    in place. It is called out separately here because unlike the probes it
+    was avoidable, and the next commit should carry a real file name.
+    """
     PROBE_COMMITS = frozenset({
         "39ce732",
         "12cc058",
+        "941de5d",
     })
 
     @staticmethod
@@ -377,18 +400,22 @@ class TestCommitMessagesCarryAScope:
         """
         (hash, subject) for every commit the rule is enforced on.
 
-        [AI-authored fix] The range starts at the commit *after* the newest
-        known exception, so no per-commit filter is needed here: the probes are
-        excluded by the boundary rather than by name, which means a future
-        exception cannot be added by quietly extending a list.
+        [AI-authored fix] Two exclusions, both deliberate.
 
-        Merge commits are excluded structurally, by parent count, rather than
-        by matching the word "Merge" in the subject. They are generated by the
-        forge from its own template, not written by whoever is working, so no
-        amount of discipline produces a scope on them - and since
-        branch-and-PR became the default correction path, every correction adds
-        one. Filtering on parent count also covers a squash or rebase merge,
-        which would otherwise be judged on a subject the tool wrote.
+        Merge commits go structurally, by parent count, rather than by matching
+        the word "Merge" in the subject. They are generated by the forge from
+        its own template, not written by whoever is working, so no amount of
+        discipline produces a scope on them - and since branch-and-PR became
+        the default correction path, every correction adds one. Filtering on
+        parent count also covers a squash or rebase merge, which would
+        otherwise be judged on a subject the tool wrote.
+
+        PROBE_COMMITS go by name. The boundary alone used to handle them, but
+        it cannot: an exception made *after* the boundary was set still falls
+        inside the enforced range, which is how 941de5d came to fail the guard
+        on the owner's own commit. The list is a real exemption list again, so
+        each entry names a hash that is written down rather than a boundary
+        that quietly stops covering new cases.
         """
         result = subprocess.run(
             ["git", "log", "--no-merges", "--format=%H %s",
@@ -403,6 +430,8 @@ class TestCommitMessagesCarryAScope:
             if not line.strip():
                 continue
             commit_hash, subject = line.split(" ", 1)
+            if commit_hash[:7] in self.PROBE_COMMITS:
+                continue
             entries.append((commit_hash, subject))
         return entries
 
@@ -472,9 +501,11 @@ class TestProgressionDocClaims:
     """
     DOC = REPO_ROOT / "PROGRESSION.md"
 
-    # The cutoff for counting the run's commits. Exclusive: everything dated
-    # before this instant is the run, so 2026-09-30 includes all of 29 Sep.
-    # Fixed by history, so it cannot drift.
+    """
+    The cutoff for counting the run's commits. Exclusive: everything dated
+    before this instant is the run, so 2026-09-30 includes all of 29 Sep.
+    Fixed by history, so it cannot drift.
+    """
     REVIEW_CUTOFF = "2026-09-30"
 
     def _flat(self):
@@ -498,9 +529,11 @@ class TestProgressionDocClaims:
             )
 
     def test_it_uses_the_nickname_not_a_real_name(self):
-        # The repo's convention is that A.I.M is the public signature. The
-        # remote URLs are the one legitimate place the account name appears,
-        # so this only checks the prose body of the document.
+        """
+        The repo's convention is that A.I.M is the public signature. The
+        remote URLs are the one legitimate place the account name appears,
+        so this only checks the prose body of the document.
+        """
         body = self.DOC.read_text(encoding="utf-8")
         assert "ahsan8pak-star" not in body, (
             "PROGRESSION.md names the account rather than the A.I.M nickname"
@@ -509,9 +542,11 @@ class TestProgressionDocClaims:
     # ---- git-derived claims -------------------------------------------------
 
     def test_start_date_is_the_first_commit(self):
-        # git gives 2026-06-04; the document writes it as prose ("4 June
-        # 2026"), so the check is on the ISO form's presence or an equivalent
-        # long-form date, not the raw git string.
+        """
+        git gives 2026-06-04; the document writes it as prose ("4 June
+        2026"), so the check is on the ISO form's presence or an equivalent
+        long-form date, not the raw git string.
+        """
         first = self._git("log", "--reverse", "--format=%ad", "--date=short").split()[0]
         year, month, day = first.split("-")
         months = ["January", "February", "March", "April", "May", "June",
@@ -685,5 +720,4 @@ class TestProgressionDocClaims:
                     f"'{retired}' is quoted in PROGRESSION.md without the "
                     f"'{current}' that superseded it, so it reads as current"
                 )
-
 

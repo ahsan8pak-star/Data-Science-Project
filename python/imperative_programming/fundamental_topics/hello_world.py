@@ -7,4 +7,3 @@ space before the parentheses - valid Python, but PEP 8 prefers print("...").
 
 print ("Hello World")
 
-

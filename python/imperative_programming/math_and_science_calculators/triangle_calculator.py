@@ -176,4 +176,3 @@ def run_calculator():
 if __name__ == "__main__": # allow this to be an imported module by protecting the main execution
     run_calculator()
 
-

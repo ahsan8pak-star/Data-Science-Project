@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-"""One-command environment sync for the Data-Science-Project venv.
+"""
+One-command environment sync for the Data-Science-Project venv.
 
 Keeps ALL requirements files current and in sync with the live environment:
 
@@ -207,5 +208,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-
 

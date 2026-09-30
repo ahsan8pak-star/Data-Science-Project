@@ -36,4 +36,3 @@ try:
 except ValueError:
     print("Seconds is in the form of integers.")
 
-

@@ -1247,4 +1247,3 @@ class TestWorker:
         exec(compile(tree, str(file_path), "exec"), namespace)
         assert "Unknown Worker Type." in capsys.readouterr().out
 
-

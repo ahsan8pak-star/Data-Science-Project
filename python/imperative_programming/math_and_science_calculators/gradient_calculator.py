@@ -68,4 +68,3 @@ def calculate(dimensions=None):
 if __name__ == "__main__":
     calculate()
 
-

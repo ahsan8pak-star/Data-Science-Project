@@ -59,4 +59,3 @@ print()
 score = int(score / len(questions) * 100) # provides the percentage score
 print(f"Your score is: {score}%")
 
-

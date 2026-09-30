@@ -47,4 +47,3 @@ except KeyboardInterrupt:
     print("We reccomend that you enter your answers quickly.")
     print("Thank you for reading. Run the program again.")
 
-

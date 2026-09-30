@@ -63,4 +63,3 @@ population_deviation = statistics.pstdev(ages) # Standard deviation of the whole
 
 print(population_deviation)
 
-

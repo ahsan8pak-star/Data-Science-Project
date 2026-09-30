@@ -199,4 +199,3 @@ The `Times Off` window applies throughout the Summer: **9:00 AM - 9:00 PM** with
 | Saturday | Times Off (full-pace Block II) | 7:00 PM - 9:00 PM |
 | Sunday | Times Off (full-pace Block II) | 7:00 PM - 9:00 PM |
 
-

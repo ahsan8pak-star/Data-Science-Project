@@ -22,4 +22,3 @@ def show_food_script():
 if __name__ == "__main__":
     show_food_script()
 
-

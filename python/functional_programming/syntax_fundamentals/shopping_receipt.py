@@ -42,4 +42,3 @@ def print_shopping_receipt():
 if __name__ == "__main__":
     print_shopping_receipt()
 
-

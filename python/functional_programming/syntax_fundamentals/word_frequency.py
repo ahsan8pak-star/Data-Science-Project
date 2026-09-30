@@ -24,4 +24,3 @@ def print_word_frequency():
 if __name__ == "__main__":
     print_word_frequency()
 
-

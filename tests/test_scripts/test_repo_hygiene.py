@@ -87,4 +87,3 @@ class TestRepoIsCleanAfterATestRun:
             f"{name} is sitting in the repo root. Delete it; it is generated."
         )
 
-

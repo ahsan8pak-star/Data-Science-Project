@@ -52,4 +52,3 @@ if __name__ == "__main__":
     except ValueError:
         print("Integers Only.")
 
-

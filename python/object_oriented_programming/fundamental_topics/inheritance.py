@@ -78,4 +78,3 @@ mouse.speak() # Mouse -> SQUEEK!
 mouse.walk() # Tiptoe
 mouse.eat() # Mouse is eating
 
-

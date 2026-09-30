@@ -16,4 +16,3 @@ distance = round(result, 2)
 
 print(f"You travelled {distance}km!")
 
-

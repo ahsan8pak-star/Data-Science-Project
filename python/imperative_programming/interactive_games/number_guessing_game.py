@@ -48,4 +48,3 @@ while EXP < 100: # Game's goal and the only condition to start playing
 if EXP >= 100:
     print("Congrats. You Won!") # completes the game
 
-

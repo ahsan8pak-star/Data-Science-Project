@@ -70,4 +70,3 @@ print(type(d)) # checks the type of variable d
 # Actual Output:   <class 'bool'>
 # Reason: Variable d is a boolean, so the type() function returns <class 'bool>
 
-

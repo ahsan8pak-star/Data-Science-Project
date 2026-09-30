@@ -180,4 +180,3 @@ Preview per module:
 - **CS2SD:** Object-Oriented Analysis & Design, and UML Modelling -> **CS1OP**
 - **Semester 2 teaching begins Monday 1 February 2027**
 
-

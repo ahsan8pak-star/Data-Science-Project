@@ -36,4 +36,3 @@ def area_of_circle():
     except KeyboardInterrupt:
         print("Unusual Crash Detected.")
 
-

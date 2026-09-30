@@ -75,4 +75,3 @@ print(f"LENGTH: {triangle.length}")
 print(f"HEIGHT: {triangle.height}")
 triangle.description()
 
-

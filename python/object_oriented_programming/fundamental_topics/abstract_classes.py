@@ -57,4 +57,3 @@ class Boat(Vehicle):
 
 boat = Boat()
 
-

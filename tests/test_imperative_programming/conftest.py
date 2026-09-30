@@ -173,4 +173,3 @@ def _chdir(path):
     finally:
         os.chdir(old)
 
-

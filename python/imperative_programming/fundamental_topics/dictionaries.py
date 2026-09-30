@@ -162,4 +162,3 @@ print(scores.setdefault("Ahsan", 10)) # key now exists -> returns the stored 85,
 
 print(scores)
 
-

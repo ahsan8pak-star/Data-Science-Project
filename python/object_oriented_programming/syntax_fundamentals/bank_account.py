@@ -50,4 +50,3 @@ bank_account1.withdraw(200)  # Withdraws £200
 
 print(bank_account1)  # Outputs the updated account details
 
-

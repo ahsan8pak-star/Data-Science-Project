@@ -109,4 +109,3 @@ random_tuple = (1, "test", True, 9.8)
 
 del random_tuple # printing this will result in a NameError due to inaccessability of its "deleted" / "overwritten" memory address
 
-

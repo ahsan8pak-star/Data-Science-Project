@@ -48,10 +48,12 @@ BANDS = {
     "F": (0, 49, "Critical"),
 }
 
-# [AI] The three patterns below are matched line-by-line against the sheet, so
-# they are anchored with ^...$ and pre-compiled once at import. CRITERION_RE
-# carries re.M because findall() scans the whole worked-example block in the
-# guide, where ^/$ must anchor per line rather than per string.
+"""
+[AI] The three patterns below are matched line-by-line against the sheet, so
+they are anchored with ^...$ and pre-compiled once at import. CRITERION_RE
+carries re.M because findall() scans the whole worked-example block in the
+guide, where ^/$ must anchor per line rather than per string.
+"""
 HEADING_RE = re.compile(
     r"^### (?P<rel>[\w./]+\.py) — \*\*(?P<score>\d+)/100\*\* "
     r"\((?P<band>[A-F]) — (?P<label>[^)]*)\)\s*$"
@@ -208,9 +210,11 @@ class TestScoreSheetCoverage:
         assert duplicates == []
 
     def test_every_entry_carries_a_comment(self, entries):
-        # Each entry is expected to say what works, what does not, why it
-        # scored as it did and what would fix it - the guide's sincere-comment
-        # rule. A bare table with no prose is the failure this catches.
+        """
+        Each entry is expected to say what works, what does not, why it
+        scored as it did and what would fix it - the guide's sincere-comment
+        rule. A bare table with no prose is the failure this catches.
+        """
         blocks = re.split(
             r"(?m)^(?=### )", SCORES_MD.read_text(encoding="utf-8")
         )
@@ -238,9 +242,11 @@ class TestScoreSheetArithmetic:
         assert [e.path for e in entries if e.final is None] == []
 
     def test_weighted_cell_equals_score_times_weight(self, entries):
-        # The cell shows one decimal place, so the check is against the value
-        # rounded to one decimal - a bare tolerance would be wrong at the
-        # boundary, where 85 x 25% is 21.25 and the sheet prints 21.3.
+        """
+        The cell shows one decimal place, so the check is against the value
+        rounded to one decimal - a bare tolerance would be wrong at the
+        boundary, where 85 x 25% is 21.25 and the sheet prints 21.3.
+        """
         wrong = []
         for entry in entries:
             for name, shown in entry.weighted_cells:
@@ -455,9 +461,11 @@ class TestQuotedFigures:
         assert int(stated.group(3)) == computed["weakest_score"]
 
     def test_notes_quotes_the_top_three_correctly(self, entries):
-        # Scope to the "Top files:" sentence. NOTES.md also quotes branch
-        # counts for individual files elsewhere, and a repo-wide scan for
-        # "`name.py` (n)" would sweep those up as if they were rankings.
+        """
+        Scope to the "Top files:" sentence. NOTES.md also quotes branch
+        counts for individual files elsewhere, and a repo-wide scan for
+        "`name.py` (n)" would sweep those up as if they were rankings.
+        """
         flat = self._flat(NOTES_MD)
         clause = re.search(r"Top files: (.+?)\.\s", flat)
         assert clause, "no top-file claim quoted"
@@ -531,10 +539,11 @@ class TestRankingDocsUseLfLineEndings:
         assert bare_cr == 0, f"{doc.name} has {bare_cr} bare CR characters"
 
     def test_this_test_file_is_lf(self):
-        # Guards the guard: if this file is ever rewritten with CRLF, the
-        # regexes above still work (universal newlines) but the convention
-        # check would be the only thing noticing.
+        """
+        Guards the guard: if this file is ever rewritten with CRLF, the
+        regexes above still work (universal newlines) but the convention
+        check would be the only thing noticing.
+        """
         raw = Path(__file__).read_bytes()
         assert b"\r\n" not in raw
-
 

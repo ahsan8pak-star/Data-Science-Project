@@ -1025,4 +1025,3 @@ class TestSuper:
         circle_section = out.split("--- CIRCLE ---")[1].split("--- SQUARE ---")[0]
         assert circle_section.find("AREA:") < circle_section.find("A(n)")
 
-

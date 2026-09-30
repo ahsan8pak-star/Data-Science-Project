@@ -260,4 +260,3 @@ verified), plus local briefings `university_courseworks/year1/year1-briefing
 The catalogue link format matches the site's own `acyear=<year>%252f<n>`
 encoding; links require the institutional login.
 
-

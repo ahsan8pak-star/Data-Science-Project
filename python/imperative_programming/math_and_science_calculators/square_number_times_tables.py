@@ -21,4 +21,3 @@ def square_number():
 if __name__ == "__main__":
     square_number()
 
-

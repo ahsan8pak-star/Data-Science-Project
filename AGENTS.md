@@ -62,9 +62,33 @@ agent (or future human) working on this project should read this first.
 - **House style:** British English, SPaG-clean; comments explain *why* only
   (no new comments unless useful or explicitly requested), matching the
   one-line-statement-then-reason style already present. **Short vs block
-  comments:** short comments use `#` (max 2 lines); longer explanations use
-  `"""` blocks instead. **AI-authored comments** (anything the agent writes to
-  explain its own fix, not A.I.M's notes) must start with a
+  comments — this is binding, not a preference.** Two lines is the absolute
+  maximum for `#`. A run of three or more consecutive `#` lines is wrong and
+  becomes a `"""` block instead, in this exact shape, with the quotes alone
+  on their own lines:
+
+  ```python
+  """
+  Summary sentence on its own line.
+
+  Further explanation, wrapped to roughly 80 columns, separated from the
+  summary by one blank line.
+  """
+  ```
+
+  A `"""` block is only legal where it stands as its own statement: at the top
+  of a module or function as the real docstring, or mid-function as an
+  explanatory block. It never opens and closes on the same line as its text.
+  **End of file: exactly two trailing newlines** — the last line of code, one
+  empty line, then EOF. Three reads as an accidental blank page. LF only;
+  `.gitattributes` pins `* text=auto eol=lf`. Both byte invariants are enforced
+  by `tests/test_scripts/test_data_files.py`.
+  Single-line `#` comments are fine and preferred for one-liners; the limit
+  applies to *consecutive* `#` lines only, so `# note` followed by unrelated
+  code is unaffected. Inline trailing comments (`x = 5  # why`) are unaffected
+  too — the rule governs standalone comment blocks. **AI-authored comments**
+  (anything the agent writes to explain its own fix, not A.I.M's notes) must
+  start with a
   `[AI-authored fix]` marker inside a `"""` block so they are instantly
   distinguishable from the owner's own comments. **British Standard English
   ALWAYS:** every agent-written word (docs, comments, replies, commit
@@ -437,7 +461,7 @@ or the correction is half-applied.
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1516 passing tests, ~99% line coverage and 95% branch coverage (148 of the
+- 1521 passing tests, ~99% line coverage and 95% branch coverage (148 of the
   159 measured `python/` files at 100% lines, including both
   music-player GUIs; the one never-imported file is
   `imperative_programming/fundamental_topics/main.py`, and the 161
@@ -621,3 +645,4 @@ here. Read the relevant briefing before editing anything in it.
 > three years: see `university_courseworks/UNIVERSITY_MODULES.md`. Official BSc Computer Science
 > (UCAS G400) course pages: 2025/26, 2026/27 and 2027/28 entry (the 2025 page
 > redirects to 2026/27; the 2027 page is not live yet).
+

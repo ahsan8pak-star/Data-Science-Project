@@ -420,4 +420,3 @@ class TestQRCodeGenerator:
         assert (tmp_path / "qrcode.png").exists()
         assert "QR code image saved to:" in out
 
-

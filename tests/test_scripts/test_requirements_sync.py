@@ -355,4 +355,3 @@ class TestMain:
             runpy.run_path(str(rs.ROOT / "requirements_sync.py"), run_name="__main__")
         assert "=== ENVIRONMENT AUDIT ===" in capsys.readouterr().out
 
-

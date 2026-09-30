@@ -43,4 +43,3 @@ if __name__ == "__main__":
     else:
         display_number_matrix(n)
 
-

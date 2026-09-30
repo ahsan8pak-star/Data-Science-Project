@@ -246,4 +246,3 @@ print(f"RIndex:     {Name.rindex('a')}")  # rightmost index (raises if absent, u
 print(f"RemPref:    {Name.removeprefix(' ')!r}")  # strips exactly one leading space
 print(f"RemSuff:    {Name.removesuffix(' ')!r}")  # strips exactly one trailing space
 
-

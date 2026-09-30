@@ -32,4 +32,3 @@ if __name__ == "__main__":
     av = AverageGrades(grades, weights)
     print(av)  # Outputs: [56, 43]
 
-

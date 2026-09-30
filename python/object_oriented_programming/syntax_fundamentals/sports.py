@@ -52,4 +52,3 @@ print(basketball.details())
 print(cricket.details())
 print(tennis.details())
 
-

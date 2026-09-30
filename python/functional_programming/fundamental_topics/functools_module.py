@@ -76,4 +76,3 @@ def greet(): # The wrapper copies greet's metadata (name + docstring) over itsel
 
 print("wraps:", greet(), "| name:", greet.__name__, "| doc:", greet.__doc__)
 
-

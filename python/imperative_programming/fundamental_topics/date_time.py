@@ -174,4 +174,3 @@ t2 = timedelta(days=7, hours=5, minutes=3, seconds=30)
 t3 = t1 - t2
 print("t3 =", t3)
 
-

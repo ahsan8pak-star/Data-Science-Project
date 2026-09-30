@@ -24,4 +24,3 @@ for i in range (0, 11):
         count += 1
 print ("We have " + str(count) + " odd numbers")
 
-

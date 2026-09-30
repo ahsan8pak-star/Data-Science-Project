@@ -33,4 +33,3 @@ print(person2)
 
 print(person1 == person2) # similar to __eq__ method in magic_methods.py
 
-

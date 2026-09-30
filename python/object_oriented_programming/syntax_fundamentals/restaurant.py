@@ -59,4 +59,3 @@ print(indian.display_restaurant())
 print(chinese.display_restaurant())
 print(japanese.display_restaurant())
 
-

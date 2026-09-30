@@ -2280,3 +2280,4 @@ See `FILE_RANKING_GUIDE.md` for the full scoring guide.
 | **Final** | | | **75** |
 
 **Comment:** Worker class demonstration at 90 lines. Runs clean (exit 0). The class structure is clear. The `[AI-authored fix]` try/except import block is present (same idiom as classes.py). Deductions: no `__main__` guard. The worker logic is verbose. No error handling.
+

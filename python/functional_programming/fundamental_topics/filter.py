@@ -48,4 +48,3 @@ print("Non-empty words:", non_empty_words)
 print("\nMixed values:", mixed_values)
 print("Truthy-only values:", truthy_only)
 
-

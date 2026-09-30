@@ -20,4 +20,3 @@ data = zip(names, ages, jobs) # automatically converts any items arranged into T
 for name, age, job in data:
     print(f"{name} is a {age} year old {job}")
 
-

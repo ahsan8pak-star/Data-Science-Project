@@ -116,7 +116,8 @@ class TestBannerAndInfoBox:
 # MP3AudioPlayer / WAVAudioPlayer - structurally identical logic
 # ---------------------------------------------------------------------------
 class TestAudioPlayers:
-    """Shared behaviour across the MP3 and WAV engine classes.
+    """
+    Shared behaviour across the MP3 and WAV engine classes.
 
     Both player classes are nearly identical, so each test drives both of
     them; `players` is a {format: fresh_instance} mapping.
@@ -834,5 +835,4 @@ class TestWAVGUI:
         # The __main__ guard reaches main() without error.
         import runpy
         runpy.run_path(str(WAV_GUI_PATH), run_name="__main__")
-
 

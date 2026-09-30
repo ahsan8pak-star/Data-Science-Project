@@ -48,4 +48,3 @@ student3.level()
 print(f"University of {Student.university}") # Class.class variable
 print(f"{Student.num_students}")
 
-

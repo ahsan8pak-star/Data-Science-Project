@@ -58,4 +58,3 @@ another_valid_option = Employee.valid_job_role("Chef")
 print(f"Cook in Staff? {within_list}")
 print(f"Chef in Staff? {another_valid_option}")
 
-

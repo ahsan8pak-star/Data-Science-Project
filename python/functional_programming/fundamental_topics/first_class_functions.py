@@ -43,4 +43,3 @@ cubed = make_power(3)
 print("doubler(6):", doubler(6))
 print("cubed(6):", cubed(6))
 
-
