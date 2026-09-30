@@ -521,7 +521,7 @@ class TestQuotedFigures:
             "mean": sum(scores) / len(scores),
             "below": sum(1 for s in scores if s < 70),
             "weakest": [name for _, name, _ in finals[:2]],
-            "weakest_score": finals[0][0],
+            "weakest_scores": [score for score, _, _ in finals[:2]],
               "top": [
                   name for _, name, _ in
                   sorted(finals, key=lambda f: (-f[0], f[2]))[:3]
@@ -548,14 +548,37 @@ class TestQuotedFigures:
     @pytest.mark.parametrize("doc", [AGENTS_MD, NOTES_MD])
     def test_weakest_pair_is_quoted_correctly(self, doc, entries):
         flat = self._current_claims(doc)
-        stated = re.search(
+        """
+        The weakest two need not tie. They tied when main.py scored 50 on its
+        own, but after it was repaired the lowest two sit at 64 and 69, so
+        the "(n each)" phrasing no longer applies. Both the names and the
+        numbers are checked independently of how the sentence is worded.
+        """
+        pair = re.search(
+            r"`([\w.]+\.py)` \((\d+)\) and `([\w.]+\.py)` \((\d+)\)", flat
+        )
+        tied = re.search(
             r"`([\w.]+\.py)` and `([\w.]+\.py)` \((\d+) each\)", flat
         )
-        assert stated, "no weakest-pair claim quoted"
+        stated = pair or tied
+        assert stated, (
+            "no weakest-pair claim quoted; expected either two separately "
+            "scored files or two tied ones"
+        )
         computed = self._computed(entries)
-        assert stated.group(1) in computed["weakest"]
-        assert stated.group(2) in computed["weakest"]
-        assert int(stated.group(3)) == computed["weakest_score"]
+        groups = stated.groups()
+        if len(groups) == 4:
+            names, scores = [groups[0], groups[2]], [groups[1], groups[3]]
+        else:
+            names, scores = [groups[0], groups[1]], [groups[2]] * 2
+        for name, score in zip(names, scores):
+            assert name in computed["weakest"], (
+                f"{name} is not one of the two weakest files; the sheet says "
+                f"{computed['weakest']}"
+            )
+            assert int(score) == dict(
+                zip(computed["weakest"], computed["weakest_scores"])
+            )[name], f"{name} is quoted at {score}, the sheet says otherwise"
 
     def test_notes_quotes_the_top_three_correctly(self, entries):
         """

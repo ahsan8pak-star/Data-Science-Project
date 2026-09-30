@@ -2,15 +2,15 @@
 
 **Scored:** 30 September 2026. **Method:** every mark is derived from `scripts/measure_ranking_signals.py` output, so a disputed score is a disputed formula rather than a disputed memory. Criteria, weights and the tier rule are in `FILE_RANKING_GUIDE.md`.
 
-**160 files scored. Mean 84.4/100.** Tier decides the weighting: learning material is judged on whether a reader can learn from it, applied projects on whether a user can rely on it.
+**160 files scored. Mean 84.6/100.** Tier decides the weighting: learning material is judged on whether a reader can learn from it, applied projects on whether a user can rely on it.
 
 | Band | Range | Files | Meaning |
 | --- | --- | --- | --- |
 | A | 90–99 | 43 | Exemplary |
-| B | 80–89 | 89 | Strong |
+| B | 80–89 | 90 | Strong |
 | C | 70–79 | 25 | Serviceable |
 | D | 60–69 | 2 | Weak |
-| E | 0–59 | 1 | Broken |
+| E | 0–59 | 0 | Broken |
 
 | Tier | Files | Weighting |
 | --- | --- | --- |
@@ -125,62 +125,62 @@
 | 102 | `python/functional_programming/fundamental_topics/zip.py` | Learning | 81 | 86 | 85 | 80 | 88 | **83** |
 | 103 | `python/imperative_programming/fundamental_topics/formats.py` | Learning | 81 | 86 | 85 | 80 | 88 | **83** |
 | 104 | `python/imperative_programming/fundamental_topics/hello_world.py` | Learning | 81 | 86 | 85 | 80 | 88 | **83** |
-| 105 | `python/imperative_programming/fundamental_topics/type_conversion_type_casting.py` | Learning | 81 | 86 | 85 | 80 | 88 | **83** |
-| 106 | `python/imperative_programming/interactive_games/hangman_game.py` | Learning | 88 | 84 | 63 | 80 | 96 | **83** |
-| 107 | `python/imperative_programming/math_and_science_calculators/square_number_times_tables.py` | Learning | 93 | 76 | 67 | 80 | 96 | **83** |
-| 108 | `python/imperative_programming/syntax_exercises/hour_clock.py` | Learning | 93 | 96 | 51 | 58 | 96 | **83** |
-| 109 | `python/imperative_programming/syntax_exercises/num_pad.py` | Learning | 81 | 86 | 85 | 80 | 88 | **83** |
-| 110 | `python/object_oriented_programming/syntax_fundamentals/sports.py` | Learning | 73 | 94 | 85 | 80 | 96 | **83** |
-| 111 | `python/advanced_projects/machine_learning/data_outliers/data_outlier.py` | Applied | 96 | 74 | 85 | 72 | 81 | **82** |
-| 112 | `python/functional_programming/fundamental_topics/any_all.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
-| 113 | `python/functional_programming/fundamental_topics/comprehensions.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
-| 114 | `python/functional_programming/fundamental_topics/filter.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
-| 115 | `python/functional_programming/fundamental_topics/map.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
-| 116 | `python/functional_programming/fundamental_topics/pipelines.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
-| 117 | `python/functional_programming/fundamental_topics/reduce.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
-| 118 | `python/functional_programming/fundamental_topics/sorted.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
-| 119 | `python/imperative_programming/fundamental_topics/conditions.py` | Learning | 92 | 74 | 77 | 72 | 88 | **82** |
-| 120 | `python/imperative_programming/fundamental_topics/date_time.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
-| 121 | `python/imperative_programming/syntax_exercises/reverse_list_program.py` | Learning | 93 | 76 | 59 | 80 | 96 | **82** |
-| 122 | `python/object_oriented_programming/syntax_fundamentals/dice.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
-| 123 | `python/imperative_programming/unit_and_format_converters/fahrenheit_celsius_converter.py` | Learning | 88 | 96 | 51 | 58 | 96 | **81** |
-| 124 | `python/imperative_programming/unit_and_format_converters/time_converter.py` | Learning | 88 | 96 | 51 | 58 | 96 | **81** |
-| 125 | `python/advanced_projects/music_player/tui/mp3_tui_player.py` | Applied | 93 | 96 | 57 | 80 | 79 | **80** |
-| 126 | `python/advanced_projects/music_player/tui/wav_tui_player.py` | Applied | 93 | 96 | 57 | 80 | 79 | **80** |
-| 127 | `python/functional_programming/fundamental_topics/lambda.py` | Learning | 72 | 86 | 85 | 80 | 88 | **80** |
-| 128 | `python/functional_programming/fundamental_topics/statistics_module.py` | Learning | 72 | 86 | 85 | 80 | 88 | **80** |
-| 129 | `python/imperative_programming/fundamental_topics/sets.py` | Learning | 72 | 86 | 85 | 80 | 88 | **80** |
-| 130 | `python/imperative_programming/fundamental_topics/tuples.py` | Learning | 72 | 86 | 85 | 80 | 88 | **80** |
-| 131 | `python/imperative_programming/syntax_exercises/even_odd_detector.py` | Learning | 77 | 86 | 85 | 68 | 88 | **80** |
-| 132 | `python/imperative_programming/syntax_exercises/math_file.py` | Learning | 72 | 86 | 85 | 80 | 88 | **80** |
-| 133 | `python/imperative_programming/interactive_games/number_guessing_game.py` | Learning | 72 | 88 | 83 | 68 | 88 | **79** |
-| 134 | `python/imperative_programming/interactive_games/word_guessing_game.py` | Learning | 81 | 82 | 65 | 80 | 88 | **79** |
-| 135 | `python/imperative_programming/syntax_exercises/file_handling.py` | Learning | 77 | 72 | 85 | 80 | 88 | **79** |
-| 136 | `python/imperative_programming/syntax_exercises/random_cipher.py` | Learning | 77 | 82 | 69 | 80 | 88 | **79** |
-| 137 | `python/imperative_programming/syntax_exercises/grade_boundary_calculator.py` | Learning | 72 | 82 | 75 | 80 | 88 | **78** |
-| 138 | `python/imperative_programming/fundamental_topics/dictionaries.py` | Learning | 77 | 66 | 85 | 80 | 88 | **77** |
-| 139 | `python/imperative_programming/fundamental_topics/modules.py` | Learning | 72 | 72 | 85 | 80 | 88 | **77** |
-| 140 | `python/imperative_programming/math_and_science_calculators/annual_rate_calculator.py` | Learning | 77 | 92 | 69 | 55 | 88 | **77** |
-| 141 | `python/imperative_programming/syntax_exercises/alarm_clock.py` | Applied | 92 | 90 | 51 | 80 | 87 | **77** |
-| 142 | `python/imperative_programming/syntax_exercises/checkout_system.py` | Learning | 77 | 82 | 61 | 80 | 88 | **77** |
-| 143 | `python/imperative_programming/syntax_exercises/food_menu.py` | Learning | 77 | 82 | 61 | 80 | 88 | **77** |
-| 144 | `python/imperative_programming/unit_and_format_converters/phone_converter.py` | Learning | 88 | 90 | 35 | 58 | 96 | **77** |
-| 145 | `python/imperative_programming/fundamental_topics/lists.py` | Learning | 60 | 86 | 85 | 80 | 80 | **75** |
-| 146 | `python/imperative_programming/interactive_games/quiz_game.py` | Learning | 72 | 82 | 67 | 68 | 88 | **75** |
-| 147 | `python/object_oriented_programming/fundamental_topics/classes.py` | Learning | 77 | 78 | 73 | 60 | 88 | **75** |
-| 148 | `python/imperative_programming/fundamental_topics/exceptions.py` | Learning | 77 | 88 | 51 | 58 | 88 | **74** |
-| 149 | `python/imperative_programming/syntax_exercises/file_reader.py` | Applied | 67 | 92 | 68 | 65 | 58 | **74** |
-| 150 | `python/imperative_programming/syntax_exercises/symbol_generator.py` | Learning | 77 | 88 | 51 | 58 | 88 | **74** |
-| 151 | `python/imperative_programming/fundamental_topics/numbers.py` | Learning | 60 | 86 | 85 | 68 | 80 | **73** |
-| 152 | `python/imperative_programming/syntax_exercises/username_status.py` | Learning | 81 | 82 | 43 | 58 | 88 | **73** |
-| 153 | `python/imperative_programming/math_and_science_calculators/area_volume_calculator.py` | Learning | 72 | 88 | 51 | 58 | 88 | **72** |
-| 154 | `python/imperative_programming/math_and_science_calculators/circle_calculator.py` | Learning | 72 | 88 | 51 | 58 | 88 | **72** |
-| 155 | `python/imperative_programming/unit_and_format_converters/weight_converter.py` | Learning | 72 | 88 | 51 | 58 | 88 | **72** |
-| 156 | `python/imperative_programming/interactive_games/haiku_madlibs.py` | Learning | 77 | 82 | 43 | 58 | 88 | **71** |
-| 157 | `python/imperative_programming/syntax_exercises/distance_calculator.py` | Learning | 77 | 82 | 43 | 58 | 88 | **71** |
-| 158 | `python/imperative_programming/fundamental_topics/variables.py` | Learning | 72 | 52 | 73 | 72 | 88 | **69** |
-| 159 | `python/imperative_programming/fundamental_topics/strings.py` | Learning | 59 | 82 | 43 | 58 | 80 | **64** |
-| 160 | `python/imperative_programming/fundamental_topics/main.py` | Learning | 40 | 40 | 45 | 92 | 50 | **50** |
+| 105 | `python/imperative_programming/fundamental_topics/main.py` | Learning | 93 | 64 | 85 | 80 | 96 | **83** |
+| 106 | `python/imperative_programming/fundamental_topics/type_conversion_type_casting.py` | Learning | 81 | 86 | 85 | 80 | 88 | **83** |
+| 107 | `python/imperative_programming/interactive_games/hangman_game.py` | Learning | 88 | 84 | 63 | 80 | 96 | **83** |
+| 108 | `python/imperative_programming/math_and_science_calculators/square_number_times_tables.py` | Learning | 93 | 76 | 67 | 80 | 96 | **83** |
+| 109 | `python/imperative_programming/syntax_exercises/hour_clock.py` | Learning | 93 | 96 | 51 | 58 | 96 | **83** |
+| 110 | `python/imperative_programming/syntax_exercises/num_pad.py` | Learning | 81 | 86 | 85 | 80 | 88 | **83** |
+| 111 | `python/object_oriented_programming/syntax_fundamentals/sports.py` | Learning | 73 | 94 | 85 | 80 | 96 | **83** |
+| 112 | `python/advanced_projects/machine_learning/data_outliers/data_outlier.py` | Applied | 96 | 74 | 85 | 72 | 81 | **82** |
+| 113 | `python/functional_programming/fundamental_topics/any_all.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
+| 114 | `python/functional_programming/fundamental_topics/comprehensions.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
+| 115 | `python/functional_programming/fundamental_topics/filter.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
+| 116 | `python/functional_programming/fundamental_topics/map.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
+| 117 | `python/functional_programming/fundamental_topics/pipelines.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
+| 118 | `python/functional_programming/fundamental_topics/reduce.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
+| 119 | `python/functional_programming/fundamental_topics/sorted.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
+| 120 | `python/imperative_programming/fundamental_topics/conditions.py` | Learning | 92 | 74 | 77 | 72 | 88 | **82** |
+| 121 | `python/imperative_programming/fundamental_topics/date_time.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
+| 122 | `python/imperative_programming/syntax_exercises/reverse_list_program.py` | Learning | 93 | 76 | 59 | 80 | 96 | **82** |
+| 123 | `python/object_oriented_programming/syntax_fundamentals/dice.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
+| 124 | `python/imperative_programming/unit_and_format_converters/fahrenheit_celsius_converter.py` | Learning | 88 | 96 | 51 | 58 | 96 | **81** |
+| 125 | `python/imperative_programming/unit_and_format_converters/time_converter.py` | Learning | 88 | 96 | 51 | 58 | 96 | **81** |
+| 126 | `python/advanced_projects/music_player/tui/mp3_tui_player.py` | Applied | 93 | 96 | 57 | 80 | 79 | **80** |
+| 127 | `python/advanced_projects/music_player/tui/wav_tui_player.py` | Applied | 93 | 96 | 57 | 80 | 79 | **80** |
+| 128 | `python/functional_programming/fundamental_topics/lambda.py` | Learning | 72 | 86 | 85 | 80 | 88 | **80** |
+| 129 | `python/functional_programming/fundamental_topics/statistics_module.py` | Learning | 72 | 86 | 85 | 80 | 88 | **80** |
+| 130 | `python/imperative_programming/fundamental_topics/sets.py` | Learning | 72 | 86 | 85 | 80 | 88 | **80** |
+| 131 | `python/imperative_programming/fundamental_topics/tuples.py` | Learning | 72 | 86 | 85 | 80 | 88 | **80** |
+| 132 | `python/imperative_programming/syntax_exercises/even_odd_detector.py` | Learning | 77 | 86 | 85 | 68 | 88 | **80** |
+| 133 | `python/imperative_programming/syntax_exercises/math_file.py` | Learning | 72 | 86 | 85 | 80 | 88 | **80** |
+| 134 | `python/imperative_programming/interactive_games/number_guessing_game.py` | Learning | 72 | 88 | 83 | 68 | 88 | **79** |
+| 135 | `python/imperative_programming/interactive_games/word_guessing_game.py` | Learning | 81 | 82 | 65 | 80 | 88 | **79** |
+| 136 | `python/imperative_programming/syntax_exercises/file_handling.py` | Learning | 77 | 72 | 85 | 80 | 88 | **79** |
+| 137 | `python/imperative_programming/syntax_exercises/random_cipher.py` | Learning | 77 | 82 | 69 | 80 | 88 | **79** |
+| 138 | `python/imperative_programming/syntax_exercises/grade_boundary_calculator.py` | Learning | 72 | 82 | 75 | 80 | 88 | **78** |
+| 139 | `python/imperative_programming/fundamental_topics/dictionaries.py` | Learning | 77 | 66 | 85 | 80 | 88 | **77** |
+| 140 | `python/imperative_programming/fundamental_topics/modules.py` | Learning | 72 | 72 | 85 | 80 | 88 | **77** |
+| 141 | `python/imperative_programming/math_and_science_calculators/annual_rate_calculator.py` | Learning | 77 | 92 | 69 | 55 | 88 | **77** |
+| 142 | `python/imperative_programming/syntax_exercises/alarm_clock.py` | Applied | 92 | 90 | 51 | 80 | 87 | **77** |
+| 143 | `python/imperative_programming/syntax_exercises/checkout_system.py` | Learning | 77 | 82 | 61 | 80 | 88 | **77** |
+| 144 | `python/imperative_programming/syntax_exercises/food_menu.py` | Learning | 77 | 82 | 61 | 80 | 88 | **77** |
+| 145 | `python/imperative_programming/unit_and_format_converters/phone_converter.py` | Learning | 88 | 90 | 35 | 58 | 96 | **77** |
+| 146 | `python/imperative_programming/fundamental_topics/lists.py` | Learning | 60 | 86 | 85 | 80 | 80 | **75** |
+| 147 | `python/imperative_programming/interactive_games/quiz_game.py` | Learning | 72 | 82 | 67 | 68 | 88 | **75** |
+| 148 | `python/object_oriented_programming/fundamental_topics/classes.py` | Learning | 77 | 78 | 73 | 60 | 88 | **75** |
+| 149 | `python/imperative_programming/fundamental_topics/exceptions.py` | Learning | 77 | 88 | 51 | 58 | 88 | **74** |
+| 150 | `python/imperative_programming/syntax_exercises/file_reader.py` | Applied | 67 | 92 | 68 | 65 | 58 | **74** |
+| 151 | `python/imperative_programming/syntax_exercises/symbol_generator.py` | Learning | 77 | 88 | 51 | 58 | 88 | **74** |
+| 152 | `python/imperative_programming/fundamental_topics/numbers.py` | Learning | 60 | 86 | 85 | 68 | 80 | **73** |
+| 153 | `python/imperative_programming/syntax_exercises/username_status.py` | Learning | 81 | 82 | 43 | 58 | 88 | **73** |
+| 154 | `python/imperative_programming/math_and_science_calculators/area_volume_calculator.py` | Learning | 72 | 88 | 51 | 58 | 88 | **72** |
+| 155 | `python/imperative_programming/math_and_science_calculators/circle_calculator.py` | Learning | 72 | 88 | 51 | 58 | 88 | **72** |
+| 156 | `python/imperative_programming/unit_and_format_converters/weight_converter.py` | Learning | 72 | 88 | 51 | 58 | 88 | **72** |
+| 157 | `python/imperative_programming/interactive_games/haiku_madlibs.py` | Learning | 77 | 82 | 43 | 58 | 88 | **71** |
+| 158 | `python/imperative_programming/syntax_exercises/distance_calculator.py` | Learning | 77 | 82 | 43 | 58 | 88 | **71** |
+| 159 | `python/imperative_programming/fundamental_topics/variables.py` | Learning | 72 | 52 | 73 | 72 | 88 | **69** |
+| 160 | `python/imperative_programming/fundamental_topics/strings.py` | Learning | 59 | 82 | 43 | 58 | 80 | **64** |
 
 ## Per-file breakdown
 ## python/advanced_projects/machine_learning/data_outliers/
@@ -809,20 +809,20 @@ Tier: **Learning**
 
 ---
 
-### main.py — **50/100** (E — Broken)
+### main.py — **83/100** (B — Strong)
 
 Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
 | --- | --- | --- | --- |
-| Readability | 40 | 35% | 14.0 |
-| Fixability | 40 | 25% | 10.0 |
-| Robustness | 45 | 15% | 6.8 |
-| Risk | 92 | 15% | 13.8 |
-| Durability | 50 | 10% | 5.0 |
-| **Final** | | | **50** |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 64 | 25% | 16.0 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **83** |
 
-**Comment:** Scored 50/100, band E. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is risk (92), weakest is readability (40). **Works:** little to go on, structurally. **Weaknesses:** unreadable: does not parse; does not parse; the file is a deliberate teaching stub; cannot run, so it cannot be robust; fails immediately, so it cannot mislead anyone; does not run. **Deliberate defect (rule 11):** an IndentationError stub that exists to demonstrate the parse error Kept on purpose and pinned by a test, so the score reflects the cost of the lesson rather than an accident.
+**Comment:** Scored 83/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is fixability (64). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; only 83% of lines execute; + defect is named in the docstring and pinned by a test, so the risk is visible rather than silent. **Deliberate defect (rule 11):** an IndentationError stub that exists to demonstrate the parse error Kept on purpose and pinned by a test, so the score reflects the cost of the lesson rather than an accident.
 
 ---
 

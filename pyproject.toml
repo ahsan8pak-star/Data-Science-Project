@@ -44,8 +44,12 @@ omit = [
     "*/pytest-of-*/*",
     "*/AppData/Local/Temp/*",
     "tests/*",
-    # Intentionally unparseable teaching stub (SyntaxError); cannot be measured.
-    "python/imperative_programming/fundamental_topics/main.py",
+    # Untracked practice material, not repository content. Coverage walks the
+    # filesystem rather than git, so without this the report counts a file the
+    # repo does not contain and every measured denominator shifts by one -
+    # main.py was omitted here for a while and is measured again, but aim.py
+    # stays out because the owner keeps it deliberately outside version control.
+    "python/sandbox/aim.py",
 ]
 
 [tool.coverage.report]

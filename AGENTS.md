@@ -465,17 +465,16 @@ or the correction is half-applied.
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1526 passing tests, ~99% line coverage and 95% branch coverage (148 of the
-  159 measured `python/` files at 100% lines, including both
-  music-player GUIs; the one never-imported file is
-  `imperative_programming/fundamental_topics/main.py`, and the 161
-  non-`__init__.py` files are the number a docstring sweep covers). The 159
-  counts files that carry at least one statement. The coverage table prints
-  182 rows because it also lists 22 files that have no statement - the empty
-  `__init__.py` files - which report 100% without anything having run; `main.py`
-  is excluded from
-  the report entirely because its deliberate `IndentationError` stops it
-  being parsed. Branch coverage is
+- 1526 passing tests, ~99% line coverage and 95% branch coverage (149 of the
+  160 measured `python/` files at 100% lines, including both music-player
+  GUIs; the 160 non-`__init__.py` files are the number a docstring sweep
+  covers). The 160 counts files that carry at least one statement. The
+  coverage table prints 182 rows because it also lists 22 files that have no
+  statement - the empty `__init__.py` files - which report 100% without
+  anything having run. `main.py` was until 30 Sep 2026 a deliberate
+  `IndentationError` stub, excluded from the report because it could not be
+  parsed; A.I.M added `pass` so it runs, and it is measured like every other
+  file now. Branch coverage is
   enabled in `[tool.coverage.run]` because line coverage alone read 99%
   while 99 branch directions had never executed - `sine_rule.py` was at
   100% lines with 21 of its 92 branches unexercised. A 2026 audit closed
@@ -537,10 +536,10 @@ or the correction is half-applied.
 - `scripts/execution_time.py`: interactive `tree /f`-style project map +
   per-folder benchmark report over five statuses - `PASS` (ran and exited
   cleanly), `INTERACTIVE` (stopped at an `input()` prompt, which is what 62 of
-  the 182 files do), `TIMEOUT` (ran past 2s), `FAIL` (raised a real error, now
-  only `main.py`, whose `IndentationError` is the deliberate teaching stub
-  pinned by `test_fundamentals.py`) and `ERROR` (the harness could not launch
-  it, currently none). It benchmarks
+  the 182 files do),   `TIMEOUT` (ran past 2s), `FAIL` (raised a real error, currently none —
+  `main.py` was the only one until A.I.M added `pass` on 30 Sep 2026, which
+  makes it a `PASS`) and `ERROR` (the harness could not launch it, currently
+  none). It benchmarks
   `sys.executable` rather than a bare `python`, so it measures the pinned venv
   interpreter, and derives `PROJECT_ROOT` from `__file__` rather than a baked
   absolute path.
@@ -559,10 +558,11 @@ or the correction is half-applied.
   `scripts/score_ranking.py`, so a disputed score is a disputed formula rather
   than a disputed memory. Each entry carries a criterion-by-criterion
   breakdown and a written reason.
-  Overall average: 84.4/100 (band B — Strong). Only 3 files score below
-  70; the weakest are `main.py` and `strings.py` (50 each) — one a
-  deliberately unparseable teaching stub, the other a 321-line flat script with
-  no function boundary. See `FILE_SCORES.md` for the full breakdown.
+  Overall average: 84.6/100 (band B — Strong). Only 2 files score below
+  70; the weakest are `strings.py` (64) and `variables.py` (69), both flat
+  scripts with no function boundary — `strings.py` runs 321 lines, so a reader
+  must hold the whole file at once and a test can only exercise it end to end.
+  See `FILE_SCORES.md` for the full breakdown.
 - Postgres is planned (`psycopg2` installed, `postgresql/sandbox/aim.sql`
   reserved) but not started.
 

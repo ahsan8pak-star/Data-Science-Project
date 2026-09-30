@@ -12,7 +12,7 @@ E.g. library = Import library for functionality.  When running library directly,
 def main():
     # Main code to type i.e. program to be run and executed under this file
     pass
-    
+
 if __name__ == "__main__":
     main()
 

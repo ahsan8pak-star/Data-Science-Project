@@ -444,10 +444,13 @@ def build_comment(rel, signals, scores, notes_by_criterion, tier, final, band):
     good, bad = [], []
     for criterion in CRITERIA:
         for note in notes_by_criterion.get(criterion, []):
-            # A note is a (sign, text) pair, not a string with a symbol glued
-            # to the front. "4 of 4 callables undocumented" began with a digit
-            # that the string-prefix parser read as a sign and stripped, which
-            # is why the count vanished from the comment.
+            """
+            A note is a (sign, text) pair, not a string with a symbol glued
+            to the front. "4 of 4 callables undocumented" began with a digit
+            that the string-prefix parser read as a sign and stripped, which
+            is why the count vanished from the comment.
+            """
+
             sign, text = note if isinstance(note, tuple) else ("-", note)
             if "by design" in text or "per rule 11" in text:
                 continue
@@ -508,19 +511,23 @@ def main():
         scores = {k: v[0] for k, v in raw.items()}
         notes = {k: v[1] for k, v in raw.items()}
         weights = WEIGHTS[tier]
-        # Exact integer arithmetic, half-up. Floats do not work here: 96 * 0.15
-        # is 14.399999999999999 in binary, so floor(x + 0.5) lands a tenth low
-        # and the sheet contradicted its own guard. With whole-percent weights
-        # the value in tenths is score * pct / 10, and half-up rounding of that
-        # is exactly (score * pct + 5) // 10 - no float, no drift.
+        """
+        Exact integer arithmetic, half-up. Floats do not work here: 96 * 0.15
+        is 14.399999999999999 in binary, so floor(x + 0.5) lands a tenth low
+        and the sheet contradicted its own guard. With whole-percent weights
+        the value in tenths is score * pct / 10, and half-up rounding of that
+        is exactly (score * pct + 5) // 10 - no float, no drift.
+        """
         weighted = {
             c: (scores[c] * int(weights[c] * 100) + 5) // 10 / 10
             for c in CRITERIA
         }
-        # The final is the sum of the *printed* cells, not of the exact
-        # products, so a reader adding the column by hand lands on the same
-        # number. Kept in tenths and summed as integers, because
-        # 31.5 + 28.5 + 12.0 is 72.0 in theory and 71.99999 in binary.
+        """
+        The final is the sum of the exact products, so a reader adding the
+        column by hand lands on the same number. Kept as an integer sum rather
+        than a float one, because 31.5 + 28.5 + 12.0 is 72.0 in theory and
+        71.99999 in binary.
+        """
         total = sum(
             scores[c] * int(weights[c] * 100) for c in CRITERIA
         ) / 100
@@ -534,9 +541,11 @@ def main():
 
     by_folder = {}
     for entry in entries:
-        # as_posix(), not str(Path): on Windows the latter yields backslashes,
-        # which the sheet then carried into its own headings and the guard
-        # could not match against git's forward-slash paths.
+        """
+        as_posix(), not str(Path): on Windows the latter yields backslashes,
+        which the sheet then carried into its own headings and the guard could
+        not match against git's forward-slash paths.
+        """
         folder = Path(entry["path"]).parent.as_posix()
         by_folder.setdefault(folder, []).append(entry)
 

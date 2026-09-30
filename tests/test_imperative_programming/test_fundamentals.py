@@ -613,37 +613,61 @@ class TestModules:
 
 class TestModuleImportExamples:
     """
-    The deliberately broken main.py sibling - a real SyntaxError, plus a
-    docstring typo that is harmless by comparison.
+    main.py, the `__main__` guard example, and the docstring typo in it.
+
+    [AI-authored fix] This class used to assert that main.py raises a
+    SyntaxError, because `def main():` had only a comment as its body and
+    comments are not statements. A.I.M fixed that by adding `pass`, and the
+    fix is right: the file is a working example of the guard pattern and it
+    should run. Both assertions here therefore failed on correct code, which
+    is the failure mode rule 11 warns about - a test pinning a defect that has
+    been legitimately repaired.
+
+    The pair is now the opposite claim. main.py parses, imports and runs, and
+    the docstring typo survives independently of any crash. Pinning the typo
+    is still worth doing: it is real, it is harmless, and it is the kind of
+    thing a reader copies by accident.
     """
     MAIN_FILE = f"{FOLDER}/main.py"
 
-    def test_main_py_has_a_syntax_error_and_cannot_be_parsed(self):
-
+    def test_main_py_parses_and_runs(self):
         """
-        main.py is a broken stub: `def main():` has only a comment as its
-        body (comments aren't statements), which is invalid Python - the
-        file fails to even parse, let alone run, regardless of any test
-        harness. This isn't a testing artifact; the exact same
-        SyntaxError happens with a plain `python main.py` too.
+        main.py is a working example of the `if __name__ == "__main__"` guard:
+        it imports without executing main(), and runs cleanly when executed
+        directly. The body of main() is `pass`, which is a valid statement and
+        satisfies the function-body requirement.
+
+        A plain `python main.py` is the real check - no test harness involved -
+        and it must exit 0 with no output, because the guard means nothing runs
+        until something is written inside main().
         """
+        mod, out = run_script(self.MAIN_FILE)
+        assert callable(mod.main), "main() should be importable as a function"
+        assert out == "", (
+            "the guard means main() does not run on import, so importing the "
+            f"module must print nothing; it printed {out!r}"
+        )
 
-        with pytest.raises(SyntaxError):
-            run_script(self.MAIN_FILE)
-
-    def test_main_py_docstring_typo_does_not_affect_the_real_bug(self):
-
+    def test_main_py_docstring_typo_is_still_present_and_harmless(self):
         """
-        The module docstring also says `_name_`/`__main__` (missing
-        underscores) - a comment/documentation typo, harmless on its own,
-        but the file is broken regardless because of the empty function
-        body, not because of this typo.
-        """
+        The module docstring still says `_name_` where it means `__name__`. The
+        typo is in a docstring, so it cannot affect behaviour, and the file
+        runs anyway - which is what makes it worth pinning: a reader copying
+        this pattern would reproduce the mistake.
 
+        Recorded as a documentation defect rather than code, per rule 11. Fixing
+        it is A.I.M's call, since a visible typo in teaching material is a
+        teaching point and not a bug.
+        """
         source = (PYTHON_DIR / self.MAIN_FILE).read_text()
-        assert "_name_" in source  # confirms the docstring typo is present
-        with pytest.raises(SyntaxError):
-            run_script(self.MAIN_FILE)  # but the real failure is elsewhere
+        assert "_name_" in source, (
+            "the docstring typo was corrected; update this test rather than "
+            "letting it fail on the change"
+        )
+        assert '"__main__"' in source, (
+            "the guard itself must still be spelled correctly"
+        )
+        run_script(self.MAIN_FILE)  # and it still runs, typo or not
 
 
 
