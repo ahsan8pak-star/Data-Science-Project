@@ -30,7 +30,7 @@ Where a number is an estimate rather than a measurement, it says so.
 | Commits | 714 at the end of the run (historical — see the note below) |
 | Peak effort | 28–36 h/week recorded across most weeks |
 | Source modules | 161 non-`__init__` files under `python/` |
-| Test suite | 1447 tests, all passing |
+| Test suite | 1448 tests, all passing |
 | Coverage | 99% line, 95% branch |
 | Quality mean | 77.6/100 across 161 ranked files |
 | Mirrors | 4 (GitHub project + backup, GitLab project + backup) |
