@@ -55,10 +55,10 @@ class Writer(Worker):
         return f"{self.name} is writing in the {self.genre} genre."
 
 company = [
-    Manager("Alice", "Manager", "Engineering"), 
-    Developer("Bob", "Developer", "Python"), 
+    Manager("Alice", "Manager", "Engineering"),
+    Developer("Bob", "Developer", "Python"),
     Designer("Charlie", "Designer", "Figma"),
-    Writer("Eve", "Writer", "Fiction"), 
+    Writer("Eve", "Writer", "Fiction"),
     Intern("David", "Intern", "Eve")
     ]
 

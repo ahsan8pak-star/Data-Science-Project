@@ -17,7 +17,7 @@ while EXP < 100: # Game's goal and the only condition to start playing
     attempts = 10
     count = 0 # used to count attempts made
     print(f"New Round! Current Progress: {EXP} / 100.")
-    
+
     while attempts > 0:
         try:
             guess = int(input("Guess: "))
@@ -25,14 +25,14 @@ while EXP < 100: # Game's goal and the only condition to start playing
             print("Enter a valid integer.") # specifies to type down what data type
             continue
 
-        count += 1 # adds every attempt failed/tried 
+        count += 1 # adds every attempt failed/tried
         if guess == answer:
             print(f"Correct. You guessed it in {count} attempt(s)")
             level = attempts * 10
             EXP += level
             print(f"You have gained {level} EXP.")
             break
-        
+
         attempts -= 1 # For every attempt failed
         if attempts > 0:
             print(f"Try again. You have {attempts} tries left.")
@@ -40,7 +40,7 @@ while EXP < 100: # Game's goal and the only condition to start playing
                 print("Guess higher") # when the guess is lower than the answer
             else:
                 print("Guess lower") # when the guess is higher than expcted
-                
+
     if attempts == 0:
         print(f"Unlucky. It was {answer}. You were {100 - EXP} EXP away.")
         break # ends the game

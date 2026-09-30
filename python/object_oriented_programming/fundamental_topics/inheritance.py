@@ -7,7 +7,7 @@ The two classes here cover the override and the super() call.
 """
 
 # Inheritance = Allows a class to inherit attributes and methods from another class
-# Helps with code reusability and extensibility 
+# Helps with code reusability and extensibility
 # e.g. class Child(Parent)
 
 class Animal:
@@ -23,7 +23,7 @@ class Animal:
     def play(self):
         print(f"{self.name} is playing. You can come and play with them.")
 
-eating = Animal("A.I.M") 
+eating = Animal("A.I.M")
 sleeping = Animal("Doug")
 playing = Animal("MeowMeow")
 
@@ -59,9 +59,9 @@ class Mouse(Animal):
             print("tiptoe, tiptoe, tiptoe...")
 
 # Objects
-dog = Dog("Scooby") 
-cat = Cat("Garfield") 
-mouse = Mouse("Mickey") 
+dog = Dog("Scooby")
+cat = Cat("Garfield")
+mouse = Mouse("Mickey")
 
 print(dog.name)
 dog.speak() # Dog -> WOOF!

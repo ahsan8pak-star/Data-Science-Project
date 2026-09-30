@@ -31,10 +31,10 @@ class BankAccount():
 
     def __str__(self):
         # Total width inside the box frame (between "| " and " |")
-        width = 30  
+        width = 30
 
         # TUI Display
-        return ( 
+        return (
             f"\n{'=' * (width + 4)}\n"
             f"| {f'Account Number: {self.account_number}':<{width}} |\n"
             f"| {f'Account Holder: {self.account_holder}':<{width}} |\n"

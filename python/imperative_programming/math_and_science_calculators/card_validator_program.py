@@ -30,7 +30,7 @@ def validate(card_num):
     # Initialise counters INSIDE the function
     sum_odd_digits = 0
     sum_even_digits = 0
-    
+
     # Step 1: Reverse the number layout
     reversed_card = card_num[::-1]
 
@@ -41,7 +41,7 @@ def validate(card_num):
     # Step 3: Double every second digit
     for x in reversed_card[1::2]: # Index 1 (2nd digit) at evert 2 indexs
         x = int(x) * 2
-        
+
         if x >= 10: # If Double Digit Number
             sum_even_digits += (1 + (x % 10)) # add its own digits together
             # e.g. 14 -> 1 + 4 = 5
@@ -62,7 +62,7 @@ if __name__ == "__main__":
     # Step 1: Get and clean the input
     user_card = input("Enter your card #: ")
     clean_card = user_card.replace("-", "").replace(" ", "")
-    
+
     # Run the validation
     if validate(clean_card):
         print("VALID")

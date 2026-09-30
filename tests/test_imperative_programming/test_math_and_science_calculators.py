@@ -82,12 +82,12 @@ class TestArea:
         assert "Area: 6.67 cm^2" in out
 
     def test_negative_dimension_is_not_rejected(self):
-        
+
         """
         No explicit positivity check exists, so a negative width just
         flows through the multiplication.
         """
-        
+
         _, out = run_script(self.FILE, inputs=["10", "-5"])
         assert "Area: -50.0 cm^2" in out
 
@@ -107,7 +107,7 @@ class TestAreaOfCircle:
     FILE = f"{FOLDER}/area_of_circle.py"
 
     def test_running_directly_produces_no_output_at_all(self):
-        
+
         """
         Genuine bug / asymmetry: unlike circumference_of_circle.py, this
         file defines calculate_area() and area_of_circle() but has NO
@@ -116,7 +116,7 @@ class TestAreaOfCircle:
         whatsoever - no prompt, no output - even though the file otherwise
         looks like a complete, runnable script.
         """
-        
+
         _, out = run_script(self.FILE, inputs=["5"])
         assert out == ""
 
@@ -154,7 +154,7 @@ class TestAreaOfCircle:
         assert "Numbers only" in captured.out
 
     def test_area_of_circle_type_error_branch(self, capsys):
-        
+
         """
         The `except TypeError:` clause can't actually be reached through
         any normal string input - float(radius) only ever raises
@@ -162,7 +162,7 @@ class TestAreaOfCircle:
         returns a str. Exercised here by making input() itself raise
         TypeError, purely to confirm the except clause's own message.
         """
-                
+
         mod, _ = run_script(self.FILE)
         with patch("builtins.input", side_effect=TypeError):
             mod.area_of_circle()
@@ -215,12 +215,12 @@ class TestAreaOfTriangle:
         assert mod.get_float_input.__name__ == "get_float_input"
 
     def test_zero_base_skips_result(self):
-        
+
         """
         0 is falsy in Python, so `if b and h:` treats a zero base the
         same as a missing one and silently skips the calculation.
         """
-        
+
         _, out = run_script(self.FILE, inputs=["0", "4"])
         assert "Result" not in out
 
@@ -305,14 +305,14 @@ class TestArithmeticCalculator:
         assert "Error: Undefined. You can't divide anything by 0." in out
 
     def test_blank_next_number_breaks_the_chain_early(self):
-        
+
         """
         Distinct from a blank *operator* (which breaks earlier, at a
         separate `if not op: break`): providing a valid operator but then
         pressing Enter for the next number hits its own break a few lines
         later, before that dangling operator can ever be applied.
         """
-        
+
         inputs = ["10", "+", "5", "*", "", "n"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "| Result: 15 |" in out
@@ -382,14 +382,14 @@ class TestArithmeticExpressions:
     FILE = f"{FOLDER}/arithmetic_expressions.py"
 
     def test_fallback_import_path_used_when_qualified_import_unavailable(self):
-        
+
         """
         Covers the except ImportError: branch: forces the fully-qualified
         python.imperative_programming... import to fail so the bare
         `from arithmetic_calculator import arithmetic` fallback actually
         executes, mirroring the same guard added to arithmetic_iteration.py.
         """
-        
+
         import builtins
         real_import = builtins.__import__
 
@@ -416,7 +416,7 @@ class TestArithmeticExpressions:
         assert "8 ** 6 = 262144" in out
 
     def test_float_inputs_full_output(self):
-        
+
         """
         Corrects an earlier illustrative example: format_result()'s
         non-"/" branch also formats any non-whole float to 2 decimal
@@ -424,7 +424,7 @@ class TestArithmeticExpressions:
         8.5 % 2 prints as "0.50", not "10.5"/"0.5". Whole-number floats
         (17.0, 4.0) still print without the trailing zero.
         """
-        
+
         inputs = ["8.5", "2"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "8.5 + 2 = 10.50" in out
@@ -447,7 +447,7 @@ class TestArithmeticExpressions:
         assert "-8 ** 6 = 262144" in out  # even exponent -> positive result
 
     def test_zero_denominator_reports_the_error_for_every_affected_operator(self):
-        
+
         """
         [AI-authored fix] format_result()'s "/" branch used to apply
         f"{result:.2f}" unconditionally, without checking whether
@@ -463,7 +463,7 @@ class TestArithmeticExpressions:
         The guard now checks the type first, so the whole table prints and
         the user is told what actually went wrong.
         """
-        
+
         inputs = ["8", "0"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "8 + 0 = 8" in out
@@ -479,13 +479,13 @@ class TestArithmeticExpressions:
         assert "Invalid input. Please enter numeric values only." not in out
 
     def test_zero_denominator_still_uses_two_decimal_places_for_real_division(self):
-        
+
         """
         [AI-authored fix] The type guard added to format_result()'s "/"
         branch must not cost the two-decimal-place formatting that branch
         exists for, so a genuine division result is still rounded to 2dp.
         """
-        
+
         inputs = ["8", "4"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "8 / 4 = 2.00" in out
@@ -527,7 +527,7 @@ class TestArithmeticExpressions:
         assert mod.format_result("+", 14) == "14"
 
     def test_modulo_and_floor_division_by_zero_do_not_crash_in_isolation(self):
-        
+
         """
         Confirms format_result() itself handles the zero-division error
         string safely for "%" and "//" (the plain str(result) fallback
@@ -535,7 +535,7 @@ class TestArithmeticExpressions:
         operators list that causes the full-script crash above, not a
         flaw in these two branches themselves.
         """
-        
+
         mod, _ = run_script(self.FILE, inputs=["8", "6"])
         error_string = "Error: Undefined. You can't divide anything by 0."
         assert mod.format_result("%", error_string) == error_string
@@ -686,7 +686,7 @@ class TestArithmeticIteration:
         """
         with patch("builtins.input", side_effect=["2", "3"]):
             result = arithmetic_iteration.generate_sequence(iterations=2, terms=2)
-            
+
         assert result == [5.0, 7.0]  # 2n + 3 for n = 1, 2
 
     def test_arithmetic_iteration_function_directly_stops_on_error(self):
@@ -697,7 +697,7 @@ class TestArithmeticIteration:
         """
 
         final, steps = arithmetic_iteration.arithmetic_iteration(10, "/", [2, 0, 5])
-        
+
         assert final == "Error: Undefined. You can't divide anything by 0."
         assert steps == [5.0, "Error: Undefined. You can't divide anything by 0."]
         assert len(steps) == 2  # confirms the third value (5) was never reached
@@ -841,12 +841,12 @@ class TestCircleCalculator:
         assert "Invalid Option. Try Again." in out
 
     def test_non_digit_option_falls_to_invalid_branch_not_a_crash(self):
-        
+
         """
         `choice.isdigit() and int(choice) == 1` short-circuits safely
         for non-digit text - no ValueError, just the else branch.
         """
-        
+
         _, out = run_script(self.FILE, inputs=["abc"])
         assert "Invalid Option. Try Again." in out
 
@@ -861,19 +861,19 @@ class TestCircleCalculator:
         assert "2. Circumference of Circle" in out
 
     def test_keyboard_interrupt_on_choice_prompt_uses_own_except(self):
-        
+
         """
         A KeyboardInterrupt during the outer `choice = input(...)` call
         is caught by circle_calculator.py's own except block.
         """
-        
+
         kb = patch("builtins.input", side_effect=KeyboardInterrupt)
         _, out = run_script(self.FILE, patches=[kb])
         assert "We apologise for any inconvenience." in out
         assert "Run the program again." in out
 
     def test_keyboard_interrupt_on_delegated_radius_prompt_is_swallowed_inside(self):
-        
+
         """
         Genuine, subtle nesting behaviour: if the KeyboardInterrupt
         instead happens on the radius prompt *inside* the delegated
@@ -881,7 +881,7 @@ class TestCircleCalculator:
         `except KeyboardInterrupt` ("Unusual Crash Detected.") - circle_
         calculator.py's own outer except never even fires for that case.
         """
-        
+
         call_count = {"n": 0}
 
         def fake_input(prompt=""):
@@ -896,7 +896,7 @@ class TestCircleCalculator:
         assert "We apologise for any inconvenience." not in out
 
     def test_own_value_error_except_is_effectively_unreachable_in_practice(self):
-        
+
         """
         circle_calculator.py's own `except ValueError:` can't actually be
         triggered by any real typed input: the choice prompt is a plain
@@ -908,7 +908,7 @@ class TestCircleCalculator:
         artificially, as done here - it's defensive code with no natural
         trigger path.
         """
-        
+
         val_err = patch("builtins.input", side_effect=ValueError)
         _, out = run_script(self.FILE, patches=[val_err])
         assert "Positive Numbers Only." in out
@@ -925,13 +925,13 @@ class TestCircumferenceOfCircle:
     FILE = f"{FOLDER}/circumference_of_circle.py"
 
     def test_valid_radius_when_run_directly(self):
-        
+
         """
         Unlike area_of_circle.py, this file DOES have a working
         `if __name__ == "__main__": circumference()` guard, so running it
         directly correctly prompts and prints a result.
         """
-        
+
         _, out = run_script(self.FILE, inputs=["5"])
         expected = math.pi * 2 * 5
         assert f"Circumference of Circle: {expected:.2f}" in out
@@ -962,13 +962,13 @@ class TestCircumferenceOfCircle:
         assert f"Circumference of Circle: {expected:.2f}" in out
 
     def test_type_error_branch(self):
-        
+
         """
         Same as area_of_circle.py: except TypeError is unreachable via
         normal string input, exercised here by making input() itself
         raise it.
         """
-        
+
         type_err = patch("builtins.input", side_effect=TypeError)
         _, out = run_script(self.FILE, patches=[type_err])
         assert "Positive Numbers only. Meaning greater than 0." in out
@@ -1169,12 +1169,12 @@ class TestCosineRule:
         assert "Result" not in out
 
     def test_find_angle_b_success_case(self):
-        
+
         """
         Success (non-impossible) path for angle B specifically, as
         distinct from the impossible-triangle case above.
         """
-        
+
         inputs = ["angle", "3", "4", "5", "B"]
         _, out = run_script(self.FILE, inputs=inputs)
         cos_B = ((3**2) + (5**2) - (4**2)) / (2 * 3 * 5)
@@ -1182,12 +1182,12 @@ class TestCosineRule:
         assert f"Result: Angle B is {expected} degrees" in out
 
     def test_blank_input_returns_none_without_crashing(self):
-        
+
         """
         Pressing Enter with no value hits get_float_input's own blank
         check, distinct from the try/except numeric-parsing path below.
         """
-        
+
         inputs = ["side", "ab", "", "4", "90"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Result" not in out
@@ -1198,7 +1198,7 @@ class TestCosineRule:
         assert "Invalid input. Numbers only." in out
 
     def test_cosine_rule_silently_produces_nothing_when_imported_via_triangle_calculator(self):
-        
+
         """
         Genuine, subtle bug: cosine_rule.py's own get_float_input() checks
         `if __name__ == "__main__":` - but that checks *cosine_rule's own*
@@ -1210,19 +1210,19 @@ class TestCosineRule:
         the Cosine Rule mode inside the triangle calculator can never
         actually produce a result, even with perfectly valid input.
         """
-        
+
         inputs = ["A", "2", "side", "ab", "3", "4", "90", "6"]
         _, out = run_script("imperative_programming/math_and_science_calculators/triangle_calculator.py", inputs=inputs)
         assert "Result: Side c is 5.0" in out
 
     def test_sine_rule_unaffected_by_the_same_pattern_when_imported(self):
-        
+
         """
         Contrast case: sine_rule.py's get_float_input has no such nested
         guard, so Sine Rule mode works correctly through
         triangle_calculator.py, unlike Cosine Rule mode above.
         """
-        
+
         inputs = ["A", "1", "angle", "ab", "3", "4", "A", "40", "6"]
         _, out = run_script("imperative_programming/math_and_science_calculators/triangle_calculator.py", inputs=inputs)
         assert "Result: Angle B is" in out
@@ -1613,12 +1613,12 @@ class TestSineRule:
         assert "Invalid input. Numbers only." in out
 
     def test_find_angle_a_given_ab_and_angle_b(self):
-        
+
         """
         The known_ang == 'B' branch for the ab combo (as distinct from
         the 'A' branch already covered below).
         """
-        
+
         inputs = ["angle", "ab", "3", "4", "B", "40"]
         _, out = run_script(self.FILE, inputs=inputs)
         sin_A = (3 * math.sin(math.radians(40))) / 4
@@ -1631,12 +1631,12 @@ class TestSineRule:
         assert "Error: Impossible dimensions (Domain Error)." in out
 
     def test_ab_domain_error_via_the_b_known_branch(self):
-        
+
         """
         Same error, but reached through the sibling known_ang == 'B'
         branch rather than 'A' above - a separate code path entirely.
         """
-        
+
         inputs = ["angle", "ab", "10", "1", "B", "80"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Error: Impossible dimensions (Domain Error)." in out
@@ -1649,12 +1649,12 @@ class TestSineRule:
         assert f"Result: Angle C is {expected} degrees" in out
 
     def test_ac_domain_error_via_the_a_known_branch(self):
-        
+
         """
         Distinct from test_ac_domain_error_for_impossible_dimensions
         below, which goes through the sibling known_ang == 'C' branch.
         """
-        
+
         inputs = ["angle", "ac", "1", "10", "A", "80"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Error: Impossible dimensions (Domain Error)." in out
@@ -1677,12 +1677,12 @@ class TestSineRule:
         assert f"Result: Angle C is {expected} degrees" in out
 
     def test_bc_domain_error_via_the_b_known_branch(self):
-        
+
         """
         Distinct from test_bc_domain_error_for_impossible_dimensions
         below, which goes through the sibling known_ang == 'C' branch.
         """
-        
+
         inputs = ["angle", "bc", "1", "10", "B", "80"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Error: Impossible dimensions (Domain Error)." in out
@@ -1698,12 +1698,12 @@ class TestSineRule:
         assert "Error: For sides b and c, you must know angle B or C." in out
 
     def test_find_side_a_given_ab_and_side_b(self):
-        
+
         """
         The known_side == 'b' branch for the AB combo (finds side a),
         distinct from the known_side == 'a' branch (finds side b).
         """
-        
+
         inputs = ["side", "AB", "30", "60", "b", "6"]
         _, out = run_script(self.FILE, inputs=inputs)
         a = (6 * math.sin(math.radians(30))) / math.sin(math.radians(60))
@@ -1851,7 +1851,7 @@ class TestSquareNumberTimesTables:
 
     @pytest.fixture(autouse=True)
     def _clean_times_tables_cache(self):
-        
+
         """
         `from times_tables import times_tables` caches the sibling module
         under sys.modules["times_tables"]. Reset it before/after each
@@ -1860,7 +1860,7 @@ class TestSquareNumberTimesTables:
         triangle_calculator.py, euclidean_distance_calculator.py via
         gradient_calculator.py).
         """
-        
+
         sys.modules.pop("times_tables", None)
         yield
         sys.modules.pop("times_tables", None)
@@ -1876,13 +1876,13 @@ class TestSquareNumberTimesTables:
             assert f"{n} x {n} = {n * n}" in out
 
     def test_squares_are_correct_not_just_present(self):
-        
+
         """
         Distinct from the presence check above: confirms the printed
         values are genuine squares (i x i), not some other formula that
         happens to also produce matching lines for small numbers.
         """
-        
+
         _, out = run_script(self.FILE, inputs=["12"])
         assert "12 x 12 = 144" in out
         assert "7 x 7 = 49" in out
@@ -1892,24 +1892,24 @@ class TestSquareNumberTimesTables:
         assert "Square Times Tables:" in out
 
     def test_non_numeric_input_raises_uncaught_value_error(self):
-        
+
         """
         No try/except around int(input(...)) in this file, so invalid
         text should propagate as a real ValueError, same category as
         distance_calculator.py and grade_boundary_calculator.py.
         """
-        
+
         with pytest.raises(ValueError):
             run_script(self.FILE, inputs=["not-a-number"])
 
     def test_negative_limit_produces_no_output_rows(self):
-        
+
         """
         range(0, limit + 1) is empty when limit is negative (e.g.
         range(0, -4) for limit=-5), so the loop body never executes -
         only the header line prints.
         """
-        
+
         _, out = run_script(self.FILE, inputs=["-5"])
         assert "Square Times Tables:" in out
         assert "x" not in out.split("Square Times Tables:")[1]
@@ -1922,7 +1922,7 @@ class TestSquareNumberTimesTables:
         assert "3 x 3 = 9" in captured.out
 
     def test_times_tables_sibling_import_resolves_correctly(self):
-        
+
         """
         Confirms the sibling import itself works (times_tables is
         importable from the same folder) even though square_number()
@@ -1930,7 +1930,7 @@ class TestSquareNumberTimesTables:
         an unused import in this file, distinct from
         gradient_calculator.py's genuine use of its sibling import.
         """
-        
+
         mod, _ = run_script(self.FILE, inputs=["1"])
         assert mod.times_tables.__name__ == "times_tables"
 
@@ -1970,12 +1970,12 @@ class TestTimesTables:
         assert "1 Times Table(s)" not in out
 
     def test_asymmetric_columns_and_tables(self):
-        
+
         """
         Confirms columns and tables are independently configurable -
         the outer loop's range isn't silently reused for the inner one.
         """
-        
+
         inputs = ["2", "4"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "4 Times Table(s)" in out
@@ -1991,25 +1991,25 @@ class TestTimesTables:
             run_script(self.FILE, inputs=["5", "not-a-number"])
 
     def test_negative_tables_produces_no_output_rows(self):
-        
+
         """
         range(0, tables + 1) is empty when tables is negative, so the
         outer loop body (and therefore every inner print) never runs.
         """
-        
+
         inputs = ["5", "-3"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Times Table(s)" not in out
 
     def test_negative_columns_prints_table_headers_with_no_multiplication_rows(self):
-        
+
         """
         Distinct from negative tables above: a negative columns value
         still lets the outer loop run (tables is still valid), so every
         "N Times Table(s)" header prints, but the inner range(0, columns
         + 1) is empty, so no "i x j = ..." lines ever appear.
         """
-        
+
         inputs = ["-2", "3"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "0 Times Table(s)" in out
@@ -2081,13 +2081,13 @@ class TestTriangleCalculator:
         assert "Result: Hypotenuse (c) is 5.0" in out
 
     def test_pythagoras_requires_exactly_two_known_values(self):
-        
+
         """
         triangle_calculator.py has its own separate pythagoras()
         function (distinct from the standalone pythagoras_theorem.py) -
         exercising its own "all three provided" guard clause.
         """
-        
+
         inputs = ["A", "3", "3", "4", "5", "6"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Error: You must provide exactly TWO known values." in out
@@ -2113,13 +2113,13 @@ class TestTriangleCalculator:
         assert "Error: Hypotenuse (c) MUST be strictly greater than side (a)." in out
 
     def test_pythagoras_own_get_float_input_rejects_non_numeric(self):
-        
+
         """
         triangle_calculator.py's pythagoras() uses its own local
         get_float_input(), separate from the one in pythagoras_theorem.py
         - confirms its error message specifically.
         """
-        
+
         inputs = ["A", "3", "abc", "4", "5", "6"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Invalid input. Please enter numbers only." in out
@@ -2130,25 +2130,25 @@ class TestTriangleCalculator:
         assert "You selected Scalene." in out
 
     def test_scalene_perimeter_uses_three_sides(self):
-        
+
         """
         Scalene is the match-statement's default case for perimeter()
         (unlike equilateral/isosceles, it takes 3 independent sides).
         """
-        
+
         inputs = ["D", "5", "3", "4", "5", "6"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert ">>> Calculator locked into Scalene mode. <<<" in out
         assert "Result: Perimeter is 12.0" in out
 
     def test_scalene_area_uses_base_height_formula(self):
-        
+
         """
         Scalene is also area()'s default case, using the plain
         base * height / 2 formula rather than the right/equilateral
         specific ones.
         """
-        
+
         inputs = ["D", "4", "10", "4", "6"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Result: Area is 20.0" in out

@@ -9,43 +9,43 @@ division operators (/, //, %) each guard num2 == 0 separately.
 """
 
 def arithmetic(num1, op, num2):
-    
+
     match op:
         case "+":
             return num1 + num2
-    
+
         case "-":
             return num1 - num2
-    
+
         case "*":
             return num1 * num2
-    
+
         case "/":
             if num2 == 0:
                 return "Error: Undefined. You can't divide anything by 0." # return allows the function to retrive the value rather than print() -> program crash
-    
+
             else:
-                return num1 / num2 
-    
+                return num1 / num2
+
         case "//":
             if num2 == 0:
                 return "Error: Undefined. You can't divide anything by 0." # "Error" is essential for the type() function to work in lines 84 & 85
             else:
                 return num1 // num2
-    
+
         case "%":
             if num2 == 0:
                 return "Error: Undefined. You can't divide anything by 0."
             else:
-                return num1 % num2 
-        
+                return num1 % num2
+
         case "**":
             return num1 ** num2
 
-if __name__ == "__main__":            
+if __name__ == "__main__":
     try:
         print("=======================")
-        print(" ARITHMETIC CALCULATOR ")        
+        print(" ARITHMETIC CALCULATOR ")
         print("=======================\n")
         print("<================>")
         print("<  MENU   GUIDE  >")
@@ -53,7 +53,7 @@ if __name__ == "__main__":
         print("  _______________________________________________________ ")
         print(" /                                                       \\ ")
         print(" | 1) + = addition         5) // = base / quotient       | ")
-        print(" | 2) - = subtraction      6) % = remainder / modulus    | ") 
+        print(" | 2) - = subtraction      6) % = remainder / modulus    | ")
         print(" | 3) * = multiplication   7) ** = power / exponent      | ")
         print(" | 4) / = division         8) <ENTER> = Calculate result | ")
         print(" \\                                                       / ")
@@ -63,18 +63,18 @@ if __name__ == "__main__":
         first_num = input("Enter the 1st number: ").strip()
 
         if not first_num: # When <ENTER> is pressed first
-        
+
             print("No input provided. Exiting.")
-        
+
             exit()
 
         total = float(first_num)
 
-        
+
         for count in range(2, 51): # Up to 50 numbers (Very Excessive)
-            
+
             op = input(f"Enter operation {count-1}: ").strip() # decrements numbers for every operation used (next_num - 1)
-        
+
             if not op:  # Hit <ENTER> for result
                 break
 
@@ -105,10 +105,10 @@ if __name__ == "__main__":
 
                 # Uses f-string with the 'g' specifier for accurate significant figures
                 result = f"{total:.{sf}g}"
-            
+
             elif round_choice and round_choice[0].lower() == "n":
                 result = total
-            
+
             else:
                 print("Invalid choice. Try again.")
                 result = total

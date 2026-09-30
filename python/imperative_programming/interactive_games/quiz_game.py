@@ -22,7 +22,7 @@ options = (("A. 116", "B. 117", "C. 118", "D. 119"),
 answers = ("C", "D", "A", "A", "B") # Correct options
 
 # starting point
-guesses = [] 
+guesses = []
 score = 0
 question_num = 0
 

@@ -25,7 +25,7 @@ class Company:
             self.e_depart = e_depart
 
         def employee_details(self):
-            if self.e_depart:    
+            if self.e_depart:
                 return f"{self.e_name} : {self.e_role} -> {self.e_depart}"
             else:
                 return f"{self.e_name} : {self.e_role}"
@@ -43,7 +43,7 @@ class Company:
     def employee_list(self): # for loop to iterate the list
         return [employee.employee_details() for employee in self.employees]
 
-    def __str__(self): # converts object memory address into string 
+    def __str__(self): # converts object memory address into string
         return f"{self.c_name} | {self.c_type}"
 
 
@@ -58,11 +58,11 @@ class Organisation:
             self.e_depart = e_depart
 
         def employee_details(self):
-            if self.e_depart:    
+            if self.e_depart:
                 return f"{self.e_name} : {self.e_role} -> {self.e_depart}"
             else:
                 return f"{self.e_name} : {self.e_role}"
-            
+
     def __init__(self, o_name, o_type):
         self.o_name = o_name
         self.o_type = o_type

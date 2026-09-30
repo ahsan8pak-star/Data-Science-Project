@@ -17,7 +17,7 @@ print(help("time")) # show all 'time' module imports e.g. time.sleep()
 # Printing pi:
 
 import math # module
-print(math.pi) 
+print(math.pi)
 
 import math as m # module assignment
 print(m.pi)

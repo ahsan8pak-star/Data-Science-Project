@@ -28,10 +28,10 @@ class Student:
         years = 21 - self.age
 
         if student1.university == student2.university == student3.university:
-            
+
             if self.age >= 21:
                 print(f"Congratulations {self.name}, you are now graduating.")
-        
+
             else:
                 print(f"Continue studying {self.name}, just {years} year(s) left.")
         else:

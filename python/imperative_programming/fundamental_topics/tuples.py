@@ -7,7 +7,7 @@ numbers = (1, 2, 3) # Immutable = can't be changed at all
 # Example of this:
 
 # numbers[0] = 10
-# print(numbers[0]) 
+# print(numbers[0])
 # Output:
 # TypeError - Meaning tuples can't be changed once the items has been made
 
@@ -60,22 +60,22 @@ print(sorted_points)
 
 coordinates[:]
 
-print(coordinates[0:])  
-print(coordinates[1:]) 
-print(coordinates[2:]) 
+print(coordinates[0:])
+print(coordinates[1:])
+print(coordinates[2:])
 
-print(coordinates[-3:]) 
-print(coordinates[-2:]) 
-print(coordinates[-1:]) 
+print(coordinates[-3:])
+print(coordinates[-2:])
+print(coordinates[-1:])
 
-print(coordinates[:0])  
-print(coordinates[:1]) 
-print(coordinates[:2]) 
+print(coordinates[:0])
+print(coordinates[:1])
+print(coordinates[:2])
 
-print(coordinates[:-3]) 
-print(coordinates[:-2]) 
-print(coordinates[:-1]) 
-print(coordinates[:-0]) 
+print(coordinates[:-3])
+print(coordinates[:-2])
+print(coordinates[:-1])
+print(coordinates[:-0])
 
 """ Tuples <-> Lists """
 

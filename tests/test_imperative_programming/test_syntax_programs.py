@@ -104,12 +104,12 @@ class TestCheckoutSystem:
             run_script(self.FILE, inputs=["Apple", "1.50", "abc"])
 
     def test_negative_quantity_falls_into_else_branch(self):
-        
+
         """
         Only 0 and 1 have dedicated branches; a negative quantity is
         neither, so it flows into the general multi-item branch.
         """
-        
+
         _, out = run_script(self.FILE, inputs=["Apple", "1.50", "-2"])
         assert "You bought -2 Apples" in out
         assert "Total: £-3.00" in out
@@ -138,12 +138,12 @@ class TestCountUpTimer:
         assert out.count("TIMES UP!") == 10
 
     def test_none_printed_after_each_call(self):
-        
+
         """
         count() has no return statement, so wrapping every call in
         print() also prints the literal word 'None' each time.
         """
-        
+
         _, out = run_script(self.FILE)
         assert out.count("None") == 10
 
@@ -172,12 +172,12 @@ class TestCountUpTimer:
         assert "3\n4\n5\nTIMES UP!\n" in captured.out
 
     def test_start_greater_than_end_prints_no_numbers(self):
-        
+
         """
         range(start, end + 1) is empty when start > end, so the loop
         body never executes - only the trailing 'TIMES UP!' prints.
         """
-        
+
         mod, _ = run_script(self.FILE)
         with patch("time.sleep", return_value=None):
             import io
@@ -278,14 +278,14 @@ class TestDrinkScriptExample:
         assert "Your favourite drink is 'TEA'!" in out
 
     def test_drink_script_has_no_guard_and_always_executes(self, monkeypatch, capsys):
-        
+
         """
         Importing the module via its full package path to verify
         the lack of a guard clause.
         """
-        
+
         import imperative_programming.syntax_exercises.drink_script_example as drink_script_example # noqa: F401
-        
+
         captured = capsys.readouterr()
         assert "Your favourite food is 'RICE'!" in captured.out
         assert "This is SCRIPT 2!" in captured.out
@@ -323,14 +323,14 @@ class TestEmailSlicer:
         assert "Username: ahsan" in out
 
     def test_at_symbol_present_but_no_dot_shows_invalid_email_message(self):
-        
+
         """
         slice_email() only checks for '@', so "user@localhost" parses
         fine internally - but the outer loop's own
         `if "@" in email and "." in email:` guard still rejects it for
         missing a dot, distinct from the missing-'@' ValueError path.
         """
-        
+
         inputs = ["user@localhost", "q"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Invalid email. Try again." in out
@@ -376,12 +376,12 @@ class TestEvenOddLoopDetector:
         assert out.find("We have 6 even numbers") < out.find("We have 5 odd numbers")
 
     def test_no_input_required(self):
-        
+
         """
         The script has no input() calls, so it should run identically
         with an empty inputs list.
         """
-        
+
         _, out = run_script(self.FILE, inputs=[])
         assert "We have 6 even numbers" in out
 
@@ -399,12 +399,12 @@ class TestFoodScriptExample:
 
     @pytest.fixture(autouse=True)
     def _clean_module_cache(self):
-        
+
         """
         Reset the specific module path before/after each test to ensure
         fresh imports and no state pollution.
         """
-        
+
         sys.modules.pop(self.MODULE_PATH, None)
         yield
         sys.modules.pop(self.MODULE_PATH, None)
@@ -416,17 +416,17 @@ class TestFoodScriptExample:
         assert "Bye Bye!" in out
 
     def test_food_script_stays_silent_on_a_plain_import(self, monkeypatch, capsys):
-        
+
         # Importing the module via its full package path.
         import imperative_programming.syntax_exercises.food_script_example as food_script_example # noqa: F401
-        
+
         captured = capsys.readouterr()
         assert captured.out == ""
 
     def test_food_script_favourite_food_function_direct(self, capsys):
         mod, _ = run_script(self.FILE)
         mod.favourite_food("pizza")
-        
+
         captured = capsys.readouterr()
         assert "Your favourite food is 'PIZZA'!" in captured.out
 
@@ -458,23 +458,23 @@ class TestFactorials:
         assert factorial(6) == 6 * factorial(5)
 
     def test_negative_input_recurses_indefinitely_until_recursion_error(self):
-        
+
         """
         There's no base case for negatives, so n never reaches 0 or 1
         and Python eventually raises a RecursionError.
         """
-        
+
         with pytest.raises(RecursionError):
             factorial(-1)
 
     def test_script_block_valid_input(self):
-        
+
         """
         factorials.py now also has an `if __name__ == "__main__":`
         block wrapping an input()/print() script, in addition to the bare
         function - exercise that too, not just factorial() directly.
         """
-        
+
         _, out = run_script(f"{FOLDER}/factorials.py", inputs=["5"])
         assert out.strip() == "120"
 
@@ -641,12 +641,12 @@ class TestFoodMenu:
         assert "Total:  £11.97" in out
 
     def test_invalid_item_is_silently_ignored(self):
-        
+
         """
         menu.get(food) is None for unknown items, so the elif branch is
         skipped entirely with no error message and no order entry.
         """
-        
+
         _, out = run_script(self.FILE, inputs=["burger", "q"])
         assert "burger" not in out.split("======================")[1]
         assert "Total:  £0.00" in out
@@ -657,7 +657,7 @@ class TestFoodMenu:
         assert "Thank you for your order!" in out
 
     def test_item_name_is_case_insensitive(self):
-        
+
         """
         `food = input(...).lower()` normalises the entry before the
         menu lookup, so uppercase item names still match.
@@ -826,14 +826,14 @@ class TestMathModuleAndMathFile:
 
     @pytest.fixture(autouse=True)
     def _clean_math_module_cache(self):
-        
+
         """
         math_file.py's plain `import math_module` gets cached in
         sys.modules under the bare name 'math_module'; reset it before and
         after each test here so successes/failures in one test don't leak
         into another.
         """
-        
+
         sys.modules.pop("math_module", None)
         yield
         sys.modules.pop("math_module", None)
@@ -1116,7 +1116,7 @@ class TestPrimeNumbers:
         assert "The number 0 isn't prime." in out
 
     def test_negative_number_is_reported_as_not_prime(self):
-        
+
         """
         The special-case check only excludes 0 and 1; a negative number
         falls through the `while i < n` loop (which never executes since
@@ -1124,7 +1124,7 @@ class TestPrimeNumbers:
         function still returns based on that logic - verify actual
         behaviour rather than assuming.
         """
-        
+
         mod, _ = run_script(self.FILE, inputs=["2"])
         assert mod.is_prime(-5) is True  # loop never runs, flag stays True
 
@@ -1147,12 +1147,12 @@ class TestRandomCipher:
 
     @staticmethod
     def _reversed_key_patch():
-        
+
         """
         Makes the substitution deterministic: the key is simply the
         character pool reversed, instead of randomly shuffled.
         """
-        
+
         return patch("random.shuffle", side_effect=lambda lst: lst.reverse())
 
     def test_encryption_is_deterministic_with_a_reversed_key(self):
@@ -1162,36 +1162,36 @@ class TestRandomCipher:
         assert "Encrypted Message: <aZoY" in out
 
     def test_decryption_reverses_a_matching_encryption(self):
-        
+
         """
         Feeding the exact ciphertext produced above back in as the
         decrypt input should round-trip to the original plaintext.
         """
-        
+
         _, out = run_script(
             self.FILE, inputs=["Hi 4!", "<aZoY"], patches=[self._reversed_key_patch()]
         )
         assert "Decrypted Message: Hi 4!" in out
 
     def test_unknown_characters_pass_through_unchanged(self):
-        
+
         """
         Characters outside the tracked charset (like a tab) hit the
         fallback `else` branch and are copied over untouched.
         """
-        
+
         _, out = run_script(
             self.FILE, inputs=["A\tB", "placeholder"], patches=[self._reversed_key_patch()]
         )
         assert "\t" in out
 
     def test_chars_pool_is_never_shuffled_itself(self):
-        
+
         """
         Only `key` (a copy) is shuffled; the original `chars` list stays
         in its built, unshuffled order.
         """
-        
+
         mod, _ = run_script(
             self.FILE, inputs=["A", "B"], patches=[self._reversed_key_patch()]
         )
@@ -1218,13 +1218,13 @@ class TestRandomCipher:
         assert "Encrypted Message: \n" in out
 
     def test_decrypt_fallback_for_characters_outside_the_charset(self):
-        
+
         """
         The decrypt loop's own `else: decrypted_text += letter` branch,
         distinct from the encrypt-side fallback tested elsewhere - a tab
         in the ciphertext input passes through unchanged on decryption.
         """
-        
+
         _, out = run_script(
             self.FILE, inputs=["A", "\t"], patches=[self._reversed_key_patch()]
         )
@@ -1261,14 +1261,14 @@ class TestRandomColourGenerator:
         assert "#FFFFFF" in out
 
     def test_hexadecimal_short_alias_variants_all_accepted(self):
-        
+
         """
         The case pattern accepts four separate short aliases for hex
         ("hexa", "hex", "he") in addition to "1"/"hexadecimal" - each
         gets its own run to confirm none of them silently fall through
         to the default "not recognised" branch.
         """
-        
+
         fixed_randint = patch("random.randint", return_value=0x000000)
         for alias in ("hexa", "hex", "he"):
             _, out = run_script(self.FILE, inputs=["1", alias], patches=[fixed_randint])
@@ -1282,14 +1282,14 @@ class TestRandomColourGenerator:
         assert "RGB(10, 20, 30)" in out
 
     def test_rgb_short_alias_variants_all_accepted(self):
-        
+
         """
         "rgb", "r", "b", and "g" are all valid aliases for the SAME full
         RGB triplet case - none of them mean "just the red/blue/green
         channel alone", which is worth confirming explicitly since the
         naming could otherwise be misread as single-channel shortcuts.
         """
-        
+
         for alias in ("rgb", "r", "b", "g"):
             fixed_randint = patch("random.randint", side_effect=[1, 2, 3])
             _, out = run_script(self.FILE, inputs=["1", alias], patches=[fixed_randint])
@@ -1326,14 +1326,14 @@ class TestRandomColourGenerator:
         assert "#123456" in out
 
     def test_multiple_colours_of_the_same_type_generated(self):
-        
+
         """
         colour_type is read ONCE, outside the loop, so all max_num
         iterations use the same case every time - confirms the loop
         actually repeats the chosen type rather than re-prompting or
         defaulting after the first iteration.
         """
-        
+
         # 3 iterations x 3 randint() calls per RGB colour (r, g, b) = 9 values needed
         fixed_randint = patch("random.randint", side_effect=[1, 2, 3, 4, 5, 6, 7, 8, 9])
         inputs = ["3", "rgb"]
@@ -1344,13 +1344,13 @@ class TestRandomColourGenerator:
         assert out.count("RGB(") == 3
 
     def test_invalid_colour_type_shows_error_and_stops_immediately(self):
-        
+
         """
         The default case's `break` means only ONE error message ever
         prints, regardless of how large max_num is - the loop doesn't
         repeat the "not recognised" message for every iteration.
         """
-        
+
         inputs = ["5", "crayon"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Error: 'crayon' is not a recognised option." in out
@@ -1369,13 +1369,13 @@ class TestRandomColourGenerator:
         assert "#" not in out.split("-" * 30)[-1]
 
     def test_negative_max_num_produces_no_colour_lines(self):
-        
+
         """
         range(negative) is empty, same category as square_number_times_tables.py
         and times_tables.py's negative-input behaviour elsewhere in this
         suite - the header still prints, the loop body just never runs.
         """
-        
+
         inputs = ["-3", "hex"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Generating -3 random colour(s):" in out
@@ -1393,13 +1393,13 @@ class TestRandomColourGenerator:
         assert "Wrong Data Values." in out
 
     def test_decimal_max_num_raises_caught_value_error(self):
-        
+
         """
         int() rejects "3.5" outright (unlike float(), which would parse
         it fine) - this is a real ValueError path distinct from
         genuinely non-numeric text like "abc".
         """
-        
+
         inputs = ["3.5", "1"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Wrong Data Values." in out
@@ -1414,12 +1414,12 @@ class TestRandomColourGenerator:
         assert "4. HSL (e.g. (80, 60%, 40%))" in out
 
     def test_random_colours_function_returns_none_directly(self):
-        
+
         """
         random_colours() has no return statement, so calling it directly
         should yield None, distinct from asserting on its printed output.
         """
-        
+
         mod, _ = run_script(self.FILE, inputs=["1", "1"], patches=[patch("random.randint", return_value=0)])
         with patch("builtins.input", side_effect=["1", "rgb"]):
             with patch("random.randint", side_effect=[5, 5, 5]):
@@ -1427,13 +1427,13 @@ class TestRandomColourGenerator:
         assert result is None
 
     def test_real_hex_output_matches_expected_format_without_patching(self):
-        
+
         """
         A sanity check with genuinely random values (no patch): confirms
         the hex format itself - '#' followed by exactly 6 uppercase
         hex digits - regardless of which random bytes were drawn.
         """
-        
+
         import re
         _, out = run_script(self.FILE, inputs=["1", "hex"])
         match = re.search(r"#[0-9A-F]{6}", out)
@@ -1462,13 +1462,13 @@ class TestReverseListProgram:
         assert "Reverse List: cherry, apple, banana" in out
 
     def test_alpha_list_sorted_then_reversed(self):
-        
+
         """
         Sorting happens BEFORE the reversal, so a "yes" answer produces
         descending alphabetical order, not the original input order
         reversed.
         """
-        
+
         inputs = ["banana, apple, cherry", "y"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Reverse List: cherry, banana, apple" in out
@@ -1479,60 +1479,60 @@ class TestReverseListProgram:
         assert "Reverse List: 33, 2, 10" in out
 
     def test_numeric_list_sorted_numerically_not_lexicographically(self):
-        
+
         """
         Items are converted to int BEFORE sort() is called, so "10" sorts
         correctly after "2" (numeric order), not before it, which is
         what a lexicographic/string sort would have produced.
         """
-        
+
         inputs = ["10, 2, 33", "y"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Reverse List: 33, 10, 2" in out
 
     def test_mixed_alpha_and_numeric_items_rejected(self):
-        
+
         """
         Only one input (the list itself) is consumed here - the mismatch
         is caught before the order_choice prompt is ever reached.
         """
-        
+
         inputs = ["apple, 5, banana"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Error: All items must be the same data type / variable" in out
         assert "Reverse List:" not in out
 
     def test_empty_input_is_rejected(self):
-        
+
         """
         An empty string still produces one list item (""), and both
         "".isalpha() and "".isnumeric() are False, so this hits the same
         mismatched-type error branch rather than crashing.
         """
-        
+
         _, out = run_script(self.FILE, inputs=[""])
         assert "Error: All items must be the same data type / variable" in out
 
     def test_negative_numbers_are_rejected_as_non_numeric(self):
-        
+
         """
         Genuine limitation worth documenting: str.isnumeric() returns
         False for a leading '-' sign, so a "numeric" list containing a
         negative number is treated as neither alpha nor numeric and hits
         the error branch, even though it's conceptually still numeric.
         """
-        
+
         inputs = ["-5, 3, 8"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Error: All items must be the same data type / variable" in out
 
     def test_decimal_numbers_are_rejected_as_non_numeric(self):
-        
+
         """
         Same root cause as the negative-number case: str.isnumeric()
         returns False for a decimal point, so "3.14" is rejected too.
         """
-        
+
         inputs = ["3.14, 2.5"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Error: All items must be the same data type / variable" in out
@@ -1553,12 +1553,12 @@ class TestReverseListProgram:
         assert "Reverse List: 42" in out
 
     def test_order_choice_accepts_any_y_prefixed_word(self):
-        
+
         """
         `.startswith("y")` accepts "yes", "yep", or just "y" - not an
         exact-match check against "y" alone.
         """
-        
+
         inputs = ["banana, apple", "yes"]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Reverse List: banana, apple" in out  # sorted [apple, banana] then reversed
@@ -1660,12 +1660,12 @@ class TestShippingLabel:
         assert "FLOOR" not in captured.out
 
     def test_falsy_empty_value_is_treated_as_missing(self, capsys):
-        
+
         """
         The walrus-operator guard `if value := location.get(key)` skips
         the line entirely when the value is empty, since "" is falsy.
         """
-        
+
         mod, _ = run_script(self.FILE)
         mod.shipping_label("A.", "B", postcode="", city="Bristol")
         captured = capsys.readouterr()
@@ -1872,12 +1872,12 @@ part of any of the topic subfolders.
 
 
 def test_aim_py_is_currently_empty_and_imports_cleanly():
-    
+
     """
     Guards python/sandbox/aim.py against broken execution or syntax errors on import.
     Ensures any code added to the sandbox entry point runs cleanly without unexpected errors.
     """
-    
+
     _, out = run_script("sandbox/aim.py")
     assert out == ""
 
@@ -2221,14 +2221,14 @@ class TestBankingProgram:
         assert result == 50.0
 
     def test_deposit_produces_no_confirmation_message(self, capsys):
-        
+
         """
         Asymmetry worth flagging: withdraw() prints two confirmation
         lines ("You have withdrew..."/"You have ... left.") on success,
         but deposit() has no equivalent - it silently just returns the
         amount with no printed confirmation at all.
         """
-        
+
         mod, _ = run_script(self.FILE, inputs=["4"])
         with patch("builtins.input", return_value="50"):
             mod.deposit()

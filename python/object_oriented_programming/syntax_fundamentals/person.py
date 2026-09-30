@@ -12,9 +12,9 @@ class Person:
         self.name = name
         self.age = age
         self.is_talking = is_talking
-    
+
     def talk(self):
-        
+
         if self.is_talking == True:
             print(f"{self.name} is speaking right now.")
 

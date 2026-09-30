@@ -11,16 +11,16 @@ import random
 import string
 
 # Creates main sequence containing spaces, punctuation, digits, and letters
-chars = " " + string.punctuation + string.digits + string.ascii_letters 
-chars = list(chars) 
+chars = " " + string.punctuation + string.digits + string.ascii_letters
+chars = list(chars)
 
 # Create an identical copy of the character pool and randomly scramble it to act as the cipher key
-key = chars.copy() 
-random.shuffle(key) 
+key = chars.copy()
+random.shuffle(key)
 
 # ENCRYPT
 plain_text = input("Enter a message to encrypt: ")
-cipher_text = "" 
+cipher_text = ""
 
 for letter in plain_text:
 
@@ -36,7 +36,7 @@ print(f"Encrypted Message: {cipher_text}\n")
 
 # DECRYPT
 cipher_input = input("Enter a message to decrypt: ")
-decrypted_text = "" 
+decrypted_text = ""
 
 for letter in cipher_input:
 

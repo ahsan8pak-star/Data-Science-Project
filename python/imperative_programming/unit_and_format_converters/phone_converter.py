@@ -30,20 +30,20 @@ def num(phone): # Mapping a numeric digit to its string word from 0 to 9
             return "Nine"
         case _: # The underscore acts as the 'default' or 'else' case
             return "Invalid Phone Digit"
-        
-while True: # Keeps looping until a valid input is received 
+
+while True: # Keeps looping until a valid input is received
 # Meaning it should be up to 9 characters long for the digits length
 
     phone = input("Phone: ") # Treated as a string on its default case
 
-    if 0 < len(phone) < 11 and phone.isdigit(): # Checks if the length is 1-10 characters AND contains only numbers 
+    if 0 < len(phone) < 11 and phone.isdigit(): # Checks if the length is 1-10 characters AND contains only numbers
 
         break # Exits the loop to proceed to the processing stage
 
     else:
         print("Enter up to 10 digits from 0 to 9.") # Displays the error message
 
-result = "" # Starts with an empty string 
+result = "" # Starts with an empty string
 
 for digit in phone: # Iterates through each validated digit in the string
 

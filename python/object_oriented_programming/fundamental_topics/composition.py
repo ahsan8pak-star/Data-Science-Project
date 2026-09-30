@@ -28,18 +28,18 @@ class Car: # Composite Object (Composition Starts)
         return f"{self.brand} {self.model}: {self.engine.horse_power}hp | {self.wheels[0].size}in"
 
 car1 = Car(
-    brand = "BMW", 
-    model = "M3 GTR", 
-    horse_power = 550, 
+    brand = "BMW",
+    model = "M3 GTR",
+    horse_power = 550,
     wheel_size = 19
 )
 
 print(car1.display_car())
 
 car2 = Car(
-    brand = "Chevrolet", 
-    model = "Corvette Z06", 
-    horse_power = 670, 
+    brand = "Chevrolet",
+    model = "Corvette Z06",
+    horse_power = 670,
     wheel_size = 20
 )
 

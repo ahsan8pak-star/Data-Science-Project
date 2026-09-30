@@ -58,12 +58,12 @@ class TestFahrenheitCelsiusConverter:
         assert "Numbers only!" in out
 
     def test_empty_first_prompt_defaults_to_celsius_path(self):
-        
+
         """
         An empty string is falsy, so `i and i[0].upper() == "F"` skips
         straight to the else (Celsius) branch.
         """
-        
+
         _, out = run_script(self.FILE, inputs=["", "0"])
         assert "0.0 degrees Celsius is 32.0 degrees Fahrenheit" in out
 
@@ -225,7 +225,7 @@ class TestTimeConverter:
         Cases 5-9 (weeks/months/years/decades/centuries) weren't
         exercised by any other test.
         """
-        
+
         mod, _ = run_script(self.FILE, inputs=["1", "1", "1"])
         assert mod.get_unit_info(5) == (604800, "Weeks")
         assert mod.get_unit_info(6) == (2629746, "Months")
@@ -314,12 +314,12 @@ class TestWeightConverter:
         assert "You weigh 67.5 kilograms." in out
 
     def test_negative_weight_is_not_rejected_by_the_zero_check(self):
-        
+
         """
         Only `== 0` or empty is rejected; a negative value slips through
         to the float()/unit conversion path.
         """
-        
+
         _, out = run_script(self.FILE, inputs=["-10", "k"])
         expected = -10 / 0.45
         assert f"You weigh {expected} pounds." in out

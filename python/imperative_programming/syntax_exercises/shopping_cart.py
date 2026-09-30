@@ -10,7 +10,7 @@ def cart():
 
     # Starting Point
 
-    fruits = [] 
+    fruits = []
     prices = []
 
     while True: # While this entire function is True i.e. Program Running
@@ -23,12 +23,12 @@ def cart():
             price = input(f"Enter the price for {fruit} (c = checkout): £ ")
 
             if price.lower() == "c":
-                break # Essential if they accidentally added an extra item not needed 
+                break # Essential if they accidentally added an extra item not needed
 
             else:
                 fruits.append(fruit) # Adds the new fruit in the list 'fruits'
                 prices.append(float(price)) # Adds the new price under 'prices' as a floating point number
-    
+
     return fruits, prices # returns the main variables back to the function
 
 try:

@@ -7,7 +7,7 @@ The bodies are pass and can never be invoked, so those lines are a documented
 coverage cap.
 """
 
-from abc import ABC, abstractmethod 
+from abc import ABC, abstractmethod
 
 class Device(ABC):
     def __init__(self, brand, model):

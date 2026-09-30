@@ -14,7 +14,7 @@ concept the class represents; otherwise a module-level function is clearer.
 # Static Methods = Utility Functions, not accessing class data
 
 # For Instance Methods:
-# Go to nested_classes.py on lines 19 - 23, 
+# Go to nested_classes.py on lines 19 - 23,
 # lines 35 - 39, lines 52 - 56 and lines 67 - 71
 
 class Employee:
@@ -33,8 +33,8 @@ class Employee:
         # 'in' checks list membership
         # use '==' (not 'is') for string equality
         # 'is' checks object identity (same memory location)
-        return job_role in valid_job_role 
-    
+        return job_role in valid_job_role
+
 
 manager = Employee("Alice", "Manager")
 janitor = Employee("Bob", "Janitor")

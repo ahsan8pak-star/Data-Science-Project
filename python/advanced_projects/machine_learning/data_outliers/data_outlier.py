@@ -17,7 +17,7 @@ class OutlierCapper(BaseEstimator, TransformerMixin):
     """
     def __init__(self, factor = 1.5):
         self.factor = factor
-        
+
     def fit(self, X, y = None):
         # Calculate IQR bounds during fit
         Q1 = X.quantile(0.25)

@@ -77,13 +77,13 @@ if is_online == True:
 
     elif is_new and is_regular == True:
         choice = input("Accident or Intented? (A/I) ")
-    
+
         if choice[0].upper() == "A":
             print("No problem. Try Again.")
-    
+
         elif choice[0].upper() == "I":
             print("Leave or we will suspend you permanently!")
-    
+
         else:
             print("Stop Messing Around! What is your answer?")
 

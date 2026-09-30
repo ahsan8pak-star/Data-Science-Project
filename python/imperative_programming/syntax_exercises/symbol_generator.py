@@ -13,7 +13,7 @@ try:
 
     if symbol.isalpha() or symbol.isdigit():
         print("Can't be a letter nor a number. Try again")
-    
+
     else:
         for row in range(rows):
             for column in range(columns):

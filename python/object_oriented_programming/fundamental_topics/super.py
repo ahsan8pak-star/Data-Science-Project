@@ -28,7 +28,7 @@ class Circle(Shape):
     def description(self):
         print(f"AREA: {(math.pi * (self.radius ** 2)):.2f}")
         super().description()
-    
+
 class Square(Shape):
     def __init__(self, colour, is_fill, side):
         super().__init__(colour, is_fill)
@@ -42,7 +42,7 @@ class Triangle(Shape):
     def __init__(self, colour, is_fill, length, height):
         super().__init__(colour, is_fill)
         self.length = length
-        self.height = height 
+        self.height = height
 
     def description(self):
         print(f"AREA: {(self.length * self.height):.2f}")

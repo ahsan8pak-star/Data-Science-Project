@@ -13,11 +13,11 @@ unreachable and cannot be covered; a test pins that.
 # Require 'children' (child classes) to use inherited abstract methods
 
 # from (a)bstract (b)ase (c)lass import (A)bstract(B)ase(C)lass
-from abc import ABC, abstractmethod 
+from abc import ABC, abstractmethod
 
 class Vehicle(ABC):
 
-    @abstractmethod 
+    @abstractmethod
     def go(self):
         pass
 

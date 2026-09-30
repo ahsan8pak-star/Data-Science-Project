@@ -27,7 +27,7 @@ class TestDiceGame:
 
     @staticmethod
     def _player_wins_patch():
-        
+
         """
         Fixes target_score at 20, both sides always roll exactly 3 dice
         worth 6 points each (18/turn), so the player (who always goes
@@ -48,13 +48,13 @@ class TestDiceGame:
 
     @staticmethod
     def _computer_wins_patch():
-        
+
         """
         Target fixed low at 10; the player always rolls a 1, the
         computer always rolls a 6 (tracked via call parity), so the
         computer necessarily catches up and wins first.
         """
-        
+
         calls = {"n": 0}
 
         def fake_randint(a, b):
@@ -114,7 +114,7 @@ class TestDiceGame:
         starts one round; here the test plays twice then quits, so the win banner
         should appear twice.
         """
-        
+
         inputs = ["", "", "", "y", "", "", "", "n"]
         _, out = run_script(self.FILE, inputs=inputs, patches=[self._player_wins_patch()])
         assert out.count("CONGRATULATIONS! YOU WIN!") == 2
@@ -131,12 +131,12 @@ class TestHaikuMadlibs:
     FILE = f"{FOLDER}/haiku_madlibs.py"
 
     def test_all_three_verses_built_from_input(self):
-        
+
         """
         random.choice always picks the *first* template of whichever
         list it's given, making the whole script deterministic.
         """
-        
+
         first_choice = patch("random.choice", side_effect=lambda seq: seq[0])
         inputs = [
             "the", "silent", "pine", "it", "sways", "softly",       # verse 1
@@ -152,12 +152,12 @@ class TestHaikuMadlibs:
         assert "The silent pine," in out
 
     def test_second_template_variant_selected(self):
-        
+
         """
         random.choice picking index 1 exercises the second template of
         each verse's list.
         """
-        
+
         second_choice = patch("random.choice", side_effect=lambda seq: seq[1])
         inputs = [
             "the", "silent", "pine", "it", "sways", "softly",
@@ -326,7 +326,7 @@ class TestNumberGuessingGame:
         assert "New Round! Current Progress: 0 / 100." in out
 
     def test_correct_guess_on_last_attempt_still_gains_exp(self):
-        
+
         """
         Guessing correctly on the very last (10th) attempt still counts as
         a win and grants 10 EXP (1 remaining attempt * 10). Because that
@@ -342,13 +342,13 @@ class TestNumberGuessingGame:
         assert "You have gained 10 EXP." in out
 
     def test_needs_two_rounds_to_reach_100_exp_if_capped_low(self):
-        
+
         """
         A single perfect-first-guess round only grants 100 EXP (10
         remaining attempts * 10), which already meets the win threshold, so
         the outer while loop naturally exits after one round.
         """
-        
+
         fixed_answer = patch("random.randint", return_value=50)
         mod, out = run_script(self.FILE, inputs=["50"], patches=[fixed_answer])
         assert mod.EXP == 100
@@ -440,7 +440,7 @@ class TestRockPaperScissors:
         assert "It's a TIE!" in out
 
     def test_invalid_input_message_always_prints(self):
-        
+
         """
         Genuine bug: `player_choice.isdigit() != "r" or "p" or "s"` always
         evaluates truthy (a bool compared to a string is always unequal,
@@ -448,7 +448,7 @@ class TestRockPaperScissors:
         and "s"), so the "Invalid input" warning is printed unconditionally
         - even for perfectly valid moves like "r".
         """
-        
+
         fixed_choice = patch("random.choice", return_value="s")
         _, out = run_script(self.FILE, inputs=["r"], patches=[fixed_choice])
         assert "Invalid input. Please choose 'r', 'p', or 's'." in out
@@ -471,7 +471,7 @@ class TestRockPaperScissors:
         assert "MATCH RESULT" in out
 
     def test_player_wins_the_game_after_three_rounds(self):
-        
+
         """
         [AI-authored fix] The game loop runs to a score of 3, so it needs
         more than the single round the other tests here play. random.choice
@@ -479,7 +479,7 @@ class TestRockPaperScissors:
         scissors three times and the player wins the match. This is what
         covers the loop's exit condition and the win announcement.
         """
-        
+
         fixed_choice = patch("random.choice", return_value="s")
         _, out = run_script(self.FILE, inputs=["r", "r", "r"], patches=[fixed_choice])
         assert "You: 3 | Computer: 0" in out
@@ -487,28 +487,28 @@ class TestRockPaperScissors:
         assert "Computer won the game" not in out
 
     def test_computer_wins_the_game_after_three_rounds(self):
-        
+
         """
         [AI-authored fix] The mirror of the three-round player win: the
         computer always answers "s" to a player who always plays "r", so
         the computer takes all three rounds. Covers the opposite arm of the
         end-of-game announcement.
         """
-        
+
         fixed_choice = patch("random.choice", return_value="s")
         _, out = run_script(self.FILE, inputs=["p", "p", "p"], patches=[fixed_choice])
         assert "You: 0 | Computer: 3" in out
         assert "Computer won the game. Better luck next time!" in out
 
     def test_a_tie_does_not_move_the_score(self):
-        
+
         """
         [AI-authored fix] A tied round must leave both scores where they
         were. Three ties therefore never end the game, so the input list
         runs out and main() reports that the game ended unexpectedly -
         which also covers the EOFError handler in main().
         """
-        
+
         fixed_choice = patch("random.choice", return_value="r")
         _, out = run_script(self.FILE, inputs=["r", "r", "r"], patches=[fixed_choice])
         assert "It's a TIE!" in out
@@ -526,7 +526,7 @@ class TestRockPaperScissors:
         assert "You lose! Scissors beats Paper!" in out
 
     def test_display_art_helper_rejects_invalid_choice_directly(self, capsys):
-        
+
         """
         display_art()'s own `else: print("Invalid choice...")` branch is
         dead code within the normal game flow - it's only ever called
@@ -534,7 +534,7 @@ class TestRockPaperScissors:
         constrained to 'r'/'p'/'s' already. Exercised here by calling the
         helper directly with a value it would never actually receive.
         """
-        
+
         fixed_choice = patch("random.choice", return_value="r")
         mod, _ = run_script(self.FILE, inputs=["r"], patches=[fixed_choice])
         mod.display_art("x")

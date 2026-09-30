@@ -46,7 +46,7 @@ dice_art = {
 
 
 def play_dice_race():
-    
+
     while True: # Assumes the program running, hence becoming it all true
 
         # Initialise game states i.e. begin
@@ -60,24 +60,24 @@ def play_dice_race():
         # Centre alignment (^) for desirable TUI
         print("==============================================")
         print(f"| {'DICE RACE':^42} |")
-        print(f"| {f'FIRST PLAYER TO {target_score} POINTS WINS!':^42} |") 
+        print(f"| {f'FIRST PLAYER TO {target_score} POINTS WINS!':^42} |")
         print("==============================================")
 
         # Turn-based gameplay loop
         while player_score < target_score and computer_score < target_score:
-    
+
             # Display Current Board Standings
             # Centre alignment (^) for desirable TUI
             # Player centre alignment one less due to its extra whitespace
             print("\n==============================================")
-            print(f"| {'CURRENT SCORE':^42} |") 
+            print(f"| {'CURRENT SCORE':^42} |")
             print("==============================================")
-            print(f"| {'YOU: ' + str(player_score):^19} | {'COMPUTER: ' + str(computer_score):^20} |") 
-            print(f"| {f'TARGET GOAL: {target_score}':^42} |") 
+            print(f"| {'YOU: ' + str(player_score):^19} | {'COMPUTER: ' + str(computer_score):^20} |")
+            print(f"| {f'TARGET GOAL: {target_score}':^42} |")
             print("----------------------------------------------")
 
             # =========================================
-            #               PLAYER TURN                 
+            #               PLAYER TURN
             # =========================================
             print("\nPLAYER TURN")
             input("Press Enter to shake and roll your dice...")
@@ -86,9 +86,9 @@ def play_dice_race():
             num_of_dice = random.randint(1, 3) # randint -> both numbers are inclusive
 
             # Starting point i.e. about to take the first turn
-            player_dice = [] 
+            player_dice = []
             player_round_score = 0
-        
+
             # Loop exactly the number of times decided by the random dice count
             # Use '_' for variable name due to the lack of tracking index numbers i.e. unnecessary
             for _ in range(num_of_dice):
@@ -124,11 +124,11 @@ def play_dice_race():
                 break
 
             # =========================================
-            #              COMPUTER TURN               
+            #              COMPUTER TURN
             # =========================================
             print("\nCOMPUTER TURN")
             input("Press Enter to allow the Computer to roll...")
-            
+
             # Computer also rolls a completely random handful of 1 to 3 dice
             comp_num_dice = random.randint(1, 3)
             computer_dice = []
@@ -157,7 +157,7 @@ def play_dice_race():
             print("----------------------------------------------")
 
         # =========================================
-        #                  WINNER                    
+        #                  WINNER
         # =========================================
         print("\n==============================================")
         print(f"| {'GAME OVER':^42} |") # Centre alignment (^) for desirable TUI
@@ -182,7 +182,7 @@ def play_dice_race():
 
         print()
         play_again = input("Do you want to play again? (y/n): ").strip().lower()
-    
+
         # If they choose anything other than 'y' or 'yes', break the main loop
         if play_again != 'y' and play_again != 'yes':
             print("\n==============================================")

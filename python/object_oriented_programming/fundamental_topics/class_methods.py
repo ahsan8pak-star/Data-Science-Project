@@ -8,12 +8,12 @@ usually written. @staticmethod below it takes neither, and is the contrast.
 
 # Class Method = Allows operations related to the class itself
 # Use (cls) as first parameter under @classmethod, representing the class itself
-# Used for Class-Level Data -> Requires Access to the Class itself directly 
+# Used for Class-Level Data -> Requires Access to the Class itself directly
 
 class Student:
 
     # Class Variables
-    total = 0 
+    total = 0
     overall_grade = 0
 
     def __init__(self, name, university, degree, grade):
@@ -23,7 +23,7 @@ class Student:
         self.grade = grade
         Student.total += 1
         Student.overall_grade += grade
-        
+
 
     # Instance Method
     def details(self):

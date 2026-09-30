@@ -12,11 +12,11 @@ import math
 def calculate_area(radius):
 
     area = math.pi * radius * radius
-    
+
     return area
 
 def area_of_circle():
-    try: 
+    try:
         radius = input("\nEnter Radius: ")
 
         if float(radius) > 0:
@@ -25,7 +25,7 @@ def area_of_circle():
             print("-----------------------------------------")
         else:
             print("Enter a valid radius")
-        
+
 
     except ValueError:
         print("Numbers only")

@@ -642,7 +642,7 @@ class TestProgressionDocClaims:
 
     def test_quality_mean_is_recomputed(self):
         entries = re.findall(
-            r"### [\w./]+\.py — \*\*(\d+)/100\*\* \([A-F] —", 
+            r"### [\w./]+\.py — \*\*(\d+)/100\*\* \([A-F] —",
             (REPO_ROOT / "FILE_SCORES.md").read_text(encoding="utf-8"),
         )
         scores = [int(s) for s in entries]

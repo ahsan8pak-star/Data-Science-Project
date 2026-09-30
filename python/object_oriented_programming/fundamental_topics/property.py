@@ -27,7 +27,7 @@ class Rectangle:
     def area(self):
         return f"{self._width * self._height:.2f}cm²"
 
-    @width.setter 
+    @width.setter
     def width(self, new_width):
         if new_width > 0:
             self._width = new_width

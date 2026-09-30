@@ -141,13 +141,13 @@ def set_alarm(alarm_time):
     # ============================================================================
     # PYGAME AUDIO ENGINE INITIALISATION
     # ============================================================================
-    # 1. pygame.mixer.init(): 
+    # 1. pygame.mixer.init():
     # Initialises Pygame's internal sound engine and opens system audio channels.
     # ============================================================================
-    # 2. pygame.mixer.music.load(): 
+    # 2. pygame.mixer.music.load():
     # Loads the WAV / MP3 track into the streaming music buffer.
     # ============================================================================
-    
+
     try:
         pygame.mixer.init()  # Initialise sound subsystem
         pygame.mixer.music.load(sound_file)  # Prepare audio stream buffer
@@ -189,10 +189,10 @@ def set_alarm(alarm_time):
                 # =============================================================================
                 # PYGAME PLAYBACK & STREAMING CONTROL
                 # =============================================================================
-                # 1. pygame.mixer.music.play(): 
+                # 1. pygame.mixer.music.play():
                 # Begins non-blocking asynchronous audio playback.
                 # =============================================================================
-                # 2. pygame.mixer.music.get_busy(): 
+                # 2. pygame.mixer.music.get_busy():
                 # Returns True while audio channel streams sound,
                 # allowing a blocking wait loop to sustain the process until track completion.
                 # =============================================================================

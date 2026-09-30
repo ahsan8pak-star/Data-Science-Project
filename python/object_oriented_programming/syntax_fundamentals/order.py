@@ -8,7 +8,7 @@ which is the composition example in the OOP lane.
 
 class Order:
 
-    total_revenue = 0 
+    total_revenue = 0
     total_orders = 0
 
     def __init__(self, name, type, amount, cost):
@@ -18,7 +18,7 @@ class Order:
         self.cost = cost
         Order.total_orders += 1
         Order.total_revenue += (self.cost * self.amount)
-        
+
 
     # Instance Method
     def details(self):

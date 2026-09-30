@@ -1,11 +1,11 @@
-""" Set Methods """ 
+""" Set Methods """
 
-fruits = {'apple', 'orange', 'banana', 'grapes', 'pineapple', 'plum'} 
+fruits = {'apple', 'orange', 'banana', 'grapes', 'pineapple', 'plum'}
 vegetables = ('tomato', 'potato', 'cabbage', 'onion', 'carrot')
 
-# Unordered (NOT in Order), Immutable (can't be Changed) and no Duplications (no same items repeated) 
+# Unordered (NOT in Order), Immutable (can't be Changed) and no Duplications (no same items repeated)
 
-# Can Add and Remove items in sets 
+# Can Add and Remove items in sets
 
 print(fruits) # prints out a RANDOM ORDER of items under set name 'fruits'
 
@@ -25,7 +25,7 @@ fruits.remove('plum') # Removes 'plum' from the set
 
 print(fruits.pop()) # Removes an arbitrary element
 
-fruits.update(vegetables) # Updates (Similar to Add but uses an entire list instead) the list 'vegetables' 
+fruits.update(vegetables) # Updates (Similar to Add but uses an entire list instead) the list 'vegetables'
 
 fruits.clear() # Clears all items under the set 'fruits' -> Result: set()
 

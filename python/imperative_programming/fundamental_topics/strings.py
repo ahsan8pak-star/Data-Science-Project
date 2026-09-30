@@ -12,11 +12,11 @@ Name = " AhSaN "
 
 print(help(str)) # Entire list of strings methods
 
-print(Name.lower()) # all letters in lower case 
+print(Name.lower()) # all letters in lower case
 # Expected Output: " ahsan "
 # Actual Output:   " ahsan "
 
-print(Name.upper()) # all letters in upper case 
+print(Name.upper()) # all letters in upper case
 # Expected Output: " AHSAN "
 # Actual Output:   " AHSAN "
 
@@ -30,42 +30,42 @@ print(Name.capitalize()) # capitalises ONLY the very first character of the stri
 # Actual Output:   " ahsan "
 # Reason: The very first character is a space, which cannot be capitalised. Python then converts every single remaining character in the string to lowercase.
 
-print(Name.swapcase()) # swaps the case of each letter 
+print(Name.swapcase()) # swaps the case of each letter
 # Expected Output: " aHsAn "
 # Actual Output:   " aHsAn "
 # Reason: The uppercase letters "A" and "S" become lowercase, and lowercase "h" and "n" become uppercase.
 
-print(Name.strip()) # removes whitespace from both ends 
+print(Name.strip()) # removes whitespace from both ends
 # Expected Output: "AhSaN"
 # Actual Output:   "AhSaN"
 # Reason: The leading and trailing spaces are entirely stripped away.
 
-print(Name.lstrip()) # removes whitespace from the left end 
+print(Name.lstrip()) # removes whitespace from the left end
 # Expected Output: "AhSaN "
 # Actual Output:   "AhSaN "
 # Reason: Only the whitespace on the left end is removed; the right trailing space remains.
 
-print(Name.rstrip()) # removes whitespace from the right end 
+print(Name.rstrip()) # removes whitespace from the right end
 # Expected Output: " AhSaN"
 # Actual Output:   " AhSaN"
 # Reason: Only the whitespace on the right end is removed; the left leading space remains.
 
-print(Name.find("s")) # finds the index of the first occurrence of lowercase "s" 
+print(Name.find("s")) # finds the index of the first occurrence of lowercase "s"
 # Expected Output: -1
 # Actual Output:   -1
 # Reason: Python string methods are strictly case-sensitive. The string contains an uppercase "S" at index 3, but lowercase "s" does not exist anywhere in the string, returning -1.
 
-print(Name.rfind("a")) # finds the index of the first occurrence of lowercase "a", starting on the left hand side (from 0) 
+print(Name.rfind("a")) # finds the index of the first occurrence of lowercase "a", starting on the left hand side (from 0)
 # Expected Output: 4
 # Actual Output:   4
 # Reason: The string contains a lowercase "a" at index 4, starting from index 0 ascending order (far left) and goes to the right.
 
-print(Name.replace("A", "a")) # replaces all occurrences of "A" with "a" 
+print(Name.replace("A", "a")) # replaces all occurrences of "A" with "a"
 # Expected Output: " ahSaN "
 # Actual Output:   " ahSaN "
 # Reason: The uppercase "A" is replaced with lowercase "a", while the other characters remain unchanged.
 
-print(Name.split("h")) # splits the string at each occurrence of "h" 
+print(Name.split("h")) # splits the string at each occurrence of "h"
 # Expected Output: [' A', 'SaN ']
 # Actual Output:   [' A', 'SaN ']
 # Reason: The string is sliced at "h", preserving the surrounding spaces inside the resulting list elements.
@@ -75,7 +75,7 @@ print(Name.splitlines()) # splits the string at line breaks
 # Actual Output:   [' AhSaN ']
 # Reason: The string contains no newline characters, so it remains a single-element list.
 
-print(Name.join(["Hello", ", Welcome!"])) # joins the list elements with the string as a separator 
+print(Name.join(["Hello", ", Welcome!"])) # joins the list elements with the string as a separator
 # Expected Output: "Hello AhSaN , Welcome!"
 # Actual Output:   "Hello AhSaN , Welcome!"
 # Reason: The string " AhSaN " is used as a separator between the list elements "Hello" and "Welcome!", resulting in the concatenated output.
@@ -90,57 +90,57 @@ print(Name.count("A")) # counts the number of occurrences of uppercase "A"
 # Actual Output:   1
 # Reason: There is exactly one uppercase "A" present in the string.
 
-print(Name.isalpha()) # checks if all characters are alphabetic 
+print(Name.isalpha()) # checks if all characters are alphabetic
 # Expected Output: True
 # Actual Output:   False
 # Reason: The string contains spaces, which are structural whitespace characters, not alphabetic letters.
 
-print(Name.isdigit()) # checks if all characters are digits 
+print(Name.isdigit()) # checks if all characters are digits
 # Expected Output: False
 # Actual Output:   False
 # Reason: The string contains alphabetic characters and spaces.
 
-print(Name.islower()) # checks if all characters are lowercase 
+print(Name.islower()) # checks if all characters are lowercase
 # Expected Output: False
 # Actual Output:   False
 # Reason: The string contains uppercase letters ("A" and "S").
 
-print(Name.isupper()) # checks if all characters are uppercase 
+print(Name.isupper()) # checks if all characters are uppercase
 # Expected Output: False
 # Actual Output:   False
 # Reason: The string contains lowercase letters ("h" and "n").
 
-print(Name.startswith("A")) # checks if the string starts with "A" 
+print(Name.startswith("A")) # checks if the string starts with "A"
 # Expected Output: True
 # Actual Output:   False
 # Reason: The string literally starts with a space character `" "`, not the letter `"A"`.
 
-print(Name.endswith("N")) # checks if the string ends with "N" 
+print(Name.endswith("N")) # checks if the string ends with "N"
 # Expected Output: True
 # Actual Output:   False
 # Reason: The string ends with a trailing space character `" "`, not the letter `"N"`.
 
-print(Name.count("a")) # counts the number of occurrences of lowercase "a" 
+print(Name.count("a")) # counts the number of occurrences of lowercase "a"
 # Expected Output: 1
 # Actual Output:   1
 # Reason: There is exactly one lowercase "a" present in the string.
 
-print(Name.center(10)) # centers the string within a field of width 10 
+print(Name.center(10)) # centers the string within a field of width 10
 # Expected Output: "   AhSaN    "
 # Actual Output:   "   AhSaN    "
 # Reason: The original 7-character string is padded with 3 additional spaces (1 on the left, 2 on the right) to span exactly 10 characters.
 
-print(Name.ljust(10)) # left-justifies the string within a field of width 10 
+print(Name.ljust(10)) # left-justifies the string within a field of width 10
 # Expected Output: " AhSaN    "
 # Actual Output:   " AhSaN    "
 # Reason: Keeps the original string on the left side and pads the remaining 3 slots with trailing spaces on the right.
 
-print(Name.rjust(10)) # right-justifies the string within a field of width 10 
+print(Name.rjust(10)) # right-justifies the string within a field of width 10
 # Expected Output: "    AhSaN "
 # Actual Output:   "    AhSaN "
 # Reason: Shifts the original string to the right side and pads the first 3 slots with leading spaces on the left.
 
-print(Name.zfill(10)) # pads the string with zeros on the left to fill a width of 10 
+print(Name.zfill(10)) # pads the string with zeros on the left to fill a width of 10
 # Expected Output: "000 AhSaN "
 # Actual Output:   "000 AhSaN "
 # Reason: Prepends exactly 3 zeros to the left of the string to hit the total length constraint of 10.
@@ -201,7 +201,7 @@ print(Name.isidentifier()) # checks if the string is a valid identifier (Duplica
 # Reason: Confirms again that a string wrapped in spaces cannot function as a legal Python variable name.
 
 
-# Inputs 
+# Inputs
 
 name = input("Name: ") # Allows the user to type/write down their name
 print("Hey there, " + name)

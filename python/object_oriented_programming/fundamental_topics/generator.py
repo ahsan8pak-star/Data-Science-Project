@@ -12,7 +12,7 @@ yield -> Drip faucet = Can be paused and resumed
 
 # -----------------
 # --- EXAMPLE 1 ---
-# ----------------- 
+# -----------------
 
 import time
 
@@ -59,7 +59,7 @@ if __name__ == "__main__":
 
 # -----------------
 # --- EXAMPLE 2 ---
-# ----------------- 
+# -----------------
 
 def read_file(file_path):
     with open(file_path, "r", encoding = "utf-8") as file:
@@ -89,7 +89,7 @@ gen object = (expression for value in iterable + if condition optional)
 
 # -----------------
 # --- EXAMPLE 1 ---
-# ----------------- 
+# -----------------
 
 number = int(input("Enter a number to count up to: "))
 
@@ -101,7 +101,7 @@ for n in counter:
 
 # -----------------
 # --- EXAMPLE 2 ---
-# ----------------- 
+# -----------------
 
 file_path = r"C:\Users\A.I.M\C.S\Data-Science-Project\python\imperative_programming\syntax_exercises\\"
 file_name = "aim.txt"
@@ -115,7 +115,7 @@ with open(file_directory) as file:
 
 # -----------------
 # --- EXAMPLE 3 ---
-# ----------------- 
+# -----------------
 
 even_number = int(input("Enter a number to square EVEN numbers up to : "))
 

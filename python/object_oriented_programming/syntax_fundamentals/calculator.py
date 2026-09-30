@@ -36,7 +36,7 @@ class Calculator:
         if a < 0:
             return "Impossible to calculate square root of a negative number."
         return a ** 0.5
-    
+
 
 
 print(Calculator.add(10, 5))

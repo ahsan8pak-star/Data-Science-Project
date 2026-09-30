@@ -6,7 +6,7 @@ pairing to food_script_example.py: the two together show the difference
 between a module safe to import and one that assumes it owns the terminal.
 """
 
-# This file should run ONLY standalone 
+# This file should run ONLY standalone
 
 # [AI-authored fix] The bare `imperative_programming....` path only resolves
 # when python/ happens to be on sys.path, which pytest arranges via

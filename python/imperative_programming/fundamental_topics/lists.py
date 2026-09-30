@@ -20,22 +20,22 @@ print(names[-4]) # print(names[1]) -> Yahya
 print(names[-5]) # print(names[0]) -> Ahsan
 
 """List Slicing"""
-print(names[:]) # [Ahsan, Yahya, Matthew, Ahnaf, Hamza] 
+print(names[:]) # [Ahsan, Yahya, Matthew, Ahnaf, Hamza]
 
-print(names[0:]) # [Ahsan, Yahya, Matthew, Ahnaf, Hamza] 
+print(names[0:]) # [Ahsan, Yahya, Matthew, Ahnaf, Hamza]
 print(names[1:]) # [Yahya, Matthew, Ahnaf, Hamza]
 print(names[2:]) # [Matthew, Ahnaf, Hamza]
 print(names[3:]) # [Ahnaf, Hamza]
 print(names[4:]) # [Hamza]
 print(names[5:]) # []
 
-print(names[-5:]) # [Ahsan, Yahya, Matthew, Ahnaf, Hamza] 
+print(names[-5:]) # [Ahsan, Yahya, Matthew, Ahnaf, Hamza]
 print(names[-4:]) # [Yahya, Matthew, Ahnaf, Hamza]
 print(names[-3:]) # [Matthew, Ahnaf, Hamza]
 print(names[-2:]) # [Ahnaf, Hamza]
 print(names[-1:]) # [Hamza]
 
-print(names[:0]) # [] 
+print(names[:0]) # []
 print(names[:1]) # ['Ahsan']
 print(names[:2]) # ['Ahsan', 'Yahya']
 print(names[:3]) # ['Ahsan', 'Yahya', 'Matthew']
@@ -47,7 +47,7 @@ print(names[:-4]) # ['Ahsan']
 print(names[:-3]) # ['Ahsan', 'Yahya']
 print(names[:-2]) # ['Ahsan', 'Yahya', 'Matthew']
 print(names[:-1]) # ['Ahsan', 'Yahya', 'Matthew', 'Ahnaf']
-print(names[:-0]) # [] 
+print(names[:-0]) # []
 
 """List Modifying"""
 names[0] = "Aiman"
@@ -77,9 +77,9 @@ numbers.count(1) # 1
 numbers.pop() # [5, 2, 1, 7]
 numbers.index(1) # 2
 numbers.sort() # [1, 2, 4, 5, 7]
-numbers.reverse() # [4, 7, 1, 2, 5] 
-numbers.sort() # [1, 2, 4, 5, 7] 
-# With numbers.sort() for numbers.reverse(): [7, 5, 4, 2, 1] 
+numbers.reverse() # [4, 7, 1, 2, 5]
+numbers.sort() # [1, 2, 4, 5, 7]
+# With numbers.sort() for numbers.reverse(): [7, 5, 4, 2, 1]
 
 print(numbers) # Testing each function, can't do all at once. Especially comment out numbers.clear()
 print(numbers.index(1)) # 2
@@ -129,17 +129,17 @@ print(numbers) # [2, 3] -> 5 is removed from the end (last index)
 # list3 = list1 + list2
 
 names_and_numbers = names + numbers
-print(names_and_numbers) 
+print(names_and_numbers)
 # Output: ['Ahsan', 'Yahya', 'Matthew', 'Ahnaf', 'Hamza', 1, 2, 3, 4, 5]
 
 # Using extend() syntax:
 # list1 = ['item1', 'item2']
 # list2 = ['item3', 'item4', 'item5']
-# list1.extend(list2) 
+# list1.extend(list2)
 # Output: ['item1', 'item2', 'item3', 'item4', 'item5']
 
 names.extend(numbers)
-print('Names and Numbers:', names) 
+print('Names and Numbers:', names)
 # Output: Names and Numbers: ['Ahsan', 'Yahya', 'Matthew', 'Ahnaf', 'Hamza', 1, 2, 3, 4, 5]
 
 
@@ -178,7 +178,7 @@ min = items[0]
 for item in items:
     if item < min:
         min = item
-print(min) 
+print(min)
 
 # Output: 2
 

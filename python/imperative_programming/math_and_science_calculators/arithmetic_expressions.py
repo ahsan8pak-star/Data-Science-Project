@@ -45,7 +45,7 @@ def format_result(op, result):
 def calculate():
     try:
         print("\n========================")
-        print(" ARITHMETIC EXPERSSIONS ")        
+        print(" ARITHMETIC EXPERSSIONS ")
         print("========================\n")
         print("<================>")
         print("<  MENU   GUIDE  >")
@@ -53,7 +53,7 @@ def calculate():
         print("  _______________________________________________________ ")
         print(" /                                                       \\ ")
         print(" | 1) + = Addition         5) // = Base / Quotient       | ")
-        print(" | 2) - = Subtraction      6) % = Remainder / Modulus    | ") 
+        print(" | 2) - = Subtraction      6) % = Remainder / Modulus    | ")
         print(" | 3) * = Multiplication   7) ** = Power / Exponent      | ")
         print(" | 4) / = Division         8) <ENTER> = Continue         | ")
         print(" \\                                                      / ")
@@ -65,7 +65,7 @@ def calculate():
         operators = ["+", "-", "*", "/", "%", "//", "**"]
 
         print("\n===========")
-        print("  RESULTS  ") 
+        print("  RESULTS  ")
         print("===========\n")
 
         for op in operators:

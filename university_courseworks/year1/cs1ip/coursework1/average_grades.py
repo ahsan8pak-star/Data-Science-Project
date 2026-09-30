@@ -1,5 +1,5 @@
 def AverageGrades(grades, weights):
-    
+
     # Null / empty check
     if grades is None or weights is None:
         return []
@@ -13,10 +13,10 @@ def AverageGrades(grades, weights):
 
     for i in range(students):
         total_sum = 0
-        
+
         for j in range(comps):
             total_sum += grades[i][j] * weights[j]
-        
+
         # Integer division in Python is // (or / for floating-point division)
         result[i] = total_sum // 100
 

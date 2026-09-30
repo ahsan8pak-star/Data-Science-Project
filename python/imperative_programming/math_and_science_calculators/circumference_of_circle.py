@@ -11,12 +11,12 @@ import math
 
 def calculate_circumference(radius):
 
-    area = math.pi * 2 * radius 
-    
+    area = math.pi * 2 * radius
+
     return area
 
 def circumference():
-    try: 
+    try:
         radius = input("\nEnter Radius: ")
 
         if float(radius) > 0:

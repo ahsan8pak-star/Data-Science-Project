@@ -30,7 +30,7 @@ print(help(coder)) # Shows all the methods available as a help guide
 # Fiding exactly where in the dictionary is case - sensitive
 
 # Example:
-# print((coder["name"])) 
+# print((coder["name"]))
 
 # Output:
 # KeyError: name
@@ -79,26 +79,26 @@ if capitals.get("Russia"):
 else:
     print("Non-Existant Capital!")
 
-capitals.update({"Germany": "Berlin"}) 
+capitals.update({"Germany": "Berlin"})
 # {"USA": "Washington D.C.", "India": "New Delhi", "China": "Beijing", "Russia": "Moscow", "Germany": "Berlin"}
 
-capitals.update({"USA": "Detroit"}) 
+capitals.update({"USA": "Detroit"})
 # {"USA": "Detroit", "India": "New Delhi", "China": "Beijing", "Russia": "Moscow", "Germany": "Berlin"}
 
-capitals.pop("China") 
+capitals.pop("China")
 # {"USA": "Detroit", "India": "New Delhi", "Russia": "Moscow", "Germany": "Berlin"}
 
-capitals.popitem() 
+capitals.popitem()
 # {"USA": "Detroit", "India": "New Delhi", "Russia": "Moscow"}
 
-capitals.clear() 
+capitals.clear()
 # {}
 
 keys = capitals.keys()
 for key in capitals.keys():
     print(key)
 
-# Output: 
+# Output:
 """
 USA
 India
@@ -110,7 +110,7 @@ values = capitals.values()
 for value in capitals.values():
     print(value)
 
-# Output:  
+# Output:
 """
 Washington D.C.
 New Delhi

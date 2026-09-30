@@ -30,6 +30,7 @@ import csv
 import io
 import json
 import re
+import tokenize
 from pathlib import Path
 
 import pytest
@@ -287,6 +288,83 @@ class TestPythonFilesEndWithTwoBlankLines:
             "Python files must end with the last line of code followed by two "
             "empty lines, i.e. exactly three trailing newlines; wrong: "
             + "; ".join(sorted(wrong))
+        )
+
+
+
+
+class TestPythonSourceHasNoTrailingWhitespace:
+    """
+    [AI] Trailing whitespace is invisible in a review and in most editors, so
+    it accumulates unnoticed: 103 files under the tree carried 853 such lines
+    when this was first checked. The cleanup is deliberately conservative -
+    only whitespace at the END of a line is removed, never leading indentation,
+    so no code changes shape.
+
+    Fifteen lines are exempt because they fall inside a multi-line string
+    literal, where the whitespace is the content rather than an accident. Two
+    of those are expected-output strings in
+    test_math_and_science_calculators.py, where a stripped space would change
+    what the test asserts. The rest are continuation lines of docstrings.
+
+    The exemption is computed with tokenize rather than guessed, so it stays
+    correct when a file is edited: a line moves in or out of a string literal
+    and the guard follows it.
+    """
+
+    EXEMPT_FILES = set()
+    # .venv is the pinned environment itself: its site-packages are third-party
+    # code, not this repository's, and are never ours to reformat.
+    SKIP_DIRS = {".venv", "__pycache__", "htmlcov", ".git", ".pytest_cache",
+                 "node_modules"}
+
+    @staticmethod
+    def _multiline_string_lines(path):
+        """
+        Line numbers that fall inside a multi-line string literal.
+
+        Returns an empty set for a file that will not tokenize, so an
+        unparseable file such as the deliberate main.py stub is checked by the
+        plain rule rather than silently skipped.
+        """
+        try:
+            with open(path, "rb") as handle:
+                tokens = list(tokenize.tokenize(io.BytesIO(handle.read()).readline))
+        except (tokenize.TokenError, SyntaxError, IndentationError, ValueError):
+            return set()
+        inside = set()
+        for token in tokens:
+            if token.type == tokenize.STRING and token.end[0] > token.start[0]:
+                inside.update(range(token.start[0], token.end[0] + 1))
+        return inside
+
+    def _sources(self):
+        return [
+            p for p in REPO_ROOT.rglob("*.py")
+            if not (self.SKIP_DIRS & set(p.relative_to(REPO_ROOT).parts))
+        ]
+
+    def test_no_trailing_whitespace_outside_string_literals(self):
+        offenders = []
+        for path in self._sources():
+            rel = path.relative_to(REPO_ROOT).as_posix()
+            if rel in self.EXEMPT_FILES:
+                continue
+            try:
+                lines = path.read_text(encoding="utf-8").split("\n")
+            except UnicodeDecodeError:
+                continue
+            inside = self._multiline_string_lines(path)
+            padded = [
+                i for i, line in enumerate(lines, 1)
+                if line != line.rstrip() and i not in inside
+            ]
+            if padded:
+                offenders.append(f"{rel} ({len(padded)} line(s) from {padded[0]})")
+        assert offenders == [], (
+            "trailing whitespace found; strip it from the end of the line "
+            "(leading indentation must stay): "
+            + "; ".join(sorted(offenders)[:12])
         )
 
 

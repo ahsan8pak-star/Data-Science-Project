@@ -28,7 +28,7 @@ person1 = Person("Ahsan", 21, "A.I.M1ndset")
 person2 = Person("Aiman", 19, "aimee6panda")
 
 # Outputs in the following format: Person(name=[str], age=[int], is_student=[bool] -> True as default])
-print(person1) 
+print(person1)
 print(person2)
 
 print(person1 == person2) # similar to __eq__ method in magic_methods.py

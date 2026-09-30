@@ -129,26 +129,26 @@ class TestDictionaries:
         assert "Arsenal" in out  # default fallback value used
 
     def test_pop_and_popitem_intermediate_state(self):
-        
+
         """
         coder.pop("Is_Beginner") returns True (the removed value), and the
         dict printed right after shows Age already updated to 20 with
         Is_Beginner gone. popitem() then removes ('Age', 20) as a tuple.
         """
-        
+
         _, out = run_script(self.FILE)
         assert "{'Name': 'A.I.M', 'Age': 20}" in out
         assert "('Age', 20)" in out
 
     def test_capitals_keys_values_items_are_empty_after_clear(self):
-        
+
         """
         Genuine quirk in the source script: capitals.clear() runs *before*
         the keys()/values()/items() for-loops, so despite the file's own
         stale comments claiming "USA/India/China/Russia" get printed, the
         loops actually iterate over nothing.
         """
-        
+
         _, out = run_script(self.FILE)
         assert "dict_keys([])" in out
         assert "dict_values([])" in out
@@ -212,12 +212,12 @@ class TestExceptions:
         assert "0" in out.splitlines()
 
     def test_negative_age_is_accepted_without_extra_validation(self):
-        
+
         """
         int() parses negative numbers fine; this block has no range
         check, only a type check, so a negative age is echoed as-is.
         """
-        
+
         _, out = run_script(self.FILE, inputs=["-5", "1"])
         assert "-5" in out
 
@@ -242,13 +242,13 @@ class TestExceptions:
     # ---- Block 2: reciprocal calculator (try/except x4/finally) ----
 
     def test_reciprocal_success_path_prints_result_and_runs_finally(self):
-        
+
         """
         A clean run where neither block raises anything: confirms the
         genuine happy path prints the reciprocal and still reaches
         finally, without any of the four except branches firing.
         """
-        
+
         _, out = run_script(self.FILE, inputs=["25", "4"])
         assert "0.25" in out
         assert "Proceed Data Cleanup." in out
@@ -266,14 +266,14 @@ class TestExceptions:
         assert "Proceed Data Cleanup." in out
 
     def test_reciprocal_keyboard_interrupt_handled(self):
-        
+
         """
         Block 1's own input() must still succeed normally, so the patch's
         side_effect list supplies a valid age string first and only
         raises KeyboardInterrupt on the SECOND input() call (block 2's
         own prompt), isolating this branch from block 1 entirely.
         """
-        
+
         kb = patch("builtins.input", side_effect=["25", KeyboardInterrupt])
         _, out = run_script(self.FILE, patches=[kb])
         assert "Unexpected Crash." in out
@@ -281,7 +281,7 @@ class TestExceptions:
         assert "Proceed Data Cleanup." in out
 
     def test_reciprocal_generic_exception_branch_via_forced_input_error(self):
-        
+
         """
         The bare `except Exception as e:` clause is a genuine catch-all
         for anything not already matched by the three specific except
@@ -289,14 +289,14 @@ class TestExceptions:
         raise an arbitrary, otherwise-unhandled exception on block 2's
         own prompt.
         """
-        
+
         forced_error = patch("builtins.input", side_effect=["25", RuntimeError("simulated failure")])
         _, out = run_script(self.FILE, patches=[forced_error])
         assert "Unexpected Error: simulated failure" in out
         assert "Proceed Data Cleanup." in out
 
     def test_finally_runs_even_when_an_input_is_missing_entirely(self):
-        
+
         """
         Genuine, subtle behaviour worth documenting: if the script is fed
         only one input, block 1 consumes it and block 2's own input()
@@ -306,7 +306,7 @@ class TestExceptions:
         rather than propagating out of run_script() as an unhandled
         error - and finally still runs afterwards regardless.
         """
-        
+
         _, out = run_script(self.FILE, inputs=["25"])
         assert "Unexpected Error:" in out
         assert "Proceed Data Cleanup." in out
@@ -544,7 +544,7 @@ class TestModules:
         assert "FILE" in out  # help() output includes a FILE section
 
     def test_e_shadowing_bug_replaces_eulers_number(self):
-        
+
         """
         Genuine bug in the source script: `from math import e` correctly
         imports Euler's number, but the very next line,
@@ -553,7 +553,7 @@ class TestModules:
         5, not 2.718..., producing 5, 25, 125, 625, 3125 - not the
         mathematically "expected" exponential values.
         """
-        
+
         _, out = run_script(self.FILE)
         assert "5" in out.splitlines()
         assert "25" in out.splitlines()
@@ -567,7 +567,7 @@ class TestModules:
         Sanity check proving the shadowing bug: math.e ** 2 is nowhere
         near 25, confirming the printed 25 came from the integer e=5.
         """
-        
+
         _, out = run_script(self.FILE)
         assert str(round(math.e ** 2, 5)) not in out
 
@@ -601,7 +601,7 @@ class TestModuleImportExamples:
     MAIN_FILE = f"{FOLDER}/main.py"
 
     def test_main_py_has_a_syntax_error_and_cannot_be_parsed(self):
-        
+
         """
         main.py is a broken stub: `def main():` has only a comment as its
         body (comments aren't statements), which is invalid Python - the
@@ -609,19 +609,19 @@ class TestModuleImportExamples:
         harness. This isn't a testing artifact; the exact same
         SyntaxError happens with a plain `python main.py` too.
         """
-        
+
         with pytest.raises(SyntaxError):
             run_script(self.MAIN_FILE)
 
     def test_main_py_docstring_typo_does_not_affect_the_real_bug(self):
-        
+
         """
         The module docstring also says `_name_`/`__main__` (missing
         underscores) - a comment/documentation typo, harmless on its own,
         but the file is broken regardless because of the empty function
         body, not because of this typo.
         """
-        
+
         source = (PYTHON_DIR / self.MAIN_FILE).read_text()
         assert "_name_" in source  # confirms the docstring typo is present
         with pytest.raises(SyntaxError):
@@ -789,12 +789,12 @@ class TestScopeResolution:
         assert str(math.e) in out
 
     def test_local_variables_do_not_leak_to_module_namespace(self, capsys):
-        
+
         """
         local1()/local2()'s x=1 and x=2 are function-scoped; only the
         module-level x=3 (global) survives on the returned module object.
         """
-        
+
         mod, _ = run_script(self.FILE)
         assert mod.x == 3
         mod.local1()
@@ -803,13 +803,13 @@ class TestScopeResolution:
         assert mod.x == 3  # confirms local1() never touched the global x
 
     def test_scope_resolution_order(self):
-        
+
         """
         L -> E -> G -> B: a name lookup resolves to the nearest enclosing
         scope first, only falling back to global/built-in when no local
         or enclosing binding exists.
         """
-        
+
         x = 100
 
         def outer():
@@ -860,7 +860,7 @@ class TestSets:
     def test_symmetric_difference_and_disjoint_sets(self):
         _, out = run_script(self.FILE)
         assert "g" in out  # letters from dragon-only difference
-        
+
 # =====================================================================
 # 13. TUPLES
 # =====================================================================
@@ -987,7 +987,7 @@ class TestVariables:
         assert "Admin: False" in out
 
     def test_online_welcome_branch_is_the_only_reachable_outcome(self):
-        
+
         """
         is_student, is_admin, is_new, is_regular, and is_online are all
         hardcoded booleans with no input() controlling them, so exactly
@@ -999,7 +999,7 @@ class TestVariables:
         offline" branches can't be exercised without changing the
         hardcoded source values themselves.
         """
-        
+
         _, out = run_script(self.FILE, inputs=["2", "500"])
         assert "Welcome to our university!" in out
         assert "Stop Lying" not in out
@@ -1013,12 +1013,12 @@ class TestVariables:
         assert "You have £0" in out
 
     def test_non_numeric_costs_raises_uncaught_value_error(self):
-        
+
         """
         There's no try/except around int(costs) in this file, so an
         invalid, non-numeric answer should propagate as a real ValueError.
         """
-        
+
         with pytest.raises(ValueError):
             run_script(self.FILE, inputs=["2", "not-a-number"])
 
@@ -1099,7 +1099,7 @@ class TestLoginStatus:
         assert "Welcome to our university!" in out
 
     def test_empty_online_answer_is_handled_by_the_input_error_handler(self):
-        
+
         """
         [AI-authored fix] This used to be an uncaught IndexError. Every
         answer is read as text and then indexed with [0] to inspect its
@@ -1109,13 +1109,13 @@ class TestLoginStatus:
         traceback instead of a message. The handler now catches
         (ValueError, IndexError).
         """
-        
+
         inputs = ["True", "False", "False", "True", ""]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Please type within boolean logic. True or False." in out
 
     def test_empty_accident_or_intended_answer_is_handled_too(self):
-        
+
         """
         [AI-authored fix] The second [0] index in the script, on the
         "Accident or Intented?" answer, crashed the same way and had no
@@ -1123,14 +1123,14 @@ class TestLoginStatus:
         answers are chosen to get there: online, not a student, and both
         new and a regular student.
         """
-        
+
         inputs = ["False", "False", "True", "True", "True", ""]
         _, out = run_script(self.FILE, inputs=inputs)
         assert "Please type within boolean logic. True or False." in out
         assert "Stop Messing Around! What is your answer?" not in out
 
     def test_own_value_error_except_still_catches_an_artificial_value_error(self):
-        
+
         """
         [AI-authored fix] Widening the handler to
         `except (ValueError, IndexError):` must not stop it catching a

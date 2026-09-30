@@ -56,9 +56,9 @@ print(divide(5, 4, 2)) # Output: 2.5
 
 
 def fullname(*name): # ARGS -> allows passing multiple NON-KEY(WORD) arguments
-   
+
    # ( * ) -> Unpacking Operator for ARGS i.e. unpacks / separates the whole argument into individual items
-   
+
    print(f"Hello, ", end=" ") # Positional Argument
 
    for word in name: # Every Non-Key argument under the variable 'args'

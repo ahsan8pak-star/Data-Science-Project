@@ -55,7 +55,7 @@ class Daughter(Father, Mother): # Child D -> Parent A & B
 son_member = Son(son_name = "Leo", son_age = 15) # The ordering DOESN'T MATTER in the CHILD Class
 
 # This ordering MATTERS i.e. HOW it's Called.
-son_member.son_info() # Variable [Class.variable(s)] . Method() 
+son_member.son_info() # Variable [Class.variable(s)] . Method()
 
 
 daughter_member = Daughter(daughter_name = "Mia", daughter_age = 12)

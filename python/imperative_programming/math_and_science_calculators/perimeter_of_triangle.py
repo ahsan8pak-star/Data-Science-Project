@@ -9,16 +9,16 @@ output.
 
 # This helper function lets other functions run without repeatedly typing input()
 
-def get_float_input(prompt): 
-    
+def get_float_input(prompt):
+
     user_input = input(prompt) # user starts their input
-    
+
     if user_input.strip() == "": # If input hasn't been typed down i.e. <ENTER>
         return None # Returns a NULL answer
-    
+
     try:
         return float(user_input) # converts user input from string into float
-    
+
     except ValueError:
         print("Invalid input. Numbers only.")
         return None # Safety net for incorrect values

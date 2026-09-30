@@ -13,7 +13,7 @@ print(f"{int(grade)} / 100")
 if int(grade) > 100 or int(grade) < 0:
     print(f"{str(grade)}!!! HOW?! YOU ARE LYING!")
 
-elif int(grade) == 100:    
+elif int(grade) == 100:
     print(f"{str(grade)}! Unbelievable!")
 
 elif int(grade) >= 90:

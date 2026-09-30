@@ -27,7 +27,7 @@ sys.path[:] = [entry for entry in sys.path if os.path.abspath(entry or os.curdir
 
 a = 1 # Integer
 b = 1.1 # Float
-c = 1 + 2j # Complex number - 1 + 2i, where i is the imaginary unit 
+c = 1 + 2j # Complex number - 1 + 2i, where i is the imaginary unit
 d = 1e-3 # Scientific notation for 0.001
 e = 0b1010 # Binary representation for 10
 f = 0o12 # Octal representation for 10

@@ -8,12 +8,12 @@ malformed, which is what lets the pytest cases target the error path.
 
 # Essential for the specific Exception to be called via pytest cases to be executed as a function
 def slice_email(email):
-            
-    if "@" not in email: 
+
+    if "@" not in email:
         raise ValueError("Invalid email: missing @ symbol")
-    
+
     index = email.index("@")
-        
+
     username = email[: index] # username = email[: email.index("@")]
 
     domain = email[index + 1 :] # [index:] -> "@gmail.com" (@ included), [index + 1 :] -> "email.com" (@ excluded)
@@ -26,7 +26,7 @@ if __name__ == "__main__":
     while True: # While the program is running
         try: # main code
             email = input("Enter your email (or 'q' to quit): ").strip() # prevents accidental <ENTER> imputs
-            
+
 
             # Catch empty inputs safely before indexing to prevent IndexError
             if not email:

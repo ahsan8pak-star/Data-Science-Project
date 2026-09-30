@@ -15,22 +15,22 @@ import os
 # Tells Python to look inside this exact folder for modules
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-import math 
+import math
 import cosine_rule
 import sine_rule
 
 # This functions alone helps other functions to be called out without to type down input() constantly
 
-def get_float_input(prompt): 
-    
+def get_float_input(prompt):
+
     user_input = input(prompt) # user starts their input
-    
+
     if user_input.strip() == "": # If input hasn't been typed down i.e. <ENTER>
         return None # Returns a NULL answer
-      
+
     try:
         return float(user_input) # converts user input from string into float
-    
+
     except ValueError:
         print("Invalid input. Please enter numbers only.")
         return None # Safety net for incorrect values
@@ -47,27 +47,27 @@ def pythagoras(triangle_type):
     a = get_float_input("Enter adjacent side (a): ")
     b = get_float_input("Enter opposite side (b): ")
     c = get_float_input("Enter hypotenuse (c): ")
-    
+
     missing = [a, b, c].count(None)
 
     if missing != 1:
         print("Error: You must provide exactly TWO known values.")
         return
-        
+
     if c is None and a is not None and b is not None: # side a and b
         print(f"\nResult: Hypotenuse (c) is {round(math.sqrt(a**2 + b**2), 2)}")
-   
+
     elif a is None and b is not None and c is not None: # side b and c
         if c <= b:
             print("Error: Hypotenuse (c) MUST be strictly greater than side (b).")
-        
+
         else:
             print(f"\nResult: Adjacent side (a) is {round(math.sqrt(c**2 - b**2), 2)}")
-   
+
     elif b is None and a is not None and c is not None: # side a and c
         if c <= a:
             print("Error: Hypotenuse (c) MUST be strictly greater than side (a).")
-        
+
         else:
             print(f"\nResult: Opposite side (b) is {round(math.sqrt(c**2 - a**2), 2)}")
 
@@ -128,7 +128,7 @@ def run_calculator():
     print("B. Equilateral")
     print("C. Isosceles")
     print("D. Scalene")
-    
+
     type_choice = input("\nSelect triangle type (A-D): ").strip().upper()
 
     match type_choice:
@@ -142,7 +142,7 @@ def run_calculator():
         case "D": triangle_type = "scalene"
 
         case _: triangle_type = "scalene"
-            
+
     print(f"\n>>> Calculator locked into {triangle_type.title()} mode. <<<")
 
     while True:
@@ -154,23 +154,23 @@ def run_calculator():
         print(" 5. Perimeter")
         print(" 6. Quit")
         choice = input("Select a mode (1-6): ").strip()
-        
+
         match choice:
-  
+
             case "1": sine_rule.calculate()
- 
+
             case "2": cosine_rule.calculate()
- 
+
             case "3": pythagoras(triangle_type)
- 
+
             case "4": area(triangle_type)
- 
+
             case "5": perimeter(triangle_type)
- 
-            case "6": 
+
+            case "6":
                 print("Powering down...")
                 break
- 
+
             case _: print("Invalid selection.")
 
 if __name__ == "__main__": # allow this to be an imported module by protecting the main execution

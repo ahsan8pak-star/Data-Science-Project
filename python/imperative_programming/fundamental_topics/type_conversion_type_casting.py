@@ -26,7 +26,7 @@ print(str(b)) # converts variable b to a string
 print(str(c)) # converts variable c to a string
 # Expected Output: "3.14"
 # Actual Output:   "3.14"
-# Reason: The float 3.14 is converted to the string "3.14" by the str() function.  
+# Reason: The float 3.14 is converted to the string "3.14" by the str() function.
 
 print(str(d)) # converts variable d to a string
 # Expected Output: "True"

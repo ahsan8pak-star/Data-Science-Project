@@ -6,11 +6,11 @@ model stays readable. The module defines the class and nothing else, so
 running it produces no output - which a test pins.
 """
 
-# Has its dedicated file to act as a import module 
+# Has its dedicated file to act as a import module
 # Reasons: Cleaner code structure and allows various attributes (variables) to be inputted
 
 class Car:
-    
+
     # Constructor
     def __init__(self, model, year, colour, for_sale):
         self.model = model

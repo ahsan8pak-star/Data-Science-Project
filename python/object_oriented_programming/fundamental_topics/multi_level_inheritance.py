@@ -26,7 +26,7 @@ class Prey(Animal): # Parent B
     def flee(self):
         print(f"{self.name} is fleeing from its predators.")
 
-class Predator(Animal): # Parent B 
+class Predator(Animal): # Parent B
     def hunt(self):
         print(f"{self.name} is hunting its prey.")
 
@@ -46,14 +46,14 @@ fish_main = Fish("Nemo")
 fish_spare = Fish("Dory")
 
 # Parent C Variable. Parent A Function
-rabbit.eat() 
+rabbit.eat()
 hawk.sleep()
 
 # Parent C Variable. Parent B Function
 rabbit.flee()
 hawk.hunt()
 
-# Fish is both prey and predator 
+# Fish is both prey and predator
 fish_main.flee()
 fish_spare.hunt()
 

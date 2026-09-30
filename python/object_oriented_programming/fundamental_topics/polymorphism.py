@@ -39,7 +39,7 @@ class Square(Shape):
 
     def area(self):
         return self.side ** 2
-    
+
 
 class Triangle(Shape):
     def __init__ (self, base, height):
@@ -59,7 +59,7 @@ class FlatCake: # Since 'def area(self)', This passes through a No AttributeErro
         return  self.length * self.height
 
 # Problem:
-# Due to not having 'def area()' this cause an AttributeError 
+# Due to not having 'def area()' this cause an AttributeError
 # Since this is using an abstract class requiring ALL its abstract methods
 
 # Solution:
@@ -69,7 +69,7 @@ class Pizza(Circle):
     def __init__ (self, toppings, radius):
         super().__init__(radius)
         self.toppings = toppings
-        
+
 
 shapes = [Circle(3), Square(4), Triangle(5, 6), FlatCake("Chocolate", 6, 6), Pizza("Magherita", 10) ]
 

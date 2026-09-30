@@ -12,9 +12,9 @@ def factorial(n):
     else:
         return n * factorial(n - 1) # factorial function / formula
 
-if __name__ == "__main__":   
+if __name__ == "__main__":
     try: # opens a safe execution zone to process user entries and catch typing errors
-    
+
         # Prompts the user to type a number and captures it as a string by default
         num = input("Enter your number: ")
 
@@ -22,7 +22,7 @@ if __name__ == "__main__":
 
         print(factorial(n))
 
-        
+
     except ValueError: # prevents a crash in the system if the user enters other than integers like floats for example
         print("Error: Invalid number format. Enter integers only (whole numbers).") # specifies the input rules to guide the operator
 

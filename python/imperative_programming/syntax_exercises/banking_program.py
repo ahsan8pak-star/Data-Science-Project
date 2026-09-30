@@ -14,16 +14,16 @@ def show_balance(balance):
 
 def deposit():
 
-    user_input = input("\nEnter Deposit: ")    
+    user_input = input("\nEnter Deposit: ")
 
     try:
         amount = float(user_input)
-        
+
         if amount < 0:
             print("\nInvalid Amount. ")
             print("Enter Positive Deposits.")
             return 0
-        
+
         # Checks for 2 conditions:
         # 1) If a decimal point ( . ) is present [Important for Condition 2]
         # 2) If the digits after the decimal point is greater than 2 [ESSENTIAL]
@@ -32,19 +32,19 @@ def deposit():
             print("\nInvalid Amount.")
             print("Funds have to be within 2 decimal places.")
             return 0
-        
+
         else:
             return amount
-            
+
     except ValueError:
         print("\nInvalid Input. Numbers Only.")
         return 0
 
 def withdraw(balance):
-    
+
     try:
         amount = float(input("\nEnter Withdrawl: "))
-        
+
         if amount > balance:
             insufficient_funds = amount - balance
 
@@ -53,18 +53,18 @@ def withdraw(balance):
             print(f"You need £{insufficient_funds:.2f} to complete transaction.")
 
             return 0
-            
+
         elif amount < 0:
             print("\nNo Negative Amounts.")
             return 0
-            
+
         else:
             leftover = balance - amount
 
             print(f"\nYou have withdrew £{amount:.2f}.")
             print(f"You have £{leftover:.2f} left.")
             return amount
-            
+
     except ValueError:
         print("\nInvalid Input. Numbers Only.")
         return 0
@@ -78,7 +78,7 @@ def run_banking_menu():
     print("-----------------------")
 
     while is_running:
-        
+
         print("\n-------------------")
         print("|    Main Menu    |")
         print("-------------------")
@@ -93,15 +93,15 @@ def run_banking_menu():
         match choice:
             case "1":
                 show_balance(balance)
-            
+
             case "2":
                 balance += deposit()
 
             case "3":
                 balance -= withdraw(balance)
-            
+
             case "4":
-                is_running = False   
+                is_running = False
 
             case _:
                 print("\nInvalid Choice.")

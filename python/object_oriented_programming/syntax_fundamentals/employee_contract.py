@@ -7,7 +7,7 @@ also the clearest demonstration of the diamond problem, since both sides
 descend from the same base and super() has to resolve the shared ancestor.
 """
 
-# Worker + Student = PartTimeEmployee 
+# Worker + Student = PartTimeEmployee
 # Worker + Graduate = FullTimeEmployee
 
 class Worker:

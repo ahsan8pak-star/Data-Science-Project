@@ -16,16 +16,16 @@ import math
 
 # This helper function lets other functions run without repeatedly typing input()
 
-def get_float_input(prompt): 
-    
+def get_float_input(prompt):
+
     user_input = input(prompt) # user starts their input
-    
+
     if user_input.strip() == "": # If input hasn't been typed down i.e. <ENTER>
         return None # Returns a NULL answer
 
     try:
         return float(user_input) # converts user input from string into float
-    
+
     except ValueError:
         print("Invalid input. Numbers only.")
         return None # Safety net for incorrect values
@@ -34,11 +34,11 @@ def calculate(): # Main function for importing directly to triangle calculator
 
     print("\nCosine Rule")
     target = input("Do you want to find a 'side' or 'angle'? ").strip().lower()
-    
+
     if target == "side":
         print("Valid combinations: ab, ac, bc")
         sides = input("Which two sides do you know? ").strip().lower()
-        
+
         match sides:
 
             case "ab":
@@ -75,42 +75,42 @@ def calculate(): # Main function for importing directly to triangle calculator
                 print("Invalid combination.")
 
     elif target == "angle":
-   
+
         print("To find an angle using Cosine Rule, you MUST know all three sides (a, b, c).")
-   
+
         a = get_float_input("Enter side a: ")
         b = get_float_input("Enter side b: ")
         c = get_float_input("Enter side c: ")
-        
+
         if a and b and c:
             find_ang = input("Which angle do you want to find? (A, B, or C): ").strip().upper()
-        
+
             match find_ang:
-   
+
                 case "A":
                     cos_A = ((b**2) + (c**2) - (a**2)) / (2 * b * c)
-   
+
                     if -1 <= cos_A <= 1:
                         print(f"\nResult: Angle A is {round(math.degrees(math.acos(cos_A)), 2)} degrees")
-   
+
                     else:
                         print("Error: Impossible triangle. These sides cannot connect.")
-   
+
                 case "B":
                     cos_B = ((a**2) + (c**2) - (b**2)) / (2 * a * c)
-   
+
                     if -1 <= cos_B <= 1:
                         print(f"\nResult: Angle B is {round(math.degrees(math.acos(cos_B)), 2)} degrees")
-   
+
                     else:
                         print("Error: Impossible triangle. These sides cannot connect.")
-   
+
                 case "C":
                     cos_C = ((a**2) + (b**2) - (c**2)) / (2 * a * b)
-   
+
                     if -1 <= cos_C <= 1:
                         print(f"\nResult: Angle C is {round(math.degrees(math.acos(cos_C)), 2)} degrees")
-   
+
                     else:
                         print("Error: Impossible triangle. These sides cannot connect.")
 

@@ -15,7 +15,7 @@ def show_food_script():
     print("\nYou are seeing SCRIPT 1!")
 
     favourite_food("chicken") # function being called
-    
+
     print("\nBye Bye!")
 
 

@@ -7,7 +7,7 @@ elif temperature > 20: # elif = else if
     print("It's a nice day")
 elif temperature > 10:
     print("It's a bit cold")
-else: # default / final condition 
+else: # default / final condition
     print("It's cold")
 
 # Expected Output: "It's a nice day"
@@ -23,7 +23,7 @@ else: # default / final condition
 
 for i in range(5): # Iterates through a sequence (like a range of numbers, a string, or a list)
     if i % 2 == 0: # Condition satisfied scenario
-        print(f"{i} is even") 
+        print(f"{i} is even")
     else: # (f"") method is used to format the output by embedding the value of i within the string
         print(f"{i} is odd")
 
@@ -42,14 +42,14 @@ for i in range(5): # Iterates through a sequence (like a range of numbers, a str
 # "4 is even"
 
 # Reason: The loop iterates through the numbers 0 to 4. For each number
-# It checks if the number is even (i % 2 == 0). 
+# It checks if the number is even (i % 2 == 0).
 # If the condition is true, it prints that the number is even; otherwise, it prints that the number is odd.
 
 
 for num in range (1, 11, 2):
     print(num)
 
-# Expected Output: 
+# Expected Output:
 """
 2
 4
@@ -88,7 +88,7 @@ print("You are an adult")
 # "You are a minor: 17"
 # "You are an adult"
 
-# Reason: The while loop continues to execute as long as the condition (age < 18) is true. 
+# Reason: The while loop continues to execute as long as the condition (age < 18) is true.
 # It prints the message indicating that the person is a minor along with their current age.
 # Once age reaches 18, the condition becomes false, and the loop terminates.
 # The normal code execution resumes after the loop terminates, printing "You are an adult".
@@ -127,10 +127,10 @@ age = 20
 status = "Allowed" if age >= 21 else "Rejected" # Ternary operator
 print(status)
 
-# Expected Output: 
+# Expected Output:
 # "Rejected"
 
-# Actual Output:   
+# Actual Output:
 # "Rejected"
 
 # Reason: Since age is 20, which is less than 21
@@ -158,17 +158,17 @@ def get_day_name(day):
         case _: # The underscore acts as the 'default' or 'else' case
             return "Invalid day"
 
-print(get_day_name(3)) 
+print(get_day_name(3))
 # Expected Output: "Wednesday"
 # Actual Output:   "Wednesday"
 # Reason: The match statement evaluates '3' and successfully matches it to 'case 3'.
 
-print(get_day_name(7)) 
+print(get_day_name(7))
 # Expected Output: "Sunday"
 # Actual Output:   "Sunday"
 # Reason: The match statement evaluates '7' and successfully matches it to 'case 7'.
 
-print(get_day_name(0)) 
+print(get_day_name(0))
 # Expected Output: "Invalid day"
 # Actual Output:   "Invalid day"
 # Reason: '0' does not match any of the defined cases (1 through 7), triggering the default 'case _'.
@@ -183,7 +183,7 @@ has_good_credit = True
 
 if income >= 40000 and has_good_credit: # BOTH must be true
     print("Eligible for loan")
-    
+
 # Expected Output: "Eligible for loan"
 # Actual Output:   "Eligible for loan"
 # Reason: Both the income requirement AND the credit requirement are met simultaneously.
@@ -195,7 +195,7 @@ on_vacation = True
 
 if is_weekend or on_vacation: # ONLY ONE needs to be true
     print("You don't have to work!")
-    
+
 # Expected Output: "You don't have to work!"
 # Actual Output:   "You don't have to work!"
 # Reason: Although 'is_weekend' is False, the 'or' operator allows execution because 'on_vacation' evaluates to True.
@@ -205,7 +205,7 @@ if is_weekend or on_vacation: # ONLY ONE needs to be true
 is_admin = True
 
 if is_admin != False: # NONE has to be true, meaning it's literally the opposite value
-    print("Access Granted!") 
+    print("Access Granted!")
 
 # Expected Output: "Access Granted!"
 # Actual Ouput:    "Access Granted!"
@@ -229,12 +229,12 @@ for number in range(5):
         break # Stops the entire loop permanently
     print(number)
 
-# Expected Output: 
+# Expected Output:
 # 0
 # 1
 # 2
 
-# Actual Output: 
+# Actual Output:
 # 0
 # 1
 # 2
@@ -248,17 +248,17 @@ for number in range(4):
         continue # Skips the current iteration, but keeps looping
     print(number)
 
-# Expected Output: 
+# Expected Output:
 # 0
 # 1
 # 3
 
-# Actual Output: 
+# Actual Output:
 # 0
 # 1
 # 3
 
-# Reason: The loop prints 0 and 1. When 'number' equals 2 
+# Reason: The loop prints 0 and 1. When 'number' equals 2
 # The continue statement forces Python to skip the rest of the loop block (skipping the print) and jump straight to the next iteration (3).
 
 
@@ -290,12 +290,12 @@ if "z" not in name: # Checks if the value is missing from the string
 x = 10
 if x > 5:
     pass # A null operation. Tells Python "Do nothing, but don't crash."
-    if x == 10: 
+    if x == 10:
         print("x is exactly 10")
 
 # Expected Output: "x is exactly 10"
 # Actual Output:   "x is exactly 10"
-# Reason: The outer condition allows the code inside to run. 
+# Reason: The outer condition allows the code inside to run.
 # The 'pass' statement acts as a placeholder doing nothing, allowing the inner nested condition to evaluate and run.
 
 
@@ -325,7 +325,7 @@ for i in range(3):
 # "(2, 1 are not equal)"
 
 # Reason: The outer loop iterates through values of 'i' (0, 1, 2) and the inner loop iterates through values of 'j' (0, 1).
-# The condition 'i == j' is only true when both 'i' and 'j' are 0 and when both are 1, resulting in the two print statements. 
+# The condition 'i == j' is only true when both 'i' and 'j' are 0 and when both are 1, resulting in the two print statements.
 # When 'i' is 2, there is no match with 'j', so the 'else' condition executes and prints that they are not equal.
 
 
@@ -353,7 +353,7 @@ for x in range (5): # for 5 times
 """
 # Reason: for x in range(5) -> every function underneath it, repeat it 5 times
 # for y in range (1, 11) -> from number 1 to 10 (11 is exclusive)
-# print(y, end=" ") # print 1-10 (function y). 
+# print(y, end=" ") # print 1-10 (function y).
 # end=" " -> This is the most crucial bit since this prevents all numbers printed vertically
 # print() -> This means once the y function has been executed, it is repeated under function x in a new line.
 # This means repeat number 1 to 10 being outputted 5 times under each new line.
@@ -371,7 +371,7 @@ for char in name:
 # Expected Output:
 # A | I | M
 
-# Actual Output: 
+# Actual Output:
 # A | I | M
 
 # Reason: Using for loop iterates every 'char(acter)' under the 'word' 'name'
@@ -386,10 +386,10 @@ for number in numbers:
 # Expected Output:
 # 1 2 3 4 5
 
-# Actual Output: 
+# Actual Output:
 # 1 2 3 4 5
 
-# Reason: for loop iterates every 'number' under the list 'numbers' 
+# Reason: for loop iterates every 'number' under the list 'numbers'
 # and prints them under a single line with spaces based on the function 'end=" "'
 
 countries = ["Algeria", "Belgium", "Canada"]
@@ -418,10 +418,10 @@ for point in coordinates:
 # Expected Output:
 # 1 2 3 4 5 6
 
-# Actual Output: 
+# Actual Output:
 # 1 2 3 4 5 6
 
-# Reason: for loop iterates every 'point' under the tuple 'coordinates' 
+# Reason: for loop iterates every 'point' under the tuple 'coordinates'
 # and prints them under a single line with spaces based on the function 'end=" "'
 
 # SETS
@@ -460,7 +460,7 @@ for key in alphabet:
 # B
 # C
 
-# Reason: Prints on the 'first' column i.e. only the keys vertically 
+# Reason: Prints on the 'first' column i.e. only the keys vertically
 # Meaning after the first row has been printed, the next gets printed out i.e. a new line for every new key
 
 for value in alphabet.values():
@@ -506,7 +506,7 @@ for key in alphabet:
 # C
 
 # Reason: The .items() method returns both the key and value as a pair
-# allowing the for loop to instantly unpack into two distinct variables (key and value) 
+# allowing the for loop to instantly unpack into two distinct variables (key and value)
 # and printed horizontally using an f-string.
 
 
@@ -527,7 +527,7 @@ while True: # This creates an infinite loop because the condition is always True
 # "This will run forever!"
 # (repeated 5 times)
 
-# Reason: The while loop is designed to run indefinitely because the condition 'True' is always satisfied. 
+# Reason: The while loop is designed to run indefinitely because the condition 'True' is always satisfied.
 # However, a break condition was added to stop it after 5 iterations for testing purposes.
 
 

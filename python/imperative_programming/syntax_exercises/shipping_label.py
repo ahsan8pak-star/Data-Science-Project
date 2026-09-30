@@ -32,7 +32,7 @@ def shipping_label(*name, **location):
 # Executing using standard positional (*args) and keyword (**kwargs) syntax
 shipping_label("Dr.", "Nobody", "Knows",
                street = "1 Fake Av.",
-               floor = "123", 
+               floor = "123",
                postcode = "RD1 2AB",
                city = "Reading",
                county = "Berkshire")

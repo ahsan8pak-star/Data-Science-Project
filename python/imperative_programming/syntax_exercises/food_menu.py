@@ -18,12 +18,12 @@ menu = {
 }
 
 # Used a dictionary ( {} )rather than a list ( [] ) to track local quantities per item
-order = {} 
+order = {}
 total = 0
 
 print("======== MENU ========")
 for key, value in menu.items():
-    print(f"| {key:11}: £{value:.2f} |") 
+    print(f"| {key:11}: £{value:.2f} |")
 print("======================\n")
 
 while True:
@@ -41,7 +41,7 @@ for food, quantity in order.items():
     item_price = menu.get(food)
     item_total = item_price * quantity  # Calculate price based on quantity
     total += item_total
-    
+
     # Correctly prints the actual quantity and the total price for that item
     print(f"| x{quantity} {food:11}: £{item_total:.2f} |")
     print("-------------------------")

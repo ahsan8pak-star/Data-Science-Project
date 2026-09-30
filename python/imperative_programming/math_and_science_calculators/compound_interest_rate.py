@@ -16,21 +16,21 @@ def compound_interest(p, r, t):
 try:
 
     while True: # While this function is true, hence program running.
-    
+
         p = float(input("Enter your amount (£): "))
-        
+
         if p < 0:
             print("Amount can't be negative (-).")
             print("Go to the Compound Debt Calculator for such values.\n")
-            break 
-            
+            break
+
         elif p == 0:
             print("Result will be 0, regardless of the interest and time.")
             print("Give a positive (+) non-zero (p > 0) amount.\n")
             break
-            
+
         else:
-            r = float(input("Enter your rate (%): ")) 
+            r = float(input("Enter your rate (%): "))
             t = int(input("Enter your time (years): "))
 
             result = compound_interest(p, r, t)

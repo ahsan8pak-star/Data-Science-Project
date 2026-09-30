@@ -88,7 +88,7 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
     own directory is temporarily added to the front of sys.path - runpy
     does this automatically too.
     """
-    
+
     filepath = PYTHON_DIR / relative_path
     assert filepath.exists(), f"Script not found: {filepath}"
 
@@ -98,7 +98,7 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
     def fake_input(prompt=""):
         try:
             return next(input_iter)
-        
+
         except StopIteration:
             raise EOFError("run_script(): no more mocked input available")
 
@@ -112,20 +112,20 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
         with contextlib.ExitStack() as stack:
             stack.enter_context(patch("builtins.input", side_effect=fake_input))
             stack.enter_context(patch("time.sleep", return_value=None))
-            
+
             for p in (patches or []):
                 stack.enter_context(p)
-            
+
             if cwd is not None:
                 stack.enter_context(_chdir(cwd))
-            
+
             with contextlib.redirect_stdout(buf):
                 try:
                     namespace = runpy.run_path(str(filepath), run_name="__main__")
-            
+
                 except SystemExit:
                     pass  # a script deliberately calling exit()/quit() is fine
-            
+
                 except Exception as exc:
 
                     """
@@ -139,13 +139,13 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
                     setattr(exc, "partial_output", buf.getvalue())
                     raise
     finally:
-       
+
         # Clean up the sys.path addition regardless of success/failure
         # Prevent leaks into unrelated tests or shadow same-named modules.
-       
+
         try:
             sys.path.remove(script_dir)
-       
+
         except ValueError:
             pass
 
@@ -154,7 +154,7 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
     existing assertions like `mod.some_function(...)` / `mod.some_var`
     keep working exactly as they did against a real imported module.
     """
-    
+
     module = types.ModuleType(filepath.stem)
     module.__dict__.update(namespace)
 
@@ -166,10 +166,10 @@ def run_script(relative_path, inputs=None, patches=None, cwd=None):
 def _chdir(path):
     old = os.getcwd()
     os.chdir(path)
-    
+
     try:
         yield
-    
+
     finally:
         os.chdir(old)
 

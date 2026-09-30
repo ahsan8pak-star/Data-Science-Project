@@ -83,7 +83,7 @@ def generate_recommendations(order, catalogue, cal_excess, budget_excess, remain
         for line in order:
             unit_cal = line.item.calories
             unit_price = line.item.price
-            
+
             if unit_cal >= cal_excess and unit_price >= budget_excess:
                 print(f"- Remove 1x '{line.item.name.title()}' "
                       f"(Saves {unit_cal} kcal and £{unit_price:.2f} - solves BOTH excesses!)")
@@ -179,10 +179,10 @@ def grocery_caloric_list():
     # Initial Item selection
     print("\nEnter the items you would like to order initially, separated by commas:")
     user_input = input("> ").strip().lower()
-    
+
     if user_input:
         selected_names = list(dict.fromkeys([n.strip() for n in user_input.split(",") if n.strip()]))
-        
+
         for name in selected_names:
             if name in catalogue:
                 item = catalogue[name]
@@ -241,7 +241,7 @@ def grocery_caloric_list():
             print(f'{"HERE'S YOUR ORDER! THANKS FOR SHOPPING WITH OUR TRACKER!":^70}')
             print("=" * 70 + "\n")
             break
-        
+
         # Modification Logic
         if action in catalogue:
             item = catalogue[action]
@@ -264,7 +264,7 @@ def grocery_caloric_list():
                                     print(f"Updated '{action.title()}' quantity to {qty}.")
                                 found = True
                                 break
-                        
+
                         # If the item wasn't in the order and the user typed a quantity > 0, add it
                         if not found and qty > 0:
                             order.append(OrderLine(item, qty))

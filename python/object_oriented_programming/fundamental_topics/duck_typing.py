@@ -21,7 +21,7 @@ class Cow(Animal):
         print("Walking")
 
     def eat(self):
-        print("grass..")  
+        print("grass..")
 
 class Duck(Animal):
     def speak(self):
@@ -37,8 +37,8 @@ class Plane: # Vehicle != Animal
 # 'def fly' has to be reused as the necessary attributes -> prevent AttributeError
 # i.e. def fly(self) -> def speak, move and eat
 
-    # Local Variable for its class to prevent 
-    alive = False 
+    # Local Variable for its class to prevent
+    alive = False
 
     def speak(self):
         print("FLY!!!")

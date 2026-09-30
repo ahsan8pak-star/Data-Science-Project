@@ -48,7 +48,7 @@ file_path = file_dir + file_name
 try:
     with open(file_path, "r") as file:
         content = csv.reader(file)
-        
+
         # Skip the header row
         header = next(content)
 
