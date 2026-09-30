@@ -685,3 +685,5 @@ class TestProgressionDocClaims:
                     f"'{retired}' is quoted in PROGRESSION.md without the "
                     f"'{current}' that superseded it, so it reads as current"
                 )
+
+

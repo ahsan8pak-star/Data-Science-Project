@@ -86,3 +86,5 @@ class TestRepoIsCleanAfterATestRun:
         assert not (REPO_ROOT / name).exists(), (
             f"{name} is sitting in the repo root. Delete it; it is generated."
         )
+
+

@@ -536,3 +536,5 @@ class TestRankingDocsUseLfLineEndings:
         # check would be the only thing noticing.
         raw = Path(__file__).read_bytes()
         assert b"\r\n" not in raw
+
+

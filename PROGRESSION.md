@@ -30,7 +30,7 @@ Where a number is an estimate rather than a measurement, it says so.
 | Commits | 714 at the end of the run (historical — see the note below) |
 | Peak effort | 28–36 h/week recorded across most weeks |
 | Source modules | 161 non-`__init__` files under `python/` |
-| Test suite | 1450 tests, all passing |
+| Test suite | 1515 tests, all passing |
 | Coverage | 99% line, 95% branch |
 | Quality mean | 77.6/100 across 161 ranked files |
 | Mirrors | 4 (GitHub project + backup, GitLab project + backup) |
@@ -387,7 +387,7 @@ mirrors were found lagging at an older commit.
 
 | | |
 | --- | --- |
-| Tests | 1450 passing, 0 failing |
+| Tests | 1515 passing, 0 failing |
 | Coverage | 99% line, 95% branch |
 | Quality mean | 77.6/100 over 161 files |
 | Document drift | 0 known — all numeric claims test-guarded |
@@ -408,7 +408,8 @@ log unchanged has left the record behind. Newest first.
 
 | Date | Session | What changed | What it taught |
 | --- | --- | --- | --- |
-| 30 Sep 2026 | Progression review & code review | Reconciled the ranking sheet: deduped a 167-entry document down to the 161 real files, aligned all 161 headings to their own tables, normalised 9 entries that rounded an exact `.5` downward against 50 that rounded up, and corrected the guide's pre-verified table and worked example. Corrected four stale figures in the docs (98%→95% branch, 171/182→148/159, "29 lines in 8 caps"→38 in 11, 1350→1450 tests). Fixed a silent failure in `execution_time.py` where a mistyped folder re-prompted with no output. Added 94 guard tests across three files. Wrote this review. | A fact written in prose and never recomputed is a fact that will be wrong. The ranking sheet had 112 of 161 headings disagreeing with their own tables and nobody noticed, because nothing compared them. The fix was not to re-read the prose more carefully — it was to make the stale number fail the suite. |
+| 30 Sep 2026 | Progression review & code review | Reconciled the ranking sheet: deduped a 167-entry document down to the 161 real files, aligned all 161 headings to their own tables, normalised 9 entries that rounded an exact `.5` downward against 50 that rounded up, and corrected the guide's pre-verified table and worked example. Corrected four stale figures in the docs (98%→95% branch, 171/182→148/159, "29 lines in 8 caps"→38 in 11, 1350→1515 tests). Fixed a silent failure in `execution_time.py` where a mistyped folder re-prompted with no output. Added 94 guard tests across three files. Wrote this review. | A fact written in prose and never recomputed is a fact that will be wrong. The ranking sheet had 112 of 161 headings disagreeing with their own tables and nobody noticed, because nothing compared them. The fix was not to re-read the prose more carefully — it was to make the stale number fail the suite. |
+| 30 Sep 2026 | Data-file validation & byte invariants | Fixed `input.csv`, whose header (`gamertag, gamerscore, is_online, account_made`) carried a leading space in every cell after the first - invisible in output because `file_reader.py` strips its data rows but not the header. Added `tests/test_scripts/test_data_files.py` (65 tests, kept out of the main suite because these files have no module to import) covering JSON parsing, CSV rectangularity, header whitespace, LF endings, and that each fixture is still named by the script that uses it. Normalised 9 Python files to exactly 3 trailing newlines and guarded the invariant. | The same class of defect as the 112 stale ranking headings: something wrong that reads perfectly well on screen. A leading space in a CSV header and a missing trailing newline are both invisible in review and both caught by the first test written to look. |
 | 30 Sep 2026 | Guard hardening (same day, follow-up) | `test_total_commit_count` asserted the document states the *live* `HEAD` commit count, so it failed the instant this file was committed — committing a document that states the commit count adds a commit. Rewrote it to count commits before a fixed date cutoff. Corrected the duration from "17 weeks" to 117 days (16.7 weeks). | A guard that cannot pass is worse than no guard, because it teaches you to ignore failures. Two figures in this file have now broken on the same root cause: any number that changes *because of the act of writing it down* cannot be asserted against a live source. |
 | 29 Sep 2026 | Ranking drift & merge-commit fix | Landed the commit-scope guard (rule 12) and the branch-and-PR correction workflow, then found that the first merge commit broke the guard it had just passed. Exempted merge commits by parent count. | A rule strict enough to punish correct behaviour gets ignored, and then protects nothing. The fix was to make the rule right, not to weaken it — and to record the exemption in the rule itself so it stays stated rather than hidden. |
 | 29 Sep 2026 | Doc-drift audit | Found and fixed stale figures across `AGENTS.md` and `NOTES.md`; added `test_repo_doc_numbers.py` to pin them. Verified 10 consecutive clean suite runs and 17 test files in isolation. | Documentation drift is the most common failure in a self-directed project and the hardest to see, because the stale sentence still reads perfectly well. It was only visible by recomputing the numbers. |
