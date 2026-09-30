@@ -245,6 +245,18 @@ candidates to verify against the repo rather than ground truth.
     prefix is right - this was violated five times in a row during the 29 Sep
     2026 session and had to be promoted from a "rule of thumb" to a numbered
     rule to stop the drift.
+13. **`PROGRESSION.md` is a living document and is updated every session.**
+    The review is not a one-off write-up of the 16-week run; it is the running
+    record of where the project has got to, and it is updated whenever the
+    project moves. On any session that changes the project - new modules, new
+    tests, a fixed bug, a new rule, a changed stage of learning - append a row
+    to the session log in that file and refresh any figure it quotes. A session
+    that ends with the document describing a state the repo has moved past is
+    a failed session, even if every test passes. The figures are test-guarded by
+    `tests/test_scripts/test_repo_doc_numbers.py`, so a stale number fails the
+    suite; the log itself is the part only the agent can maintain, and a rule
+    cannot enforce intent. Keep additions append-only where possible so the
+    narrative still reads as a progression rather than a rewrite.
 
 ## Term-Time Operating Cadence
 
@@ -425,7 +437,7 @@ or the correction is half-applied.
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1448 passing tests, ~99% line coverage and 95% branch coverage (148 of the
+- 1450 passing tests, ~99% line coverage and 95% branch coverage (148 of the
   159 measured `python/` files at 100% lines, including both
   music-player GUIs; the one never-imported file is
   `imperative_programming/fundamental_topics/main.py`, and the 161

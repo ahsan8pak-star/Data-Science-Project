@@ -588,14 +588,54 @@ class TestProgressionDocClaims:
     # ---- suite-derived claims ----------------------------------------------
 
     def test_test_count_matches_the_session(self, request):
-        claimed = re.search(r"(\d{3,4}) tests", self._flat())
+        """
+        Every stated test count must equal the live total, in every place the
+        document mentions one.
+
+        [AI-authored fix] An earlier version checked only the summary table, so
+        the same document carried "1436 passing" in section 6 while the table
+        said 1447 and nobody noticed. Checking one location is not the same as
+        checking the number: a figure stated twice is a figure that can be
+        updated once.
+        """
+        claimed = re.findall(r"(\d{3,4}) (?:tests|passing)", self._flat())
         assert claimed, "PROGRESSION.md states no test count"
         if not _is_full_run(request):
             pytest.skip("suite-wide count only meaningful on a full-suite run")
         actual = len(request.session.items)
-        assert int(claimed.group(1)) == actual, (
-            f"PROGRESSION.md says {claimed.group(1)} tests, the suite collects "
-            f"{actual}"
+        stale = [c for c in claimed if int(c) != actual]
+        assert stale == [], (
+            f"PROGRESSION.md states {stale} tests, but the suite collects "
+            f"{actual}; every mention has to be refreshed, not just the first"
+        )
+
+    def test_session_log_exists_and_is_append_only(self):
+        """
+        Rule 13 makes this a living document, so the log is the part of it that
+        cannot be derived and cannot be enforced by recomputing a number. The
+        guard here is structural: the section has to exist, it has to have rows,
+        and the rows have to be dated. Whether a row was *added* when it should
+        have been is a matter of judgement, but its absence is a defect.
+        """
+        flat = self._flat()
+        assert "## 7. Session log" in flat, (
+            "PROGRESSION.md has no session log; rule 13 requires one"
+        )
+        block = self.DOC.read_text(encoding="utf-8").split("## 7. Session log", 1)[1]
+        rows = [
+            line for line in block.splitlines()
+            if line.strip().startswith("|") and "---" not in line
+        ][1:]  # drop the header row
+        assert len(rows) >= 1, "the session log has no entries"
+        undated = [r for r in rows if not re.search(r"\d{1,2} \w+ 20\d{2}", r)]
+        assert undated == [], f"session log rows without a date: {undated}"
+
+    def test_the_log_is_referenced_from_agents_rules(self):
+        # Rule 13 is what makes the log a duty rather than a habit, so if the
+        # reference is lost the whole mechanism silently stops being required.
+        assert "PROGRESSION.md" in _flat(AGENTS_MD)
+        assert "living document" in _flat(AGENTS_MD), (
+            "AGENTS.md no longer describes PROGRESSION.md as living"
         )
 
     # ---- ranking-derived claims --------------------------------------------
