@@ -472,6 +472,11 @@ class TestProgressionDocClaims:
     """
     DOC = REPO_ROOT / "PROGRESSION.md"
 
+    # The cutoff for counting the run's commits. Exclusive: everything dated
+    # before this instant is the run, so 2026-09-30 includes all of 29 Sep.
+    # Fixed by history, so it cannot drift.
+    REVIEW_CUTOFF = "2026-09-30"
+
     def _flat(self):
         return " ".join(self.DOC.read_text(encoding="utf-8").split())
 
@@ -521,23 +526,43 @@ class TestProgressionDocClaims:
 
     def test_total_commit_count(self):
         """
-        Checked as an exact figure, not a substring search. A substring test
-        passes while *any* occurrence is still correct, so editing one of two
-        mentions slipped through in review - the other mention kept the phrase
-        alive. Every number the document states is now required to appear with
-        the right value and no wrong value beside it.
+        The count is checked as a historical figure, not a live one.
+
+        [AI-authored fix] This originally asserted the current `HEAD` count, and
+        it failed the moment this document was committed - committing a
+        document that states the commit count adds a commit, so the assertion
+        could never be satisfied. A guard that cannot pass is worse than no
+        guard, because it trains people to ignore failures.
+
+        The fix counts commits dated on or before the review date instead. That
+        figure is fixed by history: no future commit can change it, so the
+        document can state it and the suite can hold it.
         """
-        count = int(self._git("rev-list", "--count", "HEAD").strip())
+        count = int(self._git(
+            "rev-list", "--count", f"--before={self.REVIEW_CUTOFF}T00:00:00",
+            "HEAD"
+        ).strip())
         flat = self._flat()
         assert f"{count} commits" in flat, (
-            f"PROGRESSION.md does not state the real commit count {count}"
+            f"PROGRESSION.md does not state the real commit count {count} "
+            f"(commits dated before {self.REVIEW_CUTOFF})"
         )
-        # A stale figure must not survive anywhere in the document.
+        # A superseded figure must not survive anywhere in the document.
         for stale in re.findall(r"\b(\d{2,4}) commits\b", flat):
             assert int(stale) == count, (
-                f"PROGRESSION.md states {stale} commits, but the repository has "
+                f"PROGRESSION.md states {stale} commits, but the run had "
                 f"{count}; a superseded figure has come back"
             )
+
+    def test_the_commit_count_is_marked_historical(self):
+        """
+        The document must say the figure is historical. Without that wording a
+        reader takes "713 commits" as the current total, which it is not.
+        """
+        assert "at the end of the run" in self._flat() or "historical" in self._flat(), (
+            "PROGRESSION.md quotes a commit count without marking it as the "
+            "figure at the end of the run rather than a live total"
+        )
 
     def test_lane_module_counts(self):
         flat = self._flat()

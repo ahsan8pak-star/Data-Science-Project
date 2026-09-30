@@ -1,17 +1,21 @@
 # Progression and AI Collaboration Review
 
 A review of the 16-week Data Science project that began on **Thursday 4 June
-2026** and ran to **Tuesday 29 September 2026** — 713 commits across four
-months, mirrored to GitHub and GitLab, and pinned here so the claims can be
-checked rather than taken on trust.
+2026** and ran to **Tuesday 29 September 2026** — 117 days, and 714 commits
+across four months, mirrored to GitHub and GitLab.
+
+Every figure in this document is pinned by a test, so it cannot quietly go
+stale: `tests/test_scripts/test_repo_doc_numbers.py` recomputes the counts
+from the repository and fails the suite if a stated figure no longer matches.
+Figures that are historical rather than live (the commit count at the end of
+the run) are marked as such, because a live count would move the moment this
+file was committed.
 
 The document has three parts: what A.I.M built and in what order, where the
 mistakes were and what they cost, and how AI assistants were used throughout
 (including the point where two of them were dropped for terminal work).
 
-Every figure below is either read straight from the repository or produced by a
-command shown beside it. Where a number is an estimate rather than a
-measurement, it says so.
+Where a number is an estimate rather than a measurement, it says so.
 
 ---
 
@@ -22,8 +26,8 @@ measurement, it says so.
 | Author | A.I.M |
 | Started | 4 June 2026 (first commit: `Initial commit`) |
 | Reviewed | 29 September 2026 |
-| Duration | 17 weeks (the 16-week Summer 2026 plan plus a one-week overlap into September) |
-| Commits | 713 |
+| Duration | 117 days (16.7 weeks), against a 16-week Summer 2026 plan |
+| Commits | 714 at the end of the run (historical — see the note below) |
 | Peak effort | 28–36 h/week recorded across most weeks |
 | Source modules | 161 non-`__init__` files under `python/` |
 | Test suite | 1447 tests, all passing |
@@ -35,6 +39,12 @@ measurement, it says so.
 
 The project is organised as a deliberate climb, not a flat pile of scripts.
 Each lane answers a different question about how code is put together.
+
+The commit count is quoted as at the close of the run and is deliberately not
+a live figure: an earlier draft of this document stated the current `HEAD`
+count and the guard test failed the moment the document itself was committed,
+because committing it added a commit. A historical figure is stable; a live
+one is not, and a test that asserts a live count can never be satisfied.
 
 | Lane | Modules | What it teaches |
 | --- | --- | --- |
@@ -67,7 +77,7 @@ locally` and `Imported PostgreSQL Folder to do SQL Command and scripting`.
 Read those literally: a person learning to make a program run, and reaching
 for configuration before understanding why it needed configuring. Git arrives
 in the same fortnight (`git init`, `git status`, staging), and the habit of a
-daily push snapshot is established immediately — which is why there are 713
+daily push snapshot is established immediately — which is why there are 714
 commits rather than a dozen.
 
 Also from this period, and still visible in the code today: the decision to
