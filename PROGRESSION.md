@@ -30,7 +30,7 @@ Where a number is an estimate rather than a measurement, it says so.
 | Commits | 714 at the end of the run (historical — see the note below) |
 | Peak effort | 28–36 h/week recorded across most weeks |
 | Source modules | 161 non-`__init__` files under `python/` |
-| Test suite | 1521 tests, all passing |
+| Test suite | 1523 tests, all passing |
 | Coverage | 99% line, 95% branch |
 | Quality mean | 77.6/100 across 161 ranked files |
 | Mirrors | 4 (GitHub project + backup, GitLab project + backup) |
@@ -69,6 +69,56 @@ use for structure rather than for its own sake.
 This is a self-assessment calibrated against the repository, not a
 self-congratulatory narrative. The evidence for each stage is a commit or a
 file that could not have existed before it.
+
+### The shape of the four months, measured
+
+The stages below are argued from individual commits, which is evidence but is
+also the easiest thing to cherry-pick. So the same argument is repeated here on
+the *whole* history — every commit up to this one, not a selection — using two
+measures that cannot be chosen for: how many commits landed, and how long their
+subjects are.
+
+| Month | Commits | Mean subject length | Subjects over 120 chars | What the month was |
+| --- | --- | --- | --- | --- |
+| Jun 2026 | 154 | 98.9 | 42 | Syntax drills; Git and IDE setup |
+| Jul 2026 | 227 | 122.3 | 88 | Testing becomes the work |
+| Aug 2026 | 108 | 98.8 | 26 | Narrowing, renaming, consolidation |
+| Sep 2026 | 225 | 76.7 | 19 | Documentation, rules, review |
+
+The four counts total 714, the same figure Section 1 states for the run, so
+the table is internally consistent and is recomputed by the test suite rather
+than trusted. The window closes at the end of 29 September, which is what makes
+these numbers stable: a commit made today cannot alter them, so the figures
+cannot rot the way a live count does.
+
+Subject length is worth defending as a signal before it is trusted. A long
+commit message is not inherently good practice — brevity is usually the goal.
+Here it is read as *necessity*: a message is long when the reasoning does not
+exist anywhere else and has nowhere else to go. A.I.M's messages run to 138
+characters a week at their peak and settle at 64 by mid-September, so the
+convergence is not stylistic tightening but reasoning migrating out of the
+message and into a test or a written rule.
+
+Counting subject keywords gives the same arc from a different direction:
+
+| Month | test | pytest | README | feat | fix | chore | docs |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Jun | 8 | 2 | 19 | 0 | 4 | 1 | 2 |
+| Jul | 51 | 24 | 33 | 13 | 25 | 74 | 2 |
+| Aug | 27 | 16 | 20 | 10 | 9 | 28 | 3 |
+| Sep | 50 | 15 | 22 | 25 | 37 | 39 | 86 |
+
+July's `feat` count of 13 and September's of 25 bracket the middle. The sharpest
+movement is not in either: it is `docs`, at 2 in July and 86 in September, while
+`chore` collapses from 74 to 39. Chores are the work of *maintaining* a thing
+that already exists, and they dominate exactly when there is a lot to maintain.
+
+Weekly resolution puts the turn more precisely than the monthly table can.
+The narrative peak is **Weeks 28–29** (late July, 138.0 and 135.9 mean
+characters), August is a genuine plateau at 92–110, and then **Week 38** drops to
+63.7 — the single largest step in the whole run. June's 84.4 and September's 76.7
+are similar, which is why the monthly figures understate the dip: the arc is
+up, flat, sharply down, and only the weekly view shows it.
 
 ### Stage 1 — Beginner (Weeks 1–2, June): the terminal and Git
 
@@ -115,11 +165,32 @@ followed a few weeks later by `test: implement comprehensive automated test
 suite for all Python modules`, which is the moment the project stops being a
 demonstration and starts having a safety net.
 
-### Stage 4 — Intermediate-plus (Weeks 10–12, August): data work and real defects
+### Stage 4 — Intermediate-plus (Weeks 10–12, August): tidying, renaming, data work
 
-NumPy, then Pandas, then cleaning and `groupby()`. This is also where the
-project's most valuable judgement appears, and it is a judgement about *not*
-fixing things.
+The data work arrives here, but all of it arrives **in one day**. On 2 August a
+single burst commits `data_outlier.py`, `OutlierCapper`, ten Pandas notebooks
+across the music and video-game folders, the trained `.joblib` and `.dot`
+artefacts, and a `snake_case` rename sweep of the whole tree. Nothing about that
+reads as a gradual "NumPy, then Pandas, then `groupby()`" curriculum — it is one
+afternoon's work landing together, and the honest description is *breadth, not
+sequence*.
+
+What genuinely characterises August is not the libraries but the **renaming**,
+and it is the month where the project starts paying for its own structure:
+
+- `chore: rename 'Python' to 'python' due to folder rename change from 'Python' to 'python' to prevent pytest crashes`
+- `chore(refactor folder): rename folder under snake_case format`
+- `file(pytest): create pytest case dedicated for the previous git commit message made`
+
+The `Python/` → `python/` change is the one that matters most, and it is worth
+recording as a *measurement trap* rather than a victory. A per-file "first added"
+query run today returns September for nearly every script, because the bulk of
+the tree was re-added under the new lower-case path. Only querying the old
+capitalised path recovers the true dates. **The lane was renamed on 2 August;
+every script before that date is older than its own path suggests.**
+
+This is also where the project's most valuable judgement appears, and it is a
+judgement about *not* fixing things.
 
 `chore: update VS Code settings to resolve Windows interpreter fallback` is
 routine. The significant commits are these:
@@ -387,7 +458,7 @@ mirrors were found lagging at an older commit.
 
 | | |
 | --- | --- |
-| Tests | 1521 passing, 0 failing |
+| Tests | 1523 passing, 0 failing |
 | Coverage | 99% line, 95% branch |
 | Quality mean | 77.6/100 over 161 files |
 | Document drift | 0 known — all numeric claims test-guarded |
@@ -408,7 +479,8 @@ log unchanged has left the record behind. Newest first.
 
 | Date | Session | What changed | What it taught |
 | --- | --- | --- | --- |
-| 30 Sep 2026 | Progression review & code review | Reconciled the ranking sheet: deduped a 167-entry document down to the 161 real files, aligned all 161 headings to their own tables, normalised 9 entries that rounded an exact `.5` downward against 50 that rounded up, and corrected the guide's pre-verified table and worked example. Corrected four stale figures in the docs (98%→95% branch, 171/182→148/159, "29 lines in 8 caps"→38 in 11, 1350→1521 tests). Fixed a silent failure in `execution_time.py` where a mistyped folder re-prompted with no output. Added 94 guard tests across three files. Wrote this review. | A fact written in prose and never recomputed is a fact that will be wrong. The ranking sheet had 112 of 161 headings disagreeing with their own tables and nobody noticed, because nothing compared them. The fix was not to re-read the prose more carefully — it was to make the stale number fail the suite. |
+| 30 Sep 2026 | Progression review & code review | Reconciled the ranking sheet: deduped a 167-entry document down to the 161 real files, aligned all 161 headings to their own tables, normalised 9 entries that rounded an exact `.5` downward against 50 that rounded up, and corrected the guide's pre-verified table and worked example. Corrected four stale figures in the docs (98%→95% branch, 171/182→148/159, "29 lines in 8 caps"→38 in 11, 1350→1523 tests). Fixed a silent failure in `execution_time.py` where a mistyped folder re-prompted with no output. Added 94 guard tests across three files. Wrote this review. | A fact written in prose and never recomputed is a fact that will be wrong. The ranking sheet had 112 of 161 headings disagreeing with their own tables and nobody noticed, because nothing compared them. The fix was not to re-read the prose more carefully — it was to make the stale number fail the suite. |
+| 30 Sep 2026 | Month-by-month progression, measured | Replaced the impressionistic monthly narrative with two recomputed tables - commits and mean subject length per month, plus a keyword mix - and corrected Stage 4. Weekly data shows the real arc: a narrative peak at 138.0 chars in Week 28, an August plateau, then the single largest step of the run at Week 38 (63.7). | Writing the progression from a handful of sampled commit subjects produced a claim that was wrong in a way sampling invited: 'NumPy, then Pandas, then groupby()' implied a curriculum, when pandas, ten notebooks and the OutlierCapper all landed in a single burst on 2 Aug. Measuring every commit rather than selecting some also exposed that the subject-length peak is in July, not June. |
 | 30 Sep 2026 | Docstring structure & end-of-file bytes | Normalised every `.py` and `.md` file in the tree to exactly two trailing newlines (224 were at three, 6 markdown files at one, so all 232 are now uniform), converted 14 over-long hash-comment runs to """ blocks, and added guards for both. Separately corrected 3 docstrings whose opening quotes shared a line with their summary. | The convention had been written down but enforced nowhere, so it drifted twice - once to three newlines, once to quote-on-the-same-line - and both were invisible in review. A rule that exists only in prose is a preference; the guards are what make it a constraint. |
 | 30 Sep 2026 | Trailing-whitespace sweep | Stripped 853 trailing-whitespace lines from 103 Python files and added a guard. Fifteen lines were left alone because they sit inside multi-line string literals, two of them expected-output strings in `test_math_and_science_calculators.py` where a stripped space would change what the test asserts; the exemption is computed with `tokenize`, so it follows a line as it moves in or out of a string. | Trailing whitespace is invisible in review and in most editors, so 853 lines accumulated unnoticed. Only whitespace at the end of a line was removed - never leading indentation - so no code changed shape, and the full suite confirmed it. A cleanup that touches a third of the tree has to be provably behaviour-free, which is why the string-literal exemption is derived rather than hardcoded. |
 | 30 Sep 2026 | Data-file validation & byte invariants | Fixed `input.csv`, whose header (`gamertag, gamerscore, is_online, account_made`) carried a leading space in every cell after the first - invisible in output because `file_reader.py` strips its data rows but not the header. Added `tests/test_scripts/test_data_files.py` (65 tests, kept out of the main suite because these files have no module to import) covering JSON parsing, CSV rectangularity, header whitespace, LF endings, and that each fixture is still named by the script that uses it. Normalised 9 Python files to exactly 3 trailing newlines and guarded the invariant. | The same class of defect as the 112 stale ranking headings: something wrong that reads perfectly well on screen. A leading space in a CSV header and a missing trailing newline are both invisible in review and both caught by the first test written to look. |

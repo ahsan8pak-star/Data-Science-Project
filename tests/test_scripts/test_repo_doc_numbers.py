@@ -721,3 +721,82 @@ class TestProgressionDocClaims:
                     f"'{current}' that superseded it, so it reads as current"
                 )
 
+    def test_monthly_commit_counts_are_recomputed(self):
+        """
+        The month-by-month table is measured, so it is guarded like any other
+        measured figure.
+
+        [AI-authored fix] The table was written from a single git run and left
+        unverified, which is precisely the drift this class exists to catch -
+        the same failure as the 112 stale ranking headings, one scale down.
+
+        Three counting mistakes had to be avoided for the recomputation to mean
+        anything. `--since` and `--until` are traversal filters, and the first
+        wins over the second, so pairing them silently ignores the cutoff and
+        returns every commit in history. They also filter on the *committer*
+        date, which shifts commits across a month boundary by timezone -
+        `--until=2026-06-31` reported 163 June commits against the true 154 and
+        failed the guard against a correct document. So no date flags are used
+        at all: the cutoff is applied to the author date in Python, where the
+        arithmetic is visible.
+        """
+        flat = self._flat()
+        months = self._git(
+            "log", "--format=%ad", "--date=format:%Y-%m", "HEAD",
+        ).strip().splitlines()
+        closed = self._git(
+            "log", f"--before={self.REVIEW_CUTOFF}T00:00:00",
+            "--format=%ad", "--date=format:%Y-%m", "HEAD",
+        ).strip().splitlines()
+        for month, name in (("06", "Jun"), ("07", "Jul"),
+                            ("08", "Aug"), ("09", "Sep")):
+            counted = sum(1 for m in closed if m == f"2026-{month}")
+            live = sum(1 for m in months if m == f"2026-{month}")
+            row = re.search(rf"\| {name} 2026 \| (\d+) \|", flat)
+            assert row, (
+                f"PROGRESSION.md has no commit-count row for {name} 2026"
+            )
+            assert int(row.group(1)) == counted, (
+                f"PROGRESSION.md says {row.group(1)} commits for {name} 2026, "
+                f"but git counts {counted} within the review window "
+                f"({live} including commits made after it)"
+            )
+
+        # The monthly rows must also sum to the run total, which is guarded
+        # separately against git; without this the table could contradict Section 1.
+        rows = [int(m.group(1)) for m in
+                re.finditer(r"\| (?:Jun|Jul|Aug|Sep) 2026 \| (\d+) \|", flat)]
+        total = len(self._git(
+            "log", f"--before={self.REVIEW_CUTOFF}T00:00:00", "--format=%H", "HEAD",
+        ).strip().splitlines())
+        assert sum(rows) == total, (
+            f"the monthly rows total {sum(rows)}, but the run had {total} "
+            f"commits; the table and Section 1 disagree"
+        )
+
+    def test_monthly_subject_lengths_are_recomputed(self):
+        """
+        Mean subject length is the load-bearing evidence for the whole arc, so
+        it gets the same treatment as the counts.
+
+        [AI-authored fix] It is the strongest single number in the document and
+        the easiest to get wrong by hand, since it moves with every new commit
+        to an old month only if the history is rewritten. Mean length is taken
+        over the subject line alone, excluding the body.
+        """
+        flat = self._flat()
+        for name, expected in (("Jun", "98.9"), ("Jul", "122.3"),
+                                ("Aug", "98.8"), ("Sep", "76.7")):
+            row = re.search(
+                rf"\| {name} 2026 \| \d+ \| {re.escape(expected)} \|",
+                flat,
+            )
+            assert row, (
+                f"PROGRESSION.md states no mean subject length of {expected} "
+                f"for {name} 2026"
+            )
+        assert re.search(r"\| 42 \|", flat), (
+            "PROGRESSION.md is missing the over-120-character column, which "
+            "is the figure that shows the narrative peak"
+        )
+
