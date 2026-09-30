@@ -1,4 +1,5 @@
-"""Byte-safe repair of the four broken TestNumbers probe bodies.
+"""
+Byte-safe repair of the four broken TestNumbers probe bodies.
 
 Strategy: load numbers.py through runpy, capture its REAL module-level
 bindings, then REGENERATE the ending (Decimal / int-to-bytes / extended
@@ -111,3 +112,4 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
+
