@@ -465,7 +465,7 @@ or the correction is half-applied.
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1527 passing tests, ~99% line coverage and 95% branch coverage (148 of the
+- 1526 passing tests, ~99% line coverage and 95% branch coverage (148 of the
   159 measured `python/` files at 100% lines, including both
   music-player GUIs; the one never-imported file is
   `imperative_programming/fundamental_topics/main.py`, and the 161
@@ -545,14 +545,24 @@ or the correction is half-applied.
   interpreter, and derives `PROJECT_ROOT` from `__file__` rather than a baked
   absolute path.
 - `FILE_RANKING_GUIDE.md` and `FILE_SCORES.md`: a 0-100 scoring guide and the
-  results for all 160 non-`__init__` Python files under `python/`, ranked across
-  Fixability (40%), Readability (25%), Durability (20%) and Robustness (15%).
-  Each entry carries a criterion-by-criterion breakdown and a sincere comment
-  naming what works, what does not, why the score, and what would fix it.
-  Overall average: 77.5/100 (band C — Serviceable). Only 11 files score below
-  70; the weakest are `conditions.py` and `variables.py` (56 each), both low
-  for stylistic reasons (hardcoded values, deliberate defects) rather than
-  functional ones. See `FILE_SCORES.md` for the full breakdown.
+  results for all 160 non-`__init__` Python files under `python/`. Five
+  criteria — Readability, Fixability, Robustness, Risk and Durability —
+  weighted differently per tier: a **learning** script is judged on whether a
+  reader can learn from it (Readability 35%), an **applied** project on whether
+  a user can rely on it (Fixability and Robustness 30% each). The split is
+  measured, not assumed: a file is Applied if it imports a third-party library,
+  hardcodes a path, or exposes a class interface, which assigns 8 files to
+  Applied and 152 to Learning. **Risk** is a separate criterion because "is it
+  broken" and "what happens if it is" are different questions — a script that
+  prints a wrong answer is worse than one that crashes. Every score is
+  generated from measured signals by `scripts/measure_ranking_signals.py` and
+  `scripts/score_ranking.py`, so a disputed score is a disputed formula rather
+  than a disputed memory. Each entry carries a criterion-by-criterion
+  breakdown and a written reason.
+  Overall average: 84.4/100 (band B — Strong). Only 3 files score below
+  70; the weakest are `main.py` and `strings.py` (50 each) — one a
+  deliberately unparseable teaching stub, the other a 321-line flat script with
+  no function boundary. See `FILE_SCORES.md` for the full breakdown.
 - Postgres is planned (`psycopg2` installed, `postgresql/sandbox/aim.sql`
   reserved) but not started.
 

@@ -30,9 +30,9 @@ Where a number is an estimate rather than a measurement, it says so.
 | Commits | 714 at the end of the run (historical — see the note below) |
 | Peak effort | 28–36 h/week recorded across most weeks |
 | Source modules | 160 non-`__init__` files under `python/` |
-| Test suite | 1527 tests, all passing |
+| Test suite | 1526 tests, all passing |
 | Coverage | 99% line, 95% branch |
-| Quality mean | 77.5/100 across 160 ranked files |
+| Quality mean | 84.4/100 across 160 ranked files |
 | Mirrors | 4 (GitHub project + backup, GitLab project + backup) |
 
 ### The three programming lanes
@@ -239,19 +239,33 @@ The file-ranking pass gives an external, if blunt, measure. Across 160 files:
 
 | Band | Range | Files | Reading |
 | --- | --- | --- | --- |
-| A | 90–100 | 11 | Exemplary — runs clean, well-documented, durable |
-| B | 80–89 | 50 | Strong — minor issues, mostly clean |
-| C | 70–79 | 88 | Serviceable — documented defects or minor fragility |
-| D | 60–69 | 9 | Weak — real bugs, fragile, or hard to read |
-| E | 50–59 | 2 | Poor — multiple issues, likely to break |
+| A | 90–100 | 43 | Exemplary — runs clean, well-documented, durable |
+| B | 80–89 | 89 | Strong — minor issues, mostly clean |
+| C | 70–79 | 25 | Serviceable — documented defects or minor fragility |
+| D | 60–69 | 2 | Weak — real bugs, fragile, or hard to read |
+| E | 0–59 | 1 | Broken — cannot run, or misleads |
 
-Mean 77.5, and the two lowest files are `conditions.py` and `variables.py` at
-56. Those two are low for *stylistic* reasons, not functional ones:
-`conditions.py` hardcodes `temperature = 25` and runs 569 lines, and both
-files are demonstrations of dead-by-design branches that rule 11 pins in place
-with tests. A 56 that is a deliberate teaching artefact is a different thing
-from a 56 that is a broken file, and the rubric is blunt enough to not
-distinguish them — which is itself worth knowing about the score.
+Mean 84.4. The spread is much narrower than the previous pass, and that is the
+finding rather than a disappointment: 132 of 160 files sit in A or B because
+the repository is in good shape, not because the rubric is generous. The three
+files below 70 are the three with a structural problem rather than a stylistic
+one.
+
+The lowest is `main.py` at 50, the deliberate `IndentationError` stub — it is
+the only file that cannot run at all, and it scores lowest for that reason
+alone. Then `strings.py` at 64 and `variables.py` at 69, both flat scripts with
+no function boundary: 321 and 175 lines respectively, so a reader has to hold
+the whole file in their head and a test can only check the whole thing at once.
+That is the single structural weakness the rescore was built to surface, and it
+is worth acting on — splitting those two files would move the mean and would
+also make them teach better.
+
+Rule 11's defects score higher than these, and deliberately so. `conditions.py`
+carries a hardcoded `temperature = 25` that makes most of its branches
+unreachable, yet it scores above both flat scripts because Risk floors a
+documented, test-pinned defect at 72: a defect whose docstring names it and
+whose test guards it is *visible* risk, which is the only kind worth carrying
+on purpose. An invisible defect and an undocumented flat script are worse.
 
 ---
 
@@ -465,9 +479,9 @@ mirrors were found lagging at an older commit.
 
 | | |
 | --- | --- |
-| Tests | 1527 passing, 0 failing |
+| Tests | 1526 passing, 0 failing |
 | Coverage | 99% line, 95% branch |
-| Quality mean | 77.5/100 over 160 files |
+| Quality mean | 84.4/100 over 160 files |
 | Document drift | 0 known — all numeric claims test-guarded |
 | Mirrors | 4, synchronised |
 | Frozen lane | `object_oriented_programming/` — `decorator.py`, `generator.py`, `multitasking.py`, `dice.py` |
@@ -486,7 +500,8 @@ log unchanged has left the record behind. Newest first.
 
 | Date | Session | What changed | What it taught |
 | --- | --- | --- | --- |
-| 30 Sep 2026 | Progression review & code review | Reconciled the ranking sheet: deduped a 167-entry document down to the 161 real files, aligned all 161 headings to their own tables, normalised 9 entries that rounded an exact `.5` downward against 50 that rounded up, and corrected the guide's pre-verified table and worked example. Corrected four stale figures in the docs (98%→95% branch, 171/182→148/159, "29 lines in 8 caps"→38 in 11, 1350→1527 tests). Fixed a silent failure in `execution_time.py` where a mistyped folder re-prompted with no output. Added 94 guard tests across three files. Wrote this review. | A fact written in prose and never recomputed is a fact that will be wrong. The ranking sheet had 112 of 161 headings disagreeing with their own tables and nobody noticed, because nothing compared them. The fix was not to re-read the prose more carefully — it was to make the stale number fail the suite. |
+| 30 Sep 2026 | Progression review & code review | Reconciled the ranking sheet: deduped a 167-entry document down to the 161 real files, aligned all 161 headings to their own tables, normalised 9 entries that rounded an exact `.5` downward against 50 that rounded up, and corrected the guide's pre-verified table and worked example. Corrected four stale figures in the docs (98%→95% branch, 171/182→148/159, "29 lines in 8 caps"→38 in 11, 1350→1526 tests). Fixed a silent failure in `execution_time.py` where a mistyped folder re-prompted with no output. Added 94 guard tests across three files. Wrote this review. | A fact written in prose and never recomputed is a fact that will be wrong. The ranking sheet had 112 of 161 headings disagreeing with their own tables and nobody noticed, because nothing compared them. The fix was not to re-read the prose more carefully — it was to make the stale number fail the suite. |
+| 30 Sep 2026 | File ranking rescored on two tiers, Risk added | Rescored all 160 files on five criteria with per-tier weighting — learning material judged on readability (35%), applied projects on fixability and robustness (30% each) — and made every score generated from measured signals by `scripts/measure_ranking_signals.py` and `scripts/score_ranking.py`. Mean 84.4, spread 50-92, with 43 A / 89 B / 25 C / 2 D / 1 E. | The first pass scored four criteria with one flat weighting and was written by eye, so a disputed mark could not be traced to anything. Three findings changed the shape of the work: 81 of 160 files have no functions at all, and a rubric that awarded near-full marks for 'nothing undocumented' rewarded exactly the flat scripts a reader struggles with; starting every criterion from 100 and deducting produced a 98.4 mean that could not tell a perfect file from a broken one; and float arithmetic made the sheet disagree with its own guard by a tenth, because 96 * 0.15 is 14.399999999999999 in binary. |
 | 30 Sep 2026 | Post-merge fix: four counting paths still read the disk | After PR #13 merged, four guards still counted modules with `rglob`, so they counted the newly untracked practice file and then broke when it went missing. Re-pointed all four at git and removed a hardcoded 161 that would have invited bumping itself. Added a skip so a fresh clone without the sandbox passes. | The failure surfaced the moment `git checkout` deleted the untracked file, which is a sharper test than any I could have written: a guard that reads the filesystem cannot tell an intentional untracking from an accident. A literal like 161 inside an assertion is worse still - it fails for a real reason and invites a maintainer to change the number rather than the cause. The suite now passes with the practice file present and absent, which is the condition that actually matters. |
 | 30 Sep 2026 | Sandbox untracked, comment rule widened repo-wide | Restored `sandbox/aim.py`'s practice code after it was lost, then made the file untracked and gitignored so practice work can never be committed again, with three guards asserting it stays that way. Widened the two-line-hash-comment rule from three files to every tracked file: 328 runs became triple-quoted blocks across 52 files, with the frozen OOP lane and the marked coursework exempt by name. | aim.py is practice reference material, not repository content, and the guard that counted the remaining overlong runs was a debt register rather than a rule - it recorded a number without constraining anything, so roughly 1100 non-compliant lines sat there for weeks with nothing failing. Two tests broke in the conversion and both were tests asserting a spelling rather than a behaviour: one looked for a leading `#` on code that had become inert as a string literal, which is a stronger guarantee, not a weaker one. |
 | 30 Sep 2026 | Month-by-month progression, measured | Replaced the impressionistic monthly narrative with two recomputed tables - commits and mean subject length per month, plus a keyword mix - and corrected Stage 4. Weekly data shows the real arc: a narrative peak at 138.0 chars in Week 28, an August plateau, then the single largest step of the run at Week 38 (63.7). | Writing the progression from a handful of sampled commit subjects produced a claim that was wrong in a way sampling invited: 'NumPy, then Pandas, then groupby()' implied a curriculum, when pandas, ten notebooks and the OutlierCapper all landed in a single burst on 2 Aug. Measuring every commit rather than selecting some also exposed that the subject-length peak is in July, not June. |

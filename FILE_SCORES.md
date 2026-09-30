@@ -1,2267 +1,2931 @@
-# File Rankings
+# File Ranking Scores
 
-Ranked 0-100 across Fixability (40%), Readability (25%), Durability (20%), Robustness (15%).
-See `FILE_RANKING_GUIDE.md` for the full scoring guide.
+**Scored:** 30 September 2026. **Method:** every mark is derived from `scripts/measure_ranking_signals.py` output, so a disputed score is a disputed formula rather than a disputed memory. Criteria, weights and the tier rule are in `FILE_RANKING_GUIDE.md`.
+
+**160 files scored. Mean 84.4/100.** Tier decides the weighting: learning material is judged on whether a reader can learn from it, applied projects on whether a user can rely on it.
+
+| Band | Range | Files | Meaning |
+| --- | --- | --- | --- |
+| A | 90–99 | 43 | Exemplary |
+| B | 80–89 | 89 | Strong |
+| C | 70–79 | 25 | Serviceable |
+| D | 60–69 | 2 | Weak |
+| E | 0–59 | 1 | Broken |
+
+| Tier | Files | Weighting |
+| --- | --- | --- |
+| Learning | 152 | Readability 35%, Fixability 25%, Robustness 15%, Risk 15%, Durability 10% |
+| Applied | 8 | Readability 20%, Fixability 30%, Robustness 30%, Risk 10%, Durability 10% |
+
+## Ranked results
+
+| Rank | File | Tier | Readability | Fixability | Robustness | Risk | Durability | Final |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | `python/functional_programming/fundamental_topics/functools_module.py` | Learning | 95 | 94 | 85 | 80 | 96 | **91** |
+| 2 | `python/imperative_programming/math_and_science_calculators/gradient_calculator.py` | Learning | 95 | 96 | 83 | 80 | 96 | **91** |
+| 3 | `python/imperative_programming/syntax_exercises/number_matrix_display.py` | Learning | 100 | 90 | 77 | 80 | 96 | **91** |
+| 4 | `python/object_oriented_programming/fundamental_topics/class_methods.py` | Learning | 96 | 94 | 85 | 80 | 96 | **91** |
+| 5 | `python/object_oriented_programming/fundamental_topics/constructors.py` | Learning | 96 | 94 | 85 | 80 | 96 | **91** |
+| 6 | `python/object_oriented_programming/fundamental_topics/data_classes.py` | Learning | 96 | 94 | 85 | 80 | 96 | **91** |
+| 7 | `python/object_oriented_programming/fundamental_topics/duck_typing.py` | Learning | 96 | 94 | 85 | 80 | 96 | **91** |
+| 8 | `python/object_oriented_programming/fundamental_topics/iterator.py` | Learning | 96 | 94 | 85 | 80 | 96 | **91** |
+| 9 | `python/object_oriented_programming/fundamental_topics/multi_level_inheritance.py` | Learning | 96 | 94 | 85 | 80 | 96 | **91** |
+| 10 | `python/object_oriented_programming/fundamental_topics/multiple_inheritance.py` | Learning | 96 | 94 | 85 | 80 | 96 | **91** |
+| 11 | `python/object_oriented_programming/fundamental_topics/static_methods.py` | Learning | 96 | 94 | 85 | 80 | 96 | **91** |
+| 12 | `python/object_oriented_programming/syntax_fundamentals/car.py` | Learning | 96 | 94 | 85 | 80 | 96 | **91** |
+| 13 | `python/object_oriented_programming/syntax_fundamentals/point.py` | Learning | 96 | 94 | 85 | 80 | 96 | **91** |
+| 14 | `python/functional_programming/fundamental_topics/closures.py` | Learning | 93 | 94 | 85 | 80 | 96 | **90** |
+| 15 | `python/functional_programming/fundamental_topics/currying.py` | Learning | 93 | 94 | 85 | 80 | 96 | **90** |
+| 16 | `python/functional_programming/fundamental_topics/first_class_functions.py` | Learning | 93 | 94 | 85 | 80 | 96 | **90** |
+| 17 | `python/functional_programming/fundamental_topics/partial_application.py` | Learning | 93 | 94 | 85 | 80 | 96 | **90** |
+| 18 | `python/functional_programming/fundamental_topics/pure_functions.py` | Learning | 93 | 94 | 85 | 80 | 96 | **90** |
+| 19 | `python/imperative_programming/fundamental_topics/functions.py` | Learning | 93 | 94 | 85 | 80 | 96 | **90** |
+| 20 | `python/imperative_programming/syntax_exercises/food_script_example.py` | Learning | 93 | 94 | 85 | 80 | 96 | **90** |
+| 21 | `python/imperative_programming/syntax_exercises/math_module.py` | Learning | 93 | 94 | 85 | 80 | 96 | **90** |
+| 22 | `python/imperative_programming/syntax_exercises/shipping_label.py` | Learning | 93 | 94 | 85 | 80 | 96 | **90** |
+| 23 | `python/object_oriented_programming/fundamental_topics/aggregation.py` | Learning | 91 | 94 | 85 | 80 | 96 | **90** |
+| 24 | `python/object_oriented_programming/fundamental_topics/class_variables.py` | Learning | 91 | 94 | 85 | 80 | 96 | **90** |
+| 25 | `python/object_oriented_programming/fundamental_topics/composition.py` | Learning | 91 | 94 | 85 | 80 | 96 | **90** |
+| 26 | `python/object_oriented_programming/fundamental_topics/decorator.py` | Learning | 93 | 94 | 85 | 80 | 96 | **90** |
+| 27 | `python/object_oriented_programming/fundamental_topics/inheritance.py` | Learning | 91 | 94 | 85 | 80 | 96 | **90** |
+| 28 | `python/object_oriented_programming/fundamental_topics/magic_methods.py` | Learning | 91 | 94 | 85 | 80 | 96 | **90** |
+| 29 | `python/object_oriented_programming/fundamental_topics/polymorphism.py` | Learning | 96 | 88 | 85 | 80 | 96 | **90** |
+| 30 | `python/object_oriented_programming/fundamental_topics/property.py` | Learning | 91 | 94 | 85 | 80 | 96 | **90** |
+| 31 | `python/object_oriented_programming/fundamental_topics/super.py` | Learning | 91 | 94 | 85 | 80 | 96 | **90** |
+| 32 | `python/object_oriented_programming/syntax_fundamentals/bank_account.py` | Learning | 91 | 94 | 85 | 80 | 96 | **90** |
+| 33 | `python/object_oriented_programming/syntax_fundamentals/calculator.py` | Learning | 91 | 94 | 85 | 80 | 96 | **90** |
+| 34 | `python/object_oriented_programming/syntax_fundamentals/employee_contract.py` | Learning | 91 | 94 | 85 | 80 | 96 | **90** |
+| 35 | `python/object_oriented_programming/syntax_fundamentals/food.py` | Learning | 91 | 94 | 85 | 80 | 96 | **90** |
+| 36 | `python/object_oriented_programming/syntax_fundamentals/item.py` | Learning | 91 | 94 | 85 | 80 | 96 | **90** |
+| 37 | `python/object_oriented_programming/syntax_fundamentals/order.py` | Learning | 91 | 94 | 85 | 80 | 96 | **90** |
+| 38 | `python/object_oriented_programming/syntax_fundamentals/payment.py` | Learning | 91 | 94 | 85 | 80 | 96 | **90** |
+| 39 | `python/object_oriented_programming/syntax_fundamentals/person.py` | Learning | 91 | 94 | 85 | 80 | 96 | **90** |
+| 40 | `python/object_oriented_programming/syntax_fundamentals/real_estate.py` | Learning | 91 | 94 | 85 | 80 | 96 | **90** |
+| 41 | `python/object_oriented_programming/syntax_fundamentals/restaurant.py` | Learning | 91 | 94 | 85 | 80 | 96 | **90** |
+| 42 | `python/object_oriented_programming/syntax_fundamentals/school.py` | Learning | 91 | 94 | 85 | 80 | 96 | **90** |
+| 43 | `python/object_oriented_programming/syntax_fundamentals/worker.py` | Learning | 91 | 94 | 85 | 80 | 96 | **90** |
+| 44 | `python/imperative_programming/math_and_science_calculators/area_of_circle.py` | Learning | 88 | 100 | 75 | 80 | 96 | **89** |
+| 45 | `python/imperative_programming/math_and_science_calculators/cosine_rule.py` | Learning | 88 | 96 | 83 | 80 | 96 | **89** |
+| 46 | `python/imperative_programming/math_and_science_calculators/euclidean_distance_calculator.py` | Learning | 91 | 96 | 75 | 80 | 96 | **89** |
+| 47 | `python/imperative_programming/syntax_exercises/factorials.py` | Learning | 93 | 96 | 75 | 80 | 96 | **89** |
+| 48 | `python/imperative_programming/syntax_exercises/prime_numbers.py` | Learning | 93 | 96 | 75 | 80 | 96 | **89** |
+| 49 | `python/imperative_programming/syntax_exercises/seconds_countdown.py` | Learning | 93 | 96 | 75 | 80 | 96 | **89** |
+| 50 | `python/object_oriented_programming/syntax_fundamentals/grocery_caloric_list.py` | Learning | 91 | 96 | 75 | 80 | 96 | **89** |
+| 51 | `python/object_oriented_programming/syntax_fundamentals/user_access.py` | Learning | 88 | 94 | 85 | 80 | 96 | **89** |
+| 52 | `python/imperative_programming/math_and_science_calculators/circumference_of_circle.py` | Learning | 88 | 96 | 77 | 80 | 96 | **88** |
+| 53 | `python/imperative_programming/math_and_science_calculators/sine_rule.py` | Learning | 85 | 96 | 83 | 80 | 96 | **88** |
+| 54 | `python/imperative_programming/syntax_exercises/leap_year.py` | Learning | 88 | 96 | 75 | 80 | 96 | **88** |
+| 55 | `python/imperative_programming/syntax_exercises/minute_timer.py` | Learning | 93 | 96 | 67 | 80 | 96 | **88** |
+| 56 | `python/imperative_programming/syntax_exercises/shopping_cart.py` | Learning | 88 | 100 | 69 | 80 | 96 | **88** |
+| 57 | `python/imperative_programming/unit_and_format_converters/roman_numeral_converter.py` | Learning | 88 | 96 | 77 | 80 | 96 | **88** |
+| 58 | `python/object_oriented_programming/fundamental_topics/abstract_classes.py` | Learning | 96 | 80 | 85 | 80 | 96 | **88** |
+| 59 | `python/object_oriented_programming/fundamental_topics/nested_classes.py` | Learning | 91 | 88 | 85 | 80 | 96 | **88** |
+| 60 | `python/object_oriented_programming/syntax_fundamentals/device.py` | Learning | 91 | 88 | 85 | 80 | 96 | **88** |
+| 61 | `python/functional_programming/syntax_fundamentals/number_pipeline.py` | Learning | 93 | 80 | 85 | 80 | 96 | **87** |
+| 62 | `python/functional_programming/syntax_fundamentals/shopping_receipt.py` | Learning | 88 | 88 | 85 | 80 | 96 | **87** |
+| 63 | `python/functional_programming/syntax_fundamentals/word_frequency.py` | Learning | 93 | 80 | 85 | 80 | 96 | **87** |
+| 64 | `python/imperative_programming/fundamental_topics/scope_resolution.py` | Learning | 88 | 94 | 85 | 68 | 96 | **87** |
+| 65 | `python/imperative_programming/math_and_science_calculators/arithmetic_iteration.py` | Learning | 88 | 96 | 71 | 80 | 96 | **87** |
+| 66 | `python/imperative_programming/math_and_science_calculators/pythagoras_theorem.py` | Learning | 88 | 90 | 83 | 80 | 96 | **87** |
+| 67 | `python/imperative_programming/math_and_science_calculators/times_tables.py` | Learning | 97 | 90 | 59 | 80 | 96 | **87** |
+| 68 | `python/imperative_programming/syntax_exercises/banking_program.py` | Learning | 88 | 90 | 81 | 80 | 96 | **87** |
+| 69 | `python/imperative_programming/syntax_exercises/email_slicer.py` | Learning | 88 | 96 | 71 | 80 | 96 | **87** |
+| 70 | `python/imperative_programming/syntax_exercises/file_writer.py` | Learning | 83 | 100 | 73 | 80 | 96 | **87** |
+| 71 | `python/object_oriented_programming/fundamental_topics/generator.py` | Learning | 93 | 82 | 83 | 80 | 96 | **87** |
+| 72 | `python/object_oriented_programming/fundamental_topics/multitasking.py` | Learning | 93 | 80 | 85 | 80 | 96 | **87** |
+| 73 | `python/advanced_projects/music_player/gui/mp3_gui_player.py` | Applied | 100 | 80 | 85 | 80 | 87 | **86** |
+| 74 | `python/advanced_projects/music_player/gui/wav_gui_player.py` | Applied | 100 | 80 | 85 | 80 | 87 | **86** |
+| 75 | `python/imperative_programming/math_and_science_calculators/area.py` | Learning | 88 | 96 | 67 | 80 | 96 | **86** |
+| 76 | `python/imperative_programming/math_and_science_calculators/area_of_triangle.py` | Learning | 88 | 90 | 77 | 80 | 96 | **86** |
+| 77 | `python/imperative_programming/math_and_science_calculators/arithmetic_calculator.py` | Learning | 88 | 90 | 75 | 80 | 96 | **86** |
+| 78 | `python/imperative_programming/math_and_science_calculators/arithmetic_expressions.py` | Learning | 88 | 90 | 77 | 80 | 96 | **86** |
+| 79 | `python/imperative_programming/math_and_science_calculators/compound_debt_calculator.py` | Learning | 88 | 96 | 61 | 80 | 96 | **86** |
+| 80 | `python/imperative_programming/math_and_science_calculators/compound_interest_rate.py` | Learning | 88 | 96 | 61 | 80 | 96 | **86** |
+| 81 | `python/imperative_programming/math_and_science_calculators/perimeter_of_triangle.py` | Learning | 88 | 90 | 77 | 80 | 96 | **86** |
+| 82 | `python/imperative_programming/math_and_science_calculators/simple_debt_calculator.py` | Learning | 88 | 96 | 61 | 80 | 96 | **86** |
+| 83 | `python/imperative_programming/math_and_science_calculators/simple_interest_rate.py` | Learning | 88 | 96 | 61 | 80 | 96 | **86** |
+| 84 | `python/imperative_programming/math_and_science_calculators/triangle_calculator.py` | Learning | 88 | 90 | 75 | 80 | 96 | **86** |
+| 85 | `python/imperative_programming/math_and_science_calculators/volume.py` | Learning | 88 | 96 | 67 | 80 | 96 | **86** |
+| 86 | `python/imperative_programming/syntax_exercises/add.py` | Learning | 80 | 94 | 85 | 80 | 96 | **86** |
+| 87 | `python/imperative_programming/syntax_exercises/divide.py` | Learning | 80 | 94 | 85 | 80 | 96 | **86** |
+| 88 | `python/imperative_programming/syntax_exercises/multiply.py` | Learning | 80 | 94 | 85 | 80 | 96 | **86** |
+| 89 | `python/imperative_programming/syntax_exercises/square.py` | Learning | 80 | 94 | 85 | 80 | 96 | **86** |
+| 90 | `python/imperative_programming/syntax_exercises/subtract.py` | Learning | 80 | 94 | 85 | 80 | 96 | **86** |
+| 91 | `python/advanced_projects/transactions/transactions.py` | Applied | 93 | 82 | 85 | 72 | 87 | **85** |
+| 92 | `python/functional_programming/syntax_fundamentals/grade_summary.py` | Learning | 88 | 80 | 85 | 80 | 96 | **85** |
+| 93 | `python/imperative_programming/fundamental_topics/login_status.py` | Learning | 88 | 82 | 81 | 80 | 96 | **85** |
+| 94 | `python/imperative_programming/syntax_exercises/count_up_timer.py` | Learning | 88 | 80 | 85 | 80 | 96 | **85** |
+| 95 | `python/imperative_programming/syntax_exercises/random_colour_generator.py` | Learning | 88 | 90 | 67 | 80 | 96 | **85** |
+| 96 | `python/imperative_programming/interactive_games/dice_game.py` | Learning | 93 | 90 | 63 | 68 | 96 | **84** |
+| 97 | `python/imperative_programming/interactive_games/rock_paper_scissors.py` | Learning | 88 | 94 | 63 | 68 | 96 | **84** |
+| 98 | `python/imperative_programming/math_and_science_calculators/card_validator_program.py` | Learning | 93 | 84 | 69 | 68 | 96 | **84** |
+| 99 | `python/imperative_programming/syntax_exercises/drink_script_example.py` | Learning | 93 | 76 | 73 | 80 | 96 | **84** |
+| 100 | `python/imperative_programming/unit_and_format_converters/qrcode_generator.py` | Learning | 88 | 84 | 71 | 80 | 96 | **84** |
+| 101 | `python/functional_programming/fundamental_topics/itertools_module.py` | Learning | 81 | 86 | 85 | 80 | 88 | **83** |
+| 102 | `python/functional_programming/fundamental_topics/zip.py` | Learning | 81 | 86 | 85 | 80 | 88 | **83** |
+| 103 | `python/imperative_programming/fundamental_topics/formats.py` | Learning | 81 | 86 | 85 | 80 | 88 | **83** |
+| 104 | `python/imperative_programming/fundamental_topics/hello_world.py` | Learning | 81 | 86 | 85 | 80 | 88 | **83** |
+| 105 | `python/imperative_programming/fundamental_topics/type_conversion_type_casting.py` | Learning | 81 | 86 | 85 | 80 | 88 | **83** |
+| 106 | `python/imperative_programming/interactive_games/hangman_game.py` | Learning | 88 | 84 | 63 | 80 | 96 | **83** |
+| 107 | `python/imperative_programming/math_and_science_calculators/square_number_times_tables.py` | Learning | 93 | 76 | 67 | 80 | 96 | **83** |
+| 108 | `python/imperative_programming/syntax_exercises/hour_clock.py` | Learning | 93 | 96 | 51 | 58 | 96 | **83** |
+| 109 | `python/imperative_programming/syntax_exercises/num_pad.py` | Learning | 81 | 86 | 85 | 80 | 88 | **83** |
+| 110 | `python/object_oriented_programming/syntax_fundamentals/sports.py` | Learning | 73 | 94 | 85 | 80 | 96 | **83** |
+| 111 | `python/advanced_projects/machine_learning/data_outliers/data_outlier.py` | Applied | 96 | 74 | 85 | 72 | 81 | **82** |
+| 112 | `python/functional_programming/fundamental_topics/any_all.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
+| 113 | `python/functional_programming/fundamental_topics/comprehensions.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
+| 114 | `python/functional_programming/fundamental_topics/filter.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
+| 115 | `python/functional_programming/fundamental_topics/map.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
+| 116 | `python/functional_programming/fundamental_topics/pipelines.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
+| 117 | `python/functional_programming/fundamental_topics/reduce.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
+| 118 | `python/functional_programming/fundamental_topics/sorted.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
+| 119 | `python/imperative_programming/fundamental_topics/conditions.py` | Learning | 92 | 74 | 77 | 72 | 88 | **82** |
+| 120 | `python/imperative_programming/fundamental_topics/date_time.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
+| 121 | `python/imperative_programming/syntax_exercises/reverse_list_program.py` | Learning | 93 | 76 | 59 | 80 | 96 | **82** |
+| 122 | `python/object_oriented_programming/syntax_fundamentals/dice.py` | Learning | 77 | 86 | 85 | 80 | 88 | **82** |
+| 123 | `python/imperative_programming/unit_and_format_converters/fahrenheit_celsius_converter.py` | Learning | 88 | 96 | 51 | 58 | 96 | **81** |
+| 124 | `python/imperative_programming/unit_and_format_converters/time_converter.py` | Learning | 88 | 96 | 51 | 58 | 96 | **81** |
+| 125 | `python/advanced_projects/music_player/tui/mp3_tui_player.py` | Applied | 93 | 96 | 57 | 80 | 79 | **80** |
+| 126 | `python/advanced_projects/music_player/tui/wav_tui_player.py` | Applied | 93 | 96 | 57 | 80 | 79 | **80** |
+| 127 | `python/functional_programming/fundamental_topics/lambda.py` | Learning | 72 | 86 | 85 | 80 | 88 | **80** |
+| 128 | `python/functional_programming/fundamental_topics/statistics_module.py` | Learning | 72 | 86 | 85 | 80 | 88 | **80** |
+| 129 | `python/imperative_programming/fundamental_topics/sets.py` | Learning | 72 | 86 | 85 | 80 | 88 | **80** |
+| 130 | `python/imperative_programming/fundamental_topics/tuples.py` | Learning | 72 | 86 | 85 | 80 | 88 | **80** |
+| 131 | `python/imperative_programming/syntax_exercises/even_odd_detector.py` | Learning | 77 | 86 | 85 | 68 | 88 | **80** |
+| 132 | `python/imperative_programming/syntax_exercises/math_file.py` | Learning | 72 | 86 | 85 | 80 | 88 | **80** |
+| 133 | `python/imperative_programming/interactive_games/number_guessing_game.py` | Learning | 72 | 88 | 83 | 68 | 88 | **79** |
+| 134 | `python/imperative_programming/interactive_games/word_guessing_game.py` | Learning | 81 | 82 | 65 | 80 | 88 | **79** |
+| 135 | `python/imperative_programming/syntax_exercises/file_handling.py` | Learning | 77 | 72 | 85 | 80 | 88 | **79** |
+| 136 | `python/imperative_programming/syntax_exercises/random_cipher.py` | Learning | 77 | 82 | 69 | 80 | 88 | **79** |
+| 137 | `python/imperative_programming/syntax_exercises/grade_boundary_calculator.py` | Learning | 72 | 82 | 75 | 80 | 88 | **78** |
+| 138 | `python/imperative_programming/fundamental_topics/dictionaries.py` | Learning | 77 | 66 | 85 | 80 | 88 | **77** |
+| 139 | `python/imperative_programming/fundamental_topics/modules.py` | Learning | 72 | 72 | 85 | 80 | 88 | **77** |
+| 140 | `python/imperative_programming/math_and_science_calculators/annual_rate_calculator.py` | Learning | 77 | 92 | 69 | 55 | 88 | **77** |
+| 141 | `python/imperative_programming/syntax_exercises/alarm_clock.py` | Applied | 92 | 90 | 51 | 80 | 87 | **77** |
+| 142 | `python/imperative_programming/syntax_exercises/checkout_system.py` | Learning | 77 | 82 | 61 | 80 | 88 | **77** |
+| 143 | `python/imperative_programming/syntax_exercises/food_menu.py` | Learning | 77 | 82 | 61 | 80 | 88 | **77** |
+| 144 | `python/imperative_programming/unit_and_format_converters/phone_converter.py` | Learning | 88 | 90 | 35 | 58 | 96 | **77** |
+| 145 | `python/imperative_programming/fundamental_topics/lists.py` | Learning | 60 | 86 | 85 | 80 | 80 | **75** |
+| 146 | `python/imperative_programming/interactive_games/quiz_game.py` | Learning | 72 | 82 | 67 | 68 | 88 | **75** |
+| 147 | `python/object_oriented_programming/fundamental_topics/classes.py` | Learning | 77 | 78 | 73 | 60 | 88 | **75** |
+| 148 | `python/imperative_programming/fundamental_topics/exceptions.py` | Learning | 77 | 88 | 51 | 58 | 88 | **74** |
+| 149 | `python/imperative_programming/syntax_exercises/file_reader.py` | Applied | 67 | 92 | 68 | 65 | 58 | **74** |
+| 150 | `python/imperative_programming/syntax_exercises/symbol_generator.py` | Learning | 77 | 88 | 51 | 58 | 88 | **74** |
+| 151 | `python/imperative_programming/fundamental_topics/numbers.py` | Learning | 60 | 86 | 85 | 68 | 80 | **73** |
+| 152 | `python/imperative_programming/syntax_exercises/username_status.py` | Learning | 81 | 82 | 43 | 58 | 88 | **73** |
+| 153 | `python/imperative_programming/math_and_science_calculators/area_volume_calculator.py` | Learning | 72 | 88 | 51 | 58 | 88 | **72** |
+| 154 | `python/imperative_programming/math_and_science_calculators/circle_calculator.py` | Learning | 72 | 88 | 51 | 58 | 88 | **72** |
+| 155 | `python/imperative_programming/unit_and_format_converters/weight_converter.py` | Learning | 72 | 88 | 51 | 58 | 88 | **72** |
+| 156 | `python/imperative_programming/interactive_games/haiku_madlibs.py` | Learning | 77 | 82 | 43 | 58 | 88 | **71** |
+| 157 | `python/imperative_programming/syntax_exercises/distance_calculator.py` | Learning | 77 | 82 | 43 | 58 | 88 | **71** |
+| 158 | `python/imperative_programming/fundamental_topics/variables.py` | Learning | 72 | 52 | 73 | 72 | 88 | **69** |
+| 159 | `python/imperative_programming/fundamental_topics/strings.py` | Learning | 59 | 82 | 43 | 58 | 80 | **64** |
+| 160 | `python/imperative_programming/fundamental_topics/main.py` | Learning | 40 | 40 | 45 | 92 | 50 | **50** |
+
+## Per-file breakdown
+## python/advanced_projects/machine_learning/data_outliers/
+
+### data_outlier.py — **82/100** (B — Strong)
+
+Tier: **Applied**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 96 | 20% | 19.2 |
+| Fixability | 74 | 30% | 22.2 |
+| Robustness | 85 | 30% | 25.5 |
+| Risk | 72 | 10% | 7.2 |
+| Durability | 81 | 10% | 8.1 |
+| **Final** | | | **82** |
+
+**Comment:** Scored 82/100, band B. Judged as applied material, so the weighting favours fixability and robustness, because a user has to rely on it. Strongest criterion is readability (96), weakest is risk (72). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; 100% lines and every branch exercised; no external input, so nothing to validate; no output to be wrong about; split into units, so one change breaks less. **Weaknesses:** 3 of 3 callables undocumented; exceeds the 2s budget (trains a model at import); prints a result the user may trust without verifying it; + defect is named in the docstring and pinned by a test, so the risk is visible rather than silent; depends on pandas, sklearn. **Deliberate defect (rule 11):** exceeds the 2s benchmark budget by design - it trains a model Kept on purpose and pinned by a test, so the score reflects the cost of the lesson rather than an accident.
 
 ---
 
-## python/advanced_projects/
+## python/advanced_projects/music_player/gui/
 
-### machine_learning/data_outliers/data_outlier.py — **70/100** (C — Serviceable)
+### mp3_gui_player.py — **86/100** (B — Strong)
+
+Tier: **Applied**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 60 | 40% | 24.0 |
-| Readability | 85 | 25% | 21.3 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **70** |
+| --- | --- | --- | --- |
+| Readability | 100 | 20% | 20.0 |
+| Fixability | 80 | 30% | 24.0 |
+| Robustness | 85 | 30% | 25.5 |
+| Risk | 80 | 10% | 8.0 |
+| Durability | 87 | 10% | 8.7 |
+| **Final** | | | **86** |
 
-**Comment:** Clean scikit-learn transformer implementing IQR-based outlier capping. No `__main__` guard or entry point — it is a library module, so running it directly produces no output (exit 124 timeout, no crash). `transform()` mutates nothing and returns a clipped copy, which is good. Robustness deduction: `fit()` assumes `X` is a DataFrame (calls `.quantile()`); passing a numpy array raises `AttributeError` rather than a helpful message. The `factor` parameter is validated nowhere — a negative factor silently inverts the bounds. No input validation on `transform()` either.
+**Comment:** Scored 86/100, band B. Judged as applied material, so the weighting favours fixability and robustness, because a user has to rely on it. Strongest criterion is readability (100), weakest is fixability (80). **Works:** module docstring names the concept; every callable is documented; comments explain most steps; code is broken into named units; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less. **Weaknesses:** exceeds the 2s budget (trains a model at import); depends on tkinter.
 
 ---
 
-### music_player/gui/mp3_gui_player.py — **79/100** (C — Serviceable)
+### wav_gui_player.py — **86/100** (B — Strong)
+
+Tier: **Applied**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 70 | 15% | 10.5 |
-| **Final** | | | **79** |
+| --- | --- | --- | --- |
+| Readability | 100 | 20% | 20.0 |
+| Fixability | 80 | 30% | 24.0 |
+| Robustness | 85 | 30% | 25.5 |
+| Risk | 80 | 10% | 8.0 |
+| Durability | 87 | 10% | 8.7 |
+| **Final** | | | **86** |
 
-**Comment:** Well-structured tkinter GUI wrapping the TUI audio engine. Every widget creation is annotated with inline comments explaining what each line does — verbose but helpful for a teaching repo. The `sys.path.insert(0, _tui_dir)` at line 18 is a code smell (mutates global import path) but is necessary for the sibling import. Robustness: the GUI has no way to handle a missing pygame install gracefully at import time — it would crash with an unhandled `ModuleNotFoundError` when the TUI module is imported. Durability: the hardcoded `r"C:\Users\A.I.M\C.S\MP3"` path in the TUI sibling means the GUI is Windows-specific.
+**Comment:** Scored 86/100, band B. Judged as applied material, so the weighting favours fixability and robustness, because a user has to rely on it. Strongest criterion is readability (100), weakest is fixability (80). **Works:** module docstring names the concept; every callable is documented; comments explain most steps; code is broken into named units; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less. **Weaknesses:** exceeds the 2s budget (trains a model at import); depends on tkinter.
 
 ---
 
-### music_player/gui/wav_gui_player.py — **79/100** (C — Serviceable)
+## python/advanced_projects/music_player/tui/
+
+### mp3_tui_player.py — **80/100** (B — Strong)
+
+Tier: **Applied**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 70 | 15% | 10.5 |
-| **Final** | | | **79** |
+| --- | --- | --- | --- |
+| Readability | 93 | 20% | 18.6 |
+| Fixability | 96 | 30% | 28.8 |
+| Robustness | 57 | 30% | 17.1 |
+| Risk | 80 | 10% | 8.0 |
+| Durability | 79 | 10% | 7.9 |
+| **Final** | | | **80** |
 
-**Comment:** Identical structure to `mp3_gui_player.py` — the pair is worth comparing side by side as the docstring says. Same `sys.path` mutation, same inline comment density, same pygame import risk. The only difference is `.wav` vs `.mp3` filtering and the WAVAudioPlayer class. Both GUIs are frozen at a fixed 500x450 window, which will clip on small screens. The `match cmd` statement in the TUI versions requires Python 3.10+.
+**Comment:** Scored 80/100, band B. Judged as applied material, so the weighting favours fixability and robustness, because a user has to rely on it. Strongest criterion is fixability (96), weakest is robustness (57). **Works:** module docstring names the concept; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 2 guard check(s) on the input path; 4 exception handler(s); split into units, so one change breaks less. **Weaknesses:** 2 of 17 callables undocumented; American spelling: center; known path where a wrong answer reaches the user; while True whose exit depends on an unchecked condition; depends on pygame; large module is more exposed to dependency changes.
 
 ---
 
-### music_player/tui/mp3_tui_player.py — **81/100** (B — Strong)
+### wav_tui_player.py — **80/100** (B — Strong)
+
+Tier: **Applied**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 85 | 25% | 21.3 |
-| Durability | 80 | 20% | 16.0 |
-| Robustness | 75 | 15% | 11.3 |
-| **Final** | | | **81** |
+| --- | --- | --- | --- |
+| Readability | 93 | 20% | 18.6 |
+| Fixability | 96 | 30% | 28.8 |
+| Robustness | 57 | 30% | 17.1 |
+| Risk | 80 | 10% | 8.0 |
+| Durability | 79 | 10% | 7.9 |
+| **Final** | | | **80** |
 
-**Comment:** The most substantial file in advanced_projects at 343 lines. The `MP3AudioPlayer` class is well-decomposed with clear method separation (play, pause, resume, forward, backward, restart, toggle loops, stop). The `match cmd` block is clean and exhaustive. pygame import is guarded with a helpful error message. Deductions: the hardcoded `r"C:\Users\A.I.M\C.S\MP3"` path makes it non-portable. The `forward()` method has a subtle issue — the `for` loop on line 150 (`for current_idx + 1 >= len(mp3_files)`) is a no-op that should be an `if`; it works by accident because the condition is evaluated but the loop body never runs. The `time` module is imported but never used.
+**Comment:** Scored 80/100, band B. Judged as applied material, so the weighting favours fixability and robustness, because a user has to rely on it. Strongest criterion is fixability (96), weakest is robustness (57). **Works:** module docstring names the concept; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 2 guard check(s) on the input path; 4 exception handler(s); split into units, so one change breaks less. **Weaknesses:** 2 of 17 callables undocumented; American spelling: center; known path where a wrong answer reaches the user; while True whose exit depends on an unchecked condition; depends on pygame; large module is more exposed to dependency changes.
 
 ---
 
-### music_player/tui/wav_tui_player.py — **81/100** (B — Strong)
+## python/advanced_projects/transactions/
+
+### transactions.py — **85/100** (B — Strong)
+
+Tier: **Applied**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 85 | 25% | 21.3 |
-| Durability | 80 | 20% | 16.0 |
-| Robustness | 75 | 15% | 11.3 |
-| **Final** | | | **81** |
+| --- | --- | --- | --- |
+| Readability | 93 | 20% | 18.6 |
+| Fixability | 82 | 30% | 24.6 |
+| Robustness | 85 | 30% | 25.5 |
+| Risk | 72 | 10% | 7.2 |
+| Durability | 87 | 10% | 8.7 |
+| **Final** | | | **85** |
 
-**Comment:** Identical to the MP3 TUI player in structure and quality. The docstring explicitly states it is kept as a sibling rather than a subclass so each file stands alone — a deliberate teaching choice. Same hardcoded Windows path, same no-op `for` loop in `backward()`, same unused `time` import. The two files are 95% identical, which is the point: comparing them side by side shows what is shared and what differs.
-
----
-
-### transactions/transactions.py — **74/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **74** |
-
-**Comment:** Reads an Excel workbook, applies a 10% discount to the prices column, and writes a bar chart. The CWD-relative `wb.save('transactionv1.xlsx')` is intentional per rule 3 and pinned by a test — not a bug. The `cell = sheet['a1']` / `cell = sheet.cell(1, 1)` redundancy (lines 25-26) is confusing — the first assignment is immediately overwritten. Comments are excessive (one per line explaining what each line does). Robustness: no check for whether the prices column contains numeric values; a non-numeric cell would raise `ValueError` from `float(num_price)`. The discount is hardcoded at 10% with no parameter.
+**Comment:** Scored 85/100, band B. Judged as applied material, so the weighting favours fixability and robustness, because a user has to rely on it. Strongest criterion is readability (93), weakest is risk (72). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; no external input, so nothing to validate; split into units, so one change breaks less. **Weaknesses:** 1 of 1 callables undocumented; 97% line coverage; prints a result the user may trust without verifying it; + defect is named in the docstring and pinned by a test, so the risk is visible rather than silent; depends on openpyxl. **Deliberate defect (rule 11):** saves transactionv1.xlsx to the CWD by design, pinned by rule 3 Kept on purpose and pinned by a test, so the score reflects the cost of the lesson rather than an accident.
 
 ---
 
 ## python/functional_programming/fundamental_topics/
 
-### any_all.py — **93/100** (A — Exemplary)
+### any_all.py — **82/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 90 | 25% | 22.5 |
-| Durability | 90 | 20% | 18.0 |
+| --- | --- | --- | --- |
+| Readability | 77 | 35% | 27.0 |
+| Fixability | 86 | 25% | 21.5 |
 | Robustness | 85 | 15% | 12.8 |
-| **Final** | | | **93** |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **82** |
 
-**Comment:** Clean demonstration of `any()` and `all()` with clear docstrings, meaningful variable names, and a good mix of use cases including the empty-iterable edge case. No input validation needed (builtins handle it). The only minor deduction: the file is purely demonstrative with no `__main__` guard or function wrapping, but that is the convention for this lane.
+**Comment:** Scored 82/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is readability (77). **Works:** module docstring names the concept; comments explain most steps; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script.
 
 ---
 
-### closures.py — **92/100** (A — Exemplary)
+### closures.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 90 | 25% | 22.5 |
-| Durability | 85 | 20% | 17.0 |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 94 | 25% | 23.5 |
 | Robustness | 85 | 15% | 12.8 |
-| **Final** | | | **92** |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
 
-**Comment:** Excellent closure demonstration with two clear examples (multiplier and counter). The `nonlocal` usage is correct and well-commented. The docstring explains WHY closures exist (attaching behaviour to data without a class). No issues found.
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 2 of 2 callables undocumented.
 
 ---
 
-### comprehensions.py — **92/100** (A — Exemplary)
+### comprehensions.py — **82/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 90 | 25% | 22.5 |
-| Durability | 85 | 20% | 17.0 |
+| --- | --- | --- | --- |
+| Readability | 77 | 35% | 27.0 |
+| Fixability | 86 | 25% | 21.5 |
 | Robustness | 85 | 15% | 12.8 |
-| **Final** | | | **92** |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **82** |
 
-**Comment:** Covers list, set, and dict comprehensions in one file. Clear variable names, good docstring explaining the syntax. The teaching progression from simple to complex is natural. No issues found.
+**Comment:** Scored 82/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is readability (77). **Works:** module docstring names the concept; comments explain most steps; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script.
 
 ---
 
-### currying.py — **88/100** (B — Strong)
+### currying.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 80 | 20% | 16.0 |
-| Robustness | 80 | 15% | 12.0 |
-| **Final** | | | **88** |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
 
-**Comment:** Good currying demonstration using nested lambdas. The practical greeting example shows real-world use. Deductions: the docstring mentions partial application as the counterpart but does not import or reference it (a reader would need to find `partial_application.py` themselves). The lambda-only approach obscures the function signatures slightly.
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented.
 
 ---
 
-### filter.py — **91/100** (A — Exemplary)
+### filter.py — **82/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 85 | 25% | 21.3 |
-| Durability | 85 | 20% | 17.0 |
+| --- | --- | --- | --- |
+| Readability | 77 | 35% | 27.0 |
+| Fixability | 86 | 25% | 21.5 |
 | Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **82** |
+
+**Comment:** Scored 82/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is readability (77). **Works:** module docstring names the concept; comments explain most steps; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script.
+
+---
+
+### first_class_functions.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
+
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 4 of 4 callables undocumented.
+
+---
+
+### functools_module.py — **91/100** (A — Exemplary)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 95 | 35% | 33.3 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
 | **Final** | | | **91** |
 
-**Comment:** Comprehensive filter demonstration with four distinct predicate types (even/odd, threshold, non-empty, truthy-only). The `filter(None, ...)` case is a nice touch that many tutorials skip. Good variable names and clear output. No issues found.
+**Comment:** Scored 91/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 7 of 8 callables undocumented.
 
 ---
 
-### first_class_functions.py — **91/100** (A — Exemplary)
+### itertools_module.py — **83/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 85 | 25% | 21.3 |
-| Durability | 85 | 20% | 17.0 |
+| --- | --- | --- | --- |
+| Readability | 81 | 35% | 28.4 |
+| Fixability | 86 | 25% | 21.5 |
 | Robustness | 85 | 15% | 12.8 |
-| **Final** | | | **91** |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **83** |
 
-**Comment:** Demonstrates all three aspects of first-class functions (stored, passed, returned). The `make_power` factory is a clean example. Good docstring explaining WHY this property matters. No issues found.
+**Comment:** Scored 83/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is risk (80). **Works:** module docstring names the concept; dense explanation throughout; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script.
 
 ---
 
-### functools_module.py — **92/100** (A — Exemplary)
+### lambda.py — **80/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 90 | 25% | 22.5 |
-| Durability | 85 | 20% | 17.0 |
+| --- | --- | --- | --- |
+| Readability | 72 | 35% | 25.2 |
+| Fixability | 86 | 25% | 21.5 |
 | Robustness | 85 | 15% | 12.8 |
-| **Final** | | | **92** |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **80** |
 
-**Comment:** Covers all six `functools` features (cache, lru_cache, partial, reduce, singledispatch, wraps) with clear examples. The `singledispatch` example is particularly well done with three type registrations. The `wraps` decorator example correctly shows the metadata preservation. No issues found.
-
----
-
-### itertools_module.py — **94/100** (A — Exemplary)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 90 | 25% | 22.5 |
-| Durability | 90 | 20% | 18.0 |
-| Robustness | 90 | 15% | 13.5 |
-| **Final** | | | **94** |
-
-**Comment:** The most comprehensive file in the functional lane — 20 itertools functions demonstrated with clear examples. Every function is shown with its output. The `islice` wrapper on infinite iterators (`count`, `cycle`) is the correct pattern. No issues found.
+**Comment:** Scored 80/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is readability (72). **Works:** module docstring names the concept; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script.
 
 ---
 
-### lambda.py — **88/100** (B — Strong)
+### map.py — **82/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 80 | 20% | 16.0 |
-| Robustness | 80 | 15% | 12.0 |
-| **Final** | | | **88** |
-
-**Comment:** Covers 14 lambda examples from simple to conditional. The `age_check` lambda using a conditional expression is a nice touch. Deductions: the file is purely a collection of print statements with no function wrapping or `__main__` guard, which is fine for this lane but limits reusability. Some lambdas (like `max_value`, `min_value`) duplicate built-in functionality unnecessarily.
-
----
-
-### map.py — **91/100** (A — Exemplary)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 85 | 25% | 21.3 |
-| Durability | 85 | 20% | 17.0 |
+| --- | --- | --- | --- |
+| Readability | 77 | 35% | 27.0 |
+| Fixability | 86 | 25% | 21.5 |
 | Robustness | 85 | 15% | 12.8 |
-| **Final** | | | **91** |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **82** |
 
-**Comment:** Good map demonstration covering single-iterable, type-conversion, and multi-iterable cases. The comment distinguishing map from zip (line 31) is helpful for learners. The `prices` list using strings that get converted to floats is a practical example. No issues found.
-
----
-
-### partial_application.py — **88/100** (B — Strong)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 80 | 20% | 16.0 |
-| Robustness | 80 | 15% | 12.0 |
-| **Final** | | | **88** |
-
-**Comment:** Clean partial application demonstration. The `power` function with keyword argument binding is correct. The `round` with `ndigits=2` example is practical. Deductions: the file is short and could show a more complex example (e.g., partial with a callback). The import is at module level rather than inside a function, which is fine.
+**Comment:** Scored 82/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is readability (77). **Works:** module docstring names the concept; comments explain most steps; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script.
 
 ---
 
-### pipelines.py — **91/100** (A — Exemplary)
+### partial_application.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 85 | 25% | 21.3 |
-| Durability | 85 | 20% | 17.0 |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 94 | 25% | 23.5 |
 | Robustness | 85 | 15% | 12.8 |
-| **Final** | | | **91** |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
 
-**Comment:** Excellent pipeline demonstration chaining filter, map, sorted, and a list comprehension. The docstring correctly notes the trade-off (intermediate collections held in memory). The student data as tuples is a good realistic example. The `reduce` import is used for the average calculation. No issues found.
-
----
-
-### pure_functions.py — **88/100** (B — Strong)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 80 | 20% | 16.0 |
-| Robustness | 80 | 15% | 12.0 |
-| **Final** | | | **88** |
-
-**Comment:** Good demonstration of pure vs impure functions. The `add_tax` and `total_cost` examples are clearly pure. The `next_number` counter with `global` correctly shows impurity. Deductions: the file is short and the impure example is minimal — a more complex side-effect example (e.g., writing to a file, modifying a list argument) would strengthen the lesson.
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented.
 
 ---
 
-### reduce.py — **88/100** (B — Strong)
+### pipelines.py — **82/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 80 | 20% | 16.0 |
-| Robustness | 80 | 15% | 12.0 |
-| **Final** | | | **88** |
+| --- | --- | --- | --- |
+| Readability | 77 | 35% | 27.0 |
+| Fixability | 86 | 25% | 21.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **82** |
 
-**Comment:** Covers four reduce use cases (sum, factorial, max, join). The docstring correctly notes the argument order (function first, iterable second). Deductions: no initial value example (which would show how to handle empty iterables). The `range(1, 6)` for factorial is correct but could be more explicit.
+**Comment:** Scored 82/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is readability (77). **Works:** module docstring names the concept; comments explain most steps; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script.
 
 ---
 
-### sorted.py — **88/100** (B — Strong)
+### pure_functions.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 80 | 20% | 16.0 |
-| Robustness | 80 | 15% | 12.0 |
-| **Final** | | | **88** |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
 
-**Comment:** Clean sorted demonstration with basic, reverse, and key-based sorting. The tuple sorting by second element is a good example. The docstring correctly contrasts `sorted()` with `list.sort()`. Deductions: only one key-based example; could show a more complex key (e.g., sorting by length, case-insensitive).
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 3 of 3 callables undocumented.
 
 ---
 
-### statistics_module.py — **94/100** (A — Exemplary)
+### reduce.py — **82/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 90 | 25% | 22.5 |
-| Durability | 90 | 20% | 18.0 |
-| Robustness | 90 | 15% | 13.5 |
-| **Final** | | | **94** |
+| --- | --- | --- | --- |
+| Readability | 77 | 35% | 27.0 |
+| Fixability | 86 | 25% | 21.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **82** |
 
-**Comment:** The best file in the functional lane — 12 statistics measures demonstrated with clear comments showing expected return values. The central tendency vs spread organisation is logical. Every function is shown with its output. The placement in the functional lane (not imperative) is correct per AGENTS.md (the imperative lane `numbers.py` shadows stdlib). No issues found.
+**Comment:** Scored 82/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is readability (77). **Works:** module docstring names the concept; comments explain most steps; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script.
 
 ---
 
-### zip.py — **85/100** (B — Strong)
+### sorted.py — **82/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 75 | 15% | 11.3 |
-| **Final** | | | **85** |
+| --- | --- | --- | --- |
+| Readability | 77 | 35% | 27.0 |
+| Fixability | 86 | 25% | 21.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **82** |
 
-**Comment:** Simple zip demonstration with three parallel lists. The `strict=True` parameter is mentioned in the docstring but not demonstrated. Deductions: the file is short and could show more complex cases (zipping with `strict=True`, zipping different-length iterables, unzipping with `*`). The comment about "automatically converts" is slightly confusing.
+**Comment:** Scored 82/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is readability (77). **Works:** module docstring names the concept; comments explain most steps; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script.
+
+---
+
+### statistics_module.py — **80/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 72 | 35% | 25.2 |
+| Fixability | 86 | 25% | 21.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **80** |
+
+**Comment:** Scored 80/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is readability (72). **Works:** module docstring names the concept; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script.
+
+---
+
+### zip.py — **83/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 81 | 35% | 28.4 |
+| Fixability | 86 | 25% | 21.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **83** |
+
+**Comment:** Scored 83/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is risk (80). **Works:** module docstring names the concept; dense explanation throughout; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script.
 
 ---
 
 ## python/functional_programming/syntax_fundamentals/
 
-### grade_summary.py — **88/100** (B — Strong)
+### grade_summary.py — **85/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 80 | 20% | 16.0 |
-| Robustness | 80 | 15% | 12.0 |
-| **Final** | | | **88** |
-
-**Comment:** Good functional programming exercise combining filter, reduce, and any/all. The `pass_grade` function is reusable. The `summarise_grades` function has a hardcoded list (acceptable for a teaching exercise). The `__main__` guard is present. No issues found.
-
----
-
-### number_pipeline.py — **88/100** (B — Strong)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 80 | 20% | 16.0 |
-| Robustness | 80 | 15% | 12.0 |
-| **Final** | | | **88** |
-
-**Comment:** Clean filter → map → reduce pipeline. The named intermediate variables make the data flow readable. The docstring correctly notes that nothing mutates the original. The `__main__` guard is present. No issues found.
-
----
-
-### shopping_receipt.py — **85/100** (B — Strong)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 75 | 15% | 11.3 |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 80 | 25% | 20.0 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
 | **Final** | | | **85** |
 
-**Comment:** Good functional receipt formatting. The `format_item` and `total_price` functions are reusable. The `reduce` with initial value `0` is correct. Deductions: the `map` result is iterated directly in the for loop without converting to a list (works but is lazy). The prices are hardcoded. No input validation.
+**Comment:** Scored 85/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is fixability (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 3 of 3 callables undocumented; 94% line coverage, 1 dead branches.
 
 ---
 
-### word_frequency.py — **85/100** (B — Strong)
+### number_pipeline.py — **87/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 75 | 15% | 11.3 |
-| **Final** | | | **85** |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 80 | 25% | 20.0 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **87** |
 
-**Comment:** Simple word frequency counter using set comprehension and sorted with a key. The `words.count(word)` approach is O(n^2) — a `collections.Counter` would be more efficient, but this is a teaching file for functional programming so the explicit approach is acceptable. Deductions: no `__main__` guard issue (it has one). The word list is hardcoded.
+**Comment:** Scored 87/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is fixability (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; 93% line coverage, 1 dead branches.
+
+---
+
+### shopping_receipt.py — **87/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 88 | 25% | 22.0 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **87** |
+
+**Comment:** Scored 87/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 3 of 3 callables undocumented; 95% line coverage.
+
+---
+
+### word_frequency.py — **87/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 80 | 25% | 20.0 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **87** |
+
+**Comment:** Scored 87/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is fixability (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; 93% line coverage, 1 dead branches.
 
 ---
 
 ## python/imperative_programming/fundamental_topics/
 
-### conditions.py — **56/100** (E — Poor)
+### conditions.py — **82/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 70 | 40% | 28.0 |
-| Readability | 45 | 25% | 11.3 |
-| Durability | 50 | 20% | 10.0 |
-| Robustness | 45 | 15% | 6.8 |
-| **Final** | | | **56** |
-
-**Comment:** Covers a huge amount of ground (if/elif/else, loops, match, logical/membership operators, break/continue, nested loops, comprehensions) but at 569 lines it is far too long for one teaching file. Hardcoded `temperature = 25` and `name = "A.I.M"` make most branches unreachable without editing source. The `# Expected Output:` / `# Actual Output:` / `# Reason:` comment pattern is valuable but applied so exhaustively it buries the actual code. The nested `if x > 5: pass` block at line 291-294 is confusing — the `pass` does nothing and the inner `if` runs unconditionally.
-
----
-
-### date_time.py — **70/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 60 | 25% | 15.0 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 55 | 15% | 8.3 |
-| **Final** | | | **70** |
-
-**Comment:** Comprehensive datetime demonstration covering date, time, datetime, timedelta, strftime/strptime, and ZoneInfo. Runs clean (exit 0). Deductions: `new_time` and `new_format` on lines 25-29 are identical (dead code). `print(dir(datetime))` dumps a long list. The `from datetime import datetime` import on line 52 shadows the module-level `import datetime` from line 10, making the code confusing. The strptime format `"%dth %B, %Y"` for "28th September, 2026" is fragile — it would fail for "1st", "2nd", "3rd" without the matching suffix. No `__main__` guard; everything runs at module level.
-
----
-
-### dictionaries.py — **64/100** (D — Weak)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 55 | 25% | 13.8 |
-| Durability | 55 | 20% | 11.0 |
-| Robustness | 50 | 15% | 7.5 |
-| **Final** | | | **64** |
-
-**Comment:** Covers all major dict methods plus a `setdefault()` block. The `capitals.clear()` call at line 94 empties the dict before the keys/values/items loops, making those loop bodies unreachable — documented in the docstring as deliberate. The `if capitals.get("Russia"):` check at line 77 is always truthy for any non-empty string, so the `else` branch is dead code. The comment `# Fiding exactly where in the dictionary is case - sensitive` has a typo ("Fiding" should be "Finding"). The `print(help(capitals))` call is expensive and stubbed out in tests. No `__main__` guard.
-
----
-
-### exceptions.py — **73/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 70 | 15% | 10.5 |
-| **Final** | | | **73** |
-
-**Comment:** Good exception handling demonstration with specific except clauses (ValueError, ZeroDivisionError, KeyboardInterrupt) plus a catch-all and `finally`. The docstring correctly notes the difference between `raise` and `assert`. Deductions: the first try/except block (lines 14-19) has no `finally` and no `else`, so it is less complete than the second. The `except Exception as e` catch-all at line 41 should ideally re-raise or log more than just print. No `__main__` guard; the `input()` calls mean it exits 1 with no stdin (expected for interactive teaching files).
-
----
-
-### formats.py — **71/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 60 | 25% | 15.0 |
-| Durability | 60 | 20% | 12.0 |
-| Robustness | 55 | 15% | 8.3 |
-| **Final** | | | **71** |
-
-**Comment:** Covers 13 format specifier variations with expected outputs in comments. Runs clean (exit 0). The comment for Price 3 (line 26) says "4 significant figures in scientific notation" but the actual output `1.235e+03` is 4 decimal places, not 4 significant figures — the comment is misleading. Price 7 uses `:.>10` which is not a valid format spec for floats (it works but is unusual). The `=` flag in Price 10 forces the sign to the far left, which is correct but the comment could be clearer. No `__main__` guard; purely demonstrative.
-
----
-
-### functions.py — **66/100** (D — Weak)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 55 | 25% | 13.8 |
-| Durability | 55 | 20% | 11.0 |
-| Robustness | 50 | 15% | 7.5 |
-| **Final** | | | **66** |
-
-**Comment:** Covers function definition, parameters, defaults, *args, **kwargs, and keyword arguments. The `divide(*numbers)` function starts with `total = 100` then divides by each argument — this is confusing because the initial value is arbitrary. The `fullname(*name)` function prints but returns None, then `print(type(fullname))` prints the function object type — this is a strange teaching choice. The `address(**location)` example uses multi-line keyword arguments which is good. The `print(help('keywords'))` call at line 99 is unnecessary noise. The output comment block (lines 86-94) is never actually printed by the code.
-
----
-
-### hello_world.py — **93/100** (A — Exemplary)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 90 | 25% | 22.5 |
-| Durability | 90 | 20% | 18.0 |
-| Robustness | 85 | 15% | 12.8 |
-| **Final** | | | **93** |
-
-**Comment:** The smallest complete Python program. The docstring notes the PEP 8 spacing issue (`print ("Hello World")` with a space). It cannot crash, cannot break the suite, and serves as the baseline every other file builds on. This is exactly what a hello-world teaching file should be.
-
----
-
-### lists.py — **61/100** (D — Weak)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 50 | 25% | 12.5 |
-| Durability | 50 | 20% | 10.0 |
-| Robustness | 45 | 15% | 6.8 |
-| **Final** | | | **61** |
-
-**Comment:** Covers an enormous amount of list functionality (indexing, slicing, modifying, methods, unpacking, sorting, joining, duplicates, min/max, 2D lists, comprehensions) at 314 lines. The variable `max` on line 162 shadows the built-in `max()` function — a teaching anti-pattern. The `min` variable on line 176 does the same. The `numbers.remove(7)` call on line 74 removes the first occurrence but the comment says `[5, 2, 1, 4]` which is correct, yet the preceding line shows `[3, 5, 2, 1, 7, 4]` after insert — the intermediate states are confusing. The list comprehension section is good but could be its own file. No `__main__` guard.
-
----
-
-### login_status.py — **65/100** (D — Weak)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 70 | 40% | 28.0 |
-| Readability | 65 | 25% | 16.3 |
-| Durability | 60 | 20% | 12.0 |
-| Robustness | 60 | 15% | 9.0 |
-| **Final** | | | **65** |
-
-**Comment:** Well-decomposed into functions (`get_boolean_answer`, `display_answers`, `check_access_status`, `run_login_check`) with an `__main__` guard. The IndexError repair is verified. However, the two deliberate predicate bugs (lines 27 and 31) make "Stop Lying" unreachable and the `elif` ignores `is_new` — these are pinned by tests per rule 11 and are the point of the exercise. The nested if/elif/else structure is complex and hard to follow. The `except (ValueError, IndexError)` handler is correct but catches too broadly — a non-string input would raise `TypeError` which is not caught.
-
----
-
-### main.py — **84/100** (B — Strong)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 85 | 20% | 17.0 |
-| Robustness | 80 | 15% | 12.0 |
-| **Final** | | | **84** |
-
-**Comment:** The only file in the repo that keeps `def main()` by design. The `IndentationError` (empty function body) is a deliberate teaching stub pinned by `test_fundamentals.py`. The docstring explains the `if __name__ == "__main__":` pattern clearly. It cannot run, which is the point — it demonstrates what a complete file should look like. The score is high because the defect is intentional and well-documented, not accidental.
-
----
-
-### modules.py — **72/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 70 | 40% | 28.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 70 | 15% | 10.5 |
-| **Final** | | | **72** |
-
-**Comment:** The `help("modules")` call at line 7 causes a timeout (exit 124) when run directly because it scans every installed package — this is why the test suite stubs it. The module conflict example (shadowing `e` with `from math import e`) is a valuable lesson. The solution using `import math` is correct. Deductions: the `print(help("math"))`, `print(help("string"))`, and `print(help("time"))` calls are unnecessary noise that slow the file. The `from math import pi` example is minimal. No `__main__` guard.
-
----
-
-### numbers.py — **82/100** (B — Strong)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 85 | 20% | 17.0 |
-| Robustness | 70 | 15% | 10.5 |
+| --- | --- | --- | --- |
+| Readability | 92 | 35% | 32.2 |
+| Fixability | 74 | 25% | 18.5 |
+| Robustness | 77 | 15% | 11.6 |
+| Risk | 72 | 15% | 10.8 |
+| Durability | 88 | 10% | 8.8 |
 | **Final** | | | **82** |
 
-**Comment:** Fixed in this session — the `sys.path` de-shadowing at the top resolves the `decimal` circular import that killed the file ~60 lines in when run directly. Now exits 0 with 125 lines of output, both Decimal sections reached. The `[AI-authored fix]` docstring explains the why. Deductions: the `os`/`sys` imports are a minor intrusion into a file about number types. The file is long (356 lines) and covers many topics; splitting it would improve readability. No `__main__` guard; everything runs at module level.
+**Comment:** Scored 82/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is readability (92), weakest is risk (72). **Works:** module docstring names the concept; dense explanation throughout; code is broken into named units; runs and exits cleanly; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; 93% line coverage, 14 dead branches; while True whose exit depends on an unchecked condition; 20 hardcoded values a reader must spot-check; 6 lines never run, so never verified; + defect is named in the docstring and pinned by a test, so the risk is visible rather than silent; large module is more exposed to dependency changes. **Deliberate defect (rule 11):** temperature and name are hardcoded so the hot/bit-cold/cold branches can never be reached Kept on purpose and pinned by a test, so the score reflects the cost of the lesson rather than an accident.
 
 ---
 
-### scope_resolution.py — **85/100** (B — Strong)
+### date_time.py — **82/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 95 | 40% | 38.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 80 | 20% | 16.0 |
-| Robustness | 75 | 15% | 11.3 |
-| **Final** | | | **85** |
+| --- | --- | --- | --- |
+| Readability | 77 | 35% | 27.0 |
+| Fixability | 86 | 25% | 21.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **82** |
 
-**Comment:** Clean demonstration of LEGB (Local, Enclosed, Global, Built-in) scope resolution. Each scope level has its own function pair. The `from math import e` inside the `built_in()` function is a nice touch showing import scope. Runs clean (exit 0). Deductions: the functions are minimal and could be more realistic. No `__main__` guard.
+**Comment:** Scored 82/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is readability (77). **Works:** module docstring names the concept; comments explain most steps; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script.
 
 ---
 
-### sets.py — **74/100** (C — Serviceable)
+### dictionaries.py — **77/100** (C — Serviceable)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 60 | 15% | 9.0 |
+| --- | --- | --- | --- |
+| Readability | 77 | 35% | 27.0 |
+| Fixability | 66 | 25% | 16.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **77** |
+
+**Comment:** Scored 77/100, band C. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is fixability (66). **Works:** module docstring names the concept; comments explain most steps; runs and exits cleanly; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; 88% line coverage, 4 dead branches; no function boundary, so a fault can only be found by running the whole script; + defect is named in the docstring and pinned by a test, so the risk is visible rather than silent. **Deliberate defect (rule 11):** clear() runs before the keys/values/items loops, so those bodies cannot execute Kept on purpose and pinned by a test, so the score reflects the cost of the lesson rather than an accident.
+
+---
+
+### exceptions.py — **74/100** (C — Serviceable)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 77 | 35% | 27.0 |
+| Fixability | 88 | 25% | 22.0 |
+| Robustness | 51 | 15% | 7.7 |
+| Risk | 58 | 15% | 8.7 |
+| Durability | 88 | 10% | 8.8 |
 | **Final** | | | **74** |
 
-**Comment:** Covers all major set operations (add, remove, pop, update, clear, union, intersection, difference, symmetric_difference, isdisjoint, issubset, issuperset). The `fruits= list(fruits)` on line 40 has inconsistent spacing. The `st1` / `st2` naming is less clear than `set1` / `set2`. The `vegetables` variable starts as a tuple then gets converted to a set — this is correct but could be clearer. No `__main__` guard.
+**Comment:** Scored 74/100, band C. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (88), weakest is robustness (51). **Works:** module docstring names the concept; comments explain most steps; 100% lines and every branch exercised; every try block has a handler; 2 exception handler(s); standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script; 2 input() call(s) with nothing validating them; unchecked input reaches the arithmetic.
+
+---
+
+### formats.py — **83/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 81 | 35% | 28.4 |
+| Fixability | 86 | 25% | 21.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **83** |
+
+**Comment:** Scored 83/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is risk (80). **Works:** module docstring names the concept; dense explanation throughout; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script.
+
+---
+
+### functions.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
+
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 7 of 7 callables undocumented.
+
+---
+
+### hello_world.py — **83/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 81 | 35% | 28.4 |
+| Fixability | 86 | 25% | 21.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **83** |
+
+**Comment:** Scored 83/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is risk (80). **Works:** module docstring names the concept; dense explanation throughout; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script.
+
+---
+
+### lists.py — **75/100** (C — Serviceable)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 60 | 35% | 21.0 |
+| Fixability | 86 | 25% | 21.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 80 | 10% | 8.0 |
+| **Final** | | | **75** |
+
+**Comment:** Scored 75/100, band C. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (86), weakest is readability (60). **Works:** module docstring names the concept; comments explain most steps; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; 318 lines with no function boundary; no function boundary, so a fault can only be found by running the whole script; large module is more exposed to dependency changes.
+
+---
+
+### login_status.py — **85/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 82 | 25% | 20.5 |
+| Robustness | 81 | 15% | 12.2 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **85** |
+
+**Comment:** Scored 85/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; every try block has a handler; 4 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 4 of 4 callables undocumented; 93% line coverage, 2 dead branches.
+
+---
+
+### main.py — **50/100** (E — Broken)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 40 | 35% | 14.0 |
+| Fixability | 40 | 25% | 10.0 |
+| Robustness | 45 | 15% | 6.8 |
+| Risk | 92 | 15% | 13.8 |
+| Durability | 50 | 10% | 5.0 |
+| **Final** | | | **50** |
+
+**Comment:** Scored 50/100, band E. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is risk (92), weakest is readability (40). **Works:** little to go on, structurally. **Weaknesses:** unreadable: does not parse; does not parse; the file is a deliberate teaching stub; cannot run, so it cannot be robust; fails immediately, so it cannot mislead anyone; does not run. **Deliberate defect (rule 11):** an IndentationError stub that exists to demonstrate the parse error Kept on purpose and pinned by a test, so the score reflects the cost of the lesson rather than an accident.
+
+---
+
+### modules.py — **77/100** (C — Serviceable)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 72 | 35% | 25.2 |
+| Fixability | 72 | 25% | 18.0 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **77** |
+
+**Comment:** Scored 77/100, band C. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is readability (72). **Works:** module docstring names the concept; comments explain most steps; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; exceeds the 2s budget (trains a model at import); no function boundary, so a fault can only be found by running the whole script.
+
+---
+
+### numbers.py — **73/100** (C — Serviceable)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 60 | 35% | 21.0 |
+| Fixability | 86 | 25% | 21.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 68 | 15% | 10.2 |
+| Durability | 80 | 10% | 8.0 |
+| **Final** | | | **73** |
+
+**Comment:** Scored 73/100, band C. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (86), weakest is readability (60). **Works:** module docstring names the concept; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; 372 lines with no function boundary; no function boundary, so a fault can only be found by running the whole script; 12 hardcoded values a reader must spot-check; large module is more exposed to dependency changes.
+
+---
+
+### scope_resolution.py — **87/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 68 | 15% | 10.2 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **87** |
+
+**Comment:** Scored 87/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (68). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 6 of 6 callables undocumented; 4 hardcoded values a reader must spot-check.
+
+---
+
+### sets.py — **80/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 72 | 35% | 25.2 |
+| Fixability | 86 | 25% | 21.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **80** |
+
+**Comment:** Scored 80/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is readability (72). **Works:** module docstring names the concept; comments explain most steps; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script.
 
 ---
 
 ### strings.py — **64/100** (D — Weak)
 
+Tier: **Learning**
+
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 55 | 25% | 13.8 |
-| Durability | 55 | 20% | 11.0 |
-| Robustness | 50 | 15% | 7.5 |
+| --- | --- | --- | --- |
+| Readability | 59 | 35% | 20.7 |
+| Fixability | 82 | 25% | 20.5 |
+| Robustness | 43 | 15% | 6.5 |
+| Risk | 58 | 15% | 8.7 |
+| Durability | 80 | 10% | 8.0 |
 | **Final** | | | **64** |
 
-**Comment:** Covers an enormous number of string methods at 249 lines. The `# Expected Output:` / `# Actual Output:` / `# Reason:` pattern is thorough but exhausting. The `input()` call at line 206 makes it exit 1 without stdin. The duplicate checks (`isprintable` and `isidentifier` are each tested twice) are unnecessary. The `print(help(str))` call is stubbed out in tests. The `rfind("a")` comment on line 58 says "starting on the left hand side (from 0)" which is correct but the method name `rfind` is confusing — it finds the rightmost occurrence. The `expandtabs(4)` example shows no visible effect because the string has no tabs.
+**Comment:** Scored 64/100, band D. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (82), weakest is robustness (43). **Works:** module docstring names the concept; dense explanation throughout; 100% lines and every branch exercised; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; 321 lines with no function boundary; American spelling: center; no function boundary, so a fault can only be found by running the whole script; 1 input() call(s) with nothing validating them; unchecked input reaches the arithmetic; large module is more exposed to dependency changes.
 
 ---
 
-### tuples.py — **76/100** (C — Serviceable)
+### tuples.py — **80/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 60 | 15% | 9.0 |
-| **Final** | | | **76** |
+| --- | --- | --- | --- |
+| Readability | 72 | 35% | 25.2 |
+| Fixability | 86 | 25% | 21.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **80** |
 
-**Comment:** Covers tuple creation, indexing, unpacking, sorting, slicing, conversion to/from lists, joining, and deletion. The `del random_tuple` comment on line 110 says "inaccessability" which should be "inaccessibility" (SPaG). The `sorted_points = tuple(sorted(points))` example is correct. The multi-line comment block (lines 39-45) showing the unpacking alternative is a nice touch. No `__main__` guard.
+**Comment:** Scored 80/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is readability (72). **Works:** module docstring names the concept; comments explain most steps; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script.
 
 ---
 
-### type_conversion_type_casting.py — **85/100** (B — Strong)
+### type_conversion_type_casting.py — **83/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 95 | 40% | 38.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 80 | 20% | 16.0 |
-| Robustness | 75 | 15% | 11.3 |
-| **Final** | | | **85** |
+| --- | --- | --- | --- |
+| Readability | 81 | 35% | 28.4 |
+| Fixability | 86 | 25% | 21.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **83** |
 
-**Comment:** Clean, focused demonstration of `str()`, `int()`, `float()`, `bool()`, and `type()`. The docstring correctly notes the critical distinction: `int("3.14")` raises ValueError while `int(3.14)` silently truncates. The expected/actual/reason comment pattern is applied consistently without being overwhelming. Runs clean (exit 0). No issues found.
+**Comment:** Scored 83/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is risk (80). **Works:** module docstring names the concept; dense explanation throughout; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script.
 
 ---
 
-### variables.py — **56/100** (E — Poor)
+### variables.py — **69/100** (D — Weak)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 70 | 40% | 28.0 |
-| Readability | 50 | 25% | 12.5 |
-| Durability | 45 | 20% | 9.0 |
-| Robustness | 45 | 15% | 6.8 |
-| **Final** | | | **56** |
+| --- | --- | --- | --- |
+| Readability | 72 | 35% | 25.2 |
+| Fixability | 52 | 25% | 13.0 |
+| Robustness | 73 | 15% | 11.0 |
+| Risk | 72 | 15% | 10.8 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **69** |
 
-**Comment:** Covers the four basic types (string, int, float, bool) but the boolean branching section has the same deliberate defects as `login_status.py` — the `if is_online == True:` check is always truthy for any non-empty string, and the nested `if choice[0].upper() == "A"` structure is hard to follow. The `input()` calls for quantity and costs make it interactive (exit 1 without stdin). The `debt = int(costs) - revenue` calculation is correct but the variable naming could be clearer. The f-string output is well-formatted. No `__main__` guard.
+**Comment:** Scored 69/100, band D. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is fixability (52). **Works:** module docstring names the concept; 4 guard check(s) on the input path; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; only 75% of lines execute; no function boundary, so a fault can only be found by running the whole script; 5 hardcoded values a reader must spot-check; 8 lines never run, so never verified; + defect is named in the docstring and pinned by a test, so the risk is visible rather than silent. **Deliberate defect (rule 11):** hardcoded booleans leave the 'Stop Lying' and offline branches unreachable without editing source Kept on purpose and pinned by a test, so the score reflects the cost of the lesson rather than an accident.
 
 ---
 
 ## python/imperative_programming/interactive_games/
 
-### dice_game.py — **70/100** (C — Serviceable)
+### dice_game.py — **84/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 60 | 15% | 9.0 |
-| **Final** | | | **70** |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 90 | 25% | 22.5 |
+| Robustness | 63 | 15% | 9.5 |
+| Risk | 68 | 15% | 10.2 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **84** |
 
-**Comment:** The `dice_art` dictionary with ASCII dice faces is a strong visual design. The game loop is well-structured with clear turn separation. However, the entire game logic is inside one long `play_dice_race()` function (146 lines), which the docstring acknowledges is deliberate as a counter-example. The `input("Press Enter...")` calls make it interactive (exit 1 without stdin). The `dice_art.get(die)[line]` call on line 108 could raise `KeyError` if a die value outside 1-6 appeared (defensive but not needed with `randint(1, 6)`). No validation on the play-again input beyond checking for 'y'/'yes'.
+**Comment:** Scored 84/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is robustness (63). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; 100% lines and every branch exercised; 3 guard check(s) on the input path; split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; while True whose exit depends on an unchecked condition; 4 hardcoded values a reader must spot-check.
 
 ---
 
-### haiku_madlibs.py — **64/100** (D — Weak)
+### haiku_madlibs.py — **71/100** (C — Serviceable)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 60 | 25% | 15.0 |
-| Durability | 55 | 20% | 11.0 |
-| Robustness | 50 | 15% | 7.5 |
-| **Final** | | | **64** |
+| --- | --- | --- | --- |
+| Readability | 77 | 35% | 27.0 |
+| Fixability | 82 | 25% | 20.5 |
+| Robustness | 43 | 15% | 6.5 |
+| Risk | 58 | 15% | 8.7 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **71** |
 
-**Comment:** The concept is creative (mad libs haiku with random template selection). The `random.choice(templates_1)` approach means the same inputs produce different poems. However, the file is purely interactive with 18 `input()` calls and no `__main__` guard. The f-string templates are well-formed but the haiku structure (5-7-5 syllables) is not enforced — the player could produce nonsense. No input validation whatsoever. The `import random` comment says "essential to randomise the placements of certain language techniques" which is vague.
+**Comment:** Scored 71/100, band C. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is robustness (43). **Works:** module docstring names the concept; comments explain most steps; 100% lines and every branch exercised; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script; 18 input() call(s) with nothing validating them; unchecked input reaches the arithmetic.
 
 ---
 
-### hangman_game.py — **76/100** (C — Serviceable)
+### hangman_game.py — **83/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 75 | 15% | 11.3 |
-| **Final** | | | **76** |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 84 | 25% | 21.0 |
+| Robustness | 63 | 15% | 9.5 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **83** |
 
-**Comment:** Well-structured with clear function separation (`display_hangman`, `display_hint`, `display_answer`, `play_hangman`). The word bank is extensive (200+ animals). The input validation on line 84 (`len(guess) != 1 or not guess.isalpha()`) is correct. The `guessed_letters` set prevents repeats. Deductions: the `while is_running` flag is redundant (could use `while True` with breaks). The `hangman_art` dictionary uses integer keys 0-6 which is clear. The `display_hangman(wrong_guesses)` call on line 106 and 115 shows the full stickman even on win, which is a minor UX issue. No `__main__` guard.
+**Comment:** Scored 83/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is robustness (63). **Works:** module docstring names the concept; code is broken into named units; 6 guard check(s) on the input path; split into units, so one change breaks less; standard library only. **Weaknesses:** 4 of 4 callables undocumented; 99% line coverage; known path where a wrong answer reaches the user.
 
 ---
 
-### number_guessing_game.py — **72/100** (C — Serviceable)
+### number_guessing_game.py — **79/100** (C — Serviceable)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **72** |
+| --- | --- | --- | --- |
+| Readability | 72 | 35% | 25.2 |
+| Fixability | 88 | 25% | 22.0 |
+| Robustness | 83 | 15% | 12.5 |
+| Risk | 68 | 15% | 10.2 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **79** |
 
-**Comment:** Good EXP system that adds a second progress signal beyond attempt count. The `try/except ValueError` on line 24 correctly handles non-integer input. The nested while loop structure is clear. Deductions: the `EXP` variable is global and persists across rounds, which could confuse. The `print(f"Unlucky. It was {answer}. You were {100 - EXP} EXP away.")` message is confusing — it says "you were X EXP away" but the calculation is `100 - EXP` which is the remaining EXP needed, not the EXP "away". No `__main__` guard.
+**Comment:** Scored 79/100, band C. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (88), weakest is risk (68). **Works:** module docstring names the concept; 100% lines and every branch exercised; every try block has a handler; 5 guard check(s) on the input path; 1 exception handler(s); standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script; 5 hardcoded values a reader must spot-check.
 
 ---
 
-### quiz_game.py — **70/100** (C — Serviceable)
+### quiz_game.py — **75/100** (C — Serviceable)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 65 | 25% | 16.3 |
-| Durability | 60 | 20% | 12.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **70** |
-
-**Comment:** Clean data-at-the-top design with questions, options, and answers as tuples. The `for question in questions` loop is simple and correct. Deductions: no input validation (a guess of "Z" would be treated as incorrect without warning). The `score = int(score / len(questions) * 100)` calculation on line 59 is correct but the variable `score` is reused (first as count, then as percentage). The `options[question_num]` indexing is correct but fragile — adding a question requires updating three separate tuples. No `__main__` guard.
-
----
-
-### rock_paper_scissors.py — **75/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
+| --- | --- | --- | --- |
+| Readability | 72 | 35% | 25.2 |
+| Fixability | 82 | 25% | 20.5 |
+| Robustness | 67 | 15% | 10.1 |
+| Risk | 68 | 15% | 10.2 |
+| Durability | 88 | 10% | 8.8 |
 | **Final** | | | **75** |
 
-**Comment:** Restructured into functions with an `__main__` guard and game loop (first to 3 wins). The `rock_art()`, `paper_art()`, `scissors_art()` functions provide visual feedback. The deliberate `isdigit()` bug on line 113 is pinned by tests per rule 11 — the invalid-input check is always truthy, so the "Stop Messing Around" message never prints. This is the point of the exercise. The `determine_outcome()` function is clean. Deductions: the always-truthy bug means invalid input silently passes through. The score tracking is simple but effective.
+**Comment:** Scored 75/100, band C. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is robustness (67). **Works:** module docstring names the concept; 100% lines and every branch exercised; 1 guard check(s) on the input path; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script; 4 hardcoded values a reader must spot-check.
 
 ---
 
-### word_guessing_game.py — **70/100** (C — Serviceable)
+### rock_paper_scissors.py — **84/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 60 | 15% | 9.0 |
-| **Final** | | | **70** |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 63 | 15% | 9.5 |
+| Risk | 68 | 15% | 10.2 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **84** |
 
-**Comment:** Clean two-level loop structure (outer for replay, inner for attempts). The `guessedWord` list with underscore replacement is a standard hangman-style approach. The `word_bank` is well-chosen (tech terms). Deductions: the `guessedWord` variable uses camelCase instead of snake_case (PEP 8 violation). No input validation on the guess (could be multiple characters, non-alpha). The `play_again` check only accepts 'y' — 'yes' would exit. No `__main__` guard.
+**Comment:** Scored 84/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is robustness (63). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; every try block has a handler; 13 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 12 of 12 callables undocumented; 97% line coverage; known path where a wrong answer reaches the user; while True whose exit depends on an unchecked condition; 4 hardcoded values a reader must spot-check.
+
+---
+
+### word_guessing_game.py — **79/100** (C — Serviceable)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 81 | 35% | 28.4 |
+| Fixability | 82 | 25% | 20.5 |
+| Robustness | 65 | 15% | 9.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **79** |
+
+**Comment:** Scored 79/100, band C. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is robustness (65). **Works:** module docstring names the concept; dense explanation throughout; 100% lines and every branch exercised; 4 guard check(s) on the input path; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script; while True whose exit depends on an unchecked condition.
 
 ---
 
 ## python/imperative_programming/math_and_science_calculators/
 
-### annual_rate_calculator.py — **72/100** (C — Serviceable)
+### annual_rate_calculator.py — **77/100** (C — Serviceable)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **72** |
-
-**Comment:** Back-solves the annual rate from income and time. The input validation (decimal places, single currency symbol, positive income) is thorough. The `raise Exception(...)` pattern is used instead of `ValueError`, which is less idiomatic. The `except Exception as error_message` catch-all at the end is too broad. No `__main__` guard.
-
----
-
-### area.py — **85/100** (B — Strong)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 95 | 40% | 38.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 80 | 20% | 16.0 |
-| Robustness | 75 | 15% | 11.3 |
-| **Final** | | | **85** |
-
-**Comment:** The simplest geometry calculator at 28 lines. The `area(x, y)` function is pure and reusable. The `calculate()` wrapper handles input and output. The docstring correctly notes that validation lives in callers. The `round(result, 2)` is appropriate. No issues found.
-
----
-
-### area_of_circle.py — **76/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 70 | 40% | 28.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 85 | 20% | 17.0 |
-| Robustness | 75 | 15% | 11.3 |
-| **Final** | | | **76** |
-
-**Comment:** Left deliberately defective per rule 11 (no `__main__` guard). The `calculate_area()` function is correct and reusable. The `area_of_circle()` function has proper exception handling (ValueError, TypeError, KeyboardInterrupt). The defect IS the lesson — the asymmetry with `circumference_of_circle.py` demonstrates what the guard is for.
-
----
-
-### area_of_triangle.py — **75/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **75** |
-
-**Comment:** Clean helper-function pattern with `get_float_input()` returning None for empty input. The `if b and h:` check at line 32 is always truthy for non-zero floats, so the else branch is unreachable. The `round((b * h) / 2, 2)` is correct. The docstring mentions "module-level squares the radius" which is stale copy-paste from another file. No `__main__` guard.
-
----
-
-### area_volume_calculator.py — **70/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **70** |
-
-**Comment:** Menu-driven calculator combining area and volume. The `sys.path.append` at the top is necessary for sibling imports. The f-string formatting with box drawing is visually appealing. Deductions: the `match choice` block has no default case for non-"1"/"2" input. The `round()` calls are correct. No `__main__` guard.
-
----
-
-### arithmetic_calculator.py — **77/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 70 | 15% | 10.5 |
+| --- | --- | --- | --- |
+| Readability | 77 | 35% | 27.0 |
+| Fixability | 92 | 25% | 23.0 |
+| Robustness | 69 | 15% | 10.4 |
+| Risk | 55 | 15% | 8.3 |
+| Durability | 88 | 10% | 8.8 |
 | **Final** | | | **77** |
 
-**Comment:** The shared `arithmetic()` function with match/case dispatch. Returns error strings instead of raising — a deliberate design choice documented in the docstring. The `__main__` block has a full calculator with input validation, formatting, and a TUI box. Deductions: the `//` case at line 30 is missing the `else` clause (inconsistent with `/` and `%`). The `round_choice` input validation is minimal. The f-string formatting is complex but correct.
+**Comment:** Scored 77/100, band C. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (92), weakest is risk (55). **Works:** module docstring names the concept; comments explain most steps; runs and exits cleanly; 100% lines and every branch exercised; every try block has a handler; 2 guard check(s) on the input path; 1 exception handler(s); standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script; fewer guards than input calls; prints a result the user may trust without verifying it.
 
 ---
 
-### arithmetic_expressions.py — **81/100** (B — Strong)
+### area.py — **86/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 85 | 20% | 17.0 |
-| Robustness | 70 | 15% | 10.5 |
-| **Final** | | | **81** |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 96 | 25% | 24.0 |
+| Robustness | 67 | 15% | 10.1 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **86** |
 
-**Comment:** The `format_result()` function with the `isinstance` guard (fixed in this session) prevents the `:.2f` crash on error strings. The `EXPERSSIONS` typo in the banner is pinned by a test. The menu banner duplicates `arithmetic_calculator.py` (noted in docstring). The `get_number()` function correctly tries int first, then float. No `__main__` guard.
+**Comment:** Scored 86/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (96), weakest is robustness (67). **Works:** module docstring names the concept; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 1 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 2 of 2 callables undocumented; fewer guards than input calls.
 
 ---
 
-### arithmetic_iteration.py — **73/100** (C — Serviceable)
+### area_of_circle.py — **89/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **73** |
-
-**Comment:** Chains arithmetic operations through a generated polynomial sequence. The `generate_sequence()` function is well-structured. The `arithmetic_iteration()` function correctly stops on error strings. Deductions: the `try/except ImportError` block for the import is unnecessary under pytest (pythonpath is set). The f-string formatting is correct. No `__main__` guard.
-
----
-
-### card_validator_program.py — **82/100** (B — Strong)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 75 | 20% | 15.0 |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 100 | 25% | 25.0 |
 | Robustness | 75 | 15% | 11.3 |
-| **Final** | | | **82** |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **89** |
 
-**Comment:** Clean Luhn algorithm implementation. The `validate()` function returns a boolean, making it reusable. The slicing (`[::2]`, `[1::2]`) is correct. The docstring at the top lists test card numbers (helpful for testing). The `if x >= 10:` check correctly handles doubled digits. No `__main__` guard.
-
----
-
-### circle_calculator.py — **70/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 60 | 15% | 9.0 |
-| **Final** | | | **70** |
-
-**Comment:** Menu delegating to `area_of_circle()` and `circumference()`. The `choice.isdigit()` check is correct. The `except ValueError` is unreachable (noted in docstring). The `except KeyboardInterrupt` handler has a typo ("reccomend" should be "recommend"). The imports at the top mutate `sys.path`. No `__main__` guard.
+**Comment:** Scored 89/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (100), weakest is robustness (75). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; every try block has a handler; 1 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 2 of 2 callables undocumented.
 
 ---
 
-### circumference_of_circle.py — **75/100** (C — Serviceable)
+### area_of_triangle.py — **86/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **75** |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 90 | 25% | 22.5 |
+| Robustness | 77 | 15% | 11.6 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **86** |
 
-**Comment:** The counterpart to `area_of_circle.py` — this one HAS the `__main__` guard. The `calculate_circumference()` function uses a variable named `area` to store circumference (confusing naming). The exception handling matches `area_of_circle.py`. The docstring correctly explains the asymmetry. No issues beyond the naming.
+**Comment:** Scored 86/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is robustness (77). **Works:** module docstring names the concept; code is broken into named units; every try block has a handler; 2 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 2 of 2 callables undocumented; 96% line coverage.
 
 ---
 
-### compound_debt_calculator.py — **72/100** (C — Serviceable)
+### area_volume_calculator.py — **72/100** (C — Serviceable)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 65 | 15% | 9.8 |
+| --- | --- | --- | --- |
+| Readability | 72 | 35% | 25.2 |
+| Fixability | 88 | 25% | 22.0 |
+| Robustness | 51 | 15% | 7.7 |
+| Risk | 58 | 15% | 8.7 |
+| Durability | 88 | 10% | 8.8 |
 | **Final** | | | **72** |
 
-**Comment:** Compound debt formula `A = P(1 + r/100)^t`. The `while True` loop with break is correct. The `if p > 0:` check correctly rejects positive values (debt is negative). The `compound_debt()` function is pure. Deductions: the `while True` loop only runs once (break at end of else). The `except ValueError` catches float conversion errors. No `__main__` guard.
+**Comment:** Scored 72/100, band C. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (88), weakest is robustness (51). **Works:** module docstring names the concept; 100% lines and every branch exercised; every try block has a handler; 2 exception handler(s); standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script; 6 input() call(s) with nothing validating them; unchecked input reaches the arithmetic.
 
 ---
 
-### compound_interest_rate.py — **72/100** (C — Serviceable)
+### arithmetic_calculator.py — **86/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **72** |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 90 | 25% | 22.5 |
+| Robustness | 75 | 15% | 11.3 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **86** |
 
-**Comment:** Identical structure to `compound_debt_calculator.py` but for positive values. The docstring correctly notes the parallel design. The `compound_interest()` function is pure. The input validation is the same. Deductions: the two files are 95% identical, which is the point (teaching comparison). No `__main__` guard.
+**Comment:** Scored 86/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is robustness (75). **Works:** module docstring names the concept; code is broken into named units; every try block has a handler; 5 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; 98% line coverage; fewer guards than input calls.
 
 ---
 
-### cosine_rule.py — **76/100** (C — Serviceable)
+### arithmetic_expressions.py — **86/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 70 | 15% | 10.5 |
-| **Final** | | | **76** |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 90 | 25% | 22.5 |
+| Robustness | 77 | 15% | 11.6 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **86** |
 
-**Comment:** Comprehensive cosine rule with side and angle solving. The `get_float_input()` helper returns None for empty input. The `match/case` blocks are correct. The `-1 <= cos_A <= 1` domain check is excellent validation. Deductions: the `if a and b and C:` checks are always truthy for non-None values. The `calculate()` function is long (87 lines). No `__main__` guard.
+**Comment:** Scored 86/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is robustness (77). **Works:** module docstring names the concept; code is broken into named units; every try block has a handler; 2 guard check(s) on the input path; 3 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 3 of 3 callables undocumented; 98% line coverage.
 
 ---
 
-### euclidean_distance_calculator.py — **84/100** (B — Strong)
+### arithmetic_iteration.py — **87/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 80 | 20% | 16.0 |
-| Robustness | 80 | 15% | 12.0 |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 96 | 25% | 24.0 |
+| Robustness | 71 | 15% | 10.7 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **87** |
+
+**Comment:** Scored 87/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (96), weakest is robustness (71). **Works:** module docstring names the concept; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 3 guard check(s) on the input path; 2 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 2 of 2 callables undocumented; fewer guards than input calls.
+
+---
+
+### card_validator_program.py — **84/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 84 | 25% | 21.0 |
+| Robustness | 69 | 15% | 10.4 |
+| Risk | 68 | 15% | 10.2 |
+| Durability | 96 | 10% | 9.6 |
 | **Final** | | | **84** |
 
-**Comment:** Clean n-dimensional Euclidean distance calculator. The `euclidean_distance()` function raises ValueError for mismatched dimensions — correct. The `get_float_input()` helper is well-designed. The `get_dimensions()` function has proper validation. The `calculate()` function is clear. The docstring is excellent. No issues found.
+**Comment:** Scored 84/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (68). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; 2 guard check(s) on the input path; split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; 97% line coverage; 5 hardcoded values a reader must spot-check.
 
 ---
 
-### gradient_calculator.py — **81/100** (B — Strong)
+### circle_calculator.py — **72/100** (C — Serviceable)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 80 | 15% | 12.0 |
-| **Final** | | | **81** |
-
-**Comment:** Clean gradient calculator importing helpers from `euclidean_distance_calculator.py`. The `gradient()` function raises `ZeroDivisionError` for vertical lines — correct. The `calculate()` function has proper error handling. The `direction` input check is a nice touch. No issues found.
-
----
-
-### perimeter_of_triangle.py — **75/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **75** |
-
-**Comment:** Simple perimeter calculator using the helper-function pattern. The `get_float_input()` returns None for empty input. The `if a and b and c:` check is always truthy for non-None values. The `round(a + b + c, 2)` is correct. The docstring mentions "doubles the total to normalise a triangle inequality check" which is confusing — the code does not do this. No `__main__` guard.
-
----
-
-### pythagoras_theorem.py — **75/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **75** |
-
-**Comment:** Clean Pythagorean theorem calculator. The `missing = [a, b, c].count(None)` check is elegant. The `if c <= b:` validation is correct. Deductions: the `for c <= b:` on line 50 is a no-op (should be `if`). The `calculate()` function is clear. No `__main__` guard.
-
----
-
-### simple_debt_calculator.py — **72/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 65 | 15% | 9.8 |
+| --- | --- | --- | --- |
+| Readability | 72 | 35% | 25.2 |
+| Fixability | 88 | 25% | 22.0 |
+| Robustness | 51 | 15% | 7.7 |
+| Risk | 58 | 15% | 8.7 |
+| Durability | 88 | 10% | 8.8 |
 | **Final** | | | **72** |
 
-**Comment:** Simple interest formula `A = P(1 + rt)`. The `while True` loop with break is correct. The `if p > 0:` check correctly rejects positive values. The `simple_debt()` function is pure. Deductions: identical structure to `compound_debt_calculator.py`. No `__main__` guard.
+**Comment:** Scored 72/100, band C. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (88), weakest is robustness (51). **Works:** module docstring names the concept; 100% lines and every branch exercised; every try block has a handler; 1 exception handler(s); standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script; 1 input() call(s) with nothing validating them; unchecked input reaches the arithmetic.
 
 ---
 
-### simple_interest_rate.py — **72/100** (C — Serviceable)
+### circumference_of_circle.py — **88/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **72** |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 96 | 25% | 24.0 |
+| Robustness | 77 | 15% | 11.6 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **88** |
 
-**Comment:** Simple interest formula `I = P * r * t`. Identical structure to `simple_debt_calculator.py`. The `simple_interest()` function is pure. The input validation is the same. Deductions: the two files are near-identical. No `__main__` guard.
+**Comment:** Scored 88/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (96), weakest is robustness (77). **Works:** module docstring names the concept; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 2 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 2 of 2 callables undocumented.
 
 ---
 
-### sine_rule.py — **76/100** (C — Serviceable)
+### compound_debt_calculator.py — **86/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 70 | 15% | 10.5 |
-| **Final** | | | **76** |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 96 | 25% | 24.0 |
+| Robustness | 61 | 15% | 9.2 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **86** |
 
-**Comment:** Comprehensive sine rule with side and angle solving. The `match/case` blocks are correct. The `-1 <= sin_B <= 1` domain check is excellent. The `get_float_input()` helper is well-designed. Deductions: the `calculate()` function is very long (190 lines). The `if a and b:` checks are always truthy for non-None values. No `__main__` guard.
+**Comment:** Scored 86/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (96), weakest is robustness (61). **Works:** module docstring names the concept; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 2 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; fewer guards than input calls; while True whose exit depends on an unchecked condition.
 
 ---
 
-### square_number_times_tables.py — **71/100** (C — Serviceable)
+### compound_interest_rate.py — **86/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 55 | 15% | 8.3 |
-| **Final** | | | **71** |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 96 | 25% | 24.0 |
+| Robustness | 61 | 15% | 9.2 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **86** |
 
-**Comment:** Imports `times_tables()` and filters to square numbers. The `square_number()` function is simple. Deductions: the import is unused (the function does not call `times_tables()`). The `range(0, limit + 1)` includes 0, which produces `0 x 0 = 0` — a valid but trivial entry. No input validation. No `__main__` guard.
+**Comment:** Scored 86/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (96), weakest is robustness (61). **Works:** module docstring names the concept; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 2 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; fewer guards than input calls; while True whose exit depends on an unchecked condition.
 
 ---
 
-### times_tables.py — **76/100** (C — Serviceable)
+### cosine_rule.py — **89/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 60 | 15% | 9.0 |
-| **Final** | | | **76** |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 96 | 25% | 24.0 |
+| Robustness | 83 | 15% | 12.5 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **89** |
 
-**Comment:** Simple times table generator. The nested loop is correct. The `times_tables()` function prints directly (not reusable). Deductions: no input validation (negative values would produce empty output). The `range(0, tables + 1)` includes 0, which produces a trivial table. No `__main__` guard.
+**Comment:** Scored 89/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 7 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 2 of 2 callables undocumented.
 
 ---
 
-### triangle_calculator.py — **73/100** (C — Serviceable)
+### euclidean_distance_calculator.py — **89/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **73** |
-
-**Comment:** Menu-driven triangle calculator dispatching to sine/cosine rule. The `sys.path.append` at the top is necessary for imports. The `pythagoras()`, `area()`, and `perimeter()` functions are well-structured. The `run_calculator()` function has a clear menu loop. Deductions: the `get_float_input()` helper is duplicated (could be imported). The `match choice` block has proper error handling. No `__main__` guard.
-
----
-
-### volume.py — **85/100** (B — Strong)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 95 | 40% | 38.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 80 | 20% | 16.0 |
+| --- | --- | --- | --- |
+| Readability | 91 | 35% | 31.9 |
+| Fixability | 96 | 25% | 24.0 |
 | Robustness | 75 | 15% | 11.3 |
-| **Final** | | | **85** |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **89** |
 
-**Comment:** Clean volume calculator at 28 lines. The `volume(x, y, z)` function is pure and reusable. The `calculate()` wrapper handles input and output. The docstring correctly notes the contrast between calculation and wrapper. The `round(result, 2)` is appropriate. No issues found.
+**Comment:** Scored 89/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (96), weakest is robustness (75). **Works:** module docstring names the concept; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 10 guard check(s) on the input path; 2 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 4 of 5 callables undocumented; while True whose exit depends on an unchecked condition.
+
+---
+
+### gradient_calculator.py — **91/100** (A — Exemplary)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 95 | 35% | 33.3 |
+| Fixability | 96 | 25% | 24.0 |
+| Robustness | 83 | 15% | 12.5 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **91** |
+
+**Comment:** Scored 91/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 8 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 2 callables undocumented.
+
+---
+
+### perimeter_of_triangle.py — **86/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 90 | 25% | 22.5 |
+| Robustness | 77 | 15% | 11.6 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **86** |
+
+**Comment:** Scored 86/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is robustness (77). **Works:** module docstring names the concept; code is broken into named units; every try block has a handler; 2 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 2 of 2 callables undocumented; 96% line coverage.
+
+---
+
+### pythagoras_theorem.py — **87/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 90 | 25% | 22.5 |
+| Robustness | 83 | 15% | 12.5 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **87** |
+
+**Comment:** Scored 87/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; every try block has a handler; 8 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 2 of 2 callables undocumented; 96% line coverage.
+
+---
+
+### simple_debt_calculator.py — **86/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 96 | 25% | 24.0 |
+| Robustness | 61 | 15% | 9.2 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **86** |
+
+**Comment:** Scored 86/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (96), weakest is robustness (61). **Works:** module docstring names the concept; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 2 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; fewer guards than input calls; while True whose exit depends on an unchecked condition.
+
+---
+
+### simple_interest_rate.py — **86/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 96 | 25% | 24.0 |
+| Robustness | 61 | 15% | 9.2 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **86** |
+
+**Comment:** Scored 86/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (96), weakest is robustness (61). **Works:** module docstring names the concept; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 2 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; fewer guards than input calls; while True whose exit depends on an unchecked condition.
+
+---
+
+### sine_rule.py — **88/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 85 | 35% | 29.8 |
+| Fixability | 96 | 25% | 24.0 |
+| Robustness | 83 | 15% | 12.5 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **88** |
+
+**Comment:** Scored 88/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 22 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 2 of 2 callables undocumented; sparse explanation for a teaching script.
+
+---
+
+### square_number_times_tables.py — **83/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 76 | 25% | 19.0 |
+| Robustness | 67 | 15% | 10.1 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **83** |
+
+**Comment:** Scored 83/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is robustness (67). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; 1 guard check(s) on the input path; split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; 92% line coverage, 1 dead branches.
+
+---
+
+### times_tables.py — **87/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 97 | 35% | 34.0 |
+| Fixability | 90 | 25% | 22.5 |
+| Robustness | 59 | 15% | 8.9 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **87** |
+
+**Comment:** Scored 87/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is readability (97), weakest is robustness (59). **Works:** module docstring names the concept; dense explanation throughout; code is broken into named units; 100% lines and every branch exercised; 1 guard check(s) on the input path; split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; fewer guards than input calls.
+
+---
+
+### triangle_calculator.py — **86/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 90 | 25% | 22.5 |
+| Robustness | 75 | 15% | 11.3 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **86** |
+
+**Comment:** Scored 86/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is robustness (75). **Works:** module docstring names the concept; code is broken into named units; every try block has a handler; 8 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 5 of 5 callables undocumented; 99% line coverage; while True whose exit depends on an unchecked condition.
+
+---
+
+### volume.py — **86/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 96 | 25% | 24.0 |
+| Robustness | 67 | 15% | 10.1 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **86** |
+
+**Comment:** Scored 86/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (96), weakest is robustness (67). **Works:** module docstring names the concept; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 1 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 2 of 2 callables undocumented; fewer guards than input calls.
 
 ---
 
 ## python/imperative_programming/syntax_exercises/
 
-### add.py — **87/100** (B — Strong)
+### add.py — **86/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 80 | 20% | 16.0 |
-| Robustness | 75 | 15% | 11.3 |
+| --- | --- | --- | --- |
+| Readability | 80 | 35% | 28.0 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **86** |
+
+**Comment:** Scored 86/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is readability (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; sparse explanation for a teaching script.
+
+---
+
+### alarm_clock.py — **77/100** (C — Serviceable)
+
+Tier: **Applied**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 92 | 20% | 18.4 |
+| Fixability | 90 | 30% | 27.0 |
+| Robustness | 51 | 30% | 15.3 |
+| Risk | 80 | 10% | 8.0 |
+| Durability | 87 | 10% | 8.7 |
+| **Final** | | | **77** |
+
+**Comment:** Scored 77/100, band C. Judged as applied material, so the weighting favours fixability and robustness, because a user has to rely on it. Strongest criterion is readability (92), weakest is robustness (51). **Works:** module docstring names the concept; every callable is documented; code is broken into named units; every try block has a handler; 3 guard check(s) on the input path; 6 exception handler(s); split into units, so one change breaks less. **Weaknesses:** American spelling: center; 98% line coverage; fewer guards than input calls; known path where a wrong answer reaches the user; while True whose exit depends on an unchecked condition; depends on pygame.
+
+---
+
+### banking_program.py — **87/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 90 | 25% | 22.5 |
+| Robustness | 81 | 15% | 12.2 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
 | **Final** | | | **87** |
 
-**Comment:** Nine lines, clean and focused. The simplest possible arithmetic script. Runs clean (exit 0). No input validation needed (no input). This is exactly what a minimal teaching script should be.
+**Comment:** Scored 87/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; every try block has a handler; 4 guard check(s) on the input path; 2 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 4 of 4 callables undocumented; 99% line coverage.
 
 ---
 
-### alarm_clock.py — **76/100** (C — Serviceable)
+### checkout_system.py — **77/100** (C — Serviceable)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 75 | 15% | 11.3 |
-| **Final** | | | **76** |
+| --- | --- | --- | --- |
+| Readability | 77 | 35% | 27.0 |
+| Fixability | 82 | 25% | 20.5 |
+| Robustness | 61 | 15% | 9.2 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **77** |
 
-**Comment:** Well-structured alarm clock with 12h/24h format selection, input validation, and pygame audio. The `valid_alarm_time()` function has proper match/case with validation loops. The `set_alarm()` function polls the clock correctly. The pygame import is guarded. Deductions: the hardcoded `r"C:\Users\A.I.M\C.S\WAV\..."` path is non-portable. The `while is_running` loop with `time.sleep(1)` means the alarm can be up to 1 second late. The `except FileNotFoundError` at line 155 is unreachable (the file existence is pre-checked at line 137). Has `__main__` guard.
+**Comment:** Scored 77/100, band C. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is robustness (61). **Works:** module docstring names the concept; comments explain most steps; 100% lines and every branch exercised; 2 guard check(s) on the input path; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script; fewer guards than input calls.
 
 ---
 
-### banking_program.py — **70/100** (C — Serviceable)
+### count_up_timer.py — **85/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **70** |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 80 | 25% | 20.0 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **85** |
 
-**Comment:** 115-line banking program with deposit, withdrawal, and balance. Has `__main__` guard. The interactive nature (exit 1 without stdin) is expected. Deductions: no input validation beyond basic float conversion. The balance is stored in a local variable, so it resets each run. No persistence.
-
----
-
-### checkout_system.py — **71/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 60 | 20% | 12.0 |
-| Robustness | 60 | 15% | 9.0 |
-| **Final** | | | **71** |
-
-**Comment:** 27-line checkout system. Simple and focused. No `__main__` guard. The interactive nature is expected. Deductions: no input validation. The total calculation is trivial. No receipt formatting.
-
----
-
-### count_up_timer.py — **72/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **72** |
-
-**Comment:** Simple count-up timer with `time.sleep(1)`. The `count()` function is clean. The individual test calls at the bottom (lines 18-36) are a nice touch showing different ranges. Deductions: no `__main__` guard. The `time.sleep(1)` calls make it slow without mocking. No input validation.
+**Comment:** Scored 85/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is fixability (80). **Works:** module docstring names the concept; code is broken into named units; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; exceeds the 2s budget (trains a model at import).
 
 ---
 
 ### distance_calculator.py — **71/100** (C — Serviceable)
 
+Tier: **Learning**
+
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 60 | 20% | 12.0 |
-| Robustness | 60 | 15% | 9.0 |
+| --- | --- | --- | --- |
+| Readability | 77 | 35% | 27.0 |
+| Fixability | 82 | 25% | 20.5 |
+| Robustness | 43 | 15% | 6.5 |
+| Risk | 58 | 15% | 8.7 |
+| Durability | 88 | 10% | 8.8 |
 | **Final** | | | **71** |
 
-**Comment:** 19-line distance calculator. Simple and focused. No `__main__` guard. The interactive nature is expected. Deductions: no input validation. The distance formula is trivial.
+**Comment:** Scored 71/100, band C. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is robustness (43). **Works:** module docstring names the concept; comments explain most steps; 100% lines and every branch exercised; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script; 2 input() call(s) with nothing validating them; unchecked input reaches the arithmetic.
 
 ---
 
-### divide.py — **87/100** (B — Strong)
+### divide.py — **86/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 80 | 20% | 16.0 |
-| Robustness | 75 | 15% | 11.3 |
+| --- | --- | --- | --- |
+| Readability | 80 | 35% | 28.0 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **86** |
+
+**Comment:** Scored 86/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is readability (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; sparse explanation for a teaching script.
+
+---
+
+### drink_script_example.py — **84/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 76 | 25% | 19.0 |
+| Robustness | 73 | 15% | 11.0 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **84** |
+
+**Comment:** Scored 84/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is robustness (73). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; every try block has a handler; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; only 83% of lines execute.
+
+---
+
+### email_slicer.py — **87/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 96 | 25% | 24.0 |
+| Robustness | 71 | 15% | 10.7 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
 | **Final** | | | **87** |
 
-**Comment:** Nine lines, clean and focused. The simplest possible division script. Runs clean (exit 0). No input validation needed (no input). This is exactly what a minimal teaching script should be.
+**Comment:** Scored 87/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (96), weakest is robustness (71). **Works:** module docstring names the concept; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 3 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; while True whose exit depends on an unchecked condition.
 
 ---
 
-### drink_script_example.py — **76/100** (C — Serviceable)
+### even_odd_detector.py — **80/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 60 | 15% | 9.0 |
-| **Final** | | | **76** |
+| --- | --- | --- | --- |
+| Readability | 77 | 35% | 27.0 |
+| Fixability | 86 | 25% | 21.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 68 | 15% | 10.2 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **80** |
 
-**Comment:** Sibling-import example demonstrating the difference between a module safe to import and one that owns the terminal. The `[AI-authored fix]` try/except import block is correct. The `favourite_drink()` function is simple. Deductions: the print statements at the bottom run on import (no `__main__` guard). The comment "Python is decent, but idk kinda mid" is unprofessional for a teaching repo.
+**Comment:** Scored 80/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is risk (68). **Works:** module docstring names the concept; comments explain most steps; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script; 4 hardcoded values a reader must spot-check.
 
 ---
 
-### email_slicer.py — **70/100** (C — Serviceable)
+### factorials.py — **89/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **70** |
-
-**Comment:** 62-line email slicer. Has `__main__` guard. The interactive nature is expected. Deductions: no input validation. The email parsing is trivial (split on @). No error handling for malformed emails.
-
----
-
-### even_odd_detector.py — **77/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **77** |
-
-**Comment:** 27-line even/odd detector. Simple and focused. No `__main__` guard. Runs clean (exit 0). Deductions: no input validation. The logic is trivial (modulo 2).
-
----
-
-### factorials.py — **70/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **70** |
-
-**Comment:** 29-line factorial calculator. Has `__main__` guard. The interactive nature is expected. Deductions: no input validation. The factorial calculation is trivial. No error handling for negative numbers.
-
----
-
-### file_handling.py — **77/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **77** |
-
-**Comment:** 31-line file handling demonstration. No `__main__` guard. Runs clean (exit 0). The `with open()` pattern is correct. Deductions: no error handling. The file operations are trivial.
-
----
-
-### file_reader.py — **78/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 96 | 25% | 24.0 |
 | Robustness | 75 | 15% | 11.3 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **89** |
+
+**Comment:** Scored 89/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (96), weakest is robustness (75). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 1 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented.
+
+---
+
+### file_handling.py — **79/100** (C — Serviceable)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 77 | 35% | 27.0 |
+| Fixability | 72 | 25% | 18.0 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **79** |
+
+**Comment:** Scored 79/100, band C. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is fixability (72). **Works:** module docstring names the concept; comments explain most steps; runs and exits cleanly; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; 94% line coverage, 1 dead branches; no function boundary, so a fault can only be found by running the whole script.
+
+---
+
+### file_reader.py — **74/100** (C — Serviceable)
+
+Tier: **Applied**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 67 | 20% | 13.4 |
+| Fixability | 92 | 30% | 27.6 |
+| Robustness | 68 | 30% | 20.4 |
+| Risk | 65 | 10% | 6.5 |
+| Durability | 58 | 10% | 5.8 |
+| **Final** | | | **74** |
+
+**Comment:** Scored 74/100, band C. Judged as applied material, so the weighting favours fixability and robustness, because a user has to rely on it. Strongest criterion is fixability (92), weakest is durability (58). **Works:** module docstring names the concept; runs and exits cleanly; 100% lines and every branch exercised; every try block has a handler; 3 exception handler(s); standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script; reads a fixed path with no existence check; behaves differently per machine with no warning; depends on a hardcoded filesystem path.
+
+---
+
+### file_writer.py — **87/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 83 | 35% | 29.1 |
+| Fixability | 100 | 25% | 25.0 |
+| Robustness | 73 | 15% | 11.0 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **87** |
+
+**Comment:** Scored 87/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (100), weakest is robustness (73). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; every try block has a handler; 4 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented.
+
+---
+
+### food_menu.py — **77/100** (C — Serviceable)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 77 | 35% | 27.0 |
+| Fixability | 82 | 25% | 20.5 |
+| Robustness | 61 | 15% | 9.2 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **77** |
+
+**Comment:** Scored 77/100, band C. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is robustness (61). **Works:** module docstring names the concept; comments explain most steps; 100% lines and every branch exercised; 2 guard check(s) on the input path; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script; while True whose exit depends on an unchecked condition.
+
+---
+
+### food_script_example.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
+
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 2 of 2 callables undocumented.
+
+---
+
+### grade_boundary_calculator.py — **78/100** (C — Serviceable)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 72 | 35% | 25.2 |
+| Fixability | 82 | 25% | 20.5 |
+| Robustness | 75 | 15% | 11.3 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
 | **Final** | | | **78** |
 
-**Comment:** 79-line file reader with CSV parsing. No `__main__` guard. Runs clean (exit 0). The CSV handling is correct. Deductions: no error handling for missing files. The empty-row fix is noted in NOTES.md.
+**Comment:** Scored 78/100, band C. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is readability (72). **Works:** module docstring names the concept; 100% lines and every branch exercised; 11 guard check(s) on the input path; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script.
 
 ---
 
-### file_writer.py — **77/100** (C — Serviceable)
+### hour_clock.py — **83/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **77** |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 96 | 25% | 24.0 |
+| Robustness | 51 | 15% | 7.7 |
+| Risk | 58 | 15% | 8.7 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **83** |
 
-**Comment:** 89-line file writer covering TXT, JSON, and CSV. No `__main__` guard. Runs clean (exit 0). The `with open()` pattern is correct. The `try/except FileExistsError` blocks are appropriate. Deductions: the CWD-relative file paths are intentional (rule 4) but make the file non-portable. The `encoding = "utf-8"` is correct.
+**Comment:** Scored 83/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (96), weakest is robustness (51). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; 3 input() call(s) with nothing validating them; unchecked input reaches the arithmetic.
 
 ---
 
-### food_menu.py — **70/100** (C — Serviceable)
+### leap_year.py — **88/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 60 | 15% | 9.0 |
-| **Final** | | | **70** |
-
-**Comment:** 57-line food menu. No `__main__` guard. The interactive nature is expected. Deductions: no input validation. The menu logic is trivial. No error handling.
-
----
-
-### food_script_example.py — **72/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **72** |
-
-**Comment:** 25-line food script. Has `__main__` guard. The `favourite_food()` function is simple. Deductions: the print statements at the bottom run on import. The function is trivial.
-
----
-
-### grade_boundary_calculator.py — **70/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 60 | 15% | 9.0 |
-| **Final** | | | **70** |
-
-**Comment:** 52-line grade boundary calculator. No `__main__` guard. The interactive nature is expected. Deductions: no input validation. The grade boundaries are hardcoded. No error handling for out-of-range scores.
-
----
-
-### hour_clock.py — **75/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **75** |
-
-**Comment:** 57-line hour clock with input validation. The `countdown()` function is correct. The `isdigit()` check is appropriate. The bound checks for minutes and seconds are correct. Deductions: no `__main__` guard. The `time.sleep(1)` calls make it slow without mocking. The `except ValueError` is unreachable (isdigit check prevents it).
-
----
-
-### leap_year.py — **70/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 60 | 15% | 9.0 |
-| **Final** | | | **70** |
-
-**Comment:** 28-line leap year checker. No `__main__` guard. The interactive nature is expected. Deductions: no input validation. The leap year logic is correct but trivial.
-
----
-
-### math_file.py — **77/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **77** |
-
-**Comment:** 26-line math file importing from `math_module.py`. No `__main__` guard. Runs clean (exit 0). The import pattern is correct. Deductions: the file is purely demonstrative. No error handling.
-
----
-
-### math_module.py — **85/100** (B — Strong)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 95 | 40% | 38.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 80 | 20% | 16.0 |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 96 | 25% | 24.0 |
 | Robustness | 75 | 15% | 11.3 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **88** |
+
+**Comment:** Scored 88/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (96), weakest is robustness (75). **Works:** module docstring names the concept; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 1 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented.
+
+---
+
+### math_file.py — **80/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 72 | 35% | 25.2 |
+| Fixability | 86 | 25% | 21.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **80** |
+
+**Comment:** Scored 80/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is readability (72). **Works:** module docstring names the concept; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script.
+
+---
+
+### math_module.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
+
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 4 of 4 callables undocumented.
+
+---
+
+### minute_timer.py — **88/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 96 | 25% | 24.0 |
+| Robustness | 67 | 15% | 10.1 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **88** |
+
+**Comment:** Scored 88/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (96), weakest is robustness (67). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 1 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; fewer guards than input calls.
+
+---
+
+### multiply.py — **86/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 80 | 35% | 28.0 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **86** |
+
+**Comment:** Scored 86/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is readability (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; sparse explanation for a teaching script.
+
+---
+
+### num_pad.py — **83/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 81 | 35% | 28.4 |
+| Fixability | 86 | 25% | 21.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **83** |
+
+**Comment:** Scored 83/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is risk (80). **Works:** module docstring names the concept; dense explanation throughout; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script.
+
+---
+
+### number_matrix_display.py — **91/100** (A — Exemplary)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 100 | 35% | 35.0 |
+| Fixability | 90 | 25% | 22.5 |
+| Robustness | 77 | 15% | 11.6 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **91** |
+
+**Comment:** Scored 91/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is readability (100), weakest is robustness (77). **Works:** module docstring names the concept; every callable is documented; comments explain most steps; code is broken into named units; every try block has a handler; 2 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 96% line coverage.
+
+---
+
+### prime_numbers.py — **89/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 96 | 25% | 24.0 |
+| Robustness | 75 | 15% | 11.3 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **89** |
+
+**Comment:** Scored 89/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (96), weakest is robustness (75). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 1 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented.
+
+---
+
+### random_cipher.py — **79/100** (C — Serviceable)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 77 | 35% | 27.0 |
+| Fixability | 82 | 25% | 20.5 |
+| Robustness | 69 | 15% | 10.4 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **79** |
+
+**Comment:** Scored 79/100, band C. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is robustness (69). **Works:** module docstring names the concept; comments explain most steps; 100% lines and every branch exercised; 2 guard check(s) on the input path; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script.
+
+---
+
+### random_colour_generator.py — **85/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 90 | 25% | 22.5 |
+| Robustness | 67 | 15% | 10.1 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
 | **Final** | | | **85** |
 
-**Comment:** 22-line module of math constants and functions. The `pi = 3.14159` constant is clear. The `square()`, `cube()`, `circumference()`, and `area()` functions are pure and reusable. The docstring correctly explains the two-file import pair. No issues found.
+**Comment:** Scored 85/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is robustness (67). **Works:** module docstring names the concept; code is broken into named units; every try block has a handler; 1 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; 98% line coverage; fewer guards than input calls.
 
 ---
 
-### minute_timer.py — **72/100** (C — Serviceable)
+### reverse_list_program.py — **82/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **72** |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 76 | 25% | 19.0 |
+| Robustness | 59 | 15% | 8.9 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **82** |
 
-**Comment:** 43-line minute timer. No `__main__` guard. The `time.sleep(1)` calls make it slow without mocking. Deductions: no input validation. The timer logic is trivial.
+**Comment:** Scored 82/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is robustness (59). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; 1 guard check(s) on the input path; split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; 94% line coverage, 2 dead branches; fewer guards than input calls.
 
 ---
 
-### multiply.py — **87/100** (B — Strong)
+### seconds_countdown.py — **89/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 80 | 20% | 16.0 |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 96 | 25% | 24.0 |
 | Robustness | 75 | 15% | 11.3 |
-| **Final** | | | **87** |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **89** |
 
-**Comment:** Nine lines, clean and focused. The simplest possible multiplication script. Runs clean (exit 0). No input validation needed (no input). This is exactly what a minimal teaching script should be.
-
----
-
-### num_pad.py — **77/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **77** |
-
-**Comment:** 96-line num pad. No `__main__` guard. Runs clean (exit 0). The num pad layout is correct. Deductions: no input validation. The layout logic is trivial.
+**Comment:** Scored 89/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (96), weakest is robustness (75). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 1 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented.
 
 ---
 
-### number_matrix_display.py — **70/100** (C — Serviceable)
+### shipping_label.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 60 | 15% | 9.0 |
-| **Final** | | | **70** |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
 
-**Comment:** 46-line number matrix display. Has `__main__` guard. The interactive nature is expected. Deductions: no input validation. The matrix logic is trivial.
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented.
 
 ---
 
-### prime_numbers.py — **70/100** (C — Serviceable)
+### shopping_cart.py — **88/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 60 | 15% | 9.0 |
-| **Final** | | | **70** |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 100 | 25% | 25.0 |
+| Robustness | 69 | 15% | 10.4 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **88** |
 
-**Comment:** 46-line prime number checker. No `__main__` guard. The interactive nature is expected. Deductions: no input validation. The prime checking logic is correct but inefficient (checks all numbers up to n).
+**Comment:** Scored 88/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (100), weakest is robustness (69). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; every try block has a handler; 2 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; while True whose exit depends on an unchecked condition.
 
 ---
 
-### random_cipher.py — **70/100** (C — Serviceable)
+### square.py — **86/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 60 | 15% | 9.0 |
-| **Final** | | | **70** |
+| --- | --- | --- | --- |
+| Readability | 80 | 35% | 28.0 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **86** |
 
-**Comment:** 53-line random cipher. No `__main__` guard. The interactive nature is expected. Deductions: no input validation. The cipher logic is trivial (random substitution).
+**Comment:** Scored 86/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is readability (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; sparse explanation for a teaching script.
 
 ---
 
-### random_colour_generator.py — **75/100** (C — Serviceable)
+### subtract.py — **86/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **75** |
+| --- | --- | --- | --- |
+| Readability | 80 | 35% | 28.0 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **86** |
 
-**Comment:** 67-line random colour generator with hex, RGB, octal, and HSL output. The `match colour_type` block with pipe `|` patterns is correct. The `randint(0, 0xFFFFFF)` for hex is correct. Deductions: the `case "2" | "rgb" | "r" | "b" | "g":` pattern includes "b" and "g" which are ambiguous (could be blue or green). The `case "4" | "hsl" | "hs" | "hu" | "hue" | "saturation" | "lightness" | "h" | "s" | "l":` pattern is overly broad. Has `__main__` guard.
+**Comment:** Scored 86/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is readability (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; sparse explanation for a teaching script.
 
 ---
 
-### reverse_list_program.py — **70/100** (C — Serviceable)
+### symbol_generator.py — **74/100** (C — Serviceable)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 60 | 15% | 9.0 |
-| **Final** | | | **70** |
+| --- | --- | --- | --- |
+| Readability | 77 | 35% | 27.0 |
+| Fixability | 88 | 25% | 22.0 |
+| Robustness | 51 | 15% | 7.7 |
+| Risk | 58 | 15% | 8.7 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **74** |
 
-**Comment:** 49-line reverse list program. Has `__main__` guard. The interactive nature is expected. Deductions: no input validation. The reverse logic is trivial.
+**Comment:** Scored 74/100, band C. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (88), weakest is robustness (51). **Works:** module docstring names the concept; comments explain most steps; 100% lines and every branch exercised; every try block has a handler; 1 exception handler(s); standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script; 3 input() call(s) with nothing validating them; unchecked input reaches the arithmetic.
 
 ---
 
-### seconds_countdown.py — **72/100** (C — Serviceable)
+### username_status.py — **73/100** (C — Serviceable)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **72** |
+| --- | --- | --- | --- |
+| Readability | 81 | 35% | 28.4 |
+| Fixability | 82 | 25% | 20.5 |
+| Robustness | 43 | 15% | 6.5 |
+| Risk | 58 | 15% | 8.7 |
+| Durability | 88 | 10% | 8.8 |
+| **Final** | | | **73** |
 
-**Comment:** 39-line seconds countdown. No `__main__` guard. The `time.sleep(1)` calls make it slow without mocking. Deductions: no input validation. The countdown logic is trivial.
-
----
-
-### shipping_label.py — **77/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **77** |
-
-**Comment:** 40-line shipping label. No `__main__` guard. Runs clean (exit 0). The label formatting is correct. Deductions: no input validation. The label logic is trivial.
-
----
-
-### shopping_cart.py — **77/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **77** |
-
-**Comment:** 59-line shopping cart. No `__main__` guard. Runs clean (exit 0). The cart logic is correct. Deductions: no input validation. The cart logic is trivial.
-
----
-
-### square.py — **87/100** (B — Strong)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 80 | 20% | 16.0 |
-| Robustness | 75 | 15% | 11.3 |
-| **Final** | | | **87** |
-
-**Comment:** Nine lines, clean and focused. The simplest possible square script. Runs clean (exit 0). No input validation needed (no input). This is exactly what a minimal teaching script should be.
-
----
-
-### subtract.py — **87/100** (B — Strong)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 100 | 40% | 40.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 80 | 20% | 16.0 |
-| Robustness | 75 | 15% | 11.3 |
-| **Final** | | | **87** |
-
-**Comment:** Nine lines, clean and focused. The simplest possible subtraction script. Runs clean (exit 0). No input validation needed (no input). This is exactly what a minimal teaching script should be.
-
----
-
-### symbol_generator.py — **70/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 60 | 15% | 9.0 |
-| **Final** | | | **70** |
-
-**Comment:** 25-line symbol generator. No `__main__` guard. The interactive nature is expected. Deductions: no input validation. The symbol logic is trivial.
-
----
-
-### username_status.py — **70/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 60 | 15% | 9.0 |
-| **Final** | | | **70** |
-
-**Comment:** 33-line username status checker. No `__main__` guard. The interactive nature is expected. Deductions: no input validation. The status logic is trivial.
+**Comment:** Scored 73/100, band C. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is robustness (43). **Works:** module docstring names the concept; dense explanation throughout; 100% lines and every branch exercised; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script; 1 input() call(s) with nothing validating them; unchecked input reaches the arithmetic.
 
 ---
 
 ## python/imperative_programming/unit_and_format_converters/
 
-### fahrenheit_celsius_converter.py — **77/100** (C — Serviceable)
+### fahrenheit_celsius_converter.py — **81/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 96 | 25% | 24.0 |
+| Robustness | 51 | 15% | 7.7 |
+| Risk | 58 | 15% | 8.7 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **81** |
+
+**Comment:** Scored 81/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (96), weakest is robustness (51). **Works:** module docstring names the concept; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 4 of 4 callables undocumented; 3 input() call(s) with nothing validating them; unchecked input reaches the arithmetic.
+
+---
+
+### phone_converter.py — **77/100** (C — Serviceable)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 90 | 25% | 22.5 |
+| Robustness | 35 | 15% | 5.3 |
+| Risk | 58 | 15% | 8.7 |
+| Durability | 96 | 10% | 9.6 |
 | **Final** | | | **77** |
 
-**Comment:** Clean two-function converter with formatting helpers. The `celcius` spelling is deliberate and pinned by tests. The `try/except ValueError` is correct. No `__main__` guard. The input validation is minimal but adequate for a teaching script.
+**Comment:** Scored 77/100, band C. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is robustness (35). **Works:** module docstring names the concept; code is broken into named units; 100% lines and every branch exercised; split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented; 1 input() call(s) with nothing validating them; while True whose exit depends on an unchecked condition; unchecked input reaches the arithmetic.
 
 ---
 
-### phone_converter.py — **70/100** (C — Serviceable)
+### qrcode_generator.py — **84/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **70** |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 84 | 25% | 21.0 |
+| Robustness | 71 | 15% | 10.7 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **84** |
 
-**Comment:** Phone keypad mapper using match/case. The `while True` loop with validation is correct. The `num()` function is clean. Deductions: no `__main__` guard. The `Seperates` comment has a typo ("Separates"). The `result += word + " "` string concatenation in a loop is inefficient.
+**Comment:** Scored 84/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is robustness (71). **Works:** module docstring names the concept; code is broken into named units; 3 guard check(s) on the input path; split into units, so one change breaks less; standard library only. **Weaknesses:** 2 of 2 callables undocumented; 97% line coverage.
 
 ---
 
-### qrcode_generator.py — **75/100** (C — Serviceable)
+### roman_numeral_converter.py — **88/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **75** |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 96 | 25% | 24.0 |
+| Robustness | 77 | 15% | 11.6 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **88** |
 
-**Comment:** Clean QR code generator. The `make_qr_code()` function with `output_dir` parameter is flexible. The CWD-relative save is intentional (rule 4) and documented. Has `__main__` guard. Deductions: no input validation on the URL. The `sys.argv` handling is minimal.
+**Comment:** Scored 88/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (96), weakest is robustness (77). **Works:** module docstring names the concept; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 2 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 2 of 2 callables undocumented.
 
 ---
 
-### roman_numeral_converter.py — **72/100** (C — Serviceable)
+### time_converter.py — **81/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 80 | 40% | 32.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 65 | 15% | 9.8 |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 96 | 25% | 24.0 |
+| Robustness | 51 | 15% | 7.7 |
+| Risk | 58 | 15% | 8.7 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **81** |
+
+**Comment:** Scored 81/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (96), weakest is robustness (51). **Works:** module docstring names the concept; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 2 of 2 callables undocumented; 3 input() call(s) with nothing validating them; unchecked input reaches the arithmetic.
+
+---
+
+### weight_converter.py — **72/100** (C — Serviceable)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 72 | 35% | 25.2 |
+| Fixability | 88 | 25% | 22.0 |
+| Robustness | 51 | 15% | 7.7 |
+| Risk | 58 | 15% | 8.7 |
+| Durability | 88 | 10% | 8.8 |
 | **Final** | | | **72** |
 
-**Comment:** Roman numeral converter with match/case `get_value()` and correct subtractive notation logic. The `try/except ValueError` handles invalid characters. Deductions: no `__main__` guard. The `raise ValueError()` on line 21 has no message. The `numeral.upper()` call is correct.
-
----
-
-### time_converter.py — **77/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **77** |
-
-**Comment:** Comprehensive time converter with 10 units. The `get_unit_info()` function returning `(multiplier, name)` is elegant and extensible. The `except KeyboardInterrupt` handler is a nice touch. Deductions: no `__main__` guard. The `int(current_choice)` conversion could raise `ValueError` for non-numeric input. The `final_answer` could be very large or very small.
-
----
-
-### weight_converter.py — **70/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 60 | 15% | 9.0 |
-| **Final** | | | **70** |
-
-**Comment:** Simple weight converter with pounds and kilograms. The `try/except ValueError` is correct. The `unit.lower()[0]` check is a nice shortcut. Deductions: no `__main__` guard. The `new` variable is not rounded. The `w / 0.45` calculation is correct but could be more readable as `w * (1 / 0.45)`.
+**Comment:** Scored 72/100, band C. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (88), weakest is robustness (51). **Works:** module docstring names the concept; 100% lines and every branch exercised; every try block has a handler; 1 exception handler(s); standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script; 2 input() call(s) with nothing validating them; unchecked input reaches the arithmetic.
 
 ---
 
 ## python/object_oriented_programming/fundamental_topics/
 
-### abstract_classes.py — **82/100** (B — Strong)
+### abstract_classes.py — **88/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 75 | 15% | 11.3 |
-| **Final** | | | **82** |
+| --- | --- | --- | --- |
+| Readability | 96 | 35% | 33.6 |
+| Fixability | 80 | 25% | 20.0 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **88** |
 
-**Comment:** Clean abstract class demonstration with Vehicle base and three subclasses. The `@abstractmethod` decorator is used correctly. The `pass` bodies are documented as unreachable coverage caps. The instantiations at the bottom are clear. Deductions: no `__main__` guard. The subclasses are near-identical (could be more varied).
+**Comment:** Scored 88/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is readability (96), weakest is fixability (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 8 of 8 callables undocumented; 92% line coverage, 0 dead branches.
 
 ---
 
-### aggregation.py — **81/100** (B — Strong)
+### aggregation.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **81** |
+| --- | --- | --- | --- |
+| Readability | 91 | 35% | 31.9 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
 
-**Comment:** Clean aggregation example (has-a relationship). Runs clean (exit 0). The class structure is clear. Deductions: no `__main__` guard. The aggregation pattern is simple. No error handling.
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 4 of 4 callables undocumented.
 
 ---
 
-### class_methods.py — **81/100** (B — Strong)
+### class_methods.py — **91/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **81** |
+| --- | --- | --- | --- |
+| Readability | 96 | 35% | 33.6 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **91** |
 
-**Comment:** Class methods demonstration. Runs clean (exit 0). The `@classmethod` decorator is used correctly. Deductions: no `__main__` guard. The class methods are simple. No error handling.
+**Comment:** Scored 91/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is readability (96), weakest is risk (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 4 of 4 callables undocumented.
 
 ---
 
-### class_variables.py — **81/100** (B — Strong)
+### class_variables.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **81** |
+| --- | --- | --- | --- |
+| Readability | 91 | 35% | 31.9 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
 
-**Comment:** Class variables demonstration. Runs clean (exit 0). The class variable pattern is clear. Deductions: no `__main__` guard. The class variables are simple. No error handling.
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 2 of 2 callables undocumented.
 
 ---
 
 ### classes.py — **75/100** (C — Serviceable)
 
+Tier: **Learning**
+
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
+| --- | --- | --- | --- |
+| Readability | 77 | 35% | 27.0 |
+| Fixability | 78 | 25% | 19.5 |
+| Robustness | 73 | 15% | 11.0 |
+| Risk | 60 | 15% | 9.0 |
+| Durability | 88 | 10% | 8.8 |
 | **Final** | | | **75** |
 
-**Comment:** The baseline OOP file importing Car, Person, and Point from siblings. The `[AI-authored fix]` sys.path block is correct. The try/except import pairs are the standard fallback idiom. The multi-line comment blocks (lines 59-74, 90-94, 109-111) explaining the logic are verbose but helpful. Deductions: the comment blocks are excessive. The `print(car1)` at line 47 prints a memory address (confusing for beginners). No `__main__` guard.
+**Comment:** Scored 75/100, band C. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is risk (60). **Works:** module docstring names the concept; comments explain most steps; runs and exits cleanly; every try block has a handler; 3 exception handler(s); standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; 89% line coverage, 0 dead branches; no function boundary, so a fault can only be found by running the whole script; 4 hardcoded values a reader must spot-check; 6 lines never run, so never verified.
 
 ---
 
-### composition.py — **81/100** (B — Strong)
+### composition.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **81** |
+| --- | --- | --- | --- |
+| Readability | 91 | 35% | 31.9 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
 
-**Comment:** Clean composition example (part-of relationship). Runs clean (exit 0). The class structure is clear. Deductions: no `__main__` guard. The composition pattern is simple. No error handling.
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 4 of 4 callables undocumented.
 
 ---
 
-### constructors.py — **85/100** (B — Strong)
+### constructors.py — **91/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 95 | 40% | 38.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 80 | 20% | 16.0 |
-| Robustness | 75 | 15% | 11.3 |
-| **Final** | | | **85** |
+| --- | --- | --- | --- |
+| Readability | 96 | 35% | 33.6 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **91** |
 
-**Comment:** Clean constructor demonstration at 21 lines. The `__init__` method is explained clearly. Runs clean (exit 0). Deductions: no `__main__` guard. The constructor is simple. No error handling.
+**Comment:** Scored 91/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is readability (96), weakest is risk (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented.
 
 ---
 
-### data_classes.py — **82/100** (B — Strong)
+### data_classes.py — **91/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 75 | 15% | 11.3 |
-| **Final** | | | **82** |
+| --- | --- | --- | --- |
+| Readability | 96 | 35% | 33.6 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **91** |
 
-**Comment:** Data class demonstration using `@dataclass`. Runs clean (exit 0). The decorator is used correctly. Deductions: no `__main__` guard. The data class is simple. No error handling.
+**Comment:** Scored 91/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is readability (96), weakest is risk (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 1 of 1 callables undocumented.
 
 ---
 
-### decorator.py — **82/100** (B — Strong)
+### decorator.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 75 | 15% | 11.3 |
-| **Final** | | | **82** |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
 
-**Comment:** Clean decorator demonstration with three stacked decorators. The `@wraps` explanation in the docstring is correct. The nested function pattern is clear. Deductions: no `__main__` guard. The decorators are simple. No error handling.
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 4 of 4 callables undocumented.
 
 ---
 
-### duck_typing.py — **81/100** (B — Strong)
+### duck_typing.py — **91/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **81** |
+| --- | --- | --- | --- |
+| Readability | 96 | 35% | 33.6 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **91** |
 
-**Comment:** Duck typing demonstration. Runs clean (exit 0). The "if it walks like a duck" pattern is clear. Deductions: no `__main__` guard. The duck typing is simple. No error handling.
+**Comment:** Scored 91/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is readability (96), weakest is risk (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 9 of 9 callables undocumented.
 
 ---
 
-### generator.py — **68/100** (D — Weak)
+### generator.py — **87/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 65 | 25% | 16.3 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 60 | 15% | 9.0 |
-| **Final** | | | **68** |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 82 | 25% | 20.5 |
+| Robustness | 83 | 15% | 12.5 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **87** |
 
-**Comment:** Generator demonstration with `yield` and generator expressions. The `count_to()` function is clear. The `read_file()` generator is practical. The execution time tracking is a nice touch. Deductions: the `elif execution_time >= 3600:` on line 44 is dead code (unreachable after the `>= 60` elif). The hardcoded file paths (`r"C:\Users\A.I.M\C.S\..."`) are non-portable. The `time.sleep(1)` calls make it slow. The `if __name__ == "__main__":` guard only covers Example 1; Examples 2-4 run on import. Exit 1 (interactive).
+**Comment:** Scored 87/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; every try block has a handler; 5 guard check(s) on the input path; 1 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 2 of 2 callables undocumented; 90% line coverage, 4 dead branches.
 
 ---
 
-### inheritance.py — **85/100** (B — Strong)
+### inheritance.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 95 | 40% | 38.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 80 | 20% | 16.0 |
-| Robustness | 75 | 15% | 11.3 |
-| **Final** | | | **85** |
+| --- | --- | --- | --- |
+| Readability | 91 | 35% | 31.9 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
 
-**Comment:** Clean inheritance demonstration with Animal base and Dog/Cat/Mouse subclasses. The `super()` usage is correct. The method overriding is clear. Runs clean (exit 0). Deductions: no `__main__` guard. The subclasses are near-identical.
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 10 of 10 callables undocumented.
 
 ---
 
-### iterator.py — **81/100** (B — Strong)
+### iterator.py — **91/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **81** |
+| --- | --- | --- | --- |
+| Readability | 96 | 35% | 33.6 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **91** |
 
-**Comment:** Iterator demonstration. Runs clean (exit 0). The `__iter__` and `__next__` methods are correct. Deductions: no `__main__` guard. The iterator is simple. No error handling.
+**Comment:** Scored 91/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is readability (96), weakest is risk (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 3 of 3 callables undocumented.
 
 ---
 
-### magic_methods.py — **82/100** (B — Strong)
+### magic_methods.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 75 | 15% | 11.3 |
-| **Final** | | | **82** |
+| --- | --- | --- | --- |
+| Readability | 91 | 35% | 31.9 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
 
-**Comment:** Magic methods demonstration. Runs clean (exit 0). The dunder methods are correct. Deductions: no `__main__` guard. The magic methods are simple. No error handling.
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 8 of 8 callables undocumented.
 
 ---
 
-### multi_level_inheritance.py — **81/100** (B — Strong)
+### multi_level_inheritance.py — **91/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **81** |
+| --- | --- | --- | --- |
+| Readability | 96 | 35% | 33.6 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **91** |
 
-**Comment:** Multi-level inheritance demonstration. Runs clean (exit 0). The three-level hierarchy is clear. Deductions: no `__main__` guard. The inheritance is simple. No error handling.
+**Comment:** Scored 91/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is readability (96), weakest is risk (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 5 of 5 callables undocumented.
 
 ---
 
-### multiple_inheritance.py — **81/100** (B — Strong)
+### multiple_inheritance.py — **91/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **81** |
+| --- | --- | --- | --- |
+| Readability | 96 | 35% | 33.6 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **91** |
 
-**Comment:** Multiple inheritance demonstration. Runs clean (exit 0). The MRO is correct. Deductions: no `__main__` guard. The multiple inheritance is simple. No error handling.
+**Comment:** Scored 91/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is readability (96), weakest is risk (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 8 of 8 callables undocumented.
 
 ---
 
-### multitasking.py — **65/100** (D — Weak)
+### multitasking.py — **87/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 70 | 40% | 28.0 |
-| Readability | 65 | 25% | 16.3 |
-| Durability | 60 | 20% | 12.0 |
-| Robustness | 55 | 15% | 8.3 |
-| **Final** | | | **65** |
+| --- | --- | --- | --- |
+| Readability | 93 | 35% | 32.6 |
+| Fixability | 80 | 25% | 20.0 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **87** |
 
-**Comment:** Multitasking demonstration. Exit 124 (timeout — runs indefinitely). The threading/multiprocessing pattern is present. Deductions: no `__main__` guard. The multitasking is unclear. No error handling. The timeout makes it untestable without mocking.
+**Comment:** Scored 87/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is fixability (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 3 of 3 callables undocumented; exceeds the 2s budget (trains a model at import).
 
 ---
 
-### nested_classes.py — **77/100** (C — Serviceable)
+### nested_classes.py — **88/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **77** |
+| --- | --- | --- | --- |
+| Readability | 91 | 35% | 31.9 |
+| Fixability | 88 | 25% | 22.0 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **88** |
 
-**Comment:** Nested classes demonstration at 134 lines. Runs clean (exit 0). The nested class pattern is clear. Deductions: no `__main__` guard. The nested classes are verbose. No error handling.
+**Comment:** Scored 88/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 8 of 8 callables undocumented; 99% line coverage.
 
 ---
 
-### polymorphism.py — **75/100** (C — Serviceable)
+### polymorphism.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **75** |
+| --- | --- | --- | --- |
+| Readability | 96 | 35% | 33.6 |
+| Fixability | 88 | 25% | 22.0 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
 
-**Comment:** Polymorphism demonstration with Shape abstract class and multiple subclasses. The `@abstractmethod` decorator is used. The `pass` bodies are documented as unreachable. The `shapes` list with polymorphic `area()` calls is clear. Deductions: the `Pizza(Circle)` inheritance is a stretch (a pizza is not a circle). The `FlatCake` class does not inherit from Shape, which is intentional but confusing. No `__main__` guard.
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is readability (96), weakest is risk (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 10 of 10 callables undocumented; 98% line coverage.
 
 ---
 
-### property.py — **81/100** (B — Strong)
+### property.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **81** |
+| --- | --- | --- | --- |
+| Readability | 91 | 35% | 31.9 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
 
-**Comment:** Property demonstration. Runs clean (exit 0). The `@property` decorator is correct. Deductions: no `__main__` guard. The property is simple. No error handling.
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 9 of 9 callables undocumented.
 
 ---
 
-### static_methods.py — **81/100** (B — Strong)
+### static_methods.py — **91/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **81** |
+| --- | --- | --- | --- |
+| Readability | 96 | 35% | 33.6 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **91** |
 
-**Comment:** Static methods demonstration. Runs clean (exit 0). The `@staticmethod` decorator is correct. Deductions: no `__main__` guard. The static methods are simple. No error handling.
+**Comment:** Scored 91/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is readability (96), weakest is risk (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 3 of 3 callables undocumented.
 
 ---
 
-### super.py — **81/100** (B — Strong)
+### super.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **81** |
+| --- | --- | --- | --- |
+| Readability | 91 | 35% | 31.9 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
 
-**Comment:** Super demonstration. Runs clean (exit 0). The `super().__init__()` pattern is correct. Deductions: no `__main__` guard. The super usage is simple. No error handling.
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 8 of 8 callables undocumented.
 
 ---
 
 ## python/object_oriented_programming/syntax_fundamentals/
 
-**Note:** This folder is frozen per AGENTS.md rule 1 — files must not be moved, renamed, or have imports rewritten. Scores reflect the frozen state.
+### bank_account.py — **90/100** (A — Exemplary)
 
-### bank_account.py — **77/100** (C — Serviceable)
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **77** |
+| --- | --- | --- | --- |
+| Readability | 91 | 35% | 31.9 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
 
-**Comment:** Bank account class demonstration. Runs clean (exit 0). The class structure is clear. Deductions: no `__main__` guard. The bank account logic is simple. No error handling.
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 5 of 5 callables undocumented.
 
 ---
 
-### calculator.py — **77/100** (C — Serviceable)
+### calculator.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **77** |
+| --- | --- | --- | --- |
+| Readability | 91 | 35% | 31.9 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
 
-**Comment:** Calculator class demonstration. Runs clean (exit 0). The class structure is clear. Deductions: no `__main__` guard. The calculator logic is simple. No error handling.
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 6 of 6 callables undocumented.
 
 ---
 
-### car.py — **81/100** (B — Strong)
+### car.py — **91/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **81** |
+| --- | --- | --- | --- |
+| Readability | 96 | 35% | 33.6 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **91** |
 
-**Comment:** Car class demonstration. Runs clean (exit 0). The class structure is clear. Deductions: no `__main__` guard. The car logic is simple. No error handling.
+**Comment:** Scored 91/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is readability (96), weakest is risk (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 4 of 4 callables undocumented.
 
 ---
 
-### device.py — **82/100** (B — Strong)
+### device.py — **88/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 75 | 15% | 11.3 |
+| --- | --- | --- | --- |
+| Readability | 91 | 35% | 31.9 |
+| Fixability | 88 | 25% | 22.0 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **88** |
+
+**Comment:** Scored 88/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 15 of 15 callables undocumented; 96% line coverage.
+
+---
+
+### dice.py — **82/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 77 | 35% | 27.0 |
+| Fixability | 86 | 25% | 21.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 88 | 10% | 8.8 |
 | **Final** | | | **82** |
 
-**Comment:** Device hierarchy with abstract base class. The `Device(ABC)` with `@abstractmethod` is correct. The Phone/Laptop/Tablet subclasses are clear. The `super().__init__()` calls are correct. Runs clean (exit 0). Deductions: no `__main__` guard. The subclasses are near-identical.
+**Comment:** Scored 82/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (88), weakest is readability (77). **Works:** module docstring names the concept; comments explain most steps; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; no function boundary, so a fault can only be found by running the whole script.
 
 ---
 
-### dice.py — **70/100** (C — Serviceable)
+### employee_contract.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 75 | 40% | 30.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 65 | 20% | 13.0 |
-| Robustness | 60 | 15% | 9.0 |
-| **Final** | | | **70** |
+| --- | --- | --- | --- |
+| Readability | 91 | 35% | 31.9 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
 
-**Comment:** Dice class demonstration. Exit 1 (interactive). The class structure is clear. Deductions: no `__main__` guard. The dice logic is simple. No error handling.
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 10 of 10 callables undocumented.
 
 ---
 
-### employee_contract.py — **77/100** (C — Serviceable)
+### food.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **77** |
+| --- | --- | --- | --- |
+| Readability | 91 | 35% | 31.9 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
 
-**Comment:** Employee contract class demonstration. Runs clean (exit 0). The class structure is clear. Deductions: no `__main__` guard. The employee contract logic is simple. No error handling.
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 14 of 14 callables undocumented.
 
 ---
 
-### food.py — **77/100** (C — Serviceable)
+### grocery_caloric_list.py — **89/100** (B — Strong)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **77** |
-
-**Comment:** Food class demonstration at 99 lines. Runs clean (exit 0). The class structure is clear. Deductions: no `__main__` guard. The food logic is simple. No error handling.
-
----
-
-### grocery_caloric_list.py — **65/100** (D — Weak)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 70 | 40% | 28.0 |
-| Readability | 65 | 25% | 16.3 |
-| Durability | 60 | 20% | 12.0 |
-| Robustness | 55 | 15% | 8.3 |
-| **Final** | | | **65** |
-
-**Comment:** Grocery caloric list at 286 lines. Exit 1 (interactive). The class structure is present. Deductions: no `__main__` guard. The caloric list logic is unclear. No error handling. The file is long and complex.
-
----
-
-### item.py — **77/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **77** |
-
-**Comment:** Item class demonstration. Runs clean (exit 0). The class structure is clear. Deductions: no `__main__` guard. The item logic is simple. No error handling.
-
----
-
-### order.py — **77/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **77** |
-
-**Comment:** Order class demonstration. Runs clean (exit 0). The class structure is clear. Deductions: no `__main__` guard. The order logic is simple. No error handling.
-
----
-
-### payment.py — **77/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **77** |
-
-**Comment:** Payment class demonstration. Runs clean (exit 0). The class structure is clear. Deductions: no `__main__` guard. The payment logic is simple. No error handling.
-
----
-
-### person.py — **81/100** (B — Strong)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 90 | 40% | 36.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 75 | 20% | 15.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **81** |
-
-**Comment:** Person class demonstration at 27 lines. Runs clean (exit 0). The class structure is clear. Deductions: no `__main__` guard. The person logic is simple. No error handling.
-
----
-
-### point.py — **85/100** (B — Strong)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 95 | 40% | 38.0 |
-| Readability | 80 | 25% | 20.0 |
-| Durability | 80 | 20% | 16.0 |
+| --- | --- | --- | --- |
+| Readability | 91 | 35% | 31.9 |
+| Fixability | 96 | 25% | 24.0 |
 | Robustness | 75 | 15% | 11.3 |
-| **Final** | | | **85** |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **89** |
 
-**Comment:** Point class demonstration at 16 lines. Runs clean (exit 0). The class structure is clear. Deductions: no `__main__` guard. The point logic is simple. No error handling.
-
----
-
-### real_estate.py — **77/100** (C — Serviceable)
-
-| Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **77** |
-
-**Comment:** Real estate class demonstration at 93 lines. Runs clean (exit 0). The class structure is clear. Deductions: no `__main__` guard. The real estate logic is simple. No error handling.
+**Comment:** Scored 89/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is fixability (96), weakest is robustness (75). **Works:** module docstring names the concept; code is broken into named units; 100% lines and every branch exercised; every try block has a handler; 12 guard check(s) on the input path; 3 exception handler(s); split into units, so one change breaks less; standard library only. **Weaknesses:** 11 of 11 callables undocumented; while True whose exit depends on an unchecked condition.
 
 ---
 
-### restaurant.py — **77/100** (C — Serviceable)
+### item.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **77** |
+| --- | --- | --- | --- |
+| Readability | 91 | 35% | 31.9 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
 
-**Comment:** Restaurant class demonstration. Runs clean (exit 0). The class structure is clear. Deductions: no `__main__` guard. The restaurant logic is simple. No error handling.
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 8 of 8 callables undocumented.
 
 ---
 
-### school.py — **77/100** (C — Serviceable)
+### order.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **77** |
+| --- | --- | --- | --- |
+| Readability | 91 | 35% | 31.9 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
 
-**Comment:** School class demonstration. Runs clean (exit 0). The class structure is clear. Deductions: no `__main__` guard. The school logic is simple. No error handling.
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 4 of 4 callables undocumented.
 
 ---
 
-### sports.py — **77/100** (C — Serviceable)
+### payment.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **77** |
+| --- | --- | --- | --- |
+| Readability | 91 | 35% | 31.9 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
 
-**Comment:** Sports class demonstration. Runs clean (exit 0). The class structure is clear. Deductions: no `__main__` guard. The sports logic is simple. No error handling.
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 9 of 9 callables undocumented.
 
 ---
 
-### user_access.py — **77/100** (C — Serviceable)
+### person.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 75 | 25% | 18.8 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 65 | 15% | 9.8 |
-| **Final** | | | **77** |
+| --- | --- | --- | --- |
+| Readability | 91 | 35% | 31.9 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
 
-**Comment:** User access class demonstration. Runs clean (exit 0). The class structure is clear. Deductions: no `__main__` guard. The user access logic is simple. No error handling.
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 2 of 2 callables undocumented.
 
 ---
 
-### worker.py — **75/100** (C — Serviceable)
+### point.py — **91/100** (A — Exemplary)
+
+Tier: **Learning**
 
 | Criterion | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| Fixability | 85 | 40% | 34.0 |
-| Readability | 70 | 25% | 17.5 |
-| Durability | 70 | 20% | 14.0 |
-| Robustness | 60 | 15% | 9.0 |
-| **Final** | | | **75** |
+| --- | --- | --- | --- |
+| Readability | 96 | 35% | 33.6 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **91** |
 
-**Comment:** Worker class demonstration at 90 lines. Runs clean (exit 0). The class structure is clear. The `[AI-authored fix]` try/except import block is present (same idiom as classes.py). Deductions: no `__main__` guard. The worker logic is verbose. No error handling.
+**Comment:** Scored 91/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is readability (96), weakest is risk (80). **Works:** module docstring names the concept; comments explain most steps; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 2 of 2 callables undocumented.
+
+---
+
+### real_estate.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 91 | 35% | 31.9 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
+
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 15 of 15 callables undocumented.
+
+---
+
+### restaurant.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 91 | 35% | 31.9 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
+
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 4 of 4 callables undocumented.
+
+---
+
+### school.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 91 | 35% | 31.9 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
+
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 5 of 5 callables undocumented.
+
+---
+
+### sports.py — **83/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 73 | 35% | 25.6 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **83** |
+
+**Comment:** Scored 83/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is readability (73). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** flat top-to-bottom script: no functions, so the steps cannot be named or tested separately; American spelling: center.
+
+---
+
+### user_access.py — **89/100** (B — Strong)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 88 | 35% | 30.8 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **89** |
+
+**Comment:** Scored 89/100, band B. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 5 of 5 callables undocumented.
+
+---
+
+### worker.py — **90/100** (A — Exemplary)
+
+Tier: **Learning**
+
+| Criterion | Score | Weight | Weighted |
+| --- | --- | --- | --- |
+| Readability | 91 | 35% | 31.9 |
+| Fixability | 94 | 25% | 23.5 |
+| Robustness | 85 | 15% | 12.8 |
+| Risk | 80 | 15% | 12.0 |
+| Durability | 96 | 10% | 9.6 |
+| **Final** | | | **90** |
+
+**Comment:** Scored 90/100, band A. Judged as learning material, so the weighting favours clarity, because a reader has to learn the idea from it. Strongest criterion is durability (96), weakest is risk (80). **Works:** module docstring names the concept; code is broken into named units; runs and exits cleanly; 100% lines and every branch exercised; no external input, so nothing to validate; split into units, so one change breaks less; standard library only. **Weaknesses:** 12 of 12 callables undocumented.
+
+---
 

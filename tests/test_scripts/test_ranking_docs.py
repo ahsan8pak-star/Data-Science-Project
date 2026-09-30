@@ -36,17 +36,37 @@ GUIDE_MD = REPO_ROOT / "FILE_RANKING_GUIDE.md"
 AGENTS_MD = REPO_ROOT / "AGENTS.md"
 NOTES_MD = REPO_ROOT / "NOTES.md"
 
-# The four criteria and their weights, as documented in FILE_RANKING_GUIDE.md.
-WEIGHTS = {"Fixability": 40, "Readability": 25, "Durability": 20, "Robustness": 15}
+"""
+The two-tier weighting from FILE_RANKING_GUIDE.md. A learning script is
+judged on whether a reader can learn from it; an applied project on whether
+a user can rely on it. The same file therefore carries different weights
+depending on which question it is being asked to answer.
+"""
+TIER_WEIGHTS = {
+    "Learning": {
+        "Readability": 35, "Fixability": 25, "Robustness": 15,
+        "Risk": 15, "Durability": 10,
+    },
+    "Applied": {
+        "Readability": 20, "Fixability": 30, "Robustness": 30,
+        "Risk": 10, "Durability": 10,
+    },
+}
+CRITERIA = ("Readability", "Fixability", "Robustness", "Risk", "Durability")
 
-# Band table from FILE_RANKING_GUIDE.md: inclusive (low, high) per band letter.
+"""
+Band table from FILE_RANKING_GUIDE.md: inclusive (low, high) per band letter.
+
+E's lower bound is 0 rather than 50, so the ranges tile 0-100 with no gap and
+no overlap. The contiguity check walks the bands in order and requires each to
+start one above the previous one's top.
+"""
 BANDS = {
     "A": (90, 100, "Exemplary"),
     "B": (80, 89, "Strong"),
     "C": (70, 79, "Serviceable"),
     "D": (60, 69, "Weak"),
-    "E": (50, 59, "Poor"),
-    "F": (0, 49, "Critical"),
+    "E": (0, 59, "Broken"),
 }
 
 """
@@ -60,10 +80,11 @@ HEADING_RE = re.compile(
     r"\((?P<band>[A-F]) — (?P<label>[^)]*)\)\s*$"
 )
 CRITERION_RE = re.compile(
-    r"^\| (?P<name>Fixability|Readability|Durability|Robustness) \| "
+    r"^\| (?P<name>Readability|Fixability|Robustness|Risk|Durability) \| "
     r"(?P<score>\d+) \| (?P<pct>\d+)% \| (?P<weighted>[\d.]+) \|$",
     re.M,
 )
+TIER_RE = re.compile(r"^Tier: \*\*(?P<tier>Learning|Applied)\*\*$", re.M)
 FINAL_RE = re.compile(r"^\| \*\*Final\*\* \| \| \| \*\*(?P<final>\d+)\*\* \|$")
 
 
@@ -79,14 +100,17 @@ class Entry:
     otherwise pass whichever half was read first.
     """
 
-    def __init__(self, path, score, band, label, criteria, weighted_cells, final):
+    def __init__(self, path, score, band, label, criteria, weighted_cells,
+                 final, tier="Learning"):
         self.path = path
+        self.tier = tier
         self.score = score
         self.band = band
         self.label = label
         self.criteria = criteria
         self.weighted_cells = weighted_cells
         self.final = final
+        self.tier = tier
 
     @property
     def name(self):
@@ -94,9 +118,13 @@ class Entry:
         return self.path.rsplit("/", 1)[-1]
 
     def weighted_total(self):
-        """The four criteria recombined on the 0-100 scale, unrounded."""
-        return sum(
-            score * WEIGHTS[name] for name, score in self.criteria.items()
+        """
+        The five criteria recombined on the 0-100 scale, unrounded, using the
+        weights for this entry's own tier.
+        """
+        table = TIER_WEIGHTS[self.tier]
+        return math.fsum(
+            score * table[name] for name, score in self.criteria.items()
         ) / 100
 
     def __repr__(self):
@@ -133,7 +161,12 @@ def _parse_scores_sheet():
             continue
 
         criteria, weighted_cells, final = {}, [], None
+        tier = "Learning"
         for row in lines[index + 1:index + 12]:
+            tier_row = TIER_RE.match(row)
+            if tier_row is not None:
+                tier = tier_row.group("tier")
+                continue
             criterion = CRITERION_RE.match(row)
             if criterion is not None:
                 criteria[criterion.group("name")] = int(criterion.group("score"))
@@ -155,6 +188,7 @@ def _parse_scores_sheet():
                 criteria=criteria,
                 weighted_cells=weighted_cells,
                 final=final,
+                tier=tier,
             )
         )
     return entries
@@ -244,11 +278,22 @@ class TestScoreSheetArithmetic:
     rounded. Each of those three steps is checked, because a reader who adds
     the column by hand must land on the number printed above it.
     """
-    def test_every_entry_has_all_four_criteria(self, entries):
+    def test_every_entry_has_all_five_criteria(self, entries):
+        """
+        Five criteria, not four: Risk was added because "is it broken" and
+        "what happens if it is" are different questions, and collapsing them
+        hid every failure that produces a wrong answer quietly.
+        """
         incomplete = [
-            e.path for e in entries if set(e.criteria) != set(WEIGHTS)
+            e.path for e in entries if set(e.criteria) != set(CRITERIA)
         ]
         assert incomplete == []
+
+    def test_every_entry_declares_a_known_tier(self, entries):
+        unknown = [
+            e.path for e in entries if e.tier not in TIER_WEIGHTS
+        ]
+        assert unknown == []
 
     def test_every_entry_has_a_final_row(self, entries):
         assert [e.path for e in entries if e.final is None] == []
@@ -261,9 +306,10 @@ class TestScoreSheetArithmetic:
         """
         wrong = []
         for entry in entries:
+            table = TIER_WEIGHTS[entry.tier]
             for name, shown in entry.weighted_cells:
                 expected = _round_half_up(
-                    entry.criteria[name] * WEIGHTS[name] / 100 * 10
+                    entry.criteria[name] * table[name] / 100 * 10
                 ) / 10
                 if abs(expected - shown) > 1e-9:
                     wrong.append(
@@ -272,12 +318,43 @@ class TestScoreSheetArithmetic:
         assert wrong == []
 
     def test_weights_match_the_documented_table(self, entries):
-        text = SCORES_MD.read_text(encoding="utf-8")
-        stated = dict(
-            re.findall(r"\|\s*(Fixability|Readability|Durability|Robustness)\s*"
-                       r"\|\s*\d+\s*\|\s*(\d+)%\s*\|", text)
+        """
+        The weights are per tier, so the guide is checked tier by tier rather
+        than as one flat table. A single dict was what stopped the old sheet
+        from saying that a teaching script and an application need different
+        questions asked of them.
+
+        [AI] Two tables in the guide start with "| Tier |": the definition
+        table and the weighting table. The first attempt at this check matched
+        the definition table and read a sentence as a percentage, so the
+        search is anchored on the weighting header and the rows are looked for
+        only below it.
+        """
+        guide = GUIDE_MD.read_text(encoding="utf-8")
+        header = re.search(
+            r"^\|\s*Tier\s*\|\s*Files\s*\|\s*Readability([^\n]*)$",
+            guide, re.M,
         )
-        assert {k: int(v) for k, v in stated.items()} == WEIGHTS
+        assert header, "the guide's tier weighting table has no header"
+        after = guide[header.end():]
+        names = ["Readability"] + [
+            c.strip() for c in header.group(1).split("|") if c.strip()
+        ]
+        for tier, table in TIER_WEIGHTS.items():
+            row = re.search(
+                rf"^\|\s*\*\*{tier}\*\*\s*\|([^\n]*)$", after, re.M
+            )
+            assert row, f"the guide has no weighting row for {tier}"
+            values = [c.strip() for c in row.group(1).split("|")]
+            stated = {}
+            # values[0] is the file count; the percentages follow it.
+            for name, cell in zip(names, values[1:]):
+                match = re.match(r"(\d+)%", cell)
+                if match:
+                    stated[name] = int(match.group(1))
+            assert stated == table, (
+                f"the guide states {stated} for {tier}, the sheet uses {table}"
+            )
 
     def test_final_is_the_weighted_sum_rounded_half_up(self, entries):
         wrong = [
@@ -326,103 +403,80 @@ class TestScoreSheetBands:
         assert sorted(covered) == list(range(101))
 
 
-class TestGuidePreVerifiedTable:
-    """
-    FILE_RANKING_GUIDE.md carries a "Pre-Verified Scores" table for the six
-    files examined by hand. It is a summary of FILE_SCORES.md, so it has to
-    agree with it: a second, older set of numbers is how a reader ends up
-    quoting a score the score sheet no longer holds.
-    """
-    def _rows(self):
-        text = GUIDE_MD.read_text(encoding="utf-8")
-        section = text.split("## Pre-Verified Scores", 1)[-1]
-        section = section.split("## ", 1)[0]
-        rows = []
-        for line in section.splitlines():
-            if not line.startswith("| `"):
-                continue
-            cells = [cell.strip() for cell in line.split("|")[1:-1]]
-            rows.append(cells)
-        return rows
-
-    def test_table_is_present(self):
-        assert self._rows()
-
-    def test_listed_final_matches_that_rows_own_criteria(self):
-        wrong = []
-        for cells in self._rows():
-            fixability, readability, durability, robustness = (
-                int(cells[1]), int(cells[2]), int(cells[3]), int(cells[4])
-            )
-            listed = int(cells[5].replace("**", ""))
-            total = (
-                fixability * WEIGHTS["Fixability"]
-                + readability * WEIGHTS["Readability"]
-                + durability * WEIGHTS["Durability"]
-                + robustness * WEIGHTS["Robustness"]
-            ) / 100
-            if _round_half_up(total) != listed:
-                wrong.append(
-                    f"{cells[0]}: criteria give {total:.2f} -> "
-                    f"{_round_half_up(total)} but table says {listed}"
-                )
-        assert wrong == []
-
-    def test_table_agrees_with_the_score_sheet(self, by_path):
-        mismatched = []
-        for cells in self._rows():
-            name = cells[0].strip("`").rsplit("/", 1)[-1]
-            entry = next(
-                (e for e in by_path.values() if e.name == name), None
-            )
-            assert entry is not None, f"{name} is not in FILE_SCORES.md"
-            listed_criteria = [int(cells[i]) for i in (1, 2, 3, 4)]
-            listed_final = int(cells[5].replace("**", ""))
-            sheet_criteria = [entry.criteria[k] for k in WEIGHTS]
-            if listed_final != entry.final:
-                mismatched.append(
-                    f"{name}: guide {listed_final} != sheet {entry.final}"
-                )
-            elif listed_criteria != sheet_criteria:
-                mismatched.append(
-                    f"{name}: guide criteria {listed_criteria} != "
-                    f"sheet {sheet_criteria}"
-                )
-        assert mismatched == []
-
-
 class TestGuideWorkedExample:
     """
-    The output-format example in the guide is the template every entry is
-    copied from. It shipped with a heading of 80 above a Final of 81, which
-    is the same heading/final drift this file exists to catch.
+    The worked example in the guide is the template every entry is copied
+    from, so it has to obey the same arithmetic as the sheet it documents.
+
+    [AI] Rewritten for the two-tier scheme. It previously read a pre-verified
+    table of four criteria and an "Output Format" section, both of which the
+    rescore replaced. The example is now checked against a real file in the
+    sheet, which is a stronger test: the guide cannot drift from the artefact
+    it is describing, because the numbers come from the artefact.
     """
-    def test_example_heading_matches_its_final(self):
+
+    EXAMPLE = "python/advanced_projects/music_player/tui/mp3_tui_player.py"
+
+    def _example_block(self):
         text = GUIDE_MD.read_text(encoding="utf-8")
-        block = text.split("## Output Format in FILE_SCORES.md", 1)[-1]
+        assert text.count("## Worked example") == 1, (
+            "the guide must carry exactly one worked example, so the checks "
+            "below cannot pass against an unrelated table"
+        )
+        return text.split("## Worked example", 1)[1]
+
+    def test_example_heading_matches_its_final(self, by_path):
+        block = self._example_block()
         heading = re.search(r"^### .* — \*\*(\d+)/100\*\*", block, re.M)
         final = re.search(r"\| \*\*Final\*\* \| \| \| \*\*(\d+)\*\* \|", block)
-        assert heading and final
+        assert heading and final, "the example has no heading or no Final row"
         assert int(heading.group(1)) == int(final.group(1))
 
-    def test_example_weighted_cells_match_their_criteria(self):
-        text = GUIDE_MD.read_text(encoding="utf-8")
-        block = text.split("## Output Format in FILE_SCORES.md", 1)[-1]
+    def test_example_criteria_match_the_real_file(self, by_path):
+        """
+        The example must be a real entry, not an illustration.
+
+        A worked example invented for the guide drifts from reality within one
+        edit, and then teaches the wrong thing. Taking the numbers from the
+        file it names makes that impossible to do by accident.
+        """
+        entry = by_path.get(self.EXAMPLE)
+        assert entry is not None, (
+            f"the worked example names {self.EXAMPLE}, which is not in "
+            "FILE_SCORES.md"
+        )
+        block = self._example_block()
+        rows = {m.group("name"): int(m.group("score"))
+                for m in CRITERION_RE.finditer(block)}
+        assert rows == entry.criteria, (
+            f"the guide shows {rows}, the sheet has {entry.criteria} for "
+            f"{self.EXAMPLE}"
+        )
+
+    def test_example_weighted_cells_match_their_criteria(self, by_path):
+        block = self._example_block()
+        entry = by_path[self.EXAMPLE]
+        table = TIER_WEIGHTS[entry.tier]
         rows = CRITERION_RE.findall(block)
         assert rows, "no criteria rows found in the worked example"
+        assert [name for name, _, _, _ in rows] == list(CRITERIA)
         for name, score, pct, weighted in rows:
-            expected = _round_half_up(int(score) * int(pct) / 100 * 10) / 10
+            assert int(pct) == table[name], (
+                f"{name}: the example shows {pct}%, the {entry.tier} tier "
+                f"weights it {table[name]}%"
+            )
+            expected = (int(score) * table[name] + 5) // 10 / 10
             assert abs(float(weighted) - expected) <= 1e-9, name
 
-    def test_example_final_matches_the_sum_of_its_own_cells(self):
-        text = GUIDE_MD.read_text(encoding="utf-8")
-        block = text.split("## Output Format in FILE_SCORES.md", 1)[-1]
-        rows = CRITERION_RE.findall(block)
-        total = sum(int(score) * int(pct) for score, pct in
-                    ((r[1], r[2]) for r in rows)) / 100
+    def test_example_final_matches_the_sum_of_its_own_cells(self, by_path):
+        block = self._example_block()
+        entry = by_path[self.EXAMPLE]
         final = re.search(r"\| \*\*Final\*\* \| \| \| \*\*(\d+)\*\* \|", block)
         assert final
-        assert _round_half_up(total) == int(final.group(1))
+        assert int(final.group(1)) == entry.final, (
+            f"the example's Final is {final.group(1)}, the sheet says "
+            f"{entry.final}"
+        )
 
 
 class TestQuotedFigures:
@@ -435,34 +489,65 @@ class TestQuotedFigures:
     def _flat(path):
         return " ".join(path.read_text(encoding="utf-8").split())
 
+    def _current_claims(self, path):
+        """
+        The figures a document is currently claiming.
+
+        [AI] NOTES.md is an append-only maintenance log and the ranking has
+        been done twice, so it carries two sets of figures and only one is
+        live. Reading the whole file compares the sheet against the *oldest*
+        row every time, which is a check that cannot pass and teaches nothing.
+        A row marked SUPERSEDED is history and is excluded, case-insensitively
+        so the marker can be shouted in the table; what remains is the set of
+        claims that must agree with the sheet.
+        """
+        flat = self._flat(path)
+        if path != NOTES_MD:
+            return flat
+        rows = re.split(r"\|\s*(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)\s+\d", flat)
+        live = [
+            row for row in rows
+            if "superseded" not in row.lower()
+        ]
+        assert live, "every NOTES.md row is marked superseded"
+        return " ".join(live)
+
     def _computed(self, entries):
-        finals = sorted((entry.final, entry.name) for entry in entries)
-        scores = [final for final, _ in finals]
+        finals = sorted(
+            (entry.final, entry.name, entry.path) for entry in entries
+        )
+        scores = [final for final, _, _ in finals]
         return {
             "mean": sum(scores) / len(scores),
             "below": sum(1 for s in scores if s < 70),
-            "weakest": [name for _, name in finals[:2]],
+            "weakest": [name for _, name, _ in finals[:2]],
             "weakest_score": finals[0][0],
-            "top": [name for _, name in sorted(finals, reverse=True)[:3]],
-            "top_scores": [s for s, _ in sorted(finals, reverse=True)[:3]],
+              "top": [
+                  name for _, name, _ in
+                  sorted(finals, key=lambda f: (-f[0], f[2]))[:3]
+              ],
+              "top_scores": [
+                  s for s, _, _ in
+                  sorted(finals, key=lambda f: (-f[0], f[2]))[:3]
+              ],
         }
 
     @pytest.mark.parametrize("doc", [AGENTS_MD, NOTES_MD])
     def test_overall_average_is_quoted_correctly(self, doc, entries):
-        stated = re.search(r"Overall average: ([\d.]+)/100", self._flat(doc))
+        stated = re.search(r"Overall average: ([\d.]+)/100", self._current_claims(doc))
         assert stated, "no overall average quoted"
         expected = round(self._computed(entries)["mean"], 1)
         assert float(stated.group(1)) == expected
 
     @pytest.mark.parametrize("doc", [AGENTS_MD, NOTES_MD])
     def test_below_seventy_count_is_quoted_correctly(self, doc, entries):
-        stated = re.search(r"Only (\d+) files score below", self._flat(doc))
+        stated = re.search(r"Only (\d+) files score below", self._current_claims(doc))
         assert stated, "no below-70 count quoted"
         assert int(stated.group(1)) == self._computed(entries)["below"]
 
     @pytest.mark.parametrize("doc", [AGENTS_MD, NOTES_MD])
     def test_weakest_pair_is_quoted_correctly(self, doc, entries):
-        flat = self._flat(doc)
+        flat = self._current_claims(doc)
         stated = re.search(
             r"`([\w.]+\.py)` and `([\w.]+\.py)` \((\d+) each\)", flat
         )
@@ -478,10 +563,16 @@ class TestQuotedFigures:
         counts for individual files elsewhere, and a repo-wide scan for
         "`name.py` (n)" would sweep those up as if they were rankings.
         """
-        flat = self._flat(NOTES_MD)
-        clause = re.search(r"Top files: (.+?)\.\s", flat)
-        assert clause, "no top-file claim quoted"
-        stated = re.findall(r"`([\w.]+\.py)` \((\d+)\)", clause.group(1))
+        # _current_claims has already dropped the superseded pass, so the only
+        # remaining "Top files:" clause is the live one.
+        flat = self._current_claims(NOTES_MD)
+        clauses = re.findall(r"Top files: (.+?)\.\s", flat)
+        assert len(clauses) == 1, (
+            f"expected exactly one live top-files claim, found {len(clauses)}; "
+            "a superseded pass was not marked as one"
+        )
+        newest = clauses[0]
+        stated = re.findall(r"`([\w.]+\.py)` \((\d+)\)", newest)
         assert stated, "no top-file claim quoted"
         computed = self._computed(entries)
         for name, score in stated:
@@ -493,10 +584,10 @@ class TestQuotedFigures:
     @pytest.mark.parametrize("doc", [AGENTS_MD, NOTES_MD])
     def test_named_average_band_matches_its_value(self, doc):
         stated = re.search(
-            r"Overall average: [\d.]+/100 \(band ([A-F]) —", self._flat(doc)
+            r"Overall average: [\d.]+/100 \(band ([A-F]) —", self._current_claims(doc)
         )
         assert stated, "no band quoted for the average"
-        value = float(re.search(r"Overall average: ([\d.]+)/100", self._flat(doc)).group(1))
+        value = float(re.search(r"Overall average: ([\d.]+)/100", self._current_claims(doc)).group(1))
         expected = next(
             band for band, (low, high, _) in BANDS.items()
             if low <= value <= high
