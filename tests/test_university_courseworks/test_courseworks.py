@@ -28,9 +28,11 @@ VOLUME = COURSEWORK1 / "volume.py"
 HELLO = COURSEWORK1 / "hello.py"
 
 
-# ---------------------------------------------------------------------------
-# average_grades.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+average_grades.py
+---------------------------------------------------------------------------
+"""
 class TestAverageGrades:
     """
     CS1IP average_grades.py - component weighting, the None and empty
@@ -70,18 +72,22 @@ class TestAverageGrades:
         assert mod.AverageGrades(grades, weights) == [6]
 
     def test_main_guard_builds_default_gradebook_and_prints(self, capsys):
-        # The __main__ guard runs AverageGrades() on the script's built-in
-        # gradebook/weights and prints [56, 43]; running the file directly
-        # attributes those lines to the real source for coverage.
+        """
+        The __main__ guard runs AverageGrades() on the script's built-in
+        gradebook/weights and prints [56, 43]; running the file directly
+        attributes those lines to the real source for coverage.
+        """
         import runpy
 
         runpy.run_path(str(AVERAGE_GRADES), run_name="__main__")
         assert "[56, 43]" in capsys.readouterr().out
 
 
-# ---------------------------------------------------------------------------
-# ice_cream.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+ice_cream.py
+---------------------------------------------------------------------------
+"""
 class TestIceCream:
     """
     CS1IP ice_cream.py - pricing constants, scoop counts, the free third
@@ -144,9 +150,11 @@ class TestIceCream:
 
     def test_main_guard_runs_real_order_and_prints_return_value(self, capsys):
 
-        # The __main__ guard drives the genuine input() prompt loop and then
-        # prints IceCream()'s (None) return value; running the file directly
-        # attributes those lines to the real source for coverage.
+        """
+        The __main__ guard drives the genuine input() prompt loop and then
+        prints IceCream()'s (None) return value; running the file directly
+        attributes those lines to the real source for coverage.
+        """
         import runpy
 
         with patch("builtins.input", side_effect=["v", "2"]):
@@ -156,9 +164,11 @@ class TestIceCream:
         assert "None" in out
 
 
-# ---------------------------------------------------------------------------
-# seven_segment.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+seven_segment.py
+---------------------------------------------------------------------------
+"""
 class TestSevenSegment:
     """
     CS1IP seven_segment.py - the seven segment patterns, default fallback,
@@ -239,9 +249,11 @@ class TestSevenSegment:
         assert "Integers Only." in capsys.readouterr().out
 
 
-# ---------------------------------------------------------------------------
-# volume.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+volume.py
+---------------------------------------------------------------------------
+"""
 class TestVolume:
     """
     CS1IP volume.py - sphere volume against the analytic formula, zero
@@ -266,9 +278,11 @@ class TestVolume:
         assert mod.Volume(0) == 0.0
 
     def test_main_guard_prints_default_sphere_volume(self, mod, capsys):
-        # The __main__ guard computes Volume(20.24) and prints it; comparing
-        # against mod.Volume(20.24) ties the printed value to the module
-        # without hardcoding the float literal.
+        """
+        The __main__ guard computes Volume(20.24) and prints it; comparing
+        against mod.Volume(20.24) ties the printed value to the module
+        without hardcoding the float literal.
+        """
         import runpy
 
         runpy.run_path(str(VOLUME), run_name="__main__")
@@ -276,9 +290,11 @@ class TestVolume:
         assert printed == pytest.approx(mod.Volume(20.24))
 
 
-# ---------------------------------------------------------------------------
-# hello.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+hello.py
+---------------------------------------------------------------------------
+"""
 class TestHello:
     """
     CS1IP hello.py's greeting naming the student number.
@@ -299,9 +315,11 @@ class TestHello:
         assert "Hello, student 34001219." in run_hello
 
 
-# ---------------------------------------------------------------------------
-# coursework2/sort_comparison.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+coursework2/sort_comparison.py
+---------------------------------------------------------------------------
+"""
 class TestSortComparison:
     """
     CS1IP sort_comparison.py - suit priority and card ordering including

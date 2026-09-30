@@ -26,7 +26,9 @@ else:
 # [ " " not in username ] -> confirms if " " (meaning whitespace) is not in username
 # If detected it will print the else function -> [ "Bye!" ]
 
-# [ not any(char.isdigit() for char in username) ] -> makes sure the username doesn't contain any digits i.e. numbers MIXED within the string
-# The reason for this is to include other characters such as symbols like . , / , \ , | , etc.
-# otherwise, else will be executed -> [ "Bye!" ]
+"""
+[ not any(char.isdigit() for char in username) ] -> makes sure the username does
+The reason for this is to include other characters such as symbols like . , / ,
+otherwise, else will be executed -> [ "Bye!" ]
+"""
 

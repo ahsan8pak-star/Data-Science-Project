@@ -7,10 +7,12 @@ are __str__ (for people), __repr__ (for developers), __eq__, __len__ and
 __add__.
 """
 
-# Magic methods = Dunder methods (double underscore -> __) __init__, __str__, __eq__
-# Automatically called by many Python's built-in operations.
-# Allows Developers to define or customise the object's behaviour
-# Refer to nested_classes.py on lines 38-39 for context
+"""
+Magic methods = Dunder methods (double underscore -> __) __init__, __str__, __eq__
+Automatically called by many Python's built-in operations.
+Allows Developers to define or customise the object's behaviour
+Refer to nested_classes.py on lines 38-39 for context
+"""
 
 class Book:
 

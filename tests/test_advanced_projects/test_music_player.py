@@ -63,9 +63,11 @@ def audio_ctx(monkeypatch):
     return context
 
 
-# ---------------------------------------------------------------------------
-# Pure rendering helpers (no pygame state touched)
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+Pure rendering helpers (no pygame state touched)
+---------------------------------------------------------------------------
+"""
 @pytest.fixture()
 def tui_modules(audio_ctx):
     """Both TUI modules loaded once the pygame stub is in place."""
@@ -112,9 +114,11 @@ class TestBannerAndInfoBox:
         assert "| hello |" in out
 
 
-# ---------------------------------------------------------------------------
-# MP3AudioPlayer / WAVAudioPlayer - structurally identical logic
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+MP3AudioPlayer / WAVAudioPlayer - structurally identical logic
+---------------------------------------------------------------------------
+"""
 class TestAudioPlayers:
     """
     Shared behaviour across the MP3 and WAV engine classes.
@@ -315,9 +319,11 @@ class TestAudioPlayers:
         assert "[X] Playback Exception: decode failed" in capsys.readouterr().out
 
 
-# ---------------------------------------------------------------------------
-# TUI entry points (banner + empty-folder guard)
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+TUI entry points (banner + empty-folder guard)
+---------------------------------------------------------------------------
+"""
 class TestTuiEntryPoints:
     """
     Console entry points for both players - the empty-folder error
@@ -367,9 +373,11 @@ class TestTuiEntryPoints:
         assert "Error: 'pygame' module is not installed." in capsys.readouterr().out
 
 
-# ---------------------------------------------------------------------------
-# TUI menu loops (input()-driven song selection + in-track control menu)
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+TUI menu loops (input()-driven song selection + in-track control menu)
+---------------------------------------------------------------------------
+"""
 class TestTuiMenuLoops:
     """
     The interactive menu loop of each console player - a full cycle, the
@@ -496,13 +504,17 @@ class TestTuiMenuLoops:
         assert "WAV player session terminated by user." in out
 
 
-# ---------------------------------------------------------------------------
-# GUI wrappers (tkinter mocked; delegation to the TUI engine verified)
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+GUI wrappers (tkinter mocked; delegation to the TUI engine verified)
+---------------------------------------------------------------------------
+"""
 def _load_gui_module(path, module_name):
-    # Straight importlib exec - tkinter was already replaced with Mockables by
-    # the audio_ctx fixture, and the GUI file has no __main__ side effects,
-    # so a plain import yields a patchable, real module.
+    """
+    Straight importlib exec - tkinter was already replaced with Mockables by
+    the audio_ctx fixture, and the GUI file has no __main__ side effects,
+    so a plain import yields a patchable, real module.
+    """
     spec = importlib.util.spec_from_file_location(module_name, str(path))
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -796,9 +808,11 @@ class TestWAVGUI:
         assert player.shuffle is True
 
     def test_toggle_loop_playlist_syncs_checkbox_var(self, audio_ctx):
-        # The Loop Playlist toggle existed but was never exercised; under the
-        # BooleanVar mock any var object drives it, so read loop_playlist_var
-        # and confirm the player flag follows.
+        """
+        The Loop Playlist toggle existed but was never exercised; under the
+        BooleanVar mock any var object drives it, so read loop_playlist_var
+        and confirm the player flag follows.
+        """
         player = MagicMock(name="wav_player", current_song="alpha.wav", status="Active")
         self.gui.player = player
         self.gui.loop_playlist_var.get.return_value = True

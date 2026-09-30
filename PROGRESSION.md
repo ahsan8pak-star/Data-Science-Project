@@ -29,10 +29,10 @@ Where a number is an estimate rather than a measurement, it says so.
 | Duration | 117 days (16.7 weeks), against a 16-week Summer 2026 plan |
 | Commits | 714 at the end of the run (historical — see the note below) |
 | Peak effort | 28–36 h/week recorded across most weeks |
-| Source modules | 161 non-`__init__` files under `python/` |
-| Test suite | 1523 tests, all passing |
+| Source modules | 160 non-`__init__` files under `python/` |
+| Test suite | 1527 tests, all passing |
 | Coverage | 99% line, 95% branch |
-| Quality mean | 77.6/100 across 161 ranked files |
+| Quality mean | 77.5/100 across 160 ranked files |
 | Mirrors | 4 (GitHub project + backup, GitLab project + backup) |
 
 ### The three programming lanes
@@ -53,8 +53,15 @@ one is not, and a test that asserts a live count can never be satisfied.
 | `object_oriented_programming/` | 41 | State as encapsulated objects: inheritance, descriptors, magic methods, abstract bases |
 | `advanced_projects/` | 6 | Things with real inputs: a music player with two GUIs, an xlsx pipeline, a scikit-learn transformer |
 
-Plus `sandbox/aim.py`, a scratch file kept deliberately outside the tested
-lanes so experiments cannot affect the suite.
+Plus `sandbox/aim.py`, a scratch file that is deliberately **untracked**: it is
+practice reference material, not repository content, so experiments in it cannot
+affect the suite and cannot be committed by accident.
+
+[AI] `aim.py` is the one file under `python/` that a `git add .` will not pick
+up. That is the point: the file exists so practice code can be written and run
+without any risk of it being swept into a commit, which is exactly what
+happened the first time it held real code. `tests/test_scripts/
+test_repo_hygiene.py` guards the rule so it cannot be undone silently.
 
 The 92 → 21 → 41 shape is worth reading correctly. Imperative has the most
 files because it is where fundamentals get drilled; functional is smaller
@@ -228,17 +235,17 @@ the corresponding mistake and decided it should not happen again.
 
 ### Where the code scores
 
-The file-ranking pass gives an external, if blunt, measure. Across 161 files:
+The file-ranking pass gives an external, if blunt, measure. Across 160 files:
 
 | Band | Range | Files | Reading |
 | --- | --- | --- | --- |
-| A | 90–100 | 12 | Exemplary — runs clean, well-documented, durable |
+| A | 90–100 | 11 | Exemplary — runs clean, well-documented, durable |
 | B | 80–89 | 50 | Strong — minor issues, mostly clean |
 | C | 70–79 | 88 | Serviceable — documented defects or minor fragility |
 | D | 60–69 | 9 | Weak — real bugs, fragile, or hard to read |
 | E | 50–59 | 2 | Poor — multiple issues, likely to break |
 
-Mean 77.6, and the two lowest files are `conditions.py` and `variables.py` at
+Mean 77.5, and the two lowest files are `conditions.py` and `variables.py` at
 56. Those two are low for *stylistic* reasons, not functional ones:
 `conditions.py` hardcodes `temperature = 25` and runs 569 lines, and both
 files are demonstrations of dead-by-design branches that rule 11 pins in place
@@ -458,9 +465,9 @@ mirrors were found lagging at an older commit.
 
 | | |
 | --- | --- |
-| Tests | 1523 passing, 0 failing |
+| Tests | 1527 passing, 0 failing |
 | Coverage | 99% line, 95% branch |
-| Quality mean | 77.6/100 over 161 files |
+| Quality mean | 77.5/100 over 160 files |
 | Document drift | 0 known — all numeric claims test-guarded |
 | Mirrors | 4, synchronised |
 | Frozen lane | `object_oriented_programming/` — `decorator.py`, `generator.py`, `multitasking.py`, `dice.py` |
@@ -479,7 +486,8 @@ log unchanged has left the record behind. Newest first.
 
 | Date | Session | What changed | What it taught |
 | --- | --- | --- | --- |
-| 30 Sep 2026 | Progression review & code review | Reconciled the ranking sheet: deduped a 167-entry document down to the 161 real files, aligned all 161 headings to their own tables, normalised 9 entries that rounded an exact `.5` downward against 50 that rounded up, and corrected the guide's pre-verified table and worked example. Corrected four stale figures in the docs (98%→95% branch, 171/182→148/159, "29 lines in 8 caps"→38 in 11, 1350→1523 tests). Fixed a silent failure in `execution_time.py` where a mistyped folder re-prompted with no output. Added 94 guard tests across three files. Wrote this review. | A fact written in prose and never recomputed is a fact that will be wrong. The ranking sheet had 112 of 161 headings disagreeing with their own tables and nobody noticed, because nothing compared them. The fix was not to re-read the prose more carefully — it was to make the stale number fail the suite. |
+| 30 Sep 2026 | Progression review & code review | Reconciled the ranking sheet: deduped a 167-entry document down to the 161 real files, aligned all 161 headings to their own tables, normalised 9 entries that rounded an exact `.5` downward against 50 that rounded up, and corrected the guide's pre-verified table and worked example. Corrected four stale figures in the docs (98%→95% branch, 171/182→148/159, "29 lines in 8 caps"→38 in 11, 1350→1527 tests). Fixed a silent failure in `execution_time.py` where a mistyped folder re-prompted with no output. Added 94 guard tests across three files. Wrote this review. | A fact written in prose and never recomputed is a fact that will be wrong. The ranking sheet had 112 of 161 headings disagreeing with their own tables and nobody noticed, because nothing compared them. The fix was not to re-read the prose more carefully — it was to make the stale number fail the suite. |
+| 30 Sep 2026 | Sandbox untracked, comment rule widened repo-wide | Restored `sandbox/aim.py`'s practice code after it was lost, then made the file untracked and gitignored so practice work can never be committed again, with three guards asserting it stays that way. Widened the two-line-hash-comment rule from three files to every tracked file: 328 runs became triple-quoted blocks across 52 files, with the frozen OOP lane and the marked coursework exempt by name. | aim.py is practice reference material, not repository content, and the guard that counted the remaining overlong runs was a debt register rather than a rule - it recorded a number without constraining anything, so roughly 1100 non-compliant lines sat there for weeks with nothing failing. Two tests broke in the conversion and both were tests asserting a spelling rather than a behaviour: one looked for a leading `#` on code that had become inert as a string literal, which is a stronger guarantee, not a weaker one. |
 | 30 Sep 2026 | Month-by-month progression, measured | Replaced the impressionistic monthly narrative with two recomputed tables - commits and mean subject length per month, plus a keyword mix - and corrected Stage 4. Weekly data shows the real arc: a narrative peak at 138.0 chars in Week 28, an August plateau, then the single largest step of the run at Week 38 (63.7). | Writing the progression from a handful of sampled commit subjects produced a claim that was wrong in a way sampling invited: 'NumPy, then Pandas, then groupby()' implied a curriculum, when pandas, ten notebooks and the OutlierCapper all landed in a single burst on 2 Aug. Measuring every commit rather than selecting some also exposed that the subject-length peak is in July, not June. |
 | 30 Sep 2026 | Docstring structure & end-of-file bytes | Normalised every `.py` and `.md` file in the tree to exactly two trailing newlines (224 were at three, 6 markdown files at one, so all 232 are now uniform), converted 14 over-long hash-comment runs to """ blocks, and added guards for both. Separately corrected 3 docstrings whose opening quotes shared a line with their summary. | The convention had been written down but enforced nowhere, so it drifted twice - once to three newlines, once to quote-on-the-same-line - and both were invisible in review. A rule that exists only in prose is a preference; the guards are what make it a constraint. |
 | 30 Sep 2026 | Trailing-whitespace sweep | Stripped 853 trailing-whitespace lines from 103 Python files and added a guard. Fifteen lines were left alone because they sit inside multi-line string literals, two of them expected-output strings in `test_math_and_science_calculators.py` where a stripped space would change what the test asserts; the exemption is computed with `tokenize`, so it follows a line as it moves in or out of a string. | Trailing whitespace is invisible in review and in most editors, so 853 lines accumulated unnoticed. Only whitespace at the end of a line was removed - never leading indentation - so no code changed shape, and the full suite confirmed it. A cleanup that touches a third of the tree has to be provably behaviour-free, which is why the string-literal exemption is derived rather than hardcoded. |

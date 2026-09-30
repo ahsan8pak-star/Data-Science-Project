@@ -51,9 +51,11 @@ def _load_math_module(filename, name):
     return mod
 
 
-# ---------------------------------------------------------------------------
-# area.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+area.py
+---------------------------------------------------------------------------
+"""
 class TestArea:
     """
     area.py's rectangle area, decimal rounding, the zero case and the
@@ -96,9 +98,11 @@ class TestArea:
         assert "Numbers only" in out
 
 
-# ---------------------------------------------------------------------------
-# area_of_circle.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+area_of_circle.py
+---------------------------------------------------------------------------
+"""
 class TestAreaOfCircle:
     """
     area_of_circle.py - radius validation, the boxed output, direct calls and the
@@ -188,9 +192,11 @@ class TestAreaOfCircle:
         assert mod.calculate_area(1000) == pytest.approx(math.pi * 1000 * 1000)
 
 
-# ---------------------------------------------------------------------------
-# area_of_triangle.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+area_of_triangle.py
+---------------------------------------------------------------------------
+"""
 class TestAreaOfTriangle:
     """
     area_of_triangle.py - base and height area, blank input skipping the
@@ -233,9 +239,11 @@ class TestAreaOfTriangle:
         assert "Result" not in out
 
 
-# ---------------------------------------------------------------------------
-# area_volume_calculator.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+area_volume_calculator.py
+---------------------------------------------------------------------------
+"""
 class TestAreaAndVolumeCalculator:
     """
     area_and_volume_calculator.py's menu dispatching to the area and volume
@@ -279,9 +287,11 @@ class TestAreaAndVolumeCalculator:
         assert "Invalid choice. Please run the program again." in out
 
 
-# ---------------------------------------------------------------------------
-# arithmetic_calculator.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+arithmetic_calculator.py
+---------------------------------------------------------------------------
+"""
 class TestArithmeticCalculator:
     """
     arithmetic_calculator.py - the chained operations, floor division and
@@ -370,9 +380,11 @@ class TestArithmeticCalculator:
         assert "| Result: 20 |" in out
 
 
-# ---------------------------------------------------------------------------
-# arithmetic_expressions.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+arithmetic_expressions.py
+---------------------------------------------------------------------------
+"""
 class TestArithmeticExpressions:
     """
     arithmetic_expressions.py - integer, float and negative output, get_number()
@@ -563,9 +575,11 @@ class TestArithmeticExpressions:
         assert "RESULTS" in out
 
 
-# ---------------------------------------------------------------------------
-# arithmetic_iteration.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+arithmetic_iteration.py
+---------------------------------------------------------------------------
+"""
 class TestArithmeticIteration:
     """
     arithmetic_iteration.py - every operator across a generated sequence, the
@@ -703,9 +717,11 @@ class TestArithmeticIteration:
         assert len(steps) == 2  # confirms the third value (5) was never reached
 
 
-# ---------------------------------------------------------------------------
-# annual_rate_calculator.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+annual_rate_calculator.py
+---------------------------------------------------------------------------
+"""
 
 class TestAnnualRateCalculator:
     """
@@ -768,9 +784,11 @@ class TestAnnualRateCalculator:
         assert "Time: 4 years" in out
 
 
-# ---------------------------------------------------------------------------
-# card_validator.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+card_validator.py
+---------------------------------------------------------------------------
+"""
 class TestCardValidator:
     """
     card_validator.py - Luhn validation across Visa, Mastercard, Amex and
@@ -814,9 +832,11 @@ class TestCardValidator:
         mod, _ = run_script(self.FILE, inputs=["0"])
         assert mod.validate("0") is True
 
-# ---------------------------------------------------------------------------
-# circle_calculator.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+circle_calculator.py
+---------------------------------------------------------------------------
+"""
 class TestCircleCalculator:
     """
     circle_calculator.py's menu delegating to the area and circumference
@@ -914,9 +934,11 @@ class TestCircleCalculator:
         assert "Positive Numbers Only." in out
 
 
-# ---------------------------------------------------------------------------
-# circumference_of_circle.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+circumference_of_circle.py
+---------------------------------------------------------------------------
+"""
 class TestCircumferenceOfCircle:
     """
     circumference_of_circle.py - radius validation, the boxed output, decimal
@@ -983,9 +1005,11 @@ class TestCircumferenceOfCircle:
         assert "-----------------------------------------" in out
 
 
-# ---------------------------------------------------------------------------
-# compound_debt_calculator.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+compound_debt_calculator.py
+---------------------------------------------------------------------------
+"""
 class TestCompoundDebtCalculator:
     """
     compound_debt_calculator.py - compound growth on a negative amount, the
@@ -1030,9 +1054,11 @@ class TestCompoundDebtCalculator:
         assert "Enter a valid input." in out
 
 
-# ---------------------------------------------------------------------------
-# compound_interest_rate.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+compound_interest_rate.py
+---------------------------------------------------------------------------
+"""
 class TestCompoundInterestRate:
     """
     compound_interest_rate.py - compound interest, the amount guards, a
@@ -1074,9 +1100,11 @@ class TestCompoundInterestRate:
         assert "# of years: 7" in out
 
 
-# ---------------------------------------------------------------------------
-# cosine_rule.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+cosine_rule.py
+---------------------------------------------------------------------------
+"""
 class TestCosineRule:
     """
     cosine_rule.py - solving for each side and each angle, impossible
@@ -1227,9 +1255,11 @@ class TestCosineRule:
         _, out = run_script("imperative_programming/math_and_science_calculators/triangle_calculator.py", inputs=inputs)
         assert "Result: Angle B is" in out
 
-# ---------------------------------------------------------------------------
-# euclidean_distance_calculator.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+euclidean_distance_calculator.py
+---------------------------------------------------------------------------
+"""
 
 class TestEuclideanDistanceCalculator:
     """
@@ -1307,19 +1337,23 @@ class TestEuclideanDistanceCalculator:
         assert "Euclidean Distance" not in out
 
     def test_mismatched_points_inside_calculate_reports_error(self, capsys):
-        # Load the module as a real import (so its globals are patchable), then
-        # feed calculate() two points of different lengths through the patched
-        # coordinate helper - exercising the len()!=len() branch inside
-        # calculate() that a normal script run can never reach.
+        """
+        Load the module as a real import (so its globals are patchable), then
+        feed calculate() two points of different lengths through the patched
+        coordinate helper - exercising the len()!=len() branch inside
+        calculate() that a normal script run can never reach.
+        """
         mod = _load_math_module("euclidean_distance_calculator.py", "_euclid_cov_mod")
         with patch.object(mod, "get_point_coordinates", side_effect=[(0.0,), (0.0, 1.0)]):
             mod.calculate(2)
         assert "Error: Both points must have the same number of dimensions." in capsys.readouterr().out
 
 
-# ---------------------------------------------------------------------------
-# gradient_calculator.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+gradient_calculator.py
+---------------------------------------------------------------------------
+"""
 class TestGradientCalculator:
     """
     gradient_calculator.py - gradients in both directions, sign, 1D rejection,
@@ -1410,9 +1444,11 @@ class TestGradientCalculator:
         assert "Error: Gradient is undefined for a vertical line (x2 - x1 = 0)." in out
 
     def test_mismatched_dimensions_inside_calculate_reports_error(self, capsys):
-        # A normal run always builds both points from the same dimensions, so
-        # the ValueError branch inside calculate() can only be reached by
-        # feeding it mismatched points via a patched coordinate helper.
+        """
+        A normal run always builds both points from the same dimensions, so
+        the ValueError branch inside calculate() can only be reached by
+        feeding it mismatched points via a patched coordinate helper.
+        """
         mod = _load_math_module("gradient_calculator.py", "_gradient_cov_mod")
         with patch("builtins.input", return_value="y"), patch.object(
             mod, "get_point_coordinates", side_effect=[(0.0, 0.0), (0.0, 0.0, 0.0)]
@@ -1421,9 +1457,11 @@ class TestGradientCalculator:
         assert "Error: Points must have the same number of dimensions." in capsys.readouterr().out
 
 
-# ---------------------------------------------------------------------------
-# perimeter_of_triangle.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+perimeter_of_triangle.py
+---------------------------------------------------------------------------
+"""
 class TestPerimeterOfTriangle:
     """
     perimeter_of_triangle.py - three-side totals, missing and zero sides,
@@ -1456,9 +1494,11 @@ class TestPerimeterOfTriangle:
         assert "Result: Perimeter is 15.0 cm" in out
 
 
-# ---------------------------------------------------------------------------
-# pythagoras_theorem.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+pythagoras_theorem.py
+---------------------------------------------------------------------------
+"""
 class TestPythagorasTheorem:
     """
     pythagoras_theorem.py - finding the hypotenuse or either side, the 5-12-13
@@ -1503,9 +1543,11 @@ class TestPythagorasTheorem:
         assert "Result: Hypotenuse (c) is 13.0 cm" in out
 
 
-# ---------------------------------------------------------------------------
-# simple_debt_calculator.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+simple_debt_calculator.py
+---------------------------------------------------------------------------
+"""
 class TestSimpleDebtCalculator:
     """
     simple_debt_calculator.py - simple-interest debt, the amount guards, a
@@ -1547,9 +1589,11 @@ class TestSimpleDebtCalculator:
         assert f"Total Amount: £{expected:.2f}" in out
 
 
-# ---------------------------------------------------------------------------
-# simple_interest_rate.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+simple_interest_rate.py
+---------------------------------------------------------------------------
+"""
 class TestSimpleInterestRate:
     """
     simple_interest_rate.py - simple interest, the amount guards, a
@@ -1591,9 +1635,11 @@ class TestSimpleInterestRate:
         assert f"Total Amount: £{expected:.2f}" in out
 
 
-# ---------------------------------------------------------------------------
-# sine_rule.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+sine_rule.py
+---------------------------------------------------------------------------
+"""
 class TestSineRule:
     """
     sine_rule.py - the full solve matrix for sides and angles, impossible
@@ -1838,9 +1884,11 @@ class TestSineRule:
         assert "Result" not in out
 
 
-# ---------------------------------------------------------------------------
-# square_number_times_tables.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+square_number_times_tables.py
+---------------------------------------------------------------------------
+"""
 class TestSquareNumberTimesTables:
     """
     square_number_times_tables.py - square rows up to the limit, the zero and
@@ -1935,9 +1983,11 @@ class TestSquareNumberTimesTables:
         assert mod.times_tables.__name__ == "times_tables"
 
 
-# ---------------------------------------------------------------------------
-# times_tables.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+times_tables.py
+---------------------------------------------------------------------------
+"""
 class TestTimesTables:
     """
     times_tables.py - the column and table grid, asymmetric and zero dimensions,
@@ -2024,9 +2074,11 @@ class TestTimesTables:
         assert "1 x 2 = 2" in captured.out
 
 
-# ---------------------------------------------------------------------------
-# triangle_calculator.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+triangle_calculator.py
+---------------------------------------------------------------------------
+"""
 class TestTriangleCalculator:
     """
     triangle_calculator.py - menu dispatch by triangle type, right, isosceles,
@@ -2199,9 +2251,11 @@ class TestTriangleCalculator:
         assert callable(namespace["pythagoras"])
 
 
-# ---------------------------------------------------------------------------
-# Volume.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+Volume.py
+---------------------------------------------------------------------------
+"""
 class TestVolume:
     """
     volume.py's cuboid volume, decimal rounding, the zero-depth case, the

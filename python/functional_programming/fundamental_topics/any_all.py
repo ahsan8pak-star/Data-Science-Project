@@ -9,9 +9,11 @@ is False and all() is True, which follows from the quantifier logic rather
 than being a special case.
 """
 
-# any() = Returns True if AT LEAST ONE item is truthy.
-# all() = Returns True if EVERY item is truthy.
-# any(iterable) -> bool     all(iterable) -> bool
+"""
+any() = Returns True if AT LEAST ONE item is truthy.
+all() = Returns True if EVERY item is truthy.
+any(iterable) -> bool     all(iterable) -> bool
+"""
 
 
 scores = [45, 62, 78, 91]

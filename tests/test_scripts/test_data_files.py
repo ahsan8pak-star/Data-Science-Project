@@ -30,6 +30,7 @@ import csv
 import io
 import json
 import re
+import subprocess
 import tokenize
 from pathlib import Path
 
@@ -452,30 +453,40 @@ class TestMultiLineDocstringsUseTheHouseStructure:
 
 class TestCommentRunsUseHashOrTripleQuoteNotBoth:
     """
-    [AI] AGENTS.md house style: two lines is the absolute maximum for a run of
+    AGENTS.md house style: two lines is the absolute maximum for a run of
     hash comments, and three or more consecutive hash lines must become a
     triple-quoted block. The block form is the one in the house reference -
     quotes alone on their own lines, summary first, a blank line, then the
     explanation.
 
-    Scope is deliberately narrow. The guard covers only the files written
-    during this work, because the repository already carries a few hundred
-    longer runs in A.I.M's own teaching scripts and older tests, and rule 2
-    protects those: coursework scripts are heavily commented on purpose and
-    their comments must not be stripped. Converting them is A.I.M's decision,
-    not an agent's, so they are reported rather than rewritten.
+    Scope is every tracked .py file. The rule was originally applied only to
+    newly written files and the rest of the tree was merely counted, which left
+    roughly 1100 overlong runs in place for weeks with nothing failing. A rule
+    that only applies to files someone remembered to apply it to is a
+    preference, so the guard now covers the repository and states its two
+    exemptions by name.
 
     Two shapes are deliberately outside the rule, per AGENTS.md: an inline
     trailing comment (`x = 5  # why`) is not a standalone block, and a
     single hash comment followed by unrelated code is unaffected - the limit
     is on *consecutive* hash lines.
-    """
 
-    GOVERNED = {
-        "tests/test_scripts/test_ranking_docs.py",
-        "tests/test_scripts/test_repo_doc_numbers.py",
-        "tests/test_scripts/test_data_files.py",
-    }
+    Rule 1 freezes the OOP lane and rule 8 marks the CS1IP coursework as
+    submitted work, so neither is restyled. Both are asserted below, because an
+    exemption that rots into a no-op is worse than no exemption at all.
+    """
+    EXEMPT = frozenset({
+        "python/object_oriented_programming/fundamental_topics/decorator.py",
+        "python/object_oriented_programming/fundamental_topics/generator.py",
+        "python/object_oriented_programming/fundamental_topics/multitasking.py",
+        "python/object_oriented_programming/syntax_fundamentals/dice.py",
+        "python/object_oriented_programming/fundamental_topics/classes.py",
+        "python/object_oriented_programming/fundamental_topics/"
+        "abstract_classes.py",
+        "python/object_oriented_programming/fundamental_topics/"
+        "nested_classes.py",
+        "university_courseworks/year1/cs1ip/coursework2/sort_comparison.py",
+    })
 
     @staticmethod
     def _overlong_runs(path):
@@ -496,20 +507,42 @@ class TestCommentRunsUseHashOrTripleQuoteNotBoth:
         return [run for run in runs if len(run) > 2]
 
     def test_no_governed_file_has_a_hash_run_longer_than_two_lines(self):
+        """
+        Every tracked .py file, not only this session's.
+
+        [AI-authored fix] The guard originally covered three files, with the
+        rest of the repository's ~1100 overlong runs counted by a second test
+        that only asserted the debt was still non-zero. That is a debt register,
+        not a rule: it recorded the number without constraining anything, and
+        the count stayed high for weeks because nothing failed.
+
+        The rule now applies repo-wide, as AGENTS.md states. Two groups are
+        exempt and named here rather than left implicit, because both are
+        protected by other rules and an unnamed exception is not an exception:
+          - the frozen OOP lane (rule 1), which must not be edited;
+          - the marked CS1IP coursework (rule 8), which is submitted work.
+        """
         offenders = {}
-        for rel in sorted(self.GOVERNED):
-            path = REPO_ROOT / rel
-            if not path.is_file():
-                continue
-            runs = self._overlong_runs(path)
+        for rel in self._tracked_files():
+            runs = self._overlong_runs(REPO_ROOT / rel)
             if runs:
                 offenders[rel] = [run[0] for run in runs]
         assert offenders == {}, (
-            "a run of three or more hash comments must become a "
-            + _TRIPLES
-            + " block; overlong runs at: "
-            + str(offenders)
+            "a run of three or more hash comments must become a triple-quoted "
+            "block; overlong runs at: "
+            + repr(offenders)
+            + ". The frozen OOP lane and the marked coursework are exempt by "
+            "rule 1 and rule 8; nothing else is."
         )
+
+    @classmethod
+    def _tracked_files(cls):
+        """Tracked .py files, minus the two groups the rules protect."""
+        listed = subprocess.run(
+            ["git", "ls-files", "*.py"],
+            cwd=REPO_ROOT, capture_output=True, text=True, check=True,
+        ).stdout.split()
+        return [rel for rel in listed if rel not in cls.EXEMPT]
 
     def test_the_house_reference_uses_the_block_form(self):
         """
@@ -521,26 +554,34 @@ class TestCommentRunsUseHashOrTripleQuoteNotBoth:
             pytest.skip("the house reference script is not present")
         assert self._overlong_runs(path) == []
 
-    def test_the_longer_runs_elsewhere_are_reported_not_rewritten(self):
+    def test_the_exempt_files_still_carry_their_original_runs(self):
         """
-        Counts the runs rule 2 protects, so the debt stays visible in the
-        suite instead of being quietly forgotten. If this number falls, files
-        have been converted deliberately rather than by accident.
+        The exemptions are load-bearing, so they are asserted, not assumed.
+
+        If one of these files is ever converted on purpose - A.I.M's call, not
+        an agent's - this fails and the exemption list is revisited instead of
+        the file quietly ceasing to be protected.
         """
-        skip = {".venv", "__pycache__", "htmlcov", ".git", ".pytest_cache"}
-        protected = 0
-        for path in REPO_ROOT.rglob("*.py"):
-            rel = path.relative_to(REPO_ROOT).as_posix()
-            if skip & set(path.relative_to(REPO_ROOT).parts):
+        present = {}
+        for rel in sorted(self.EXEMPT):
+            path = REPO_ROOT / rel
+            if not path.is_file():
                 continue
-            if rel in self.GOVERNED:
-                continue
-            try:
-                protected += len(self._overlong_runs(path))
-            except UnicodeDecodeError:
-                continue
-        assert protected > 0, (
-            "no protected overlong runs remain - if they were converted on "
-            "purpose, update this guard's scope rather than deleting it"
+            runs = self._overlong_runs(path)
+            if runs:
+                present[rel] = len(runs)
+        assert present, (
+            "no exempt file carries an overlong run any more; the exemptions "
+            "have gone stale and should be removed from this list"
+        )
+
+    def test_the_exemption_list_names_real_files(self):
+        """A typo in an exemption silently widens the rule, so check the names."""
+        missing = [
+            rel for rel in sorted(self.EXEMPT)
+            if not (REPO_ROOT / rel).is_file()
+        ]
+        assert missing == [], (
+            "EXEMPT names files that do not exist: " + str(missing)
         )
 

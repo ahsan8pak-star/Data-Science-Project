@@ -1,8 +1,10 @@
 """ Module Descriptions """
 
-# Files containing specific programs to execute within the program
-# 'import' -> include modules
-# Useful to use other in-built programs, making the program reusable
+"""
+Files containing specific programs to execute within the program
+'import' -> include modules
+Useful to use other in-built programs, making the program reusable
+"""
 
 print(help("modules")) # Print all types of modules to be imported
 

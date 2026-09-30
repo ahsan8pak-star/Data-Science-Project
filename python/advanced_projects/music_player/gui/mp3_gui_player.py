@@ -17,9 +17,11 @@ from tkinter import filedialog, messagebox  # Standard library: file browser dia
 _tui_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "tui"))
 sys.path.insert(0, _tui_dir)
 
-# import tui/mp3_tui_player.py: provides MP3AudioPlayer class with play(), pause(), resume(),
-# forward(), backward(), restart(), stop_music_file(), stop_music_player(),
-# toggle_loop_track(), toggle_loop_playlist(), toggle_shuffle(), get_mp3_files(), show_status()
+"""
+import tui/mp3_tui_player.py: provides MP3AudioPlayer class with play(), pause(), resume(),
+forward(), backward(), restart(), stop_music_file(), stop_music_player(),
+toggle_loop_track(), toggle_loop_playlist(), toggle_shuffle(), get_mp3_files(), show_status()
+"""
 
 from mp3_tui_player import MP3AudioPlayer  # import tui/mp3_tui_player.py: the core audio engine class
 

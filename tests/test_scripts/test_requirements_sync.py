@@ -156,9 +156,11 @@ class TestTierClosure:
         assert state["certifi"][1] == "requests"
 
     def test_duplicate_dependency_of_missing_package_is_skipped(self):
-        # Two top-level packages both point at one missing dependency; the
-        # missing package is reported once and never inserted into state,
-        # so a later duplicate resolution can't KeyError on it.
+        """
+        Two top-level packages both point at one missing dependency; the
+        missing package is reported once and never inserted into state,
+        so a later duplicate resolution can't KeyError on it.
+        """
         index = {
             "a": _fake_dist("a", "1.0", requires=["ghost-pkg"]),
             "b": _fake_dist("b", "1.0", requires=["ghost-pkg"]),
@@ -170,9 +172,11 @@ class TestTierClosure:
         assert "ghost-pkg" not in state
 
     def test_extra_union_updates_state_and_repeat_dependency_is_skipped(self):
-        # 'requests[yaml]' must merge into (not overwrite) the extras already
-        # recorded for plain 'requests', and the already-visited 'certifi'
-        # appearing again in the direct list is skipped silently.
+        """
+        'requests[yaml]' must merge into (not overwrite) the extras already
+        recorded for plain 'requests', and the already-visited 'certifi'
+        appearing again in the direct list is skipped silently.
+        """
         index = {
             "requests": _fake_dist(
                 "requests", "2.32",
@@ -336,9 +340,11 @@ class TestMain:
         assert "compiled" not in capsys.readouterr().out
 
     def test_outdated_flag_runs_upgrade_check(self, monkeypatch, capsys):
-        # --outdated without subprocess factually reaching pip is made
-        # observable by stubbing run(); the pip list --outdated cmd proves
-        # the upgrade-check branch was taken.
+        """
+        --outdated without subprocess factually reaching pip is made
+        observable by stubbing run(); the pip list --outdated cmd proves
+        the upgrade-check branch was taken.
+        """
         monkeypatch.setattr(rs, "audit", lambda: 0)
         monkeypatch.setattr(rs, "run", lambda cmd: print(f"RUN {' '.join(cmd)}"))
         monkeypatch.setattr(sys, "argv", ["requirements_sync.py", "--check", "--outdated"])
@@ -347,9 +353,11 @@ class TestMain:
         assert "pip list --outdated" in capsys.readouterr().out
 
     def test_main_guard_runs_check_mode(self, monkeypatch, capsys):
-        # Running the real file as __main__ proves the bottom guard forwards
-        # sys.argv; audit() is real here so capture shows the banner, and
-        # SystemExit is expected because audit() calls sys.exit().
+        """
+        Running the real file as __main__ proves the bottom guard forwards
+        sys.argv; audit() is real here so capture shows the banner, and
+        SystemExit is expected because audit() calls sys.exit().
+        """
         monkeypatch.setattr(sys, "argv", ["requirements_sync.py", "--check"])
         with pytest.raises(SystemExit):
             runpy.run_path(str(rs.ROOT / "requirements_sync.py"), run_name="__main__")

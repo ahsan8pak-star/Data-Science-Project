@@ -16,9 +16,11 @@ try: # A more accurate annual rate calculator with currency (£/$) and symbols l
     if "." in actual_income and len(actual_income.split(".")[1]) > 2:
         raise Exception("Income cannot have more than 2 decimal places.")
 
-    # This raises an exception
-    # Meaning it calls the error message provided
-    # It's an alternative way to use exceptions from this code below:
+    """
+    This raises an exception
+    Meaning it calls the error message provided
+    It's an alternative way to use exceptions from this code below:
+    """
 
     # except Exception as error_message:
     #   print(error_message)

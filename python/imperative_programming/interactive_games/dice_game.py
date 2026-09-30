@@ -66,9 +66,11 @@ def play_dice_race():
         # Turn-based gameplay loop
         while player_score < target_score and computer_score < target_score:
 
-            # Display Current Board Standings
-            # Centre alignment (^) for desirable TUI
-            # Player centre alignment one less due to its extra whitespace
+            """
+            Display Current Board Standings
+            Centre alignment (^) for desirable TUI
+            Player centre alignment one less due to its extra whitespace
+            """
             print("\n==============================================")
             print(f"| {'CURRENT SCORE':^42} |")
             print("==============================================")
@@ -76,9 +78,11 @@ def play_dice_race():
             print(f"| {f'TARGET GOAL: {target_score}':^42} |")
             print("----------------------------------------------")
 
-            # =========================================
-            #               PLAYER TURN
-            # =========================================
+            """
+            =========================================
+                          PLAYER TURN
+            =========================================
+            """
             print("\nPLAYER TURN")
             input("Press Enter to shake and roll your dice...")
 
@@ -106,10 +110,12 @@ def play_dice_race():
             for line in range(5): # 5 rows in 'dice_art' dictionary
 
                 dice_line_string = "  ".join([dice_art.get(die)[line] for die in player_dice])
-                # List Comprehension: Loops through every rolled value stored in 'player_dice'.
-                # For each value, it fetches its 5-line art array from the 'dice_art' dictionary,
-                # and extracts just the specific string row matching the current outer 'line' index loop.
-                # "  ".join(...) glues these matching string rows together horizontally with 2 spaces in between.
+                """
+                List Comprehension: Loops through every rolled value stored in 'player_dice'.
+                For each value, it fetches its 5-line art array from the 'dice_art' dictionary,
+                and extracts just the specific string row matching the current outer 'line' index loop.
+                "  ".join(...) glues these matching string rows together horizontally with 2 spaces in between.
+                """
 
                 print(f"| {dice_line_string:^42} |") # Prints combined lines of dice faces, all centre-aligned
 
@@ -123,9 +129,11 @@ def play_dice_race():
             if player_score >= target_score:
                 break
 
-            # =========================================
-            #              COMPUTER TURN
-            # =========================================
+            """
+            =========================================
+                         COMPUTER TURN
+            =========================================
+            """
             print("\nCOMPUTER TURN")
             input("Press Enter to allow the Computer to roll...")
 
@@ -156,9 +164,11 @@ def play_dice_race():
             print(f"| {f'Computer New Score: {computer_score}':^42} |")
             print("----------------------------------------------")
 
-        # =========================================
-        #                  WINNER
-        # =========================================
+        """
+        =========================================
+                         WINNER
+        =========================================
+        """
         print("\n==============================================")
         print(f"| {'GAME OVER':^42} |") # Centre alignment (^) for desirable TUI
         print("==============================================")

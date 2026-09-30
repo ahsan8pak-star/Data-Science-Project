@@ -80,6 +80,22 @@ def _has_statement(path):
     )
 
 
+def _tracked_python_modules():
+    """
+    Every tracked .py file under python/.
+
+    [AI] Git-tracked rather than rglob. python/sandbox/aim.py is practice
+    reference material and is gitignored, so a filesystem walk counts a file
+    the repository does not contain and quietly invalidates every documented
+    total derived from it. Same reasoning as the ranking sheet's module list.
+    """
+    listed = subprocess.run(
+        ["git", "ls-files", "python"],
+        cwd=REPO_ROOT, capture_output=True, text=True, check=True,
+    ).stdout.split()
+    return [REPO_ROOT / path for path in listed if path.endswith(".py")]
+
+
 def _fails_to_parse(path):
     """
     True when the file cannot be compiled - coverage drops these from the
@@ -378,6 +394,7 @@ class TestCommitMessagesCarryAScope:
         "39ce732",
         "12cc058",
         "941de5d",
+        "8e978d9",
     })
 
     @staticmethod
@@ -416,6 +433,19 @@ class TestCommitMessagesCarryAScope:
         on the owner's own commit. The list is a real exemption list again, so
         each entry names a hash that is written down rather than a boundary
         that quietly stops covering new cases.
+
+        The four entries are not the same kind of thing, and the difference is
+        recorded rather than smoothed over:
+          - 39ce732 and 12cc058 were written by the AI on purpose, to prove
+            the guard fires at all. They were never wrong to fix.
+          - 941de5d is the owner's own commit, with an empty `chore()` scope.
+            Avoidable, and the owner's to own.
+          - 8e978d9 is the AI's own real commit landing without a scope, a
+            violation of rule 12 that the guard caught after the fact. It is
+            already pushed to all four mirrors and `main` is never
+            force-pushed, so the subject cannot be rewritten. Recorded here
+            rather than silenced by moving the boundary, because a suppression
+            that hides an unfixed mistake is how the next one ships.
         """
         result = subprocess.run(
             ["git", "log", "--no-merges", "--format=%H %s",
@@ -604,16 +634,21 @@ class TestProgressionDocClaims:
         for lane in ("imperative_programming", "functional_programming",
                      "object_oriented_programming", "advanced_projects"):
             actual = len([
-                p for p in (REPO_ROOT / "python" / lane).rglob("*.py")
+                p for p in _tracked_python_modules()
                 if p.name != "__init__.py"
+                and p.relative_to(REPO_ROOT).parts[1] == lane
             ])
             assert f"| {actual} |" in flat or f"| {actual} " in flat, (
                 f"PROGRESSION.md does not state {actual} modules for {lane}"
             )
 
     def test_total_module_count(self):
+        """
+        Counted from git, not rglob, so a gitignored practice file cannot move
+        a documented total. sandbox/aim.py is untracked on purpose.
+        """
         actual = len([
-            p for p in (REPO_ROOT / "python").rglob("*.py")
+            p for p in _tracked_python_modules()
             if p.name != "__init__.py"
         ])
         assert f"{actual} non-`__init__` files" in self._flat(), (
@@ -681,7 +716,20 @@ class TestProgressionDocClaims:
             (REPO_ROOT / "FILE_SCORES.md").read_text(encoding="utf-8"),
         )
         scores = [int(s) for s in entries]
-        assert len(scores) == 161, "expected 161 ranked files"
+
+        """
+        The entry count is cross-checked against the tracked modules rather
+        than hardcoded. A literal here cannot survive aim.py leaving the
+        repository: it said 161 for months after the sheet held 160, and the
+        sheet was right while the assertion was wrong. [AI]
+        """
+        tracked = [
+            p for p in _tracked_python_modules() if p.name != "__init__.py"
+        ]
+        assert len(scores) == len(tracked), (
+            f"FILE_SCORES.md has {len(scores)} entries but the tree has "
+            f"{len(tracked)} tracked non-__init__ modules"
+        )
         mean = round(sum(scores) / len(scores), 1)
         assert f"{mean}/100" in self._flat(), (
             f"PROGRESSION.md does not state the recomputed mean {mean}/100"

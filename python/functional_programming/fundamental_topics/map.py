@@ -10,9 +10,11 @@ two iterables it consumes both in step, which is what makes it the tidiest
 element-wise alternative to a manual index loop.
 """
 
-# map() = Applies a given function to every item in one or more iterables, returning a new iterable of the results.
-# Commonly paired with a lambda so no separate named function is needed.
-# map(function, iterable, ...) -> map object (must wrap in list()/tuple() to view)
+"""
+map() = Applies a given function to every item in one or more iterables, returning a new iterable of the results.
+Commonly paired with a lambda so no separate named function is needed.
+map(function, iterable, ...) -> map object (must wrap in list()/tuple() to view)
+"""
 
 numbers = [1, 2, 3, 4, 5]
 prices = ["9.99", "14.50", "3.25", "20.00"]

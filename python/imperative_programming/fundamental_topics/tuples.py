@@ -6,10 +6,12 @@ numbers = (1, 2, 3) # Immutable = can't be changed at all
 
 # Example of this:
 
-# numbers[0] = 10
-# print(numbers[0])
-# Output:
-# TypeError - Meaning tuples can't be changed once the items has been made
+"""
+numbers[0] = 10
+print(numbers[0])
+Output:
+TypeError - Meaning tuples can't be changed once the items has been made
+"""
 
 print(numbers[0]) # 1
 print(numbers[1]) # 2
@@ -92,9 +94,11 @@ print(double_digits)
 
 """ Joining """
 
-# tpl1 = ('item1', 'item2', 'item3')
-# tpl2 = ('item4', 'item5', 'item6')
-# tpl3 = tpl1 + tpl2
+"""
+tpl1 = ('item1', 'item2', 'item3')
+tpl2 = ('item4', 'item5', 'item6')
+tpl3 = tpl1 + tpl2
+"""
 
 
 # Joining the two tuples together

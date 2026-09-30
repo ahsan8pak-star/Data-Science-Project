@@ -9,13 +9,17 @@ concept the class represents; otherwise a module-level function is clearer.
 # Static Methods = Methods belonging to classes rather than objects (instance)
 # Usually used for general utility functions
 
-# Main uses between two types of methods:
-# Instance Methods = Operations on class instances (objects)
-# Static Methods = Utility Functions, not accessing class data
+"""
+Main uses between two types of methods:
+Instance Methods = Operations on class instances (objects)
+Static Methods = Utility Functions, not accessing class data
+"""
 
-# For Instance Methods:
-# Go to nested_classes.py on lines 19 - 23,
-# lines 35 - 39, lines 52 - 56 and lines 67 - 71
+"""
+For Instance Methods:
+Go to nested_classes.py on lines 19 - 23,
+lines 35 - 39, lines 52 - 56 and lines 67 - 71
+"""
 
 class Employee:
 
@@ -30,9 +34,11 @@ class Employee:
     @staticmethod
     def valid_job_role(job_role):
         valid_job_role = ["Manager", "Janitor", "Chef", "Waiter", "Assistant", "Owner", "Co-Founder"]
-        # 'in' checks list membership
-        # use '==' (not 'is') for string equality
-        # 'is' checks object identity (same memory location)
+        """
+        'in' checks list membership
+        use '==' (not 'is') for string equality
+        'is' checks object identity (same memory location)
+        """
         return job_role in valid_job_role
 
 

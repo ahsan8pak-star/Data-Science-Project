@@ -29,10 +29,12 @@ _DATA = pd.DataFrame(
     }
 )
 
-# IQR bounds for _DATA with the default factor of 1.5 (pandas linear
-# interpolation over the quantiles).
-# value_a: Q1=2.25 Q3=4.75 -> lower=2.25-2.5*1.5=-1.5 upper=4.75+2.5*1.5=8.5
-# value_b: Q1=22.5 Q3=47.5  -> lower=22.5-25*1.5=-15.0 upper=47.5+25*1.5=85.0
+"""
+IQR bounds for _DATA with the default factor of 1.5 (pandas linear
+interpolation over the quantiles).
+value_a: Q1=2.25 Q3=4.75 -> lower=2.25-2.5*1.5=-1.5 upper=4.75+2.5*1.5=8.5
+value_b: Q1=22.5 Q3=47.5  -> lower=22.5-25*1.5=-15.0 upper=47.5+25*1.5=85.0
+"""
 _EXPECTED_LOWER = pd.Series({"value_a": -1.5, "value_b": -15.0})
 _EXPECTED_UPPER = pd.Series({"value_a": 8.5, "value_b": 85.0})
 

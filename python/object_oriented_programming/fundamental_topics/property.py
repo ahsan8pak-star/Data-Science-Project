@@ -6,9 +6,11 @@ is how a class controls its own invariants without the caller doing it. The
 alternative, a plain attribute, permits invalid state.
 """
 
-# @property = Decorator used to define a method as a property (it can be accessed like an attribute)
-# Adds additional logic when reading, writing, or deleting attributes
-# Provides a getter, setter, and deleter method
+"""
+@property = Decorator used to define a method as a property (it can be accessed like an attribute)
+Adds additional logic when reading, writing, or deleting attributes
+Provides a getter, setter, and deleter method
+"""
 
 class Rectangle:
     def __init__(self, width, height):

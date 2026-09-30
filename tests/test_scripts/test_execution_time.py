@@ -198,9 +198,11 @@ class TestExecuteProjectScripts:
 
     def test_file_outside_parent_falls_back_to_bare_name(self, tmp_path, capsys, monkeypatch):
 
-        # A .py file that cannot be expressed relative to base_path.parent
-        # raises ValueError inside the try, so the except stores just the
-        # file name and the row still renders as PASS.
+        """
+        A .py file that cannot be expressed relative to base_path.parent
+        raises ValueError inside the try, so the except stores just the
+        file name and the row still renders as PASS.
+        """
         from pathlib import Path
 
         monkeypatch.setattr(Path, "rglob", lambda self, pattern: iter([Path("C:/outside/base.py")]))
@@ -365,9 +367,11 @@ class TestMain:
 
     def test_unknown_folder_skips_and_prompts_again(self, tmp_path, monkeypatch, capsys):
 
-        # resolve_folder returns None for an unrecognised name, so main()
-        # hits the `if target is None: continue` guard and loops back to
-        # the prompt instead of benchmarking anything.
+        """
+        resolve_folder returns None for an unrecognised name, so main()
+        hits the `if target is None: continue` guard and loops back to
+        the prompt instead of benchmarking anything.
+        """
         _, results = self._instal_main(tmp_path, monkeypatch, ["does_not_exist", "quit"])
         from scripts.execution_time import main
 
@@ -383,9 +387,11 @@ class TestModuleLevelReconfigure:
     """
     def test_stdout_reconfigure_failure_is_swallowed(self, monkeypatch):
 
-        # Lines 10-11 only execute if reconfigure() itself raises. Swapping
-        # in a stdout whose reconfigure() throws proves the bare except keeps
-        # the module importing cleanly instead of crashing.
+        """
+        Lines 10-11 only execute if reconfigure() itself raises. Swapping
+        in a stdout whose reconfigure() throws proves the bare except keeps
+        the module importing cleanly instead of crashing.
+        """
         import io
         import runpy
         import sys
@@ -414,9 +420,11 @@ class TestMainGuard:
     """
     def test_running_as_main_fires_the_guard(self, monkeypatch, capsys):
 
-        # run_name="__main__" triggers the module-level guard (line 160).
-        # "--all" skips the tree dump and subprocess.run is stubbed, so this
-        # only exercises main()'s --all branch through to the break.
+        """
+        run_name="__main__" triggers the module-level guard (line 160).
+        "--all" skips the tree dump and subprocess.run is stubbed, so this
+        only exercises main()'s --all branch through to the break.
+        """
         import runpy
         import sys
 

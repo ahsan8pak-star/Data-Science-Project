@@ -19,9 +19,11 @@ from tests.test_object_oriented_programming.conftest import PYTHON_DIR, run_scri
 FOLDER = "object_oriented_programming/syntax_fundamentals"
 
 
-# ---------------------------------------------------------------------------
-# bank_account.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+bank_account.py
+---------------------------------------------------------------------------
+"""
 class TestBankAccount:
     """
     bank_account.py - initial details, deposit and withdrawal confirmations,
@@ -67,9 +69,11 @@ class TestBankAccount:
         assert account.get_balance() == 250
 
 
-# ---------------------------------------------------------------------------
-# calculator.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+calculator.py
+---------------------------------------------------------------------------
+"""
 class TestCalculator:
     """
     calculator.py - all four operations in order, static methods needing no
@@ -102,9 +106,11 @@ class TestCalculator:
         assert result == "Impossible to calculate square root of a negative number."
 
 
-# ---------------------------------------------------------------------------
-# car.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+car.py
+---------------------------------------------------------------------------
+"""
 class TestCar:
     """
     car.py - drive and stop called directly and both for-sale description
@@ -149,9 +155,11 @@ class TestCar:
         assert "A priceless car, not worthy to be auctioned." in captured.out
 
 
-# ---------------------------------------------------------------------------
-# device.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+device.py
+---------------------------------------------------------------------------
+"""
 class TestDevice:
     """
     device.py - an abstract base that cannot be instantiated, three concrete
@@ -187,9 +195,11 @@ class TestDevice:
         assert out.find("turning on") < out.find("turning off")
 
 
-# ---------------------------------------------------------------------------
-# dice.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+dice.py
+---------------------------------------------------------------------------
+"""
 class TestDice:
     """
     dice.py - the rolled number against a patched random value, the matching
@@ -237,9 +247,11 @@ class TestDice:
         assert "DICE RACE" not in out  # would appear if dice_game.py's own main() had run
 
 
-# ---------------------------------------------------------------------------
-# employee_contract.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+employee_contract.py
+---------------------------------------------------------------------------
+"""
 class TestEmployeeContract:
     """
     employee_contract.py - part-time and full-time employees combining
@@ -277,9 +289,11 @@ class TestEmployeeContract:
         assert part_time.name == "Test" and part_time.role == "Role" and part_time.course == "Course"
 
 
-# ---------------------------------------------------------------------------
-# food.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+food.py
+---------------------------------------------------------------------------
+"""
 class TestFood:
     """
     food.py - dessert, treat, cold and hot drink chains separated by dashed
@@ -321,9 +335,11 @@ class TestFood:
         assert isinstance(mod.cake, mod.Food)
 
 
-# ---------------------------------------------------------------------------
-# grocery_caloric_list.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+grocery_caloric_list.py
+---------------------------------------------------------------------------
+"""
 class TestGroceryCaloricList:
     """
     grocery_caloric_list.py - menu display, ordering and modify flows, the
@@ -676,9 +692,11 @@ class TestGroceryCaloricList:
         assert "Notice: 'fakefood' is not on the menu. Please check the spelling and try again." in out
 
 
-# ---------------------------------------------------------------------------
-# item.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+item.py
+---------------------------------------------------------------------------
+"""
 class TestItem:
     """
     item.py - __str__, __eq__, price ordering, __add__ summing prices and a
@@ -726,9 +744,11 @@ class TestItem:
         assert mod.item1["colour"] == "Key 'colour' was not found"
 
 
-# ---------------------------------------------------------------------------
-# order.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+order.py
+---------------------------------------------------------------------------
+"""
 class TestOrder:
     """
     order.py - five orders with class-level totals and average cost, the
@@ -776,9 +796,11 @@ class TestOrder:
         assert FreshOrder.average_cost() == "No Orders. No Costs."
 
 
-# ---------------------------------------------------------------------------
-# payment.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+payment.py
+---------------------------------------------------------------------------
+"""
 class TestPayment:
     """
     payment.py - four payment types, card masking to the last four digits and
@@ -818,9 +840,11 @@ class TestPayment:
         assert out.find("Cash") < out.find("Card") < out.find("Bank transfer") < out.find("Cheque")
 
 
-# ---------------------------------------------------------------------------
-# person.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+person.py
+---------------------------------------------------------------------------
+"""
 class TestPerson:
     """
     person.py - talk() across the is_talking flag and the exact age-twenty
@@ -867,9 +891,11 @@ class TestPerson:
         assert "Robin. You may start after the first speech." in captured.out
 
 
-# ---------------------------------------------------------------------------
-# point.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+point.py
+---------------------------------------------------------------------------
+"""
 class TestPoint:
     """
     point.py - move() and draw() called directly, and the absence of any
@@ -916,9 +942,11 @@ class TestPoint:
         assert point.x == 5
 
 
-# ---------------------------------------------------------------------------
-# real_estate.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+real_estate.py
+---------------------------------------------------------------------------
+"""
 class TestRealEstate:
     """
     real_estate.py - five property descriptions, comma-formatted prices, the
@@ -964,9 +992,11 @@ class TestRealEstate:
             house.name = "Renamed House"
 
 
-# ---------------------------------------------------------------------------
-# restaurant.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+restaurant.py
+---------------------------------------------------------------------------
+"""
 class TestRestaurant:
     """
     restaurant.py - Indian, Chinese and Japanese details, a Menu composed
@@ -1008,9 +1038,11 @@ class TestRestaurant:
         assert out.find("Spice of India") < out.find("Dragon's Delight") < out.find("Sakura Sushi")
 
 
-# ---------------------------------------------------------------------------
-# school.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+school.py
+---------------------------------------------------------------------------
+"""
 class TestSchool:
     """
     school.py - school details, three listed students, the separator line and
@@ -1060,9 +1092,11 @@ class TestSchool:
         assert len(school.students) == 1
 
 
-# ---------------------------------------------------------------------------
-# sports.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+sports.py
+---------------------------------------------------------------------------
+"""
 class TestSports:
     """
     sports.py - four sport details from nested classes scoped under Sports and
@@ -1092,9 +1126,11 @@ class TestSports:
         assert not hasattr(mod.Sports.Cricket("England", "Lord's"), "court")
 
 
-# ---------------------------------------------------------------------------
-# user_access.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+user_access.py
+---------------------------------------------------------------------------
+"""
 class TestUserAccess:
     """
     user_access.py - login and permission checks running in that order, with
@@ -1149,9 +1185,11 @@ class TestUserAccess:
         assert mod.login_check("ghost_user", "anything") is False
 
 
-# ---------------------------------------------------------------------------
-# worker.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+worker.py
+---------------------------------------------------------------------------
+"""
 class TestWorker:
     """
     worker.py - match-case dispatch across five worker types, list order with

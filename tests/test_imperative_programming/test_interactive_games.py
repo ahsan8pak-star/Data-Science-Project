@@ -15,9 +15,11 @@ from tests.test_imperative_programming.conftest import run_script
 FOLDER = "imperative_programming/interactive_games"
 
 
-# ---------------------------------------------------------------------------
-# dice_game.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+dice_game.py
+---------------------------------------------------------------------------
+"""
 class TestDiceGame:
     """
     The player/computer dice loop in dice_game.py - round outcomes, ASCII
@@ -120,9 +122,11 @@ class TestDiceGame:
         assert out.count("CONGRATULATIONS! YOU WIN!") == 2
 
 
-# ---------------------------------------------------------------------------
-# haiku_madlibs.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+haiku_madlibs.py
+---------------------------------------------------------------------------
+"""
 class TestHaikuMadlibs:
     """
     Prompted haiku assembly in haiku_madlibs.py - template selection,
@@ -205,9 +209,11 @@ class TestHaikuMadlibs:
         assert "Verse 3" in out
 
 
-# ---------------------------------------------------------------------------
-# hangman_game.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+hangman_game.py
+---------------------------------------------------------------------------
+"""
 class TestHangmanGame:
     """
     The hangman state machine - win, loss, repeat guesses, input validation,
@@ -281,9 +287,11 @@ class TestHangmanGame:
         assert captured.out.strip() == "d o g"
 
 
-# ---------------------------------------------------------------------------
-# number_guessing_game.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+number_guessing_game.py
+---------------------------------------------------------------------------
+"""
 class TestNumberGuessingGame:
     """
     Guessing rounds in number_guessing_game.py - hints, exp awards, attempt
@@ -354,9 +362,11 @@ class TestNumberGuessingGame:
         assert mod.EXP == 100
 
 
-# ---------------------------------------------------------------------------
-# quiz_game.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+quiz_game.py
+---------------------------------------------------------------------------
+"""
 class TestQuizGame:
     """
     Scoring and presentation in quiz_game.py - perfect/partial/zero scores,
@@ -414,9 +424,11 @@ class TestQuizGame:
         assert out.count("----------------------") >= 5
 
 
-# ---------------------------------------------------------------------------
-# rock_paper_scissors.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+rock_paper_scissors.py
+---------------------------------------------------------------------------
+"""
 class TestRockPaperScissors:
     """
     Outcome logic in rock_paper_scissors.py - win/loss/tie messages, the
@@ -542,9 +554,11 @@ class TestRockPaperScissors:
         assert "Invalid choice. Please choose 'r', 'p', or 's'." in captured.out
 
 
-# ---------------------------------------------------------------------------
-# word_guessing_game.py
-# ---------------------------------------------------------------------------
+"""
+---------------------------------------------------------------------------
+word_guessing_game.py
+---------------------------------------------------------------------------
+"""
 class TestWordGuessingGame:
     """
     The hangman-style word game - win, attempt loss, revealed answer,

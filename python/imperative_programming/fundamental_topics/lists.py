@@ -119,9 +119,11 @@ print(numbers) # [5, 2, 7, 4, 8] -> 1 is removed at index 2
 del numbers[-1]
 print(numbers) # [2, 3] -> 5 is removed from the end (last index)
 
-# del numbers
-# print(numbers) # NameError: name 'numbers' is not defined
-# This means that this entire list is deleted and can't be located
+"""
+del numbers
+print(numbers) # NameError: name 'numbers' is not defined
+This means that this entire list is deleted and can't be located
+"""
 
 """Join Lists"""
 
@@ -132,11 +134,13 @@ names_and_numbers = names + numbers
 print(names_and_numbers)
 # Output: ['Ahsan', 'Yahya', 'Matthew', 'Ahnaf', 'Hamza', 1, 2, 3, 4, 5]
 
-# Using extend() syntax:
-# list1 = ['item1', 'item2']
-# list2 = ['item3', 'item4', 'item5']
-# list1.extend(list2)
-# Output: ['item1', 'item2', 'item3', 'item4', 'item5']
+"""
+Using extend() syntax:
+list1 = ['item1', 'item2']
+list2 = ['item3', 'item4', 'item5']
+list1.extend(list2)
+Output: ['item1', 'item2', 'item3', 'item4', 'item5']
+"""
 
 names.extend(numbers)
 print('Names and Numbers:', names)
