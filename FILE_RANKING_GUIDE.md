@@ -108,7 +108,7 @@ Bands: **A** 90–100, **B** 80–89, **C** 70–79, **D** 60–69, **E** 0–59
 
 ## Verifying a change to the sheet
 
-Regenerate it, then run the suite. Target: the full suite green (1527 passed at the
+Regenerate it, then run the suite. Target: the full suite green (1538 passed at the
 time of writing) and 0 failed. The guards in
 `tests/test_scripts/test_ranking_docs.py` recompute the arithmetic, the band
 labels, the tier weights and the figures quoted in `AGENTS.md`, so a sheet that

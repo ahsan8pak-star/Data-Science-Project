@@ -30,7 +30,7 @@ Where a number is an estimate rather than a measurement, it says so.
 | Commits | 714 at the end of the run (historical — see the note below) |
 | Peak effort | 28–36 h/week recorded across most weeks |
 | Source modules | 160 non-`__init__` files under `python/` |
-| Test suite | 1527 tests, all passing |
+| Test suite | 1538 tests, all passing |
 | Coverage | 99% line, 95% branch |
 | Quality mean | 84.6/100 across 160 ranked files |
 | Mirrors | 4 (GitHub project + backup, GitLab project + backup) |
@@ -474,6 +474,51 @@ every model's line-level claim — including a line-level claim from the model
 currently writing the code — as a *candidate* to be verified against the repo,
 never as ground truth. The test suite is the arbiter.
 
+#### The rotation needed a rule, not just a list
+
+The eight-model list in `AGENTS.md` answers *which model to pick*, but it
+initially answered nothing about what happens when a model is executing and
+realises the task does not fit it. A.I.M's instruction was blunt: make each
+model's pros, cons and main purpose clear, and if the task is not applicable to
+the model currently running, it must ask for a different one rather than
+produce a mediocre answer that looks like an answer.
+
+That produced two rules now written into `AGENTS.md`.
+
+**First, each model carries an explicit ceiling.** The pros/cons table sits
+beside the pick-a-model table because knowing a model's *limits* is what lets
+it decline honestly. Without it, "I am not the right model for this" has no
+stated basis, and a model under pressure to produce something will produce
+something. The ceilings are not opinions here — they are the route limits, the
+privacy exceptions and the recorded failures already verified on this page. A
+model declining a 1M-window refactor because its output ceiling is 128,000 is
+citing a measured number, not expressing a preference.
+
+**Second, a decline must name three alternatives, ranked.** The ranking is the
+substance of the rule. A list of all seven remaining models transfers the whole
+decision back to A.I.M and saves him nothing; a ranked three is a decision he
+can act on without researching. The table in `AGENTS.md` gives every model its
+own fallback column for the same reason, because the right alternative for a
+1M-window debugging session is not the right alternative for a one-file edit.
+
+Two constraints keep this honest rather than ceremonial:
+
+- **A hand-off is a request, not a switch.** Model selection happens in the
+  OpenCode console, so an agent cannot move itself. The correct behaviour is to
+  stop and name the model that should take over, not to continue in the same
+  turn hoping the switch lands. Continuing would produce exactly the mediocre
+  answer the rule exists to prevent.
+- **Privacy outranks fit.** If a prompt carries anything personal,
+  confidential or credential-bearing, the ranked column is overridden rather
+  than consulted: only Space Bunny and LongCat are zero-retention, so the other
+  five are ineligible regardless of how well they fit. This is the one place
+  where the "best model for the task" question has the wrong answer.
+
+The rule is also the one piece of this documentation that the models will
+actually read, because it is addressed to them rather than to a future
+reader. Which is the point: a convention that only appears in a document
+nobody re-reads has not been enforced, it has been filed.
+
 #### What the research shows about each model
 
 The route limits below are OpenCode's own, not the model's full capability, and
@@ -667,7 +712,7 @@ mirrors were found lagging at an older commit.
 
 | | |
 | --- | --- |
-| Tests | 1527 passing, 0 failing |
+| Tests | 1538 passing, 0 failing |
 | Coverage | 99% line, 95% branch |
 | Quality mean | 84.6/100 over 160 files |
 | Document drift | 0 known — all numeric claims test-guarded |
@@ -688,8 +733,9 @@ log unchanged has left the record behind. Newest first.
 
 | Date | Session | What changed | What it taught |
 | --- | --- | --- | --- |
+| 1 Oct 2026 | Pros, cons and the hand-off rule | Added a pros/cons and main-purpose table for all eight free models beside the pick-a-model table, plus a hand-off protocol: a model that judges the task wrong for it must decline and name three alternatives ranked best-first, with a stated reason. Two constraints keep it honest — a hand-off is a *request* rather than a switch, because model selection happens in the OpenCode console and an agent cannot move itself; and retention overrides fit, so a credential-bearing prompt narrows the field to the two zero-retention models whatever the ranking says. Added `tests/test_scripts/test_model_rotation_docs.py` (11 tests) and bite-tested four mutations of it. | Writing the ceilings down is what makes declining possible. Before this, "I am not the right model for this" had no stated basis, and a model under pressure to produce something would produce something. The ceilings are measured numbers rather than opinions, so a decline cites evidence. Two of the four mutations did not bite at first, and both were bugs in the test rather than the document: matching single lines flagged correct prose, because the section is hard-wrapped at 80 columns and a sentence's evidence often sits two lines below it; and an assertion demanding that each hand-off mention all seven other models contradicted the rule's own ranked-three. Only two mutations were needed to prove the guard, and one of those had to be re-run because the first version edited a string that did not exist in the file - a false pass that a green run alone would not have revealed. |
 | 1 Oct 2026 | Free-model rotation verified against source | Researched all eight free OpenCode models and checked every claim against the `models.dev` registry and OpenCode's own Zen and data pages. Five of the drafted claims did not survive: a "50.8% SWE Atlas resolve rate" attributed to a URL that resolves to a technology news aggregator mentioning neither the model nor the benchmark; a model-catalogue URL returning 404; a DeepSeek origin for Big Pickle inferred from provider error strings; a claim that LongCat was the only zero-retention free model (Space Bunny is too); and seven per-model performance figures with no traceable source. Corrected the context and output columns against the registry's per-provider entries, which showed the free routes are narrower than the models behind them, and rewrote the contributor table to `main` only after finding it had counted a bot whose 7 commits sit on unmerged branches. | A link that resolves is not evidence; it has to resolve to the claim. The whole draft read as research because it had citations in it, and four of the six citations did not support the sentence they were attached to. The second lesson is that the repo's own rule 2 exists precisely to catch an assistant doing this, and it caught one - so the rule is load-bearing, not decorative. |
-| 30 Sep 2026 | Progression review & code review | Reconciled the ranking sheet: deduped a 167-entry document down to the 161 real files, aligned all 161 headings to their own tables, normalised 9 entries that rounded an exact `.5` downward against 50 that rounded up, and corrected the guide's pre-verified table and worked example. Corrected four stale figures in the docs (98%→95% branch, 171/182→148/159, "29 lines in 8 caps"→38 in 11, 1350→1527 tests). Fixed a silent failure in `execution_time.py` where a mistyped folder re-prompted with no output. Added 94 guard tests across three files. Wrote this review. | A fact written in prose and never recomputed is a fact that will be wrong. The ranking sheet had 112 of 161 headings disagreeing with their own tables and nobody noticed, because nothing compared them. The fix was not to re-read the prose more carefully — it was to make the stale number fail the suite. |
+| 30 Sep 2026 | Progression review & code review | Reconciled the ranking sheet: deduped a 167-entry document down to the 161 real files, aligned all 161 headings to their own tables, normalised 9 entries that rounded an exact `.5` downward against 50 that rounded up, and corrected the guide's pre-verified table and worked example. Corrected four stale figures in the docs (98%→95% branch, 171/182→148/159, "29 lines in 8 caps"→38 in 11, 1350→1538 tests). Fixed a silent failure in `execution_time.py` where a mistyped folder re-prompted with no output. Added 94 guard tests across three files. Wrote this review. | A fact written in prose and never recomputed is a fact that will be wrong. The ranking sheet had 112 of 161 headings disagreeing with their own tables and nobody noticed, because nothing compared them. The fix was not to re-read the prose more carefully — it was to make the stale number fail the suite. |
 | 30 Sep 2026 | Documentation brought into line with the rescore and the repair | Swept every markdown file for figures the guards do not cover, and found four that had gone stale: the benchmark's file count, the maintenance log's test count, the README's ranking description, and the two-tier weighting and tie-break, which were in the generated sheet but not explained in prose. Also fixed a defect in the scorer itself, where a note written as two adjacent strings rather than a `(sign, text)` tuple rendered a strength under **Weaknesses** with a stray `+`. | The guards check arithmetic - weighted cells against criteria, totals against the tree - and none of them reads a sentence. A ranking scheme documented only inside a generated table is invisible to anyone who has not regenerated it, which is how 'four criteria' and '161 files' survived a rescore to five and 160. The sign leak is the more interesting one: implicit string concatenation looks exactly like a tuple in source, so it passed the overlap assertion and shipped in main.py's entry until it was read by eye. Verified it bites by injecting the fault before trusting it. |
 | 30 Sep 2026 | main.py repaired; the IndentationError stub now runs | A.I.M added `pass` to `fundamental_topics/main.py`, which had carried a deliberate `IndentationError` since June. The file now parses, runs, and appears in coverage; two tests that asserted it raises `SyntaxError` were rewritten to assert the opposite, and its `pyproject.toml` coverage omit was removed. | A three-line fix that only *looks* small. It moved the measured denominator, the files-at-100% count, the benchmark FAIL count, the lowest-scored file, the mean from 84.4 to 84.6, and two documented figures in three files - and the guards caught every one, which is the first time they have all fired on the same change. The tests were the real cost: they pinned a defect that had been legitimately repaired, so correct code failed the suite. That is exactly what rule 11 warns about, and the fix is to move the test forward rather than break the code back. |
 | 30 Sep 2026 | File ranking rescored on two tiers, Risk added | Rescored all 160 files on five criteria with per-tier weighting — learning material judged on readability (35%), applied projects on fixability and robustness (30% each) — and made every score generated from measured signals by `scripts/measure_ranking_signals.py` and `scripts/score_ranking.py`. Mean 84.4, spread 50-92, with 43 A / 89 B / 25 C / 2 D / 1 E. | The first pass scored four criteria with one flat weighting and was written by eye, so a disputed mark could not be traced to anything. Three findings changed the shape of the work: 81 of 160 files have no functions at all, and a rubric that awarded near-full marks for 'nothing undocumented' rewarded exactly the flat scripts a reader struggles with; starting every criterion from 100 and deducting produced a 98.4 mean that could not tell a perfect file from a broken one; and float arithmetic made the sheet disagree with its own guard by a tenth, because 96 * 0.15 is 14.399999999999999 in binary. |

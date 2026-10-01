@@ -227,6 +227,82 @@ Free-tier stability is uneven. `nemotron-3-ultra-free` and `big-pickle` have
 both thrown upstream errors, and the tier as a whole is prone to timeouts, so
 a failing model is a reason to switch, not a reason to retry.
 
+#### Pros, cons, and main purpose of each model
+
+The table above says when to *pick* a model. This one says what each model is
+*good and bad at*, because knowing a model's ceiling is what lets a model admit
+a task is wrong for it. Limits are the route limits above; privacy and
+stability notes are the verified facts recorded earlier on this page.
+
+| Model | Main purpose | Pros | Cons |
+| --- | --- | --- | --- |
+| Big Pickle Free | Focused code review and spot checks | Reliable for pattern-matching and "is this obviously wrong" questions; the smallest window in the rotation, so a review pass carries little context | Tied-smallest output ceiling (32,000); no published vendor, so no provenance; free-period data may train the model; has thrown upstream errors |
+| Space Bunny Free | Long-document reading and large multi-file refactors | Largest window (1,048,576) and by far the largest output budget (524,288) in the rotation, so a long patch cannot be truncated; zero-retention | The most-used model on OpenCode, so it is the default trap — heavy use is not the same as suitability; zero-retention does not make a prompt private when everyone else is on the same route |
+| Nemotron 3.5 Lightning Free | Test writing, verification, medium-complexity analysis | Its output ceiling equals its window (262,144), so it can emit a long test file or a long report in one turn without truncating | Mid-sized window, so a whole-repo read is out of reach; NVIDIA *trial* endpoint that logs use, so nothing personal or confidential; a logged endpoint is the wrong choice for a private prompt |
+| Nemotron 3 Ultra Free | Complex debugging, root-cause analysis, multi-step reasoning | 1,000,000 window for whole-repo reasoning, and built for hard multi-step problems | Smallest output ceiling of the large-window models (128,000, well below its own window), so a huge single response will not fit; NVIDIA *trial* endpoint that logs use; already known to throw upstream errors and time out |
+| Ling 3.0 Flash Fin Free | Quick fixes, single-file edits, small lookups | Fast and cheap for small, well-specified edits; adequate reasoning support | One of the three smallest output ceilings (32,768), and the smallest of the 256K models; named for a finance specialisation, so it is not the obvious first choice for general code reasoning; free-period data may train the model |
+| Muse Spark 1.3 Contributor Free | Root-cause debugging, architecture and trade-off analysis | Largest window in the rotation (1,048,576) alongside Space Bunny, and the model to reach for when the answer is "why does this break" | Explicitly trades prompts and completions for training future Meta models, which is the wrong trade on a public repo; 131,072 output ceiling, under a fifth of Space Bunny's; the least private of the eight |
+| MiMo-V2.6-Flash Free | Boilerplate, documentation, commit messages | A 200,000 window is ample for a docs or commit-message task, and it is one of the two cheapest routes to hand repetitive generation to | Tied-smallest window and output (200,000 / 32,000) in the rotation, despite the same release being 1,048,576 on paid routes; free-period data may train the model; weak choice for anything needing careful reasoning |
+| LongCat 2.5 Preview Free | Long-context refactors, image-heavy review, complex debugging | 1,000,000 window; zero-retention, so the safer large-window option; newest model in the rotation, so it has the least accumulated evidence — useful precisely where a fresh model helps | A "Preview" build released 25 September 2026 with no published end date to its free period, so both its behaviour and its availability can change without notice |
+
+#### If the task is wrong for the model you are on: hand off, do not force it
+
+**A model that judges the task to be outside its ability must say so and hand
+the task off, rather than producing a mediocre answer that looks like an
+answer.** This is the same rule as "treat a claim as a candidate, not ground
+truth", applied to the model's own capability. The cost of a wrong-model answer
+is a plausible patch that fails a guard three steps later, which is more
+expensive here than an honest hand-off.
+
+When declining, name **three other models in ranked order, best first**, and
+give the reason in one line each. The ranking is the part that matters: a list
+of seven names is noise, a ranked three is a decision A.I.M can act on without
+researching.
+
+An agent **cannot switch models mid-session** — selection happens in the
+OpenCode console. So a hand-off is a *request*, not a switch, and the correct
+form is to stop and say which model should take over next, not to keep working
+in the same turn hoping the switch happens.
+
+The hand-off table below is the default. Read it as a ranked fallback for
+*fit*, then apply the privacy override that follows it.
+
+| If you are on | Decline and recommend, best first |
+| --- | --- |
+| **Big Pickle Free** | 1. Ling 3.0 Flash Fin Free — small, fast, for a single-file edit. 2. Nemotron 3.5 Lightning Free — for test writing and verification. 3. Space Bunny Free — when the task genuinely needs a long document or a multi-file refactor |
+| **Space Bunny Free** | 1. Ling 3.0 Flash Fin Free — when the task is one small edit and a 1M window is overkill. 2. Big Pickle Free — when all that is needed is a review pass, with no edits. 3. Nemotron 3 Ultra Free — when the problem is hard reasoning rather than volume |
+| **Nemotron 3.5 Lightning Free** | 1. Nemotron 3 Ultra Free — for deeper reasoning on a wider window. 2. Space Bunny Free — when the work needs a window above 262,144. 3. Muse Spark 1.3 Contributor Free — for root-cause work that needs a wide window |
+| **Nemotron 3 Ultra Free** | 1. Space Bunny Free — same 1M class, larger output ceiling, and zero-retention. 2. LongCat 2.5 Preview Free — the other 1M, zero-retention option. 3. Muse Spark 1.3 Contributor Free — when the tradeoff is reasoning depth and the prompt is not sensitive |
+| **Ling 3.0 Flash Fin Free** | 1. Big Pickle Free — for a review pass rather than an edit. 2. Nemotron 3.5 Lightning Free — when the output must be long. 3. Nemotron 3 Ultra Free — when the task is real reasoning rather than a mechanical fix |
+| **Muse Spark 1.3 Contributor Free** | 1. Space Bunny Free — same 1M window, zero-retention, so the right default on a public repo. 2. LongCat 2.5 Preview Free — the other zero-retention 1M option. 3. Nemotron 3 Ultra Free — for reasoning depth, accepting a logged trial endpoint |
+| **MiMo-V2.6-Flash Free** | 1. Ling 3.0 Flash Fin Free — another cheap route for small mechanical work. 2. Big Pickle Free — when a review, not a rewrite, is wanted. 3. Nemotron 3.5 Lightning Free — when the task needs care rather than boilerplate |
+| **LongCat 2.5 Preview Free** | 1. Space Bunny Free — the mature alternative in the same 1M, zero-retention class. 2. Nemotron 3 Ultra Free — for reasoning-heavy debugging. 3. Muse Spark 1.3 Contributor Free — for architecture work where the preview build is not trusted |
+
+**Privacy overrides the ranking.** If the prompt contains anything personal,
+confidential, or credential-bearing — a `.env` value, an API key, an email
+address, a university identifier — then only the two zero-retention models are
+eligible, whatever the table above says: **Space Bunny Free** and **LongCat 2.5
+Preview Free**. Nemotron is a logged trial endpoint, Muse Spark trains on
+prompts, and Big Pickle, MiMo and Ling may train on free-period data, so all
+five are out. In that case recommend Space Bunny first and LongCat second, and
+say plainly that the reason is retention, not fit. Rule 6 already forbids
+putting `.env` in a prompt on any model; this is the second line of defence.
+
+**A hand-off needs a reason and a check, not just a name.** The useful form is
+one line of decline, the three ranked models, and what has *not* been done yet:
+
+> This is a 1M-window refactor across `tests/` and `python/` and my output
+> ceiling is 128,000, so I would truncate the patch. Handing off: 1. Space Bunny
+> Free — same 1M, zero-retention, 524,288 output; 2. LongCat 2.5 Preview Free —
+> the other 1M option; 3. Muse Spark 1.3 Contributor Free — if the depth matters
+> more than retention. Nothing has been edited yet; the full suite is green as
+> of the last commit.
+
+Declining is not a reason to stop verifying. If the model hands off mid-task, it
+still leaves the tree in a known state and still states which command proves
+it — the hand-off is a change of model, not a surrender of the discipline that
+makes the answer trustworthy.
+
 ## Running Things
 
 | Task | Command |
@@ -540,7 +616,7 @@ or the correction is half-applied.
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1527 passing tests, ~99% line coverage and 95% branch coverage (149 of the
+- 1538 passing tests, ~99% line coverage and 95% branch coverage (149 of the
   160 measured `python/` files at 100% lines, including both music-player
   GUIs; the 160 non-`__init__.py` files are the number a docstring sweep
   covers). The 160 counts files that carry at least one statement. The
