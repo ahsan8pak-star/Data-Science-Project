@@ -387,6 +387,38 @@ durable answer is to make the stale number fail the build.
 
 ## 4. AI collaboration: what was used, and how
 
+### 4.0 Who actually wrote the code
+
+`git shortlog -sne main` lists five author identities across the branch. All
+five are the same person, writing under three different names and two email
+addresses:
+
+| Author identity | Commits on `main` | What it is |
+| --- | --- | --- |
+| Personal account | 668 | The owner's own GitHub identity |
+| University handle | 32 | The owner's university account, used early in the run |
+| `A.I.M` | 16 | The pseudonym hardcoded as `name` in several scripts |
+| Personal account, university email | 10 | The same account re-authoring after the email changed |
+| `ThenameisAiman` | 3 | A second account used for a handful of commits |
+
+Those five rows sum to the branch's current total, which is a live figure and
+deliberately not written here; the review's fixed commit count appears in
+section 5 and is the one the guards hold.
+
+There is no bot on `main`. `dependabot[bot]` has opened 7 pull requests and
+those sit on `origin/dependabot/*` branches that were never merged, so
+`git shortlog --all` counts it while `git shortlog -sne main` does not. That
+difference is why the table is scoped to `main`: the branch is the portfolio,
+and the branch is what the numbers should describe. It is also why an earlier
+draft of this section, which used `--all`, reported seven commits by a bot
+that has never touched `main`.
+
+This is a one-person project with an AI-assisted workflow layered on top. The
+"contributors" are the owner's own identities; every line of code was written
+by A.I.M, with AI assistants acting as tools rather than co-authors. That
+distinction is why `AGENTS.md` separates *what A.I.M does* from *what the
+assistants do* — the boundary is drawn at authorship, not at effort.
+
 ### 4.1 The three assistants and their division of labour
 
 A.I.M ran three assistants over the project and used them deliberately
@@ -422,11 +454,11 @@ open.
 
 ### 4.3 Model rotation, and why it matters
 
-Within OpenCode, A.I.M rotates across **seven free models** — Big Pickle Free,
+Within OpenCode, A.I.M rotates across **eight free models** — Big Pickle Free,
 Space Bunny Free, Nemotron 3.5 Lightning Free, Nemotron 3 Ultra Free, Ling 3.0
-Flash Fin Free, Muse Spark 1.3 Free and MiMo-V2.6-Flash Free. The rotation is
-selected in the console, not from inside a conversation: an agent cannot switch
-its own model mid-session.
+Flash Fin Free, Muse Spark 1.3 Contributor Free, MiMo-V2.6-Flash Free and
+LongCat 2.5 Preview Free. The rotation is selected in the console, not from
+inside a conversation: an agent cannot switch its own model mid-session.
 
 **An agent cannot reliably self-identify which model is processing a
 conversation.** This is stated in `AGENTS.md` because the false claim was
@@ -441,6 +473,90 @@ opinion that does not depend on either being right. In practice A.I.M treats
 every model's line-level claim — including a line-level claim from the model
 currently writing the code — as a *candidate* to be verified against the repo,
 never as ground truth. The test suite is the arbiter.
+
+#### What the research shows about each model
+
+The route limits below are OpenCode's own, not the model's full capability, and
+they are what this project actually gets. Both columns come from the
+`models.dev` registry entries for the `opencode` provider
+(`https://models.dev/api.json`, retrieved 1 October 2026) — exact token
+counts, because the rounded versions are ambiguous: 262,144 is 256K, not
+262K. The free-pricing and privacy columns come from
+<https://opencode.ai/docs/zen/>. Usage figures are OpenCode's observed daily
+token volume on 1 October 2026 (<https://opencode.ai/data/>) and are a
+snapshot, not a ranking to plan around.
+
+| Model | Route context | Route output | Free-period data used to improve the model? | Daily volume on 1 Oct |
+| --- | --- | --- | --- | --- |
+| Space Bunny Free | 1,048,576 | 524,288 | No — zero-retention | 57T (most-used model) |
+| Muse Spark 1.3 Contributor Free | 1,048,576 | 131,072 | Yes — trains future Meta models | 32T |
+| MiMo-V2.6-Flash Free | 200,000 | 32,000 | Yes | 8.7T |
+| Nemotron 3 Ultra Free | 1,000,000 | 128,000 | NVIDIA trial terms; use is logged | 3.8T |
+| LongCat 2.5 Preview Free | 1,000,000 | 131,072 | No — zero-retention | 2.3T |
+| Ling 3.0 Flash Fin Free | 262,144 | 32,768 | Yes | 355B |
+| Nemotron 3.5 Lightning Free | 262,144 | 262,144 | NVIDIA trial terms; use is logged | 260B |
+| Big Pickle Free | 200,000 | 32,000 | Yes | below the published top-18 |
+
+The table is sorted by observed volume rather than by role, because the
+ordering is the finding: the two models A.I.M reached for by default are the
+two the whole platform also reaches for, which is not the same as being the
+right tool for this repo. The `models.dev` registry also has to be read per
+provider, not per model — the same MiMo release is 200,000 on the OpenCode
+free route and 1,048,576 everywhere else, so a single "MiMo has a 1M window"
+line is true and useless.
+
+**Key sources, all retrieved 1 October 2026:**
+
+- OpenCode Zen documentation: `https://opencode.ai/docs/zen/` — the model list,
+  the free-on-input/output/cached-read pricing table, and the privacy section
+  that names each exception.
+- OpenCode model data: `https://opencode.ai/data/` — observed token volumes,
+  unique users and weekly retention per model.
+- Models.dev registry: `https://models.dev/api.json` — context window, output
+  limit, reasoning and tool-calling support, and release date per model, keyed
+  by provider. This is the source for the two limit columns.
+
+**What the research actually established:**
+
+- **The free route is a narrower window than the model.** MiMo-V2.6-Flash is a
+  1M-context model at every paid provider, but the OpenCode free route serves
+  it at 200K. Nemotron 3 Ultra is 1M. Reading a context number as a capability
+  claim would therefore have been wrong in both directions, which is why the
+  limits above are labelled "route" rather than "model".
+- **Privacy does not split the rotation cleanly.** Two models (Space Bunny,
+  LongCat) sit on the zero-retention default. Four (Big Pickle,
+  MiMo-V2.6-Flash, MiMo-V2.5, Ling 3.0 Flash Fin) may use free-period data to
+  improve the model. Two (the Nemotrons) are NVIDIA trial endpoints that log
+  use and whose terms ask for no personal or confidential data. One (Muse Spark
+  1.3 Contributor) is explicitly a training-data trade. Four of the eight
+  therefore send prompts somewhere that is not covered by the zero-retention
+  default, on a public repository, which is why rule 6 exists.
+- **The free tier is popular, so it is not private by default.** The four
+  large-window models in the rotation — Space Bunny, Muse Spark 1.3, Nemotron 3
+  Ultra, LongCat 2.5 — are also four of the seven most-used models on OpenCode.
+  Being on a free tier says nothing about who else can read the prompt.
+- **Two models are named for what they are not.** Big Pickle and Space Bunny
+  are both described by OpenCode as "stealth models" with no published vendor,
+  so any claim about which lab built either one is speculation. The earlier
+  draft of this section asserted a DeepSeek origin for Big Pickle from leaked
+  provider errors; that was removed, because a provider's error strings are not
+  a provenance record.
+
+**What was claimed earlier and did not survive checking.** An earlier draft of
+this section cited a benchmark page for a "50.8% resolve rate on Scale AI's SWE
+Atlas Codebase QnA" for Big Pickle, and a model-catalogue page for
+compatibility flags. Both URLs were checked on 1 October 2026: the first
+resolves to a technology news aggregator whose front page mentions neither
+Big Pickle nor SWE Atlas, and the second returns HTTP 404. The benchmark
+figure could not be traced to a source that exists, so it is gone rather than
+hedged. Several per-model performance claims (tool-call efficiency, tokens-per-
+turn, parameter counts) went with it, for the same reason.
+
+This is the repo's own rule 2 — treat an assistant's line-level claim as a
+candidate, not ground truth — catching an assistant. The failure was not a
+hallucinated statistic appearing from nowhere; it was a real-looking URL
+attached to a figure nobody had published. **A link that resolves is not
+evidence; the link has to resolve to the claim.**
 
 ### 4.4 The rules that keep the collaboration honest
 
@@ -458,6 +574,62 @@ happened:
    so it is instantly distinguishable from A.I.M's own notes. Comments explain
    *why*, not *what*; short notes use `#` (max two lines), longer ones use
    `"""` blocks.
+
+### 4.5 What the git history can and cannot show about model use
+
+This section exists because an earlier draft of this review implied the commit
+history could identify which model wrote what. It cannot, and the honest
+version is worth more than the impressive one.
+
+**What is measurable.** The tooling timeline is recoverable from the tree:
+
+| Evidence | First appears | What it shows |
+| --- | --- | --- |
+| `AGENTS.md` created | 15 Sep 2026 | The owner started writing down conventions for assistants |
+| Model rotation documented | 26 Sep 2026 | The free-tier rotation became a deliberate practice |
+| Scoped commit messages enforced | 29 Sep 2026 | Rule 12 promoted from rule of thumb after five violations |
+| This review's own corrections | 29–30 Sep 2026 | The guards were written as part of reviewing the review |
+
+Commit volume rose through the run — 154 in June, 227 in July, 108 in August,
+240 in September — which shows sustained work, not which tool did it.
+
+**What is not measurable.** Nothing in the repository records a model ID per
+commit. A conventional-commit subject, a comment marker and a docstring tell
+you *that* an assistant was involved, never *which* one. So the per-model
+usage ratings in `AGENTS.md` are **A.I.M's own assessment of his habits**, not
+a measurement, and the only part that is measured is the imbalance: two models
+logged most of the sessions and the four with genuinely large context windows
+logged the fewest.
+
+**Why this distinction matters for the career plan.** The post-university ladder
+is Data Analyst → Data Science → ML/AI. In that field, the ability to say "I
+used model X" is worth very little and "here is how I verified it" is worth a
+great deal. This section is deliberately the weakest claim in the document for
+that reason. The research correction above is the same lesson applied to a
+harder case: a plausible URL with an unverifiable figure behind it is worse
+than no claim, because it invites someone to rely on it.
+
+### 4.6 How useful each markdown file actually is
+
+A.I.M asked for an honest ranking of the repo's own documents, scored by how
+much they help a reader (or a future contributor) rather than by how much
+effort went into them.
+
+| File | Usefulness | Verdict |
+| --- | --- | --- |
+| `PROGRESSION.md` | 9/10 | The only document that explains *why* the project is shaped this way. Highest value per line, and the only one carrying the correction record |
+| `AGENTS.md` | 8/10 | Operational rules an assistant or contributor needs on the first day. Long, but almost every section is load-bearing |
+| `NOTES.md` | 7/10 | The engineering diary. Valuable as history, hard to navigate — superseded figures are still marked rather than removed, which costs a reader time |
+| `README.md` | 6/10 | Does its job as an entrance, but the tree and install instructions have outgrown the project and need pruning |
+| `FILE_RANKING_GUIDE.md` | 5/10 | Explains the scoring method well. Once the scores exist, the method is interesting rather than necessary |
+| `FILE_SCORES.md` | 4/10 | 160 entries of generated output. One command regenerates it, so almost none of it needs to be read by hand — and a reader who opens it by hand is reading the least interesting file in the repo |
+
+The honest summary is that this repository's documentation effort is
+front-loaded: two files carry most of the value, and the remaining four are
+either regenerable (`FILE_SCORES.md`) or better served by deletion than by
+maintenance. The meta-work around this project has been proportionally larger
+than its code work at times, which is worth noticing precisely because the
+career plan says the next gap is *applied* experience, not more process.
 
 ---
 
@@ -516,6 +688,7 @@ log unchanged has left the record behind. Newest first.
 
 | Date | Session | What changed | What it taught |
 | --- | --- | --- | --- |
+| 1 Oct 2026 | Free-model rotation verified against source | Researched all eight free OpenCode models and checked every claim against the `models.dev` registry and OpenCode's own Zen and data pages. Five of the drafted claims did not survive: a "50.8% SWE Atlas resolve rate" attributed to a URL that resolves to a technology news aggregator mentioning neither the model nor the benchmark; a model-catalogue URL returning 404; a DeepSeek origin for Big Pickle inferred from provider error strings; a claim that LongCat was the only zero-retention free model (Space Bunny is too); and seven per-model performance figures with no traceable source. Corrected the context and output columns against the registry's per-provider entries, which showed the free routes are narrower than the models behind them, and rewrote the contributor table to `main` only after finding it had counted a bot whose 7 commits sit on unmerged branches. | A link that resolves is not evidence; it has to resolve to the claim. The whole draft read as research because it had citations in it, and four of the six citations did not support the sentence they were attached to. The second lesson is that the repo's own rule 2 exists precisely to catch an assistant doing this, and it caught one - so the rule is load-bearing, not decorative. |
 | 30 Sep 2026 | Progression review & code review | Reconciled the ranking sheet: deduped a 167-entry document down to the 161 real files, aligned all 161 headings to their own tables, normalised 9 entries that rounded an exact `.5` downward against 50 that rounded up, and corrected the guide's pre-verified table and worked example. Corrected four stale figures in the docs (98%→95% branch, 171/182→148/159, "29 lines in 8 caps"→38 in 11, 1350→1527 tests). Fixed a silent failure in `execution_time.py` where a mistyped folder re-prompted with no output. Added 94 guard tests across three files. Wrote this review. | A fact written in prose and never recomputed is a fact that will be wrong. The ranking sheet had 112 of 161 headings disagreeing with their own tables and nobody noticed, because nothing compared them. The fix was not to re-read the prose more carefully — it was to make the stale number fail the suite. |
 | 30 Sep 2026 | Documentation brought into line with the rescore and the repair | Swept every markdown file for figures the guards do not cover, and found four that had gone stale: the benchmark's file count, the maintenance log's test count, the README's ranking description, and the two-tier weighting and tie-break, which were in the generated sheet but not explained in prose. Also fixed a defect in the scorer itself, where a note written as two adjacent strings rather than a `(sign, text)` tuple rendered a strength under **Weaknesses** with a stray `+`. | The guards check arithmetic - weighted cells against criteria, totals against the tree - and none of them reads a sentence. A ranking scheme documented only inside a generated table is invisible to anyone who has not regenerated it, which is how 'four criteria' and '161 files' survived a rescore to five and 160. The sign leak is the more interesting one: implicit string concatenation looks exactly like a tuple in source, so it passed the overlap assertion and shipped in main.py's entry until it was read by eye. Verified it bites by injecting the fault before trusting it. |
 | 30 Sep 2026 | main.py repaired; the IndentationError stub now runs | A.I.M added `pass` to `fundamental_topics/main.py`, which had carried a deliberate `IndentationError` since June. The file now parses, runs, and appears in coverage; two tests that asserted it raises `SyntaxError` were rewritten to assert the opposite, and its `pyproject.toml` coverage omit was removed. | A three-line fix that only *looks* small. It moved the measured denominator, the files-at-100% count, the benchmark FAIL count, the lowest-scored file, the mean from 84.4 to 84.6, and two documented figures in three files - and the guards caught every one, which is the first time they have all fired on the same change. The tests were the real cost: they pinned a defect that had been legitimately repaired, so correct code failed the suite. That is exactly what rule 11 warns about, and the fix is to move the test forward rather than break the code back. |

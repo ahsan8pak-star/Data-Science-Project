@@ -152,18 +152,80 @@ not a formality.
 
 ### Free-tier model rotation (OpenCode)
 
-The seven free OpenCode models rotated are: Big Pickle Free,
+The eight free OpenCode models rotated are: Big Pickle Free,
 Space Bunny Free, Nemotron 3.5 Lightning Free, Nemotron 3 Ultra
-Free, Ling 3.0 Flash Fin Free, Muse Spark 1.3 Free and MiMo
--V2.6-Flash Free. Rotation is selected in the OpenCode console,
-not from inside a conversation — an agent cannot switch its own
-model mid-session.
+Free, Ling 3.0 Flash Fin Free, Muse Spark 1.3 Contributor Free,
+MiMo-V2.6-Flash Free and LongCat 2.5 Preview Free. Rotation is
+selected in the OpenCode console, not from inside a conversation —
+an agent cannot switch its own model mid-session.
 
 An agent cannot reliably self-identify which model is processing a
 conversation — do not trust a claim of the form "I am model X" made by
 the agent itself. The same discipline applies regardless of model: give a
 Goal/Files/Constraints block, and treat any model's line-level claims as
 candidates to verify against the repo rather than ground truth.
+
+#### What each model is for
+
+The rotation is a habit, not a strategy, unless each model has a job. All
+eight free models share one endpoint
+(`https://opencode.ai/zen/v1/chat/completions`, provider
+`@ai-sdk/openai-compatible`), so the choice is about context and strength,
+not access. The limits below are OpenCode's own *route* limits, read from the
+`opencode` provider entries in the `models.dev` registry
+(`https://models.dev/api.json`, retrieved 1 October 2026). They are given as
+exact token counts because the rounded versions are ambiguous — 262,144 is
+256K, not 262K. The underlying model's full window is often larger, but the
+free route is what this project actually gets.
+
+| Model | Route context | Route output | Plan mode — use for | Build mode — use for |
+| --- | --- | --- | --- | --- |
+| Big Pickle Free | 200,000 | 32,000 | Quick code review, pattern matching | Focused code review, spot checks |
+| Space Bunny Free | 1,048,576 | 524,288 | Long-document reading, research synthesis | Large refactors spanning many files |
+| Nemotron 3.5 Lightning Free | 262,144 | 262,144 | Medium-complexity analysis | Test writing, verification |
+| Nemotron 3 Ultra Free | 1,000,000 | 128,000 | Complex multi-file analysis, architecture | Complex debugging, multi-step reasoning |
+| Ling 3.0 Flash Fin Free | 262,144 | 32,768 | Quick answers, simple lookups | Quick fixes, single-file edits |
+| Muse Spark 1.3 Contributor Free | 1,048,576 | 131,072 | Debugging, root-cause analysis | Architecture design, trade-off analysis |
+| MiMo-V2.6-Flash Free | 200,000 | 32,000 | Code generation, boilerplate | Commit messages, documentation |
+| LongCat 2.5 Preview Free | 1,000,000 | 131,072 | Long-context refactors, image-heavy review | Complex debugging, multi-step reasoning |
+
+Three rules of thumb follow from the table. A 256K model is the right tool for
+a single-file edit — a 1M model costs more in tokens and latency for context
+that is never used. A task should stay on one model across Plan and Build:
+switching mid-task discards the analysis and pays for it twice. And the free
+routes are not the models: MiMo-V2.6-Flash is served at 200,000 here and at
+1,048,576 by every paid provider, so a context figure read off a model card
+will not match what this project can actually use.
+
+**The rotation has been over-used on two models.** A.I.M reached for Big
+Pickle and Space Bunny by default, so both logged the most sessions without
+earning the widest role. The correct reading of the table is that Big Pickle
+is a *review* model, not a default builder: it is a 200K context model with
+no independent identity, and the four models with genuinely large windows
+(Nemotron 3 Ultra, Space Bunny, Muse Spark 1.3, LongCat 2.5) are the ones
+suited to the repo's long files. Ling and Nemotron 3.5 Lightning are the
+right answer for the small, mechanical work that filled Big Pickle's column.
+
+**Privacy is not uniform, and this is a public repository.** OpenCode's
+privacy section states a zero-retention default with named exceptions, so
+which model is selected decides what leaves the machine. Space Bunny and
+LongCat follow the zero-retention default. Big Pickle, MiMo-V2.6-Flash,
+MiMo-V2.5 and Ling 3.0 Flash Fin may use free-period data to improve the
+model. The two Nemotron free routes are NVIDIA *trial* endpoints: use is
+logged and NVIDIA's terms say not to submit personal or confidential data.
+Muse Spark 1.3 Contributor Free trades heavily discounted pricing for
+permission to use prompts and completions to train future Meta models. No
+credentials or `.env` values belong in a prompt on any of them (rule 6).
+
+**LongCat 2.5 Preview Free** is the newest addition (released 25 September
+2026) and, with Space Bunny, is one of two free models confirmed on the
+zero-retention default rather than an exception. It is free "for a limited
+time" with no published end date, so budget for the window closing without
+warning.
+
+Free-tier stability is uneven. `nemotron-3-ultra-free` and `big-pickle` have
+both thrown upstream errors, and the tier as a whole is prone to timeouts, so
+a failing model is a reason to switch, not a reason to retry.
 
 ## Running Things
 
