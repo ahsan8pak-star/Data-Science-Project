@@ -30,6 +30,7 @@ MODELS = [
     "Muse Spark 1.3 Contributor Free",
     "MiMo-V2.6-Flash Free",
     "LongCat 2.5 Preview Free",
+    "Fledge Alpha Free",
 ]
 
 
@@ -70,16 +71,16 @@ class TestRotationTables:
         for model in MODELS:
             assert model in agents_text, f"{model} is missing from AGENTS.md"
 
-    def test_the_rotation_names_eight_models(self, agents_text):
+    def test_the_rotation_names_nine_models(self, agents_text):
         """
         The count is stated in prose in two places, so a model added to the
         table without updating them leaves the document self-contradictory.
         """
-        assert "eight free" in agents_text, (
+        assert "nine free" in agents_text, (
             "AGENTS.md no longer states how many free models are rotated"
         )
-        assert "All\neight free models share one endpoint" in agents_text or \
-            "eight free models share one endpoint" in agents_text, (
+        assert "All\nnine free models share one endpoint" in agents_text or \
+            "nine free models share one endpoint" in agents_text, (
             "the shared-endpoint sentence does not agree with the model count"
         )
 
