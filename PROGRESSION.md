@@ -30,7 +30,7 @@ Where a number is an estimate rather than a measurement, it says so.
 | Commits | 714 at the end of the run (historical — see the note below) |
 | Peak effort | 28–36 h/week recorded across most weeks |
 | Source modules | 160 non-`__init__` files under `python/` |
-| Test suite | 1543 tests, all passing |
+| Test suite | 1547 tests, all passing |
 | Coverage | 99% line, 95% branch |
 | Quality mean | 84.6/100 across 160 ranked files |
 | Mirrors | 4 (GitHub project + backup, GitLab project + backup) |
@@ -520,6 +520,34 @@ actually read, because it is addressed to them rather than to a future
 reader. Which is the point: a convention that only appears in a document
 nobody re-reads has not been enforced, it has been filed.
 
+#### The pre-flight, and why the choice is not about speed
+
+The rotation grew a selection rule after the tables above were written, because
+a list of models is a menu and not a decision. A.I.M's instruction was blunt:
+before a model executes, confirm its token usage, confirm how much of the
+allowance is left, and confirm that the model is the applicable one for the
+task at hand — on efficiency, correctness and speed, with speed the *least*
+weight.
+
+That last clause is the whole rule, and it reverses the obvious reading. Speed
+is usually the first question asked of a free model, because a free tier is
+also a slow one and the temptation is to pick whatever answers fastest. But a
+fast answer from a 200,000-token window on a task that needs a 1M window is not
+a cheaper answer, it is a wrong answer that has to be redone — and the redo
+costs more time than the saving. So the order is fixed: tokens first (does the
+task fit the limits), allowance second (how much is unspent, which only
+A.I.M can read from the console), applicability third (is this the model's
+job), with speed only ever breaking a tie between models that already fit.
+
+The correction this produced is visible in the model tables themselves. Each
+row now ends with what the model is actually used for *after* correction, and
+several of those corrections moved a model away from the role its own limits
+argue against: Big Pickle from "default builder" to review only, MiMo from
+"code generation" to boilerplate and docs only, because a 32,000 output
+ceiling cannot finish a patch it has begun. That is the pre-flight question
+three asked once per model and answered from a number rather than a
+preference.
+
 #### What the research shows about each model
 
 The route limits below are OpenCode's own, not the model's full capability, and
@@ -532,17 +560,23 @@ counts, because the rounded versions are ambiguous: 262,144 is 256K, not
 token volume on 1 October 2026 (<https://opencode.ai/data/>) and are a
 snapshot, not a ranking to plan around.
 
-| Model | Route context | Route output | Free-period data used to improve the model? | Daily volume on 1 Oct |
-| --- | --- | --- | --- | --- |
-| Space Bunny Free | 1,048,576 | 524,288 | No — zero-retention | 57T (most-used model) |
-| Muse Spark 1.3 Contributor Free | 1,048,576 | 131,072 | Yes — trains future Meta models | 32T |
-| MiMo-V2.6-Flash Free | 200,000 | 32,000 | Yes | 8.7T |
-| Nemotron 3 Ultra Free | 1,000,000 | 128,000 | NVIDIA trial terms; use is logged | 3.8T |
-| LongCat 2.5 Preview Free | 1,000,000 | 131,072 | No — zero-retention | 2.3T |
-| Ling 3.0 Flash Fin Free | 262,144 | 32,768 | Yes | 355B |
-| Nemotron 3.5 Lightning Free | 262,144 | 262,144 | NVIDIA trial terms; use is logged | 260B |
-| Big Pickle Free | 200,000 | 32,000 | Yes | below the published top-18 |
-| Fledge Alpha Free | 1,048,576 | 131,072 | Unconfirmed — not in OpenCode's published privacy table as of 2 October 2026 | not in the published rankings (released 1 October 2026) |
+| Model | Route context | Route output | Free-period data used to improve the model? | Weekly tokens | Share of listed traffic |
+| --- | --- | --- | --- | --- | --- |
+| Space Bunny Free | 1,048,576 | 524,288 | No — zero-retention | 61T | 38.00% |
+| Muse Spark 1.3 Contributor Free | 1,048,576 | 131,072 | Yes — trains future Meta models | 34T | 21.18% |
+| MiMo-V2.6-Flash Free | 200,000 | 32,000 | Yes | 9.4T | 5.86% |
+| Nemotron 3 Ultra Free | 1,000,000 | 128,000 | NVIDIA trial terms; use is logged | 3.9T | 2.43% |
+| LongCat 2.5 Preview Free | 1,000,000 | 131,072 | No — zero-retention | 2.8T | 1.74% |
+| Nemotron 3.5 Lightning Free | 262,144 | 262,144 | NVIDIA trial terms; use is logged | 292B | 0.18% |
+| Ling 3.0 Flash Fin Free | 262,144 | 32,768 | Yes | 256B | 0.16% |
+| Big Pickle Free | 200,000 | 32,000 | Yes | below the published top-18 | unmeasured |
+| Fledge Alpha Free | 1,048,576 | 131,072 | Unconfirmed — not in OpenCode's published privacy table as of 2 October 2026 | below the published top-18 | unmeasured |
+
+The traffic columns are OpenCode's published weekly figures for the week
+ending 2 October 2026, expressed as a share of the 160.524T tokens across the
+eighteen models that page lists — a share of the listed models, not of all
+OpenCode traffic. They replace an earlier daily snapshot taken on 1 October,
+which is the same shape of number at a different resolution.
 
 The table is sorted by observed volume rather than by role, because the
 ordering is the finding: the two models A.I.M reached for by default are the
@@ -578,13 +612,13 @@ line is true and useless.
   1.3 Contributor) is explicitly a training-data trade. One (Fledge Alpha Free)
   is not in OpenCode's published privacy table at all. Six of the nine send
   prompts somewhere that is not covered by a verified zero-retention default,
-  and the seventh undocumented entry is worse than any named exception on a
-  public repository, which is why rule 6 exists.
+  and the undocumented entry is worse than any named exception on a public
+  repository, which is why rule 6 exists.
 - **The free tier is popular, so it is not private by default.** The four
   large-window models in the rotation — Space Bunny, Muse Spark 1.3, Nemotron 3
-  Ultra, LongCat 2.5 —   are also four of the seven most-used models on OpenCode. The fifth
-  large-window entry — Fledge Alpha Free — is too new to appear on the same
-  snapshot. Being on a free tier says nothing about who else can read the
+  Ultra, LongCat 2.5 — are also four of the seven most-used models on OpenCode.
+  The fifth large-window entry, Fledge Alpha Free, is too new to appear on the
+  same snapshot. Being on a free tier says nothing about who else can read the
   prompt.
 - **Two models are named for what they are not.** Big Pickle and Space Bunny
   are both described by OpenCode as "stealth models" with no published vendor,
@@ -592,6 +626,14 @@ line is true and useless.
   draft of this section asserted a DeepSeek origin for Big Pickle from leaked
   provider errors; that was removed, because a provider's error strings are not
   a provenance record.
+
+- **The newest model is also the least proven, and it failed in the first
+  session.** Fledge Alpha Free released on 1 October 2026, and on 2 October it
+  returned `Upstream request failed: Endpoint is unavailable.` That is now
+  recorded in `AGENTS.md` as a stability fact alongside `nemotron-3-ultra-free`
+  and `big-pickle`, both of which had already thrown upstream errors. Three of
+  nine free routes are now known to be unstable, which is a stronger argument
+  for the hand-off rule than any of the three had been on its own.
 
 **What was claimed earlier and did not survive checking.** An earlier draft of
 this section cited a benchmark page for a "50.8% resolve rate on Scale AI's SWE
@@ -732,7 +774,7 @@ mirrors were found lagging at an older commit.
 
 | | |
 | --- | --- |
-| Tests | 1543 passing, 0 failing |
+| Tests | 1547 passing, 0 failing |
 | Coverage | 99% line, 95% branch |
 | Quality mean | 84.6/100 over 160 files |
 | Document drift | 0 known — all numeric claims test-guarded |
@@ -753,12 +795,13 @@ log unchanged has left the record behind. Newest first.
 
 | Date | Session | What changed | What it taught |
 | --- | --- | --- | --- |
+| 2 Oct 2026 | Pre-flight added, model categories corrected, folder move followed through | A.I.M asked for a selection rule before every model runs: confirm token usage, confirm percentage left, confirm which model is applicable, with speed the least weight. Added as a three-question pre-flight to AGENTS.md, noting that only A.I.M can read the remaining allowance from the console — an agent that cannot see it cannot claim it passed. Extended the pros/cons table to name each model's main purpose, main assets, weaknesses and the applied use that survived correction, and added a tokens-and-share table from OpenCode's published weekly figures (160.524T tokens across eighteen listed models; the rotation's own models are 69.6% of that, Space Bunny alone 38%, Big Pickle and Fledge Alpha Free unmeasured). Recorded Fledge Alpha Free's `Upstream request failed: Endpoint is unavailable.` as a stability fact, making three of nine free routes known-unstable. Also followed through the last commit's folder reorganisation: `university_courseworks/` moved to `year1/semester1/cs1ip/`, `year2/modules/` and `university_modules/`, and the pytest paths, `test_courseworks.py`, `convert_hash_comment_runs.py` and the AGENTS/NOTES/UNIVERSITY_MODULES references were all repointed. Suite 1543 to 1547. | Popularity is not suitability, and the two claims that looked like evidence for it are not: Big Pickle is the rotation's most-used model yet is unmeasured on the platform's own traffic table, and Fledge Alpha Free was released the day before the snapshot, so it has no measured share at all. The honest cell is `unmeasured`, and a guard now fails if anyone fills it with a number. The second lesson is that a folder move is an API change: three of the nine models in the rotation table are referenced by pytest path, and every one of them was silently skipping rather than failing. |
 | 2 Oct 2026 | Fledge Alpha Free added to the rotation | Added Fledge Alpha Free to the rotation tables and hand-off columns in AGENTS.md and PROGRESSION.md, and to the MODELS list in the rotation-docs guard, after verifying it against models.dev (free, 1,048,576 context, 131,072 output, multimodal input, released 1 October 2026; not yet in OpenCode's published privacy or pricing table). Bumped every stated model count from eight to nine. | A newly released model arrives with a route limit but no track record, so it gets a conservative handling: its row exists, it carries a reason to pick it, and it is excluded from the zero-retention claims until OpenCode documents it. |
-| 2 Oct 2026 | AI-tooling chronology logged and guarded | Reconstructed the usage chronology of the AI tooling from the git log and added it as a dated table in section 4.7. Added `tests/test_scripts/test_progression_chronology.py` (five checks: table exists with the expected row shape, each date parseable, the dates in chronological order, the model names present in the table all members of `MODELS`, and each row carrying commit-evidence). Added two AGENTS.md house-style bullets: multi-intent prompts are split before acting, and a model-scoped review fallback for bundled asks. Refreshed the stated suite count from 1538 to 1543 in AGENTS.md, PROGRESSION.md and FILE_RANKING_GUIDE.md. | A chronology that is not guarded is just prose twice removed from the tree. The rules applied here were the same three that govern the rotation guard: dates must parse, order must be chronological, and any model name that appears must exist in the same list the rotation table uses — here `MODELS` in `test_model_rotation_docs.py`. |
+| 2 Oct 2026 | AI-tooling chronology logged and guarded | Reconstructed the usage chronology of the AI tooling from the git log and added it as a dated table in section 4.7. Added `tests/test_scripts/test_progression_chronology.py` (five checks: table exists with the expected row shape, each date parseable, the dates in chronological order, the model names present in the table all members of `MODELS`, and each row carrying commit-evidence). Added two AGENTS.md house-style bullets: multi-intent prompts are split before acting, and a model-scoped review fallback for bundled asks. Refreshed the stated suite count from 1538 to 1547 in AGENTS.md, PROGRESSION.md and FILE_RANKING_GUIDE.md. | A chronology that is not guarded is just prose twice removed from the tree. The rules applied here were the same three that govern the rotation guard: dates must parse, order must be chronological, and any model name that appears must exist in the same list the rotation table uses — here `MODELS` in `test_model_rotation_docs.py`. |
 | 2 Oct 2026 | Folder moves, docs aligned | Moved `FILE_SCORES.md` and `FILE_RANKING_GUIDE.md` under `file_scores_ranking/` and the four `requirements*` files plus `requirements_sync.py` under `requirements/`; updated the path constants in the two test files and `score_ranking.py`, the Dependabot `directory`, `pyproject.toml`'s `pythonpath`, and the README tree. | A folder move is an API change for everything that resolves a path by name. The four places a move breaks were found by name-references, not by globbing: a script that writes to a moved path (`scripts/score_ranking.py`'s output), an import (`import requirements_sync`, fixed via `pythonpath`), a test file that builds `REPO_ROOT / "<filename>"` from the file's name, and the Dependabot directory setting. |
 | 1 Oct 2026 | Pros, cons and the hand-off rule | Added a pros/cons and main-purpose table for all eight free models beside the pick-a-model table, plus a hand-off protocol: a model that judges the task wrong for it must decline and name three alternatives ranked best-first, with a stated reason. Two constraints keep it honest — a hand-off is a *request* rather than a switch, because model selection happens in the OpenCode console and an agent cannot move itself; and retention overrides fit, so a credential-bearing prompt narrows the field to the two zero-retention models whatever the ranking says. Added `tests/test_scripts/test_model_rotation_docs.py` (11 tests) and bite-tested four mutations of it. | Writing the ceilings down is what makes declining possible. Before this, "I am not the right model for this" had no stated basis, and a model under pressure to produce something would produce something. The ceilings are measured numbers rather than opinions, so a decline cites evidence. Two of the four mutations did not bite at first, and both were bugs in the test rather than the document: matching single lines flagged correct prose, because the section is hard-wrapped at 80 columns and a sentence's evidence often sits two lines below it; and an assertion demanding that each hand-off mention all seven other models contradicted the rule's own ranked-three. Only two mutations were needed to prove the guard, and one of those had to be re-run because the first version edited a string that did not exist in the file - a false pass that a green run alone would not have revealed. |
 | 1 Oct 2026 | Free-model rotation verified against source | Researched all eight free OpenCode models and checked every claim against the `models.dev` registry and OpenCode's own Zen and data pages. Five of the drafted claims did not survive: a "50.8% SWE Atlas resolve rate" attributed to a URL that resolves to a technology news aggregator mentioning neither the model nor the benchmark; a model-catalogue URL returning 404; a DeepSeek origin for Big Pickle inferred from provider error strings; a claim that LongCat was the only zero-retention free model (Space Bunny is too); and seven per-model performance figures with no traceable source. Corrected the context and output columns against the registry's per-provider entries, which showed the free routes are narrower than the models behind them, and rewrote the contributor table to `main` only after finding it had counted a bot whose 7 commits sit on unmerged branches. | A link that resolves is not evidence; it has to resolve to the claim. The whole draft read as research because it had citations in it, and four of the six citations did not support the sentence they were attached to. The second lesson is that the repo's own rule 2 exists precisely to catch an assistant doing this, and it caught one - so the rule is load-bearing, not decorative. |
-| 30 Sep 2026 | Progression review & code review | Reconciled the ranking sheet: deduped a 167-entry document down to the 161 real files, aligned all 161 headings to their own tables, normalised 9 entries that rounded an exact `.5` downward against 50 that rounded up, and corrected the guide's pre-verified table and worked example. Corrected four stale figures in the docs (98%→95% branch, 171/182→148/159, "29 lines in 8 caps"→38 in 11, 1350→1543 tests). Fixed a silent failure in `execution_time.py` where a mistyped folder re-prompted with no output. Added 94 guard tests across three files. Wrote this review. | A fact written in prose and never recomputed is a fact that will be wrong. The ranking sheet had 112 of 161 headings disagreeing with their own tables and nobody noticed, because nothing compared them. The fix was not to re-read the prose more carefully — it was to make the stale number fail the suite. |
+| 30 Sep 2026 | Progression review & code review | Reconciled the ranking sheet: deduped a 167-entry document down to the 161 real files, aligned all 161 headings to their own tables, normalised 9 entries that rounded an exact `.5` downward against 50 that rounded up, and corrected the guide's pre-verified table and worked example. Corrected four stale figures in the docs (98%→95% branch, 171/182→148/159, "29 lines in 8 caps"→38 in 11, 1350→1547 tests). Fixed a silent failure in `execution_time.py` where a mistyped folder re-prompted with no output. Added 94 guard tests across three files. Wrote this review. | A fact written in prose and never recomputed is a fact that will be wrong. The ranking sheet had 112 of 161 headings disagreeing with their own tables and nobody noticed, because nothing compared them. The fix was not to re-read the prose more carefully — it was to make the stale number fail the suite. |
 | 30 Sep 2026 | Documentation brought into line with the rescore and the repair | Swept every markdown file for figures the guards do not cover, and found four that had gone stale: the benchmark's file count, the maintenance log's test count, the README's ranking description, and the two-tier weighting and tie-break, which were in the generated sheet but not explained in prose. Also fixed a defect in the scorer itself, where a note written as two adjacent strings rather than a `(sign, text)` tuple rendered a strength under **Weaknesses** with a stray `+`. | The guards check arithmetic - weighted cells against criteria, totals against the tree - and none of them reads a sentence. A ranking scheme documented only inside a generated table is invisible to anyone who has not regenerated it, which is how 'four criteria' and '161 files' survived a rescore to five and 160. The sign leak is the more interesting one: implicit string concatenation looks exactly like a tuple in source, so it passed the overlap assertion and shipped in main.py's entry until it was read by eye. Verified it bites by injecting the fault before trusting it. |
 | 30 Sep 2026 | main.py repaired; the IndentationError stub now runs | A.I.M added `pass` to `fundamental_topics/main.py`, which had carried a deliberate `IndentationError` since June. The file now parses, runs, and appears in coverage; two tests that asserted it raises `SyntaxError` were rewritten to assert the opposite, and its `pyproject.toml` coverage omit was removed. | A three-line fix that only *looks* small. It moved the measured denominator, the files-at-100% count, the benchmark FAIL count, the lowest-scored file, the mean from 84.4 to 84.6, and two documented figures in three files - and the guards caught every one, which is the first time they have all fired on the same change. The tests were the real cost: they pinned a defect that had been legitimately repaired, so correct code failed the suite. That is exactly what rule 11 warns about, and the fix is to move the test forward rather than break the code back. |
 | 30 Sep 2026 | File ranking rescored on two tiers, Risk added | Rescored all 160 files on five criteria with per-tier weighting — learning material judged on readability (35%), applied projects on fixability and robustness (30% each) — and made every score generated from measured signals by `scripts/measure_ranking_signals.py` and `scripts/score_ranking.py`. Mean 84.4, spread 50-92, with 43 A / 89 B / 25 C / 2 D / 1 E. | The first pass scored four criteria with one flat weighting and was written by eye, so a disputed mark could not be traced to anything. Three findings changed the shape of the work: 81 of 160 files have no functions at all, and a rubric that awarded near-full marks for 'nothing undocumented' rewarded exactly the flat scripts a reader struggles with; starting every criterion from 100 and deducting produced a 98.4 mean that could not tell a perfect file from a broken one; and float arithmetic made the sheet disagree with its own guard by a tenth, because 96 * 0.15 is 14.399999999999999 in binary. |
