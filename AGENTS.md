@@ -59,6 +59,17 @@ agent (or future human) working on this project should read this first.
   results of the commands shown).
 - **Verification culture:** show the exact command and its output for every
   change; always cite commands the owner can re-run themselves.
+- **Multi-intent prompts are split before acting.** When one message bundles
+  several different asks, name them explicitly and confirm the intended
+  split before doing the work. If an intent is out of scope for OpenCode's
+  role (for example, experimental Postgres work belongs to `postgresql/`),
+  say so and defer rather than silently ignoring it.
+- **Model-scoped review on multi-intent prompts:** when one of A.I.M's
+  instructions bundles several intents, the model names each intent it has
+  heard, picks the one it is scoped correctly for, and hands the remainder
+  off using the model-scoped ranked fallback in §Free-tier model rotation,
+  rather than blending them into one answer. If the split is genuinely
+  unclear, the model asks one clarifying question before acting.
 - **House style:** British English, SPaG-clean; comments explain *why* only
   (no new comments unless useful or explicitly requested), matching the
   one-line-statement-then-reason style already present. **Short vs block
@@ -263,7 +274,7 @@ expensive here than an honest hand-off.
 
 When declining, name **three other models in ranked order, best first**, and
 give the reason in one line each. The ranking is the part that matters: a list
-of seven names is noise, a ranked three is a decision A.I.M can act on without
+of eight names is noise, a ranked three is a decision A.I.M can act on without
 researching.
 
 An agent **cannot switch models mid-session** — selection happens in the
@@ -624,7 +635,7 @@ or the correction is half-applied.
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1538 passing tests, ~99% line coverage and 95% branch coverage (149 of the
+- 1543 passing tests, ~99% line coverage and 95% branch coverage (149 of the
   160 measured `python/` files at 100% lines, including both music-player
   GUIs; the 160 non-`__init__.py` files are the number a docstring sweep
   covers). The 160 counts files that carry at least one statement. The
@@ -731,7 +742,7 @@ or the correction is half-applied.
 the stages of learning and what evidences each, the corrections and mistakes
 made by both A.I.M and the assistants, and how the AI collaboration was
 arranged - including the point where Claude and Gemini were replaced by
-OpenCode for terminal work, and the seven-model free rotation. Its numeric
+OpenCode for terminal work, and the nine-model free rotation. Its numeric
 claims are test-guarded by `tests/test_scripts/test_repo_doc_numbers.py`, so a
 stale figure there fails the suite like any other.
 
