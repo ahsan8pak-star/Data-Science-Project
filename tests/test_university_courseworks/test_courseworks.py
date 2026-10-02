@@ -1,6 +1,6 @@
 """
 Pytest suite for the Python coursework programs under
-`university_courseworks/year1/cs1ip/`.
+`university_courseworks/year1/semester1/cs1ip/`.
 
 Every module is loaded with conftest.load_module() so its function body is
 available without triggering any `if __name__ == "__main__":` interaction.

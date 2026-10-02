@@ -20,7 +20,7 @@ PROJECT_ROOT = Path(__file__).resolve()
 while PROJECT_ROOT.name != 'Data-Science-Project':
     PROJECT_ROOT = PROJECT_ROOT.parent
 
-CS1IP = PROJECT_ROOT / 'university_courseworks' / 'year1' / 'cs1ip'
+CS1IP = PROJECT_ROOT / 'university_courseworks' / 'year1' / 'semester1' / 'cs1ip'
 COURSEWORK1 = CS1IP / 'coursework1'
 COURSEWORK2 = CS1IP / 'coursework2'
 
