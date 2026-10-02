@@ -6,7 +6,7 @@
 version: 2
 updates:
   - package-ecosystem: "pip" # Updated to explicitly target your Python environment
-    directory: "/" # Location of package manifests (looks for requirements.txt in root)
+    directory: "/requirements" # Location of package manifests (requirements.txt now lives under requirements/)
     schedule:
       interval: "weekly"
 

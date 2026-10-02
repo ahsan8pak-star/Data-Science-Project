@@ -178,7 +178,7 @@ class TestRepoLevelDataFiles:
          "requirements-win_dev.in"],
     )
     def test_requirements_file_is_populated_and_pinned(self, name):
-        path = REPO_ROOT / name
+        path = REPO_ROOT / "requirements" / name
         if not path.exists():
             pytest.skip(f"{name} is not present")
         lines = [
