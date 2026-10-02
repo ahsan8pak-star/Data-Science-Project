@@ -6,7 +6,7 @@ It mirrors the structure of `YEAR2_SEMESTER1.md` (same folder) and sits as a sta
 that `README.md` and `NOTES.md` remain untouched.
 
 > **CS2AI note.** The CS2AI briefing now lives at
-> `university_courseworks/year2/CS2AI~0022~20267.htm` (verified against the
+> `university_courseworks/year2/modules/CS2AI~0022~20267.htm` (verified against the
 > live catalogue, 1 April 2026). Syllabus below follows the catalogue aims and
 > indicative content.
 > Term dates follow the official University of Reading 2026/27 calendar.

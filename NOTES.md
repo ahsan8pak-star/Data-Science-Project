@@ -198,7 +198,7 @@ weekdays. Term-time total is therefore ~20 hrs/week (Wed 6 + Tue 2 + Fri 4 +
 Sat 2 + Sun 2 + Mon 2 + Thu 2).
 
 Each holiday break carries its own weekly table - `## Holiday Weekly Tables`
-in `university_courseworks/year2/YEAR2_SEMESTER1.md` and
+in `university_courseworks/year2/modules/YEAR2_SEMESTER1.md` and
 `YEAR2_SEMESTER2.md`. All follow the same shape (weekdays 9 AM - 9 PM Times
 Off, weekends fixed 7 PM - 9 PM) and differ only in focus: Week Off weeks and
 Easter are revision + catch-up, assessment periods are module review + minor
@@ -307,7 +307,7 @@ University status: Year 2 undergraduate (2026/27) at **University of Reading**
 (Department of Computer Science), data-science degree pathway - `CS2DA`/
 `CS2PP`/`CS2SE` (Semester 1), `CS2AI`/`CS2ON`/`CS2SD` (Semester 2). Dates and
 module objectives for all three years (2025/26, 2026/27, 2027/28) with the
-official module-catalogue links live in `university_courseworks/UNIVERSITY_MODULES.md`. Baseline
+official module-catalogue links live in `university_courseworks/university_modules/UNIVERSITY_MODULES.md`. Baseline
 covers Years 1-2; the Year 3 (2027/28) plan starts in summer 2027
 (`CS3IP`/`CS3AM` compulsory, electives `CS3DV`/`CS3VR`/`CS3BC`/`CS3CS`/
 `CS3IV`/`CS3TM`).

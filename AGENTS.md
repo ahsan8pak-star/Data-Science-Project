@@ -30,8 +30,8 @@ agent (or future human) working on this project should read this first.
   `CS2AI` Artificial Intelligence, `CS2ON` Operating Systems and Computer
   Networking, `CS2SD` Software Systems Design.
 - Full week-by-week plans and readiness gaps live in the standalone
-  `university_courseworks/year2/YEAR2_SEMESTER1.md` and
-  `university_courseworks/year2/YEAR2_SEMESTER2.md`; keep them in sync when the
+  `university_courseworks/year2/modules/YEAR2_SEMESTER1.md` and
+  `university_courseworks/year2/modules/YEAR2_SEMESTER2.md`; keep them in sync when the
   module briefings or term dates change.
 
 ## Career Direction
@@ -240,9 +240,67 @@ free route — the same shape as Muse Spark 1.3 and LongCat 2.5 — and it does
 not yet appear in OpenCode's published pricing or privacy table, so no
 zero-retention claim can be attached to it.
 
-Free-tier stability is uneven. `nemotron-3-ultra-free` and `big-pickle` have
-both thrown upstream errors, and the tier as a whole is prone to timeouts, so
-a failing model is a reason to switch, not a reason to retry.
+Free-tier stability is uneven. `nemotron-3-ultra-free`, `big-pickle` and
+`fledge-alpha-free` have all thrown upstream errors — the last of those
+surfaced as `Upstream request failed: Endpoint is unavailable.` on 2 October
+2026 — and the tier as a whole is prone to timeouts, so a failing model is a
+reason to switch, not a reason to retry.
+
+#### Tokens and usage share, as published
+
+The pre-flight needs two numbers per model that are not the same thing: what
+the route will accept, and how much of the platform's traffic the model
+actually carries. Both are snapshots, dated, and both move. Route limits come
+from the `models.dev` registry (`https://models.dev/api.json`, retrieved
+2 October 2026); traffic is OpenCode's own published weekly figure
+(<https://opencode.ai/data/>, week ending 2 October 2026), expressed as a
+share of the 160.524T tokens across the eighteen models that page lists.
+
+| Model | Route context | Route output | Weekly tokens | Share of listed traffic |
+| --- | --- | --- | --- | --- |
+| Space Bunny Free | 1,048,576 | 524,288 | 61T | 38.00% |
+| Muse Spark 1.3 Contributor Free | 1,048,576 | 131,072 | 34T | 21.18% |
+| MiMo-V2.6-Flash Free | 200,000 | 32,000 | 9.4T | 5.86% |
+| Nemotron 3 Ultra Free | 1,000,000 | 128,000 | 3.9T | 2.43% |
+| LongCat 2.5 Preview Free | 1,000,000 | 131,072 | 2.8T | 1.74% |
+| Nemotron 3.5 Lightning Free | 262,144 | 262,144 | 292B | 0.18% |
+| Ling 3.0 Flash Fin Free | 262,144 | 32,768 | 256B | 0.16% |
+| Big Pickle Free | 200,000 | 32,000 | below the published top-18 | unmeasured |
+| Fledge Alpha Free | 1,048,576 | 131,072 | below the published top-18 | unmeasured |
+
+Three readings of that table matter more than the numbers themselves:
+
+- **The rotation's own models are 69.6% of listed traffic**, so the rotation is
+  not a fringe habit — but that figure is dominated by one model. Space Bunny
+  alone is 38%, and DeepSeek models that are *not* rotated account for a
+  further 27%, which says the free tier's popular choices are wider than the
+  nine the rotation uses.
+- **Popularity is not suitability.** Big Pickle is unmeasured on the same table
+  where it has been the rotation's most-used model, because platform-wide
+  traffic and this repo's needs are different questions.
+- **Two entries have no measured share at all.** Fledge Alpha Free was released
+  the day before this snapshot. "Unmeasured" is the honest cell; a percentage
+  would be a guess.
+
+#### Before each run: the pre-flight check
+
+A model is selected before it starts, not after it fails. Three questions, in
+order, and the third is the one that matters:
+
+1. **Tokens.** Does the task fit the model's route limits — the context it can
+   read and the output it can emit? A patch larger than the output ceiling is a
+   truncated patch, so the ceiling decides before the task does.
+2. **Percentage left.** How much of the day's or month's allowance is
+   unspent? **An agent cannot read this.** The console owns it, so A.I.M states
+   it before a long run, and an agent that is told the remaining percentage is
+   low treats that as a reason to prefer a cheaper route or to hand off.
+3. **Applicability.** Is this the model's job at all — purpose and context
+   budget both? **Correctness and context drive the choice; speed is the last
+   consideration.** A faster model that answers from a narrower window is the
+   wrong model for a long refactor, however quick it returns a first draft.
+
+If the answer to (3) is no, hand off rather than continue — the ranked table
+below is the mechanism, and the privacy override below it outranks it.
 
 #### Pros, cons, and main purpose of each model
 
@@ -251,17 +309,17 @@ The table above says when to *pick* a model. This one says what each model is
 a task is wrong for it. Limits are the route limits above; privacy and
 stability notes are the verified facts recorded earlier on this page.
 
-| Model | Main purpose | Pros | Cons |
-| --- | --- | --- | --- |
-| Big Pickle Free | Focused code review and spot checks | Reliable for pattern-matching and "is this obviously wrong" questions; the smallest window in the rotation, so a review pass carries little context | Tied-smallest output ceiling (32,000); no published vendor, so no provenance; free-period data may train the model; has thrown upstream errors |
-| Space Bunny Free | Long-document reading and large multi-file refactors | Largest window (1,048,576) and by far the largest output budget (524,288) in the rotation, so a long patch cannot be truncated; zero-retention | The most-used model on OpenCode, so it is the default trap — heavy use is not the same as suitability; zero-retention does not make a prompt private when everyone else is on the same route |
-| Nemotron 3.5 Lightning Free | Test writing, verification, medium-complexity analysis | Its output ceiling equals its window (262,144), so it can emit a long test file or a long report in one turn without truncating | Mid-sized window, so a whole-repo read is out of reach; NVIDIA *trial* endpoint that logs use, so nothing personal or confidential; a logged endpoint is the wrong choice for a private prompt |
-| Nemotron 3 Ultra Free | Complex debugging, root-cause analysis, multi-step reasoning | 1,000,000 window for whole-repo reasoning, and built for hard multi-step problems | Smallest output ceiling of the large-window models (128,000, well below its own window), so a huge single response will not fit; NVIDIA *trial* endpoint that logs use; already known to throw upstream errors and time out |
-| Ling 3.0 Flash Fin Free | Quick fixes, single-file edits, small lookups | Fast and cheap for small, well-specified edits; adequate reasoning support | One of the three smallest output ceilings (32,768), and the smallest of the 256K models; named for a finance specialisation, so it is not the obvious first choice for general code reasoning; free-period data may train the model |
-| Muse Spark 1.3 Contributor Free | Root-cause debugging, architecture and trade-off analysis | Largest window in the rotation (1,048,576) alongside Space Bunny, and the model to reach for when the answer is "why does this break" | Explicitly trades prompts and completions for training future Meta models, which is the wrong trade on a public repo; 131,072 output ceiling, under a fifth of Space Bunny's; the least private of the nine |
-| MiMo-V2.6-Flash Free | Boilerplate, documentation, commit messages | A 200,000 window is ample for a docs or commit-message task, and it is one of the two cheapest routes to hand repetitive generation to | Tied-smallest window and output (200,000 / 32,000) in the rotation, despite the same release being 1,048,576 on paid routes; free-period data may train the model; weak choice for anything needing careful reasoning |
-| LongCat 2.5 Preview Free | Long-context refactors, image-heavy review, complex debugging | 1,000,000 window; zero-retention, so the safer large-window option; released 25 September 2026 | A "Preview" build released 25 September 2026 with no published end date to its free period, so both its behaviour and its availability can change without notice |
-| Fledge Alpha Free | Long-context refactors, code generation, multi-file agents | Free on the same endpoint; 1,048,576 context and 131,072 output on the free route; multimodal input (text and image) | Released 1 October 2026 and not yet listed in OpenCode's published pricing or privacy table, so its retention and availability stability are undocumented |
+| Model | Main purpose | Main assets | Weaknesses | Corrected applied use |
+| --- | --- | --- | --- | --- |
+| Big Pickle Free | Focused code review and spot checks | Reliable pattern matching; smallest window in the rotation, so a review pass carries little context | Tied-smallest output ceiling (32,000); no published vendor, so no provenance; free-period data may train the model; has thrown upstream errors | Review only. Corrected from "default builder", which was the over-use the rotation records |
+| Space Bunny Free | Long-document reading and large multi-file refactors | Largest window (1,048,576) and by far the largest output budget (524,288) in the rotation, so a long patch cannot be truncated; zero-retention | 38% of all published OpenCode traffic, so it is the default trap — heavy use is not the same as suitability; zero-retention does not make a prompt private when everyone else is on the same route | Large multi-file refactors and long-document reading. Corrected from "default for most build tasks", which is what made it the second over-used model |
+| Nemotron 3.5 Lightning Free | Test writing, verification, medium-complexity analysis | Its output ceiling equals its window (262,144), so it can emit a long test file or a long report in one turn without truncating | Mid-sized window, so a whole-repo read is out of reach; NVIDIA *trial* endpoint that logs use, so nothing personal or confidential; a logged endpoint is the wrong choice for a private prompt | Test writing and verification, and the mechanical work that filled Big Pickle's column. Corrected from "medium-complexity analysis", which understated its output ceiling |
+| Nemotron 3 Ultra Free | Complex debugging, root-cause analysis, multi-step reasoning | 1,000,000 window for whole-repo reasoning, and built for hard multi-step problems | Smallest output ceiling of the large-window models (128,000, well below its own window), so a huge single response will not fit; NVIDIA *trial* endpoint that logs use; already known to throw upstream errors and time out | Whole-repo debugging and architecture. Corrected from "complex debugging", which did not name the output ceiling that disqualifies it for patch-writing |
+| Ling 3.0 Flash Fin Free | Quick fixes, single-file edits, small lookups | Fast and cheap for small, well-specified edits; adequate reasoning support | One of the three smallest output ceilings (32,768), and the smallest of the 256K models; named for a finance specialisation, so it is not the obvious first choice for general code reasoning; free-period data may train the model; lowest published usage of the rotation at 0.16% | Single-file edits and small lookups. Corrected from a general "quick answers" default, which was never earned |
+| Muse Spark 1.3 Contributor Free | Root-cause debugging, architecture and trade-off analysis | Largest window in the rotation (1,048,576) alongside Space Bunny, and the model to reach for when the answer is "why does this break"; 21% of published traffic, so it is proven at scale | Explicitly trades prompts and completions for training future Meta models, which is the wrong trade on a public repo; 131,072 output ceiling, under a fifth of Space Bunny's; the least private of the nine | Root-cause analysis and architecture, accepting the training trade. Corrected from "debugging" alone, which ignored what it costs privacy-wise |
+| MiMo-V2.6-Flash Free | Boilerplate, documentation, commit messages | A 200,000 window is ample for a docs or commit-message task, and it is one of the two cheapest routes to hand repetitive generation to | Tied-smallest window and output (200,000 / 32,000) in the rotation, despite the same release being 1,048,576 on paid routes; free-period data may train the model; weak choice for anything needing careful reasoning | Boilerplate, docs and commit messages only. Corrected from "code generation", which invited it onto work its 32,000 output ceiling cannot finish |
+| LongCat 2.5 Preview Free | Long-context refactors, image-heavy review, complex debugging | 1,000,000 window; zero-retention, so the safer large-window option; released 25 September 2026 | A "Preview" build released 25 September 2026 with no published end date to its free period, so both its behaviour and its availability can change without notice | Long-context work where retention matters. Corrected from "the only zero-retention model", which was wrong — Space Bunny is too |
+| Fledge Alpha Free | Long-context refactors, code generation, multi-file agents | Free on the same endpoint; 1,048,576 context and 131,072 output on the free route; multimodal input (text and image) | Released 1 October 2026, not yet listed in OpenCode's published pricing or privacy table, so its retention is undocumented, and absent from the published traffic ranking; has already thrown `Endpoint is unavailable` | Long-context and multi-file agent work, provisional. Corrected from nothing — it is the newest entry and has no published track record to correct |
 
 #### If the task is wrong for the model you are on: hand off, do not force it
 
@@ -376,7 +434,7 @@ makes the answer trustworthy.
    ring-fence on `python/` is lifted: those scripts are the owner's
    portfolio and practice material, **not** the assessed coursework, which
    lives in `university_courseworks/` (for example the marked CS1IP scripts
-   are `university_courseworks/year1/cs1ip/coursework1/*.py`). Two
+   are `university_courseworks/year1/semester1/cs1ip/coursework1/*.py`). Two
    consequences still apply: never commit `.env` (rule 6), and never
    rewrite a script's *behaviour* just to tidy it, because documented
    defects are pinned by tests on purpose (rule 11).
@@ -635,7 +693,7 @@ or the correction is half-applied.
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1543 passing tests, ~99% line coverage and 95% branch coverage (149 of the
+- 1547 passing tests, ~99% line coverage and 95% branch coverage (149 of the
   160 measured `python/` files at 100% lines, including both music-player
   GUIs; the 160 non-`__init__.py` files are the number a docstring sweep
   covers). The 160 counts files that carry at least one statement. The
@@ -749,7 +807,7 @@ stale figure there fails the suite like any other.
 External study/project resources tracked in `NOTES.md`, plus the local module
 briefing documents under `university_courseworks/` (tracked in git; the
 accompanying `.pdf` / `.txt` copies are local-only).
-`university_courseworks/UNIVERSITY_MODULES.md`
+`university_courseworks/university_modules/UNIVERSITY_MODULES.md`
 is the rolling three-year reference (2025/26-2027/28) with academic dates,
 module semester splits, briefing instructions/objectives and the official
 University of Reading module-catalogue links for every module.
@@ -792,18 +850,18 @@ University of Reading module-catalogue links for every module.
 
 | Module | Purpose | File |
 | --- | --- | --- |
-| CS1AC | Applications of Computer Science (Year 1) | `university_courseworks/year1/CS1AC~0022~20256.html` |
-| CS1CA | Computer Systems Architecture (Year 1) | `university_courseworks/year1/CS1CA~0022~20256.html` |
-| CS1DB | Databases - group assessment (Year 1) | `university_courseworks/year1/CS1DB~0022~20256.html` |
-| CS1IP | Imperative Programming (Year 1) | `university_courseworks/year1/CS1IP~0022~20256.html` |
-| CS1MA | Mathematics and Computation (Year 1) | `university_courseworks/year1/CS1MA~0022~20256.html` |
-| CS1OP | Object-Oriented Programming (Year 1) | `university_courseworks/year1/CS1OP~0022~20256.html` |
-| CS2DA | Data Analytics (Year 2) | `university_courseworks/year2/CS2DA~0022~20267.htm` |
-| CS2AI | Artificial Intelligence (Year 2) | `university_courseworks/year2/CS2AI~0022~20267.htm` |
-| CS2ON | Operating Systems and Computer Networking (Year 2) | `university_courseworks/year2/CS2ON~0022~20267.htm` |
-| CS2PP | Python Programming (Year 2) | `university_courseworks/year2/CS2PP~0022~20267.htm` |
-| CS2SD | Software Systems Design (Year 2) | `university_courseworks/year2/CS2SD~0022~20267.htm` |
-| CS2SE | Software Engineering (Year 2) | `university_courseworks/year2/CS2SE~0022~20267.htm` |
+| CS1AC | Applications of Computer Science (Year 1) | `university_courseworks/year1/modules/CS1AC~0022~20256.html` |
+| CS1CA | Computer Systems Architecture (Year 1) | `university_courseworks/year1/modules/CS1CA~0022~20256.html` |
+| CS1DB | Databases - group assessment (Year 1) | `university_courseworks/year1/modules/CS1DB~0022~20256.html` |
+| CS1IP | Imperative Programming (Year 1) | `university_courseworks/year1/modules/CS1IP~0022~20256.html` |
+| CS1MA | Mathematics and Computation (Year 1) | `university_courseworks/year1/modules/CS1MA~0022~20256.html` |
+| CS1OP | Object-Oriented Programming (Year 1) | `university_courseworks/year1/modules/CS1OP~0022~20256.html` |
+| CS2DA | Data Analytics (Year 2) | `university_courseworks/year2/modules/CS2DA~0022~20267.htm` |
+| CS2AI | Artificial Intelligence (Year 2) | `university_courseworks/year2/modules/CS2AI~0022~20267.htm` |
+| CS2ON | Operating Systems and Computer Networking (Year 2) | `university_courseworks/year2/modules/CS2ON~0022~20267.htm` |
+| CS2PP | Python Programming (Year 2) | `university_courseworks/year2/modules/CS2PP~0022~20267.htm` |
+| CS2SD | Software Systems Design (Year 2) | `university_courseworks/year2/modules/CS2SD~0022~20267.htm` |
+| CS2SE | Software Engineering (Year 2) | `university_courseworks/year2/modules/CS2SE~0022~20267.htm` |
 | CS3IP | Individual Project (Year 3) | `university_courseworks/year3/year3-briefing-2025.txt` |
 | CS3AM | Artificial Intelligence and Machine Learning (Year 3) | `university_courseworks/year3/year3-briefing-2025.txt` |
 | CS3 elective group | DV/VR (S1), BC/CS/IV/TM (S2) - Year 3 | `university_courseworks/year3/year3-briefing-2025.txt` |
@@ -812,8 +870,8 @@ University of Reading module-catalogue links for every module.
 
 | Module | Folder | What is in it |
 | --- | --- | --- |
-| CS1IP | `university_courseworks/year1/cs1ip/coursework1/` | The marked scripts: `average_grades.py`, `hello.py`, `ice_cream.py`, `seven_segment.py`, `volume.py`, each with a `.java` counterpart |
-| CS1IP | `university_courseworks/year1/cs1ip/coursework2/` | `sort10.txt` and its sorting script |
+| CS1IP | `university_courseworks/year1/semester1/cs1ip/coursework1/` | The marked scripts: `average_grades.py`, `hello.py`, `ice_cream.py`, `seven_segment.py`, `volume.py`, each with a `.java` counterpart |
+| CS1IP | `university_courseworks/year1/semester1/cs1ip/coursework2/` | `sort10.txt` and its sorting script |
 
 These are the **submitted, marked** artefacts, so they carry a different
 risk profile from the rest of the repo: behaviour that was correct on
@@ -826,7 +884,7 @@ here. Read the relevant briefing before editing anything in it.
 
 > Dates, semester splits, briefing instructions/objectives and official
 > University of Reading module-catalogue links for every module across all
-> three years: see `university_courseworks/UNIVERSITY_MODULES.md`. Official BSc Computer Science
+> three years: see `university_courseworks/university_modules/UNIVERSITY_MODULES.md`. Official BSc Computer Science
 > (UCAS G400) course pages: 2025/26, 2026/27 and 2027/28 entry (the 2025 page
 > redirects to 2026/27; the 2027 page is not live yet).
 
