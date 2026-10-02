@@ -55,6 +55,40 @@ def _paragraphs(document):
     return [" ".join(block.split()) for block in text.split("\n\n") if block.strip()]
 
 
+def _table_rows(document, header_fragment):
+    """
+    The body rows of the table whose header contains the fragment.
+
+    Two of the rotation tables happen to have the same number of columns, so
+    matching on width alone picks up the wrong one. Anchoring on the header
+    text is what makes the check mean the table it claims to mean.
+    """
+    lines = document.read_text(encoding="utf-8").splitlines()
+    for i, line in enumerate(lines):
+        if not (line.startswith("|") and header_fragment in line
+                and "---" not in line):
+            continue
+        rows = []
+        for row in lines[i + 2:]:
+            if not row.startswith("|"):
+                break
+            rows.append(row)
+        return rows
+    raise AssertionError(f"no table header containing {header_fragment!r} was found")
+
+
+def _columns_of_table(document, header_fragment):
+    """
+    Number of pipe-split cells in the table whose header contains the fragment.
+
+    Counting from the header rather than hard-coding the width is what stops a
+    guard from passing vacuously when someone adds a column: a literal column
+    count silently stops matching, and a check that finds nothing looks exactly
+    like a check that found no problems.
+    """
+    return len(_table_rows(document, header_fragment)[0].split("|"))
+
+
 @pytest.fixture(scope="module")
 def agents_text():
     return AGENTS_MD.read_text(encoding="utf-8")
@@ -89,28 +123,49 @@ class TestRotationTables:
         A model listed as usable but with no documented downside is the exact
         failure the hand-off rule exists to prevent, so it is made a test
         failure rather than a reviewer's job to notice.
+
+        The column count is read from the table header rather than hard-coded.
+        A literal here would quietly stop matching the moment a column was
+        added, and the guard would then pass by finding nothing.
         """
+        expected = _columns_of_table(AGENTS_MD, "Main assets")
         rows = _rows(AGENTS_MD)
         for model in MODELS:
             matching = [r for r in rows if r.startswith(f"| {model} ")]
-            assert len(matching) >= 2, (
+            assert len(matching) >= 3, (
                 f"{model} appears {len(matching)} time(s) in AGENTS.md's model "
-                f"tables; it needs both a pick-a-model row and a pros/cons row"
+                f"tables; it needs a pick-a-model row, a usage row and a "
+                f"pros/cons row"
             )
-            pros_cons = [r for r in matching if len(r.split("|")) == 6]
+            pros_cons = [r for r in matching if len(r.split("|")) == expected]
             assert pros_cons, (
-                f"{model} has no Main purpose / Pros / Cons row, so an agent "
-                f"cannot tell when to hand the task off"
+                f"{model} has no Main purpose / assets / weaknesses row, so an "
+                f"agent cannot tell when to hand the task off"
             )
 
-    def test_every_model_has_a_main_purpose(self, agents_text):
-        for row in _rows(AGENTS_MD):
+    def test_every_model_states_assets_weaknesses_and_a_corrected_use(self):
+        """
+        The four categories the rotation is read by: what the model is for,
+        what it is good at, what it is bad at, and the applied use that
+        survived correction. A row missing any of them cannot answer question
+        three of the pre-flight, which is applicability.
+        """
+        body = _table_rows(AGENTS_MD, "Main assets")
+        checked = 0
+        for row in body:
+            checked += 1
             cells = [c.strip() for c in row.split("|")[1:-1]]
-            if len(cells) != 4:
-                continue
-            purpose, pros, cons = cells[1], cells[2], cells[3]
-            assert purpose, f"{cells[0]} has no stated main purpose"
-            assert pros and cons, f"{cells[0]} must state both a pro and a con"
+            name, purpose, assets, weaknesses, applied = cells
+            assert purpose, f"{name} has no stated main purpose"
+            assert assets, f"{name} must state its main assets"
+            assert weaknesses, f"{name} must state its weaknesses"
+            assert "corrected" in applied.lower(), (
+                f"{name}'s applied use carries no note of what was corrected"
+            )
+        assert checked == len(MODELS), (
+            f"the assets/weaknesses table has {checked} model rows for "
+            f"{len(MODELS)} models"
+        )
 
     def test_every_model_has_three_ranked_hand_offs(self, agents_text):
         """
@@ -169,6 +224,79 @@ class TestRotationTables:
                 f"{zero_retention} is not named as zero-retention in the "
                 f"privacy override"
             )
+
+
+class TestPreFlight:
+
+    def test_the_preflight_names_all_three_questions(self, agents_text):
+        """
+        The pre-flight is only useful if it is the same three questions every
+        time: does the task fit the limits, how much allowance is left, and is
+        this the model's job. Dropping the third collapses the rule into "is it
+        fast", which is the ordering the owner explicitly reversed.
+        """
+        assert "Before each run: the pre-flight check" in agents_text, (
+            "AGENTS.md has no pre-flight check, so a model gets picked by habit "
+            "instead of by the task"
+        )
+        section = agents_text.split("Before each run: the pre-flight check")[1]
+        section = section.split("####")[0]
+        # The section is hard-wrapped, so match on collapsed whitespace.
+        flat = " ".join(section.split())
+        for marker in ("**Tokens.**", "**Percentage left.**", "**Applicability.**"):
+            assert marker in flat, f"the pre-flight is missing {marker}"
+        assert "speed is the last consideration" in flat, (
+            "the pre-flight does not record that speed ranks last"
+        )
+        assert "An agent cannot read this" in flat, (
+            "the pre-flight does not say that the remaining allowance has to be "
+            "stated by A.I.M, so the check silently passes when nobody knows it"
+        )
+
+    def test_every_model_has_a_usage_share_row(self, agents_text):
+        """
+        Question two of the pre-flight needs a per-model figure, so each of the
+        nine has to appear in the tokens-and-share table. A model missing there
+        would be chosen without any idea of what share of the tier it carries.
+        """
+        rows = _table_rows(AGENTS_MD, "Share of listed traffic")
+        for model in MODELS:
+            assert any(r.startswith(f"| {model} ") for r in rows), (
+                f"{model} has no row in the tokens-and-share table"
+            )
+
+    def test_unmeasured_share_is_not_invented(self, agents_text):
+        """
+        Two models are absent from the published ranking. The honest cell is
+        "unmeasured"; a number there would be a guess with a table around it.
+        """
+        section = agents_text.split("Share of listed traffic")[1][:4000]
+        for model in ("Big Pickle Free", "Fledge Alpha Free"):
+            row = next(
+                (line for line in section.splitlines()
+                 if line.startswith(f"| {model} ")),
+                None,
+            )
+            assert row is not None, f"{model} has no usage row"
+            assert re.search(r"unmeasured|below the published", row), (
+                f"{model} has no measured share, so its cell must say so "
+                f"rather than carry a number"
+            )
+
+    def test_the_share_denominator_is_named(self, agents_text):
+        """
+        A percentage is meaningless without its denominator. The figure is a
+        share of the eighteen models the source page lists, not of all traffic,
+        and the two are very different numbers.
+        """
+        section = agents_text.split("#### Tokens and usage share")[1][:2500]
+        assert "160.524T" in section, (
+            "the usage table does not state the token total its shares are "
+            "taken against"
+        )
+        assert "eighteen" in section, (
+            "the usage table does not say how many models that total covers"
+        )
 
 
 class TestRotationClaims:
