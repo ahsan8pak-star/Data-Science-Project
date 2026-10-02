@@ -184,7 +184,7 @@ nine free models share one endpoint
 `@ai-sdk/openai-compatible`), so the choice is about context and strength,
 not access. The limits below are OpenCode's own *route* limits, read from the
 `opencode` provider entries in the `models.dev` registry
-(`https://models.dev/api.json`, retrieved 1 October 2026). They are given as
+(`https://models.dev/api.json`, retrieved 2 October 2026). They are given as
 exact token counts because the rounded versions are ambiguous — 262,144 is
 256K, not 262K. The underlying model's full window is often larger, but the
 free route is what this project actually gets.
@@ -219,7 +219,8 @@ suited to the repo's long files. Ling and Nemotron 3.5 Lightning are the
 right answer for the small, mechanical work that filled Big Pickle's column.
 
 **Privacy is not uniform, and this is a public repository.** OpenCode's
-privacy section states a zero-retention default with named exceptions, so
+privacy section (<https://opencode.ai/docs/zen/>, checked 2 October 2026)
+states a zero-retention default with named exceptions, so
 which model is selected decides what leaves the machine. Space Bunny and
 LongCat follow the zero-retention default. Big Pickle, MiMo-V2.6-Flash,
 MiMo-V2.5 and Ling 3.0 Flash Fin may use free-period data to improve the

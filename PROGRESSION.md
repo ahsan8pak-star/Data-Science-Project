@@ -553,12 +553,12 @@ preference.
 The route limits below are OpenCode's own, not the model's full capability, and
 they are what this project actually gets. Both columns come from the
 `models.dev` registry entries for the `opencode` provider
-(`https://models.dev/api.json`, retrieved 1 October 2026) — exact token
+(`https://models.dev/api.json`, retrieved 2 October 2026) — exact token
 counts, because the rounded versions are ambiguous: 262,144 is 256K, not
 262K. The free-pricing and privacy columns come from
-<https://opencode.ai/docs/zen/>. Usage figures are OpenCode's observed daily
-token volume on 1 October 2026 (<https://opencode.ai/data/>) and are a
-snapshot, not a ranking to plan around.
+<https://opencode.ai/docs/zen/>. Usage figures are OpenCode's published weekly
+token volume for the week ending 2 October 2026
+(<https://opencode.ai/data/>) and are a snapshot, not a ranking to plan around.
 
 | Model | Route context | Route output | Free-period data used to improve the model? | Weekly tokens | Share of listed traffic |
 | --- | --- | --- | --- | --- | --- |
@@ -586,13 +586,14 @@ provider, not per model — the same MiMo release is 200,000 on the OpenCode
 free route and 1,048,576 everywhere else, so a single "MiMo has a 1M window"
 line is true and useless.
 
-**Key sources, all retrieved 1 October 2026:**
+**Key sources, each retrieved 2 October 2026:**
 
 - OpenCode Zen documentation: `https://opencode.ai/docs/zen/` — the model list,
   the free-on-input/output/cached-read pricing table, and the privacy section
   that names each exception.
-- OpenCode model data: `https://opencode.ai/data/` — observed token volumes,
-  unique users and weekly retention per model.
+- OpenCode model data: `https://opencode.ai/data/` — weekly token volumes,
+  unique users and weekly retention per model, for the week ending 2 October
+  2026.
 - Models.dev registry: `https://models.dev/api.json` — context window, output
   limit, reasoning and tool-calling support, and release date per model, keyed
   by provider. This is the source for the two limit columns.
@@ -795,6 +796,7 @@ log unchanged has left the record behind. Newest first.
 
 | Date | Session | What changed | What it taught |
 | --- | --- | --- | --- |
+| 2 Oct 2026 | Citation dates reconciled between the two model documents | A.I.M asked for the models' uses and the references to be confirmed as equally provided across AGENTS.md and this file. The nine-model list, all nine route-limit pairs, and every weekly traffic figure and share already matched exactly, and all three sources were named in both files. Four citations did not: AGENTS.md dated its registry retrieval 1 October 2026 in the pick-a-model table and 2 October 2026 in the tokens-and-share table, the §4.3 intro still described usage figures as a daily snapshot taken on 1 October although the table beneath it carried weekly figures for the week ending 2 October, the key-sources line claimed all three sources were retrieved on 1 October, and the Zen documentation URL appeared only here. Unified every retrieval citation to 2 October 2026, rewrote the §4.3 intro to name the weekly week-ending snapshot the table actually holds, gave each key source its own date, and added `https://opencode.ai/docs/zen/` to AGENTS.md's privacy paragraph. Suite unchanged at 1547. | A table can be refreshed while the prose introducing it stays behind, and the prose is what a reader checks the table against — the §4.3 intro was describing a resolution the table no longer used. Equally, a guard that reads table bodies by header cannot catch a stale sentence above them, so the evidence a document presents is not the same as the evidence it is tested on. The check that caught these was a read of both files side by side, not a test run. |
 | 2 Oct 2026 | Pre-flight added, model categories corrected, folder move followed through | A.I.M asked for a selection rule before every model runs: confirm token usage, confirm percentage left, confirm which model is applicable, with speed the least weight. Added as a three-question pre-flight to AGENTS.md, noting that only A.I.M can read the remaining allowance from the console — an agent that cannot see it cannot claim it passed. Extended the pros/cons table to name each model's main purpose, main assets, weaknesses and the applied use that survived correction, and added a tokens-and-share table from OpenCode's published weekly figures (160.524T tokens across eighteen listed models; the rotation's own models are 69.6% of that, Space Bunny alone 38%, Big Pickle and Fledge Alpha Free unmeasured). Recorded Fledge Alpha Free's `Upstream request failed: Endpoint is unavailable.` as a stability fact, making three of nine free routes known-unstable. Also followed through the last commit's folder reorganisation: `university_courseworks/` moved to `year1/semester1/cs1ip/`, `year2/modules/` and `university_modules/`, and the pytest paths, `test_courseworks.py`, `convert_hash_comment_runs.py` and the AGENTS/NOTES/UNIVERSITY_MODULES references were all repointed. Suite 1543 to 1547. | Popularity is not suitability, and the two claims that looked like evidence for it are not: Big Pickle is the rotation's most-used model yet is unmeasured on the platform's own traffic table, and Fledge Alpha Free was released the day before the snapshot, so it has no measured share at all. The honest cell is `unmeasured`, and a guard now fails if anyone fills it with a number. The second lesson is that a folder move is an API change: three of the nine models in the rotation table are referenced by pytest path, and every one of them was silently skipping rather than failing. |
 | 2 Oct 2026 | Fledge Alpha Free added to the rotation | Added Fledge Alpha Free to the rotation tables and hand-off columns in AGENTS.md and PROGRESSION.md, and to the MODELS list in the rotation-docs guard, after verifying it against models.dev (free, 1,048,576 context, 131,072 output, multimodal input, released 1 October 2026; not yet in OpenCode's published privacy or pricing table). Bumped every stated model count from eight to nine. | A newly released model arrives with a route limit but no track record, so it gets a conservative handling: its row exists, it carries a reason to pick it, and it is excluded from the zero-retention claims until OpenCode documents it. |
 | 2 Oct 2026 | AI-tooling chronology logged and guarded | Reconstructed the usage chronology of the AI tooling from the git log and added it as a dated table in section 4.7. Added `tests/test_scripts/test_progression_chronology.py` (five checks: table exists with the expected row shape, each date parseable, the dates in chronological order, the model names present in the table all members of `MODELS`, and each row carrying commit-evidence). Added two AGENTS.md house-style bullets: multi-intent prompts are split before acting, and a model-scoped review fallback for bundled asks. Refreshed the stated suite count from 1538 to 1547 in AGENTS.md, PROGRESSION.md and FILE_RANKING_GUIDE.md. | A chronology that is not guarded is just prose twice removed from the tree. The rules applied here were the same three that govern the rotation guard: dates must parse, order must be chronological, and any model name that appears must exist in the same list the rotation table uses — here `MODELS` in `test_model_rotation_docs.py`. |
