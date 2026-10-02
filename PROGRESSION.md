@@ -454,11 +454,12 @@ open.
 
 ### 4.3 Model rotation, and why it matters
 
-Within OpenCode, A.I.M rotates across **eight free models** — Big Pickle Free,
+Within OpenCode, A.I.M rotates across **nine free models** — Big Pickle Free,
 Space Bunny Free, Nemotron 3.5 Lightning Free, Nemotron 3 Ultra Free, Ling 3.0
-Flash Fin Free, Muse Spark 1.3 Contributor Free, MiMo-V2.6-Flash Free and
-LongCat 2.5 Preview Free. The rotation is selected in the console, not from
-inside a conversation: an agent cannot switch its own model mid-session.
+Flash Fin Free, Muse Spark 1.3 Contributor Free, MiMo-V2.6-Flash Free,
+LongCat 2.5 Preview Free and Fledge Alpha Free. The rotation is selected in
+the console, not from inside a conversation: an agent cannot switch its own
+model mid-session.
 
 **An agent cannot reliably self-identify which model is processing a
 conversation.** This is stated in `AGENTS.md` because the false claim was
@@ -476,7 +477,7 @@ never as ground truth. The test suite is the arbiter.
 
 #### The rotation needed a rule, not just a list
 
-The eight-model list in `AGENTS.md` answers *which model to pick*, but it
+The nine-model list in `AGENTS.md` answers *which model to pick*, but it
 initially answered nothing about what happens when a model is executing and
 realises the task does not fit it. A.I.M's instruction was blunt: make each
 model's pros, cons and main purpose clear, and if the task is not applicable to
@@ -495,7 +496,7 @@ model declining a 1M-window refactor because its output ceiling is 128,000 is
 citing a measured number, not expressing a preference.
 
 **Second, a decline must name three alternatives, ranked.** The ranking is the
-substance of the rule. A list of all seven remaining models transfers the whole
+substance of the rule. A list of all eight remaining models transfers the whole
 decision back to A.I.M and saves him nothing; a ranked three is a decision he
 can act on without researching. The table in `AGENTS.md` gives every model its
 own fallback column for the same reason, because the right alternative for a
@@ -541,6 +542,7 @@ snapshot, not a ranking to plan around.
 | Ling 3.0 Flash Fin Free | 262,144 | 32,768 | Yes | 355B |
 | Nemotron 3.5 Lightning Free | 262,144 | 262,144 | NVIDIA trial terms; use is logged | 260B |
 | Big Pickle Free | 200,000 | 32,000 | Yes | below the published top-18 |
+| Fledge Alpha Free | 1,048,576 | 131,072 | Unconfirmed — not in OpenCode's published privacy table as of 2 October 2026 | not in the published rankings (released 1 October 2026) |
 
 The table is sorted by observed volume rather than by role, because the
 ordering is the finding: the two models A.I.M reached for by default are the
@@ -569,17 +571,21 @@ line is true and useless.
   claim would therefore have been wrong in both directions, which is why the
   limits above are labelled "route" rather than "model".
 - **Privacy does not split the rotation cleanly.** Two models (Space Bunny,
-  LongCat) sit on the zero-retention default. Four (Big Pickle,
-  MiMo-V2.6-Flash, MiMo-V2.5, Ling 3.0 Flash Fin) may use free-period data to
+  LongCat) sit on the zero-retention default. Three (Big Pickle,
+  MiMo-V2.6-Flash, Ling 3.0 Flash Fin) may have free-period data used to
   improve the model. Two (the Nemotrons) are NVIDIA trial endpoints that log
   use and whose terms ask for no personal or confidential data. One (Muse Spark
-  1.3 Contributor) is explicitly a training-data trade. Four of the eight
-  therefore send prompts somewhere that is not covered by the zero-retention
-  default, on a public repository, which is why rule 6 exists.
+  1.3 Contributor) is explicitly a training-data trade. One (Fledge Alpha Free)
+  is not in OpenCode's published privacy table at all. Six of the nine send
+  prompts somewhere that is not covered by a verified zero-retention default,
+  and the seventh undocumented entry is worse than any named exception on a
+  public repository, which is why rule 6 exists.
 - **The free tier is popular, so it is not private by default.** The four
   large-window models in the rotation — Space Bunny, Muse Spark 1.3, Nemotron 3
-  Ultra, LongCat 2.5 — are also four of the seven most-used models on OpenCode.
-  Being on a free tier says nothing about who else can read the prompt.
+  Ultra, LongCat 2.5 —   are also four of the seven most-used models on OpenCode. The fifth
+  large-window entry — Fledge Alpha Free — is too new to appear on the same
+  snapshot. Being on a free tier says nothing about who else can read the
+  prompt.
 - **Two models are named for what they are not.** Big Pickle and Space Bunny
   are both described by OpenCode as "stealth models" with no published vendor,
   so any claim about which lab built either one is speculation. The earlier
@@ -733,6 +739,8 @@ log unchanged has left the record behind. Newest first.
 
 | Date | Session | What changed | What it taught |
 | --- | --- | --- | --- |
+| 2 Oct 2026 | Fledge Alpha Free added to the rotation | Added Fledge Alpha Free to the rotation tables and hand-off columns in AGENTS.md and PROGRESSION.md, and to the MODELS list in the rotation-docs guard, after verifying it against models.dev (free, 1,048,576 context, 131,072 output, multimodal input, released 1 October 2026; not yet in OpenCode's published privacy or pricing table). Bumped every stated model count from eight to nine. | A newly released model arrives with a route limit but no track record, so it gets a conservative handling: its row exists, it carries a reason to pick it, and it is excluded from the zero-retention claims until OpenCode documents it. |
+| 2 Oct 2026 | Folder moves, docs aligned | Moved `FILE_SCORES.md` and `FILE_RANKING_GUIDE.md` under `file_scores_ranking/` and the four `requirements*` files plus `requirements_sync.py` under `requirements/`; updated the path constants in the two test files and `score_ranking.py`, the Dependabot `directory`, `pyproject.toml`'s `pythonpath`, and the README tree. | A folder move is an API change for everything that resolves a path by name. The four places a move breaks were found by name-references, not by globbing: a script that writes to a moved path (`scripts/score_ranking.py`'s output), an import (`import requirements_sync`, fixed via `pythonpath`), a test file that builds `REPO_ROOT / "<filename>"` from the file's name, and the Dependabot directory setting. |
 | 1 Oct 2026 | Pros, cons and the hand-off rule | Added a pros/cons and main-purpose table for all eight free models beside the pick-a-model table, plus a hand-off protocol: a model that judges the task wrong for it must decline and name three alternatives ranked best-first, with a stated reason. Two constraints keep it honest — a hand-off is a *request* rather than a switch, because model selection happens in the OpenCode console and an agent cannot move itself; and retention overrides fit, so a credential-bearing prompt narrows the field to the two zero-retention models whatever the ranking says. Added `tests/test_scripts/test_model_rotation_docs.py` (11 tests) and bite-tested four mutations of it. | Writing the ceilings down is what makes declining possible. Before this, "I am not the right model for this" had no stated basis, and a model under pressure to produce something would produce something. The ceilings are measured numbers rather than opinions, so a decline cites evidence. Two of the four mutations did not bite at first, and both were bugs in the test rather than the document: matching single lines flagged correct prose, because the section is hard-wrapped at 80 columns and a sentence's evidence often sits two lines below it; and an assertion demanding that each hand-off mention all seven other models contradicted the rule's own ranked-three. Only two mutations were needed to prove the guard, and one of those had to be re-run because the first version edited a string that did not exist in the file - a false pass that a green run alone would not have revealed. |
 | 1 Oct 2026 | Free-model rotation verified against source | Researched all eight free OpenCode models and checked every claim against the `models.dev` registry and OpenCode's own Zen and data pages. Five of the drafted claims did not survive: a "50.8% SWE Atlas resolve rate" attributed to a URL that resolves to a technology news aggregator mentioning neither the model nor the benchmark; a model-catalogue URL returning 404; a DeepSeek origin for Big Pickle inferred from provider error strings; a claim that LongCat was the only zero-retention free model (Space Bunny is too); and seven per-model performance figures with no traceable source. Corrected the context and output columns against the registry's per-provider entries, which showed the free routes are narrower than the models behind them, and rewrote the contributor table to `main` only after finding it had counted a bot whose 7 commits sit on unmerged branches. | A link that resolves is not evidence; it has to resolve to the claim. The whole draft read as research because it had citations in it, and four of the six citations did not support the sentence they were attached to. The second lesson is that the repo's own rule 2 exists precisely to catch an assistant doing this, and it caught one - so the rule is load-bearing, not decorative. |
 | 30 Sep 2026 | Progression review & code review | Reconciled the ranking sheet: deduped a 167-entry document down to the 161 real files, aligned all 161 headings to their own tables, normalised 9 entries that rounded an exact `.5` downward against 50 that rounded up, and corrected the guide's pre-verified table and worked example. Corrected four stale figures in the docs (98%→95% branch, 171/182→148/159, "29 lines in 8 caps"→38 in 11, 1350→1538 tests). Fixed a silent failure in `execution_time.py` where a mistyped folder re-prompted with no output. Added 94 guard tests across three files. Wrote this review. | A fact written in prose and never recomputed is a fact that will be wrong. The ranking sheet had 112 of 161 headings disagreeing with their own tables and nobody noticed, because nothing compared them. The fix was not to re-read the prose more carefully — it was to make the stale number fail the suite. |
