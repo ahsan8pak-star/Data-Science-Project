@@ -442,8 +442,9 @@ Data-Science-Project/
 ├── .gitkeep                                # Version control placeholder file preserving empty directory architecture in Git
 ├── AGENTS.md                               # Local AI-agent operating rules: commit conventions, mirror workflow, and project rules for collaborators
 ├── DEPENDENCIES.md                         # Tiered dependency catalogue separating all-rounder libraries from Windows dev kits
-├── FILE_RANKING_GUIDE.md                   # 0-100 scoring guide: five criteria, weighted differently for learning material and applied projects
-├── FILE_SCORES.md                          # Ranking results for all 160 tracked Python files under python/, on five criteria weighted per tier
+├── file_scores_ranking/                    # Generated ranking outputs and the guide that explains their criteria
+│   ├── FILE_RANKING_GUIDE.md               # 0-100 scoring guide: five criteria, weighted differently for learning material and applied projects
+│   └── FILE_SCORES.md                      # Ranking results for all 160 tracked Python files under python/, on five criteria weighted per tier
 ├── LICENSE                                 # MIT legal framework outlining permissions, open-source compliance, and liability limits
 ├── NOTES.md                                # Comprehensive engineering journal tracking milestone phases, study tracks, and resources
 ├── pyproject.toml                          # Central project configuration for build tools, test runners, and strict linters (Ruff/Black)

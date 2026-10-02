@@ -30,7 +30,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SIGNALS = Path("/tmp/opencode/ranking_signals.json")
-OUT = REPO_ROOT / "FILE_SCORES.md"
+OUT = REPO_ROOT / "file_scores_ranking" / "FILE_SCORES.md"
 
 WEIGHTS = {
     "Learning": {

@@ -31,8 +31,8 @@ from pathlib import Path
 import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-SCORES_MD = REPO_ROOT / "FILE_SCORES.md"
-GUIDE_MD = REPO_ROOT / "FILE_RANKING_GUIDE.md"
+SCORES_MD = REPO_ROOT / "file_scores_ranking" / "FILE_SCORES.md"
+GUIDE_MD = REPO_ROOT / "file_scores_ranking" / "FILE_RANKING_GUIDE.md"
 AGENTS_MD = REPO_ROOT / "AGENTS.md"
 NOTES_MD = REPO_ROOT / "NOTES.md"
 
@@ -668,7 +668,7 @@ class TestRenamedRankingFilesAreReferencedLive:
         text = doc.read_text(encoding="utf-8")
         for name in ("FILE_SCORES.md", "FILE_RANKING_GUIDE.md"):
             if name in text:
-                assert (REPO_ROOT / name).is_file(), f"{doc.name} names missing {name}"
+                assert (REPO_ROOT / "file_scores_ranking" / name).is_file(), f"{doc.name} names missing {name}"
 
 
 class TestRankingDocsUseLfLineEndings:

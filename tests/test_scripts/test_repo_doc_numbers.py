@@ -36,7 +36,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 AGENTS_MD = REPO_ROOT / "AGENTS.md"
 NOTES_MD = REPO_ROOT / "NOTES.md"
 README_MD = REPO_ROOT / "README.md"
-GUIDE_MD = REPO_ROOT / "FILE_RANKING_GUIDE.md"
+GUIDE_MD = REPO_ROOT / "file_scores_ranking" / "FILE_RANKING_GUIDE.md"
 PYTHON_ROOT = REPO_ROOT / "python"
 
 
@@ -355,7 +355,7 @@ class TestDocNumbersAgreeWithEachOther:
     """
     def test_agents_and_guide_agree_on_suite_size(self):
         agents = _flat(AGENTS_MD)
-        guide = _flat(REPO_ROOT / "FILE_RANKING_GUIDE.md")
+        guide = _flat(REPO_ROOT / "file_scores_ranking" / "FILE_RANKING_GUIDE.md")
         a = re.search(r"(\d{3,4}) passing tests", agents)
         g = re.search(r"suite green \((\d{3,4}) passed", guide)
         assert a and g
@@ -746,7 +746,7 @@ class TestProgressionDocClaims:
     def test_quality_mean_is_recomputed(self):
         entries = re.findall(
             r"### [\w./]+\.py — \*\*(\d+)/100\*\* \([A-F] —",
-            (REPO_ROOT / "FILE_SCORES.md").read_text(encoding="utf-8"),
+            (REPO_ROOT / "file_scores_ranking" / "FILE_SCORES.md").read_text(encoding="utf-8"),
         )
         scores = [int(s) for s in entries]
 
@@ -769,7 +769,7 @@ class TestProgressionDocClaims:
         )
 
     def test_band_distribution(self):
-        text = (REPO_ROOT / "FILE_SCORES.md").read_text(encoding="utf-8")
+        text = (REPO_ROOT / "file_scores_ranking" / "FILE_SCORES.md").read_text(encoding="utf-8")
         bands = [
             m.group(1) for m in re.finditer(
                 r"### [\w./]+\.py — \*\*\d+/100\*\* \(([A-F]) —", text
