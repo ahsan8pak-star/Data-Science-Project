@@ -152,12 +152,12 @@ not a formality.
 
 ### Free-tier model rotation (OpenCode)
 
-The eight free OpenCode models rotated are: Big Pickle Free,
+The nine free OpenCode models rotated are: Big Pickle Free,
 Space Bunny Free, Nemotron 3.5 Lightning Free, Nemotron 3 Ultra
 Free, Ling 3.0 Flash Fin Free, Muse Spark 1.3 Contributor Free,
-MiMo-V2.6-Flash Free and LongCat 2.5 Preview Free. Rotation is
-selected in the OpenCode console, not from inside a conversation —
-an agent cannot switch its own model mid-session.
+MiMo-V2.6-Flash Free, LongCat 2.5 Preview Free and Fledge Alpha
+Free. Rotation is selected in the OpenCode console, not from inside
+a conversation — an agent cannot switch its own model mid-session.
 
 An agent cannot reliably self-identify which model is processing a
 conversation — do not trust a claim of the form "I am model X" made by
@@ -168,7 +168,7 @@ candidates to verify against the repo rather than ground truth.
 #### What each model is for
 
 The rotation is a habit, not a strategy, unless each model has a job. All
-eight free models share one endpoint
+nine free models share one endpoint
 (`https://opencode.ai/zen/v1/chat/completions`, provider
 `@ai-sdk/openai-compatible`), so the choice is about context and strength,
 not access. The limits below are OpenCode's own *route* limits, read from the
@@ -188,6 +188,7 @@ free route is what this project actually gets.
 | Muse Spark 1.3 Contributor Free | 1,048,576 | 131,072 | Debugging, root-cause analysis | Architecture design, trade-off analysis |
 | MiMo-V2.6-Flash Free | 200,000 | 32,000 | Code generation, boilerplate | Commit messages, documentation |
 | LongCat 2.5 Preview Free | 1,000,000 | 131,072 | Long-context refactors, image-heavy review | Complex debugging, multi-step reasoning |
+| Fledge Alpha Free | 1,048,576 | 131,072 | Long-context refactors, code generation, multi-file agents | Complex debugging, multi-step reasoning |
 
 Three rules of thumb follow from the table. A 256K model is the right tool for
 a single-file edit — a 1M model costs more in tokens and latency for context
@@ -201,8 +202,8 @@ will not match what this project can actually use.
 Pickle and Space Bunny by default, so both logged the most sessions without
 earning the widest role. The correct reading of the table is that Big Pickle
 is a *review* model, not a default builder: it is a 200K context model with
-no independent identity, and the four models with genuinely large windows
-(Nemotron 3 Ultra, Space Bunny, Muse Spark 1.3, LongCat 2.5) are the ones
+no independent identity, and the five models with genuinely large windows
+(Nemotron 3 Ultra, Space Bunny, Muse Spark 1.3, LongCat 2.5 and Fledge Alpha Free) are the ones
 suited to the repo's long files. Ling and Nemotron 3.5 Lightning are the
 right answer for the small, mechanical work that filled Big Pickle's column.
 
@@ -214,14 +215,19 @@ MiMo-V2.5 and Ling 3.0 Flash Fin may use free-period data to improve the
 model. The two Nemotron free routes are NVIDIA *trial* endpoints: use is
 logged and NVIDIA's terms say not to submit personal or confidential data.
 Muse Spark 1.3 Contributor Free trades heavily discounted pricing for
-permission to use prompts and completions to train future Meta models. No
-credentials or `.env` values belong in a prompt on any of them (rule 6).
+permission to use prompts and completions to train future Meta models. Fledge
+Alpha Free is not yet listed in that table — checked 2 October 2026 — so it
+must be treated as undocumented, not as zero-retention. No credentials or
+`.env` values belong in a prompt on any of them (rule 6).
 
-**LongCat 2.5 Preview Free** is the newest addition (released 25 September
-2026) and, with Space Bunny, is one of two free models confirmed on the
-zero-retention default rather than an exception. It is free "for a limited
-time" with no published end date, so budget for the window closing without
-warning.
+**LongCat 2.5 Preview Free** is one of two free models confirmed on the
+zero-retention default rather than an exception, alongside Space Bunny, and it
+is free "for a limited time" with no published end date, so budget for the
+window closing without warning. **Fledge Alpha Free** is the newest addition
+(released 1 October 2026), with a 1,048,576 context and 131,072 output on the
+free route — the same shape as Muse Spark 1.3 and LongCat 2.5 — and it does
+not yet appear in OpenCode's published pricing or privacy table, so no
+zero-retention claim can be attached to it.
 
 Free-tier stability is uneven. `nemotron-3-ultra-free` and `big-pickle` have
 both thrown upstream errors, and the tier as a whole is prone to timeouts, so
@@ -241,9 +247,10 @@ stability notes are the verified facts recorded earlier on this page.
 | Nemotron 3.5 Lightning Free | Test writing, verification, medium-complexity analysis | Its output ceiling equals its window (262,144), so it can emit a long test file or a long report in one turn without truncating | Mid-sized window, so a whole-repo read is out of reach; NVIDIA *trial* endpoint that logs use, so nothing personal or confidential; a logged endpoint is the wrong choice for a private prompt |
 | Nemotron 3 Ultra Free | Complex debugging, root-cause analysis, multi-step reasoning | 1,000,000 window for whole-repo reasoning, and built for hard multi-step problems | Smallest output ceiling of the large-window models (128,000, well below its own window), so a huge single response will not fit; NVIDIA *trial* endpoint that logs use; already known to throw upstream errors and time out |
 | Ling 3.0 Flash Fin Free | Quick fixes, single-file edits, small lookups | Fast and cheap for small, well-specified edits; adequate reasoning support | One of the three smallest output ceilings (32,768), and the smallest of the 256K models; named for a finance specialisation, so it is not the obvious first choice for general code reasoning; free-period data may train the model |
-| Muse Spark 1.3 Contributor Free | Root-cause debugging, architecture and trade-off analysis | Largest window in the rotation (1,048,576) alongside Space Bunny, and the model to reach for when the answer is "why does this break" | Explicitly trades prompts and completions for training future Meta models, which is the wrong trade on a public repo; 131,072 output ceiling, under a fifth of Space Bunny's; the least private of the eight |
+| Muse Spark 1.3 Contributor Free | Root-cause debugging, architecture and trade-off analysis | Largest window in the rotation (1,048,576) alongside Space Bunny, and the model to reach for when the answer is "why does this break" | Explicitly trades prompts and completions for training future Meta models, which is the wrong trade on a public repo; 131,072 output ceiling, under a fifth of Space Bunny's; the least private of the nine |
 | MiMo-V2.6-Flash Free | Boilerplate, documentation, commit messages | A 200,000 window is ample for a docs or commit-message task, and it is one of the two cheapest routes to hand repetitive generation to | Tied-smallest window and output (200,000 / 32,000) in the rotation, despite the same release being 1,048,576 on paid routes; free-period data may train the model; weak choice for anything needing careful reasoning |
-| LongCat 2.5 Preview Free | Long-context refactors, image-heavy review, complex debugging | 1,000,000 window; zero-retention, so the safer large-window option; newest model in the rotation, so it has the least accumulated evidence — useful precisely where a fresh model helps | A "Preview" build released 25 September 2026 with no published end date to its free period, so both its behaviour and its availability can change without notice |
+| LongCat 2.5 Preview Free | Long-context refactors, image-heavy review, complex debugging | 1,000,000 window; zero-retention, so the safer large-window option; released 25 September 2026 | A "Preview" build released 25 September 2026 with no published end date to its free period, so both its behaviour and its availability can change without notice |
+| Fledge Alpha Free | Long-context refactors, code generation, multi-file agents | Free on the same endpoint; 1,048,576 context and 131,072 output on the free route; multimodal input (text and image) | Released 1 October 2026 and not yet listed in OpenCode's published pricing or privacy table, so its retention and availability stability are undocumented |
 
 #### If the task is wrong for the model you are on: hand off, do not force it
 
@@ -277,6 +284,7 @@ The hand-off table below is the default. Read it as a ranked fallback for
 | **Muse Spark 1.3 Contributor Free** | 1. Space Bunny Free — same 1M window, zero-retention, so the right default on a public repo. 2. LongCat 2.5 Preview Free — the other zero-retention 1M option. 3. Nemotron 3 Ultra Free — for reasoning depth, accepting a logged trial endpoint |
 | **MiMo-V2.6-Flash Free** | 1. Ling 3.0 Flash Fin Free — another cheap route for small mechanical work. 2. Big Pickle Free — when a review, not a rewrite, is wanted. 3. Nemotron 3.5 Lightning Free — when the task needs care rather than boilerplate |
 | **LongCat 2.5 Preview Free** | 1. Space Bunny Free — the mature alternative in the same 1M, zero-retention class. 2. Nemotron 3 Ultra Free — for reasoning-heavy debugging. 3. Muse Spark 1.3 Contributor Free — for architecture work where the preview build is not trusted |
+| **Fledge Alpha Free** | 1. Space Bunny Free — the mature 1M alternative. 2. LongCat 2.5 Preview Free — the zero-retention 1M option. 3. Muse Spark 1.3 Contributor Free — for reasoning depth, accepting the Meta training trade |
 
 **Privacy overrides the ranking.** If the prompt contains anything personal,
 confidential, or credential-bearing — a `.env` value, an API key, an email
