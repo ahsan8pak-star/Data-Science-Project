@@ -3,7 +3,7 @@ public class Task3 {
         double r = 0.03; 
         double area = Math.PI * r * r;
         
-        System.out.println("The area of circle of r =" + r + "m is " + area + "m^2");
+        System.out.println("The area of circle of r = " + r + "m is " + area + "m^2");
     }
 }
 
