@@ -17,7 +17,7 @@ def increment_array(numbers: list[int]) -> list[int]:
         incremented_array[i] = numbers[i] + 1
     return incremented_array
     """
-    
+
 # Initialise Example
 numbers = [1, 2, 3, 4, 5]
 words = ["Imperative", "Programming", "is", "nice", "!"]

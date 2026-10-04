@@ -5,7 +5,7 @@ while True:
     # This block executes at least once
     print(i)
     i += 1
-    
+
     # Evaluate the condition at the end; break if it is no longer met
     if not (i < 5):
         break

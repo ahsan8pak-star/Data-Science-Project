@@ -10,7 +10,8 @@ assert divide(10, 2) == 5.0  # Functional test verification
 # Python Docstring Specification
 
 def add(a, b):
-    """Adds two integers and returns the result.
+    """
+    Adds two integers and returns the result.
 
     :param a: the first integer
     :param b: the second integer
