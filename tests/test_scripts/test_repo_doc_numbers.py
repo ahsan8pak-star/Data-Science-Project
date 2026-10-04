@@ -26,6 +26,7 @@ import io
 import re
 import subprocess
 import tokenize
+from datetime import datetime
 from pathlib import Path
 
 import pytest
@@ -108,8 +109,13 @@ def _tracked_python_modules():
 def _fails_to_parse(path):
     """
     True when the file cannot be compiled - coverage drops these from the
-    report entirely rather than recording them at 0%. main.py is the known
-    case: a deliberate IndentationError stub pinned by rule 11.
+    report entirely rather than recording them at 0%.
+
+    [AI] There is no longer a known case. main.py was one until 30 September
+    2026, when it was a deliberate IndentationError stub; it now parses and is
+    measured like every other file. The helper stays because the situation can
+    recur, and the denominator arithmetic below has to keep subtracting it -
+    it currently subtracts zero.
     """
     try:
         compile(path.read_text(encoding="utf-8"), str(path), "exec")
@@ -321,18 +327,26 @@ class TestCoverageClaimsMatchTheReport:
         """
         182 is the number of rows the term report prints. The honest
         denominator excludes files that carry no statement (the 22 empty
-        __init__.py files) and the one file coverage cannot parse at all -
-        fundamental_topics/main.py, the deliberate IndentationError stub.
-        182 - 22 - 1 = 159.
+        __init__.py files) and any file coverage cannot parse at all.
+        182 - 22 - 0 = 160.
 
         [AI] Counted from git, not rglob, and the arithmetic restated, because
         both were wrong. rglob included sandbox/aim.py, so a practice file the
         repository does not contain was being counted as a measured file, and
         deleting it would have moved the documented denominator. The figures
         changed when aim.py was untracked: 183 - 23 - 1 = 159 became
-        182 - 22 - 1 = 159, which happens to be the same total, but for a
+        182 - 22 - 1 = 159, which happened to be the same total but for a
         different reason, and the old explanation named a file that is no
         longer tracked.
+
+        [AI] Then a third correction, on 4 October 2026. The "- 1" was main.py,
+        the deliberate IndentationError stub, which the owner repaired on
+        30 September 2026; it parses now, so there is no unparseable file and
+        the subtraction is zero. The assertion had been passing throughout,
+        because it recomputes `unparseable` live rather than trusting this
+        note - which is exactly why the stale explanation went unnoticed for
+        five days. A figure that cannot disagree with its own guard will not
+        disagree with anything.
         """
         all_py = list(_tracked_python_modules())
         no_statement = [p for p in all_py if not _has_statement(p)]
@@ -1055,3 +1069,120 @@ class TestReadmeArchitectureTree:
             f"TREE_SKIP lists {sorted(missing)} but this guard does not skip them"
         )
 
+
+
+class TestNotesMaintenanceLogOrder:
+    """
+    NOTES.md's maintenance log is the term-time record of pass-throughs.
+
+    [AI] It had no guard at all while PROGRESSION.md's session log had five, and
+    the unguarded one was the one that had drifted: the rows descended to
+    Fri 18 Sep and then jumped forward through Sat 19, Sun 20 and a Wed 23 Sep
+    row stranded after a blank line. Reordering it fixed the symptom on
+    4 October 2026; these checks are what stops it returning.
+
+    The three properties are deliberately different in kind. Parseability is a
+    typo guard. Descending order is the property that actually broke. The row
+    count is a floor rather than an exact figure, because the log is
+    append-only by rule and a new pass-through must not need this file edited.
+    """
+
+    LOG_HEADING = "## Maintenance log format"
+    ROW = re.compile(
+        r"\|\s*(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)\s+(\d{1,2})\s+([A-Z][a-z]{2})\s+(\d{4})\s*\|"
+    )
+
+    @classmethod
+    def _rows(cls):
+        lines = NOTES_MD.read_text(encoding="utf-8").splitlines()
+        start = next(
+            (i for i, l in enumerate(lines) if l.startswith(cls.LOG_HEADING)), None
+        )
+        assert start is not None, "NOTES.md has no maintenance log section"
+        rows = []
+        for line in lines[start + 1:]:
+            if not line.strip().startswith("|"):
+                # The table ends at the first prose line after it.
+                if rows:
+                    break
+                continue
+            if set(line.strip()) <= set("|- :"):
+                continue
+            if "one row per pass-through" in line:
+                continue
+            match = cls.ROW.match(line)
+            if match:
+                day, month, year = match.groups()
+                rows.append((line, f"{year} {month} {day}"))
+        return rows
+
+    def test_the_log_has_rows(self):
+        assert len(self._rows()) >= 1, "the maintenance log has no dated rows"
+
+    def test_every_date_parses(self):
+        unparseable = []
+        for line, stamp in self._rows():
+            try:
+                datetime.strptime(stamp, "%Y %b %d")
+            except ValueError:
+                unparseable.append(stamp)
+        assert unparseable == [], (
+            f"maintenance log rows whose date does not parse: {unparseable}"
+        )
+
+    def test_rows_are_in_descending_date_order(self):
+        """
+        Newest first, so the top of the table is the most recent pass-through.
+        Equal dates are allowed and keep their written order: several
+        pass-throughs legitimately land on the same day.
+        """
+        dates = [
+            datetime.strptime(stamp, "%Y %b %d").date()
+            for _, stamp in self._rows()
+        ]
+        ascending = [
+            (dates[i], dates[i + 1])
+            for i in range(len(dates) - 1)
+            if dates[i] < dates[i + 1]
+        ]
+        assert ascending == [], (
+            "maintenance log rows are out of descending order; a row dated "
+            f"{ascending[0][1]} follows {ascending[0][0]}" if ascending else ""
+        )
+
+    def test_the_row_count_has_not_shrunk(self):
+        """
+        A floor, not an exact figure. The log is append-only by rule, so adding
+        a pass-through must never require editing this test; removing one is
+        what needs a deliberate edit here.
+        """
+        assert len(self._rows()) >= 12, (
+            f"the maintenance log has {len(self._rows())} rows, below the "
+            "recorded floor of 12; a row was deleted rather than appended"
+        )
+
+    def test_no_row_is_stranded_after_a_blank_line(self):
+        """
+        The shape the drift actually took: a blank line inside the table left
+        Wed 23 Sep 2026 sitting below it, reading as a footnote rather than as
+        the seventh-newest entry. Between the first and the last dated row the
+        table has to be contiguous, so a row cannot be visually detached.
+        """
+        lines = NOTES_MD.read_text(encoding="utf-8").splitlines()
+        start = next(
+            (i for i, l in enumerate(lines) if l.startswith(self.LOG_HEADING)), None
+        )
+        dated = [
+            i for i, line in enumerate(lines[start + 1:], start + 1)
+            if self.ROW.match(line)
+        ]
+        assert len(dated) >= 2, "not enough dated rows to judge the table's shape"
+        gaps = [
+            lines[i]
+            for i in range(dated[0] + 1, dated[-1])
+            if not lines[i].strip()
+        ]
+        assert gaps == [], (
+            f"{len(gaps)} blank line(s) interrupt the maintenance log table, "
+            "leaving rows below them looking like footnotes rather than entries"
+        )
