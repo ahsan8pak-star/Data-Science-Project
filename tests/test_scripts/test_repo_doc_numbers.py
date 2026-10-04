@@ -310,13 +310,55 @@ class TestCoverageClaimsMatchTheReport:
     without re-running coverage inside the suite: they pin the *stated*
     figures to the *defined* denominators so the two cannot drift apart again
     in the doc.
+
+    [AI] The branch figure was pinned to the exact value on 4 October 2026,
+    having previously only been asserted "not 98". That assertion could not
+    fail for any wrong number other than the one it named: a claim drifting to
+    94% or 93% passed. Pinning has a real limit, stated here rather than
+    implied - these constants are only as fresh as the last recorded
+    `coverage report`, so this guards the *doc against the record* and not the
+    record against reality. Refreshing them is a manual step:
+
+        .venv/Scripts/python.exe -m pytest --cov --cov-report=term-missing
+        # read the TOTAL row, update the constants below and the sentence in
+        # AGENTS.md together, and commit both in the same change
+
+    The "N of the M measured" claim is stronger than that, because
+    test_full_coverage_claim_uses_measured_denominator recomputes its
+    denominator from the live tree rather than trusting a constant.
     """
-    def test_branch_percentage_is_not_stale(self):
-        # Guard against a regression to the old, wrong 98% figure.
+
+    # From the TOTAL row of `coverage report` on 4 October 2026:
+    #   TOTAL  5991 stmts  38 miss  1318 branch  54 partial  99%
+    # line 99.37% and branch 95.90% are both stated rounded down, which is
+    # why AGENTS.md says 99% and 95% rather than 99.4% and 95.9%.
+    STATED_LINE_PERCENT = 99
+    STATED_BRANCH_PERCENT = 95
+    RETIRED_PERCENTAGES = {"98"}
+
+    def test_stated_line_percentage_matches_the_recorded_figure(self):
+        flat = _flat(AGENTS_MD)
+        match = re.search(r"(\d+)% line coverage", flat)
+        assert match, "no line coverage figure claimed"
+        assert int(match.group(1)) == self.STATED_LINE_PERCENT, (
+            f"AGENTS.md states {match.group(1)}% line coverage; the recorded "
+            f"figure is {self.STATED_LINE_PERCENT}%. Refresh both together "
+            "after a coverage run."
+        )
+
+    def test_branch_percentage_matches_the_recorded_figure(self):
         flat = _flat(AGENTS_MD)
         match = re.search(r"(\d+)% branch coverage", flat)
         assert match, "no branch coverage figure claimed"
-        assert match.group(1) != "98", "branch coverage regressed to the stale 98%"
+        stated = int(match.group(1))
+        assert stated not in self.RETIRED_PERCENTAGES, (
+            "branch coverage regressed to the stale 98%"
+        )
+        assert stated == self.STATED_BRANCH_PERCENT, (
+            f"AGENTS.md states {stated}% branch coverage; the recorded figure "
+            f"is {self.STATED_BRANCH_PERCENT}%. Refresh both together after a "
+            "coverage run."
+        )
 
     def test_full_coverage_claim_uses_measured_denominator(self):
         flat = _flat(AGENTS_MD)
