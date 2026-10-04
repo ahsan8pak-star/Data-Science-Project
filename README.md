@@ -375,88 +375,120 @@ This is for extensive and multi-level applications such as machine learning and 
 ```text
 Data-Science-Project/
 │
-├── .vscode/                                # IDE local runtime environment configuration
+├── .github/                                 # Dependabot and CI workflow definitions
+├── .vscode/                                 # IDE local runtime environment configuration
 │
-├── Data/                                   # Storage layer for project datasets and tracking assets
-│   └── Sandbox/                            # Storage folder containing raw pipeline source data (e.g., aim.csv)
+├── AGENTS.md                                # Local AI-agent operating rules: commit conventions and project rules
+├── NOTES.md                                 # Engineering journal tracking milestone phases, study tracks and resources
+├── PROGRESSION.md                           # Progression review: stages of learning, corrections made, and how AI assistants were used
 │
-├── HTMLCov/                                # Generated pytest HTML coverage report (gitignored build artefact)
+├── data/                                    # Storage layer for project datasets and tracking assets
+│   └── sandbox/                             # Raw pipeline source data (e.g. aim.csv)
 │
-├── PostgreSQL/                             # Analytical relational database management scripts
-│   └── Sandbox/                            # Database workspace housing schemas, migrations, and query scripts (e.g., aim.sql)
+├── file_scores_ranking/                     # Generated ranking outputs and the guide explaining their criteria
+│   ├── FILE_RANKING_GUIDE.md                # 0-100 scoring guide: five criteria, weighted per learning or applied tier
+│   └── FILE_SCORES.md                       # Ranking results for all 160 tracked Python files under python/
 │
-├── Python/                                 # Main Python development and modelling architectures
-│   ├── Advanced Projects/                  # Applied capstone builds combining core libraries with data and UI automation
-│   │   ├── Machine Learning/               # Supervised learning experiments over curated public datasets
-│   │   │   ├── Data Outliers/              # Outlier-capping (IQR) detection experiment with report notebooks
-│   │   │   ├── Music/                      # Music recommendation model with accuracy, prediction, and visualisation workflows
-│   │   │   └── Video Games/                # Video-game sales recommender with hypothesis, IQR, and per-region prediction analysis
-│   │   │
-│   │   ├── Music Player/                   # Standalone audio players exposing GUI and terminal (TUI) interfaces
-│   │   │   ├── GUI/                        # Graphical MP3 and WAV playback interface variants
-│   │   │   └── TUI/                        # Terminal MP3 and WAV playback interface variants
-│   │   │
-│   │   └── Transactions/                   # Excel workbook automation and bar-chart report generation
+├── htmlcov/                                 # Generated pytest HTML coverage report (gitignored build artefact)
+│
+├── postgresql/                              # Analytical relational database management scripts
+│   └── sandbox/                             # Schemas, migrations and query scripts (e.g. aim.sql)
+│
+├── python/                                  # Main Python development and modelling architectures
+│   ├── advanced_projects/                   # Applied capstone builds combining core libraries with data and UI automation
+│   │   ├── machine_learning/                # Supervised learning experiments over curated public datasets
+│   │   │   ├── data_outliers/               # Outlier-capping (IQR) detection experiment with report notebooks
+│   │   │   ├── music/                       # Music recommendation model with accuracy and prediction workflows
+│   │   │   └── video_games/                 # Video-game sales recommender with hypothesis and per-region analysis
+│   │   ├── music_player/                    # Standalone audio players exposing GUI and terminal (TUI) interfaces
+│   │   │   ├── gui/                         # Graphical MP3 and WAV playback interface variants
+│   │   │   └── tui/                         # Terminal MP3 and WAV playback interface variants
+│   │   └── transactions/                    # Excel workbook automation and bar-chart report generation
 │   │
-│   ├── Functional Programming/             # Pure functions, mathematical pipelines, and immutable data flows
-│   │   ├── Fundamental Topics/             # Higher-order transforms: filter, lambda, map, and zip
-│   │   └── Syntax Fundamentals/            # Data-pipeline demos: grade summary, number pipeline, shopping receipt, word frequency
+│   ├── functional_programming/              # Pure functions, mathematical pipelines and immutable data flows
+│   │   ├── fundamental_topics/              # Higher-order transforms: filter, lambda, map and zip
+│   │   └── syntax_fundamentals/             # Grade summary, number pipeline, shopping receipt, word frequency
 │   │
-│   ├── Imperative Programming/             # Procedural logic scripts focused on mutable state and step-by-step execution
-│   │   ├── Unit & Format Converters/       # Unit and number-format conversion utility scripts
-│   │   ├── Fundamental Topics/             # Implementation playgrounds for native collection types, modules, and error handling
-│   │   ├── Interactive Games/              # Interactive terminal games testing state tracking and algorithmic logic loops
-│   │   ├── Math & Science Calculators/     # Financial models, geometry calculators, and coordinate boundary systems
-│   │   └── Syntax Exercises/               # Language syntax scratchpads exploring file I/O operations, string manipulation, and timers
+│   ├── imperative_programming/              # Procedural logic focused on mutable state and stepwise execution
+│   │   ├── fundamental_topics/              # Collection types, modules, scope resolution and error handling
+│   │   ├── interactive_games/               # Interactive terminal games testing state tracking and algorithm loops
+│   │   ├── math_and_science_calculators/    # Financial models, trigonometry, geometry and coordinate systems
+│   │   ├── syntax_exercises/                # Language syntax scratchpads: file I/O, strings, ciphers and timers
+│   │   └── unit_and_format_converters/      # Rate, temperature, phone, Roman numeral, time and weight converters
 │   │
-│   ├── Object Oriented Programming/        # State-driven architectures using classes, encapsulation, and custom domain models
-│   │   ├── Fundamental Topics/             # Implementation of abstraction, inheritance, polymorphism, and nested classes
-│   │   └── Syntax Fundamentals/            # Domain models including Car, Person, Point, and Dice with custom TUI graphics
+│   ├── object_oriented_programming/         # State-driven architectures using classes, encapsulation and custom models
+│   │   ├── fundamental_topics/              # Abstraction, inheritance, polymorphism and nested classes
+│   │   └── syntax_fundamentals/             # Domain models including Car, Person, Point and Dice with TUI graphics
 │   │
-│   └── Sandbox/                            # Primary Python workspace housing unified ingestion and execution scripts (e.g., aim.py)
+│   └── sandbox/                             # Primary Python workspace for unified ingestion and execution scripts
 │
-├── Roadmap/                                # Data Science and Python learning-path reference guides (PDF/TXT)
+├── requirements/                            # Tiered dependency catalogue (all-rounder vs Windows dev kits)
+│   ├── requirements-win_dev.in              # Direct Windows Dev Kits source list (compiles to the .txt)
+│   ├── requirements-win_dev.txt             # Frozen Windows Dev Kits set (generated by requirements_sync.py)
+│   ├── requirements.in                      # Direct All-Rounder library source list (compiles to the .txt)
+│   ├── requirements.txt                     # Frozen All-Rounder dependency set (generated by requirements_sync.py)
+│   └── requirements_sync.py                 # One-command offline sync and audit of both frozen files
 │
-├── Scripts/                                # Interactive project-tree / per-folder benchmark runner (execution_time.py)
+├── roadmap/                                 # Data Science and Python learning-path reference guides
+├── scripts/                                 # Interactive project-tree and per-folder benchmark runner
 │
-├── Tests/                                  # Pytest unit-testing framework validating mathematical logic and code stability
-│   ├── Test Functional Programming/        # Test suites verifying deterministic, side-effect-free data transformations
-│   ├── Test Imperative Programming/        # Test suites validating procedural state changes, conditional loops, and user I/O logic
-│   ├── Test Object Oriented Programming/   # Verification of object lifecycles, attribute states, and mocked dependencies
-│   ├── Test Advanced Projects/             # Coverage for sklearn IQR capping, openpyxl discount pipelines, and music players (mocked pygame/tkinter)
-│   ├── Test Scripts/                       # Unit tests for the interactive project-tree benchmark in scripts/
-│   └── Test University Courseworks/        # Headless unit tests for the transposed CS1IP Python coursework under University Courseworks/
+├── tests/                                   # Pytest suites validating logic, structure and documentation
+│   ├── test_advanced_projects/              # sklearn IQR capping, openpyxl pipelines and music players (mocked)
+│   ├── test_functional_programming/         # Deterministic, side-effect-free data transformations
+│   ├── test_imperative_programming/         # Procedural state changes, conditional loops and user I/O logic
+│   ├── test_object_oriented_programming/    # Object lifecycles, attribute states and mocked dependencies
+│   ├── test_scripts/                        # Repo hygiene, ranking arithmetic, doc figures and rotation guards
+│   └── test_university_courseworks/         # Coursework behaviour plus the lecture/practical layout guards
 │
-├── University Courseworks/                 # Official university module briefings and transposed coursework
-│   ├── Year 1/                             # CS1 briefings (AC, CA, DB, IP, MA, OP) plus translated CS1IP coursework
-│   │   └── CS1IP/                          # Java coursework transposed into Python pairs
-│   │       ├── Coursework 1/               # hello, ice_cream, volume, seven_segment, average_grades (Java ↔ Python)
-│   │       └── Coursework 2/               # sort_comparison with partial and full sorted-dataset exports
-│   │
-│   ├── Year 2/                             # CS2 briefings (DA, AI, ON, PP, SD, SE) plus the CS2PP module roadmap
-│   │
-│   └── Year 3/                             # Year 3 briefing documents
-│
-├── .gitattributes                          # Repository-level line-ending (CRLF) and diff/merge attribute policies for consistent checkout handling
-├── .gitignore                              # Multilayer safety network blocking binary artefacts, database dumps, and environment variables
-├── .gitkeep                                # Version control placeholder file preserving empty directory architecture in Git
-├── AGENTS.md                               # Local AI-agent operating rules: commit conventions, mirror workflow, and project rules for collaborators
-├── DEPENDENCIES.md                         # Tiered dependency catalogue separating all-rounder libraries from Windows dev kits
-├── file_scores_ranking/                    # Generated ranking outputs and the guide that explains their criteria
-│   ├── FILE_RANKING_GUIDE.md               # 0-100 scoring guide: five criteria, weighted differently for learning material and applied projects
-│   └── FILE_SCORES.md                      # Ranking results for all 160 tracked Python files under python/, on five criteria weighted per tier
-├── LICENSE                                 # MIT legal framework outlining permissions, open-source compliance, and liability limits
-├── NOTES.md                                # Comprehensive engineering journal tracking milestone phases, study tracks, and resources
-├── pyproject.toml                          # Central project configuration for build tools, test runners, and strict linters (Ruff/Black)
-├── PROGRESSION.md                          # 16-week progression review: stages of learning, corrections made, and how AI assistants were used
-├── README.md                               # Master structural roadmap, technical documentation, and portfolio overview
-├── requirements/                           # Tiered dependency catalogue (all-rounder vs Windows dev kits)
-│   ├── requirements-win_dev.in             # Direct Windows Dev Kits source list (compiles to requirements-win_dev.txt)
-│   ├── requirements-win_dev.txt            # Frozen Windows Dev Kits dependency set (generated by requirements_sync.py)
-│   ├── requirements.in                     # Direct All-Rounder library source list (compiles to requirements.txt)
-│   ├── requirements.txt                    # Frozen All-Rounder dependency set (generated by requirements_sync.py)
-│   └── requirements_sync.py                # One-command offline sync + audit: regenerates both frozen files from the live venv
+└── university_courseworks/                  # Module briefings and transposed coursework
+    ├── university_modules/                  # Rolling three-year module reference (UNIVERSITY_MODULES.md)
+    │
+    ├── year1/                               # CS1 briefings (AC, CA, DB, IP, MA, OP)
+    │   ├── modules/                         # Year 1 module briefings and the January 2026 briefing pack
+    │   │
+    │   ├── semester1/
+    │   │   └── cs1ip/                       # Java coursework transposed into Python pairs
+    │   │       ├── coursework1/             # hello, ice_cream, volume, seven_segment, average_grades
+    │   │       │   ├── java/                # Java sources and the IDE settings.json
+    │   │       │   └── python/              # Marked Python submissions for coursework 1
+    │   │       ├── coursework2/             # sort_comparison with partial and full dataset exports
+    │   │       │   ├── data/                # Deck fixtures: sort10, sort100, sort10000 and the results CSV
+    │   │       │   ├── java/                # Java twin of the comparison script
+    │   │       │   └── python/              # Marked Python submission for coursework 2
+    │   │       └── week1/ ... week12/        # Weekly lecture and practical material, one folder per week
+    │   │           ├── lecture/              # Lecture-source material for the week
+    │   │           │   ├── java/             # Java lecture sources
+    │   │           │   ├── pdf/              # Lecture slides and worked-example PDFs
+    │   │           │   └── python/           # Python lecture sources
+    │   │           └── practical/            # Practical material for the week
+    │   │               ├── java/             # Java practical sources
+    │   │               ├── pdf/              # Practical briefs and solution PDFs
+    │   │               └── python/           # Python practical submissions
+    │   │
+    │   └── semester2/
+    │       ├── cs1db/                       # Databases module: sql/ and data/ beneath each week
+    │       └── cs1op/                       # Object-oriented module: java/ and python/, plus coursework/
+    │
+    └── year2/                               # CS2 briefings (DA, AI, ON, PP, SD, SE)
+        ├── modules/                         # Year 2 module briefings, semester plans and the CS2PP roadmap
+        ├── semester1/
+        │   ├── cs2da/                       # Data analytics: java/ and python/ per week (no lecture split)
+        │   └── cs2pp/                       # Python programming: lecture/ and practical/, notebooks in jupyter/
+        └── semester2/                       # Semester 2 planned, not yet populated
 ```
+
+The `university_courseworks/` weeks share one convention, stated once rather than
+repeated for all eleven: each `weekN/` folder holds a `lecture/` and a
+`practical/` half, and each half holds `java/`, `python/` and `pdf/` type
+folders. The type folders vary by module because the modules differ - `cs1db/`
+carries `sql/` and `data/`, `cs1op/` and `cs1ip/` carry `java/`, and `cs2pp/`
+adds a `jupyter/` folder for notebook practicals. `cs2da/` is the one module
+still splitting by language without a lecture/practical level. The exact shape
+is asserted by `tests/test_university_courseworks/test_structure.py`, so the
+tree above cannot drift from the folders on disk without the suite failing.
+Generated and vendored paths (`.git`, `.venv`, `.pytest_cache`,
+`__pycache__`, `.coverage`, `htmlcov`) are omitted, matching `TREE_SKIP` in
+`scripts/execution_time.py`.
 
 ---
 

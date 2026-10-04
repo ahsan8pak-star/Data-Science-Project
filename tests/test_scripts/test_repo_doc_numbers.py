@@ -881,3 +881,177 @@ class TestProgressionDocClaims:
             "is the figure that shows the narrative peak"
         )
 
+
+
+class TestReadmeArchitectureTree:
+    """
+    README.md's "Project Architecture" tree must match the folders on disk.
+
+    [AI] The tree was rewritten on 4 October 2026 to be folders-only at the
+    real lowercase paths, after it had drifted: it still showed Data/,
+    Python/, FILE SCORES RANKING/ and a flat coursework1/, none of which
+    existed any more. Nothing failed, because no test compared the tree with
+    the filesystem - the same lesson as the CS1IP reorganisation, where a
+    folder move broke 59 tests only by accident of which paths they spelled.
+
+    Two directions are checked, and both matter. A folder claimed in the tree
+    but absent on disk is documentation promising something that is not there;
+    a folder on disk but absent from the tree is documentation that will send
+    a reader looking for the wrong path. The checks skip the generated and
+    vendored paths listed in TREE_SKIP, and treat "__pycache__" as excluded
+    because it is a build artefact rather than architecture.
+    """
+
+    SKIP_DIRS = {".git", ".venv", ".pytest_cache", "__pycache__",
+                 ".coverage", "htmlcov", ".ipynb_checkpoints"}
+
+    # The tree collapses the eleven CS1IP weeks into one "week1/ ... week12/"
+    # line, so only the first of a collapsed range is checked for existence.
+    V, TEE, ELBOW = "\u2502", "\u251c\u2500\u2500", "\u2514\u2500\u2500"
+    NODE = re.compile(
+        r"^((?:(?:" + V + r"   |    ))*)(?:"
+        + TEE + r"|" + ELBOW + r")\s+([^#]+?)(?:\s+#.*)?$"
+    )
+
+    @classmethod
+    def _block(cls):
+        lines = README_MD.read_text(encoding="utf-8").splitlines()
+        start = next(
+            (i for i, l in enumerate(lines) if l.startswith("```text")), None
+        )
+        assert start is not None, "README.md has no ```text architecture block"
+        body = []
+        for line in lines[start + 1:]:
+            if line.startswith("```"):
+                break
+            body.append(line)
+        return body
+
+    @classmethod
+    def _tree_paths(cls):
+        """Every path the tree names, in document order."""
+        paths, stack = [], []
+        for line in cls._block():
+            match = cls.NODE.match(line)
+            if not match:
+                continue
+            depth = len(match.group(1)) // 4
+            name = match.group(2).strip().rstrip("/")
+            # Truncating before the push re-parents a collapsed week's
+            # children under it, rather than the previous sibling.
+            stack = stack[:depth]
+            if "..." in name:
+                name = name.split("/")[0].strip()
+            stack.append(name)
+            paths.append("/".join(stack))
+        return paths
+
+    @classmethod
+    def _folders_on_disk(cls):
+        found = set()
+        for top in REPO_ROOT.iterdir():
+            if not top.is_dir() or top.name in cls.SKIP_DIRS:
+                continue
+            for folder in [top, *top.rglob("*")]:
+                if folder.is_dir() and not any(
+                    part in cls.SKIP_DIRS for part in folder.relative_to(REPO_ROOT).parts
+                ):
+                    found.add(folder.relative_to(REPO_ROOT).as_posix())
+        return found
+
+    def test_the_tree_block_exists_and_parses(self):
+        assert len(self._tree_paths()) > 40, (
+            "the architecture tree parsed to only "
+            f"{len(self._tree_paths())} nodes; the block may have been reformatted"
+        )
+
+    def test_every_entry_the_tree_claims_exists(self):
+        """
+        A path may be a folder or, in the two documented cases, a file. Both
+        are checked with exists() rather than is_dir(), because the tree
+        deliberately lists the two ranking documents and the dependency
+        manifests by name.
+        """
+        missing = sorted(p for p in self._tree_paths() if not (REPO_ROOT / p).exists())
+        assert missing == [], (
+            "README.md names paths that are not on disk: "
+            f"{missing}. Either the tree is stale or something was removed."
+        )
+
+    def test_every_folder_on_disk_is_represented(self):
+        """
+        A folder on disk that the tree never mentions is a path a reader
+        cannot find in the documentation.
+
+        The comparison is by ancestor, not equality, because the tree
+        legitimately collapses ranges (all eleven CS1IP weeks under one line)
+        and several folders hold no files at all.
+        """
+        paths = self._tree_paths()
+
+        def represented(folder):
+            parts = folder.split("/")
+            return any(
+                "/".join(parts[:i]) in paths for i in range(1, len(parts) + 1)
+            )
+
+        absent = sorted(f for f in self._folders_on_disk() if not represented(f))
+        assert absent == [], (
+            "folders on disk that README.md does not show: "
+            f"{absent[:12]}. Add them, or drop them if they are artefacts."
+        )
+
+    def test_the_tree_lists_folders_not_loose_files(self):
+        """
+        The tree names folders, with three deliberate exceptions: the root
+        documents AGENTS.md, NOTES.md and PROGRESSION.md, the two generated
+        documents under file_scores_ranking/, and the dependency manifests
+        under requirements/. Everything else is a folder.
+
+        A dot-prefixed entry such as .github/ is a folder, not a file, so the
+        trailing slash decides the two apart; a name carrying a dot without one
+        (FILE_SCORES.md) is a file.
+        """
+        allowed_files = {
+            "AGENTS.md", "NOTES.md", "PROGRESSION.md",
+            "file_scores_ranking/FILE_RANKING_GUIDE.md",
+            "file_scores_ranking/FILE_SCORES.md",
+        }
+        allowed_parents = {"file_scores_ranking", "requirements"}
+        offenders, stack = [], []
+        for line in self._block():
+            match = self.NODE.match(line)
+            if not match:
+                continue
+            depth = len(match.group(1)) // 4
+            raw = match.group(2).strip()
+            name = raw.rstrip("/")
+            # Truncate before reading the parent, otherwise the parent is the
+            # previous *sibling* rather than the enclosing folder.
+            parent = stack[:depth][-1] if depth else ""
+            is_folder = raw.endswith("/") or name.startswith(".")
+            is_file = not is_folder and "." in name.split("/")[-1]
+            stack = stack[:depth] + [name]
+            if is_file and parent not in allowed_parents \
+                    and "/".join(stack) not in allowed_files:
+                offenders.append("/".join(stack))
+        assert offenders == [], (
+            "file-level entries beyond the root documents, "
+            f"file_scores_ranking/ and requirements/: {offenders}"
+        )
+
+    def test_skip_list_matches_execution_time(self):
+        """
+        The tree's omissions are justified by TREE_SKIP, so the two lists must
+        agree. If execution_time.py starts skipping a new path, this tree is
+        wrong about why it omits something.
+        """
+        source = (REPO_ROOT / "scripts" / "execution_time.py").read_text(
+            encoding="utf-8"
+        )
+        declared = set(re.findall(r'"([^"]+)"', source.split("TREE_SKIP")[1].split("}")[0]))
+        missing = declared - self.SKIP_DIRS
+        assert missing == set(), (
+            f"TREE_SKIP lists {sorted(missing)} but this guard does not skip them"
+        )
+
