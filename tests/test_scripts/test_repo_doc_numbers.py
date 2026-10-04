@@ -22,6 +22,7 @@ The file-count and test-count checks are pure filesystem queries plus the
 already-collected pytest session, and cost milliseconds.
 """
 
+import ast
 import io
 import re
 import subprocess
@@ -328,10 +329,8 @@ class TestCoverageClaimsMatchTheReport:
     denominator from the live tree rather than trusting a constant.
     """
 
-    # From the TOTAL row of `coverage report` on 4 October 2026:
-    #   TOTAL  5991 stmts  38 miss  1318 branch  54 partial  99%
-    # line 99.37% and branch 95.90% are both stated rounded down, which is
-    # why AGENTS.md says 99% and 95% rather than 99.4% and 95.9%.
+    # From `coverage report` on 4 Oct 2026: 5991 stmts, 38 miss, 1318 branch,
+    # 54 partial. Real 99.37% / 95.90% are stated rounded down, hence 99 / 95.
     STATED_LINE_PERCENT = 99
     STATED_BRANCH_PERCENT = 95
     RETIRED_PERCENTAGES = {"98"}
@@ -1228,3 +1227,157 @@ class TestNotesMaintenanceLogOrder:
             f"{len(gaps)} blank line(s) interrupt the maintenance log table, "
             "leaving rows below them looking like footnotes rather than entries"
         )
+
+
+class TestPytestSkipSitesAreRegistered:
+    """
+    Every pytest.skip() in the suite is named here, with its reason.
+
+    [AI] A skip is the cheapest way to turn a red test green without fixing
+    anything, and it costs nothing at the moment it is written - which makes it
+    the failure mode most available to an assistant asked to make a suite pass.
+    Eight sites were audited on 4 October 2026. Five turned out to guard files
+    the repository tracks, so their absence was a defect rather than an
+    optional extra; those skips became hard assertions. The three that remain
+    are legitimate and are listed below, and this registry exists so that a
+    *fourth* one cannot be added quietly: introducing a skip now fails this
+    test, and adding a registry entry is a deliberate, reviewable act that has
+    to state why the condition is genuinely optional.
+
+    The two full-suite gates are worth keeping in mind. They make the suite-wide
+    test-count claims meaningful only on a whole-suite collection, so a
+    targeted run such as `pytest tests/test_scripts/` reports green while
+    skipping them. That is the intended trade - a count claim checked against
+    a fraction of the suite would be meaningless - but it means a green
+    targeted run is not evidence that the doc figures agree.
+    """
+
+    # The two files the remaining skips are for. Both must stay untracked for
+    # their skip to be correct; the check of that name is below.
+    OPTIONAL_UNTRACKED_PATHS = (
+        "python/sandbox/aim.py",
+        "university_courseworks/year1/semester1/cs1ip/coursework2/data/"
+        "sort_comparison.csv",
+    )
+
+    # path -> (count, why each site there is legitimate)
+    REGISTERED = {
+        "tests/test_imperative_programming/test_syntax_programs.py": (
+            1,
+            "python/sandbox/aim.py is deliberately untracked (rule: the owner "
+            "keeps practice code outside version control), so a fresh clone "
+            "must not fail on it",
+        ),
+        "tests/test_scripts/test_data_files.py": (
+            1,
+            "coursework2/data/sort_comparison.csv is a generated results file "
+            "and is not tracked, so it is absent from a fresh clone",
+        ),
+        "tests/test_scripts/test_repo_doc_numbers.py": (
+            2,
+            "the two suite-wide test-count claims, which are only meaningful "
+            "against a whole-suite collection rather than a targeted run",
+        ),
+    }
+
+
+    @staticmethod
+    def _real_skip_calls(path):
+        """
+        Genuine pytest.skip() calls, found by parsing rather than by text.
+
+        [AI] Counting with a regex was the first attempt and it was wrong: the
+        registry's own docstring names pytest.skip(), so the scanner counted
+        its own documentation and reported five sites in this file where there
+        are two. Parsing is what distinguishes a call from a mention, which is
+        the whole difference between auditing skips and documenting them.
+        """
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        count = 0
+        for node in ast.walk(tree):
+            if not isinstance(node, ast.Call):
+                continue
+            func = node.func
+            if (
+                isinstance(func, ast.Attribute)
+                and func.attr == "skip"
+                and isinstance(func.value, ast.Name)
+                and func.value.id == "pytest"
+            ):
+                count += 1
+        return count
+
+    @classmethod
+    def _sites(cls):
+        found = {}
+        for path in sorted((REPO_ROOT / "tests").rglob("test_*.py")):
+            count = cls._real_skip_calls(path)
+            if count:
+                rel = path.relative_to(REPO_ROOT).as_posix()
+                found[rel] = count
+        return found
+
+    def test_no_skip_site_is_unregistered(self):
+        """
+        Catches a skip added in a file the registry does not list at all.
+
+        An addition inside an already-registered file is caught by
+        test_registered_counts_match_the_code instead, so the two together
+        cover both shapes.
+        """
+        found = self._sites()
+        unregistered = sorted(set(found) - set(self.REGISTERED))
+        assert unregistered == [], (
+            "pytest.skip() added in a file with no registry entry: "
+            f"{unregistered}. A new skip silences a failure rather than "
+            "fixing one; if the condition is genuinely optional, add it to "
+            "TestPytestSkipSitesAreRegistered.REGISTERED with the reason."
+        )
+
+    def test_registered_counts_match_the_code(self):
+        found = self._sites()
+        wrong = {
+            rel: (found.get(rel, 0), self.REGISTERED[rel][0])
+            for rel in self.REGISTERED
+            if found.get(rel, 0) != self.REGISTERED[rel][0]
+        }
+        assert wrong == {}, (
+            "the registered skip count no longer matches the code; the code is "
+            f"the truth: {wrong}"
+        )
+
+    def test_no_registered_entry_lacks_a_reason(self):
+        unreasoned = [
+            rel for rel, (_, why) in self.REGISTERED.items() if not why.strip()
+        ]
+        assert unreasoned == [], f"registry entries without a reason: {unreasoned}"
+
+    def test_deliberately_skipped_paths_are_genuinely_untracked(self):
+        """
+        The invariant that makes the remaining two skips legitimate, stated as
+        a check rather than as prose.
+
+        Each of these two files is absent from a fresh clone, so skipping is
+        correct. The moment either is committed, the repository starts
+        promising it and a missing copy becomes a defect - so the skip has to
+        become a hard assertion at that point, and this test is what forces
+        that decision rather than letting it be forgotten.
+
+        [AI] The first attempt at this check scanned each skip line for a
+        filename and asked git whether it was tracked. It passed against a
+        mutation that put a tracked file's name in a skip message, because it
+        rebuilt the bare name as scripts/<name> and looked in the wrong place.
+        Naming the two optional paths outright is both simpler and checkable;
+        inferring intent from a message string was never going to hold.
+        """
+        for rel in self.OPTIONAL_UNTRACKED_PATHS:
+            tracked = subprocess.run(
+                ["git", "ls-files", "--error-unmatch", rel],
+                cwd=REPO_ROOT, capture_output=True,
+            ).returncode == 0
+            assert not tracked, (
+                f"{rel} is now tracked, so the repository promises it and its "
+                "absence is a defect rather than an expected state. Replace "
+                "the pytest.skip() guarding it with a hard assertion."
+            )
+

@@ -179,8 +179,11 @@ class TestRepoLevelDataFiles:
     )
     def test_requirements_file_is_populated_and_pinned(self, name):
         path = REPO_ROOT / "requirements" / name
-        if not path.exists():
-            pytest.skip(f"{name} is not present")
+        # [AI] Was a skip: all four manifests are tracked, so a missing one is
+        # a defect, and a skip let a deleted dependency file pass unnoticed.
+        assert path.is_file(), (
+            f"requirements/{name} is tracked and must be present"
+        )
         lines = [
             line.strip() for line in path.read_text(encoding="utf-8").splitlines()
         ]
@@ -192,10 +195,11 @@ class TestRepoLevelDataFiles:
             REPO_ROOT / "university_courseworks" / "year1" / "semester1"
             / "cs1ip" / "coursework1" / "java" / "settings.json"
         )
-        if not path.is_file():
-            pytest.skip(
-                "year1/semester1/cs1ip/coursework1/java/settings.json is not present"
-            )
+        # [AI] Was a skip. settings.json is tracked, so its absence is a
+        # defect; skipping let a moved or deleted file pass quietly.
+        assert path.is_file(), (
+            "coursework1/java/settings.json is tracked and must be present"
+        )
         json.loads(path.read_text(encoding="utf-8"))
 
     def test_sort_comparison_csv_is_rectangular(self):
@@ -448,8 +452,11 @@ class TestMultiLineDocstringsUseTheHouseStructure:
         convention is being described rather than followed.
         """
         path = REPO_ROOT / "scripts" / "repair_test_numbers_seam.py"
-        if not path.is_file():
-            pytest.skip("the house reference script is not present")
+        # [AI] Was a skip: the reference script is tracked, and a convention
+        # whose own reference file can vanish is one nobody is checking.
+        assert path.is_file(), (
+            "scripts/repair_test_numbers_seam.py is tracked and must be present"
+        )
         docstring = next(iter(self._multiline_strings(path)), None)
         assert docstring is not None, "no multi-line docstring found"
         parts = docstring.split("\n")
@@ -555,8 +562,9 @@ class TestCommentRunsUseHashOrTripleQuoteNotBoth:
         this rule, so it has to obey it.
         """
         path = REPO_ROOT / "scripts" / "repair_test_numbers_seam.py"
-        if not path.is_file():
-            pytest.skip("the house reference script is not present")
+        assert path.is_file(), (
+            "scripts/repair_test_numbers_seam.py is tracked and must be present"
+        )
         assert self._overlong_runs(path) == []
 
     def test_the_exempt_files_still_carry_their_original_runs(self):
