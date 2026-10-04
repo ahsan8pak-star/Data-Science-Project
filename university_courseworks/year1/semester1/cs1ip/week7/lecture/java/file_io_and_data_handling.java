@@ -1,3 +1,9 @@
+// Path methods
+Path path = Path.of("example.txt");
+System.out.println("File name: " + path.getFileName());
+System.out.println("Parent directory: " + path.getParent());
+System.out.println("Absolute path: " + path.toAbsolutePath());
+
 // Writing formatted records
 Formatter output = new Formatter("clients.txt");
 output.format("%d %s %s %.2f%n", 100, "Bob", "Blue", 24.98);
