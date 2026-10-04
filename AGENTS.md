@@ -503,7 +503,8 @@ makes the answer trustworthy.
     2026 session and had to be promoted from a "rule of thumb" to a numbered
     rule to stop the drift.
 13. **`PROGRESSION.md` is a living document and is updated every session.**
-    The review is not a one-off write-up of the 16-week run; it is the running
+    The review is not a one-off write-up of the 117-day run that closed on
+    29 September 2026; it is the running
     record of where the project has got to, and it is updated whenever the
     project moves. On any session that changes the project - new modules, new
     tests, a fixed bug, a new rule, a changed stage of learning - append a row
@@ -797,7 +798,8 @@ or the correction is half-applied.
 
 ## References
 
-`PROGRESSION.md` is the narrative review of the 16-week run from 4 June 2026:
+`PROGRESSION.md` is the narrative review of the run from 4 June to 29
+September 2026, and of every session since:
 the stages of learning and what evidences each, the corrections and mistakes
 made by both A.I.M and the assistants, and how the AI collaboration was
 arranged - including the point where Claude and Gemini were replaced by
