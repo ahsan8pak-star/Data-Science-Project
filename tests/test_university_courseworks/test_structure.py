@@ -28,6 +28,7 @@ Nothing here executes coursework code or asserts a marked artefact's
 behaviour: these are layout assertions only.
 """
 
+import json
 import re
 
 from pathlib import Path
@@ -43,13 +44,39 @@ CS1IP = COURSEWORKS / "year1" / "semester1" / "cs1ip"
 CS1DB = COURSEWORKS / "year1" / "semester2" / "cs1db"
 CS1OP = COURSEWORKS / "year1" / "semester2" / "cs1op"
 CS2DA = COURSEWORKS / "year2" / "semester1" / "cs2da"
+CS2PP = COURSEWORKS / "year2" / "semester1" / "cs2pp"
 
 WEEK_RE = re.compile(r"^week\d+$")
 SKIP_DIRS = {"__pycache__", ".ipynb_checkpoints"}
 
-# Type folders, and the single extension each one is allowed to carry.
+# Type folders, and the single extension each may carry; `jupyter` joined on
+# 4 October 2026, when CS2PP's practicals gained a notebook folder.
 TYPE_SUFFIXES = {"java": ".java", "python": ".py", "pdf": ".pdf",
-                 "sql": ".sql", "txt": ".txt", "data": None, "csv": ".csv"}
+                 "sql": ".sql", "txt": ".txt", "data": None, "csv": ".csv",
+                 "jupyter": ".ipynb"}
+
+# Modules whose weeks split into lecture/ and practical/, and the type folders
+# each nests: CS1DB carries sql/ and data/, CS2PP's practicals carry jupyter/.
+SPLIT_MODULES = {
+    "cs1ip": {"lecture": {"java", "python", "pdf"},
+              "practical": {"java", "python", "pdf"}},
+    "cs1db": {"lecture": {"sql", "data", "pdf"},
+              "practical": {"sql", "data", "pdf"}},
+    "cs1op": {"lecture": {"java", "python", "pdf"},
+              "practical": {"java", "python", "pdf"}},
+    "cs2pp": {"lecture": {"python", "pdf"},
+              "practical": {"python", "jupyter"}},
+}
+
+# CS1IP week7's lecture carries a txt/ folder, because it reads and writes
+# text files; the one type folder outside the shared contract.
+EXTRA_TYPE_FOLDERS = {("cs1ip", "week7", "lecture"): {"txt"}}
+
+MODULE_PATHS = {"cs1ip": CS1IP, "cs1db": CS1DB, "cs1op": CS1OP, "cs2pp": CS2PP}
+
+# Every module folder, including CS2DA which is deliberately absent from
+# SPLIT_MODULES; the "only module without the split" check needs all of them.
+ALL_MODULE_PATHS = dict(MODULE_PATHS, cs2da=CS2DA)
 
 # CS1IP weeks still holding files loose above their type folders mid-migration;
 # delete an entry as its week is finished rather than relaxing the check.
@@ -158,43 +185,104 @@ class TestCs1ipCourseworkFolders:
 
 class TestCs1ipWeekFoldersSplitLectureAndPractical:
     """
-    Every CS1IP week splits into lecture/ and practical/, each carrying its
-    material under java/, python/ and pdf/.
+    Every week of every conforming module splits into lecture/ and
+    practical/, each carrying its material under the type folders that
+    module implies. CS2PP joined this convention on 4 October 2026 and is
+    checked by the same rules as CS1IP, CS1DB and CS1OP.
     """
 
-    @pytest.fixture(scope="class")
-    @classmethod
-    def weeks(cls):
-        return week_folders(CS1IP)
+    @staticmethod
+    def weeks(module):
+        """
+        The module's week folders.
 
-    def test_cs1ip_has_week_folders(self, weeks):
-        assert weeks, "no week folders found under cs1ip/"
+        Read per test, because `module` is a function-scoped parametrisation
+        and cannot feed a class-scoped fixture without a ScopeMismatch.
+        """
+        return week_folders(MODULE_PATHS[module])
 
-    def test_every_week_splits_lecture_and_practical(self, weeks):
+    @pytest.mark.parametrize("module", sorted(SPLIT_MODULES))
+    def test_module_has_week_folders(self, module):
+        assert len(self.weeks(module)) >= 10, (
+            f"{module} has only {len(self.weeks(module))} week folders"
+        )
+
+    @pytest.mark.parametrize("module", sorted(SPLIT_MODULES))
+    def test_every_week_splits_lecture_and_practical(self, module):
         offenders = {
-            week.name: subfolders(week) for week in weeks
+            week.name: subfolders(week) for week in self.weeks(module)
             if not {"lecture", "practical"} <= set(subfolders(week))
         }
-        assert offenders == {}, f"weeks missing lecture/practical: {offenders}"
+        assert offenders == {}, f"{module} weeks missing a half: {offenders}"
 
-    def test_every_week_offers_the_three_type_folders(self, weeks):
+    @pytest.mark.parametrize("module", sorted(SPLIT_MODULES))
+    def test_every_week_offers_its_module_type_folders(self, module):
         """
-        The type folders are created in all eleven weeks, which is what makes
-        the split uniform even where a week has no material of that kind yet
-        (an empty java/ in a lecture-only week is expected).
+        The type folders exist in every week even where a week has no
+        material of that kind yet, which is what keeps the shape uniform: an
+        empty java/ in a lecture-only week is expected, a missing one is not.
         """
+        expected = SPLIT_MODULES[module]
         offenders = {}
-        for week in weeks:
-            for half in ("lecture", "practical"):
-                expected = {"java", "python", "pdf"}
-                missing = expected - set(subfolders(week / half))
+        for week in self.weeks(module):
+            for half, kinds in expected.items():
+                extra = EXTRA_TYPE_FOLDERS.get((module, week.name, half), set())
+                missing = kinds - set(subfolders(week / half))
                 if missing:
                     offenders[f"{week.name}/{half}"] = sorted(missing)
-        assert offenders == {}, f"type folders not created yet: {offenders}"
+        assert offenders == {}, f"{module} type folders not created: {offenders}"
 
-    def test_type_folders_carry_only_their_own_extension(self, weeks):
+    @pytest.mark.parametrize("module", sorted(SPLIT_MODULES))
+    def test_no_unexpected_type_folders(self, module):
+        """
+        A folder the module's contract does not list is either a typo or an
+        unrecorded convention, and both are worth failing on: this is what
+        stops a new folder appearing without anyone deciding what it means.
+        """
+        expected = SPLIT_MODULES[module]
         offenders = {}
-        for week in weeks:
+        for week in self.weeks(module):
+            for half in ("lecture", "practical"):
+                allowed = (expected[half]
+                           | EXTRA_TYPE_FOLDERS.get((module, week.name, half), set()))
+                extra = set(subfolders(week / half)) - allowed - SKIP_DIRS
+                # Fixture folders hold a practical's data rather than a type
+                # of material, so they are excluded by name, not listed.
+                extra = {name for name in extra if "practical_files" not in name}
+                if extra:
+                    offenders[f"{week.name}/{half}"] = sorted(extra)
+        assert offenders == {}, f"{module} folders not in the contract: {offenders}"
+
+    @pytest.mark.parametrize("module", sorted(SPLIT_MODULES))
+    def test_weeks_hold_nothing_but_the_two_halves(self, module):
+        """
+        A week folder contains lecture/ and practical/ and nothing else.
+
+        The check above only looks *inside* those two halves, so a stray
+        folder dropped beside them would otherwise pass unnoticed - which is
+        how a scratch directory or a loose script survives several commits.
+        """
+        offenders = {
+            week.name: subfolders(week) for week in self.weeks(module)
+            if set(subfolders(week)) - {"lecture", "practical"} - SKIP_DIRS
+        }
+        assert offenders == {}, (
+            f"{module} weeks holding folders other than lecture/practical: {offenders}"
+        )
+
+    @pytest.mark.parametrize("module", sorted(SPLIT_MODULES))
+    def test_weeks_hold_no_loose_files(self, module):
+        """A file sitting directly in a week folder is unmigrated material."""
+        offenders = {
+            week.name: loose_files(week) for week in self.weeks(module)
+            if loose_files(week)
+        }
+        assert offenders == {}, f"{module} weeks holding loose files: {offenders}"
+
+    @pytest.mark.parametrize("module", sorted(SPLIT_MODULES))
+    def test_type_folders_carry_only_their_own_extension(self, module):
+        offenders = {}
+        for week in self.weeks(module):
             for half in ("lecture", "practical"):
                 for kind in subfolders(week / half):
                     folder = week / half / kind
@@ -209,14 +297,15 @@ class TestCs1ipWeekFoldersSplitLectureAndPractical:
                         offenders[f"{week.name}/{half}/{kind}"] = wrong
         assert offenders == {}, f"type folders holding foreign files: {offenders}"
 
-    def test_loose_files_confined_to_weeks_mid_migration(self, weeks):
+    @pytest.mark.parametrize("module", sorted(SPLIT_MODULES))
+    def test_loose_files_confined_to_weeks_mid_migration(self, module):
         """
         Files still sitting directly in lecture/ or practical/ belong only to
         the weeks named in WEEKS_MID_MIGRATION. Finishing a week means
         deleting its name from that set, which tightens this guard.
         """
         offenders = {}
-        for week in weeks:
+        for week in self.weeks(module):
             for half in ("lecture", "practical"):
                 names = loose_files(week / half)
                 if names and week.name not in WEEKS_MID_MIGRATION:
@@ -226,7 +315,7 @@ class TestCs1ipWeekFoldersSplitLectureAndPractical:
             f"WEEKS_MID_MIGRATION: {offenders}"
         )
 
-    def test_fixture_folders_are_not_mistaken_for_type_folders(self, weeks):
+    def test_fixture_folders_are_not_mistaken_for_type_folders(self):
         """
         week_07_practical_files and week_08_practical_files hold the data a
         practical reads, so they legitimately mix .txt, .csv and .py. They
@@ -235,7 +324,7 @@ class TestCs1ipWeekFoldersSplitLectureAndPractical:
         """
         fixture_dirs = sorted(
             f"{week.name}/{half}/{p.name}"
-            for week in weeks
+            for week in self.weeks("cs1ip")
             for half in ("lecture", "practical")
             for p in (week / half).iterdir()
             if p.is_dir() and p.name not in TYPE_SUFFIXES
@@ -244,49 +333,87 @@ class TestCs1ipWeekFoldersSplitLectureAndPractical:
         assert fixture_dirs, "expected at least one practical fixture folder"
 
 
-class TestSemesterTwoModules:
+class TestModuleCourseworkFolders:
     """
-    CS1DB and CS1OP follow the lecture/practical split like CS1IP, with the
-    type folders their own modules imply: sql/ and data/ for the databases
-    module, java/ and python/ for the OOP module.
+    Coursework folders, per module. CS1DB is the one module of the four with
+    no coursework folder, which is a fact about the module rather than an
+    omission, so it is asserted rather than left unremarked.
     """
 
-    @pytest.mark.parametrize("module", ["cs1db", "cs1op"])
-    def test_module_has_week_folders(self, module):
-        parent = CS1DB if module == "cs1db" else CS1OP
-        assert len(week_folders(parent)) >= 10, f"{module} lost its week folders"
-
-    @pytest.mark.parametrize("module", ["cs1db", "cs1op"])
-    def test_every_week_splits_lecture_and_practical(self, module):
-        parent = CS1DB if module == "cs1db" else CS1OP
-        offenders = {
-            week.name: subfolders(week) for week in week_folders(parent)
-            if not {"lecture", "practical"} <= set(subfolders(week))
-        }
-        assert offenders == {}, f"{module} weeks missing a half: {offenders}"
-
-    def test_cs1db_uses_sql_and_data(self):
-        week = CS1DB / "week1"
-        assert {"sql", "data"} <= set(subfolders(week / "lecture"))
-        assert {"sql", "data"} <= set(subfolders(week / "practical"))
-
-    def test_cs1op_uses_java_python_and_pdf(self):
-        week = CS1OP / "week1"
-        assert {"java", "python", "pdf"} <= set(subfolders(week / "lecture"))
+    def test_cs1db_has_no_coursework_folder_yet(self):
+        """
+        CS1DB's coursework folder has not been created. Naming the gap means
+        adding it later is a deliberate change to this file rather than a
+        silent divergence from the other three modules.
+        """
+        coursework = [
+            p.name for p in CS1DB.iterdir()
+            if p.is_dir() and p.name.startswith("coursework")
+        ]
+        assert coursework == [], f"unexpected cs1db coursework folder: {coursework}"
 
     def test_cs1op_carries_a_coursework_folder(self):
         coursework = CS1OP / "coursework"
         assert coursework.is_dir()
         assert {"java", "python"} <= set(subfolders(coursework))
 
+    @pytest.mark.parametrize("name", ["coursework1", "coursework2"])
+    def test_cs2pp_has_both_coursework_folders(self, name):
+        folder = CS2PP / name
+        assert folder.is_dir(), f"cs2pp/{name} missing"
+        assert not loose_files(folder), f"cs2pp/{name} holds loose files"
+
+    def test_cs2pp_weeks_use_notebooks_for_practicals(self):
+        """
+        CS2PP is the Python module whose practical work is submitted as
+        notebooks, which is why its practicals carry jupyter/ where the
+        programming modules carry a second programming-language folder.
+        """
+        week = CS2PP / "week1"
+        assert "jupyter" in subfolders(week / "practical")
+        assert "jupyter" not in subfolders(week / "lecture")
+
+
+class TestCs2ppNotebooks:
+    """
+    CS2PP's only tracked file is a notebook. JSON validity and the kernel
+    metadata are checked because a notebook that will not open is
+    indistinguishable from an empty folder until someone tries.
+    """
+
+    def test_every_tracked_notebook_is_valid_json_with_a_kernel(self):
+        """
+        Only *tracked* notebooks are checked. Jupyter writes an autosaved copy
+        into .ipynb_checkpoints/ that carries no kernel metadata, and that
+        folder is gitignored (root .gitignore), so asserting on it would fail
+        on a file the repository has deliberately excluded.
+        """
+        notebooks = sorted(
+            p for p in CS2PP.rglob("*.ipynb")
+            if ".ipynb_checkpoints" not in p.parts
+        )
+        assert notebooks, "expected at least one notebook under cs2pp/"
+        for notebook in notebooks:
+            payload = json.loads(notebook.read_text(encoding="utf-8"))
+            rel = notebook.relative_to(PROJECT_ROOT).as_posix()
+            assert "cells" in payload, f"{rel} has no cells key"
+            assert payload["cells"], f"{rel} has no cells"
+            kernel = payload.get("metadata", {}).get("kernelspec", {}).get("name")
+            assert kernel, f"{rel} names no kernel"
+
 
 class TestYearTwoLayout:
     """
-    Year 2 is early: CS2DA splits by language without a lecture/practical
-    level, and semester 2 is present but empty.
+    Year 2 is early. CS2PP now follows the lecture/practical convention;
+    CS2DA is the last module that does not, and semester 2 is still empty.
     """
 
     def test_cs2da_weeks_split_by_language(self):
+        """
+        CS2DA is the one module left without a lecture/practical level: its
+        weeks carry java/ and python/ directly. Recorded as the open case, so
+        closing it means editing this test rather than leaving it to drift.
+        """
         weeks = week_folders(CS2DA)
         assert len(weeks) >= 10, "cs2da lost its week folders"
         offenders = {
@@ -295,9 +422,26 @@ class TestYearTwoLayout:
         }
         assert offenders == {}, f"cs2da weeks missing java/python: {offenders}"
 
-    def test_cs2pp_has_week_folders_for_the_current_semester(self):
-        cs2pp = COURSEWORKS / "year2" / "semester1" / "cs2pp"
-        assert week_folders(cs2pp), "cs2pp has no week folders"
+    def test_cs2da_is_the_only_module_without_the_split(self):
+        """
+        One assertion that names the exception, so adding the split to CS2DA
+        makes this fail and prompts a decision rather than being absorbed.
+
+        It walks every module folder, not only the conforming ones: an
+        earlier version read SPLIT_MODULES, which excluded CS2DA and so
+        passed without inspecting anything at all.
+        """
+        assert set(ALL_MODULE_PATHS) == set(SPLIT_MODULES) | {"cs2da"}
+
+        without_split = sorted(
+            name for name, path in ALL_MODULE_PATHS.items()
+            if any("lecture" not in subfolders(week) for week in week_folders(path))
+        )
+        assert without_split == ["cs2da"], (
+            "expected cs2da to be the only module without a lecture/ half; if "
+            "one has been migrated, update SPLIT_MODULES and this list "
+            f"together: {without_split}"
+        )
 
     def test_year2_semester2_is_present_but_empty(self):
         """

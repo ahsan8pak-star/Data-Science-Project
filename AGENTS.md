@@ -694,7 +694,7 @@ or the correction is half-applied.
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1587 passing tests, ~99% line coverage and 95% branch coverage (149 of the
+- 1613 passing tests, ~99% line coverage and 95% branch coverage (149 of the
   160 measured `python/` files at 100% lines, including both music-player
   GUIs; the 160 non-`__init__.py` files are the number a docstring sweep
   covers). The 160 counts files that carry at least one statement. The
