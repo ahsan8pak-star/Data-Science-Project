@@ -51,9 +51,8 @@ SKIP_DIRS = {"__pycache__", ".ipynb_checkpoints"}
 TYPE_SUFFIXES = {"java": ".java", "python": ".py", "pdf": ".pdf",
                  "sql": ".sql", "txt": ".txt", "data": None, "csv": ".csv"}
 
-# CS1IP weeks still holding files loose above their type folders while the
-# October 2026 reorganisation is completed. Delete an entry as its week is
-# finished; do not relax the check instead.
+# CS1IP weeks still holding files loose above their type folders mid-migration;
+# delete an entry as its week is finished rather than relaxing the check.
 WEEKS_MID_MIGRATION = {"week8", "week9", "week12"}
 
 # Files that legitimately sit at a coursework root: desktop.ini is created
