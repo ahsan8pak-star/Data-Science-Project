@@ -188,15 +188,20 @@ class TestRepoLevelDataFiles:
         assert entries, f"{name} lists no packages"
 
     def test_coursework_settings_json_parses(self):
-        path = REPO_ROOT / "university_courseworks" / "year1" / "semester1" / "cs1ip" / "coursework1" / "settings.json"
+        path = (
+            REPO_ROOT / "university_courseworks" / "year1" / "semester1"
+            / "cs1ip" / "coursework1" / "java" / "settings.json"
+        )
         if not path.is_file():
-            pytest.skip("year1/semester1/cs1ip/coursework1/settings.json is not present")
+            pytest.skip(
+                "year1/semester1/cs1ip/coursework1/java/settings.json is not present"
+            )
         json.loads(path.read_text(encoding="utf-8"))
 
     def test_sort_comparison_csv_is_rectangular(self):
         path = (
             REPO_ROOT / "university_courseworks" / "year1" / "semester1" / "cs1ip"
-            / "coursework2" / "sort_comparison.csv"
+            / "coursework2" / "data" / "sort_comparison.csv"
         )
         if not path.is_file():
             pytest.skip("sort_comparison.csv is not present")
@@ -485,7 +490,7 @@ class TestCommentRunsUseHashOrTripleQuoteNotBoth:
         "abstract_classes.py",
         "python/object_oriented_programming/fundamental_topics/"
         "nested_classes.py",
-        "university_courseworks/year1/semester1/cs1ip/coursework2/sort_comparison.py",
+        "university_courseworks/year1/semester1/cs1ip/coursework2/python/sort_comparison.py",
     })
 
     @staticmethod

@@ -18,14 +18,17 @@ import pytest
 from tests.test_university_courseworks.conftest import (
     COURSEWORK1,
     COURSEWORK2,
+    COURSEWORK1_PYTHON,
+    COURSEWORK2_PYTHON,
+    COURSEWORK2_DATA,
     load_module,
 )
 
-AVERAGE_GRADES = COURSEWORK1 / "average_grades.py"
-ICE_CREAM = COURSEWORK1 / "ice_cream.py"
-SEVEN_SEGMENT = COURSEWORK1 / "seven_segment.py"
-VOLUME = COURSEWORK1 / "volume.py"
-HELLO = COURSEWORK1 / "hello.py"
+AVERAGE_GRADES = COURSEWORK1_PYTHON / "average_grades.py"
+ICE_CREAM = COURSEWORK1_PYTHON / "ice_cream.py"
+SEVEN_SEGMENT = COURSEWORK1_PYTHON / "seven_segment.py"
+VOLUME = COURSEWORK1_PYTHON / "volume.py"
+HELLO = COURSEWORK1_PYTHON / "hello.py"
 
 
 """
@@ -330,23 +333,36 @@ class TestSortComparison:
     @pytest.fixture(scope="class")
     @classmethod
     def mod(cls):
-        return load_module(COURSEWORK2 / "sort_comparison.py")
+        return load_module(COURSEWORK2_PYTHON / "sort_comparison.py")
 
     @pytest.fixture()
-    def mod_at(self, tmp_path):
+    def clone_dir(self, tmp_path):
         """
-        A *copy* of sort_comparison.py living in a throwaway folder, so
-        read_file()/write_results_to_csv() (which resolve paths relative to
-        __file__) operate on temporary files instead of the real sources.
+        A throwaway copy of coursework2 rebuilt in the layout the script
+        expects: the module and its deck fixtures side by side.
+
+        sort_comparison.py resolves its inputs against dirname(__file__), so
+        running it needs both in one folder, whereas the repo now keeps the
+        module under python/ and the fixtures under data/. Copying into
+        tmp_path tests the real script without depending on that split, and
+        keeps writes (the CSV) out of the repo tree.
         """
         import shutil
 
-        clone_dir = tmp_path / "coursework2"
-        clone_dir.mkdir()
-        files = ("sort_comparison.py", "sort10.txt", "sort100.txt", "sort10000.txt")
-        for name in files:
-            shutil.copy2(COURSEWORK2 / name, clone_dir / name)
+        target = tmp_path / "coursework2"
+        target.mkdir()
+        shutil.copy2(COURSEWORK2_PYTHON / "sort_comparison.py", target)
+        for name in ("sort10.txt", "sort100.txt", "sort10000.txt"):
+            shutil.copy2(COURSEWORK2_DATA / name, target)
 
+        return target
+
+    @pytest.fixture()
+    def mod_at(self, clone_dir):
+        """
+        The cloned module, loaded without its __main__ guard so
+        read_file()/write_results_to_csv() operate on the temporary copies.
+        """
         return load_module(clone_dir / "sort_comparison.py")
 
     @pytest.mark.parametrize(
@@ -392,8 +408,8 @@ class TestSortComparison:
         assert mod.bubble_sort(["5D"]) == ["5D"]
         assert mod.merge_sort(["5D"]) == ["5D"]
 
-    def test_read_file_returns_one_card_per_line(self, mod):
-        cards = mod.read_file("sort10.txt")
+    def test_read_file_returns_one_card_per_line(self, mod_at):
+        cards = mod_at.read_file("sort10.txt")
         assert len(cards) == 10
         assert cards[0] == "10C"
         assert all(len(card) >= 2 for card in cards)
@@ -418,7 +434,7 @@ class TestSortComparison:
         csv_path = Path(mod_at.__file__).parent / "sort_comparison.csv"
         assert csv_path.exists()
 
-    def test_main_block_runs_end_to_end(self, tmp_path, capsys, monkeypatch):
+    def test_main_block_runs_end_to_end(self, tmp_path, clone_dir, capsys, monkeypatch):
         """
         Run the real script as `__main__` so the demo prints and the
         sort_comparison() call below the `if __name__` guard execute (and
@@ -445,7 +461,7 @@ class TestSortComparison:
 
         import builtins as _builtins
         monkeypatch.setattr(_builtins, "open", fake_open)
-        runpy.run_path(str(COURSEWORK2 / "sort_comparison.py"), run_name="__main__")
+        runpy.run_path(str(clone_dir / "sort_comparison.py"), run_name="__main__")
 
         out = capsys.readouterr().out
         assert 'card_compare("4H", "4H") = 0' in out
@@ -456,7 +472,7 @@ class TestSortComparison:
         assert "bubbleSort" in csv_text
         assert "mergeSort" in csv_text
 
-    def test_main_block_reports_missing_data_files(self, capsys, monkeypatch):
+    def test_main_block_reports_missing_data_files(self, clone_dir, capsys, monkeypatch):
         """
         Making sort10.txt unreadable triggers the FileNotFoundError branch
         of the __main__ guard, which prints the "files must exist" note.
@@ -472,13 +488,13 @@ class TestSortComparison:
             return real_open(path, mode, *args, **kwargs)
 
         monkeypatch.setattr(builtins, "open", fake_open)
-        runpy.run_path(str(COURSEWORK2 / "sort_comparison.py"), run_name="__main__")
+        runpy.run_path(str(clone_dir / "sort_comparison.py"), run_name="__main__")
 
         out = capsys.readouterr().out
         assert "ERROR" in out
         assert "Make sure the following files exist" in out
 
-    def test_main_block_catches_unexpected_errors(self, capsys, monkeypatch):
+    def test_main_block_catches_unexpected_errors(self, clone_dir, capsys, monkeypatch):
         """
         A non-FileNotFoundError failure inside sort_comparison() reaches
         the generic `except Exception` handler of the guard.
@@ -494,7 +510,7 @@ class TestSortComparison:
             return real_open(path, mode, *args, **kwargs)
 
         monkeypatch.setattr(builtins, "open", fake_open)
-        runpy.run_path(str(COURSEWORK2 / "sort_comparison.py"), run_name="__main__")
+        runpy.run_path(str(clone_dir / "sort_comparison.py"), run_name="__main__")
 
         out = capsys.readouterr().out
         assert "An unexpected error occurred" in out

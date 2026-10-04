@@ -24,6 +24,14 @@ CS1IP = PROJECT_ROOT / 'university_courseworks' / 'year1' / 'semester1' / 'cs1ip
 COURSEWORK1 = CS1IP / 'coursework1'
 COURSEWORK2 = CS1IP / 'coursework2'
 
+# Each coursework folder splits its artefacts by language or role, so tests
+# address files through these constants: a re-layout is a change here, not one edit per assertion.
+COURSEWORK1_PYTHON = COURSEWORK1 / 'python'
+COURSEWORK1_JAVA = COURSEWORK1 / 'java'
+COURSEWORK2_PYTHON = COURSEWORK2 / 'python'
+COURSEWORK2_JAVA = COURSEWORK2 / 'java'
+COURSEWORK2_DATA = COURSEWORK2 / 'data'
+
 
 def load_module(filepath, module_name=None):
     """

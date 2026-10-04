@@ -44,7 +44,7 @@ EXEMPT = {
     "python/object_oriented_programming/fundamental_topics/classes.py",
     "python/object_oriented_programming/fundamental_topics/abstract_classes.py",
     "python/object_oriented_programming/fundamental_topics/nested_classes.py",
-    "university_courseworks/year1/semester1/cs1ip/coursework2/sort_comparison.py",
+    "university_courseworks/year1/semester1/cs1ip/coursework2/python/sort_comparison.py",
 }
 
 
