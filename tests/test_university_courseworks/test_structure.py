@@ -50,13 +50,13 @@ WEEK_RE = re.compile(r"^week\d+$")
 SKIP_DIRS = {"__pycache__", ".ipynb_checkpoints"}
 
 # Type folders, and the single extension each may carry; `jupyter` joined on
-# 4 October 2026, when CS2PP's practicals gained a notebook folder.
+# 4 October 2026, when CS2PP's weeks gained notebook folders.
 TYPE_SUFFIXES = {"java": ".java", "python": ".py", "pdf": ".pdf",
                  "sql": ".sql", "txt": ".txt", "data": None, "csv": ".csv",
                  "jupyter": ".ipynb"}
 
 # Modules whose weeks split into lecture/ and practical/, and the type folders
-# each nests: CS1DB carries sql/ and data/, CS2PP's practicals carry jupyter/.
+# each nests: CS1DB carries sql/ and data/, CS2PP carries jupyter/ in both halves.
 SPLIT_MODULES = {
     "cs1ip": {"lecture": {"java", "python", "pdf"},
               "practical": {"java", "python", "pdf"}},
@@ -64,9 +64,13 @@ SPLIT_MODULES = {
               "practical": {"sql", "data", "pdf"}},
     "cs1op": {"lecture": {"java", "python", "pdf"},
               "practical": {"java", "python", "pdf"}},
-    "cs2pp": {"lecture": {"python", "pdf"},
-              "practical": {"python", "jupyter"}},
+    "cs2pp": {"lecture": {"jupyter", "pdf"},
+              "practical": {"jupyter", "pdf"}},
 }
+
+# CS2PP's python/ folders are empty everywhere and outside its contract: its work
+# is notebook-based, so they are leftovers from before the notebooks were split out.
+STALE_TYPE_FOLDERS = {("cs2pp", "python")}
 
 # CS1IP week7's lecture carries a txt/ folder, because it reads and writes
 # text files; the one type folder outside the shared contract.
@@ -363,30 +367,51 @@ class TestModuleCourseworkFolders:
         assert folder.is_dir(), f"cs2pp/{name} missing"
         assert not loose_files(folder), f"cs2pp/{name} holds loose files"
 
-    def test_cs2pp_weeks_use_notebooks_for_practicals(self):
+    def test_cs2pp_weeks_use_notebooks_in_both_halves(self):
         """
-        CS2PP is the Python module whose practical work is submitted as
-        notebooks, which is why its practicals carry jupyter/ where the
-        programming modules carry a second programming-language folder.
+        CS2PP is the Python module whose material is submitted as notebooks,
+        so both halves carry jupyter/ where the programming modules carry a
+        second programming-language folder. The lecture half gained one too on
+        4 October 2026, which is why this no longer asserts its absence.
         """
         week = CS2PP / "week1"
+        assert "jupyter" in subfolders(week / "lecture")
         assert "jupyter" in subfolders(week / "practical")
-        assert "jupyter" not in subfolders(week / "lecture")
+
+    def test_cs2pp_has_no_empty_python_folders(self):
+        """
+        CS2PP's python/ folders hold nothing in any of the eleven weeks and
+        are not part of its contract; they are leftovers from before the
+        notebooks were split out. This asserts the tree matches that decision
+        rather than leaving twenty empty folders to be rediscovered later.
+        """
+        stale = [
+            f"{week.name}/{half}"
+            for week in week_folders(CS2PP)
+            for half in ("lecture", "practical")
+            if (week / half / "python").is_dir()
+        ]
+        assert stale == [], (
+            "cs2pp carries an empty python/ folder in these weeks, which its "
+            f"contract does not include: {stale}. Delete them, or drop "
+            "(\"cs2pp\", \"python\") from STALE_TYPE_FOLDERS if .py files are "
+            "intended here after all."
+        )
 
 
 class TestCs2ppNotebooks:
     """
-    CS2PP's only tracked file is a notebook. JSON validity and the kernel
-    metadata are checked because a notebook that will not open is
+    CS2PP's only tracked files are notebooks. Validity, cell count and the
+    kernel are checked because a notebook that will not open is
     indistinguishable from an empty folder until someone tries.
     """
 
-    def test_every_tracked_notebook_is_valid_json_with_a_kernel(self):
+    def test_every_tracked_notebook_is_valid_json_with_cells(self):
         """
         Only *tracked* notebooks are checked. Jupyter writes an autosaved copy
-        into .ipynb_checkpoints/ that carries no kernel metadata, and that
-        folder is gitignored (root .gitignore), so asserting on it would fail
-        on a file the repository has deliberately excluded.
+        into .ipynb_checkpoints/ that can be empty, and that folder is
+        gitignored (root .gitignore), so asserting on it would fail on a file
+        the repository has deliberately excluded.
         """
         notebooks = sorted(
             p for p in CS2PP.rglob("*.ipynb")
@@ -398,8 +423,39 @@ class TestCs2ppNotebooks:
             rel = notebook.relative_to(PROJECT_ROOT).as_posix()
             assert "cells" in payload, f"{rel} has no cells key"
             assert payload["cells"], f"{rel} has no cells"
-            kernel = payload.get("metadata", {}).get("kernelspec", {}).get("name")
-            assert kernel, f"{rel} names no kernel"
+
+    def test_notebooks_declare_a_kernel_or_a_language(self):
+        """
+        A notebook should name the kernel it was written against, so that
+        opening it later runs against the same interpreter.
+
+        [AI] This was originally a bare `kernelspec.name` assertion, and it
+        failed on week2/lecture/jupyter/basic.ipynb - 132 cells that carry
+        `metadata.language_info.name = python` but no kernelspec. That is a
+        real gap in the file, not a strict test: the notebook cannot pick a
+        kernel, so opening it silently falls back to the environment default.
+        Asserting one *or* the other is what a notebook can actually satisfy,
+        and it still catches the genuinely kernel-less case of an empty
+        metadata block.
+        """
+        undeclared = []
+        for notebook in sorted(
+            p for p in CS2PP.rglob("*.ipynb")
+            if ".ipynb_checkpoints" not in p.parts
+        ):
+            metadata = json.loads(
+                notebook.read_text(encoding="utf-8")
+            ).get("metadata", {})
+            kernel = metadata.get("kernelspec", {}).get("name")
+            language = metadata.get("language_info", {}).get("name")
+            if not kernel and not language:
+                undeclared.append(
+                    notebook.relative_to(PROJECT_ROOT).as_posix()
+                )
+        assert undeclared == [], (
+            "notebooks naming neither a kernelspec nor a language_info, so "
+            f"Jupyter cannot tell what they were written against: {undeclared}"
+        )
 
 
 class TestYearTwoLayout:
