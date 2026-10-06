@@ -380,9 +380,9 @@ Data-Science-Project/
 ├── .github/                                 # Dependabot and CI workflow definitions
 ├── .vscode/                                 # IDE local runtime environment configuration
 │
-├── AGENTS.md                                # Local AI-agent operating rules: commit conventions and project rules
-├── NOTES.md                                 # Engineering journal tracking milestone phases, study tracks and resources
-├── PROGRESSION.md                           # Progression review: stages of learning, corrections made, and how AI assistants were used
+├── AGENTS.md                                # Operating rules, project constraints, and commit conventions
+├── NOTES.md                                 # Maintenance journal, study tracks, and current resource status
+├── PROGRESSION.md                           # Narrative record of learning stages, corrections, and AI use
 │
 ├── data/                                    # Storage layer for project datasets and tracking assets
 │   └── sandbox/                             # Raw pipeline source data (e.g. aim.csv)
@@ -393,12 +393,12 @@ Data-Science-Project/
 │
 ├── htmlcov/                                 # Generated pytest HTML coverage report (gitignored build artefact)
 │
-├── postgresql/                              # Analytical relational database management scripts
+├── postgresql/                              # Relational database assets and planned query work
 │   └── sandbox/                             # Schemas, migrations and query scripts (e.g. aim.sql)
 │
-├── python/                                  # Main Python development and modelling architectures
-│   ├── advanced_projects/                   # Applied capstone builds combining core libraries with data and UI automation
-│   │   ├── machine_learning/                # Supervised learning experiments over curated public datasets
+├── python/                                  # Python learning portfolio from fundamentals to applied projects
+│   ├── advanced_projects/                   # Applied builds that combine data, UI, files and automation
+│   │   ├── machine_learning/                # Model experiments over curated public datasets
 │   │   │   ├── data_outliers/               # Outlier-capping (IQR) detection experiment with report notebooks
 │   │   │   ├── music/                       # Music recommendation model with accuracy and prediction workflows
 │   │   │   └── video_games/                 # Video-game sales recommender with hypothesis and per-region analysis
@@ -407,34 +407,34 @@ Data-Science-Project/
 │   │   │   └── tui/                         # Terminal MP3 and WAV playback interface variants
 │   │   └── transactions/                    # Excel workbook automation and bar-chart report generation
 │   │
-│   ├── functional_programming/              # Pure functions, mathematical pipelines and immutable data flows
+│   ├── functional_programming/              # Small pure functions and immutable data pipelines
 │   │   ├── fundamental_topics/              # Higher-order transforms: filter, lambda, map and zip
 │   │   └── syntax_fundamentals/             # Grade summary, number pipeline, shopping receipt, word frequency
 │   │
-│   ├── imperative_programming/              # Procedural logic focused on mutable state and stepwise execution
+│   ├── imperative_programming/              # Stepwise scripts that exercise state, conditionals and loops
 │   │   ├── fundamental_topics/              # Collection types, modules, scope resolution and error handling
 │   │   ├── interactive_games/               # Interactive terminal games testing state tracking and algorithm loops
 │   │   ├── math_and_science_calculators/    # Financial models, trigonometry, geometry and coordinate systems
 │   │   ├── syntax_exercises/                # Language syntax scratchpads: file I/O, strings, ciphers and timers
 │   │   └── unit_and_format_converters/      # Rate, temperature, phone, Roman numeral, time and weight converters
 │   │
-│   ├── object_oriented_programming/         # State-driven architectures using classes, encapsulation and custom models
+│   ├── object_oriented_programming/         # Domain models that exercise classes and object state
 │   │   ├── fundamental_topics/              # Abstraction, inheritance, polymorphism and nested classes
 │   │   └── syntax_fundamentals/             # Domain models including Car, Person, Point and Dice with TUI graphics
 │   │
-│   └── sandbox/                             # Primary Python workspace for unified ingestion and execution scripts
+│   └── sandbox/                             # Python scratch and integration workspace
 │
-├── requirements/                            # Tiered dependency catalogue (all-rounder vs Windows dev kits)
+├── requirements/                            # Dependency manifests and the script that synchronises them
 │   ├── requirements-win_dev.in              # Direct Windows Dev Kits source list (compiles to the .txt)
 │   ├── requirements-win_dev.txt             # Frozen Windows Dev Kits set (generated by requirements_sync.py)
 │   ├── requirements.in                      # Direct All-Rounder library source list (compiles to the .txt)
 │   ├── requirements.txt                     # Frozen All-Rounder dependency set (generated by requirements_sync.py)
 │   └── requirements_sync.py                 # One-command offline sync and audit of both frozen files
 │
-├── roadmap/                                 # Data Science and Python learning-path reference guides
-├── scripts/                                 # Interactive project-tree and per-folder benchmark runner
+├── roadmap/                                 # Reference guides for the Python and data-science study path
+├── scripts/                                 # Repository inspection and benchmark utilities
 │
-├── tests/                                   # Pytest suites validating logic, structure and documentation
+├── tests/                                   # Checks for behaviour, invariants, structure and documentation figures
 │   ├── test_advanced_projects/              # sklearn IQR capping, openpyxl pipelines and music players (mocked)
 │   ├── test_functional_programming/         # Deterministic, side-effect-free data transformations
 │   ├── test_imperative_programming/         # Procedural state changes, conditional loops and user I/O logic
@@ -488,7 +488,7 @@ adds a `jupyter/` folder for notebook practicals. `cs2da/` is the one module
 still splitting by language without a lecture/practical level. The exact shape
 is asserted by `tests/test_university_courseworks/test_structure.py`, so the
 tree above cannot drift from the folders on disk without the suite failing.
-Generated and vendored paths (`.git`, `.venv`, `.pytest_cache`,
+Architecture comments state each entry's purpose or meaning first; a framework is named only where it explains that purpose. Generated and vendored paths (`.git`, `.venv`, `.pytest_cache`,
 `__pycache__`, `.coverage`, `htmlcov`) are omitted, matching `TREE_SKIP` in
 `scripts/execution_time.py`.
 
@@ -516,9 +516,10 @@ Generated and vendored paths (`.git`, `.venv`, `.pytest_cache`,
 - [18]: Data Safety: The `[Dd]ata/` rule in `.gitignore` protects both uppercase and lowercase data tracks.
 - [19]: Open Source: MIT legal framework chosen for repository distribution compliance.
 - [20]: Legal Terms: Standard permissions, copyright notices, and liability limits under open-source licensing.
-- [21]: Roadmap Guides: Data Science and Python learning-path references (`.pdf` / `.txt`) under `Roadmap/`, guiding the study phases.
+- [21]: Roadmap Guides: Data Science and Python learning-path references (`.pdf` / `.txt`) under `roadmap/`, guiding the study phases.
 - [22]: Advanced Projects: ML experiments (`Machine Learning/`), media-playback interfaces (`Music Player/`), and Excel automation (`Transactions/`).
 - [23]: Courseworks Archive: Year 1–3 module briefings and the Java-to-Python CS1IP transposition pairs under `University Courseworks/`.
 - [24]: Dependencies: Tiered environment catalogue (`DEPENDENCIES.md`) splitting cross-platform All-Rounder libraries (`requirements.in`/`requirements.txt`) from Windows Dev Kits (`requirements-win_dev.in`/`requirements-win_dev.txt`).
 
 ---
+
