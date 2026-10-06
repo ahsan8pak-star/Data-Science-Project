@@ -87,6 +87,84 @@ Remaining phases roll into **Summer 2027 Block II** (below).
 
 ---
 
+## Test-Volume Concentration and Programmer Evaluation (6 Oct 2026)
+
+Counts are collected pytest cases by their owning test file/folder, mapped back
+to the source area they exercise. The table is a concentration map, not a
+quality score: high density can mean strong teaching coverage or simply that a
+folder has many edge-case probes.
+
+### Entire-folder concentration
+
+| Source area | Source `.py` files | Source lines | Tests | % of suite | Tests/file | Tests/1000 source lines |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| `python/imperative_programming` | 98 | 7,452 | 846 | 51.7% | 8.63 | 113.5 |
+| `scripts` | 5 | 1,353 | 283 | 17.3% | 56.60 | 209.2 |
+| `python/object_oriented_programming` | 44 | 2,829 | 222 | 13.6% | 5.05 | 78.5 |
+| `university_courseworks` | 40 | 885 | 127 | 7.8% | 3.17 | 143.5 |
+| `python/advanced_projects` | 15 | 1,231 | 89 | 5.4% | 5.93 | 72.3 |
+| `python/functional_programming` | 24 | 942 | 70 | 4.3% | 2.92 | 74.3 |
+| **Total** | **222** | **13,692** | **1,637** | **100%** | — | — |
+
+### Per-test-file volume
+
+| Test file | Tests | % of suite |
+| --- | ---: | ---: |
+| `test_imperative_programming/test_math_and_science_calculators.py` | 305 | 18.6% |
+| `test_imperative_programming/test_syntax_programs.py` | 271 | 16.6% |
+| `test_scripts/test_repo_doc_numbers.py` | 78 | 4.8% |
+| `test_scripts/test_data_files.py` | 72 | 4.4% |
+| `test_university_courseworks/test_structure.py` | 68 | 4.2% |
+| `test_advanced_projects/test_music_player.py` | 68 | 4.2% |
+| `test_functional_programming/test_fundamentals.py` | 64 | 3.9% |
+| `test_imperative_programming/test_interactive_games.py` | 62 | 3.8% |
+| `test_imperative_programming/test_unit_and_format_converters.py` | 61 | 3.7% |
+| `test_university_courseworks/test_courseworks.py` | 59 | 3.6% |
+| `test_scripts/test_ranking_docs.py` | 44 | 2.7% |
+| `test_scripts/test_execution_time.py` | 32 | 2.0% |
+| `test_scripts/test_requirements_sync.py` | 27 | 1.6% |
+| `test_scripts/test_model_rotation_docs.py` | 15 | 0.9% |
+| `test_advanced_projects/test_data_outlier.py` | 14 | 0.9% |
+| `test_scripts/test_repo_hygiene.py` | 10 | 0.6% |
+| `test_advanced_projects/test_transactions.py` | 7 | 0.4% |
+| `test_functional_programming/test_syntax.py` | 6 | 0.4% |
+| `test_scripts/test_progression_chronology.py` | 5 | 0.3% |
+
+### A.I.M programme-evaluation notes
+
+- **Strengths observed in the repository:** evidence-first documentation, tests
+  that pin both fixed and deliberately defective behaviour, explicit model
+  rotation and privacy discipline, and a deliberate distinction between
+  portfolio material (`python/`) and marked coursework
+  (`university_courseworks/`).
+- **Overuse / concentration:** test volume is heavily weighted to imperative
+  programming (51.7%) and repository guards (`tests/test_scripts/` at 283
+  cases). That is defensible while the coursework and documentation are still
+  the active portfolio, but it makes the imperative lane feel mature relative
+  to functional programming and advanced projects.
+- **Concerns:** functional syntax and advanced projects have the lightest
+  coverage per source file; the summer-project tooling is still incomplete
+  (Postgres, web scraping, API automation, multimodal models); and the
+  repository's strongest evidence is still mostly local coursework rather than
+  public work placements.
+- **Career evaluation:** the main gap is not vocabulary or willingness; it is
+  finished applied work and documented application volume. Bright Network,
+  Gradcracker and the completed resource set should be paired with a small
+  application ledger, not merely a long checkbox list.
+- **Technical risk habit to guard:** plateauing in analyst-style polishing or
+  documentation without adding new analytical depth, and letting the many
+  free OpenCode routes distract from actually landing two or three complete
+  data-science outputs.
+- **Friday correction:** TargetConnect, FutureLearn and The Forage are
+  credential-only; Bright Network, Gradcracker and the other resources, except
+  CodeCracker, are completed and are part of constant internship search/application work.
+
+These evaluation bullets are a working assessment, not a grade. The repository
+itself remains the evidence; if any claim here diverges from the suite, README,
+or maintenance log, the repository wins.
+
+---
+
 # Term-Time Maintenance Cadence (28 Sep 2026 - 28 May 2027)
 
 University term is **maintenance mode**: no new heavy learning phases. The

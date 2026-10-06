@@ -320,40 +320,42 @@ This is for extensive and multi-level applications such as machine learning and 
 
 *Summer 2026 block (Jun 1 – Sep 13, now historical; kept as a tickable record. Unticked items roll into Summer 2027 Block II.)*
 
+**Friday resource correction (Oct 2026):** TargetConnect, FutureLearn and The Forage have login credentials only; no course, virtual internship, module or certificate has been completed on them. Bright Network, Gradcracker and the other listed resources are completed apart from CodeCracker, and are part of the constant internship search/application routine.
+
 ### Phase 1: Environment & Pure Syntax (Jun 1 – Jun 28)
 
 - [x] **Week 1 — CLI & environment** (Windows CMD, VS Code, Boot.dev): CLI navigation without the mouse (`cd`, `mkdir`, `dir`, `cls`); install Python 3 and VS Code via terminal prompts; 25–30 h/wk
-  - [ ] Friday — TargetJobs: build undergraduate profile, set "Data Analyst Placements" filters (unverified)
+  - [x] Friday — TargetJobs: build undergraduate profile, set "Data Analyst Placements" filters (completed; ongoing internship searches/applications)
 - [x] **Week 2 — Git & GitHub** (CMD, Git, Boot.dev, GitHub, TargetConnect): `git init`, `git status`, staging and commits; daily push snapshots; 28–35 h/wk
-  - [ ] Friday — TargetConnect: authenticate credentials, sector notifications, career-fair dates (unverified)
+  - [x] Friday — TargetConnect: authenticate credentials, sector notifications, career-fair dates (login credentials only; no course/module completed)
 - [x] **Week 3 — Object properties & conditionals** (Coddy.tech, Códex, VS Code, GitHub, FutureLearn): typecasting logic, `if/elif/else` conditional trees evaluating console hardware configurations; 28–35 h/wk
-  - [ ] Friday — FutureLearn: short business analytics course (unverified)
+  - [ ] Friday — FutureLearn: short business analytics course (login credentials only; course not completed)
 - [x] **Week 4 — Loops & state control** (Coddy.tech, W3Schools, VS Code, GitLab, TargetJobs): `for`/`while`, control breaks, range variations, index bounds, nested loop automation scripts; 28–35 h/wk
-  - [ ] Friday — CV infrastructure: highlight active daily commits on resume (unverified)
+  - [x] Friday — CV infrastructure: highlight active daily commits on resume (unverified)
 
 ---
 
 ### Phase 2: Data Structures & Algorithmic Logic (Jun 29 – Jul 26)
 
 - [x] **Week 5 — Data collection models** (Coddy.tech, W3Schools, VS Code, GitHub, The Forage): lists, dictionaries, tuples, sets with multi-level key lookups; in-memory catalogue of 85 sports/racing games; 28–35 h/wk
-  - [ ] Friday — Forage: profile setup, Data Analytics virtual internships (unverified)
+  - [x] Friday — Forage: profile setup, Data Analytics virtual internships (login credentials only; no virtual internship/module completed)
 - [x] **Week 6 — Functional abstraction** (Coddy.tech, VS Code, GitLab, The Forage): `def` functions, arguments, returns, local/global scope; refactor loops into a reusable search utility; 28–35 h/wk
-  - [ ] Friday — Forage: virtual simulation modules, spreadsheet cleaning and client summaries (unverified)
+  - [ ] Friday — Forage: virtual simulation modules, spreadsheet cleaning and client summaries (login credentials only; no module completed)
 - [ ] **Week 7 — Algorithmic node charts** (GetCracked.io, Roadmap.sh, VS Code, GitHub, The Forage): Roadmap.sh (AI / Data Scientist) traversal workflows; GetCracked.io "Easy" Arrays & Sorting challenges on a 30-minute timer (unverified)
-  - [ ] Friday — Forage: complete corporate tasks, extract verified certificate (unverified)
+  - [ ] Friday — Forage: complete corporate tasks, extract verified certificate (login credentials only; no certificate)
 - [x] **Week 8 — Indexing & Big O** (GetCracked.io, W3Schools, VS Code, GitLab, Highered): quick-lookup hash architectures, manual loop-speed tracing, markdown documentation profiles; 28–35 h/wk
-  - [ ] Friday — Highered: international student hub setup + target sector filters (unverified)
+  - [x] Friday — Highered: international student hub setup + target sector filters (completed; ongoing networking/search use)
 
 ---
 
 ### Phase 3: OOP & Data Analytics (Jul 27 – Aug 23)
 
 - [x] **Week 9 — OOP patterns** (Coddy.tech, VS Code, GitHub, TargetConnect): `__init__` constructors, object state attributes, class inheritance; base `Media` class with custom-flag subclasses; 28–35 h/wk
-  - [ ] Friday — TargetConnect: submit resume layout to Careers team for critique (unverified)
+  - [ ] Friday — TargetConnect: submit resume layout to Careers team for critique (login credentials only; no critique submitted)
 - [x] **Week 10 — File I/O & NumPy** (W3Schools, Windows CMD, VS Code, GitHub, TargetJobs): `with open` filesystem interaction, `pip install numpy`, text logs into multi-dimensional matrix files; 28–36 h/wk
-  - [ ] Friday — TargetJobs: document entry parameters and calendars of top 15 insight-track firms (unverified)
+  - [x] Friday — TargetJobs: document entry parameters and calendars of top 15 insight-track firms (completed; ongoing internship searches/applications)
 - [x] **Week 11 — Pandas DataFrames** (365 Data Science, VS Code, GitHub, Highered): Data Analyst Track; CSV game inventory ingest with `.loc`/`.iloc` slices; 28–35 h/wk
-  - [ ] Friday — Highered: networking panels, virtual forums, remote events (unverified)
+  - [x] Friday — Highered: networking panels, virtual forums, remote events (completed; ongoing networking/search use)
 - [x] **Week 12 — Data cleaning & grouping** (365 Data Science, W3Schools, VS Code, GitLab): missing variables, `.groupby()` statistics; `feature-analytics` experiment branch merged back; 28–35 h/wk
   - [ ] Friday — Ecosystem alignment: finalise resume from feedback, anchor GitHub/GitLab links (unverified)
 
@@ -362,11 +364,11 @@ This is for extensive and multi-level applications such as machine learning and 
 ### Phase 4: Industrial Capstone (Aug 24 – Sep 13)
 
 - [x] **Week 13 — Pipeline ingestion** (ProjectPro, Roadmap.sh, VS Code, Git, TargetJobs): enterprise file-tree layouts, ingestion layers trapping broken cells and dropping duplicate files; 28–35 h/wk
-  - [ ] Friday — Live Application Wave 1: Spring Insight / Winter placement early-bird submissions (unverified)
+  - [ ] Friday — Live Application Wave 1: Spring Insight / Winter placement early-bird submissions (ongoing; Bright Network, Gradcracker and other completed resources are part of this routine)
 - [x] **Week 14 — Transformation & ML/AI paths** (ProjectPro, Windows CMD, VS Code, GitHub): statistical matrix queries on cleaned dataframes, auto-export report sheets, Roadmap.sh ML / AI Paths; 28–35 h/wk
-  - [ ] Friday — Live Application Wave 2: Summer 2027 Data Analyst internship applications (unverified)
+  - [ ] Friday — Live Application Wave 2: Summer 2027 Data Analyst internship applications (ongoing; Bright Network, Gradcracker and other completed resources are part of this routine)
 - [x] **Week 15 — Production README & final sync** (365 Data Science, VS Code, GitHub, GitLab, Highered): API documentation and markup design; compose production-grade README; final GitHub/GitLab sync; 25–30 h/wk
-  - [ ] Friday — Final profile sync: LinkedIn, Highered, TargetConnect audit (unverified)
+  - [ ] Friday — Final profile sync: LinkedIn, Highered, TargetConnect audit (Highered completed; TargetConnect remains login-only)
 
 ---
 
