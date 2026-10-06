@@ -37,9 +37,22 @@ public class DCConvexHull {
     public static <T extends Comparable<T>> LinkedList<T> merge(LinkedList<T> xs, LinkedList<T> ys) {
         LinkedList<T> zs = new LinkedList<T>();
 
-        ///////////////////////////////////////////////////////////////////////
-        // SUBTASK 1: MERGE - ~14 lines of code needed                       //
-        ///////////////////////////////////////////////////////////////////////
+        while (!xs.isEmpty() && !ys.isEmpty()) {
+            if (xs.peekFirst().compareTo(ys.peekFirst()) <= 0) {
+                zs.addLast(xs.removeFirst());
+            }
+            else {
+                zs.addLast(ys.removeFirst());
+            }
+        }
+
+        while (!xs.isEmpty()) {
+            zs.addLast(xs.removeFirst());
+        }
+
+        while (!ys.isEmpty()) {
+            zs.addLast(ys.removeFirst());
+        }
 
         return zs;
     }
@@ -47,12 +60,12 @@ public class DCConvexHull {
     // Merge sort a list.
     // Return a new list with items in sorted order. Input list is emptied.
     public static <T extends Comparable<T>> LinkedList<T> merge_sort(LinkedList<T> xs) {
+        if (xs == null || xs.size() <= 1) {
+            return xs;
+        }
 
-        ///////////////////////////////////////////////////////////////////////
-        // SUBTASK 2: DIVIDE & CONQUER - ~6 lines of code needed             //
-        ///////////////////////////////////////////////////////////////////////
-
-        return null; // Delete this line when you start the task.
+        LinkedList<T> left = split(xs);
+        return merge(merge_sort(left), merge_sort(xs));
     }
 
     // Spent ages trying to get merge_sort working and want to move onto the next task?
@@ -78,55 +91,87 @@ public class DCConvexHull {
         return (p3.y - p1.y)*(p2.x - p1.x) <= (p2.y - p1.y)*(p3.x - p1.x);
     }
 
+    private static double cross(Point o, Point a, Point b) {
+        return (a.x - o.x) * (b.y - o.y) - (a.y - o.y) * (b.x - o.x);
+    }
+
     // This is the "conquer" and "combine" part of convex hull divide & conquer.
     // It has some similarities with merge(), but there are big differences too.
     public static LinkedList<Point> merge_disjoint_lower_hulls(LinkedList<Point> left, LinkedList<Point> right) {
-        // Tighten the bridge:
+        if (left == null || left.isEmpty()) {
+            return right;
+        }
+        if (right == null || right.isEmpty()) {
+            return left;
+        }
 
-        ///////////////////////////////////////////////////////////////////////
-        // SUBTASK 1: MERGE - ~17 lines of code needed                       //
-        ///////////////////////////////////////////////////////////////////////
+        LinkedList<Point> ordered = new LinkedList<Point>();
+        for (Point p : left) {
+            ordered.addLast(p);
+        }
+        for (Point p : right) {
+            ordered.addLast(p);
+        }
 
+        LinkedList<Point> lower = new LinkedList<Point>();
+        for (Point p : ordered) {
+            while (lower.size() >= 2 && cross(lower.get(lower.size() - 2), lower.getLast(), p) <= 0) {
+                lower.removeLast();
+            }
+            lower.addLast(p);
+        }
 
-
-        // Concatenate the remaining points from both.
-        LinkedList<Point> hull = new LinkedList<Point>(left);
-        hull.addAll(right);
-        return hull;
+        return lower;
     }
 
     // This is the "divide" part of convex hull divide & conquer.
     // It should look like very similar to merge_sort().
     public static LinkedList<Point> lower_hull(LinkedList<Point> ps) {
+        if (ps == null || ps.isEmpty() || ps.size() <= 2) {
+            return new LinkedList<Point>(ps);
+        }
 
-        ///////////////////////////////////////////////////////////////////////
-        // SUBTASK 2: DIVIDE & CONQUER - ~6 lines of code needed             //
-        ///////////////////////////////////////////////////////////////////////
-
-        return null; // Delete this line when you start the task.
+        LinkedList<Point> left = split(ps);
+        LinkedList<Point> leftHull = lower_hull(left);
+        LinkedList<Point> rightHull = lower_hull(ps);
+        return merge_disjoint_lower_hulls(leftHull, rightHull);
     }
 
     // This method calculates the upper and lower hull separately, then joins them.
     public static LinkedList<Point> upper_lower_hull(LinkedList<Point> ps) {
-
-        // 2 points are already a convex hull.
-        if (ps.size() <= 2) {
-            return ps;
+        if (ps == null || ps.isEmpty() || ps.size() <= 2) {
+            return new LinkedList<Point>(ps);
         }
 
-        LinkedList<Point> upper = new LinkedList<Point>(ps);
-        LinkedList<Point> lower = new LinkedList<Point>(ps);
+        LinkedList<Point> lower = lower_hull(new LinkedList<Point>(ps));
+        LinkedList<Point> upper = new LinkedList<Point>();
 
-        // Do lower hull.
-        lower = lower_hull(lower);
+        for (int i = ps.size() - 1; i >= 0; i--) {
+            Point p = ps.get(i);
+            while (upper.size() >= 2 && cross(upper.get(upper.size() - 2), upper.getLast(), p) <= 0) {
+                upper.removeLast();
+            }
+            upper.addLast(p);
+        }
 
-        ///////////////////////////////////////////////////////////////////////
-        // SUBTASK 3: UPPER CONVEX HULL - ~12 lines of code needed           //
-        ///////////////////////////////////////////////////////////////////////
+        LinkedList<Point> hull = new LinkedList<Point>();
+        for (Point p : lower) {
+            hull.addLast(p);
+        }
+        for (Point p : upper) {
+            boolean seen = false;
+            for (Point q : hull) {
+                if (p == q) {
+                    seen = true;
+                    break;
+                }
+            }
+            if (!seen) {
+                hull.addLast(p);
+            }
+        }
 
-
-
-        return lower;
+        return hull;
     }
 
     // Sort the points, then call the main algorithm.
