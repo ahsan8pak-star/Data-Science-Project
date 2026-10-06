@@ -396,33 +396,35 @@ Data-Science-Project/
 ├── postgresql/                              # Relational database assets and planned query work
 │   └── sandbox/                             # Schemas, migrations and query scripts (e.g. aim.sql)
 │
-├── python/                                  # Python learning portfolio from fundamentals to applied projects
-│   ├── advanced_projects/                   # Applied builds that combine data, UI, files and automation
-│   │   ├── machine_learning/                # Model experiments over curated public datasets
-│   │   │   ├── data_outliers/               # Outlier-capping (IQR) detection experiment with report notebooks
-│   │   │   ├── music/                       # Music recommendation model with accuracy and prediction workflows
-│   │   │   └── video_games/                 # Video-game sales recommender with hypothesis and per-region analysis
-│   │   ├── music_player/                    # Standalone audio players exposing GUI and terminal (TUI) interfaces
-│   │   │   ├── gui/                         # Graphical MP3 and WAV playback interface variants
-│   │   │   └── tui/                         # Terminal MP3 and WAV playback interface variants
-│   │   └── transactions/                    # Excel workbook automation and bar-chart report generation
+├── python/                                  # Four paradigm lanes plus applied projects and an untested sandbox
+│   ├── advanced_projects/                   # Applied portfolio builds: ML notebooks, audio players, Excel reporting
+│   │   ├── machine_learning/                # scikit-learn experiments on curated CSVs, notebooks plus fitted models
+│   │   │   ├── data_outliers/               # IQR outlier-capping sklearn transformer plus one report notebook
+│   │   │   ├── music/                       # Fitted music recommender with accuracy, prediction and visualisation notebooks
+│   │   │   └── video_games/                 # VG-sales recommender, hypothesis tests and per-region IQR analysis
+│   │   │
+│   │   ├── music_player/                    # MP3 and WAV players in both tkinter GUI and terminal interfaces
+│   │   │   ├── gui/                         # tkinter windows for MP3 and WAV playback
+│   │   │   └── tui/                         # Keyboard-driven terminal players, pygame playback with ANSI menus
+│   │   │
+│   │   └── transactions/                    # openpyxl pipeline: xlsx in, grouped totals plus bar chart out
 │   │
-│   ├── functional_programming/              # Small pure functions and immutable data pipelines
-│   │   ├── fundamental_topics/              # Higher-order transforms: filter, lambda, map and zip
-│   │   └── syntax_fundamentals/             # Grade summary, number pipeline, shopping receipt, word frequency
+│   ├── functional_programming/              # Functional demos of the standard toolkit plus four pipeline-built programs
+│   │   ├── fundamental_topics/              # One-file demos of the functional toolkit: map/reduce/filter through itertools and statistics
+│   │   └── syntax_fundamentals/             # Four complete programs, each built from chained pure functions
 │   │
-│   ├── imperative_programming/              # Stepwise scripts that exercise state, conditionals and loops
-│   │   ├── fundamental_topics/              # Collection types, modules, scope resolution and error handling
-│   │   ├── interactive_games/               # Interactive terminal games testing state tracking and algorithm loops
-│   │   ├── math_and_science_calculators/    # Financial models, trigonometry, geometry and coordinate systems
-│   │   ├── syntax_exercises/                # Language syntax scratchpads: file I/O, strings, ciphers and timers
-│   │   └── unit_and_format_converters/      # Rate, temperature, phone, Roman numeral, time and weight converters
+│   ├── imperative_programming/              # Procedural-fundamentals lanes: topics, games, calculators, drills, converters
+│   │   ├── fundamental_topics/              # Language core: collections, variables, typing, formats, scope, modules, errors
+│   │   ├── interactive_games/               # Seven terminal games: dice, hangman, madlibs, quiz and guessing loops
+│   │   ├── math_and_science_calculators/    # Finance, geometry and trig calculators, plus times tables and card validation
+│   │   ├── syntax_exercises/                # Everyday syntax drills: file I/O, clocks, ciphers, carts and grade boundaries
+│   │   └── unit_and_format_converters/      # Temperature, weight, time, phone, Roman numerals and QR PNG
 │   │
-│   ├── object_oriented_programming/         # Domain models that exercise classes and object state
-│   │   ├── fundamental_topics/              # Abstraction, inheritance, polymorphism and nested classes
-│   │   └── syntax_fundamentals/             # Domain models including Car, Person, Point and Dice with TUI graphics
+│   ├── object_oriented_programming/         # Class-based modelling: frozen concept demos plus domain models
+│   │   ├── fundamental_topics/              # One-concept-per-file tour: inheritance, composition, dunders, dataclasses, decorators
+│   │   └── syntax_fundamentals/             # Domain models: BankAccount, Car, Order, Point, Worker, dice art
 │   │
-│   └── sandbox/                             # Python scratch and integration workspace
+│   └── sandbox/                             # aim.py only - deliberately untested scratch space
 │
 ├── requirements/                            # Dependency manifests and the script that synchronises them
 │   ├── requirements-win_dev.in              # Direct Windows Dev Kits source list (compiles to the .txt)
@@ -432,6 +434,7 @@ Data-Science-Project/
 │   └── requirements_sync.py                 # One-command offline sync and audit of both frozen files
 │
 ├── roadmap/                                 # Reference guides for the Python and data-science study path
+│
 ├── scripts/                                 # Repository inspection and benchmark utilities
 │
 ├── tests/                                   # Checks for behaviour, invariants, structure and documentation figures
@@ -453,15 +456,18 @@ Data-Science-Project/
     │   │       ├── coursework1/             # hello, ice_cream, volume, seven_segment, average_grades
     │   │       │   ├── java/                # Java sources and the IDE settings.json
     │   │       │   └── python/              # Marked Python submissions for coursework 1
+    │   │       │
     │   │       ├── coursework2/             # sort_comparison with partial and full dataset exports
     │   │       │   ├── data/                # Deck fixtures: sort10, sort100, sort10000 and the results CSV
     │   │       │   ├── java/                # Java twin of the comparison script
     │   │       │   └── python/              # Marked Python submission for coursework 2
+    │   │       │
     │   │       └── week1/ ... week12/        # Weekly lecture and practical material, one folder per week
     │   │           ├── lecture/              # Lecture-source material for the week
     │   │           │   ├── java/             # Java lecture sources
     │   │           │   ├── pdf/              # Lecture slides and worked-example PDFs
     │   │           │   └── python/           # Python lecture sources
+    │   │           │
     │   │           └── practical/            # Practical material for the week
     │   │               ├── java/             # Java practical sources
     │   │               ├── pdf/              # Practical briefs and solution PDFs
@@ -473,9 +479,11 @@ Data-Science-Project/
     │
     └── year2/                               # CS2 briefings (DA, AI, ON, PP, SD, SE)
         ├── modules/                         # Year 2 module briefings, semester plans and the CS2PP roadmap
+        │
         ├── semester1/
         │   ├── cs2da/                       # Data analytics: java/ and python/ per week (no lecture split)
         │   └── cs2pp/                       # Python programming: lecture/ and practical/, notebooks in jupyter/
+        │
         └── semester2/                       # Semester 2 planned, not yet populated
 ```
 
@@ -488,9 +496,10 @@ adds a `jupyter/` folder for notebook practicals. `cs2da/` is the one module
 still splitting by language without a lecture/practical level. The exact shape
 is asserted by `tests/test_university_courseworks/test_structure.py`, so the
 tree above cannot drift from the folders on disk without the suite failing.
-Architecture comments state each entry's purpose or meaning first; a framework is named only where it explains that purpose. Generated and vendored paths (`.git`, `.venv`, `.pytest_cache`,
-`__pycache__`, `.coverage`, `htmlcov`) are omitted, matching `TREE_SKIP` in
-`scripts/execution_time.py`.
+Architecture comments state each entry's purpose or meaning first; a framework
+is named only where it explains that purpose. Generated and vendored paths
+(`.git`, `.venv`, `.pytest_cache`, `__pycache__`, `.coverage`, `htmlcov`) are
+omitted, matching `TREE_SKIP` in `scripts/execution_time.py`.
 
 ---
 
