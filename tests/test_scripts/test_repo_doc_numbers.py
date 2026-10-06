@@ -24,9 +24,12 @@ already-collected pytest session, and cost milliseconds.
 
 import ast
 import io
+import json
 import re
 import subprocess
 import tokenize
+import urllib.error
+import urllib.request
 from datetime import datetime
 from pathlib import Path
 
@@ -1380,4 +1383,135 @@ class TestPytestSkipSitesAreRegistered:
                 "absence is a defect rather than an expected state. Replace "
                 "the pytest.skip() guarding it with a hard assertion."
             )
+
+
+
+class TestMainBranchProtectionIsEnforced:
+    """
+    The two public mirrors' branch protection, read over the unauthenticated API.
+
+    [AI] AGENTS.md's "never force-push main" was discipline until 4 October
+    2026, when it was backed by repository settings. Two ways that could have
+    gone were both avoided here. The obvious verification - `git push
+    --dry-run --force` - checks nothing, because protection is enforced in the
+    server's receive-pack hook and --dry-run is documented as "do everything
+    except actually send the updates". It reports success on a protected branch
+    and an unprotected one alike, so it would have "confirmed" anything. And
+    the assumption that the check needs credentials, which is why it was
+    originally left unwritten, was wrong: both Project repositories are public,
+    and the API answers without a token.
+
+    The two Backup repositories are private and return 404 unauthenticated.
+    They are recorded as unverified rather than assumed correct, because
+    protection is per-repository and a repository nobody has checked is the
+    half-fixed case AGENTS.md warns about. That distinction is the point of
+    this class: it guards what can be observed, and says so about what cannot.
+
+    Network access is required. Without it these tests fail rather than skip,
+    because a protection check that silently vanishes on a machine with no
+    network is worse than one that is honestly absent.
+    """
+
+    GH = "https://api.github.com/repos/ahsan8pak-star"
+    GL = "https://gitlab.com/api/v4/projects/ahsan8pak-star%2F"
+    TIMEOUT = 30
+
+    def _get(self, url):
+        """
+        Parsed JSON, or {"__unreadable": status} for an HTTP error.
+
+        404 is the interesting one: GitHub and GitLab both answer 404 rather
+        than 403 for a private repository, so it means "cannot see it" and not
+        "does not exist".
+        """
+        try:
+            with urllib.request.urlopen(url, timeout=self.TIMEOUT) as response:
+                return json.loads(response.read().decode("utf-8"))
+        except urllib.error.HTTPError as error:
+            return {"__unreadable": error.code}
+        except (urllib.error.URLError, TimeoutError, OSError) as error:
+            pytest.fail(
+                f"could not read {url}: {error}. Protection state cannot be "
+                "guarded from a machine with no network access."
+            )
+
+    # ---- GitHub Project ----------------------------------------------------
+
+    def test_github_project_ruleset_is_active_and_blocks_force_pushes(self):
+        rulesets = self._get(f"{self.GH}/Data-Science-Project/rulesets")
+        if isinstance(rulesets, dict) and "__unreadable" in rulesets:
+            pytest.fail(
+                "the GitHub rulesets API is unreadable "
+                f"({rulesets['__unreadable']}); expected a public repository"
+            )
+        assert rulesets, "no ruleset exists on the GitHub Project repository"
+        ruleset = self._get(
+            f"{self.GH}/Data-Science-Project/rulesets/{rulesets[0]['id']}"
+        )
+        assert ruleset["enforcement"] == "active", (
+            f"ruleset {ruleset['name']!r} is {ruleset['enforcement']!r}, not "
+            "'active', so it enforces nothing"
+        )
+        assert not ruleset.get("bypass_actors"), (
+            "the ruleset has a bypass list, so a force-push can still get "
+            f"through it: {ruleset['bypass_actors']}"
+        )
+        enabled = sorted(r["type"] for r in ruleset.get("rules", []))
+        assert "deletion" in enabled, f"deletion not blocked; rules={enabled}"
+        assert "non_fast_forward" in enabled, (
+            f"force pushes not blocked; rules={enabled}"
+        )
+
+    # ---- GitLab Project ----------------------------------------------------
+
+    def test_gitlab_project_main_forbids_force_push(self):
+        branch = self._get(
+            f"{self.GL}Data-Science-Project/protected_branches/main"
+        )
+        if isinstance(branch, dict) and "__unreadable" in branch:
+            pytest.fail(
+                "the GitLab protected-branches API is unreadable "
+                f"({branch['__unreadable']}); expected a public project"
+            )
+        assert branch.get("allow_force_push") is False, (
+            "GitLab's main is protected but allow_force_push is "
+            f"{branch.get('allow_force_push')}, so a force-push is permitted - "
+            "uncheck 'Allowed to force push' in the protected-branch settings"
+        )
+
+    # ---- the private backups ----------------------------------------------
+
+    def test_the_two_backup_mirrors_are_recorded_as_unverified(self):
+        """
+        The backups are private, so this suite cannot confirm them. Rather than
+        assert nothing, it asserts that AGENTS.md still admits the gap - so a
+        future session that does verify them has to remove the admission, and
+        one that never does cannot quietly let the documentation imply full
+        coverage.
+        """
+        flat = _flat(AGENTS_MD)
+        assert "Server-side protection on `main`" in flat, (
+            "AGENTS.md no longer records the server-side protection state"
+        )
+        for row in ("GitHub Backup", "GitLab Backup"):
+            assert row in flat, f"AGENTS.md does not mention {row}"
+        assert flat.count("Unverified") >= 2, (
+            "AGENTS.md should record both private backups as unverified; if "
+            "they have since been confirmed, say so and add the guard."
+        )
+
+    def test_documented_protection_matches_what_is_read(self):
+        """
+        The doc claims "Yes - verified" for the two public mirrors. This is
+        the claim that would rot if someone changed the settings and forgot the
+        documentation, so it is tied to the live read above rather than left as
+        prose.
+        """
+        flat = _flat(AGENTS_MD)
+        assert "| GitHub Project | ruleset `main-protection` | **Yes**" in flat, (
+            "AGENTS.md no longer claims the GitHub Project ruleset is verified"
+        )
+        assert "`allow_force_push: false`" in flat, (
+            "AGENTS.md no longer records the GitLab allow_force_push setting"
+        )
 
