@@ -650,9 +650,32 @@ branch**, so the wording differs; the effect is what matters.
 | Repository | Protection | State on 4 Oct 2026 |
 | --- | --- | --- |
 | GitHub Project | ruleset `main-protection` | Active - bypass list empty, rules `deletion` + `non_fast_forward`, targets the default branch |
-| GitLab Project | protected branch `main` | Protected - `allow_force_push: false` |
+| GitLab Project | protected branch `main` | Protected - `allow_force_push: false`, *Allowed to push: Maintainers* |
 | GitHub Backup | **none, deliberately** | Unprotected - see below |
 | GitLab Backup | **none, deliberately** | Unprotected - see below |
+
+**Why the Projects are Maintainers-only on GitLab.** GitLab's project roles run
+Guest (10), Reporter (20), **Developer (30)**, **Maintainer (40)**, Owner (50).
+Developer is the lowest role that can write code: it can clone, push to
+branches, open merge requests and run CI, but not change settings, manage
+members, or merge into a protected branch. The ladder therefore already splits
+the work - Developers *produce* a change on a branch, Maintainers decide what
+lands in the shared history - and the protection is only worth anything while
+that split survives. *Allowed to push: Maintainers* keeps it: a Developer can
+open a merge request against `main` but cannot land it, so one reviewed step
+stays the only path onto the public face. "*Allowed to push: Developers +
+Maintainers*" would let a Developer write straight to `main`, which protects it
+from Guests and Reporters and from nobody who actually works on the repository.
+
+Nothing changes for A.I.M today, since he is the sole owner and holds no other
+role; the setting is behaviourally identical to its former level-30 value while
+he works alone. It is set this way so the *intent* is held by the permission
+system rather than by vigilance - adding a collaborator as a Developer later
+then cannot silently hand them direct write access to `main`. This mirrors
+GitHub, where the empty bypass list denies that route to every role including
+the owner, and it matches the rule of thumb this repo already follows: adding a
+collaborator needs no permission, but the rules should make an unreviewed push
+to `main` impossible rather than merely discouraged.
 
 **Why the asymmetry is the design and not a gap.** A backup exists to be
 restorable. If the backups carried the same two rules, then the one moment
@@ -743,7 +766,7 @@ or the correction is half-applied.
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1636 passing tests, ~99% line coverage and 95% branch coverage (149 of the
+- 1637 passing tests, ~99% line coverage and 95% branch coverage (149 of the
   160 measured `python/` files at 100% lines, including both music-player
   GUIs; the 160 non-`__init__.py` files are the number a docstring sweep
   covers). The 160 counts files that carry at least one statement. The

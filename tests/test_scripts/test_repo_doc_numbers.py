@@ -1483,6 +1483,50 @@ class TestMainBranchProtectionIsEnforced:
             "uncheck 'Allowed to force push' in the protected-branch settings"
         )
 
+    def test_gitlab_project_main_allows_maintainers_to_push_and_no_one_lower(self):
+        """
+        Only Maintainers may land a change on the public face.
+
+        Developer (30) is the lowest GitLab role that can write code at all, so
+        setting push access to Developers + Maintainers would let any Developer
+        bypass the review step entirely - the protection would then stop Guests
+        and Reporters and nobody who actually works on the repository. Setting
+        it to Maintainers keeps the ladder's own split: a Developer produces the
+        change on a branch, a Maintainer decides what reaches main. For a solo
+        repository the two settings behave identically today; the value is that
+        the intent lives in the permission system, so adding a Developer later
+        cannot silently grant them main.
+        """
+        branch = self._get(
+            f"{self.GL}Data-Science-Project/protected_branches/main"
+        )
+        if isinstance(branch, dict) and "__unreadable" in branch:
+            pytest.fail(
+                "the GitLab protected-branches API is unreadable "
+                f"({branch['__unreadable']}); expected a public project"
+            )
+        levels = {
+            entry.get("access_level")
+            for entry in branch.get("push_access_levels", [])
+        }
+        assert levels, (
+            "the GitLab protected-branch API reports no push access level for "
+            "main, so the Maintainers-only setting cannot be confirmed"
+        )
+        lowest = min(levels)
+        assert lowest >= 40, (
+            "GitLab's main accepts pushes from access level "
+            f"{lowest}, which is below Maintainer (40) - set 'Allowed to "
+            "push' to Maintainers so an unreviewed push cannot reach main"
+        )
+
+        flat = _flat(AGENTS_MD)
+        assert "Allowed to push: Maintainers" in flat, (
+            "AGENTS.md should record the GitLab push-access level; the "
+            "Maintainers-only choice needs to stay written down, since "
+            "Developers + Maintainers looks equivalent until someone joins"
+        )
+
     # ---- the private backups ----------------------------------------------
 
     def test_the_two_backups_are_recorded_as_deliberately_unprotected(self):
