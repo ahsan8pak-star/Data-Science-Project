@@ -1277,9 +1277,13 @@ class TestPytestSkipSitesAreRegistered:
             "and is not tracked, so it is absent from a fresh clone",
         ),
         "tests/test_scripts/test_repo_doc_numbers.py": (
-            2,
-            "the two suite-wide test-count claims, which are only meaningful "
-            "against a whole-suite collection rather than a targeted run",
+            5,
+            "two suite-wide test-count claims, which are only meaningful "
+            "against a whole-suite collection rather than a targeted run, plus "
+            "three in TestMirrorsAreLevel where a mirror is unreachable over "
+            "SSH. None of the five means the repository is wrong: the count "
+            "claims are only checkable on a full run, and a network failure "
+            "says nothing about the mirrors' contents",
         ),
     }
 
@@ -1481,13 +1485,18 @@ class TestMainBranchProtectionIsEnforced:
 
     # ---- the private backups ----------------------------------------------
 
-    def test_the_two_backup_mirrors_are_recorded_as_unverified(self):
+    def test_the_two_backups_are_recorded_as_deliberately_unprotected(self):
         """
-        The backups are private, so this suite cannot confirm them. Rather than
-        assert nothing, it asserts that AGENTS.md still admits the gap - so a
-        future session that does verify them has to remove the admission, and
-        one that never does cannot quietly let the documentation imply full
-        coverage.
+        The backups carry no protection, on purpose.
+
+        [AI] This asserted the opposite until 4 October 2026: it required
+        AGENTS.md to record both backups as "Unverified", which was written
+        when the intent was to protect all four mirrors. A.I.M's correction is
+        the better design - a backup whose job is to be restorable should be
+        writable when the Project is locked, or the moment you need it is the
+        moment every repository refuses the write. The guard now pins the
+        asymmetry instead, so that "unprotected" is a recorded decision rather
+        than an oversight someone tidies away later.
         """
         flat = _flat(AGENTS_MD)
         assert "Server-side protection on `main`" in flat, (
@@ -1495,23 +1504,129 @@ class TestMainBranchProtectionIsEnforced:
         )
         for row in ("GitHub Backup", "GitLab Backup"):
             assert row in flat, f"AGENTS.md does not mention {row}"
-        assert flat.count("Unverified") >= 2, (
-            "AGENTS.md should record both private backups as unverified; if "
-            "they have since been confirmed, say so and add the guard."
+        assert "none, deliberately" in flat, (
+            "AGENTS.md should record the backups as deliberately unprotected; "
+            "the asymmetry is the design, so it has to stay written down"
+        )
+        assert "Unverified" not in flat, (
+            "AGENTS.md still calls the backups unverified, which frames a "
+            "decision as an outstanding gap"
         )
 
     def test_documented_protection_matches_what_is_read(self):
         """
-        The doc claims "Yes - verified" for the two public mirrors. This is
-        the claim that would rot if someone changed the settings and forgot the
+        The doc states the two Projects are protected. This is the claim that
+        would rot if someone changed the settings and forgot the
         documentation, so it is tied to the live read above rather than left as
         prose.
         """
         flat = _flat(AGENTS_MD)
-        assert "| GitHub Project | ruleset `main-protection` | **Yes**" in flat, (
-            "AGENTS.md no longer claims the GitHub Project ruleset is verified"
+        assert "ruleset `main-protection`" in flat and "Active" in flat, (
+            "AGENTS.md no longer records the GitHub Project ruleset as active"
         )
         assert "`allow_force_push: false`" in flat, (
             "AGENTS.md no longer records the GitLab allow_force_push setting"
+        )
+
+
+
+class TestMirrorsAreLevel:
+    """
+    All four mirrors resolve `main` to the same commit.
+
+    [AI] This exists because the backups are deliberately left unprotected (see
+    AGENTS.md, "Server-side protection on `main`"). Unlocking them is the right
+    design - a backup has to be writable when the Project is locked - but it has
+    a consequence: a force-push reaches the backups and is refused by the
+    Projects, so the four *can* drift apart. Locking everything would prevent
+    that by preventing recovery, which is why the invariant is checked here
+    instead of enforced by configuration.
+
+    Reads the remotes over SSH with `git ls-remote`, which uses the same
+    credentials as an ordinary push and needs no token.
+
+    Unlike the protection guard beside it, a network failure here **skips**
+    rather than fails. The distinction is deliberate: an unreadable protection
+    setting means a security claim cannot be checked, while an unreachable
+    remote means the machine is offline, and neither is a defect in the
+    repository.
+    """
+
+    MIRRORS = {
+        "GitHub Project": "git@github.com:ahsan8pak-star/Data-Science-Project.git",
+        "GitHub Backup": "git@github.com:ahsan8pak-star/Data-Science-Backup.git",
+        "GitLab Project": "git@gitlab.com:ahsan8pak-star/Data-Science-Project.git",
+        "GitLab Backup": "git@gitlab.com:ahsan8pak-star/Data-Science-Backup.git",
+    }
+    TIMEOUT = 45
+
+    @classmethod
+    def _head(cls, url):
+        """The remote's `main` SHA, or None when it cannot be read."""
+        try:
+            result = subprocess.run(
+                ["git", "ls-remote", url, "refs/heads/main"],
+                cwd=REPO_ROOT, capture_output=True, text=True,
+                timeout=cls.TIMEOUT,
+            )
+        except subprocess.TimeoutExpired:
+            return None
+        if result.returncode != 0:
+            return None
+        parts = result.stdout.split()
+        return parts[0] if parts else None
+
+    def test_all_four_mirrors_resolve_main_to_the_same_commit(self):
+        heads = {}
+        for name, url in self.MIRRORS.items():
+            heads[name] = self._head(url)
+
+        readable = {n: s for n, s in heads.items() if s}
+        if not readable:
+            pytest.skip(
+                "no mirror could be read over SSH; there is nothing to compare "
+                "from this machine"
+            )
+
+        distinct = sorted(set(readable.values()))
+        assert len(distinct) == 1, (
+            "the mirrors are not level, which with unprotected backups means a "
+            f"half-applied push: {readable}. Push the same commit to all four."
+        )
+
+        # [AI] An unreadable mirror used to skip the whole check, so one dead
+        # repository silenced drift detection for the other three.
+        missing = sorted(set(heads) - set(readable))
+        if missing:
+            print(
+                f"note: {missing} could not be read; the mirrors that could "
+                f"be read all agree at {distinct[0][:7]}"
+            )
+
+    @staticmethod
+    def _local_head():
+        try:
+            return subprocess.run(
+                ["git", "rev-parse", "HEAD"],
+                cwd=REPO_ROOT, capture_output=True, text=True,
+            ).stdout.strip()
+        except (subprocess.SubprocessError, OSError):
+            return None
+
+    def test_local_main_matches_the_mirrors(self):
+        """
+        A push that reached three of four is the specific failure the unlocked
+        backups now permit, so the local commit is compared too rather than only
+        the mirrors against each other.
+        """
+        local = self._local_head()
+        if not local:
+            pytest.skip("cannot read the local HEAD")
+        remote = self._head(self.MIRRORS["GitHub Project"])
+        if remote is None:
+            pytest.skip("cannot read the GitHub Project mirror over SSH")
+        assert local == remote, (
+            f"local HEAD {local[:7]} differs from the mirrors {remote[:7]}; "
+            "push before ending the session"
         )
 

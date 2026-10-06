@@ -635,41 +635,55 @@ structured history and keep the log scannable:
   so this path is unaffected by any of the settings below.
 - This holds on **all four mirrors**, backups included. A branch that is
   rewritten on the GitHub Project but not on the GitLab Backup is a half-fixed
-  correction, and the backups exist to be restorable, so they should get the
-  same shape. `main` still carries the rule above on every mirror, backup
-  namespaces not excepted.
+  correction, so all four have to end up at the same commit. That is a rule
+  about *content*, and it is enforced by verifying all four are level rather
+  than by locking them all - see the subsection below, because the backups are
+  deliberately left unlocked.
 
 #### Server-side protection on `main` (added 4 October 2026)
 
-The rule above is now backed by repository settings rather than discipline.
-GitHub expresses it as a **ruleset** and GitLab as a **protected branch**, so
-the wording differs between the two; the *effect* is what has to match.
+The rule above is now backed by repository settings rather than discipline -
+but **only on the two Project repositories, and the backups are left open on
+purpose**. GitHub expresses this as a **ruleset** and GitLab as a **protected
+branch**, so the wording differs; the effect is what matters.
 
-| Repository | Model | Verified 4 Oct 2026 |
+| Repository | Protection | State on 4 Oct 2026 |
 | --- | --- | --- |
-| GitHub Project | ruleset `main-protection` | **Yes** - active, bypass list empty, rules `deletion` + `non_fast_forward`, targets the default branch |
-| GitLab Project | protected branch `main` | **Yes** - `allow_force_push: false` |
-| GitHub Backup | ruleset | **Unverified** - private, so the API returns 404 to an unauthenticated read |
-| GitLab Backup | protected branch | **Unverified** - private, same reason |
+| GitHub Project | ruleset `main-protection` | Active - bypass list empty, rules `deletion` + `non_fast_forward`, targets the default branch |
+| GitLab Project | protected branch `main` | Protected - `allow_force_push: false` |
+| GitHub Backup | **none, deliberately** | Unprotected - see below |
+| GitLab Backup | **none, deliberately** | Unprotected - see below |
 
-Two consequences worth stating plainly. First, the two mirrors above are
-configured but the two backups are **unconfirmed**, and protection is per
-repository and never propagates - an unconfigured backup accepts a force-push
-today. `tests/test_scripts/test_repo_doc_numbers.py` guards the two public
-repositories over the unauthenticated API and records the two private ones as
-unverifiable rather than assuming them. Second, `git push --dry-run` **cannot
-verify any of this**: branch protection is enforced in the server's
-`receive-pack` hook, and `--dry-run` is documented as "do everything except
-actually send the updates", so the hook is never reached and a dry-run reports
-success either way. Reading the settings, or making a real push, is the only
-way to know.
+**Why the asymmetry is the design and not a gap.** A backup exists to be
+restorable. If the backups carried the same two rules, then the one moment
+they are needed - `main` has been damaged and history has to be restored -
+would be the moment both the Project rules and the backup rules refuse the
+write. Protecting a backup removes the only property that makes it a backup.
+The Projects are the public face, so that is where a random or accidental
+force-push does the damage worth preventing; the backups are the recovery
+target, so that is where free writing is the feature.
+
+The cost is honest and worth naming: with the backups unlocked, a force-push
+reaches them and is refused by the Projects, so the four **can** drift apart.
+That is why the invariant is not enforced by locking everything. All four have
+to end up at the same commit, and that is verified directly -
+`TestMainBranchProtectionIsEnforced` checks the two Projects' settings over the
+unauthenticated API and `TestMirrorsAreLevel` checks that all four resolve to
+the same commit over SSH. The first says the public face is locked; the second
+is what actually keeps the mirrors consistent now that the backups are not.
 
 **Escape hatch.** When a rewrite of `main` is genuinely necessary: set the
 GitHub ruleset `main-protection` to `Disabled`, tick "Allowed to force push" on
 the GitLab protected branch, perform the rewrite **on all four mirrors**, then
-restore both settings. That is deliberate and leaves a settings-change entry in
-the audit trail, which is the point - it is the reason the rule above is
-enforced rather than merely documented.
+restore both settings. The backups need no unlocking, so this is already a
+partial-restoration risk rather than a four-way one. The settings change is
+deliberate and leaves an audit-trail entry, which is the point.
+
+One thing that **cannot** verify any of this: `git push --dry-run`. Protection
+is enforced in the server's `receive-pack` hook, and `--dry-run` is documented
+as "do everything except actually send the updates", so the hook is never
+reached and a dry-run reports success on a protected and an unprotected branch
+alike. Reading the settings, or making a real push, is the only way to know.
 - **Additions do not need per-instance approval.** New source files, new tests,
   new documentation sections, new folders, and new remotes or branches may be
   added and committed under the Conventional Commit table above without asking
@@ -729,7 +743,7 @@ or the correction is half-applied.
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1634 passing tests, ~99% line coverage and 95% branch coverage (149 of the
+- 1636 passing tests, ~99% line coverage and 95% branch coverage (149 of the
   160 measured `python/` files at 100% lines, including both music-player
   GUIs; the 160 non-`__init__.py` files are the number a docstring sweep
   covers). The 160 counts files that carry at least one statement. The
