@@ -743,6 +743,7 @@ career plan says the next gap is *applied* experience, not more process.
 | 1 Oct 2026 | Model ceiling table and the three-ranked hand-off rule added; `test_model_rotation_docs.py` guard created | `45ca43f` |
 | 2 Oct 2026 | Fledge Alpha Free added; rotation now nine models | `c420e33`, `80f4b47`, `0c3a55f` |
 | 2 Oct 2026 | `requirements/` and `file_scores_ranking/` reorganisation; Dependabot and pyproject paths updated | `a4e468f`, `bced1be` |
+| 7 Oct 2026 | Model tables refreshed to twelve free routes: Exo Free, MiMo-V2.5 Free and Ling 3.1 Flash Free added; Fledge Alpha Free confirmed documented rather than undocumented | `a1a13f0` |
 
 ---
 
