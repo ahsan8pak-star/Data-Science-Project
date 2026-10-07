@@ -377,114 +377,117 @@ This is for extensive and multi-level applications such as machine learning and 
 ```text
 Data-Science-Project/
 │
-├── .github/                                 # Dependabot and CI workflow definitions
-├── .vscode/                                 # IDE local runtime environment configuration
+├── .github/                                # Dependabot and CI workflow definitions
+├── .vscode/                                # IDE local runtime environment configuration
 │
-├── AGENTS.md                                # Operating rules, project constraints, and commit conventions
-├── NOTES.md                                 # Maintenance journal, study tracks, and current resource status
-├── PROGRESSION.md                           # Narrative record of learning stages, corrections, and AI use
+├── AGENTS.md                               # Operating rules, project constraints, and commit conventions
+├── NOTES.md                                # Maintenance journal, study tracks, and current resource status
+├── PROGRESSION.md                          # Narrative record of learning stages, corrections, and AI use
 │
-├── data/                                    # Storage layer for project datasets and tracking assets
-│   └── sandbox/                             # Raw pipeline source data (e.g. aim.csv)
+├── data/                                   # Storage layer for project datasets and tracking assets
+│   └── sandbox/                            # Raw pipeline source data (e.g. aim.csv)
 │
-├── file_scores_ranking/                     # Generated ranking outputs and the guide explaining their criteria
-│   ├── FILE_RANKING_GUIDE.md                # 0-100 scoring guide: five criteria, weighted per learning or applied tier
-│   └── FILE_SCORES.md                       # Ranking results for all 160 tracked Python files under python/
+├── file_scores_ranking/                    # Generated ranking outputs and the guide explaining their criteria
+│   ├── FILE_RANKING_GUIDE.md               # 0-100 scoring guide: five criteria, weighted per learning or applied tier
+│   └── FILE_SCORES.md                      # Ranking results for all 160 tracked Python files under python/
 │
-├── htmlcov/                                 # Generated pytest HTML coverage report (gitignored build artefact)
+├── htmlcov/                                # Generated pytest HTML coverage report (gitignored build artefact)
 │
-├── postgresql/                              # Relational database assets and planned query work
-│   └── sandbox/                             # Schemas, migrations and query scripts (e.g. aim.sql)
+├── postgresql/                             # Relational database assets and planned query work
+│   └── sandbox/                            # Schemas, migrations and query scripts (e.g. aim.sql)
 │
-├── python/                                  # Four paradigm lanes plus applied projects and an untested sandbox
-│   ├── advanced_projects/                   # Applied portfolio builds: ML notebooks, audio players, Excel reporting
-│   │   ├── machine_learning/                # scikit-learn experiments on curated CSVs, notebooks plus fitted models
-│   │   │   ├── data_outliers/               # IQR outlier-capping sklearn transformer plus one report notebook
-│   │   │   ├── music/                       # Fitted music recommender with accuracy, prediction and visualisation notebooks
-│   │   │   └── video_games/                 # VG-sales recommender, hypothesis tests and per-region IQR analysis
+├── python/                                 # Four paradigm lanes plus applied projects and an untested sandbox
+│   ├── advanced_projects/                  # Applied portfolio builds: ML notebooks, audio players, Excel reporting
+│   │   ├── machine_learning/               # scikit-learn experiments on curated CSVs, notebooks plus fitted models
+│   │   │   ├── data_outliers/              # IQR outlier-capping sklearn transformer plus one report notebook
+│   │   │   ├── music/                      # Fitted music recommender with accuracy, prediction and visualisation notebooks
+│   │   │   └── video_games/                # VG-sales recommender, hypothesis tests and per-region IQR analysis
 │   │   │
-│   │   ├── music_player/                    # MP3 and WAV players in both tkinter GUI and terminal interfaces
-│   │   │   ├── gui/                         # tkinter windows for MP3 and WAV playback
-│   │   │   └── tui/                         # Keyboard-driven terminal players, pygame playback with ANSI menus
+│   │   ├── music_player/                   # MP3 and WAV players in both tkinter GUI and terminal interfaces
+│   │   │   ├── gui/                        # tkinter windows for MP3 and WAV playback
+│   │   │   └── tui/                        # Keyboard-driven terminal players, pygame playback with ANSI menus
 │   │   │
-│   │   └── transactions/                    # openpyxl pipeline: xlsx in, grouped totals plus bar chart out
+│   │   └── transactions/                   # openpyxl pipeline: xlsx in, grouped totals plus bar chart out
 │   │
-│   ├── functional_programming/              # Functional demos of the standard toolkit plus four pipeline-built programs
-│   │   ├── fundamental_topics/              # One-file demos of the functional toolkit: map/reduce/filter through itertools and statistics
-│   │   └── syntax_fundamentals/             # Four complete programs, each built from chained pure functions
+│   ├── functional_programming/             # Functional demos of the standard toolkit plus four pipeline-built programs
+│   │   ├── fundamental_topics/             # One-file demos of the functional toolkit: map/reduce/filter through itertools and statistics
+│   │   └── syntax_fundamentals/            # Four complete programs, each built from chained pure functions
 │   │
-│   ├── imperative_programming/              # Procedural-fundamentals lanes: topics, games, calculators, drills, converters
-│   │   ├── fundamental_topics/              # Language core: collections, variables, typing, formats, scope, modules, errors
-│   │   ├── interactive_games/               # Seven terminal games: dice, hangman, madlibs, quiz and guessing loops
-│   │   ├── math_and_science_calculators/    # Finance, geometry and trig calculators, plus times tables and card validation
-│   │   ├── syntax_exercises/                # Everyday syntax drills: file I/O, clocks, ciphers, carts and grade boundaries
-│   │   └── unit_and_format_converters/      # Temperature, weight, time, phone, Roman numerals and QR PNG
+│   ├── imperative_programming/             # Procedural-fundamentals lanes: topics, games, calculators, drills, converters
+│   │   ├── fundamental_topics/             # Language core: collections, variables, typing, formats, scope, modules, errors
+│   │   ├── interactive_games/              # Seven terminal games: dice, hangman, madlibs, quiz and guessing loops
+│   │   ├── math_and_science_calculators/   # Finance, geometry and trig calculators, plus times tables and card validation
+│   │   ├── syntax_exercises/               # Everyday syntax drills: file I/O, clocks, ciphers, carts and grade boundaries
+│   │   └── unit_and_format_converters/     # Temperature, weight, time, phone, Roman numerals and QR PNG
 │   │
-│   ├── object_oriented_programming/         # Class-based modelling: frozen concept demos plus domain models
-│   │   ├── fundamental_topics/              # One-concept-per-file tour: inheritance, composition, dunders, dataclasses, decorators
-│   │   └── syntax_fundamentals/             # Domain models: BankAccount, Car, Order, Point, Worker, dice art
+│   ├── object_oriented_programming/        # Class-based modelling: frozen concept demos plus domain models
+│   │   ├── fundamental_topics/             # One-concept-per-file tour: inheritance, composition, dunders, dataclasses, decorators
+│   │   └── syntax_fundamentals/            # Domain models: BankAccount, Car, Order, Point, Worker, dice art
 │   │
-│   └── sandbox/                             # aim.py only - deliberately untested scratch space
+│   └── sandbox/                            # aim.py only - deliberately untested scratch space
 │
-├── requirements/                            # Dependency manifests and the script that synchronises them
-│   ├── requirements-win_dev.in              # Direct Windows Dev Kits source list (compiles to the .txt)
-│   ├── requirements-win_dev.txt             # Frozen Windows Dev Kits set (generated by requirements_sync.py)
-│   ├── requirements.in                      # Direct All-Rounder library source list (compiles to the .txt)
-│   ├── requirements.txt                     # Frozen All-Rounder dependency set (generated by requirements_sync.py)
-│   └── requirements_sync.py                 # One-command offline sync and audit of both frozen files
+├── requirements/                           # Dependency manifests and the script that synchronises them
+│   ├── requirements-win_dev.in             # Direct Windows Dev Kits source list (compiles to the .txt)
+│   ├── requirements-win_dev.txt            # Frozen Windows Dev Kits set (generated by requirements_sync.py)
+│   ├── requirements.in                     # Direct All-Rounder library source list (compiles to the .txt)
+│   ├── requirements.txt                    # Frozen All-Rounder dependency set (generated by requirements_sync.py)
+│   └── requirements_sync.py                # One-command offline sync and audit of both frozen files
 │
-├── roadmap/                                 # Reference guides for the Python and data-science study path
+├── roadmap/                                # Reference guides for the Python and data-science study path
 │
-├── scripts/                                 # Repository inspection and benchmark utilities
+├── scripts/                                # Repository inspection and benchmark utilities
 │
-├── tests/                                   # Checks for behaviour, invariants, structure and documentation figures
-│   ├── test_advanced_projects/              # sklearn IQR capping, openpyxl pipelines and music players (mocked)
-│   ├── test_functional_programming/         # Deterministic, side-effect-free data transformations
-│   ├── test_imperative_programming/         # Procedural state changes, conditional loops and user I/O logic
-│   ├── test_object_oriented_programming/    # Object lifecycles, attribute states and mocked dependencies
-│   ├── test_scripts/                        # Repo hygiene, ranking arithmetic, doc figures and rotation guards
-│   └── test_university_courseworks/         # Coursework behaviour plus the lecture/practical layout guards
+├── tests/                                  # Checks for behaviour, invariants, structure and documentation figures
+│   ├── test_advanced_projects/             # sklearn IQR capping, openpyxl pipelines and music players (mocked)
+│   ├── test_functional_programming/        # Deterministic, side-effect-free data transformations
+│   ├── test_imperative_programming/        # Procedural state changes, conditional loops and user I/O logic
+│   ├── test_object_oriented_programming/   # Object lifecycles, attribute states and mocked dependencies
+│   ├── test_scripts/                       # Repo hygiene, ranking arithmetic, doc figures and rotation guards
+│   └── test_university_courseworks/        # Coursework behaviour plus the lecture/practical layout guards
 │
-└── university_courseworks/                  # Module briefings and transposed coursework
-    ├── university_modules/                  # Rolling three-year module reference (UNIVERSITY_MODULES.md)
+└── university_courseworks/                 # Module briefings and transposed coursework
+    ├── university_modules/                 # Rolling three-year module reference (UNIVERSITY_MODULES.md)
     │
-    ├── year1/                               # CS1 briefings (AC, CA, DB, IP, MA, OP)
-    │   ├── modules/                         # Year 1 module briefings and the January 2026 briefing pack
+    ├── year1/                              # CS1 briefings (AC, CA, DB, IP, MA, OP)
+    │   ├── modules/                        # Year 1 module briefings and the January 2026 briefing pack
     │   │
     │   ├── semester1/
-    │   │   └── cs1ip/                       # Java coursework transposed into Python pairs
-    │   │       ├── coursework1/             # hello, ice_cream, volume, seven_segment, average_grades
-    │   │       │   ├── java/                # Java sources and the IDE settings.json
-    │   │       │   └── python/              # Marked Python submissions for coursework 1
+    │   │   └── cs1ip/                      # Java coursework transposed into Python pairs
+    │   │       ├── coursework1             # hello, ice_cream, volume, seven_segment, average_grades
+    │   │       │   ├── java/               # Java sources and the IDE settings.json
+    │   │       │   └── python/             # Marked Python submissions for coursework 1
     │   │       │
-    │   │       ├── coursework2/             # sort_comparison with partial and full dataset exports
-    │   │       │   ├── data/                # Deck fixtures: sort10, sort100, sort10000 and the results CSV
-    │   │       │   ├── java/                # Java twin of the comparison script
-    │   │       │   └── python/              # Marked Python submission for coursework 2
+    │   │       ├── coursework2/            # sort_comparison with partial and full dataset exports
+    │   │       │   ├── data/               # Deck fixtures: sort10, sort100, sort10000 and the results CSV
+    │   │       │   ├── java/               # Java twin of the comparison script
+    │   │       │   └── python/             # Marked Python submission for coursework 2
     │   │       │
-    │   │       └── week1/ ... week12/        # Weekly lecture and practical material, one folder per week
-    │   │           ├── lecture/              # Lecture-source material for the week
-    │   │           │   ├── java/             # Java lecture sources
-    │   │           │   ├── pdf/              # Lecture slides and worked-example PDFs
-    │   │           │   └── python/           # Python lecture sources
+    │   │       └── week1/ ... week12/      # Weekly lecture and practical material, one folder per week
+    │   │           ├── lecture/            # Lecture-source material for the week
+    │   │           │   ├── java/           # Java lecture sources
+    │   │           │   ├── pdf/            # Lecture slides and worked-example PDFs
+    │   │           │   └── python/         # Python lecture sources
     │   │           │
-    │   │           └── practical/            # Practical material for the week
-    │   │               ├── java/             # Java practical sources
-    │   │               ├── pdf/              # Practical briefs and solution PDFs
-    │   │               └── python/           # Python practical submissions
+    │   │           └── practical           # Practical material for the week
+    │   │               ├── java/           # Java practical sources
+    │   │               ├── pdf/            # Practical briefs and solution PDFs
+    │   │               └── python/         # Python practical submissions
     │   │
     │   └── semester2/
-    │       ├── cs1db/                       # Databases module: sql/ and data/ beneath each week
-    │       └── cs1op/                       # Object-oriented module: java/ and python/, plus coursework/
+    │       ├── cs1db/                      # Databases module: sql/ and data/ beneath each week
+    │       └── cs1op/                      # Object-oriented module: java/ and python/, plus coursework/
     │
-    └── year2/                               # CS2 briefings (DA, AI, ON, PP, SD, SE)
-        ├── modules/                         # Year 2 module briefings, semester plans and the CS2PP roadmap
-        │
-        ├── semester1/
-        │   ├── cs2da/                       # Data analytics: java/ and python/ per week (no lecture split)
-        │   └── cs2pp/                       # Python programming: lecture/ and practical/, notebooks in jupyter/
-        │
-        └── semester2/                       # Semester 2 planned, not yet populated
+    ├── year2/                              # CS2 briefings (DA, AI, ON, PP, SD, SE)
+    │   ├── modules/                        # Year 2 module briefings, semester plans and the CS2PP roadmap
+    │   │
+    │   ├── semester1/
+    │   │   ├── cs2da/                      # Data analytics: java/ and python/ per week (no lecture split)
+    │   │   └── cs2pp/                      # Python programming: lecture/ and practical/, notebooks in jupyter/
+    │   │
+    │   └── semester2/                      # Semester 2 planned, not yet populated
+    │
+    └── year3/                              # CS3 briefings (not shown yet)
+        └── modules                         # Year 3 module briefings
 ```
 
 The `university_courseworks/` weeks share one convention, stated once rather than
@@ -531,4 +534,3 @@ omitted, matching `TREE_SKIP` in `scripts/execution_time.py`.
 - [24]: Dependencies: Tiered environment catalogue (`DEPENDENCIES.md`) splitting cross-platform All-Rounder libraries (`requirements.in`/`requirements.txt`) from Windows Dev Kits (`requirements-win_dev.in`/`requirements-win_dev.txt`).
 
 ---
-
