@@ -537,6 +537,73 @@ class TestRockPaperScissors:
         _, out = run_script(self.FILE, inputs=["p"], patches=[fixed_choice])
         assert "You lose! Scissors beats Paper!" in out
 
+    def test_player_choice_rejects_an_invalid_answer_then_accepts_the_next(self, capsys):
+
+        """
+        get_player_choice() has a retry loop whose `print` on the invalid branch
+        was the single uncovered statement in the whole file. No earlier case
+        here ever fed it anything but "r", "p" or "s", so the loop had never
+        been made to iterate.
+
+        The method is called directly rather than through the game, because
+        play_round() has a separate always-truthy bug that prints this exact
+        same message unconditionally. Driving the method on its own is what
+        makes the assertion mean "the loop rejected this", and asserting the
+        return value is what would catch the loop being dropped: a version
+        that accepted the first answer would return "x" instead of "r".
+        """
+
+        fixed_choice = patch("random.choice", return_value="s")
+        mod, _ = run_script(self.FILE, inputs=["r"], patches=[fixed_choice])
+
+        with patch("builtins.input", side_effect=["x", "r"]):
+            assert mod.get_player_choice() == "r"
+
+        captured = capsys.readouterr()
+        assert "Invalid input. Please choose 'r', 'p', or 's'." in captured.out
+        assert captured.out.count(
+            "Invalid input. Please choose 'r', 'p', or 's'."
+        ) == 1
+
+    def test_player_choice_normalises_case_and_surrounding_whitespace(self):
+
+        """
+        get_player_choice() reads `input(...).lower().strip()`, so "R" and
+        "  s  " are the same answers as "r" and "s". No earlier case used
+        anything but already-lowercase single letters, so the normalisation
+        was never exercised. An uppercase answer proves `.lower()` and a
+        padded answer proves `.strip()` independently, because the two
+        passes are separate steps in that call.
+        """
+
+        fixed_choice = patch("random.choice", return_value="p")
+        _, out = run_script(self.FILE, inputs=["R"], patches=[fixed_choice])
+        assert "You lose! Paper beats Rock!" in out
+
+        fixed_choice = patch("random.choice", return_value="r")
+        _, out = run_script(self.FILE, inputs=["  s  "], patches=[fixed_choice])
+        assert "You lose! Rock beats Scissors!" in out
+
+    def test_paper_tie_and_scissors_tie_are_both_reported_as_ties(self):
+
+        """
+        determine_outcome() short-circuits on `player == computer` before it
+        ever consults the winning-combination table, so all three tied pairs
+        take the same branch - but only ("r", "r") had been exercised. The two
+        missing pairs are checked together because they are the same branch
+        reached by different inputs, which is exactly the claim worth pinning:
+        the message interpolates the player's own letter, so a tie on "p" or
+        "s" must not report "Both of you chose R!".
+        """
+
+        fixed_choice = patch("random.choice", return_value="p")
+        _, out = run_script(self.FILE, inputs=["p"], patches=[fixed_choice])
+        assert "Both of you chose P! It's a TIE!" in out
+
+        fixed_choice = patch("random.choice", return_value="s")
+        _, out = run_script(self.FILE, inputs=["s"], patches=[fixed_choice])
+        assert "Both of you chose S! It's a TIE!" in out
+
     def test_display_art_helper_rejects_invalid_choice_directly(self, capsys):
 
         """
