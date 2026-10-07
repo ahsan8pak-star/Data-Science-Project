@@ -27,9 +27,12 @@ MODELS = [
     "Nemotron 3.5 Lightning Free",
     "Nemotron 3 Ultra Free",
     "Ling 3.0 Flash Fin Free",
+    "Ling 3.1 Flash Free",
     "Muse Spark 1.3 Contributor Free",
     "MiMo-V2.6-Flash Free",
+    "MiMo-V2.5 Free",
     "LongCat 2.5 Preview Free",
+    "Exo Free",
     "Fledge Alpha Free",
 ]
 
@@ -105,16 +108,16 @@ class TestRotationTables:
         for model in MODELS:
             assert model in agents_text, f"{model} is missing from AGENTS.md"
 
-    def test_the_rotation_names_nine_models(self, agents_text):
+    def test_the_rotation_names_twelve_models(self, agents_text):
         """
         The count is stated in prose in two places, so a model added to the
         table without updating them leaves the document self-contradictory.
         """
-        assert "nine free" in agents_text, (
+        assert "twelve free" in agents_text, (
             "AGENTS.md no longer states how many free models are rotated"
         )
-        assert "All\nnine free models share one endpoint" in agents_text or \
-            "nine free models share one endpoint" in agents_text, (
+        assert "All\ntwelve free models share one endpoint" in agents_text or \
+            "twelve free models share one endpoint" in agents_text, (
             "the shared-endpoint sentence does not agree with the model count"
         )
 
@@ -267,11 +270,12 @@ class TestPreFlight:
 
     def test_unmeasured_share_is_not_invented(self, agents_text):
         """
-        Two models are absent from the published ranking. The honest cell is
+        Four models are absent from the published ranking. The honest cell is
         "unmeasured"; a number there would be a guess with a table around it.
         """
         section = agents_text.split("Share of listed traffic")[1][:4000]
-        for model in ("Big Pickle Free", "Fledge Alpha Free"):
+        for model in ("Big Pickle Free", "Ling 3.0 Flash Fin Free",
+                      "Ling 3.1 Flash Free", "Exo Free"):
             row = next(
                 (line for line in section.splitlines()
                  if line.startswith(f"| {model} ")),
@@ -290,7 +294,7 @@ class TestPreFlight:
         and the two are very different numbers.
         """
         section = agents_text.split("#### Tokens and usage share")[1][:2500]
-        assert "160.524T" in section, (
+        assert "144.879T" in section, (
             "the usage table does not state the token total its shares are "
             "taken against"
         )

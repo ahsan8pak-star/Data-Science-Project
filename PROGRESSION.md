@@ -456,12 +456,12 @@ open.
 
 ### 4.3 Model rotation, and why it matters
 
-Within OpenCode, A.I.M rotates across **nine free models** — Big Pickle Free,
+Within OpenCode, A.I.M rotates across **twelve free models** — Big Pickle Free,
 Space Bunny Free, Nemotron 3.5 Lightning Free, Nemotron 3 Ultra Free, Ling 3.0
-Flash Fin Free, Muse Spark 1.3 Contributor Free, MiMo-V2.6-Flash Free,
-LongCat 2.5 Preview Free and Fledge Alpha Free. The rotation is selected in
-the console, not from inside a conversation: an agent cannot switch its own
-model mid-session.
+Flash Fin Free, Ling 3.1 Flash Free, Muse Spark 1.3 Contributor Free,
+MiMo-V2.6-Flash Free, MiMo-V2.5 Free, LongCat 2.5 Preview Free, Exo Free and
+Fledge Alpha Free. The rotation is selected in the console, not from inside a
+conversation: an agent cannot switch its own model mid-session.
 
 **An agent cannot reliably self-identify which model is processing a
 conversation.** This is stated in `AGENTS.md` because the false claim was
@@ -479,7 +479,7 @@ never as ground truth. The test suite is the arbiter.
 
 #### The rotation needed a rule, not just a list
 
-The nine-model list in `AGENTS.md` answers *which model to pick*, but it
+The twelve-model list in `AGENTS.md` answers *which model to pick*, but it
 initially answered nothing about what happens when a model is executing and
 realises the task does not fit it. A.I.M's instruction was blunt: make each
 model's pros, cons and main purpose clear, and if the task is not applicable to
@@ -498,7 +498,7 @@ model declining a 1M-window refactor because its output ceiling is 128,000 is
 citing a measured number, not expressing a preference.
 
 **Second, a decline must name three alternatives, ranked.** The ranking is the
-substance of the rule. A list of all eight remaining models transfers the whole
+substance of the rule. A list of all eleven remaining models transfers the whole
 decision back to A.I.M and saves him nothing; a ranked three is a decision he
 can act on without researching. The table in `AGENTS.md` gives every model its
 own fallback column for the same reason, because the right alternative for a
@@ -555,30 +555,34 @@ preference.
 The route limits below are OpenCode's own, not the model's full capability, and
 they are what this project actually gets. Both columns come from the
 `models.dev` registry entries for the `opencode` provider
-(`https://models.dev/api.json`, retrieved 2 October 2026) — exact token
+(`https://models.dev/api.json`, retrieved 7 October 2026) — exact token
 counts, because the rounded versions are ambiguous: 262,144 is 256K, not
 262K. The free-pricing and privacy columns come from
 <https://opencode.ai/docs/zen/>. Usage figures are OpenCode's published weekly
-token volume for the week ending 2 October 2026
+token volume for the week ending 7 October 2026
 (<https://opencode.ai/data/>) and are a snapshot, not a ranking to plan around.
 
 | Model | Route context | Route output | Free-period data used to improve the model? | Weekly tokens | Share of listed traffic |
 | --- | --- | --- | --- | --- | --- |
-| Space Bunny Free | 1,048,576 | 524,288 | No — zero-retention | 61T | 38.00% |
-| Muse Spark 1.3 Contributor Free | 1,048,576 | 131,072 | Yes — trains future Meta models | 34T | 21.18% |
-| MiMo-V2.6-Flash Free | 200,000 | 32,000 | Yes | 9.4T | 5.86% |
-| Nemotron 3 Ultra Free | 1,000,000 | 128,000 | NVIDIA trial terms; use is logged | 3.9T | 2.43% |
-| LongCat 2.5 Preview Free | 1,000,000 | 131,072 | No — zero-retention | 2.8T | 1.74% |
-| Nemotron 3.5 Lightning Free | 262,144 | 262,144 | NVIDIA trial terms; use is logged | 292B | 0.18% |
-| Ling 3.0 Flash Fin Free | 262,144 | 32,768 | Yes | 256B | 0.16% |
+| Space Bunny Free | 1,048,576 | 524,288 | No — zero-retention | 53T | 36.6% |
+| Muse Spark 1.3 Contributor Free | 1,048,576 | 131,072 | Yes — trains future Meta models | 33T | 22.8% |
+| MiMo-V2.6-Flash Free | 200,000 | 32,000 | Yes | 10T | 6.9% |
+| Nemotron 3 Ultra Free | 1,000,000 | 128,000 | NVIDIA trial terms; use is logged | 3.6T | 2.5% |
+| LongCat 2.5 Preview Free | 1,000,000 | 131,072 | No — zero-retention | 2.1T | 1.4% |
+| Fledge Alpha Free | 1,048,576 | 131,072 | Yes — free-period data exception | 1.8T | 1.2% |
+| MiMo-V2.5 Free | 200,000 | 32,000 | Yes | 656B | 0.45% |
+| Nemotron 3.5 Lightning Free | 262,144 | 262,144 | NVIDIA trial terms; use is logged | 412B | 0.28% |
+| Ling 3.0 Flash Fin Free | 262,144 | 32,768 | Yes | below the published top-18 | unmeasured |
+| Ling 3.1 Flash Free | 262,144 | 32,768 | Yes | below the published top-18 | unmeasured |
 | Big Pickle Free | 200,000 | 32,000 | Yes | below the published top-18 | unmeasured |
-| Fledge Alpha Free | 1,048,576 | 131,072 | Unconfirmed — not in OpenCode's published privacy table as of 2 October 2026 | below the published top-18 | unmeasured |
+| Exo Free | 1,048,576 | 131,072 | Yes | below the published top-18 | unmeasured |
 
 The traffic columns are OpenCode's published weekly figures for the week
-ending 2 October 2026, expressed as a share of the 160.524T tokens across the
+ending 7 October 2026, expressed as a share of the 144.879T tokens across the
 eighteen models that page lists — a share of the listed models, not of all
-OpenCode traffic. They replace an earlier daily snapshot taken on 1 October,
-which is the same shape of number at a different resolution.
+OpenCode traffic. They replace an earlier daily snapshot taken on 1 October
+and a weekly one for the week ending 2 October, which is the same shape of
+number at a different resolution.
 
 The table is sorted by observed volume rather than by role, because the
 ordering is the finding: the two models A.I.M reached for by default are the
@@ -588,13 +592,13 @@ provider, not per model — the same MiMo release is 200,000 on the OpenCode
 free route and 1,048,576 everywhere else, so a single "MiMo has a 1M window"
 line is true and useless.
 
-**Key sources, each retrieved 2 October 2026:**
+**Key sources, each retrieved 7 October 2026:**
 
 - OpenCode Zen documentation: `https://opencode.ai/docs/zen/` — the model list,
   the free-on-input/output/cached-read pricing table, and the privacy section
   that names each exception.
 - OpenCode model data: `https://opencode.ai/data/` — weekly token volumes,
-  unique users and weekly retention per model, for the week ending 2 October
+  unique users and weekly retention per model, for the week ending 7 October
   2026.
 - Models.dev registry: `https://models.dev/api.json` — context window, output
   limit, reasoning and tool-calling support, and release date per model, keyed
@@ -608,21 +612,20 @@ line is true and useless.
   claim would therefore have been wrong in both directions, which is why the
   limits above are labelled "route" rather than "model".
 - **Privacy does not split the rotation cleanly.** Two models (Space Bunny,
-  LongCat) sit on the zero-retention default. Three (Big Pickle,
-  MiMo-V2.6-Flash, Ling 3.0 Flash Fin) may have free-period data used to
+  LongCat) sit on the zero-retention default. Seven (Big Pickle, Exo Free,
+  Fledge Alpha Free, both MiMos, both Lings) may have free-period data used to
   improve the model. Two (the Nemotrons) are NVIDIA trial endpoints that log
   use and whose terms ask for no personal or confidential data. One (Muse Spark
-  1.3 Contributor) is explicitly a training-data trade. One (Fledge Alpha Free)
-  is not in OpenCode's published privacy table at all. Six of the nine send
+  1.3 Contributor) is explicitly a training-data trade. Ten of the twelve send
   prompts somewhere that is not covered by a verified zero-retention default,
-  and the undocumented entry is worse than any named exception on a public
-  repository, which is why rule 6 exists.
-- **The free tier is popular, so it is not private by default.** The four
-  large-window models in the rotation — Space Bunny, Muse Spark 1.3, Nemotron 3
-  Ultra, LongCat 2.5 — are also four of the seven most-used models on OpenCode.
-  The fifth large-window entry, Fledge Alpha Free, is too new to appear on the
-  same snapshot. Being on a free tier says nothing about who else can read the
-  prompt.
+  which is why rule 6 exists.
+- **The free tier is popular, so it is not private by default.** Six of the
+  twelve are 1M-class routes — Space Bunny, Muse Spark 1.3, Nemotron 3 Ultra,
+  LongCat 2.5, Fledge Alpha Free and Exo Free — and five of those six now chart
+  on the published table, Space Bunny and Muse Spark 1.3 alone carrying 36.6%
+  and 22.8% of listed traffic between them. Only Exo Free is too new to appear,
+  which is the same gap Fledge Alpha Free had a week earlier. Being on a free
+  tier says nothing about who else can read the prompt.
 - **Two models are named for what they are not.** Big Pickle and Space Bunny
   are both described by OpenCode as "stealth models" with no published vendor,
   so any claim about which lab built either one is speculation. The earlier
@@ -635,7 +638,7 @@ line is true and useless.
   returned `Upstream request failed: Endpoint is unavailable.` That is now
   recorded in `AGENTS.md` as a stability fact alongside `nemotron-3-ultra-free`
   and `big-pickle`, both of which had already thrown upstream errors. Three of
-  nine free routes are now known to be unstable, which is a stronger argument
+  twelve free routes are now known to be unstable, which is a stronger argument
   for the hand-off rule than any of the three had been on its own.
 
 **What was claimed earlier and did not survive checking.** An earlier draft of
@@ -798,6 +801,7 @@ log unchanged has left the record behind. Newest first.
 
 | Date | Session | What changed | What it taught |
 | --- | --- | --- | --- |
+| 7 Oct 2026 | Model tables refreshed to twelve free routes | Checked OpenCode's Zen page, its published data page and the `models.dev` registry on 7 October 2026 and found three free models the rotation had not recorded: Exo Free (1,048,576 / 131,072), MiMo-V2.5 Free (200,000 / 32,000) and Ling 3.1 Flash Free (262,144 / 32,768). Added all three to AGENTS.md's pick-a-model, tokens-and-share, pros/cons and hand-off tables, to PROGRESSION's section 4.3 roster and research table, and to the `MODELS` list in `test_model_rotation_docs.py`, taking the stated count from nine to twelve everywhere it is written. Two fact changes came out of the same check: Fledge Alpha Free is now listed in OpenCode's published privacy and pricing tables as a free-period data exception rather than being undocumented, so the "treat as undocumented" caveat is gone; and the weekly traffic figures moved to the 144.879T total for the week ending 7 October 2026, with Fledge charting at 1.8T / 1.2% and Ling 3.0 Flash Fin dropping out of the top-18 alongside the two new arrivals, leaving four honest "unmeasured" cells instead of two. | The privacy paragraph and the stability note were the two places a new model actually had to be reasoned about rather than just appended: three of the twelve now share a hand-off row shape with an identical ranked three, and the zero-retention set is still only Space Bunny and LongCat, so "ten of the twelve" send a prompt somewhere not covered by a verified default. The guards are what made this cheap - `test_model_rotation_docs.py` failed the moment the roster and the prose disagreed, and it is the only reason nine and twelve could not quietly coexist. Refreshing a dated table also forced a decision the prose alone would have hidden: section 4.3's research snapshot said 2 October in four places, and leaving it would have put two different answers to "when were these figures taken" in one document. |
 | 7 Oct 2026 | Method-first test audit: 13 cases added by input surface, not by line count | Ranking source files by lines of code suggested a large, under-tested set - `conditions.py` at 648 lines with 9 cases against `arithmetic_calculator.py` at 132 lines with 40. Mapping pytest cases to source files by coverage context (`COVERAGE_CORE=pytrace --cov-context=test`, then `contexts_by_lineno` from `.coverage`, because the default sysmon core silently drops dynamic contexts) showed the ranking was mostly noise: statement coverage was already complete on almost every file, and the apparent outliers were print-heavy or dead-by-design teaching sections. Re-derived the map from method signatures instead, and only methods with a real input surface could carry an untested behaviour. Added 13 cases across three areas: `rock_paper_scissors.py` (+3, closing its only uncovered statement at the `get_player_choice` retry branch and the two untied pairs of `determine_outcome`'s nine inputs), `transactions.py` (+5, driving the `file_path` parameter with synthetic workbooks - numeric cells, sub-penny prices, a single-row sheet, a wrong sheet name - where every pre-existing case fed the same committed workbook and so a hardcoded 90% would have passed all of them), and the functional receipt/grade methods (+5 for the empty basket, zero-quantity line, fractional threshold, and odd-length mean). Suite 1637 to 1650. | Method-first beat LOC-first because LOC cannot distinguish a function with four behaviours from a page of `print` calls, and two of the five priority targets turned out to need nothing. `number_pipeline.py` and `word_frequency.py` each carry a single no-argument entry point, so their one case is complete rather than thin - a conclusion only the signature gives you, and adding tests there would have been volume for its own sake. `multitasking.py` reported fifteen missing statements in a full-suite run and none when run alone; its two tests already assert all three chore messages and the closing line, so that is a coverage-attribution artefact in the frozen OOP lane, not a gap, and it was left alone rather than papered over. Two of my own cases were also wrong on first write and the mutants caught them: an uppercase `"R"` is a loss against paper, not a win, and a retry-loop assertion passed even with the loop deleted because `play_round`'s always-truthy bug prints the identical message - the fix was to call the method directly and assert both the return value and a message count. Five mutation checks confirm the new cases bite: `>= 40` to `> 40`, an `average()` divisor off by one, a `reduce()` seed removed, quantity dropped from the total, and a dropped `.2f` spec each fail at least one new case, and no source file was modified. |
 | 6 Oct 2026 | README architecture folder themes corrected, and context heading retired | Applied the approved, purpose-first folder themes to `README.md`'s Project Architecture tree: functional fundamentals are described as a full toolkit rather than four example names, `sandbox/` is deliberately untested, converters no longer invents a rate bridge, and the object-oriented lanes no longer overstate TUI graphics. The separate `### Context` heading is folded into the paragraph under the architecture tree. | A comment should state what a folder does, not merely list its files or repeat its name. Naming four examples can overfit to today's contents and go stale; these rewrites describe the durable role of each folder. |
 | 6 Oct 2026 | README architecture comments made purpose-first | The architecture tree's folder labels now explain what each part of the repository is for: learning portfolio, applied builds, dependency manifests, benchmark utilities, checks, and coursework. Frameworks remain only where they justify the folder's role. ``roadmap/`` casing in the references is corrected. | Architecture comments are easier to maintain when their theme is meaning rather than technology; technology changes, but the reason a folder exists usually does not. The README now says that rule explicitly, so later edits have a stated consistency target. |
