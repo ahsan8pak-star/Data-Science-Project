@@ -659,7 +659,7 @@ was answered honestly at the time by refusing to guess, but a rule that is
 always unanswerable is not a rule: it is a question that trains everyone to skip
 it. A.I.M's later instruction was to name the file an agent reads first.
 
-`MODEL_ALLOWANCE.md` is that file, and splitting the question in two is what
+`model_rotation/MODEL_ALLOWANCE.md` is that file, and splitting the question in two is what
 made it answerable. **Token usage is locally measurable** - `opencode stats
 --models`, `opencode db`, and the session database at
 `~/.local/share/opencode/opencode.db` all carry per-model input, output and
@@ -686,10 +686,27 @@ credential tables it will never read (`account`, `control_account`,
 `credential` all hold live tokens in `opencode.db`), because rule 6 protects the
 local store as much as it protects a prompt.
 
-The guard was bite-tested both ways before being believed: deleting the file
-fails the suite, and removing the pre-flight's pointer to it fails the suite
-too - which is the check that matters, since a file nothing points at is a file
-nobody reads.
+The guard was bite-tested before being believed, and the bite-testing found a
+weakness in the guard rather than in the document. Deleting the file fails the
+suite, as it should. But the first version also passed against a mutation that
+dropped the folder from one of the two references to it, because it checked
+that the file's *name* appeared somewhere in the pre-flight rather than that
+every reference was the correct path - and after the file moved into
+`model_rotation/`, a name present somewhere and a path that opens are two
+different things. The check now enumerates every backticked mention and
+requires each to be the real relative path, which is what catches the realistic
+failure: an agent following a stale `MODEL_ALLOWANCE.md` from the repository
+root and finding nothing there.
+
+That move is the other half of this session's work, and it is worth recording
+for what it says about the repo's own layout rule. Rule 7 says keep the README
+tree and `TREE_SKIP` in sync when folders move, and the tree guard enforces it
+from both directions - but it also carried an explicit allow-list of root
+documents, so `MODEL_ALLOWANCE.md` had been added to that list one commit
+earlier and was now being *removed* from it. A guard that pins an explicit list
+is a list that has to be maintained, and the cheaper shape turned out to be
+`allowed_parents`: naming the folder once admits any document inside it, so the
+next file to move there needs no edit to the test at all.
 
 This is the repo's own rule 2 - treat an assistant's line-level claim as a
 candidate, not ground truth - catching an assistant. The failure was not a
