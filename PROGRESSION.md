@@ -32,7 +32,7 @@ Where a number is an estimate rather than a measurement, it says so.
 | Commits | 714 at the end of the run (historical — see the note below) |
 | Peak effort | 28–36 h/week recorded across most weeks |
 | Source modules | 160 non-`__init__` files under `python/` |
-| Test suite | 1650 tests, all passing |
+| Test suite | 1651 tests, all passing |
 | Coverage | 99% line, 95% branch |
 | Quality mean | 84.6/100 across 160 ranked files |
 | Mirrors | 4 (GitHub project + backup, GitLab project + backup) |
@@ -651,8 +651,48 @@ figure could not be traced to a source that exists, so it is gone rather than
 hedged. Several per-model performance claims (tool-call efficiency, tokens-per-
 turn, parameter counts) went with it, for the same reason.
 
-This is the repo's own rule 2 — treat an assistant's line-level claim as a
-candidate, not ground truth — catching an assistant. The failure was not a
+#### The pre-flight's second question, given a file to read
+
+The pre-flight above asks three questions before a model runs, and question two
+- how much allowance is left - was the one an agent could not answer at all. It
+was answered honestly at the time by refusing to guess, but a rule that is
+always unanswerable is not a rule: it is a question that trains everyone to skip
+it. A.I.M's later instruction was to name the file an agent reads first.
+
+`MODEL_ALLOWANCE.md` is that file, and splitting the question in two is what
+made it answerable. **Token usage is locally measurable** - `opencode stats
+--models`, `opencode db`, and the session database at
+`~/.local/share/opencode/opencode.db` all carry per-model input, output and
+cache-read totals, and the file records them. **The remaining percentage is
+not**, because it lives in the OpenCode console, so the only honest local
+evidence of exhaustion is the failure itself: `Rate limit exceeded. Please try
+again later.` in `~/.local/share/opencode/log/`, timestamped and naming the
+model that hit it. Six such failures sit in the logs - `big-pickle` twice,
+`muse-spark-1.3-contributor-free` twice, `mimo-v2.6-flash-free`, and
+`longcat-2.5-preview-free` on 1 October.
+
+That asymmetry is the design, and it produced the file's most important line: an
+empty or stale row **fails** question two rather than passing it. A blank table
+has to read as "ask A.I.M", because a guard that silently passes is worse than
+no guard - it reads as coverage. The cost is stated rather than hidden: on any
+long run with the table empty, the correct behaviour is to stop and ask, which is
+a question A.I.M had not been asked before.
+
+Two things the file deliberately refuses to do. It does not estimate a
+percentage, because a guess in a table is exactly the failure mode
+`test_model_rotation_docs.py` forbids for the traffic shares - `unmeasured` is
+the honest cell and the same discipline applies here. And it names the
+credential tables it will never read (`account`, `control_account`,
+`credential` all hold live tokens in `opencode.db`), because rule 6 protects the
+local store as much as it protects a prompt.
+
+The guard was bite-tested both ways before being believed: deleting the file
+fails the suite, and removing the pre-flight's pointer to it fails the suite
+too - which is the check that matters, since a file nothing points at is a file
+nobody reads.
+
+This is the repo's own rule 2 - treat an assistant's line-level claim as a
+candidate, not ground truth - catching an assistant. The failure was not a
 hallucinated statistic appearing from nowhere; it was a real-looking URL
 attached to a figure nobody had published. **A link that resolves is not
 evidence; the link has to resolve to the claim.**
@@ -853,7 +893,7 @@ mirrors were found lagging at an older commit.
 
 | | |
 | --- | --- |
-| Tests | 1650 passing, 0 failing |
+| Tests | 1651 passing, 0 failing |
 | Coverage | 99% line, 95% branch |
 | Quality mean | 84.6/100 over 160 files |
 | Document drift | 0 known — all numeric claims test-guarded |
