@@ -50,10 +50,11 @@ WEEK_RE = re.compile(r"^week\d+$")
 SKIP_DIRS = {"__pycache__", ".ipynb_checkpoints"}
 
 # Type folders, and the single extension each may carry; `jupyter` joined on
-# 4 October 2026, when CS2PP's weeks gained notebook folders.
+# 4 October 2026, when CS2PP's weeks gained notebook folders, and `pptx` on
+# 8 October 2026, when CS1OP's lecture halves gained their slide decks.
 TYPE_SUFFIXES = {"java": ".java", "python": ".py", "pdf": ".pdf",
                  "sql": ".sql", "txt": ".txt", "data": None, "csv": ".csv",
-                 "jupyter": ".ipynb"}
+                 "jupyter": ".ipynb", "pptx": ".pptx"}
 
 # Modules whose weeks split into lecture/ and practical/, and the type folders
 # each nests: CS1DB carries sql/ and data/, CS2PP carries jupyter/ in both halves.
@@ -68,13 +69,27 @@ SPLIT_MODULES = {
               "practical": {"jupyter", "pdf"}},
 }
 
+# Type folders a half may carry without being required to. The contract above is
+# a *required* shape, and CS1OP cannot honour it: its lecture material is slide
+# decks rather than PDFs, and every PDF in this repository is deliberately
+# gitignored as local-only, so a pdf/ folder holding nothing but ignored PDFs is
+# untrackable - git cannot commit an empty folder, so the requirement would pass
+# on the owner's disk and fail on a fresh clone. CS1OP therefore requires
+# java/ and python/ and merely allows pdf/ and pptx/. Decided 8 October 2026.
+OPTIONAL_TYPE_FOLDERS = {"cs1op": {"lecture": {"pdf", "pptx"},
+                                   "practical": {"pdf"}}}
+
 # CS2PP's python/ folders are empty everywhere and outside its contract: its work
 # is notebook-based, so they are leftovers from before the notebooks were split out.
 STALE_TYPE_FOLDERS = {("cs2pp", "python")}
 
 # CS1IP week7's lecture carries a txt/ folder, because it reads and writes
-# text files; the one type folder outside the shared contract.
-EXTRA_TYPE_FOLDERS = {("cs1ip", "week7", "lecture"): {"txt"}}
+# text files; the one type folder outside the shared contract. CS1IP week3's
+# lecture carries week_03_lecture_code/, which holds that week's lecture code as
+# A.I.M placed it on 8 October 2026 - the lecture half's counterpart to the
+# week_07_practical_files fixtures.
+EXTRA_TYPE_FOLDERS = {("cs1ip", "week7", "lecture"): {"txt"},
+                      ("cs1ip", "week3", "lecture"): {"week_03_lecture_code"}}
 
 MODULE_PATHS = {"cs1ip": CS1IP, "cs1db": CS1DB, "cs1op": CS1OP, "cs2pp": CS2PP}
 
@@ -225,13 +240,19 @@ class TestCs1ipWeekFoldersSplitLectureAndPractical:
         The type folders exist in every week even where a week has no
         material of that kind yet, which is what keeps the shape uniform: an
         empty java/ in a lecture-only week is expected, a missing one is not.
+
+        Only the *required* half of the contract is demanded here. The optional
+        kinds are in OPTIONAL_TYPE_FOLDERS because a folder holding nothing but
+        gitignored material cannot be committed, so requiring one would make the
+        guard pass on the owner's disk and fail on a fresh clone.
         """
-        expected = SPLIT_MODULES[module]
+        required = SPLIT_MODULES[module]
         offenders = {}
         for week in self.weeks(module):
-            for half, kinds in expected.items():
+            for half, kinds in required.items():
+                optional = OPTIONAL_TYPE_FOLDERS.get(module, {}).get(half, set())
                 extra = EXTRA_TYPE_FOLDERS.get((module, week.name, half), set())
-                missing = kinds - set(subfolders(week / half))
+                missing = (kinds - optional - extra) - set(subfolders(week / half))
                 if missing:
                     offenders[f"{week.name}/{half}"] = sorted(missing)
         assert offenders == {}, f"{module} type folders not created: {offenders}"
@@ -244,10 +265,12 @@ class TestCs1ipWeekFoldersSplitLectureAndPractical:
         stops a new folder appearing without anyone deciding what it means.
         """
         expected = SPLIT_MODULES[module]
+        optional = OPTIONAL_TYPE_FOLDERS.get(module, {})
         offenders = {}
         for week in self.weeks(module):
             for half in ("lecture", "practical"):
                 allowed = (expected[half]
+                           | optional.get(half, set())
                            | EXTRA_TYPE_FOLDERS.get((module, week.name, half), set()))
                 extra = set(subfolders(week / half)) - allowed - SKIP_DIRS
                 # Fixture folders hold a practical's data rather than a type
