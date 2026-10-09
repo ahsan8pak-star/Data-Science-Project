@@ -657,6 +657,78 @@ hallucinated statistic appearing from nowhere; it was a real-looking URL
 attached to a figure nobody had published. **A link that resolves is not
 evidence; the link has to resolve to the claim.**
 
+#### Independent capability evidence, retrieved 8 October 2026
+
+A.I.M asked for the rotation to be ranked from outside evidence — articles,
+reports and genuine reviews — rather than from his own usage, explicitly
+excluding the traffic table above, which measures popularity and not
+suitability. Three findings came out of it, and one of them corrects a
+judgement this file had already recorded.
+
+**The free route's own limits understate two models.** Nemotron 3 Ultra Free is
+capped at 128,000 output against a 1,000,000-token window on the OpenCode free
+route, which reads like a weak model and was corrected down to "complex
+debugging" for exactly that reason. Measured capability says otherwise: 47.7 on
+the Artificial Analysis Intelligence Index at release (48.2 in BF16), the
+strongest US open-weights release, with RULER 94.7 at 1M context, SWE-Bench
+Verified 71.9, PinchBench 90 and over 400 tokens per second. The 128,000 ceiling
+is real and still governs planning a single response; what it does not govern is
+whether the model is any good. Fledge Alpha Free is the mirror image: its 131,072
+output against a 1,048,576 window is generous, and its measured coding is the
+best of the three stealth routes (Terminal-Bench 79, SciCode 52, SWE-Mini 75, and
+15 of 15 on an independent bug-fix battery), while its factual knowledge is the
+worst figure in the whole rotation — an Omniscience index of −5, 37 right against
+42 wrong, 67% hallucination. Big Pickle Free's corrected use of "review only"
+was recorded on 29 September as a consequence of its 200,000 window; the
+external evidence agrees with the conclusion and supplies the missing reason,
+which is that it is the best *knowledge* model available — Omniscience +43, 38%
+on Humanity's Last Exam, and the only model in the battery that answered all 100
+questions rather than leaving some blank.
+
+**The measurement itself has to be policed harder than the models.** Three
+rules were applied to the incoming figures and each one changed what could be
+claimed. A benchmark is not a verdict: NVIDIA, Meta, Xiaomi and Meituan all
+publish vendor-run rows, a vendor harness and a vendor grader are not a neutral
+comparison, and Meta's own scorecard is the sharpest case — its Muse Spark 1.3
+column is the gated `max` tier while its 1.2 column is `xhigh`, so part of the
+headline jump is a reasoning-tier change rather than a generation change. Index
+versions do not travel: Artificial Analysis rescores its composite when it
+revises it, and the same model reads 47.7 at release and 38 on a later build of
+the same v4.1.1 index, which is why every figure above names its snapshot. And a
+stealth model has no index at all, so the only like-for-like evidence for Big
+Pickle, Space Bunny and Fledge Alpha is one reviewer's own five-benchmark
+battery — labelled as a single source rather than presented as a leaderboard.
+
+**The counterweight is the finding that matters most.** That same independent
+reviewer put the three stealth models against two *paid* references on the same
+gateway, and none of the three free models beat the cheapest paid reference on
+agent work: DeepSeek V4.1 Flash solved 14 of 14 on Terminal-Bench and 17 of 20
+on SWE-Mini, more than any free route, at a lower cost than two of the three.
+Big Pickle beat both paid references on knowledge. So the free tier is good
+value and specifically useful — it is not competitive with a paid route on
+agentic work, and the rotation's value is that it gives A.I.M a cheap second
+opinion and a free first pass, not that it replaces a frontier model.
+
+Two provenance notes are recorded because they are the failure mode this
+project has already paid for once. Exo Free was fingerprinted at 99.4% against
+Claude Opus 5.5, which is *not* provenance: a closed-set fingerprint of an
+uncatalogued model names its nearest neighbour by construction, so the honest
+statement is that the model is unidentified. And LongCat 2.5 Preview Free has
+published no benchmark of any kind; its family's last published figure is
+LongCat-2.0's 59.5 on SWE-bench Pro, which does not transfer to a new release,
+and Meituan's own "two weeks" framing for the free window puts its end around
+10 October 2026 — two days after this was written.
+
+**Sources, all retrieved 8 October 2026:** Artificial Analysis model pages and
+index articles (`artificialanalysis.ai`); Fellipe Soares' independent
+stealth-model battery of 2 and 4 October 2026 (`fellipesoares.com.br`), which is
+the only like-for-like comparison of the three stealth routes; NVIDIA's release
+material and open-weights model card (`research.nvidia.com`,
+`huggingface.co/nvidia`); Meta's Muse Spark 1.3 announcement with its own
+four-model scorecard plus the independent rescore two days later; Meituan's
+LongCat platform changelog and model documentation; and OpenRouter's model pages
+for provider-side route behaviour, context limits and throughput.
+
 ### 4.4 The rules that keep the collaboration honest
 
 Three conventions, all added because the failure they prevent actually

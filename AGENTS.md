@@ -404,6 +404,115 @@ still leaves the tree in a known state and still states which command proves
 it — the hand-off is a change of model, not a surrender of the discipline that
 makes the answer trustworthy.
 
+#### Independent capability evidence (retrieved 8 October 2026)
+
+The tables above are OpenCode's *route* figures. The figures below are
+*capability* figures measured by other people, and they answer pre-flight
+question three (applicability) with evidence rather than with a preference.
+Three rules govern how they are read here, and they are the same three the
+section 4.3 research is held to:
+
+- **A benchmark is a benchmark, not a verdict.** Vendor-run rows (NVIDIA, Meta,
+  Xiaomi, Meituan) are labelled as such. A vendor harness, a vendor grader and
+  a different reasoning tier are three ways of producing a number that looks
+  like a comparison without being one.
+- **Index versions are not comparable with each other.** Artificial Analysis
+  rescores its index when it revises it, so a figure from v4.1 and a figure
+  from v4.2 are different scales. Each figure below names the snapshot it came
+  from.
+- **A stealth model has no index at all.** Big Pickle Free, Space Bunny Free
+  and Fledge Alpha Free are anonymised, so no Artificial Analysis page exists
+  for any of them. The only like-for-like comparison of the three is one
+  reviewer's own battery, and it is labelled as such.
+
+**Independently measured intelligence** (Artificial Analysis Intelligence Index,
+by snapshot):
+
+| Model | Index | Snapshot | Note |
+| --- | --- | --- | --- |
+| Muse Spark 1.3 Contributor Free | 62 (#6 of 636) | v4.1.1, `max` reasoning | The `max` tier was gated at launch; the shipping tier is `xhigh` |
+| Muse Spark 1.3 Contributor Free | 52–53 | v4.2, `xhigh` / `max` | Honest figure for what actually ships; index v4.2 added private held-out weighting |
+| Nemotron 3 Ultra Free | 47.7 (NVFP4) / 48.2 (BF16) | release-day, v4.1 | Leading US open-weights model at release |
+| Nemotron 3 Ultra Free | 38 | v4.1.1 model page | Same model, later index build — the gap is the index, not the model |
+| Ling 3.0 Flash Fin Free | 23 (22.6 on OpenRouter) | v4.3 | Above its own generalist parent (21); finance-specialised, not general-purpose |
+| Big Pickle Free, Space Bunny Free, Fledge Alpha Free | none | — | Stealth models; no index exists, so no figure can honestly be given |
+
+**Best measured by use case**, each from the sources named:
+
+| Use case | Order of preference, on external evidence |
+| --- | --- |
+| Coding / software engineering | Muse Spark 1.3 (DeepSWE 75.4, Terminal-Bench 2.1 88.8, SWE-Atlas 59.4) → Fledge Alpha Free (Terminal-Bench 79, SciCode 52, SWE-Mini 75) → Space Bunny Free (SWE-Mini 75) → Nemotron 3 Ultra Free (SWE-Bench Verified 71.9) |
+| Knowledge / factual accuracy | Big Pickle Free (Omniscience +43, HLE 38, 0 unanswered of 100) → Nemotron 3 Ultra Free (strong formal reasoning, 70–79% non-hallucination) → Muse Spark 1.3 |
+| Agentic / multi-step tool use | Nemotron 3 Ultra Free (PinchBench 90, TauBench avg 70.9) → Space Bunny Free → Fledge Alpha Free → MiMo-V2.6-Flash Free (strong on routine automation, weak on recovery) |
+| Long context (1M) | Muse Spark 1.3 (MRCR 98.5 / 98.1) → Nemotron 3 Ultra Free (RULER at 1M 94.7) → Space Bunny Free → LongCat 2.5 Preview Free (no published benchmarks) |
+| Speed | Nemotron 3.5 Lightning Free (~670 tok/s, 3B active) → Nemotron 3 Ultra Free (400+ tok/s) → Space Bunny Free (~90–94 tok/s) → Fledge Alpha Free (~61 tok/s) |
+| Finance-specific | Ling 3.0 Flash Fin Free, and it is the only one: Finance & Accounting Index 24, MIT weights, source-grounded retrieval |
+| Multimodal input | Space Bunny Free and LongCat 2.5 Preview Free (text, image, video, zero-retention) → Muse Spark 1.3 → MiMo-V2.6-Flash Free (text, image, audio, video) → Exo Free (text, image only) |
+
+**What this changes about the rotation.** Three corrections the tables above did
+not carry, because none of them is an OpenCode figure:
+
+- **Nemotron 3 Ultra Free is a stronger model than its route implies.** The
+  free route caps it at 128,000 output against a 1,000,000 window, which reads
+  as a weak model. On capability it is the second-strongest route here and the
+  fastest large-window one, so the ceiling is the limit to plan around, not the
+  ceiling to judge it by.
+- **Fledge Alpha Free is a coding model, explicitly not a factual one.** Its
+  Omniscience index is the only negative one measured (−5: 37 right, 42 wrong,
+  67% hallucination). The rule that follows is specific — never let it state a
+  fact, a version number, or a file path that has not been read.
+- **Big Pickle Free is the knowledge model of the rotation, which the pick-a-model
+  table never claimed.** Its corrected use is "review only"; the external
+  evidence supports that and adds the reason (it answered every question in the
+  battery, so it is the route to use when a question must be answered rather
+  than escalated).
+
+**One result worth stating plainly, because it is the counterweight to all of
+the above.** A single independent review ran Big Pickle Free, Space Bunny Free
+and Fledge Alpha Free through five benchmarks (254 items each) against two
+*paid* references on the same gateway: **none of the three free stealth models
+beat the cheapest paid reference on agent work.** DeepSeek V4.1 Flash solved
+14/14 on Terminal-Bench and 17/20 on SWE-Mini, more than any free route, and
+cost less than two of the three. Big Pickle was the only model — free or paid —
+to beat both references on knowledge. The correct reading is therefore that the
+free tier is good value and specifically useful, not that it is competitive with
+a paid route on agentic work.
+
+**Stability and provenance notes, from the same sources:**
+
+- `nemotron-3-ultra-free`, `big-pickle` and `fledge-alpha-free` have all thrown
+  upstream errors; a switch is the response, not a retry.
+- Exo Free arrived on 6 October 2026 with no published benchmarks, frequent
+  `429`s and endpoint dropouts. A fingerprinting tool reported a 99.4% match to
+  Claude Opus 5.5, which is **not** provenance — a closed-set fingerprint of an
+  uncatalogued model will always name its nearest neighbour.
+- LongCat 2.5 Preview Free has **no published benchmark of any kind**. Its
+  family's last published figure is LongCat-2.0's 59.5 on SWE-bench Pro, and
+  that does not transfer. Meituan described the free window as "two weeks" on
+  26 September, which puts its end around 10 October 2026.
+- MiMo-V2.6-Flash Free replaced MiMo v2.5 in place on some routes; the old
+  identifier is documented as working until 23 October 2026, so a route that
+  "silently changed" is the vendor's substitution rather than a fault.
+- One community report describes Big Pickle Free as switching behaviour
+  mid-task. That is a single unverified report and is recorded as a
+  possibility, not a fact.
+
+**Sources, all retrieved 8 October 2026:**
+
+- Artificial Analysis model pages and index articles — `artificialanalysis.ai`
+  (Muse Spark 1.3, Nemotron 3 Ultra, Ling-3.0-flash-Fin, MiMo-V2.6).
+- Fellipe Soares' independent stealth-model battery, 2 and 4 October 2026 —
+  `fellipesoares.com.br` (the five-benchmark comparison and the 15-run
+  bug-fix battery; the only like-for-like evidence for the three stealth
+  routes).
+- NVIDIA's release material and open-weights model card — `research.nvidia.com`
+  and `huggingface.co/nvidia` (RULER, SWE-Bench Verified, throughput).
+- Meta's Muse Spark 1.3 announcement with its own four-model scorecard, plus the
+  independent Artificial Analysis rescore that followed it two days later.
+- Meituan's LongCat platform changelog and model documentation.
+- OpenRouter model pages for provider-side route behaviour, context limits and
+  throughput.
+
 ## Running Things
 
 | Task | Command |
