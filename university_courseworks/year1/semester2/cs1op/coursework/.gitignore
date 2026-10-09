@@ -1,0 +1,42 @@
+# Compiled class files
+*.class
+
+# Maven target directory
+target/
+
+# Gradle build output
+build/
+.gradle/
+
+# Gradle distribution (not needed after wrapper is generated)
+gradle-8.5/
+
+# IDE files (keep .vscode for project settings)
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# PDF reports (Uneccessary Git Commits due to REPORT.md prsent)
+*.pdf
+
+# Gradle logs
+gradle.log
+
+# Logs
+*.log
+# Build artifacts - do not track compiled files or build caches
+bin/
+.gradle/
+build/
+gradle-8.5/
+*.class
+
+# IDE configuration files
+.vscode/
+
+# REPORT PDF is for Blackboard only, not the repository
+REPORT.pdf
