@@ -1061,26 +1061,28 @@ class TestReadmeArchitectureTree:
 
     def test_the_tree_lists_folders_not_loose_files(self):
         """
-        The tree names folders, with four deliberate exceptions: the root
-        documents AGENTS.md, MODEL_ALLOWANCE.md, NOTES.md and PROGRESSION.md,
-        the two generated documents under file_scores_ranking/, and the
-        dependency manifests under requirements/. Everything else is a folder.
+        The tree names folders, with three deliberate exceptions: the root
+        documents AGENTS.md, NOTES.md and PROGRESSION.md, and the folders whose
+        documents are listed individually — file_scores_ranking/,
+        model_rotation/ and requirements/. Everything else is a folder.
 
         A dot-prefixed entry such as .github/ is a folder, not a file, so the
         trailing slash decides the two apart; a name carrying a dot without one
         (FILE_SCORES.md) is a file.
 
-        [AI-authored fix] MODEL_ALLOWANCE.md joined the list on 8 October 2026,
-        when the pre-flight's second question was given a file to read. A
-        fourth root document is a deliberate widening of an explicit list, so it
-        is recorded here rather than allowed in by loosening the check.
+        [AI-authored fix] MODEL_ALLOWANCE.md was a fourth root document until
+        8 October 2026, when the model-rotation material moved into
+        model_rotation/ alongside the rest of the rotation's own documents. It
+        is now covered by allowed_parents rather than by its name, so a second
+        document in that folder needs no edit here.
         """
         allowed_files = {
-            "AGENTS.md", "MODEL_ALLOWANCE.md", "NOTES.md", "PROGRESSION.md",
+            "AGENTS.md", "NOTES.md", "PROGRESSION.md",
             "file_scores_ranking/FILE_RANKING_GUIDE.md",
             "file_scores_ranking/FILE_SCORES.md",
         }
-        allowed_parents = {"file_scores_ranking", "requirements"}
+        allowed_parents = {"file_scores_ranking", "model_rotation",
+                           "requirements"}
         offenders, stack = [], []
         for line in self._block():
             match = self.NODE.match(line)

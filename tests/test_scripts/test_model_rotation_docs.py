@@ -20,7 +20,7 @@ import pytest
 REPO_ROOT = Path(__file__).resolve().parents[2]
 AGENTS_MD = REPO_ROOT / "AGENTS.md"
 PROGRESSION_MD = REPO_ROOT / "PROGRESSION.md"
-ALLOWANCE_MD = REPO_ROOT / "MODEL_ALLOWANCE.md"
+ALLOWANCE_MD = REPO_ROOT / "model_rotation" / "MODEL_ALLOWANCE.md"
 
 MODELS = [
     "Big Pickle Free",
@@ -214,19 +214,36 @@ class TestRotationTables:
 
     def test_the_preflight_reads_the_allowance_file(self, agents_text):
         """
-        Question two of the pre-flight is answered by reading a file, not by
-        an agent guessing. The file has to be named where the rule is stated,
-        or an agent following the pre-flight has nothing to open.
+        Question two of the pre-flight is answered by reading a file, not by an
+        agent guessing, so the path has to be right - not merely present.
+
+        [AI-authored fix] The first version of this guard checked that the
+        file's *name* appeared somewhere in the section, which passed against a
+        mutation that stripped the folder from one of the two references: the
+        other reference still satisfied it. A guard that only checks a substring
+        somewhere is checking that the name exists, not that the path is right,
+        and after the file moved into model_rotation/ those are different things.
+        So every mention is now checked, and each one must carry the folder.
         """
         section = agents_text.split("Before each run: the pre-flight check")[1]
         section = section.split("####")[0]
         flat = " ".join(section.split())
-        assert "MODEL_ALLOWANCE.md" in flat, (
-            "the pre-flight does not tell an agent to read MODEL_ALLOWANCE.md, "
-            "so the allowance check has no stated source"
-        )
+
         assert ALLOWANCE_MD.is_file(), (
-            "MODEL_ALLOWANCE.md is referenced by the pre-flight but does not exist"
+            f"{ALLOWANCE_MD.name} is referenced by the pre-flight but "
+            f"{ALLOWANCE_MD.relative_to(REPO_ROOT)} does not exist"
+        )
+        mentions = re.findall(r"`([^`]*MODEL_ALLOWANCE\.md)`", flat)
+        assert mentions, (
+            "the pre-flight does not name the allowance file, so the allowance "
+            "check has no stated source"
+        )
+        relative = ALLOWANCE_MD.relative_to(REPO_ROOT).as_posix()
+        stale = sorted({m for m in mentions if m != relative})
+        assert stale == [], (
+            f"the pre-flight refers to the allowance file as {stale}, but it "
+            f"lives at {relative!r}; an agent opening the stated path from the "
+            "repository root finds nothing"
         )
         assert "empty or stale" in flat, (
             "the pre-flight does not say that an empty or stale allowance row "
