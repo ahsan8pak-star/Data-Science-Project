@@ -163,6 +163,11 @@ not a formality.
 
 ### Free-tier model rotation (OpenCode)
 
+The rotation's own documents live in **`model_rotation/`** —
+`MODEL_ALLOWANCE.md` is the file an agent reads *before* a switch, holding the
+route ceilings, the locally measured token usage and the allowance A.I.M states
+from the console. The tables below stay here, beside the rules that use them.
+
 The twelve free OpenCode models rotated are: Big Pickle Free,
 Space Bunny Free, Nemotron 3.5 Lightning Free, Nemotron 3 Ultra
 Free, Ling 3.0 Flash Fin Free, Ling 3.1 Flash Free, Muse Spark 1.3
@@ -306,12 +311,13 @@ order, and the third is the one that matters:
 1. **Tokens.** Does the task fit the model's route limits — the context it can
    read and the output it can emit? A patch larger than the output ceiling is
    a truncated patch, so the ceiling decides before the task does. The ceilings
-   for all twelve models are tabulated in `MODEL_ALLOWANCE.md`.
+   for all twelve models are tabulated in
+   `model_rotation/MODEL_ALLOWANCE.md`.
 2. **Percentage left.** How much of the day's or month's allowance is
-   unspent? **Read `MODEL_ALLOWANCE.md` first.** Token usage is measurable
-   locally via `opencode stats --models` and `opencode db`, but the remaining
-   *percentage* is not: it lives in the OpenCode console, which no agent can
-   read, so A.I.M states it and the agent records it in that file's
+   unspent? **Read `model_rotation/MODEL_ALLOWANCE.md` first.** Token usage is
+   measurable locally via `opencode stats --models` and `opencode db`, but the
+   remaining *percentage* is not: it lives in the OpenCode console, which no
+   agent can read, so A.I.M states it and the agent records it in that file's
    "Allowance remaining" table. **An empty or stale row means this question has
    not been answered** — ask rather than assume, and treat an agent that claims
    it passed without a recorded number as having failed it.

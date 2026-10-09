@@ -4,6 +4,10 @@
 It answers questions 1 and 2 of the pre-flight in `AGENTS.md`. Question 3
 (applicability) is answered from the tables in `AGENTS.md`, not from here.
 
+Companion to the rotation tables in `AGENTS.md`; both live under
+`model_rotation/` or `AGENTS.md` respectively, and this file is the one an
+agent opens first.
+
 ## The rule
 
 Before any model is changed, or a long run is started, confirm all three:
@@ -101,9 +105,31 @@ such failures are recorded across three models in the last twelve days —
 A rate-limit error is a **signal that the allowance ran out**, not a measure of
 how much is left. It cannot be converted into a percentage.
 
+| Checked on | Model | Context in use | % of context | Spent | Stated by | Note |
+| --- | --- | --- | --- | --- | --- | --- |
+| 8 Oct 2026 | Space Bunny Free | 242,366 | 23% | $0.00 | A.I.M | Read from the console. Verified against the session database: the largest assistant turn on this route carries 242,366 total tokens, which is 23.1% of the 1,048,576 context ceiling — so this is the *conversation's* context fill, not an allowance remaining. See the distinction below. |
+
+### Two different "percentages", and they are not interchangeable
+
+The figure above is **context consumed in this conversation** — 242,366 of
+1,048,576 route context, which is 23.1%. It is verifiable here, and
+independently confirmed against the session database.
+
+**Allowance remaining is a different number.** It is the share of the daily or
+monthly quota still unspent, it lives in the console, and nothing in this
+repository records it. A conversation can sit at 23% of its context window and
+still be one request away from the allowance limit, because context fill and
+quota consumption are measured against different ceilings.
+
+So the honest reading of the row above is: **question one answered (context fit
+is fine at 23% of 1,048,576), question two not answered** (allowance remaining
+unknown, $0.00 spent confirms this is a free route but says nothing about how
+much of it is left). If A.I.M reads a remaining-percentage figure off the
+console, it goes in the next table rather than in the `% of context` column.
+
 | Checked on | Model run | Remaining % | Stated by | Note |
 | --- | --- | --- | --- | --- |
-| *(one row per check)* | | | | |
+| *(one row per check — empty means question two is unanswered)* | | | | |
 
 **How to fill this in.** Before a long run or a model switch, A.I.M reads the
 percentage off the console and states it. The agent records the row *before*
@@ -126,6 +152,9 @@ guard, because it reads as coverage.
 - **It does not read the console, or any credential store.** The `account`,
   `control_account` and `credential` tables in `opencode.db` hold live tokens
   and are never read here.
+- **It does not report context fill as allowance remaining.** The 23% above is
+  the conversation's share of its own window, measured against a ceiling this
+  file can see; the quota is a different ceiling and lives in the console.
 
 ## Sources
 
