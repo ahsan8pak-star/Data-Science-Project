@@ -381,6 +381,7 @@ Data-Science-Project/
 ├── .vscode/                                # IDE local runtime environment configuration
 │
 ├── AGENTS.md                               # Operating rules, project constraints, and commit conventions
+├── MODEL_ALLOWANCE.md                      # Per-model route ceilings, local token usage, and the allowance left before a switch
 ├── NOTES.md                                # Maintenance journal, study tracks, and current resource status
 ├── PROGRESSION.md                          # Narrative record of learning stages, corrections, and AI use
 │

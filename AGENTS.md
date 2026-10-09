@@ -304,12 +304,17 @@ A model is selected before it starts, not after it fails. Three questions, in
 order, and the third is the one that matters:
 
 1. **Tokens.** Does the task fit the model's route limits — the context it can
-   read and the output it can emit? A patch larger than the output ceiling is a
-   truncated patch, so the ceiling decides before the task does.
+   read and the output it can emit? A patch larger than the output ceiling is
+   a truncated patch, so the ceiling decides before the task does. The ceilings
+   for all twelve models are tabulated in `MODEL_ALLOWANCE.md`.
 2. **Percentage left.** How much of the day's or month's allowance is
-   unspent? **An agent cannot read this.** The console owns it, so A.I.M states
-   it before a long run, and an agent that is told the remaining percentage is
-   low treats that as a reason to prefer a cheaper route or to hand off.
+   unspent? **Read `MODEL_ALLOWANCE.md` first.** Token usage is measurable
+   locally via `opencode stats --models` and `opencode db`, but the remaining
+   *percentage* is not: it lives in the OpenCode console, which no agent can
+   read, so A.I.M states it and the agent records it in that file's
+   "Allowance remaining" table. **An empty or stale row means this question has
+   not been answered** — ask rather than assume, and treat an agent that claims
+   it passed without a recorded number as having failed it.
 3. **Applicability.** Is this the model's job at all — purpose and context
    budget both? **Correctness and context drive the choice; speed is the last
    consideration.** A faster model that answers from a narrower window is the
@@ -898,7 +903,7 @@ or the correction is half-applied.
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1650 passing tests, ~99% line coverage and 95% branch coverage (149 of the
+- 1651 passing tests, ~99% line coverage and 95% branch coverage (149 of the
   160 measured `python/` files at 100% lines, including both music-player
   GUIs; the 160 non-`__init__.py` files are the number a docstring sweep
   covers). The 160 counts files that carry at least one statement. The
