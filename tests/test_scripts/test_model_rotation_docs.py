@@ -20,6 +20,7 @@ import pytest
 REPO_ROOT = Path(__file__).resolve().parents[2]
 AGENTS_MD = REPO_ROOT / "AGENTS.md"
 PROGRESSION_MD = REPO_ROOT / "PROGRESSION.md"
+ALLOWANCE_MD = REPO_ROOT / "MODEL_ALLOWANCE.md"
 
 MODELS = [
     "Big Pickle Free",
@@ -211,6 +212,27 @@ class TestRotationTables:
                     f"{number.strip()}"
                 )
 
+    def test_the_preflight_reads_the_allowance_file(self, agents_text):
+        """
+        Question two of the pre-flight is answered by reading a file, not by
+        an agent guessing. The file has to be named where the rule is stated,
+        or an agent following the pre-flight has nothing to open.
+        """
+        section = agents_text.split("Before each run: the pre-flight check")[1]
+        section = section.split("####")[0]
+        flat = " ".join(section.split())
+        assert "MODEL_ALLOWANCE.md" in flat, (
+            "the pre-flight does not tell an agent to read MODEL_ALLOWANCE.md, "
+            "so the allowance check has no stated source"
+        )
+        assert ALLOWANCE_MD.is_file(), (
+            "MODEL_ALLOWANCE.md is referenced by the pre-flight but does not exist"
+        )
+        assert "empty or stale" in flat, (
+            "the pre-flight does not say that an empty or stale allowance row "
+            "fails the check, so a blank table reads as a silent pass"
+        )
+
     def test_privacy_override_is_stated(self, agents_text):
         """
         The one case where "best model for the task" is the wrong answer is a
@@ -251,7 +273,7 @@ class TestPreFlight:
         assert "speed is the last consideration" in flat, (
             "the pre-flight does not record that speed ranks last"
         )
-        assert "An agent cannot read this" in flat, (
+        assert "no agent can read" in flat, (
             "the pre-flight does not say that the remaining allowance has to be "
             "stated by A.I.M, so the check silently passes when nobody knows it"
         )
