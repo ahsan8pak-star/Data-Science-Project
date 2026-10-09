@@ -49,9 +49,12 @@ CS2PP = COURSEWORKS / "year2" / "semester1" / "cs2pp"
 WEEK_RE = re.compile(r"^week\d+$")
 SKIP_DIRS = {"__pycache__", ".ipynb_checkpoints"}
 
-# Type folders, and the single extension each may carry; `jupyter` joined on
-# 4 October 2026, when CS2PP's weeks gained notebook folders, and `pptx` on
-# 8 October 2026, when CS1OP's lecture halves gained their slide decks.
+"""
+[AI-authored fix] The type folders, and the single extension each may carry.
+`jupyter` joined on 4 October 2026, when CS2PP's weeks gained notebook folders,
+and `pptx` on 8 October 2026, when CS1OP's lecture halves gained their slide
+decks - nine weeks of `.pptx`, added as the lecture half's real material.
+"""
 TYPE_SUFFIXES = {"java": ".java", "python": ".py", "pdf": ".pdf",
                  "sql": ".sql", "txt": ".txt", "data": None, "csv": ".csv",
                  "jupyter": ".ipynb", "pptx": ".pptx"}
@@ -69,13 +72,18 @@ SPLIT_MODULES = {
               "practical": {"jupyter", "pdf"}},
 }
 
-# Type folders a half may carry without being required to. The contract above is
-# a *required* shape, and CS1OP cannot honour it: its lecture material is slide
-# decks rather than PDFs, and every PDF in this repository is deliberately
-# gitignored as local-only, so a pdf/ folder holding nothing but ignored PDFs is
-# untrackable - git cannot commit an empty folder, so the requirement would pass
-# on the owner's disk and fail on a fresh clone. CS1OP therefore requires
-# java/ and python/ and merely allows pdf/ and pptx/. Decided 8 October 2026.
+"""
+[AI-authored fix] Type folders a half may carry without being required to.
+
+SPLIT_MODULES is a *required* shape, and CS1OP cannot honour it. Its lecture
+material is slide decks rather than PDFs, and every PDF in this repository is
+deliberately gitignored as local-only, so a pdf/ folder holding nothing but
+ignored PDFs is untrackable - git cannot commit an empty folder, which means the
+requirement would pass on the owner's disk and fail on a fresh clone. CS1OP
+therefore requires java/ and python/, and merely allows pdf/ and pptx/. Decided
+8 October 2026, on A.I.M's instruction to split required from allowed rather than
+create empty folders that git would silently drop.
+"""
 OPTIONAL_TYPE_FOLDERS = {"cs1op": {"lecture": {"pdf", "pptx"},
                                    "practical": {"pdf"}}}
 
@@ -83,11 +91,15 @@ OPTIONAL_TYPE_FOLDERS = {"cs1op": {"lecture": {"pdf", "pptx"},
 # is notebook-based, so they are leftovers from before the notebooks were split out.
 STALE_TYPE_FOLDERS = {("cs2pp", "python")}
 
-# CS1IP week7's lecture carries a txt/ folder, because it reads and writes
-# text files; the one type folder outside the shared contract. CS1IP week3's
-# lecture carries week_03_lecture_code/, which holds that week's lecture code as
-# A.I.M placed it on 8 October 2026 - the lecture half's counterpart to the
-# week_07_practical_files fixtures.
+"""
+[AI-authored fix] The type folders outside a module's shared contract.
+
+CS1IP week7's lecture carries a txt/ folder, because it reads and writes text
+files. CS1IP week3's lecture carries week_03_lecture_code/, which holds that
+week's lecture code as A.I.M placed it on 8 October 2026 - the lecture half's
+counterpart to the week_07_practical_files fixtures, and recorded here on the
+same principle rather than renamed into lecture/python/ behind his back.
+"""
 EXTRA_TYPE_FOLDERS = {("cs1ip", "week7", "lecture"): {"txt"},
                       ("cs1ip", "week3", "lecture"): {"week_03_lecture_code"}}
 
@@ -241,10 +253,12 @@ class TestCs1ipWeekFoldersSplitLectureAndPractical:
         material of that kind yet, which is what keeps the shape uniform: an
         empty java/ in a lecture-only week is expected, a missing one is not.
 
-        Only the *required* half of the contract is demanded here. The optional
-        kinds are in OPTIONAL_TYPE_FOLDERS because a folder holding nothing but
-        gitignored material cannot be committed, so requiring one would make the
-        guard pass on the owner's disk and fail on a fresh clone.
+        Only the *required* half of the contract is demanded here.
+
+        [AI-authored fix] The optional kinds are in OPTIONAL_TYPE_FOLDERS because
+        a folder holding nothing but gitignored material cannot be committed, so
+        requiring one would make this guard pass on the owner's disk and fail on
+        a fresh clone - a guard that reports a shape git cannot preserve.
         """
         required = SPLIT_MODULES[module]
         offenders = {}
