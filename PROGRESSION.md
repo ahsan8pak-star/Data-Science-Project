@@ -667,9 +667,7 @@ cache-read totals, and the file records them. **The remaining percentage is
 not**, because it lives in the OpenCode console, so the only honest local
 evidence of exhaustion is the failure itself: `Rate limit exceeded. Please try
 again later.` in `~/.local/share/opencode/log/`, timestamped and naming the
-model that hit it. Six such failures sit in the logs - `big-pickle` twice,
-`muse-spark-1.3-contributor-free` twice, `mimo-v2.6-flash-free`, and
-`longcat-2.5-preview-free` on 1 October.
+model that hit it. Eleven such failures are on record across `big-pickle` (six times, 26 Sep), `muse-spark-1.3-contributor-free` (three times, 26 Sep), `mimo-v2.6-flash-free` (26 Sep) and `longcat-2.5-preview-free` (1 Oct) — and none since.
 
 That asymmetry is the design, and it produced the file's most important line: an
 empty or stale row **fails** question two rather than passing it. A blank table
