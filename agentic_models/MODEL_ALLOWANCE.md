@@ -1,11 +1,13 @@
 # MODEL_ALLOWANCE.md — the supply side of the pre-flight
 
 **Read this file before switching models, and before starting a long run.**
-It answers questions 1 and 2 of the pre-flight in `AGENTS.md`. Question 3
-(applicability) is answered from the tables in `AGENTS.md`, not from here.
+It answers questions 1 and 2 of the pre-flight in
+`agentic_models/AGENTS.md`. Question 3
+(applicability) is answered from the tables in `agentic_models/AGENTS.md`, not
+from here.
 
-Companion to the rotation tables in `AGENTS.md`; both live under
-`model_rotation/` or `AGENTS.md` respectively, and this file is the one an
+Companion to the rotation tables in `agentic_models/AGENTS.md`; both files live
+in `agentic_models/`, and this file is the one an
 agent opens first.
 
 ## The rule

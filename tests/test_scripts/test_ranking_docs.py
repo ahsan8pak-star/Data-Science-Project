@@ -33,7 +33,7 @@ import pytest
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCORES_MD = REPO_ROOT / "file_scores_ranking" / "FILE_SCORES.md"
 GUIDE_MD = REPO_ROOT / "file_scores_ranking" / "FILE_RANKING_GUIDE.md"
-AGENTS_MD = REPO_ROOT / "AGENTS.md"
+AGENTS_MD = REPO_ROOT / "agentic_models" / "AGENTS.md"
 NOTES_MD = REPO_ROOT / "NOTES.md"
 
 """

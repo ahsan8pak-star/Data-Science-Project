@@ -38,7 +38,7 @@ import pytest
 # Walk up out of tests/ so the guards work regardless of the invocation
 # directory; pytest's rootdir is not a reliable base for a repo-level test.
 REPO_ROOT = Path(__file__).resolve().parents[2]
-AGENTS_MD = REPO_ROOT / "AGENTS.md"
+AGENTS_MD = REPO_ROOT / "agentic_models" / "AGENTS.md"
 NOTES_MD = REPO_ROOT / "NOTES.md"
 README_MD = REPO_ROOT / "README.md"
 GUIDE_MD = REPO_ROOT / "file_scores_ranking" / "FILE_RANKING_GUIDE.md"
@@ -1061,10 +1061,10 @@ class TestReadmeArchitectureTree:
 
     def test_the_tree_lists_folders_not_loose_files(self):
         """
-        The tree names folders, with three deliberate exceptions: the root
-        documents AGENTS.md, NOTES.md and PROGRESSION.md, and the folders whose
-        documents are listed individually — file_scores_ranking/,
-        model_rotation/ and requirements/. Everything else is a folder.
+        The tree names folders, with deliberate exceptions: the root documents
+        NOTES.md and PROGRESSION.md, and the folders whose documents are listed
+        individually — agentic_models/, file_scores_ranking/ and requirements/.
+        Everything else is a folder.
 
         A dot-prefixed entry such as .github/ is a folder, not a file, so the
         trailing slash decides the two apart; a name carrying a dot without one
@@ -1072,16 +1072,17 @@ class TestReadmeArchitectureTree:
 
         [AI-authored fix] MODEL_ALLOWANCE.md was a fourth root document until
         8 October 2026, when the model-rotation material moved into
-        model_rotation/ alongside the rest of the rotation's own documents. It
-        is now covered by allowed_parents rather than by its name, so a second
-        document in that folder needs no edit here.
+        model_rotation/ alongside the rest of the rotation's own documents, and
+        AGENTS.md followed it there on 9 October 2026 when that folder was
+        renamed agentic_models/. Both are now covered by allowed_parents rather
+        than by name, so a further document in that folder needs no edit here.
         """
         allowed_files = {
-            "AGENTS.md", "NOTES.md", "PROGRESSION.md",
+            "NOTES.md", "PROGRESSION.md",
             "file_scores_ranking/FILE_RANKING_GUIDE.md",
             "file_scores_ranking/FILE_SCORES.md",
         }
-        allowed_parents = {"file_scores_ranking", "model_rotation",
+        allowed_parents = {"agentic_models", "file_scores_ranking",
                            "requirements"}
         offenders, stack = [], []
         for line in self._block():
@@ -1102,7 +1103,7 @@ class TestReadmeArchitectureTree:
                 offenders.append("/".join(stack))
         assert offenders == [], (
             "file-level entries beyond the root documents, "
-            f"file_scores_ranking/ and requirements/: {offenders}"
+            f"agentic_models/, file_scores_ranking/ and requirements/: {offenders}"
         )
 
     def test_skip_list_matches_execution_time(self):

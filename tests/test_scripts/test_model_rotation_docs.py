@@ -18,9 +18,9 @@ from pathlib import Path
 import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-AGENTS_MD = REPO_ROOT / "AGENTS.md"
+AGENTS_MD = REPO_ROOT / "agentic_models" / "AGENTS.md"
 PROGRESSION_MD = REPO_ROOT / "PROGRESSION.md"
-ALLOWANCE_MD = REPO_ROOT / "model_rotation" / "MODEL_ALLOWANCE.md"
+ALLOWANCE_MD = REPO_ROOT / "agentic_models" / "MODEL_ALLOWANCE.md"
 
 MODELS = [
     "Big Pickle Free",
@@ -222,7 +222,7 @@ class TestRotationTables:
         mutation that stripped the folder from one of the two references: the
         other reference still satisfied it. A guard that only checks a substring
         somewhere is checking that the name exists, not that the path is right,
-        and after the file moved into model_rotation/ those are different things.
+        and after the file moved into agentic_models/ those are different things.
         So every mention is now checked, and each one must carry the folder.
         """
         section = agents_text.split("Before each run: the pre-flight check")[1]

@@ -380,11 +380,11 @@ Data-Science-Project/
 ├── .github/                                # Dependabot and CI workflow definitions
 ├── .vscode/                                # IDE local runtime environment configuration
 │
-├── AGENTS.md                               # Operating rules, project constraints, and commit conventions
 ├── NOTES.md                                # Maintenance journal, study tracks, and current resource status
 ├── PROGRESSION.md                          # Narrative record of learning stages, corrections, and AI use
 │
-├── model_rotation/                         # Free-tier model rotation: what to read before switching models
+├── agentic_models/                         # Free-tier model rotation: what to read before switching models
+│   ├── AGENTS.md                           # Operating rules, project constraints, model rotation, and commit conventions
 │   └── MODEL_ALLOWANCE.md                  # Per-model route ceilings, local token usage, and the allowance left before a switch
 │
 ├── data/                                   # Storage layer for project datasets and tracking assets

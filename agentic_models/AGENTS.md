@@ -163,10 +163,11 @@ not a formality.
 
 ### Free-tier model rotation (OpenCode)
 
-The rotation's own documents live in **`model_rotation/`** —
-`MODEL_ALLOWANCE.md` is the file an agent reads *before* a switch, holding the
-route ceilings, the locally measured token usage and the allowance A.I.M states
-from the console. The tables below stay here, beside the rules that use them.
+The rotation's own documents live in **`agentic_models/`** — the file an
+agent reads *before* a switch is `agentic_models/MODEL_ALLOWANCE.md`, holding
+the route ceilings, the locally measured token usage and the allowance A.I.M
+states from the console. The tables below stay here, beside the rules that use
+them.
 
 The twelve free OpenCode models rotated are: Big Pickle Free,
 Space Bunny Free, Nemotron 3.5 Lightning Free, Nemotron 3 Ultra
@@ -312,9 +313,9 @@ order, and the third is the one that matters:
    read and the output it can emit? A patch larger than the output ceiling is
    a truncated patch, so the ceiling decides before the task does. The ceilings
    for all twelve models are tabulated in
-   `model_rotation/MODEL_ALLOWANCE.md`.
+   `agentic_models/MODEL_ALLOWANCE.md`.
 2. **Percentage left.** How much of the day's or month's allowance is
-   unspent? **Read `model_rotation/MODEL_ALLOWANCE.md` first.** Token usage is
+   unspent? **Read `agentic_models/MODEL_ALLOWANCE.md` first.** Token usage is
    measurable locally via `opencode stats --models` and `opencode db`, but the
    remaining *percentage* is not: it lives in the OpenCode console, which no
    agent can read, so A.I.M states it and the agent records it in that file's

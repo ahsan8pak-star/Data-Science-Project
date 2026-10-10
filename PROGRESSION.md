@@ -659,7 +659,7 @@ was answered honestly at the time by refusing to guess, but a rule that is
 always unanswerable is not a rule: it is a question that trains everyone to skip
 it. A.I.M's later instruction was to name the file an agent reads first.
 
-`model_rotation/MODEL_ALLOWANCE.md` is that file, and splitting the question in two is what
+`agentic_models/MODEL_ALLOWANCE.md` is that file, and splitting the question in two is what
 made it answerable. **Token usage is locally measurable** - `opencode stats
 --models`, `opencode db`, and the session database at
 `~/.local/share/opencode/opencode.db` all carry per-model input, output and
@@ -691,8 +691,8 @@ weakness in the guard rather than in the document. Deleting the file fails the
 suite, as it should. But the first version also passed against a mutation that
 dropped the folder from one of the two references to it, because it checked
 that the file's *name* appeared somewhere in the pre-flight rather than that
-every reference was the correct path - and after the file moved into
-`model_rotation/`, a name present somewhere and a path that opens are two
+  every reference was the correct path - and after the file moved into
+  `agentic_models/`, a name present somewhere and a path that opens are two
 different things. The check now enumerates every backticked mention and
 requires each to be the real relative path, which is what catches the realistic
 failure: an agent following a stale `MODEL_ALLOWANCE.md` from the repository
@@ -706,7 +706,11 @@ documents, so `MODEL_ALLOWANCE.md` had been added to that list one commit
 earlier and was now being *removed* from it. A guard that pins an explicit list
 is a list that has to be maintained, and the cheaper shape turned out to be
 `allowed_parents`: naming the folder once admits any document inside it, so the
-next file to move there needs no edit to the test at all.
+next file to move there needs no edit to the test at all. That prediction was
+tested the next day: on 9 October `AGENTS.md` itself moved in beside the
+allowance file and the folder was renamed `agentic_models/`, and the only edit
+the tree guard needed was the folder name in `allowed_parents` plus dropping
+`AGENTS.md` from the root-document allow-list — no new exception, no new test.
 
 This is the repo's own rule 2 - treat an assistant's line-level claim as a
 candidate, not ground truth - catching an assistant. The failure was not a
