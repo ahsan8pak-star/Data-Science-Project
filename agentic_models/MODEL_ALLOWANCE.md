@@ -48,7 +48,6 @@ release is 1,048,576 everywhere else and 200,000 on this route.
 | MiMo-V2.6-Flash Free | 200,000 | 32,000 |
 | MiMo-V2.5 Free | 200,000 | 32,000 |
 | LongCat 2.5 Preview Free | 1,000,000 | 131,072 |
-| Exo Free | 1,048,576 | 131,072 |
 | Fledge Alpha Free | 1,048,576 | 131,072 |
 
 ## Token usage — measurable locally
@@ -98,11 +97,9 @@ reproduces them.
 | Nemotron 3.5 Lightning Free | 61 | 3.3M | 19.2K | 3.9M | 9 Oct 2026 |
 | Nemotron 3 Ultra Free | 22 | 424.6K | 5.5K | 2.7M | 26 Sep 2026 |
 | Muse Spark 1.3 Contributor Free (`xhigh`) | 15 | 286.2K | 3.3K | 747.6K | 10 Oct 2026 |
-| Exo Free (`high`) | 1 | 0 | 0 | 0 | 9 Oct 2026 |
 
 No local messages on record for Ling 3.1 Flash Free, MiMo-V2.6-Flash Free or
-MiMo-V2.5 Free. Exo Free's single message carried zero tokens — a call that
-produced nothing, matching its no-show pattern. One further Space Bunny message
+MiMo-V2.5 Free. One further Space Bunny message
 outside any variant carries zero tokens likewise.
 
 ### Largest context seen vs the route ceiling
@@ -121,7 +118,6 @@ The share column divides it by the published route ceiling above.
 | Nemotron 3.5 Lightning Free | 262,144 | 357.2K | 136% — over the published ceiling |
 | Nemotron 3 Ultra Free | 1,000,000 | 148.6K | 15% |
 | Muse Spark 1.3 Contributor Free | 1,048,576 | 218.0K | 21% |
-| Exo Free | 1,048,576 | 0 | — (no real turn yet) |
 
 Two routes have served turns **larger** than their published ceilings, verified
 turn by turn (Big Pickle's largest carries 403,621 input tokens with zero

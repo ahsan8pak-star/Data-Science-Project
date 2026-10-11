@@ -456,10 +456,10 @@ open.
 
 ### 4.3 Model rotation, and why it matters
 
-Within OpenCode, A.I.M rotates across **twelve free models** — Big Pickle Free,
+Within OpenCode, A.I.M rotates across **eleven free models** — Big Pickle Free,
 Space Bunny Free, Nemotron 3.5 Lightning Free, Nemotron 3 Ultra Free, Ling 3.0
 Flash Fin Free, Ling 3.1 Flash Free, Muse Spark 1.3 Contributor Free,
-MiMo-V2.6-Flash Free, MiMo-V2.5 Free, LongCat 2.5 Preview Free, Exo Free and
+MiMo-V2.6-Flash Free, MiMo-V2.5 Free, LongCat 2.5 Preview Free and
 Fledge Alpha Free. The rotation is selected in the console, not from inside a
 conversation: an agent cannot switch its own model mid-session.
 
@@ -479,7 +479,7 @@ never as ground truth. The test suite is the arbiter.
 
 #### The rotation needed a rule, not just a list
 
-The twelve-model list in `AGENTS.md` answers *which model to pick*, but it
+The eleven-model list in `AGENTS.md` answers *which model to pick*, but it
 initially answered nothing about what happens when a model is executing and
 realises the task does not fit it. A.I.M's instruction was blunt: make each
 model's pros, cons and main purpose clear, and if the task is not applicable to
@@ -575,7 +575,6 @@ token volume for the week ending 7 October 2026
 | Ling 3.0 Flash Fin Free | 262,144 | 32,768 | Yes | below the published top-18 | unmeasured |
 | Ling 3.1 Flash Free | 262,144 | 32,768 | Yes | below the published top-18 | unmeasured |
 | Big Pickle Free | 200,000 | 32,000 | Yes | below the published top-18 | unmeasured |
-| Exo Free | 1,048,576 | 131,072 | Yes | below the published top-18 | unmeasured |
 
 The traffic columns are OpenCode's published weekly figures for the week
 ending 7 October 2026, expressed as a share of the 144.879T tokens across the
@@ -612,19 +611,18 @@ line is true and useless.
   claim would therefore have been wrong in both directions, which is why the
   limits above are labelled "route" rather than "model".
 - **Privacy does not split the rotation cleanly.** Two models (Space Bunny,
-  LongCat) sit on the zero-retention default. Seven (Big Pickle, Exo Free,
-  Fledge Alpha Free, both MiMos, both Lings) may have free-period data used to
+  LongCat) sit on the zero-retention default. Seven (Big Pickle, Fledge Alpha
+  Free, both MiMos, both Lings) may have free-period data used to
   improve the model. Two (the Nemotrons) are NVIDIA trial endpoints that log
   use and whose terms ask for no personal or confidential data. One (Muse Spark
-  1.3 Contributor) is explicitly a training-data trade. Ten of the twelve send
+  1.3 Contributor) is explicitly a training-data trade. Nine of the eleven send
   prompts somewhere that is not covered by a verified zero-retention default,
   which is why rule 6 exists.
-- **The free tier is popular, so it is not private by default.** Six of the
-  twelve are 1M-class routes — Space Bunny, Muse Spark 1.3, Nemotron 3 Ultra,
-  LongCat 2.5, Fledge Alpha Free and Exo Free — and five of those six now chart
+- **The free tier is popular, so it is not private by default.** Five of the
+  eleven are 1M-class routes — Space Bunny, Muse Spark 1.3, Nemotron 3 Ultra,
+  LongCat 2.5 and Fledge Alpha Free — and four of those five now chart
   on the published table, Space Bunny and Muse Spark 1.3 alone carrying 36.6%
-  and 22.8% of listed traffic between them. Only Exo Free is too new to appear,
-  which is the same gap Fledge Alpha Free had a week earlier. Being on a free
+  and 22.8% of listed traffic between them. Being on a free
   tier says nothing about who else can read the prompt.
 - **Two models are named for what they are not.** Big Pickle and Space Bunny
   are both described by OpenCode as "stealth models" with no published vendor,
@@ -769,10 +767,7 @@ agentic work, and the rotation's value is that it gives A.I.M a cheap second
 opinion and a free first pass, not that it replaces a frontier model.
 
 Two provenance notes are recorded because they are the failure mode this
-project has already paid for once. Exo Free was fingerprinted at 99.4% against
-Claude Opus 5.5, which is *not* provenance: a closed-set fingerprint of an
-uncatalogued model names its nearest neighbour by construction, so the honest
-statement is that the model is unidentified. And LongCat 2.5 Preview Free has
+project has already paid for once. LongCat 2.5 Preview Free has
 published no benchmark of any kind; its family's last published figure is
 LongCat-2.0's 59.5 on SWE-bench Pro, which does not transfer to a new release,
 and Meituan's own "two weeks" framing for the free window puts its end around
@@ -876,6 +871,7 @@ career plan says the next gap is *applied* experience, not more process.
 | 2 Oct 2026 | `requirements/` and `file_scores_ranking/` reorganisation; Dependabot and pyproject paths updated | `a4e468f`, `bced1be` |
 | 7 Oct 2026 | Model tables refreshed to twelve free routes: Exo Free, MiMo-V2.5 Free and Ling 3.1 Flash Free added; Fledge Alpha Free confirmed documented rather than undocumented | `a1a13f0` |
 
+| 11 Oct 2026 | Exo Free removed from the rotation (deprecated upstream); count twelve -> eleven | `4ba6860` (requirements sync) |
 ---
 
 ## 5. The corrections loop, as practised

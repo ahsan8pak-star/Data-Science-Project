@@ -33,7 +33,6 @@ MODELS = [
     "MiMo-V2.6-Flash Free",
     "MiMo-V2.5 Free",
     "LongCat 2.5 Preview Free",
-    "Exo Free",
     "Fledge Alpha Free",
 ]
 
@@ -109,16 +108,16 @@ class TestRotationTables:
         for model in MODELS:
             assert model in agents_text, f"{model} is missing from AGENTS.md"
 
-    def test_the_rotation_names_twelve_models(self, agents_text):
+    def test_the_rotation_names_eleven_models(self, agents_text):
         """
         The count is stated in prose in two places, so a model added to the
         table without updating them leaves the document self-contradictory.
         """
-        assert "twelve free" in agents_text, (
+        assert "eleven free" in agents_text, (
             "AGENTS.md no longer states how many free models are rotated"
         )
-        assert "All\ntwelve free models share one endpoint" in agents_text or \
-            "twelve free models share one endpoint" in agents_text, (
+        assert "All\neleven free models share one endpoint" in agents_text or \
+            "eleven free models share one endpoint" in agents_text, (
             "the shared-endpoint sentence does not agree with the model count"
         )
 
@@ -314,7 +313,7 @@ class TestPreFlight:
         """
         section = agents_text.split("Share of listed traffic")[1][:4000]
         for model in ("Big Pickle Free", "Ling 3.0 Flash Fin Free",
-                      "Ling 3.1 Flash Free", "Exo Free"):
+                      "Ling 3.1 Flash Free"):
             row = next(
                 (line for line in section.splitlines()
                  if line.startswith(f"| {model} ")),
