@@ -3,5 +3,9 @@
 *.joblib binary
 *.xlsx binary
 *.pdf binary
+# WAVs are binary too. `text=auto` already detects them by their NUL bytes and
+# stores them byte-identical, but relying on that heuristic means a 13MB asset
+# tree's integrity depends on a sniff test rather than on the rule.
+*.wav binary
 
 
