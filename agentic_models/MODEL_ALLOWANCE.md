@@ -246,7 +246,6 @@ Recorded usage — 31 sessions, live database:
 | Fledge Alpha | 327 | 12.4M | 520.0K | 50% |
 | Ling 3.0 Flash Fin | 83 | 1.5M | 180.0K | 69% |
 | Nemotron 3.5 Lightning | 61 | 3.3M | 357.2K | 136% (over) |
-| Exo Free | 1 | 0 | 0 | — (removed) |
 
 **The over-use finding.** `AGENTS.md` states it plainly: "The rotation has
 been over-used on two models. A.I.M reached for Big Pickle and Space Bunny by
@@ -254,7 +253,8 @@ default." Big Pickle logged the most messages (4,100) on the smallest window
 (200K), and served a 403.6K turn — 202% of its published ceiling. Nemotron
 3.5 Lightning likewise served a 357.2K turn at 136%. Meanwhile Ling (the
 correct model for "the small, mechanical work that filled Big Pickle's
-column") got 83 messages, and Exo got one no-op turn before removal.
+column") got 83 messages, and the one route since removed upstream managed a
+single no-op turn before it went.
 
 The repo's own correction is the right reading: Big Pickle is a review model,
 not a default builder; Ling and Nemotron 3.5 are the right answer for
