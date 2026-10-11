@@ -165,6 +165,75 @@ or maintenance log, the repository wins.
 
 ---
 
+## Pytest Access Evaluation for A.I.M (11 Oct 2026)
+
+A.I.M's profile, as the repo measures it: **~2.0 (band 1.5-2.5)** — High Advanced
+Beginner to borderline Competent. The two dimensions that matter most for pytest
+access are Git & professional practice (3.0, warm) and Testing & tooling (1.5,
+warm, "pytest suite real but AI-authored — runpy/mock not yet self-written").
+
+### The access model the repo encodes
+
+`AGENTS.md` defines a deliberately narrow access surface, every command pinning
+the interpreter:
+
+| Task | Command |
+| --- | --- |
+| Full suite | `.venv\Scripts\python.exe -m pytest` |
+| One folder | `.venv\Scripts\python.exe -m pytest tests/test_imperative_programming/` |
+| One file | `.venv\Scripts\python.exe -m pytest tests/.../test_unit_and_format_converters.py` |
+| Coverage | `.venv\Scripts\python.exe -m pytest --cov --cov-report=term-missing` |
+
+Three constraints shape it: the pinned interpreter is mandatory (never bare
+`python`/`python3`); the granularity ladder runs suite to folder to file; and
+coverage is a reporting layer, not a gate (caps are pinned by design under
+rule 11).
+
+### Suite concentration (1,637 cases at time of writing)
+
+| Source area | Tests | % of suite | Tests/1k lines |
+| --- | ---: | ---: | ---: |
+| imperative_programming | 846 | 51.7% | 113.5 |
+| scripts (guards) | 283 | 17.3% | 209.2 |
+| object_oriented | 222 | 13.6% | 78.5 |
+| university_courseworks | 127 | 7.8% | 143.5 |
+| functional | 70 | 4.3% | 74.3 |
+
+Two files carry a third of the suite: the math/science calculators test lane
+(305 cases) and the syntax programs test lane (271 cases).
+
+### Strengths
+
+- Verification culture is real: every change ships with a re-runnable command.
+- The suite is a safety net, not a gate — nothing blocks `python/` from being
+  committed (rule 8 lifted the old ring-fence).
+- Graded access exists: `-k`, folder and file rungs all work; the headless
+  CS1OP translation (174 cases, no display/audio) proves the pattern scales.
+
+### Gaps
+
+- **Consumption exceeds production.** A.I.M runs 1,651 cases daily but has
+  written runpy/mock harnesses with AI, per the repo's own scorecard. The
+  suite currently proves things rather than teaching how they are proved.
+- **The imperative lane is over-represented** at 51.7%. Functional (4.3%) and
+  advanced (5.4%) are thin — the green bar is partly a statement about where
+  the tests are, not only about the code's quality.
+- **Machine-specific fragility** (bare `python` vs pinned interpreter; `head`
+  vs `Get-Content`) is a real usability tax for a Windows-native programmer.
+
+### Recommendations
+
+1. Always use the pinned interpreter: `.\.venv\Scripts\python.exe -m pytest`.
+2. Default to the file rung, not the suite rung, for fast feedback.
+3. Carve one self-authored harness per term — the repo already flags this
+   ("rebuild one harness from blank to 2"). Writing a single `conftest.py`
+   `run_script` unaided is the cheapest movement from Testing 1.5 to 2.0.
+4. Address the skew gently: the functional lane's thin coverage is a real
+   signal; the `statistics_module.py` / `functools_module.py` work shows the
+   fix pattern (teaching file + probes) already in NOTES.
+
+---
+
 # Term-Time Maintenance Cadence (28 Sep 2026 - 28 May 2027)
 
 University term is **maintenance mode**: no new heavy learning phases. The

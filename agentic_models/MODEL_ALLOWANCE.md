@@ -209,3 +209,88 @@ guard, because it reads as coverage.
   tables (re-measured 10 October 2026) and the rate-limit log lines above
   (eleven failures, none since 1 October)
 
+## Agentic LLM usage evaluation (11 Oct 2026)
+
+### Over-concentration on certain files
+
+The clearest concentration signal is the AI-authored-fix marker. `git grep`
+finds `[AI-authored fix]` in 17 files, 46 markers total:
+
+| File | AI-authored markers |
+| --- | ---: |
+| `tests/test_scripts/test_repo_doc_numbers.py` | 12 |
+| `tests/test_imperative_programming/test_math_and_science_calculators.py` | 7 |
+| `tests/test_object_oriented_programming/test_syntax.py` | 5 |
+| `tests/test_imperative_programming/test_fundamentals.py` | 5 |
+| `tests/test_university_courseworks/test_structure.py` | 4 |
+
+`test_repo_doc_numbers.py` is the highest-AI-touched file — and the reason is
+structural, not sloth. It is a doc-number guard: it recomputes module counts,
+passing counts, coverage caps and the tier arithmetic so `AGENTS.md`,
+`NOTES.md` and `FILE_SCORES.md` cannot drift from the tree silently. Its own
+docstring records a live correction where the tree moved from 161 to 160
+modules, leaving the assertion failing and tempting a maintainer to hard-code
+around it. That is precisely the work that should be AI-heavy: cross-file
+numeric reconciliation is mechanical, verifiable, and high-volume — exactly
+the profile `AGENTS.md` assigns to cheap/fast models.
+
+### Model usage vs suitability
+
+Recorded usage — 31 sessions, live database:
+
+| Model | Messages | Input | Largest turn | % of route ceiling |
+| --- | ---: | ---: | ---: | ---: |
+| Space Bunny Free | 2,499 | 46.5M | 504.3K | 48% |
+| Big Pickle Free | 4,100 | 34.7M | 403.6K | 202% (over) |
+| LongCat 2.5 | 418 | 5.3M | 546.5K | 55% |
+| Fledge Alpha | 327 | 12.4M | 520.0K | 50% |
+| Ling 3.0 Flash Fin | 83 | 1.5M | 180.0K | 69% |
+| Nemotron 3.5 Lightning | 61 | 3.3M | 357.2K | 136% (over) |
+| Exo Free | 1 | 0 | 0 | — (removed) |
+
+**The over-use finding.** `AGENTS.md` states it plainly: "The rotation has
+been over-used on two models. A.I.M reached for Big Pickle and Space Bunny by
+default." Big Pickle logged the most messages (4,100) on the smallest window
+(200K), and served a 403.6K turn — 202% of its published ceiling. Nemotron
+3.5 Lightning likewise served a 357.2K turn at 136%. Meanwhile Ling (the
+correct model for "the small, mechanical work that filled Big Pickle's
+column") got 83 messages, and Exo got one no-op turn before removal.
+
+The repo's own correction is the right reading: Big Pickle is a review model,
+not a default builder; Ling and Nemotron 3.5 are the right answer for
+single-file mechanical edits. Popularity does not equal suitability.
+
+### How context and prompts buy function, per file category
+
+| File category | Model class | Prompt features that pay off | Why |
+| --- | --- | --- | --- |
+| Long single-owner docs (AGENTS.md 1,108 lines, NOTES.md 1,008, PROGRESSION.md 1,017, FILE_SCORES.md 2,931) | 1M-window models: Space Bunny, Fledge Alpha, LongCat, Muse Spark | "Long-document reading, research synthesis"; full detail | Four docs total ~6,000 lines of cross-linked state. A 256K model truncates mid-document and misses cross-references. |
+| Numeric/doc-drift guards (test_repo_doc_numbers.py, test_ranking_docs.py, test_model_rotation_docs.py) | Cheap/fast models: Ling, Nemotron 3.5, MiMo | `Files: tests/test_scripts/` + `Verify: full suite` | Mechanical reconciliation; the model that writes it needs to run the suite, not hold the whole repo. |
+| Big teaching/test lanes (test_math_and_science_calculators.py 305, test_syntax_programs.py 271) | Nemotron 3 Ultra / LongCat; probe-writing also fits Nemotron 3.5 | `Goal` + `Files:` + `Constraints: owner lane byte-frozen` | High case-count but each is small; the constraint block is load-bearing because rule 1/11 freeze the owner's files. |
+| GUI/front-end (CS1OP tkinter screens) | Space Bunny / Fledge | multi-file `Files:` block, `Verify: -q` | Cross-file GUI refactor (the Java-to-Python translation used exactly this shape). |
+| Docs / commit messages (README.md, REPORT.md, session logs) | MiMo-V2.6/2.5 | short `Goal` only | Cheap, fast, no repo context needed. |
+
+### What is working
+
+- Role assignment exists and is documented. The 11-model table with explicit
+  Plan/Build use-cases is unusually disciplined.
+- Privacy is tracked per-route (zero-retention defaults vs free-period
+  training routes; Nemotron as NVIDIA trial endpoints) — a real
+  portfolio-quality concern handled properly.
+- Over-use is self-diagnosed. The repo records its own Big Pickle/Space
+  Bunny default-trap rather than hiding it. The two "percentages" (context
+  fill vs allowance remaining) are kept distinct, which is a subtle and
+  correct epistemics.
+
+### What needs adjusting
+
+1. Route by task shape, not habit. Doc reading goes to 1M models; single-file
+   edits to Ling/Nemotron 3.5; verification to whatever already holds the tree.
+   Stop defaulting to Big Pickle/Space Bunny.
+2. Do not switch models mid-task. `AGENTS.md`: "switching mid-task discards
+   the analysis and pays for it twice." Keep Plan and Build on one model.
+3. Treat the free routes as the route, not the model. MiMo is 200K here, 1M
+   paid — a context figure from a model card will mislead pre-flight.
+4. The free routes are not private uniformly, and this is a public repo —
+   choose zero-retention routes (Space Bunny, LongCat) for anything personal.
+
