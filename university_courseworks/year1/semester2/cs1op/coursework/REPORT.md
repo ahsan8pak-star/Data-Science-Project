@@ -219,7 +219,7 @@ The project successfully delivers a complete Java game demonstrating OOP princip
 
 Three design patterns — Singleton, Factory, and Observer — are correctly implemented with trade-off analysis. Factory was implemented with AI assistance (Claude helped design the switch-based instantiation), satisfying the requirement that at least one pattern involve AI.
 
-`SoundManager.java` manages 34 WAV sound effects using `javax.sound.sampled`. All playback is wrapped in try-catch blocks to prevent crashes. Sounds are organised in `resources/Sound Effects/`.
+`SoundManager.java` manages 34 WAV sound effects using `javax.sound.sampled`. All playback is wrapped in try-catch blocks to prevent crashes. Sounds are organised in `resources/sound_effects/`.
 
 The game handles invalid inputs gracefully: `NameEntryScreen` enforces character limits; `DoorFactory` falls back to hard-coded doors on file errors; a global `UncaughtExceptionHandler` prevents silent crashes.
 

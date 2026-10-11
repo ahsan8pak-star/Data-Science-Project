@@ -65,7 +65,7 @@ CS1OP-TextGame/
 ├── resources/
 │   ├── doors.txt                    # Door definitions
 │   ├── GUI.txt                      # GUI assets
-│   └── Sound Effects/               # 34 WAV files
+│   └── sound_effects/               # 34 WAV files
 ├── tests/
 │   ├── GameTest.java                # 6 tests
 │   ├── TestGameLogic.java           # 20 tests
@@ -177,15 +177,15 @@ This project contains 30 Java source files. AI (Claude and Gemini) assisted with
 
 ---
 
-## Sound Effects Setup
+## Sound Setup
 
 Place all `.wav` files inside:
 
 ```
-resources/Sound Effects/
+resources/sound_effects/
 ```
 
-The folder must be named exactly `Sound Effects` (capital S + space).
+The folder must be named exactly `sound_effects` (lowercase, underscore).
 
 All 34 WAV mappings are defined in `SoundManager.java`. If a file is missing, the sound is silently skipped — the game will not crash.
 

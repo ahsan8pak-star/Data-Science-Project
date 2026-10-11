@@ -2,7 +2,7 @@
 // Uses Multiple Path Resolution Strategies to Ensure Sounds Load Correctly
 // Regardless of Working Directory - Fixes Pong and Minigame Sound Registration
 // All Methods Are Try-Catch Wrapped to Prevent Audio Crashes
-// Place WAV Files in: resources/Sound Effects/
+// Place WAV Files in: resources/sound_effects/
 
 import javax.sound.sampled.*;
 import java.io.File;
@@ -12,8 +12,8 @@ import java.util.Map;
 
 public class SoundManager {
 
-    // Sound Effects Folder Name
-    private static final String SOUND_FOLDER = "Sound Effects";
+    // Sound Folder Name
+    private static final String SOUND_FOLDER = "sound_effects";
 
     // Active Looping Clips Tracked by Filename Key
     private static final Map<String, Clip> activeLoops = new HashMap<>();
@@ -121,7 +121,7 @@ public class SoundManager {
         // Strategy 3: Classpath Resource Stream Fallback
         try {
             URL url = SoundManager.class.getClassLoader()
-                    .getResource("Sound Effects/" + soundFile);
+                    .getResource("sound_effects/" + soundFile);
             if (url != null)
                 return new File(url.toURI());
         } catch (Exception ignored) {
