@@ -1240,6 +1240,100 @@ class TestNotesMaintenanceLogOrder:
         )
 
 
+class TestDependencyCatalogueMatchesTheFrozenFiles:
+    """
+    DEPENDENCIES.md restates, per tier, what the compiled requirements files
+    pin, so the catalogue is a second copy of a fact that already lives in a
+    machine-readable place.
+
+    [AI] The tables had drifted in eleven cells by 12 October 2026 - numpy
+    two versions behind, then pandas, scikit-learn, matplotlib, psycopg2,
+    coverage, ipykernel, mypy, build, pyproject_hooks and pip-tools one each -
+    because every other stated figure in the repo had a guard and this document
+    had none. The pins are checked against the compiled files rather than
+    against a live pip query: the compiled files are what a fresh clone
+    installs, they read offline in milliseconds, and requirements_sync.py
+    already keeps them equal to the environment - so the chain is
+    environment -> compiled files -> catalogue, and these checks close the
+    last link.
+    """
+
+    CATALOGUE = REPO_ROOT / "DEPENDENCIES.md"
+    TIERS = {
+        "A": (
+            REPO_ROOT / "requirements" / "requirements.in",
+            REPO_ROOT / "requirements" / "requirements.txt",
+        ),
+        "B": (
+            REPO_ROOT / "requirements" / "requirements-win_dev.in",
+            REPO_ROOT / "requirements" / "requirements-win_dev.txt",
+        ),
+    }
+
+    @classmethod
+    def _table(cls, tier):
+        """The `| `name` | version |` rows under one tier heading."""
+        text = cls.CATALOGUE.read_text(encoding="utf-8")
+        body = text.split(f"## Tier {tier} ", 1)[1].split("\n## ", 1)[0]
+        return dict(
+            re.findall(r"^\| `([\w.-]+)` \| ([\w.]+) \|", body, re.MULTILINE)
+        )
+
+    @staticmethod
+    def _declared(source):
+        return [
+            line.strip()
+            for line in source.read_text(encoding="utf-8").splitlines()
+            if line.strip() and not line.lstrip().startswith(("#", "-"))
+        ]
+
+    @staticmethod
+    def _pins(compiled):
+        found = {}
+        for line in compiled.read_text(encoding="utf-8").splitlines():
+            match = re.match(r"([\w.-]+)(?:\[[^\]]*\])?==([^\s#]+)", line)
+            if match:
+                found[match.group(1)] = match.group(2)
+        return found
+
+    @pytest.mark.parametrize("tier", ["A", "B"])
+    def test_table_pins_match_the_compiled_file(self, tier):
+        source, compiled = self.TIERS[tier]
+        pins = self._pins(compiled)
+        stale = {
+            name: (version, pins.get(name))
+            for name, version in self._table(tier).items()
+            if pins.get(name) != version
+        }
+        assert stale == {}, (
+            f"DEPENDENCIES.md Tier {tier} table disagrees with the compiled "
+            f"file as (stated, pinned): {stale}"
+        )
+
+    @pytest.mark.parametrize("tier", ["A", "B"])
+    def test_tables_and_source_files_declare_the_same_packages(self, tier):
+        source, _ = self.TIERS[tier]
+        declared = set(self._declared(source))
+        table = set(self._table(tier))
+        assert table == declared, (
+            f"Tier {tier}: the catalogue and {source.name} differ by "
+            f"{sorted(table ^ declared)}"
+        )
+
+    @pytest.mark.parametrize("tier", ["A", "B"])
+    def test_stated_package_counts_match_the_tables(self, tier):
+        source, _ = self.TIERS[tier]
+        text = self.CATALOGUE.read_text(encoding="utf-8")
+        claimed = re.search(
+            rf"Declared in `{source.name}` \((\d+) packages\)", text
+        )
+        assert claimed, f"the catalogue states no count for {source.name}"
+        assert int(claimed.group(1)) == len(self._table(tier)), (
+            f"the catalogue claims {claimed.group(1)} declared packages for "
+            f"Tier {tier} but its table holds {len(self._table(tier))}"
+        )
+
+
 class TestPytestSkipSitesAreRegistered:
     """
     Every pytest.skip() in the suite is named here, with its reason.
