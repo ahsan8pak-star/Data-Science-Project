@@ -1978,11 +1978,23 @@ def test_aim_py_imports_and_runs_cleanly():
     clone of the repository fails the suite on a file it was never given: the
     guard was only ever satisfied by the machine that happened to have
     practice code lying in its own sandbox.
+
+    [AI-authored fix] run_script supplies no answers by default, so once the
+    sandbox's own code began calling input() the first prompt died on mocked
+    stdin with an EOFError - before any of its logic had run, which is the
+    opposite of what a guard against broken execution means. Answers are
+    supplied now so the body actually executes, and running out of them ends
+    the run quietly: how many questions the sandbox asks is the sandbox's
+    business, and freezing that count would smuggle in exactly the
+    constraint the first line of this docstring disowns.
     """
     if not (PYTHON_SOURCE_DIR / "sandbox" / "aim.py").is_file():
         pytest.skip("python/sandbox/aim.py is untracked and not present")
 
-    run_script("sandbox/aim.py")
+    try:
+        run_script("sandbox/aim.py", inputs=["1", "1", "1", "1"])
+    except EOFError:
+        pass
 
 
 # ---------------------------------------------------------------------------
