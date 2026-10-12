@@ -17,7 +17,7 @@
         {
             "label": "Sync: Update Requirements (requirements_sync.py)",
             "type": "shell",
-            "command": ".venv\\Scripts\\python.exe requirements_sync.py",
+            "command": ".venv\\Scripts\\python.exe requirements\\requirements_sync.py",
             "options": {
                 "cwd": "${workspaceFolder}"
             },
