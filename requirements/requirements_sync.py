@@ -141,8 +141,15 @@ def compile_from_installed() -> None:
             lines.append(f"{repr_name}=={ver}    # via {via}")
         return lines
 
-    TIER_A_OUT.write_text("\n".join([HEADER, RUN_LINE, "", *write_lines(state_a), ""]), encoding="utf-8")
-    TIER_B_OUT.write_text("\n".join([HEADER, RUN_LINE, "", *write_lines(state_b), ""]), encoding="utf-8")
+    """
+    Write LF on every platform.
+
+    write_text otherwise translates "\n" to os.linesep, which is CRLF
+    on Windows and would breach the repo's LF invariant (rule 10 and
+    .gitattributes).
+    """
+    TIER_A_OUT.write_text("\n".join([HEADER, RUN_LINE, "", *write_lines(state_a), ""]), encoding="utf-8", newline="")
+    TIER_B_OUT.write_text("\n".join([HEADER, RUN_LINE, "", *write_lines(state_b), ""]), encoding="utf-8", newline="")
     if miss_a or miss_b:
         print(f"\nWARNING: not installed (cannot pin): {sorted(miss_a | miss_b)}")
 
