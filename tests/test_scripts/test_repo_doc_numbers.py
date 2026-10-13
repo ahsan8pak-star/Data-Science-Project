@@ -1063,7 +1063,7 @@ class TestReadmeArchitectureTree:
         """
         The tree names folders, with deliberate exceptions: the root documents
         NOTES.md and PROGRESSION.md, and the folders whose documents are listed
-        individually — agentic_models/, file_scores_ranking/ and requirements/.
+        individually — agentic_models/ and file_scores_ranking/.
         Everything else is a folder.
 
         A dot-prefixed entry such as .github/ is a folder, not a file, so the
@@ -1076,14 +1076,20 @@ class TestReadmeArchitectureTree:
         AGENTS.md followed it there on 9 October 2026 when that folder was
         renamed agentic_models/. Both are now covered by allowed_parents rather
         than by name, so a further document in that folder needs no edit here.
+
+        [AI-authored fix] requirements/ listed its four manifests and the sync
+        script individually until 13 October 2026, when the tree was collapsed
+        to a folder-level entry like roadmap/ and scripts/ — the file-level
+        detail lives in DEPENDENCIES.md, which names all four manifests and
+        requirements_sync.py by tier. The exception was removed so the tree
+        stays consistent with the other collapsed folders.
         """
         allowed_files = {
             "NOTES.md", "PROGRESSION.md",
             "file_scores_ranking/FILE_RANKING_GUIDE.md",
             "file_scores_ranking/FILE_SCORES.md",
         }
-        allowed_parents = {"agentic_models", "file_scores_ranking",
-                           "requirements"}
+        allowed_parents = {"agentic_models", "file_scores_ranking"}
         offenders, stack = [], []
         for line in self._block():
             match = self.NODE.match(line)
@@ -1103,7 +1109,7 @@ class TestReadmeArchitectureTree:
                 offenders.append("/".join(stack))
         assert offenders == [], (
             "file-level entries beyond the root documents, "
-            f"agentic_models/, file_scores_ranking/ and requirements/: {offenders}"
+            f"agentic_models/ and file_scores_ranking/: {offenders}"
         )
 
     def test_skip_list_matches_execution_time(self):
