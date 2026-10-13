@@ -474,7 +474,20 @@ Data-Science-Project/
     │   │
     │   └── semester2/
     │       ├── cs1db/                      # Databases module: sql/ and data/ beneath each week
-    │       └── cs1op/                      # Object-oriented module: java/ and python/, plus coursework/
+    │       └── cs1op/                      # Java lectures with Python translations; game coursework
+    │           ├── coursework/             # Space Mission game: java/ (30 classes) and python/ (31 files) plus pdf/
+    │           │   ├── java/               # Java game sources, gradle build, resources and JUnit tests
+    │           │   ├── python/             # Python translation of the game, resources and pytest suite
+    │           │   └── pdf/                # Coursework brief and report
+    │           └── week1/ ... week11/      # Weekly lecture and practical material, one folder per week
+    │               ├── lecture/            # Lecture-source material for the week
+    │               │   ├── java/           # Java lecture sources (primary)
+    │               │   ├── pptx/           # Lecture slides
+    │               │   └── python/         # Python translations for syntax comparison
+    │               └── practical           # Practical material for the week
+    │                   ├── java/           # Java practical sources (primary)
+    │                   ├── pdf/            # Practical briefs and solution PDFs
+    │                   └── python/         # Python translations of the practical submissions
     │
     ├── year2/                              # CS2 briefings (DA, AI, ON, PP, SD, SE)
     │   ├── modules/                        # Year 2 module briefings, semester plans and the CS2PP roadmap
@@ -494,12 +507,12 @@ repeated for all: each `weekN/` folder holds a `lecture/` and a
 `practical/` half, and each half holds type folders that vary by module.
 `cs1db/` carries `sql/` and `data/`, `cs1op/` and `cs1ip/` carry `java/`,
 and `cs2pp/` adds a `jupyter/` folder for notebook practicals. `cs2da/`
-splits by language without a lecture/practical level. In year 1 (`cs1ip/`)
-and year 2 (`cs2da/`), the `java/` folder holds the primary lecture
-material and `python/` holds line-by-line translations for syntax
-comparison; the remaining modules carry both languages as parallel
-peer submissions. The exact shape is asserted by
-`tests/test_university_courseworks/test_structure.py`, so the
+splits by language without a lecture/practical level. In year 1 (`cs1ip/`),
+year 2 (`cs2da/`) and the year 1 semester 2 OOP module (`cs1op/`), the
+`java/` folder holds the primary lecture material and `python/` holds
+line-by-line translations for syntax comparison; the remaining modules
+carry both languages as parallel peer submissions. The exact shape is
+asserted by `tests/test_university_courseworks/test_structure.py`, so the
 tree above cannot drift from the folders on disk without the suite failing.
 Architecture comments state each entry's purpose or meaning first; a framework
 is named only where it explains that purpose. Generated and vendored paths
