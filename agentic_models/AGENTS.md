@@ -526,6 +526,7 @@ a paid route on agentic work.
 | Run one test file | `.venv/Scripts/python.exe -m pytest tests/test_imperative_programming/test_unit_and_format_converters.py` |
 | Coverage report (term + missing lines + branch) | `.venv/Scripts/python.exe -m pytest --cov --cov-report=term-missing` |
 | Coverage scope limited to `python/` | `.venv/Scripts/python.exe -m pytest --cov=python` |
+| Coverage for the assessed coursework under `university_courseworks/` | `.venv/Scripts/python.exe -m pytest --cov=university_courseworks` |
 | Clickable HTML coverage report | `.venv/Scripts/python.exe -m pytest --cov=python --cov-report=html` (writes to ignored `htmlcov/`) |
 | Interactive project tree + benchmark | `.venv/Scripts/python.exe scripts/execution_time.py` |
 | Project tree in non-interactive `--all` mode | `.venv/Scripts/python.exe scripts/execution_time.py --all` |
@@ -902,7 +903,7 @@ or the correction is half-applied.
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1686 passing tests, ~99% line coverage and 95% branch coverage (149 of the
+- 1691 passing tests, ~99% line coverage and 95% branch coverage (149 of the
   160 measured `python/` files at 100% lines, including both music-player
   GUIs; the 160 non-`__init__.py` files are the number a docstring sweep
   covers). The 160 counts files that carry at least one statement. The
