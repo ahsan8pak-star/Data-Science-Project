@@ -31,10 +31,12 @@ addopts = "--strict-markers"
 pythonpath = ["python", "requirements"]
 
 [tool.coverage.run]
-# Scope the report to the real source tree under python/ (every .py file is
-# listed, even at 100%, because skip_covered is disabled below) and exclude
-# generated/vendored and test-infrastructure paths from coverage.
-source = ["python", "university_courseworks"]
+# Scope the default report to the python/ portfolio tree (every .py file is
+# listed, even at 100%, because skip_covered is disabled below). The assessed
+# coursework under university_courseworks/ is measured separately, on demand,
+# with --cov=university_courseworks, so its untested files are kept out of the
+# portfolio total instead of pulled into it.
+source = ["python"]
 # [AI] branch = true: line coverage alone reported 99% while 99 branch
 # directions had never run - six files sat at 100% lines with a fifth of their
 # branches unexercised. Branch figures are now part of the standard report.

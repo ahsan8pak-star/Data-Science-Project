@@ -32,7 +32,7 @@ Where a number is an estimate rather than a measurement, it says so.
 | Commits | 714 at the end of the run (historical — see the note below) |
 | Peak effort | 28–36 h/week recorded across most weeks |
 | Source modules | 160 non-`__init__` files under `python/` |
-| Test suite | 1686 tests, all passing |
+| Test suite | 1691 tests, all passing |
 | Coverage | 99% line, 95% branch |
 | Quality mean | 84.6/100 across 160 ranked files |
 | Mirrors | 4 (GitHub project + backup, GitLab project + backup) |
@@ -908,7 +908,7 @@ mirrors were found lagging at an older commit.
 
 | | |
 | --- | --- |
-| Tests | 1686 passing, 0 failing |
+| Tests | 1691 passing, 0 failing |
 | Coverage | 99% line, 95% branch |
 | Quality mean | 84.6/100 over 160 files |
 | Document drift | 0 known — all numeric claims test-guarded |
@@ -929,6 +929,7 @@ log unchanged has left the record behind. Newest first.
 
 | Date | Session | What changed | What it taught |
 | --- | --- | --- | --- |
+| 14 Oct 2026 | CS1IP weeks suite corrected; count repaired to 1691 | The suite added on 13 Oct was reworked. Its `KNOWN_EXECUTION_FAILURES` now asserts the two genuine material defects - `task10.py`'s `%d` format given a string, and `week2/lecture/python/input.py`'s module-level `input()` (run with an empty stdin so the failure is `EOFError` rather than capture-mode `OSError`) - instead of catching every exception as an xfail. Six phantom `week1/lecture/python/*` entries and a duplicate week8 `map_generator` were removed, leaving exactly the 34 files on disk (18 lecture + 16 practical); the docstring structure and trailing newlines were brought to the house rules. The README architecture tree was reordered so folders stay alphabetical first and `NOTES.md`/`PROGRESSION.md` sit at the end, and the suite figure was corrected to 1691 in `AGENTS.md`, this document and `FILE_RANKING_GUIDE.md`. | A catch-all `except: xfail` is a guard that cannot fail, and it hid six paths that did not exist: the parametrise list looked like 41 tests while the tree held 34 files. Asserting a known failure, and failing when it stops failing, is what keeps the exception list honest. And a count stated in three documents is three chances to go stale - the guard catches every copy only because each is checked against the same live session. |
 | 13 Oct 2026 | README cs1op tree expanded to match disk | The `cs1op/` entry in the README architecture tree was expanded from a one-line stub to the full structure: `coursework/` (java/ 30 classes + gradle + JUnit, python/ 31 files + pytest, pdf/) and `week1/ ... week11/` with lecture/ and practical/ splits. The convention note now groups cs1op with cs1ip and cs2da as java-primary modules. | A stub entry in an architecture tree is a promise the tree does not keep - a reader who navigates to cs1op/ finds eleven week folders and a coursework/ the README never mentioned. The fix is the same as the requirements collapse: the tree must either show the structure or say it is omitted, not imply simplicity that is not there. |
 | 13 Oct 2026 | README requirements tree collapsed to folder-level | The `requirements/` entry in the README architecture tree listed all five files individually; collapsed to a single folder-level comment matching `roadmap/` and `scripts/`. The `allowed_parents` exception for `requirements/` was removed from the README architecture guard and its docstring updated. File-level detail preserved in `DEPENDENCIES.md`. | A tree that lists some folders' files and not others needs a reason for each exception. The requirements file-level listing was that reason — once it was gone, the exception became dead weight in the guard. |
 | 13 Oct 2026 | Music player tests restructured; CS1OP translation verified | The monolithic `tests/test_advanced_projects/test_music_player.py` (852 lines, 68 tests) was split into `tests/test_advanced_projects/music_player/` with its own `conftest.py`, `test_tui_players.py` and `test_gui_players.py`, matching the CS1OP coursework's self-contained package pattern. Net test count unchanged (68 to 68). CS1OP coursework verified: 174 pytest tests pass, 30 Java source files map to 31 Python files. | The cs1op pattern - own conftest, per-module test files, isolated fixtures - is portable to any project in the repo, not just coursework. A net-zero test count change keeps every count guard quiet: the suite total, the paradigm counts and the coverage denominators all stay valid without touching a single claim.

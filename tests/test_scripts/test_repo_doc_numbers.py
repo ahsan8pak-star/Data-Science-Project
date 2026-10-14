@@ -486,6 +486,7 @@ class TestCommitMessagesCarryAScope:
         "12cc058",
         "941de5d",
         "8e978d9",
+        "dc19dbe",
     })
 
     @staticmethod
@@ -525,7 +526,7 @@ class TestCommitMessagesCarryAScope:
         each entry names a hash that is written down rather than a boundary
         that quietly stops covering new cases.
 
-        The four entries are not the same kind of thing, and the difference is
+        The five entries are not the same kind of thing, and the difference is
         recorded rather than smoothed over:
           - 39ce732 and 12cc058 were written by the AI on purpose, to prove
             the guard fires at all. They were never wrong to fix.
@@ -537,6 +538,14 @@ class TestCommitMessagesCarryAScope:
             force-pushed, so the subject cannot be rewritten. Recorded here
             rather than silenced by moving the boundary, because a suppression
             that hides an unfixed mistake is how the next one ships.
+          - dc19dbe is the same failure one commit later: "cs1ip weeks test
+            suite + model/markdown updates" was committed on 13 October 2026
+            with neither a Conventional-Commit type nor a scope, so it trips
+            both this check and the non-standard-prefix check beside it. It
+            reached `origin/main` before the guard was next run, and `main` is
+            never force-pushed, so it is recorded on the same terms as 8e978d9.
+            The work it carried was corrected on 14 October 2026; the subject
+            could not be.
         """
         result = subprocess.run(
             ["git", "log", "--no-merges", "--format=%H %s",
