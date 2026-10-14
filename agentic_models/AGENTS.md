@@ -328,6 +328,12 @@ order, and the third is the one that matters:
 If the answer to (3) is no, hand off rather than continue — the ranked table
 below is the mechanism, and the privacy override below it outranks it.
 
+The pre-flight answers whether the model can carry the task. Rule 14 adds the
+check that is easy to skip: before acting, the model reads the context to
+confirm it is the right model for *this* task, in both Plan and Build mode,
+and asks when the fit is suboptimal. The task-to-model mapping and effort
+levels live in `agentic_models/TASK_MODEL_GUIDE.md`.
+
 #### Pros, cons, and main purpose of each model
 
 The table above says when to *pick* a model. This one says what each model is
@@ -652,14 +658,16 @@ a paid route on agentic work.
     suite; the log itself is the part only the agent can maintain, and a rule
      cannot enforce intent. Keep additions append-only where possible so the
      narrative still reads as a progression rather than a rewrite.
-14. **Read the context before executing, and ask when the fit is suboptimal.**
-     Before starting any task, the model reads the relevant context - the target
-     file(s), the applicable rule, and the `Verify:` command - to confirm it is
-     the right model for *this* task. If the model can do the task but not
-     optimally (wrong level, wrong window, logged route), it says so and asks
-     A.I.M whether to proceed, rather than forcing a mediocre patch. This applies
-     at every capability level; a 1M model is not automatically the right model,
-     and a 200K model is not automatically the wrong one. The full task-to-model
+14. **Read the context before acting, and ask when the fit is suboptimal. This
+     holds in both Plan and Build mode.** Before starting any task, the model
+     reads the relevant context - the target file(s), the applicable rule, and the
+     `Verify:` command - to confirm it is the right model for *this* task. In
+     Plan mode that context is read before a plan is written; in Build mode it is
+     read before an edit is made. If the model can do the task but not optimally
+     (wrong level, wrong window, logged route), it says so and asks A.I.M whether
+     to proceed, rather than forcing a mediocre plan or patch. This applies at
+     every capability level; a 1M model is not automatically the right model, and
+     a 200K model is not automatically the wrong one. The full task-to-model
      mapping, with effort levels and citations, lives in
      `agentic_models/TASK_MODEL_GUIDE.md`.
 

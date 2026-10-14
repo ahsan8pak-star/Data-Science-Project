@@ -12,11 +12,13 @@ Retrieved and cross-checked 14 October 2026.
 
 ## 1. The context-first rule (mirrors AGENTS.md rule 14)
 
-Before executing any task, the model reads the relevant context — the target
+Before acting on any task, the model reads the relevant context — the target
 file(s), the applicable rule, and the `Verify:` command — to confirm it is the
-right model for *this* task. If the model can do the task but not optimally
-(wrong level, wrong window, logged route), it says so and asks A.I.M whether
-to proceed, rather than forcing a mediocre patch. This applies at every
+right model for *this* task. This holds in both Plan and Build mode: in Plan
+mode the context is read before a plan is written, and in Build mode it is read
+before an edit is made. If the model can do the task but not optimally (wrong
+level, wrong window, logged route), it says so and asks A.I.M whether to
+proceed, rather than forcing a mediocre plan or patch. This applies at every
 capability level: a 1M model is not automatically the right model, and a 200K
 model is not automatically the wrong one.
 

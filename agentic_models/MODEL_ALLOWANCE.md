@@ -29,6 +29,11 @@ If (1) or (3) fails, hand off — the ranked-three table in `AGENTS.md` is the
 mechanism. If (2) is unknown or low, ask A.I_M before burning the remainder on
 a long run.
 
+The context-first rule (AGENTS.md rule 14) applies on top of this, in both Plan
+and Build mode: read the task context before acting, and ask when the fit is
+suboptimal. The task-to-model mapping and effort levels live in
+`TASK_MODEL_GUIDE.md`.
+
 ## Route ceilings
 
 OpenCode's free route limits, from the `models.dev` registry entries for the
