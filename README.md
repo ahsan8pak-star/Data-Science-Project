@@ -382,7 +382,8 @@ Data-Science-Project/
 │
 ├── agentic_models/                         # Free-tier model rotation: what to read before switching models
 │   ├── AGENTS.md                           # Operating rules, project constraints, model rotation, and commit conventions
-│   └── MODEL_ALLOWANCE.md                  # Per-model route ceilings, local token usage, and the allowance left before a switch
+│   ├── MODEL_ALLOWANCE.md                  # Per-model route ceilings, local token usage, and the allowance left before a switch
+│   └── TASK_MODEL_GUIDE.md                 # Which model for which task, at which effort level, with citations
 │
 ├── data/                                   # Storage layer for project datasets and tracking assets
 │   └── sandbox/                            # Raw pipeline source data (e.g. aim.csv)

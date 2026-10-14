@@ -650,8 +650,18 @@ a paid route on agentic work.
     a failed session, even if every test passes. The figures are test-guarded by
     `tests/test_scripts/test_repo_doc_numbers.py`, so a stale number fails the
     suite; the log itself is the part only the agent can maintain, and a rule
-    cannot enforce intent. Keep additions append-only where possible so the
-    narrative still reads as a progression rather than a rewrite.
+     cannot enforce intent. Keep additions append-only where possible so the
+     narrative still reads as a progression rather than a rewrite.
+14. **Read the context before executing, and ask when the fit is suboptimal.**
+     Before starting any task, the model reads the relevant context - the target
+     file(s), the applicable rule, and the `Verify:` command - to confirm it is
+     the right model for *this* task. If the model can do the task but not
+     optimally (wrong level, wrong window, logged route), it says so and asks
+     A.I.M whether to proceed, rather than forcing a mediocre patch. This applies
+     at every capability level; a 1M model is not automatically the right model,
+     and a 200K model is not automatically the wrong one. The full task-to-model
+     mapping, with effort levels and citations, lives in
+     `agentic_models/TASK_MODEL_GUIDE.md`.
 
 ## Term-Time Operating Cadence
 
