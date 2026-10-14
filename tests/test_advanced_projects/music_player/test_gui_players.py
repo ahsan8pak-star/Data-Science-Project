@@ -160,6 +160,67 @@ class TestMP3GUI:
         self.gui._on_track_select(None)
         assert self.gui.current_idx == 0
 
+    def test_window_is_not_resizable(self):
+        self.root.resizable.assert_called_once_with(False, False)
+
+    def test_play_passes_the_selected_track_and_its_number(self, audio_ctx):
+        player = MagicMock(name="mp3_player", current_song="alpha.mp3", status="Active")
+        self.gui.player = player
+        self.gui.mp3_files = ["alpha.mp3", "beta.mp3"]
+        self.gui.current_idx = 0
+
+        self.gui._play()
+
+        player.play.assert_called_once_with("alpha.mp3", track_num=1)
+
+    def test_play_targets_the_track_chosen_in_the_listbox(self, audio_ctx):
+        """
+        _on_track_select changes which track _play() plays, so the two must
+        be pinned together rather than only the index in isolation.
+        """
+        player = MagicMock(name="mp3_player", current_song="beta.mp3", status="Active")
+        self.gui.player = player
+        self.gui.mp3_files = ["alpha.mp3", "beta.mp3"]
+        self.gui.track_listbox.curselection.return_value = (1,)
+        self.gui._on_track_select(None)
+
+        self.gui._play()
+
+        player.play.assert_called_once_with("beta.mp3", track_num=2)
+
+    def test_pause_refreshes_the_status_label(self, audio_ctx):
+        player = MagicMock(name="mp3_player", current_song="alpha.mp3", status="Active")
+        self.gui.player = player
+
+        self.gui._pause()
+
+        player.pause.assert_called_once_with()
+        self.gui.status_label.config.assert_called()
+
+    def test_stop_refreshes_the_status_label(self, audio_ctx):
+        player = MagicMock(name="mp3_player", current_song="alpha.mp3", status="Active")
+        self.gui.player = player
+
+        self.gui._stop()
+
+        player.stop_music_file.assert_called_once_with()
+        self.gui.status_label.config.assert_called()
+
+    def test_select_folder_numbers_the_track_rows(self, audio_ctx):
+        """
+        The listbox rows are numbered from 1, not 0, so the row text is the
+        only place an off-by-one in the enumerate start would show.
+        """
+        self.gui_mod.filedialog.askdirectory.return_value = "/songs"
+        with patch.object(
+            self.gui_mod.MP3AudioPlayer, "get_mp3_files",
+            return_value=["alpha.mp3", "beta.mp3"],
+        ):
+            self.gui._select_folder()
+
+        rows = [call.args[1] for call in self.gui.track_listbox.insert.call_args_list]
+        assert rows == ["[1] alpha.mp3", "[2] beta.mp3"]
+
     def test_main_entry_point(self, audio_ctx):
         self.gui_mod.launch_mp3_player()
         self.gui_mod.tk.Tk.return_value.mainloop.assert_called_once()
@@ -301,6 +362,67 @@ class TestWAVGUI:
         self.gui.track_listbox.curselection.return_value = ()
         self.gui._on_track_select(None)
         assert self.gui.current_idx == 0
+
+    def test_window_is_not_resizable(self):
+        self.root.resizable.assert_called_once_with(False, False)
+
+    def test_play_passes_the_selected_track_and_its_number(self, audio_ctx):
+        player = MagicMock(name="wav_player", current_song="alpha.wav", status="Active")
+        self.gui.player = player
+        self.gui.wav_files = ["alpha.wav", "beta.wav"]
+        self.gui.current_idx = 0
+
+        self.gui._play()
+
+        player.play.assert_called_once_with("alpha.wav", track_num=1)
+
+    def test_play_targets_the_track_chosen_in_the_listbox(self, audio_ctx):
+        """
+        _on_track_select changes which track _play() plays, so the two must
+        be pinned together rather than only the index in isolation.
+        """
+        player = MagicMock(name="wav_player", current_song="beta.wav", status="Active")
+        self.gui.player = player
+        self.gui.wav_files = ["alpha.wav", "beta.wav"]
+        self.gui.track_listbox.curselection.return_value = (1,)
+        self.gui._on_track_select(None)
+
+        self.gui._play()
+
+        player.play.assert_called_once_with("beta.wav", track_num=2)
+
+    def test_pause_refreshes_the_status_label(self, audio_ctx):
+        player = MagicMock(name="wav_player", current_song="alpha.wav", status="Active")
+        self.gui.player = player
+
+        self.gui._pause()
+
+        player.pause.assert_called_once_with()
+        self.gui.status_label.config.assert_called()
+
+    def test_stop_refreshes_the_status_label(self, audio_ctx):
+        player = MagicMock(name="wav_player", current_song="alpha.wav", status="Active")
+        self.gui.player = player
+
+        self.gui._stop()
+
+        player.stop_music_file.assert_called_once_with()
+        self.gui.status_label.config.assert_called()
+
+    def test_select_folder_numbers_the_track_rows(self, audio_ctx):
+        """
+        The listbox rows are numbered from 1, not 0, so the row text is the
+        only place an off-by-one in the enumerate start would show.
+        """
+        self.gui_mod.filedialog.askdirectory.return_value = "/songs"
+        with patch.object(
+            self.gui_mod.WAVAudioPlayer, "get_wav_files",
+            return_value=["alpha.wav", "beta.wav"],
+        ):
+            self.gui._select_folder()
+
+        rows = [call.args[1] for call in self.gui.track_listbox.insert.call_args_list]
+        assert rows == ["[1] alpha.wav", "[2] beta.wav"]
 
     def test_main_entry_point(self, audio_ctx):
         self.gui_mod.launch_wav_player()

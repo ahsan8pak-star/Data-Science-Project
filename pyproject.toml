@@ -23,7 +23,16 @@ line-length = 88
 target-version = ["py314"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+# A coursework translation keeps its own self-contained pytest suite beside the
+# code it tests, so the main suite has to list it explicitly - otherwise the
+# suite runs only from inside that folder and a bare `pytest` silently skips it.
+# Weekly lecture and practical folders are deliberately absent: they are
+# practice material, not assessed code, and adding them would collect several
+# hundred import-only checks.
+testpaths = [
+    "tests",
+    "university_courseworks/year1/semester2/cs1op/coursework/python/tests",
+]
 python_files = "test_*.py"
 python_classes = "Test*"
 python_functions = "test_*"

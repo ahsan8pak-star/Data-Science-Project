@@ -545,3 +545,79 @@ class TestYearTwoLayout:
         assert semester2.is_dir()
         assert not any(semester2.iterdir())
 
+
+class TestCourseworkSuitesAreCollected:
+    """
+    A coursework translation's pytest suite must be reachable from a bare
+    `pytest` run, not only from inside its own folder.
+
+    The CS1OP translation arrived with 174 passing tests that the main suite
+    never saw: `testpaths` named `tests` alone, so the suite was green while
+    an entire assessed module was uncovered. That is the same failure the
+    doc-number guards exist for, one level down - a suite that only runs when
+    invoked from its own directory is invisible to every other guard.
+
+    Weekly lecture and practical folders are excluded by design: they are
+    practice material, and their python/ folders hold scripts rather than a
+    pytest suite, so they carry no `tests/` directory of their own.
+    """
+
+    @staticmethod
+    def _declared_testpaths():
+        """
+        The testpaths list from pyproject.toml, as relative POSIX strings.
+
+        Read from the config rather than hardcoded, so editing testpaths is
+        the only step needed to satisfy this guard.
+        """
+        import tomllib
+
+        config = tomllib.loads(
+            (PROJECT_ROOT / "pyproject.toml").read_text(encoding="utf-8")
+        )
+        return list(config["tool"]["pytest"]["ini_options"]["testpaths"])
+
+    @staticmethod
+    def _coursework_suites():
+        """Every `tests/` directory that sits beside coursework code."""
+        return sorted(
+            path for path in COURSEWORKS.rglob("python/tests") if path.is_dir()
+        )
+
+    def test_the_declared_paths_exist_on_disk(self):
+        missing = [
+            entry for entry in self._declared_testpaths()
+            if not (PROJECT_ROOT / entry).is_dir()
+        ]
+        assert missing == [], f"testpaths names absent folders: {missing}"
+
+    def test_every_coursework_suite_is_declared(self):
+        declared = {
+            (PROJECT_ROOT / entry).resolve() for entry in self._declared_testpaths()
+        }
+        unwired = [
+            str(suite.relative_to(PROJECT_ROOT))
+            for suite in self._coursework_suites()
+            if suite.resolve() not in declared
+        ]
+        assert unwired == [], (
+            "coursework pytest suites that a bare `pytest` run will not "
+            f"collect: {unwired}. Add each to testpaths in pyproject.toml."
+        )
+
+    def test_no_weekly_folder_is_declared(self):
+        """
+        The other half of the contract. Weekly lecture and practical folders
+        are practice material, so listing one in testpaths is as wrong as
+        omitting a coursework suite - it would import several hundred scripts
+        that exist to be read, not run.
+        """
+        offenders = [
+            entry for entry in self._declared_testpaths()
+            if re.search(r"/week[0-9]+/", entry)
+        ]
+        assert offenders == [], (
+            "weekly practice folders must not be collected: "
+            f"{offenders}"
+        )
+
