@@ -301,6 +301,7 @@ public class DialogueScreen extends BaseGameScreen {
 
         if (state == State.DICE_RESULT) drawDiceArt(g2d, W, artTop, artH);
         else                            drawHelmet(g2d, W, artTop, artH);
+        CRTSettings.drawCRT(g2d, W, H);
     }
 
     // Render Dice Face Art

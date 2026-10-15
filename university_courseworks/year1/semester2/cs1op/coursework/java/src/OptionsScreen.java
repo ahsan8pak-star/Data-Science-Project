@@ -1,4 +1,4 @@
-// OptionsScreen Class - Game Settings: Difficulty, Sound, Volume, Back
+// OptionsScreen Class - Game Settings: Difficulty, Display, Sound, Back
 // Sound: MENU_NAVIGATE on Up/Down/Mouse Hover Change, MENU_SELECT on ENTER / Back
 
 import java.awt.Color;
@@ -12,21 +12,19 @@ public class OptionsScreen extends BaseGameScreen {
 
     // Option Indices
     private static final int OPT_DIFFICULTY = 0;
-    private static final int OPT_SOUND = 1;
-    private static final int OPT_VOLUME = 2;
+    private static final int OPT_DISPLAY = 1;
+    private static final int OPT_SOUND = 2;
     private static final int OPT_BACK = 3;
 
     private final String[] options = {
             "DIFFICULTY: NORMAL",
-            "SOUND: ON",
-            "VOLUME: 50",
+            "DISPLAY (CRT: OFF)",
+            "SOUND SETTINGS",
             "BACK TO MAIN MENU"
     };
 
     private int selectedOption = 0;
     private int hoveredOption = -1;
-    private boolean soundEnabled = true;
-    private int volume = 50;
 
     public OptionsScreen(GameGUI gui, GameController controller) {
         super(gui, controller);
@@ -114,38 +112,18 @@ public class OptionsScreen extends BaseGameScreen {
 
     // Actions
     private void handleLeft() {
-        switch (selectedOption) {
+        if (selectedOption == OPT_DIFFICULTY) {
             // Cycle Backward (2 Forward = 1 Back for 3 States)
-            case OPT_DIFFICULTY -> {
-                GameSettings.cycleDifficulty();
-                GameSettings.cycleDifficulty();
-                refreshOptionTexts();
-            }
-            case OPT_SOUND -> {
-                soundEnabled = !soundEnabled;
-                refreshOptionTexts();
-            }
-            case OPT_VOLUME -> {
-                volume = Math.max(0, volume - 1);
-                refreshOptionTexts();
-            }
+            GameSettings.cycleDifficulty();
+            GameSettings.cycleDifficulty();
+            refreshOptionTexts();
         }
     }
 
     private void handleRight() {
-        switch (selectedOption) {
-            case OPT_DIFFICULTY -> {
-                GameSettings.cycleDifficulty();
-                refreshOptionTexts();
-            }
-            case OPT_SOUND -> {
-                soundEnabled = !soundEnabled;
-                refreshOptionTexts();
-            }
-            case OPT_VOLUME -> {
-                volume = Math.min(100, volume + 1);
-                refreshOptionTexts();
-            }
+        if (selectedOption == OPT_DIFFICULTY) {
+            GameSettings.cycleDifficulty();
+            refreshOptionTexts();
         }
     }
 
@@ -155,18 +133,16 @@ public class OptionsScreen extends BaseGameScreen {
                 GameSettings.cycleDifficulty();
                 refreshOptionTexts();
             }
-            case OPT_SOUND -> {
-                soundEnabled = !soundEnabled;
-                refreshOptionTexts();
-            }
+            case OPT_DISPLAY -> controller.showCRTScreen();
+            case OPT_SOUND -> controller.showSoundScreen();
             case OPT_BACK -> controller.goBackToMainMenu();
         }
     }
 
     private void refreshOptionTexts() {
         options[OPT_DIFFICULTY] = "DIFFICULTY: " + GameSettings.difficultyLabel();
-        options[OPT_SOUND] = "SOUND: " + (soundEnabled ? "ON" : "OFF");
-        options[OPT_VOLUME] = "VOLUME: " + volume;
+        options[OPT_DISPLAY] = "DISPLAY (CRT: " + (CRTSettings.isEnabled() ? "ON" : "OFF") + ")";
+        // OPT_SOUND and OPT_BACK are static strings, no refresh needed
     }
 
     // Paint
@@ -197,18 +173,6 @@ public class OptionsScreen extends BaseGameScreen {
                 g2d.setColor(ACCENT_GREEN);
             }
             drawCenteredText(g2d, options[i], W / 2, optY, optFont);
-
-            // Volume Slider
-            if (i == OPT_VOLUME) {
-                int sW = 300, sH = 12, sX = W / 2 - sW / 2, sY = optY + 22;
-                g2d.setColor(new Color(30, 30, 30, 200));
-                g2d.fillRect(sX, sY, sW, sH);
-                g2d.setColor(ACCENT_GREEN);
-                g2d.fillRect(sX, sY, (int) (volume / 100.0 * sW), sH);
-                g2d.setColor(new Color(0, 255, 0));
-                g2d.drawRect(sX, sY, sW, sH);
-            }
-
             optY += optSpc;
         }
 
@@ -216,10 +180,10 @@ public class OptionsScreen extends BaseGameScreen {
         Font hint = new Font("Monospaced", Font.PLAIN, 13);
         g2d.setColor(new Color(0, 200, 0));
         drawCenteredText(g2d,
-                "Use Up/Down or WASD to move, Left/Right or A/D to adjust volume (1 unit)",
+                "Use Up/Down or WASD to move, Left/Right or A/D to change difficulty",
                 W / 2, H - 120, hint);
         drawCenteredText(g2d,
-                "ENTER to toggle SOUND, ESC to go back, Mouse click to select",
+                "ENTER opens DISPLAY or SOUND, ESC returns to the main menu",
                 W / 2, H - 92, hint);
         drawCenteredText(g2d,
                 "Difficulty affects Pong AI and Space Invaders speed / shooting",

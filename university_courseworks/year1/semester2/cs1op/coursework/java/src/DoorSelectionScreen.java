@@ -346,6 +346,7 @@ public class DoorSelectionScreen extends BaseGameScreen implements KeyListener {
         g2d.setColor(ARC_DIM);
         String hint = minigamePending ? "[ ENTER ] Play Minigame" : "[ ENTER ] Continue";
         drawCenteredText(g2d, hint, W / 2, H - 25, null);
+        CRTSettings.drawCRT(g2d, W, H);
     }
 
     // Scale and Render ASCII Art to Fill the Given Rectangle Area

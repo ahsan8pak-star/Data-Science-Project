@@ -189,5 +189,6 @@ public class GamePlayScreen extends BaseGameScreen {
                         width / 2, 500, null);
             }
         }
+        CRTSettings.drawCRT(g2d, width, height);
     }
 }
