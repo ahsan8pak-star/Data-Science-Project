@@ -61,6 +61,7 @@ CS1OP-TextGame/
 │   ├── SoundManager.java            # WAV sound management
 │   ├── SoundScreen.java             # In-game sound settings panel
 │   ├── SoundSettings.java           # Per-sound volume storage
+│   ├── CRTScreen.java               # Full-screen CRT display settings page
 │   └── CRTSettings.java             # CRT scanline/vignette overlay
 ├── resources/
 │   ├── doors.txt                    # Door definitions
@@ -157,7 +158,7 @@ Reach **500 EXP** before losing all 3 lives:
 
 **Context engineering** was essential for effective AI collaboration. By providing detailed context in each prompt — including existing code structure, Java constraints, Swing API specifics, and game state — the AI delivered highly relevant suggestions.
 
-This project contains 30 Java source files. AI (Claude and Gemini) assisted with 15 files (50%) for GUI architecture, controls, minigame concepts, and difficulty scaling:
+This project contains 31 Java source files. AI (Claude and Gemini) assisted with 15 files (50%) for GUI architecture, controls, minigame concepts, and difficulty scaling:
 
 - **Claude** — GUI architecture, controls, smooth input handling  
   Assisted files: `GameGUI.java`, `GameController.java`, `PongMinigame.java`, `GameSettings.java`, `DiceSystem.java`, `BaseGameScreen.java`, `MainMenuScreen.java`, `NameEntryScreen.java`, `DialogueScreen.java`, `GamePlayScreen.java`, `DoorSelectionScreen.java`, `OptionsScreen.java`, `SpaceInvadersMinigame.java`, `CRTSettings.java`, `SoundManager.java`.
