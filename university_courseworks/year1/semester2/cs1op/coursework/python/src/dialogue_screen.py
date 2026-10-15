@@ -285,6 +285,7 @@ class DialogueScreenView(BaseGameScreen):
             self._draw_rejection(canvas, width, height)
         else:
             self._draw_scene(canvas, width, height)
+        self.draw_crt_overlay(canvas, width, height)
 
     def _draw_scene(self, canvas, width, height):
         bubble_h = max(125, height // 6)

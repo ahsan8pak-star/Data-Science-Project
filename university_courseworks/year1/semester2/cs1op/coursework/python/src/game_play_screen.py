@@ -144,6 +144,7 @@ class GamePlayScreen(BaseGameScreen):
         self.draw_centred_text(canvas, "SPACE MISSION", width // 2, 100, ("Monospaced", 32, "bold"), ARC_LIME)
         player = self.controller.get_current_player()
         if player is None:
+            self.draw_crt_overlay(canvas, width, height)
             return
         status = status_of(player)
         canvas.create_text(80, 160, text="Pilot: " + player.get_name(),
@@ -188,4 +189,5 @@ class GamePlayScreen(BaseGameScreen):
                                font=("Monospaced", 14, "normal"), fill=ARC_DIM, anchor="w")
             self.draw_centred_text(canvas, "Press Any Key to Enter the Next Round   |   ESC to Go Back to Menu",
                                    width // 2, 500, ("Monospaced", 16, "normal"), ARC_NEON)
+        self.draw_crt_overlay(canvas, width, height)
 

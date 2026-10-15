@@ -349,6 +349,7 @@ class DoorSelectionScreenView(BaseGameScreen):
             self._draw_reveal(canvas, width, height)
         else:
             self._draw_grid(canvas, width, height)
+        self.draw_crt_overlay(canvas, width, height)
 
     def _draw_grid(self, canvas, width, height):
         self.draw_centred_text(canvas, "CHOOSE  A  DOOR", width // 2, 100, ("Monospaced", 24, "bold"), ARC_LIME)

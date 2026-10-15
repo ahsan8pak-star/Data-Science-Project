@@ -22,7 +22,13 @@ from main_menu_screen import OPTIONS, MainMenuState
 from minigame_door import MinigameDoor
 from name_entry_screen import MAX_NAME_LENGTH, NameBuffer, is_valid_character
 from nothing_door import NothingDoor
-from options_screen import OptionsState
+from options_screen import (
+    OPT_BACK,
+    OPT_DIFFICULTY,
+    OPT_DISPLAY,
+    OPT_SOUND,
+    OptionsState,
+)
 from penalty_door import PenaltyDoor
 from player import Player
 from reward_door import RewardDoor
@@ -58,6 +64,9 @@ class FakeController:
 
     def show_sound_screen(self):
         self.shown.append("SOUND_SCREEN")
+
+    def show_crt_screen(self):
+        self.shown.append("CRT_SCREEN")
 
 
 @pytest.fixture()
@@ -124,12 +133,28 @@ def test_name_buffer_accepts_printable_ascii_to_fifteen():
 
 
 def test_options_texts_follow_settings(controller):
+    """
+    The DISPLAY row echoes the live CRT state, and SOUND is a link to the
+    page that owns the volumes rather than a second copy of them.
+    """
     state = OptionsState()
     texts = state.option_texts()
     assert texts[0] == "DIFFICULTY: NORMAL"
-    assert texts[1] == "SOUND: ON"
-    assert texts[2] == "VOLUME: 50"
+    assert texts[1] == "DISPLAY (CRT: OFF)"
+    assert texts[2] == "SOUND SETTINGS"
     assert texts[3] == "BACK TO MAIN MENU"
+
+
+def test_options_display_row_echoes_the_live_crt_state():
+    """
+    The row text reads the global setting, so switching the overlay on is
+    visible on the options screen without opening the display page.
+    """
+    crt_settings.set_enabled(True)
+    try:
+        assert OptionsState().option_texts()[1] == "DISPLAY (CRT: ON)"
+    finally:
+        crt_settings.set_enabled(False)
 
 
 def test_options_left_cycles_difficulty_backwards():
@@ -140,28 +165,69 @@ def test_options_left_cycles_difficulty_backwards():
     assert state.option_texts()[0] == "DIFFICULTY: NORMAL"
 
 
-def test_options_sound_toggle_and_volume_clamp():
+def test_options_navigation_rows_carry_no_local_state():
+    """
+    The two navigation rows must not hold private settings: sound lives in
+    ``sound_settings`` and volume lives beside it, so a row that adjusted its
+    own attribute would report a setting the game never consulted.
+    """
     state = OptionsState()
-    state.selected = 1
-    state.adjust_right()
-    assert state.option_texts()[1] == "SOUND: OFF"
-    state.selected = 2
-    state.volume = 0
-    state.adjust_left()
-    assert state.volume == 0
-    state.volume = 100
-    state.adjust_right()
-    assert state.volume == 100
-    state.selected = 3
-    state.adjust_left()
-    state.adjust_right()
+    assert not hasattr(state, "sound_enabled")
+    assert not hasattr(state, "volume")
+
+    for row in (OPT_SOUND, OPT_DISPLAY):
+        state.selected = row
+        state.adjust_left()
+        state.adjust_right()
+
+
+def test_options_display_row_navigates_to_the_crt_page(controller):
+    """
+    DISPLAY is what makes the CRT settings reachable before the game starts:
+    ``GameController.show_crt_screen`` had no caller at all, so the
+    translation's own full-screen CRT page was unreachable dead code.
+    """
+    state = OptionsState()
+    state.selected = OPT_DISPLAY
+    state.confirm(controller)
+    assert controller.shown == ["CRT_SCREEN"]
+
+
+def test_options_sound_row_navigates_to_the_sound_page(controller):
+    """
+    The options SOUND row sends the player to the same per-sound page the
+    main menu opens, so one name means one destination.
+    """
+    state = OptionsState()
+    state.selected = OPT_SOUND
+    state.confirm(controller)
+    assert controller.shown == ["SOUND_SCREEN"]
 
 
 def test_options_confirm_back_navigates(controller):
     state = OptionsState()
-    state.selected = 3
+    state.selected = OPT_BACK
     state.confirm(controller)
     assert controller.menu_visits == 1
+
+
+def test_the_in_game_screens_draw_the_crt_overlay():
+    """
+    The overlay is a screen-level responsibility, so every screen inside the
+    game loop must call it. The door selection screen was missed, which left
+    the setting applied in the minigames but absent on the screen played
+    between every one of them.
+    """
+    import inspect
+
+    from dialogue_screen import DialogueScreenView
+    from door_selection_screen import DoorSelectionScreenView
+    from game_play_screen import GamePlayScreen
+
+    for view in (DoorSelectionScreenView, DialogueScreenView, GamePlayScreen):
+        assert "draw_crt_overlay" in inspect.getsource(view.redraw), (
+            f"{view.__name__}.redraw does not draw the CRT overlay"
+        )
 
 
 def test_sound_state_tabs_clamp_and_files():

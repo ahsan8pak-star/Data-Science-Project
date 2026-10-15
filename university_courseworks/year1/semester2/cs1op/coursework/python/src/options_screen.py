@@ -1,15 +1,24 @@
 """
-Options: difficulty, sound toggle and volume state plus its view.
+Options: difficulty, display settings and sound settings.
 
 Translation of ``OptionsScreen.java``. Moving left on difficulty cycles
-twice forward, which is one step back over the three states; volume
-moves one unit per press clamped to 0-100; ENTER toggles difficulty and
-sound but leaves volume to the arrow keys. Hover follows the Java rows
-from y=230 spaced 95 apart, 28 pixels either side.
+twice forward, which is one step back over the three states; ENTER cycles
+difficulty and navigates to the two dedicated settings pages. Hover
+follows the Java rows from y=230 spaced 95 apart, 28 pixels either side.
+
+Two rows here are navigation, not inline settings. DISPLAY opens the
+full-screen CRT page, and SOUND opens the per-sound volume page - both
+already exist and are reachable from the main menu as well. An earlier
+version of this screen carried inline SOUND and VOLUME rows whose values
+lived only in ``OptionsState`` and were read by nothing: the sound state
+lives in ``sound_settings`` and the volumes live beside it, so the rows
+reported a setting the game never consulted. They are replaced by links to
+the pages that hold the real state.
 """
 
 import tkinter as tk
 
+import crt_settings
 import game_settings
 import sound_manager
 from base_screen import (
@@ -23,8 +32,8 @@ from base_screen import (
 
 
 OPT_DIFFICULTY = 0
-OPT_SOUND = 1
-OPT_VOLUME = 2
+OPT_DISPLAY = 1
+OPT_SOUND = 2
 OPT_BACK = 3
 
 FIRST_ROW_Y = 230
@@ -34,23 +43,24 @@ ROW_HALF_HEIGHT = 28
 
 class OptionsState:
     """
-    The selected option, sound flag and volume, without any widgets.
+    The selected option, without any widgets.
     """
 
     def __init__(self):
         self.selected = 0
         self.hovered = -1
-        self.sound_enabled = True
-        self.volume = 50
 
     def option_texts(self):
         """
         The four labelled rows for the current settings.
+
+        The CRT row echoes the live overlay state so the setting can be
+        checked before starting, without opening the display page.
         """
         return (
             "DIFFICULTY: " + game_settings.difficulty_label(),
-            "SOUND: " + ("ON" if self.sound_enabled else "OFF"),
-            "VOLUME: " + str(self.volume),
+            "DISPLAY (CRT: " + ("ON" if crt_settings.is_enabled() else "OFF") + ")",
+            "SOUND SETTINGS",
             "BACK TO MAIN MENU",
         )
 
@@ -78,35 +88,29 @@ class OptionsState:
 
     def adjust_left(self):
         """
-        Step the selected setting down: difficulty back, sound off, -1 vol.
+        Step the selected setting down: difficulty back one of three.
         """
         if self.selected == OPT_DIFFICULTY:
             game_settings.cycle_difficulty()
             game_settings.cycle_difficulty()
-        elif self.selected == OPT_SOUND:
-            self.sound_enabled = not self.sound_enabled
-        elif self.selected == OPT_VOLUME:
-            self.volume = max(0, self.volume - 1)
 
     def adjust_right(self):
         """
-        Step the selected setting up: difficulty on, sound on, +1 vol.
+        Step the selected setting up: difficulty on one of three.
         """
         if self.selected == OPT_DIFFICULTY:
             game_settings.cycle_difficulty()
-        elif self.selected == OPT_SOUND:
-            self.sound_enabled = not self.sound_enabled
-        elif self.selected == OPT_VOLUME:
-            self.volume = min(100, self.volume + 1)
 
     def confirm(self, controller):
         """
-        Activate the selected row: cycle, toggle, or go back.
+        Activate the selected row: cycle, navigate, or go back.
         """
         if self.selected == OPT_DIFFICULTY:
             game_settings.cycle_difficulty()
+        elif self.selected == OPT_DISPLAY:
+            controller.show_crt_screen()
         elif self.selected == OPT_SOUND:
-            self.sound_enabled = not self.sound_enabled
+            controller.show_sound_screen()
         elif self.selected == OPT_BACK:
             controller.go_back_to_main_menu()
 
@@ -160,7 +164,7 @@ class OptionsScreen(BaseGameScreen):
 
     def redraw(self):
         """
-        Paint the title, the four rows and the volume slider.
+        Paint the title and the four setting rows.
         """
         canvas = self.canvas_widget
         canvas.delete("all")
@@ -176,17 +180,10 @@ class OptionsScreen(BaseGameScreen):
                                         fill=DARK_GREEN, outline="")
             fill = ARC_NEON
             self.draw_centred_text(canvas, text, width // 2, row_y, ("Monospaced", 22, "bold"), fill)
-            if i == OPT_VOLUME:
-                bar_w, bar_h = 300, 12
-                bar_x, bar_y = width // 2 - bar_w // 2, row_y + 22
-                canvas.create_rectangle(bar_x, bar_y, bar_x + bar_w, bar_y + bar_h, fill="#1e1e1e", outline="")
-                canvas.create_rectangle(bar_x, bar_y, bar_x + int(self.state.volume / 100.0 * bar_w),
-                                        bar_y + bar_h, fill=ARC_NEON, outline="")
-                canvas.create_rectangle(bar_x, bar_y, bar_x + bar_w, bar_y + bar_h, outline="#00ff00")
             row_y += ROW_SPACING
-        self.draw_centred_text(canvas, "Use Up/Down or WASD to move, Left/Right or A/D to adjust volume (1 unit)",
+        self.draw_centred_text(canvas, "Use Up/Down or WASD to move, Left/Right or A/D to change difficulty",
                                width // 2, height - 120, HINT_FONT, ARC_TEXT)
-        self.draw_centred_text(canvas, "ENTER to toggle SOUND, ESC to go back, Mouse click to select",
+        self.draw_centred_text(canvas, "ENTER opens DISPLAY or SOUND, ESC returns to the main menu",
                                width // 2, height - 92, HINT_FONT, ARC_TEXT)
         self.draw_centred_text(canvas, "Difficulty affects Pong AI and Space Invaders speed / shooting",
                                width // 2, height - 64, HINT_FONT, ARC_TEXT)
