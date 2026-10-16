@@ -7,7 +7,6 @@
 // an on/off toggle and a 0-100 intensity slider with the
 // 0-33 / 34-66 / 67-100 band legend. ESC returns to options.
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -157,8 +156,6 @@ public class CRTScreen extends BaseGameScreen {
         g2d.drawRect(x, y, 100, 40);
         g2d.setFont(new Font("Monospaced", Font.BOLD, 14));
         drawCenteredText(g2d, "ON", x + 50, y + 20, null);
-        g2d.setColor(enabled ? Color.BLACK : ARC_DIM);
-        g2d.drawString("ON", x + 50 - g2d.getFontMetrics().stringWidth("ON") / 2, y + 20);
 
         g2d.setColor(enabled ? ARC_PANEL : ARC_TEXT);
         g2d.fillRect(x + 130, y, 100, 40);
@@ -166,8 +163,6 @@ public class CRTScreen extends BaseGameScreen {
         g2d.drawRect(x + 130, y, 100, 40);
         g2d.setFont(new Font("Monospaced", Font.BOLD, 14));
         drawCenteredText(g2d, "OFF", x + 180, y + 20, null);
-        g2d.setColor(enabled ? ARC_DIM : ARC_LIME);
-        g2d.drawString("OFF", x + 180 - g2d.getFontMetrics().stringWidth("OFF") / 2, y + 20);
 
         // Intensity slider
         int barX = W / 2 - 150, barY = 300, barW = 300, barH = 16;
