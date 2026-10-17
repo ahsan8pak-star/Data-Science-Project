@@ -427,7 +427,7 @@ Data-Science-Project/
 │   │
 │   └── sandbox/                            # aim.py only - deliberately untested scratch space
 │
-├── requirements/                           # Dependency manifests and the script that synchronises them
+├── requirements/                           # Dependency manifests, the script that synchronises them, and DEPENDENCIES.md (the catalogue of both)
 │
 ├── roadmap/                                # Reference guides for the Python and data-science study path
 │
@@ -499,9 +499,8 @@ Data-Science-Project/
 │   └── year3/                              # CS3 briefings (not shown yet)
 │       └── modules                         # Year 3 module briefings
 │
-├── HISTORY_REVIEW.md                      # 22-week retrospective: contributor register, what went well and wrong, evidence-based improvements
+├── progress/                               # The project's running records: HISTORY_REVIEW.md (22-week retrospective) and PROGRESSION.md (narrative review and session log)
 ├── NOTES.md                                # Maintenance journal, study tracks, and current resource status
-└── PROGRESSION.md                          # Narrative record of learning stages, corrections, and AI use
 ```
 
 The `university_courseworks/` weeks share one convention, stated once rather than
@@ -548,6 +547,6 @@ omitted, matching `TREE_SKIP` in `scripts/execution_time.py`.
 - [21]: Roadmap Guides: Data Science and Python learning-path references (`.pdf` / `.txt`) under `roadmap/`, guiding the study phases.
 - [22]: Advanced Projects: ML experiments (`Machine Learning/`), media-playback interfaces (`Music Player/`), and Excel automation (`Transactions/`).
 - [23]: Courseworks Archive: Year 1–3 module briefings and the Java-to-Python CS1IP transposition pairs under `University Courseworks/`.
-- [24]: Dependencies: Tiered environment catalogue (`DEPENDENCIES.md`) splitting cross-platform All-Rounder libraries (`requirements.in`/`requirements.txt`) from Windows Dev Kits (`requirements-win_dev.in`/`requirements-win_dev.txt`).
+- [24]: Dependencies: Tiered environment catalogue (`requirements/DEPENDENCIES.md`) splitting cross-platform All-Rounder libraries (`requirements.in`/`requirements.txt`) from Windows Dev Kits (`requirements-win_dev.in`/`requirements-win_dev.txt`).
 
 ---

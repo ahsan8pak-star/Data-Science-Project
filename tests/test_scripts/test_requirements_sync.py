@@ -1,7 +1,14 @@
 """
-Pytest suite for requirements_sync.py - the venv-sync/dev-tool script at the
-repo root that regenerates requirements.txt / requirements-win_dev.txt from
-the live installation and audits them.
+Pytest suite for requirements_sync.py - the dev-tool script that lives beside
+it in requirements/ and regenerates requirements.txt / requirements-win_dev.txt
+from the live installation, then audits them.
+
+[AI-authored fix] This docstring said the script was "at the repo root", which
+was true when the script was written and stopped being true when it moved into
+requirements/ alongside the four manifests it reads and writes. Nothing failed
+on the move because a docstring is prose, which is exactly why it needed
+correcting by hand: the suite importing the script cannot detect where the
+script is filed from.
 
 Only the pure logic is exercised here. The write step (compile_from_installed)
 is pointed at tmp_path outputs and its `pip check` subprocess call is mocked,

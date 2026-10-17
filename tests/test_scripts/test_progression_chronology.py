@@ -9,7 +9,7 @@ from datetime import datetime
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-PROGRESSION_MD = REPO_ROOT / "PROGRESSION.md"
+PROGRESSION_MD = REPO_ROOT / "progress" / "PROGRESSION.md"
 
 
 def _chronology_rows():

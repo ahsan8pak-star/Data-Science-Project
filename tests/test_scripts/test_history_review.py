@@ -30,7 +30,7 @@ import subprocess
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-REVIEW_MD = REPO_ROOT / "HISTORY_REVIEW.md"
+REVIEW_MD = REPO_ROOT / "progress" / "HISTORY_REVIEW.md"
 
 IDENTITY_ROW = re.compile(r"^\|\s*\d+\s*\|\s*`([^`]+)`\s*\|.*?\|\s*(\d+)\s*\|")
 TOTAL_ROW = re.compile(r"^\|\s*\|\s*\*\*Total\*\*\s*\|.*?\|\s*\*\*(\d+)\*\*\s*\|")

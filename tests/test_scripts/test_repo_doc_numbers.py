@@ -629,7 +629,7 @@ class TestProgressionDocClaims:
     would repeat the exact failure the audit was about. Each claim below is
     recomputed from the tree or from git rather than trusted.
     """
-    DOC = REPO_ROOT / "PROGRESSION.md"
+    DOC = REPO_ROOT / "progress" / "PROGRESSION.md"
 
     """
     The cutoff for counting the run's commits. Exclusive: everything dated
@@ -1094,16 +1094,19 @@ class TestReadmeArchitectureTree:
         stays consistent with the other collapsed folders.
 
         HISTORY_REVIEW.md joined the list on 17 October 2026: the retrospective
-        over the 836-commit contributor record, which sits at the root beside
-        the other two narrative documents rather than in a folder of its own,
-        because it is read at the same time as them.
+        over the 836-commit contributor record, which sat at the root beside
+        the other two narrative documents. Two days later it and PROGRESSION.md
+        moved into progress/, so both names left allowed_files and the folder
+        joined allowed_parents instead — the arrangement the other two document
+        folders already use, so a third record added to progress/ needs no edit
+        here. NOTES.md stays at the root because it is read on its own.
         """
         allowed_files = {
-            "NOTES.md", "PROGRESSION.md", "HISTORY_REVIEW.md",
+            "NOTES.md",
             "file_scores_ranking/FILE_RANKING_GUIDE.md",
             "file_scores_ranking/FILE_SCORES.md",
         }
-        allowed_parents = {"agentic_models", "file_scores_ranking"}
+        allowed_parents = {"agentic_models", "file_scores_ranking", "progress"}
         offenders, stack = [], []
         for line in self._block():
             match = self.NODE.match(line)
@@ -1278,7 +1281,7 @@ class TestDependencyCatalogueMatchesTheFrozenFiles:
     last link.
     """
 
-    CATALOGUE = REPO_ROOT / "DEPENDENCIES.md"
+    CATALOGUE = REPO_ROOT / "requirements" / "DEPENDENCIES.md"
     TIERS = {
         "A": (
             REPO_ROOT / "requirements" / "requirements.in",
