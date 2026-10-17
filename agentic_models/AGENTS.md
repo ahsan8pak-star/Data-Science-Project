@@ -12,7 +12,11 @@ agent (or future human) working on this project should read this first.
   **A.I.M** (the hardcoded `name = "A.I.M"` in several scripts is that
   personal signature, not placeholder text). The whole repo is his public
   portfolio.
-- Python 3.14 venv lives at `.venv/`. Always invoke it explicitly.
+- Two virtual environments, named per platform: `venv-win/` is the Windows
+  one (Python 3.14, `venv-win/Scripts/python.exe`) and `venv/` is the WSL/Linux
+  one (Python 3.12, `venv/bin/python`). Both are installed and both run the
+  full suite; always invoke the interpreter explicitly rather than a bare
+  `python`.
 - All scripts live under `python/<paradigm>/<folder>/`. Tests live under
   `tests/<area>/` and mirror the source folders 1:1.
 - `README.md` describes the full architecture; keep its tree and headers in
@@ -128,7 +132,7 @@ Example that mirrors how this repo actually worked:
 Goal: Speed up the test suite without touching any teaching script.
 Files: tests/ (TestModules class especially)
 Constraints: python/ scripts stay frozen; no new comments unless asked
-Verify: .venv/Scripts/python.exe -m pytest -q
+Verify: venv-win/Scripts/python.exe -m pytest -q
 
 Capitalisation does not change how the agent reads the prompt - use
 normal sentence case and reserve ALL-CAPS for one or two critical words
@@ -527,19 +531,47 @@ a paid route on agentic work.
 
 | Task | Command |
 | --- | --- |
-| Run the full test suite | `.venv/Scripts/python.exe -m pytest` |
-| Run one test folder | `.venv/Scripts/python.exe -m pytest tests/test_imperative_programming/` |
-| Run one test file | `.venv/Scripts/python.exe -m pytest tests/test_imperative_programming/test_unit_and_format_converters.py` |
-| Coverage report (term + missing lines + branch) | `.venv/Scripts/python.exe -m pytest --cov --cov-report=term-missing` |
-| Coverage scope limited to `python/` | `.venv/Scripts/python.exe -m pytest --cov=python` |
-| Coverage for the assessed coursework under `university_courseworks/` | `.venv/Scripts/python.exe -m pytest --cov=university_courseworks` |
-| Clickable HTML coverage report | `.venv/Scripts/python.exe -m pytest --cov=python --cov-report=html` (writes to ignored `htmlcov/`) |
-| Interactive project tree + benchmark | `.venv/Scripts/python.exe scripts/execution_time.py` |
-| Project tree in non-interactive `--all` mode | `.venv/Scripts/python.exe scripts/execution_time.py --all` |
-| Repo hygiene guards (CWD artefacts stay ignored) | `.venv/Scripts/python.exe -m pytest tests/test_scripts/test_repo_hygiene.py` |
+| Run the full test suite | `venv-win/Scripts/python.exe -m pytest` |
+| Run one test folder | `venv-win/Scripts/python.exe -m pytest tests/test_imperative_programming/` |
+| Run one test file | `venv-win/Scripts/python.exe -m pytest tests/test_imperative_programming/test_unit_and_format_converters.py` |
+| Coverage report (term + missing lines + branch) | `venv-win/Scripts/python.exe -m pytest --cov --cov-report=term-missing` |
+| Coverage scope limited to `python/` | `venv-win/Scripts/python.exe -m pytest --cov=python` |
+| Coverage for the assessed coursework under `university_courseworks/` | `venv-win/Scripts/python.exe -m pytest --cov=university_courseworks` |
+| Clickable HTML coverage report | `venv-win/Scripts/python.exe -m pytest --cov=python --cov-report=html` (writes to ignored `htmlcov/`) |
+| Interactive project tree + benchmark | `venv-win/Scripts/python.exe scripts/execution_time.py` |
+| Project tree in non-interactive `--all` mode | `venv-win/Scripts/python.exe scripts/execution_time.py --all` |
+| Repo hygiene guards (CWD artefacts stay ignored) | `venv-win/Scripts/python.exe -m pytest tests/test_scripts/test_repo_hygiene.py` |
 
-> Use the Windows venv python (`.venv/Scripts/python.exe`), NOT a plain `python`
-> / `python3` — the repo is pinned to that interpreter.
+> Prefer the Windows venv python (`venv-win/Scripts/python.exe`), NOT a plain
+> `python` / `python3` — the repo is pinned to that interpreter.
+
+### Running the suite on Linux (WSL)
+
+There are two environments, named for the platform they serve, and both run
+the suite:
+
+| Platform | Environment | Interpreter | Result |
+| --- | --- | --- | --- |
+| Windows | `venv-win/` | `venv-win/Scripts/python.exe` (3.14.5) | 1990 passed |
+| WSL/Linux | `venv/` | `venv/bin/python` (3.12.3) | 1800 passed, 12 skipped |
+
+The documented suite size (1990) is the Windows figure. The Linux run is
+smaller because twelve cases name a platform limitation in their `skipif`
+reason rather than failing obscurely:
+
+- **tkinter** is absent from the Linux environment (it is `python3-tk` on
+  Debian/Ubuntu, not a pip package). The CS1OP coursework package sets
+  `collect_ignore_glob` in its conftest, and `TestCRTSettingsFlow` skips, so
+  the coursework runs on Windows only.
+- **`file_reader.py`** hardcodes `C:/Users/A.I.M/...` and **`generator.py`**
+  hardcodes `C:\Users\A.I.M\...`. Both are recorded weaknesses in
+  `FILE_SCORES.md`, so the cases that need them are Windows-only. Fixing the
+  scripts is a change to the lesson, not to the test.
+
+If you rename or move either environment, rewrite the absolute shebangs in
+`venv/bin/*` and the `VIRTUAL_ENV` lines in the activate scripts — a moved
+virtualenv otherwise keeps working through `bin/python` while every console
+script in it fails.
 
 ## Project Rules (Do NOT break these)
 
@@ -569,7 +601,8 @@ a paid route on agentic work.
    never committed.
 7. **Keep README tree + `TREE_SKIP` in sync** when folders are added/removed.
    `TREE_SKIP` in `scripts/execution_time.py` excludes generated/vendored paths
-   (`.git`, `.venv`, `.pytest_cache`, `__pycache__`, `.coverage`, `htmlcov`).
+   (`.git`, `venv-win`, `venv`, `.pytest_cache`, `__pycache__`, `.coverage`,
+  `htmlcov`).
 8. **Any file type may be staged and committed — `python/` included.**
    Agents follow the Conventional Commit table below for every commit
    (`feat`, `fix`, `docs`, `refactor`, `test`, `style`, `chore`, `ci`),
@@ -921,7 +954,8 @@ or the correction is half-applied.
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1982 passing tests, ~99% line coverage and 95% branch coverage (149 of the
+- `scripts/test_equity.py` measures test-equity across the portfolio: a composite surface (methods, attributes, command types, input/output points) versus pytest cases plus guard assertions, attributed per module via resolved FILE/FOLDER constants. `tests/test_scripts/test_test_equity.py` guards it: 160 modules, 159 with tests, 1 full-range failure (the deliberate `main.py` stub), density CV 2.22 ratcheted at 2.3, min/max ratio 301 ratcheted at 310.
+- 1990 passing tests, ~99% line coverage and 95% branch coverage (149 of the
   160 measured `python/` files at 100% lines, including both music-player
   GUIs; the 160 non-`__init__.py` files are the number a docstring sweep
   covers). The 160 counts files that carry at least one statement. The

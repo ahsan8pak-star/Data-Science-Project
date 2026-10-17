@@ -542,7 +542,7 @@ git log --diff-filter=D --format='%ad %s' --date=short -- tests/test_algorithms.
 git ls-files | awk -F/ '{print $1}' | sort | uniq -c | sort -rn
 
 # the guard share of the suite
-.venv/Scripts/python.exe -m pytest tests/test_scripts/ -q --collect-only | tail -2
+venv-win/Scripts/python.exe -m pytest tests/test_scripts/ -q --collect-only | tail -2
 
 # the courseware provenance
 git log --diff-filter=A --format='%ad %s' --date=short -- 'Java-To-Python-Conversion/*'

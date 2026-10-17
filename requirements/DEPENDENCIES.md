@@ -1,6 +1,6 @@
 # Dependencies & Environment Catalogue
 
-Every library installed in the project virtual environment (`.venv`, Python 3.14), split into **three tiers** so that the cross-platform code libraries stay separate from the Windows-specific development tooling.
+Every library installed in the project virtual environment (`venv-win`, Python 3.14), split into **three tiers** so that the cross-platform code libraries stay separate from the Windows-specific development tooling.
 
 ## Classification Rule
 
@@ -100,7 +100,7 @@ actually installed.
 ```powershell
 # 1. Regenerate BOTH compiled files and re-audit        (offline, safe)
 #    (the script lives under requirements/, so the path is relative to the repo root)
-.venv\Scripts\python.exe requirements\requirements_sync.py
+venv-win\Scripts\python.exe requirements\requirements_sync.py
 
 # ... or from VS Code:  Terminal > Run Task > "Sync: Update Requirements"
 
@@ -108,7 +108,7 @@ actually installed.
 pip-review --auto
 
 # 3. Optional second view: snapshot the live environment
-.venv\Scripts\python.exe -m pip freeze
+venv-win\Scripts\python.exe -m pip freeze
 ```
 
 **The constant-update loop** (repeat whenever the environment changes):
@@ -125,8 +125,8 @@ pip-review --auto
 **Installing from the frozen files (fresh machine):**
 
 ```powershell
-.venv\Scripts\python.exe -m pip install -r requirements\requirements.txt
-.venv\Scripts\python.exe -m pip install -r requirements\requirements-win_dev.txt
+venv-win\Scripts\python.exe -m pip install -r requirements\requirements.txt
+venv-win\Scripts\python.exe -m pip install -r requirements\requirements-win_dev.txt
 ```
 
 > The classic `pip-compile --no-index ...` commands from older versions of this catalogue are
@@ -138,23 +138,23 @@ pip-review --auto
 
 ```powershell
 # List every installed library in this venv, one per line with its version (piped table):
-.venv\Scripts\python.exe -m pip list
+venv-win\Scripts\python.exe -m pip list
 
 # The same, but only packages that have an update available:
-.venv\Scripts\python.exe -m pip list --outdated
+venv-win\Scripts\python.exe -m pip list --outdated
 
 # Details + dependencies of one library (e.g. qrcode):
-.venv\Scripts\python.exe -m pip show qrcode
+venv-win\Scripts\python.exe -m pip show qrcode
 
 # Verify no installed package has a broken/unsatisfied dependency:
-.venv\Scripts\python.exe -m pip check
+venv-win\Scripts\python.exe -m pip check
 
 # Confirm the environment is healthy and packages import cleanly:
-.venv\Scripts\python.exe -c "import numpy, pandas, sklearn, matplotlib, seaborn, scipy, openpyxl, psycopg2, requests, pygame, qrcode, pytest; print('all-rounder import OK')"
-.venv\Scripts\python.exe -c "import jupyterlab, ipykernel, IPython, mypy; print('windows dev-kit import OK')"
+venv-win\Scripts\python.exe -c "import numpy, pandas, sklearn, matplotlib, seaborn, scipy, openpyxl, psycopg2, requests, pygame, qrcode, pytest; print('all-rounder import OK')"
+venv-win\Scripts\python.exe -c "import jupyterlab, ipykernel, IPython, mypy; print('windows dev-kit import OK')"
 ```
 
 > `pip list` (without the `python.exe -m` prefix) works too when the venv is activated; the
-> `.venv\Scripts\python.exe -m pip ...` form always targets the correct environment regardless
+> `venv-win\Scripts\python.exe -m pip ...` form always targets the correct environment regardless
 > of which Python is on the PATH.
 

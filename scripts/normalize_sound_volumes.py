@@ -31,7 +31,7 @@ platform nobody tests.
 
 Run it with no arguments to normalise and rewrite `sound_volumes.json`:
 
-    .venv/Scripts/python.exe scripts/normalize_sound_volumes.py
+    venv-win/Scripts/python.exe scripts/normalize_sound_volumes.py
 
 `--report-only` measures and prints without touching a clip.
 """

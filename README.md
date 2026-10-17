@@ -520,7 +520,7 @@ asserted by `tests/test_university_courseworks/test_structure.py`, so the
 tree above cannot drift from the folders on disk without the suite failing.
 Architecture comments state each entry's purpose or meaning first; a framework
 is named only where it explains that purpose. Generated and vendored paths
-(`.git`, `.venv`, `.pytest_cache`, `__pycache__`, `.coverage`, `htmlcov`) are
+(`.git`, `venv-win`, `.pytest_cache`, `__pycache__`, `.coverage`, `htmlcov`) are
 omitted, matching `TREE_SKIP` in `scripts/execution_time.py`.
 
 ---

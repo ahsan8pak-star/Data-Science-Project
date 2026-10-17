@@ -30,7 +30,15 @@ which the report then scores as a failure that is not the script's fault.
 CHILD_ENV = {**os.environ, "PYTHONIOENCODING": "utf-8"}
 
 # Generated / vendored folders and files skipped in the tree display (and never benchmarked)
-TREE_SKIP = {".git", ".venv", ".pytest_cache", "__pycache__", ".coverage", "htmlcov"}
+"""
+Both virtual environments are skipped: `venv-win` is the Windows (3.14)
+one and `venv` the WSL/Linux (3.12) one. They are large, untracked, and
+hold no portfolio code.
+"""
+TREE_SKIP = {
+    ".git", "venv-win", "venv", ".pytest_cache",
+    "__pycache__", ".coverage", "htmlcov",
+}
 
 """
 A non-zero exit whose traceback ends at input() means the script wanted a
