@@ -1,0 +1,693 @@
+{
+  "description": "CS1OP sound effect levels, measured before and after range compression, so the Python and Java copies can be compared and kept in step.",
+  "script": "scripts/normalize_sound_volumes.py",
+  "method": {
+    "approach": "range compression, one flat gain per clip",
+    "level_metric": "gated RMS: RMS of the samples within 50 dB of the clip's own peak",
+    "level_metric_rationale": "plain RMS is dominated by silence. 'Main Menu GUI.wav' is 88% silence around a short burst, so its plain RMS (-33.50 dBFS) is the lowest in the folder while its peak is -3.50 dBFS. Ranking on plain RMS asks for +25.8 dB on that clip, which only a hard limiter could deliver; on the gated metric it sits at -24.88 dBFS and needs a sane gain",
+    "floor_ratio": 0.2,
+    "floor_ratio_rationale": "the user asked for the quietest clip to sit at 20% of the loudest, with 15% as the point below which a clip counts as too quiet",
+    "ceiling_dbfs": -1.0,
+    "limiter": "tanh soft knee at 80% of the ceiling, so peaks bend instead of clipping flat",
+    "gain_solved_after_limiting": "the limiter gives back part of any boost, so the gain is bisected until the measured level lands on the target rather than computed up front",
+    "why_not_one_flat_gain": "a single gain large enough to lift the quietest clip to 20% of the loudest pushes the peaks of every clip past full scale, which flattens them all to the same level and loses the differences"
+  },
+  "directories": [
+    {
+      "language": "java",
+      "path": "java/resources/sound_effects/",
+      "role": "master; written first"
+    },
+    {
+      "language": "python",
+      "path": "python/resources/sound_effects/",
+      "role": "mirror; kept byte-identical to the Java copy"
+    }
+  ],
+  "totals": {
+    "files": 34,
+    "before": {
+      "quietest_gated_dbfs": -27.25,
+      "loudest_gated_dbfs": -2.86,
+      "gated_ratio_percent": 6.0,
+      "plain_rms_ratio_percent": 3.0
+    },
+    "after": {
+      "quietest_gated_dbfs": -16.84,
+      "loudest_gated_dbfs": -2.86,
+      "gated_ratio_percent": 20.0,
+      "plain_rms_ratio_percent": 10.8
+    },
+    "clips_hitting_ceiling": 17,
+    "clips_below_target": 0,
+    "largest_boost_db": 14.04
+  },
+  "files": [
+    {
+      "file": "Space Invader Won.wav",
+      "channels": 2,
+      "sample_width_bytes": 2,
+      "sample_rate_hz": 48000,
+      "gain_db": 10.41,
+      "before": {
+        "rms_dbfs": -29.85,
+        "gated_rms_dbfs": -27.25,
+        "peak_dbfs": -16.71
+      },
+      "after": {
+        "rms_dbfs": -19.44,
+        "gated_rms_dbfs": -16.84,
+        "peak_dbfs": -6.3
+      },
+      "limited": false,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Shiny Chest.wav",
+      "channels": 2,
+      "sample_width_bytes": 2,
+      "sample_rate_hz": 48000,
+      "gain_db": 10.51,
+      "before": {
+        "rms_dbfs": -29.59,
+        "gated_rms_dbfs": -26.48,
+        "peak_dbfs": -4.19
+      },
+      "after": {
+        "rms_dbfs": -19.17,
+        "gated_rms_dbfs": -16.63,
+        "peak_dbfs": -1.0
+      },
+      "limited": true,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Main Menu GUI.wav",
+      "channels": 2,
+      "sample_width_bytes": 2,
+      "sample_rate_hz": 48000,
+      "gain_db": 14.04,
+      "before": {
+        "rms_dbfs": -33.5,
+        "gated_rms_dbfs": -24.88,
+        "peak_dbfs": -3.5
+      },
+      "after": {
+        "rms_dbfs": -22.39,
+        "gated_rms_dbfs": -16.16,
+        "peak_dbfs": -1.0
+      },
+      "limited": true,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Nothing Door Shut.wav",
+      "channels": 2,
+      "sample_width_bytes": 2,
+      "sample_rate_hz": 44100,
+      "gain_db": 8.57,
+      "before": {
+        "rms_dbfs": -24.41,
+        "gated_rms_dbfs": -21.72,
+        "peak_dbfs": -0.09
+      },
+      "after": {
+        "rms_dbfs": -16.85,
+        "gated_rms_dbfs": -15.05,
+        "peak_dbfs": -1.0
+      },
+      "limited": true,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Name Typped.wav",
+      "channels": 2,
+      "sample_width_bytes": 3,
+      "sample_rate_hz": 44100,
+      "gain_db": 8.0,
+      "before": {
+        "rms_dbfs": -24.26,
+        "gated_rms_dbfs": -21.15,
+        "peak_dbfs": -0.0
+      },
+      "after": {
+        "rms_dbfs": -17.29,
+        "gated_rms_dbfs": -14.82,
+        "peak_dbfs": -1.0
+      },
+      "limited": true,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Nothing Door Open.wav",
+      "channels": 2,
+      "sample_width_bytes": 3,
+      "sample_rate_hz": 44100,
+      "gain_db": 7.19,
+      "before": {
+        "rms_dbfs": -23.0,
+        "gated_rms_dbfs": -20.99,
+        "peak_dbfs": -0.33
+      },
+      "after": {
+        "rms_dbfs": -16.16,
+        "gated_rms_dbfs": -14.75,
+        "peak_dbfs": -1.0
+      },
+      "limited": true,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Game Over.wav",
+      "channels": 2,
+      "sample_width_bytes": 3,
+      "sample_rate_hz": 44100,
+      "gain_db": 5.51,
+      "before": {
+        "rms_dbfs": -21.97,
+        "gated_rms_dbfs": -19.66,
+        "peak_dbfs": -6.83
+      },
+      "after": {
+        "rms_dbfs": -16.46,
+        "gated_rms_dbfs": -14.18,
+        "peak_dbfs": -1.58
+      },
+      "limited": false,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Yes Pressed.wav",
+      "channels": 2,
+      "sample_width_bytes": 2,
+      "sample_rate_hz": 48000,
+      "gain_db": 5.22,
+      "before": {
+        "rms_dbfs": -21.98,
+        "gated_rms_dbfs": -19.0,
+        "peak_dbfs": -4.78
+      },
+      "after": {
+        "rms_dbfs": -16.78,
+        "gated_rms_dbfs": -13.87,
+        "peak_dbfs": -1.08
+      },
+      "limited": false,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "EXP Lost.wav",
+      "channels": 2,
+      "sample_width_bytes": 2,
+      "sample_rate_hz": 48000,
+      "gain_db": 4.62,
+      "before": {
+        "rms_dbfs": -19.33,
+        "gated_rms_dbfs": -18.02,
+        "peak_dbfs": -12.51
+      },
+      "after": {
+        "rms_dbfs": -14.7,
+        "gated_rms_dbfs": -13.39,
+        "peak_dbfs": -7.88
+      },
+      "limited": false,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Point.wav",
+      "channels": 2,
+      "sample_width_bytes": 2,
+      "sample_rate_hz": 48000,
+      "gain_db": 4.3,
+      "before": {
+        "rms_dbfs": -17.37,
+        "gated_rms_dbfs": -17.37,
+        "peak_dbfs": -14.71
+      },
+      "after": {
+        "rms_dbfs": -13.06,
+        "gated_rms_dbfs": -13.06,
+        "peak_dbfs": -10.41
+      },
+      "limited": false,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Aliens Shooting.wav",
+      "channels": 1,
+      "sample_width_bytes": 2,
+      "sample_rate_hz": 44100,
+      "gain_db": 4.24,
+      "before": {
+        "rms_dbfs": -17.69,
+        "gated_rms_dbfs": -17.11,
+        "peak_dbfs": -3.84
+      },
+      "after": {
+        "rms_dbfs": -13.47,
+        "gated_rms_dbfs": -12.93,
+        "peak_dbfs": -1.08
+      },
+      "limited": false,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "No Pressed.wav",
+      "channels": 2,
+      "sample_width_bytes": 2,
+      "sample_rate_hz": 48000,
+      "gain_db": 3.89,
+      "before": {
+        "rms_dbfs": -19.57,
+        "gated_rms_dbfs": -16.44,
+        "peak_dbfs": -4.95
+      },
+      "after": {
+        "rms_dbfs": -15.69,
+        "gated_rms_dbfs": -12.58,
+        "peak_dbfs": -1.45
+      },
+      "limited": false,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Poison Bottle.wav",
+      "channels": 2,
+      "sample_width_bytes": 2,
+      "sample_rate_hz": 48000,
+      "gain_db": 5.12,
+      "before": {
+        "rms_dbfs": -18.08,
+        "gated_rms_dbfs": -15.32,
+        "peak_dbfs": 0.0
+      },
+      "after": {
+        "rms_dbfs": -14.25,
+        "gated_rms_dbfs": -11.94,
+        "peak_dbfs": -1.0
+      },
+      "limited": true,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Spacecraft Shooting.wav",
+      "channels": 2,
+      "sample_width_bytes": 2,
+      "sample_rate_hz": 44100,
+      "gain_db": 3.7,
+      "before": {
+        "rms_dbfs": -16.17,
+        "gated_rms_dbfs": -15.32,
+        "peak_dbfs": 0.0
+      },
+      "after": {
+        "rms_dbfs": -12.63,
+        "gated_rms_dbfs": -11.94,
+        "peak_dbfs": -1.0
+      },
+      "limited": true,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Minilife lost.wav",
+      "channels": 2,
+      "sample_width_bytes": 3,
+      "sample_rate_hz": 44100,
+      "gain_db": 3.13,
+      "before": {
+        "rms_dbfs": -15.5,
+        "gated_rms_dbfs": -14.64,
+        "peak_dbfs": -3.74
+      },
+      "after": {
+        "rms_dbfs": -12.41,
+        "gated_rms_dbfs": -11.54,
+        "peak_dbfs": -1.28
+      },
+      "limited": false,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Game Won.wav",
+      "channels": 2,
+      "sample_width_bytes": 2,
+      "sample_rate_hz": 48000,
+      "gain_db": 3.23,
+      "before": {
+        "rms_dbfs": -15.26,
+        "gated_rms_dbfs": -13.94,
+        "peak_dbfs": 0.0
+      },
+      "after": {
+        "rms_dbfs": -12.27,
+        "gated_rms_dbfs": -11.12,
+        "peak_dbfs": -1.0
+      },
+      "limited": true,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "EXP Gained.wav",
+      "channels": 2,
+      "sample_width_bytes": 2,
+      "sample_rate_hz": 48000,
+      "gain_db": 3.02,
+      "before": {
+        "rms_dbfs": -14.17,
+        "gated_rms_dbfs": -13.69,
+        "peak_dbfs": -0.77
+      },
+      "after": {
+        "rms_dbfs": -11.33,
+        "gated_rms_dbfs": -10.96,
+        "peak_dbfs": -1.01
+      },
+      "limited": true,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Player Point Pong.wav",
+      "channels": 2,
+      "sample_width_bytes": 2,
+      "sample_rate_hz": 48000,
+      "gain_db": 2.36,
+      "before": {
+        "rms_dbfs": -14.11,
+        "gated_rms_dbfs": -12.69,
+        "peak_dbfs": -5.17
+      },
+      "after": {
+        "rms_dbfs": -11.75,
+        "gated_rms_dbfs": -10.33,
+        "peak_dbfs": -2.8
+      },
+      "limited": false,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Game Over - No Input.wav",
+      "channels": 2,
+      "sample_width_bytes": 2,
+      "sample_rate_hz": 48000,
+      "gain_db": 2.14,
+      "before": {
+        "rms_dbfs": -11.05,
+        "gated_rms_dbfs": -10.96,
+        "peak_dbfs": 0.0
+      },
+      "after": {
+        "rms_dbfs": -9.24,
+        "gated_rms_dbfs": -9.17,
+        "peak_dbfs": -1.01
+      },
+      "limited": true,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Life Lost.wav",
+      "channels": 2,
+      "sample_width_bytes": 2,
+      "sample_rate_hz": 48000,
+      "gain_db": 1.79,
+      "before": {
+        "rms_dbfs": -10.94,
+        "gated_rms_dbfs": -10.91,
+        "peak_dbfs": -1.74
+      },
+      "after": {
+        "rms_dbfs": -9.15,
+        "gated_rms_dbfs": -9.13,
+        "peak_dbfs": -1.13
+      },
+      "limited": false,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "CPU Pong.wav",
+      "channels": 1,
+      "sample_width_bytes": 2,
+      "sample_rate_hz": 44100,
+      "gain_db": 1.84,
+      "before": {
+        "rms_dbfs": -10.41,
+        "gated_rms_dbfs": -10.16,
+        "peak_dbfs": -0.0
+      },
+      "after": {
+        "rms_dbfs": -8.71,
+        "gated_rms_dbfs": -8.6,
+        "peak_dbfs": -1.01
+      },
+      "limited": false,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Spacecraft Crashed.wav",
+      "channels": 1,
+      "sample_width_bytes": 2,
+      "sample_rate_hz": 44100,
+      "gain_db": 1.27,
+      "before": {
+        "rms_dbfs": -9.53,
+        "gated_rms_dbfs": -9.12,
+        "peak_dbfs": -2.65
+      },
+      "after": {
+        "rms_dbfs": -8.27,
+        "gated_rms_dbfs": -7.86,
+        "peak_dbfs": -1.62
+      },
+      "limited": false,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "CPU Point.wav",
+      "channels": 2,
+      "sample_width_bytes": 2,
+      "sample_rate_hz": 48000,
+      "gain_db": 1.26,
+      "before": {
+        "rms_dbfs": -10.98,
+        "gated_rms_dbfs": -9.11,
+        "peak_dbfs": -5.3
+      },
+      "after": {
+        "rms_dbfs": -9.72,
+        "gated_rms_dbfs": -7.84,
+        "peak_dbfs": -4.04
+      },
+      "limited": false,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Pong Lose.wav",
+      "channels": 2,
+      "sample_width_bytes": 3,
+      "sample_rate_hz": 48000,
+      "gain_db": 1.29,
+      "before": {
+        "rms_dbfs": -9.54,
+        "gated_rms_dbfs": -9.05,
+        "peak_dbfs": -1.16
+      },
+      "after": {
+        "rms_dbfs": -8.24,
+        "gated_rms_dbfs": -7.8,
+        "peak_dbfs": -1.11
+      },
+      "limited": false,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Player Pong.wav",
+      "channels": 1,
+      "sample_width_bytes": 2,
+      "sample_rate_hz": 44100,
+      "gain_db": 1.58,
+      "before": {
+        "rms_dbfs": -9.21,
+        "gated_rms_dbfs": -8.97,
+        "peak_dbfs": -0.0
+      },
+      "after": {
+        "rms_dbfs": -7.85,
+        "gated_rms_dbfs": -7.74,
+        "peak_dbfs": -1.01
+      },
+      "limited": false,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Pong Win.wav",
+      "channels": 2,
+      "sample_width_bytes": 3,
+      "sample_rate_hz": 48000,
+      "gain_db": 0.97,
+      "before": {
+        "rms_dbfs": -11.66,
+        "gated_rms_dbfs": -7.81,
+        "peak_dbfs": -1.16
+      },
+      "after": {
+        "rms_dbfs": -10.71,
+        "gated_rms_dbfs": -6.87,
+        "peak_dbfs": -1.17
+      },
+      "limited": false,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Player Shoot.wav",
+      "channels": 1,
+      "sample_width_bytes": 1,
+      "sample_rate_hz": 11025,
+      "gain_db": 1.97,
+      "before": {
+        "rms_dbfs": -6.84,
+        "gated_rms_dbfs": -6.67,
+        "peak_dbfs": 0.0
+      },
+      "after": {
+        "rms_dbfs": -6.16,
+        "gated_rms_dbfs": -5.98,
+        "peak_dbfs": -1.01
+      },
+      "limited": true,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "UFO Crashing.wav",
+      "channels": 1,
+      "sample_width_bytes": 1,
+      "sample_rate_hz": 11025,
+      "gain_db": 2.07,
+      "before": {
+        "rms_dbfs": -6.41,
+        "gated_rms_dbfs": -6.21,
+        "peak_dbfs": 0.0
+      },
+      "after": {
+        "rms_dbfs": -5.82,
+        "gated_rms_dbfs": -5.62,
+        "peak_dbfs": -1.01
+      },
+      "limited": true,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "UFO Hovering.wav",
+      "channels": 1,
+      "sample_width_bytes": 1,
+      "sample_rate_hz": 11025,
+      "gain_db": 1.17,
+      "before": {
+        "rms_dbfs": -6.37,
+        "gated_rms_dbfs": -6.17,
+        "peak_dbfs": 0.0
+      },
+      "after": {
+        "rms_dbfs": -5.79,
+        "gated_rms_dbfs": -5.59,
+        "peak_dbfs": -1.01
+      },
+      "limited": true,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Alien Killed.wav",
+      "channels": 1,
+      "sample_width_bytes": 1,
+      "sample_rate_hz": 11025,
+      "gain_db": 1.02,
+      "before": {
+        "rms_dbfs": -5.54,
+        "gated_rms_dbfs": -5.4,
+        "peak_dbfs": 0.0
+      },
+      "after": {
+        "rms_dbfs": -5.11,
+        "gated_rms_dbfs": -4.97,
+        "peak_dbfs": -1.01
+      },
+      "limited": true,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "UFO Shooting.wav",
+      "channels": 2,
+      "sample_width_bytes": 2,
+      "sample_rate_hz": 48000,
+      "gain_db": 3.04,
+      "before": {
+        "rms_dbfs": -5.03,
+        "gated_rms_dbfs": -4.69,
+        "peak_dbfs": 0.0
+      },
+      "after": {
+        "rms_dbfs": -4.65,
+        "gated_rms_dbfs": -4.39,
+        "peak_dbfs": -1.0
+      },
+      "limited": true,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Game Lost.wav",
+      "channels": 2,
+      "sample_width_bytes": 2,
+      "sample_rate_hz": 48000,
+      "gain_db": 0.25,
+      "before": {
+        "rms_dbfs": -6.46,
+        "gated_rms_dbfs": -4.28,
+        "peak_dbfs": 0.0
+      },
+      "after": {
+        "rms_dbfs": -6.22,
+        "gated_rms_dbfs": -4.05,
+        "peak_dbfs": -1.1
+      },
+      "limited": false,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Movement 2.wav",
+      "channels": 1,
+      "sample_width_bytes": 1,
+      "sample_rate_hz": 11025,
+      "gain_db": 2.29,
+      "before": {
+        "rms_dbfs": -3.4,
+        "gated_rms_dbfs": -3.19,
+        "peak_dbfs": 0.0
+      },
+      "after": {
+        "rms_dbfs": -3.35,
+        "gated_rms_dbfs": -3.14,
+        "peak_dbfs": -1.01
+      },
+      "limited": true,
+      "could_not_reach_target": false
+    },
+    {
+      "file": "Movement 1.wav",
+      "channels": 1,
+      "sample_width_bytes": 1,
+      "sample_rate_hz": 11025,
+      "gain_db": 2.88,
+      "before": {
+        "rms_dbfs": -3.04,
+        "gated_rms_dbfs": -2.86,
+        "peak_dbfs": 0.0
+      },
+      "after": {
+        "rms_dbfs": -3.04,
+        "gated_rms_dbfs": -2.86,
+        "peak_dbfs": -1.01
+      },
+      "limited": true,
+      "could_not_reach_target": false
+    }
+  ]
+}
