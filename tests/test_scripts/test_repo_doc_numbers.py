@@ -1092,9 +1092,14 @@ class TestReadmeArchitectureTree:
         detail lives in DEPENDENCIES.md, which names all four manifests and
         requirements_sync.py by tier. The exception was removed so the tree
         stays consistent with the other collapsed folders.
+
+        HISTORY_REVIEW.md joined the list on 17 October 2026: the retrospective
+        over the 836-commit contributor record, which sits at the root beside
+        the other two narrative documents rather than in a folder of its own,
+        because it is read at the same time as them.
         """
         allowed_files = {
-            "NOTES.md", "PROGRESSION.md",
+            "NOTES.md", "PROGRESSION.md", "HISTORY_REVIEW.md",
             "file_scores_ranking/FILE_RANKING_GUIDE.md",
             "file_scores_ranking/FILE_SCORES.md",
         }

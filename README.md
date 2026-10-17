@@ -499,6 +499,7 @@ Data-Science-Project/
 │   └── year3/                              # CS3 briefings (not shown yet)
 │       └── modules                         # Year 3 module briefings
 │
+├── HISTORY_REVIEW.md                      # 22-week retrospective: contributor register, what went well and wrong, evidence-based improvements
 ├── NOTES.md                                # Maintenance journal, study tracks, and current resource status
 └── PROGRESSION.md                          # Narrative record of learning stages, corrections, and AI use
 ```
