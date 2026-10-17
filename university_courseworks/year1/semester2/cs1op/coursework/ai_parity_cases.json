@@ -1,0 +1,136 @@
+{
+  "description": "Cross-language parity cases for the CS1OP coursework. Java is the original and the reference; Python is the port and the emphasis, because it is the project's main language. Both sides list the same expectation for every case, so the two suites can be compared case for case instead of being trusted separately.",
+  "how_this_is_used": {
+    "python": "tests/test_university_courseworks/test_ai_parity.py loads this file, runs each case through its registered harness call, and compares the result with the shared expectation. That suite is the emphasis: it exercises the Python modules for real.",
+    "java": "The `java` block on each case names the class and method that produce the value in the original. A JUnit suite can read this same file and drive the same steps; test_ai_parity.py checks that each named method really exists in the Java source and that both sides declare the same expectation, so the Java half of the spec cannot drift unchecked.",
+    "steps": "Written in plain language and shared by both languages, so neither side gets a case phrased in the other's terms.",
+    "adding_a_case": "Add the case here, register a harness call for it in test_ai_parity.py, and point `java.method` at a method that already exists. The spec tests fail if either half is missing, so a one-sided case cannot slip in."
+  },
+  "workflow": {
+    "assistant": "OpenCode, used as an agentic AI assistant on the free tier",
+    "method": "The assistant reads the Java source, ports the behaviour to Python, and then this suite is run to check the port rather than the diff being trusted.",
+    "why_the_suite_is_the_point": "A translation that compiles is not a translation that behaves the same. Every case here exists because something could plausibly have gone wrong in the port and nothing else would have noticed.",
+    "recorded_in": "agentic_models/TASK_MODEL_GUIDE.md"
+  },
+  "reference_language": "java",
+  "emphasis_language": "python",
+  "cases": [
+    {
+      "id": "crt_disabled_by_default",
+      "title": "The CRT overlay is off until the player asks for it",
+      "area": "settings",
+      "steps": ["read the current CRT state"],
+      "expected": false,
+      "python": {"harness_call": "crt_disabled_by_default", "api": ["crt_settings.is_enabled"]},
+      "java": {"class": "CRTSettings", "method": "isEnabled", "static": true}
+    },
+    {
+      "id": "crt_default_intensity",
+      "title": "CRT intensity starts at 40",
+      "area": "settings",
+      "steps": ["read the current CRT intensity"],
+      "expected": 40,
+      "python": {"harness_call": "crt_default_intensity", "api": ["crt_settings.get_intensity"]},
+      "java": {"class": "CRTSettings", "method": "getIntensity", "static": true}
+    },
+    {
+      "id": "crt_toggle_flips_state",
+      "title": "Toggling the CRT setting turns it on, and toggling again puts it back",
+      "area": "settings",
+      "steps": ["toggle CRT", "read state", "toggle CRT", "read state"],
+      "expected": [true, false],
+      "python": {"harness_call": "crt_toggle_flips_state", "api": ["crt_settings.toggle", "crt_settings.is_enabled", "crt_settings.set_enabled"]},
+      "java": {"class": "CRTSettings", "method": "toggle", "static": true}
+    },
+    {
+      "id": "crt_intensity_is_settable",
+      "title": "CRT intensity can be raised and lowered",
+      "area": "settings",
+      "steps": ["set intensity to 75", "read", "set intensity to 10", "read"],
+      "expected": [75, 10],
+      "python": {"harness_call": "crt_intensity_is_settable", "api": ["crt_settings.set_intensity", "crt_settings.get_intensity"]},
+      "java": {"class": "CRTSettings", "method": "setIntensity", "static": true}
+    },
+    {
+      "id": "player_starts_with_three_lives",
+      "title": "A new player has three lives",
+      "area": "player",
+      "steps": ["create a player", "read lives"],
+      "expected": 3,
+      "python": {"harness_call": "player_starts_with_three_lives", "api": ["player.Player.get_lives"]},
+      "java": {"class": "Player", "method": "getLives", "static": false}
+    },
+    {
+      "id": "player_exp_accumulates",
+      "title": "Experience adds up and subtracting takes it away",
+      "area": "player",
+      "steps": ["add 50 exp", "read", "add 20 exp", "read", "subtract 65 exp", "read"],
+      "expected": [50, 70, 5],
+      "python": {"harness_call": "player_exp_accumulates", "api": ["player.Player.add_exp", "player.Player.subtract_exp", "player.Player.get_exp"]},
+      "java": {"class": "Player", "method": "addExp", "static": false}
+    },
+    {
+      "id": "losing_every_life_ends_the_game",
+      "title": "Losing the third life ends the game, and lives never go below zero",
+      "area": "player",
+      "steps": ["read game over", "lose a life", "read game over", "lose a life", "read game over", "lose a life", "read game over", "lose a life", "read lives"],
+      "expected": [false, false, false, true, 0],
+      "python": {"harness_call": "losing_every_life_ends_the_game", "api": ["player.Player.lose_life", "player.Player.is_game_over", "player.Player.get_lives"]},
+      "java": {"class": "Player", "method": "loseLife", "static": false}
+    },
+    {
+      "id": "difficulty_defaults_to_normal",
+      "title": "The game starts on NORMAL",
+      "area": "settings",
+      "steps": ["read the difficulty label"],
+      "expected": "NORMAL",
+      "python": {"harness_call": "difficulty_defaults_to_normal", "api": ["game_settings.difficulty_label"]},
+      "java": {"class": "GameSettings", "method": "difficultyLabel", "static": true}
+    },
+    {
+      "id": "difficulty_cycles_through_all_three",
+      "title": "Cycling difficulty goes EASY to NORMAL to HARD and wraps back to EASY",
+      "area": "settings",
+      "steps": ["set difficulty to HARD", "cycle", "read", "cycle", "read", "cycle", "read", "cycle", "read"],
+      "expected": ["EASY", "NORMAL", "HARD", "EASY"],
+      "python": {"harness_call": "difficulty_cycles_through_all_three", "api": ["game_settings.set_difficulty", "game_settings.cycle_difficulty", "game_settings.difficulty_label"]},
+      "java": {"class": "GameSettings", "method": "cycleDifficulty", "static": true}
+    },
+    {
+      "id": "sound_volumes_default_to_full",
+      "title": "Every registered effect starts at full volume, and muting one sticks",
+      "area": "sound",
+      "steps": ["read the volume of a menu sound", "set it to 0", "read it again", "read it once more"],
+      "expected": [100, 0, 0],
+      "python": {"harness_call": "sound_volumes_default_to_full", "api": ["sound_settings.get_volume", "sound_settings.set_volume"]},
+      "java": {"class": "SoundSettings", "method": "getVolume", "static": true}
+    },
+    {
+      "id": "sound_display_names_are_shared",
+      "title": "The menu labels for the shared sounds are the same on both sides",
+      "area": "sound",
+      "steps": ["read the display name of the menu sounds"],
+      "expected": ["Menu Navigation", "Menu Confirm", "Name Entry Key"],
+      "python": {"harness_call": "sound_display_names_are_shared", "api": ["sound_settings.get_display_name", "sound_manager.MENU_NAVIGATE", "sound_manager.MENU_SELECT", "sound_manager.TYPEWRITER"]},
+      "java": {"class": "SoundSettings", "method": "getDisplayName", "static": true}
+    },
+    {
+      "id": "door_factory_makes_every_door_type",
+      "title": "The factory can build all four kinds of door",
+      "area": "doors",
+      "steps": ["build doors from every template the factory reads", "collect the distinct types"],
+      "expected": ["MinigameDoor", "NothingDoor", "PenaltyDoor", "RewardDoor"],
+      "python": {"harness_call": "door_factory_makes_every_door_type", "api": ["door_factory.DoorFactory.create_random_door"]},
+      "java": {"class": "DoorFactory", "method": "createRandomDoor", "static": false}
+    },
+    {
+      "id": "text_ui_box_width_follows_content",
+      "title": "The dialogue box is four characters wider than its longest line, on both sides",
+      "area": "presentation",
+      "steps": ["draw a box titled Room containing Hi", "measure the printed width", "draw a box with a longer title", "measure the printed width"],
+      "expected": [8, 18],
+      "python": {"harness_call": "text_ui_box_width_follows_content", "api": ["text_ui.box"]},
+      "java": {"class": "TextUI", "method": "box", "static": true}
+    }
+  ]
+}

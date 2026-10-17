@@ -24,6 +24,12 @@ CS1IP = PROJECT_ROOT / 'university_courseworks' / 'year1' / 'semester1' / 'cs1ip
 COURSEWORK1 = CS1IP / 'coursework1'
 COURSEWORK2 = CS1IP / 'coursework2'
 
+CS1OP = PROJECT_ROOT / 'university_courseworks' / 'year1' / 'semester2' / 'cs1op'
+CS1OP_COURSEWORK = CS1OP / 'coursework'
+CS1OP_PYTHON_SRC = CS1OP_COURSEWORK / 'python' / 'src'
+CS1OP_JAVA_SRC = CS1OP_COURSEWORK / 'java' / 'src'
+CS1OP_RESOURCES = CS1OP_COURSEWORK / 'java' / 'resources'
+
 # Each coursework folder splits its artefacts by language or role, so tests
 # address files through these constants: a re-layout is a change here, not one edit per assertion.
 COURSEWORK1_PYTHON = COURSEWORK1 / 'python'

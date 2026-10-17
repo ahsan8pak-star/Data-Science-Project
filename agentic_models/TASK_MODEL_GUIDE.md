@@ -113,7 +113,72 @@ your console actually offers with `/models` before relying on this guide, and
 treat a missing model as a reason to pick the next-best row in §3, not as a
 reason to force a removed route.
 
-## 7. Sources
+## 7. A worked example: the CS1OP Java-to-Python translation
+
+§3 says which model suits a task. This is what one of those tasks looked like
+end to end, recorded because the interesting part is not the patch but the two
+things the verification caught that reading the diff would not have.
+
+**The task.** Bring the CS1OP coursework's Python port up to parity with the
+Java original, then make the sound effects audible at a consistent level.
+
+**The shape of the work, which is the reusable part:**
+
+1. **Read before writing.** The agent read `AGENTS.md` for the binding rules,
+   `tests/test_university_courseworks/test_structure.py` to learn where a new
+   file is allowed to sit, and an existing `scripts/` utility to copy the house
+   style from. Rule 14 is why this is first and not a summary at the end: the
+   structure guard and the comment conventions both decide *where* the new code
+   can go, so a patch written before reading them would have been wrong in a way
+   only a failing test would reveal.
+2. **Write the tool, not the one-off command.** The first sound-level attempt
+   was an inline `python -c`. It was replaced by
+   `scripts/normalize_sound_volumes.py`, because a level setting that cannot be
+   re-run is a level setting that will drift.
+3. **Verify against the files, not the report.** Every measurement in
+   `sound_volumes.json` is re-measured from disk by
+   `tests/test_university_courseworks/test_sound_asset_levels.py`, so the
+   artefact cannot quietly go stale.
+4. **Put the expectations in a file both languages can read.** The parity cases
+   live in `ai_parity_cases.json` rather than inside the Python test file,
+   because the point is that a Java suite can be pointed at the same list.
+
+**What the verification caught that the diff did not:**
+
+- **The clips are not all the same format.** The folder holds 8-bit, 16-bit and
+  24-bit PCM, mono and stereo, at 11025, 44100 and 48000 Hz. The first pass
+  unpacked every clip as 16-bit shorts, which shifts every sample after the
+  first in an 8- or 24-bit frame - the files were silently turned into noise
+  and the RMS figures were meaningless. Reading the folder's actual formats
+  first was the fix; nothing in the Java or Python source would have warned
+  about it.
+- **Plain RMS ranked the clips wrongly.** `Main Menu GUI.wav` has the lowest
+  plain RMS in the folder at -33.50 dBFS, but it is 88% silence around a short
+  burst and peaks at -3.50 dBFS: it is not quiet at all. Ranking on plain RMS
+  asked for +25.8 dB on that one clip, which only a hard limiter could deliver.
+  Measuring on RMS gated to 50 dB below each clip's own peak puts it at
+  -24.88 dBFS, where it belongs, and the same target then needs +14.04 dB.
+- **The obvious gain undershoots its own target.** A soft limiter gives back
+  part of any boost, so the gain computed from the raw RMS landed the floor at
+  13.7% against a 20% target. The gain is therefore bisected until the measured
+  level reaches the target, re-limiting the original samples each attempt so
+  nothing compounds.
+
+**The commands that prove it**, all re-runnable by A.I.M:
+
+| Check | Command | Result |
+| --- | --- | --- |
+| Full suite | `.venv/Scripts/python.exe -m pytest -q` | 1970 passed |
+| Java suite (unchanged, at its committed 26) | `java -jar junit-platform-console-standalone.jar --class-path <build> --scan-class-path` | 26 tests successful |
+| Sound levels | `.venv/Scripts/python.exe scripts/normalize_sound_volumes.py --report-only` | floor at 20.0% of the loudest, 0 clips below target |
+| Parity cases | `.venv/Scripts/python.exe -m pytest tests/test_university_courseworks/test_ai_parity.py -q` | 58 passed |
+
+**Which model did it** is deliberately not recorded here. `AGENTS.md` is explicit
+that an agent cannot reliably self-identify its own route, so the honest entry is
+A.I.M's: the route is chosen in the OpenCode console, and this section describes
+the workflow rather than claiming a credit for it.
+
+## 8. Sources
 
 **In-party (this repository):**
 - `agentic_models/AGENTS.md` — rotation tables, pick-a-model, pros/cons, hand-off, capability evidence, privacy.
