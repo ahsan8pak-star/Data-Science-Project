@@ -41,7 +41,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 AGENTS_MD = REPO_ROOT / "agentic_models" / "AGENTS.md"
 NOTES_MD = REPO_ROOT / "NOTES.md"
 README_MD = REPO_ROOT / "README.md"
-GUIDE_MD = REPO_ROOT / "file_scores_ranking" / "FILE_RANKING_GUIDE.md"
+GUIDE_MD = REPO_ROOT / "rank_file_scores" / "FILE_RANKING_GUIDE.md"
 PYTHON_ROOT = REPO_ROOT / "python"
 
 
@@ -413,7 +413,7 @@ class TestDocNumbersAgreeWithEachOther:
     """
     def test_agents_and_guide_agree_on_suite_size(self):
         agents = _flat(AGENTS_MD)
-        guide = _flat(REPO_ROOT / "file_scores_ranking" / "FILE_RANKING_GUIDE.md")
+        guide = _flat(REPO_ROOT / "rank_file_scores" / "FILE_RANKING_GUIDE.md")
         a = re.search(r"(\d{3,4}) passing tests", agents)
         g = re.search(r"suite green \((\d{3,4}) passed", guide)
         assert a and g
@@ -629,7 +629,7 @@ class TestProgressionDocClaims:
     would repeat the exact failure the audit was about. Each claim below is
     recomputed from the tree or from git rather than trusted.
     """
-    DOC = REPO_ROOT / "progress" / "PROGRESSION.md"
+    DOC = REPO_ROOT / "git_repo_progress" / "PROGRESSION.md"
 
     """
     The cutoff for counting the run's commits. Exclusive: everything dated
@@ -813,7 +813,7 @@ class TestProgressionDocClaims:
     def test_quality_mean_is_recomputed(self):
         entries = re.findall(
             r"### [\w./]+\.py — \*\*(\d+)/100\*\* \([A-F] —",
-            (REPO_ROOT / "file_scores_ranking" / "FILE_SCORES.md").read_text(encoding="utf-8"),
+            (REPO_ROOT / "rank_file_scores" / "FILE_SCORES.md").read_text(encoding="utf-8"),
         )
         scores = [int(s) for s in entries]
 
@@ -836,7 +836,7 @@ class TestProgressionDocClaims:
         )
 
     def test_band_distribution(self):
-        text = (REPO_ROOT / "file_scores_ranking" / "FILE_SCORES.md").read_text(encoding="utf-8")
+        text = (REPO_ROOT / "rank_file_scores" / "FILE_SCORES.md").read_text(encoding="utf-8")
         bands = [
             m.group(1) for m in re.finditer(
                 r"### [\w./]+\.py — \*\*\d+/100\*\* \(([A-F]) —", text
@@ -1072,7 +1072,7 @@ class TestReadmeArchitectureTree:
         """
         The tree names folders, with deliberate exceptions: the root documents
         NOTES.md and PROGRESSION.md, and the folders whose documents are listed
-        individually — agentic_models/ and file_scores_ranking/.
+        individually — agentic_models/ and rank_file_scores/.
         Everything else is a folder.
 
         A dot-prefixed entry such as .github/ is a folder, not a file, so the
@@ -1098,15 +1098,23 @@ class TestReadmeArchitectureTree:
         the other two narrative documents. Two days later it and PROGRESSION.md
         moved into progress/, so both names left allowed_files and the folder
         joined allowed_parents instead — the arrangement the other two document
-        folders already use, so a third record added to progress/ needs no edit
-        here. NOTES.md stays at the root because it is read on its own.
+        folders already use, so a third record added there needs no edit here.
+        NOTES.md stays at the root because it is read on its own.
+
+        Both folders were then renamed by the owner the same day: progress/ to
+        git_repo_progress/ and file_scores_ranking/ to rank_file_scores/. The
+        registry follows the names on disk, and because each rename was
+        committed as its own commit rather than force-rewritten, the history
+        still records the earlier names.
         """
         allowed_files = {
             "NOTES.md",
-            "file_scores_ranking/FILE_RANKING_GUIDE.md",
-            "file_scores_ranking/FILE_SCORES.md",
+            "rank_file_scores/FILE_RANKING_GUIDE.md",
+            "rank_file_scores/FILE_SCORES.md",
         }
-        allowed_parents = {"agentic_models", "file_scores_ranking", "progress"}
+        allowed_parents = {
+            "agentic_models", "rank_file_scores", "git_repo_progress",
+        }
         offenders, stack = [], []
         for line in self._block():
             match = self.NODE.match(line)
@@ -1126,7 +1134,7 @@ class TestReadmeArchitectureTree:
                 offenders.append("/".join(stack))
         assert offenders == [], (
             "file-level entries beyond the root documents, "
-            f"agentic_models/ and file_scores_ranking/: {offenders}"
+            f"agentic_models/, rank_file_scores/ and git_repo_progress/: {offenders}"
         )
 
     def test_skip_list_matches_execution_time(self):

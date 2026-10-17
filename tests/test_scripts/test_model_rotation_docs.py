@@ -19,7 +19,7 @@ import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 AGENTS_MD = REPO_ROOT / "agentic_models" / "AGENTS.md"
-PROGRESSION_MD = REPO_ROOT / "progress" / "PROGRESSION.md"
+PROGRESSION_MD = REPO_ROOT / "git_repo_progress" / "PROGRESSION.md"
 ALLOWANCE_MD = REPO_ROOT / "agentic_models" / "MODEL_ALLOWANCE.md"
 
 MODELS = [

@@ -645,7 +645,7 @@ a paid route on agentic work.
     prefix is right - this was violated five times in a row during the 29 Sep
     2026 session and had to be promoted from a "rule of thumb" to a numbered
     rule to stop the drift.
-13. **`progress/PROGRESSION.md` is a living document and is updated every session.**
+13. **`git_repo_progress/PROGRESSION.md` is a living document and is updated every session.**
     The review is not a one-off write-up of the 117-day run that closed on
     29 September 2026; it is the running
     record of where the project has got to, and it is updated whenever the
@@ -921,7 +921,7 @@ or the correction is half-applied.
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- 1980 passing tests, ~99% line coverage and 95% branch coverage (149 of the
+- 1982 passing tests, ~99% line coverage and 95% branch coverage (149 of the
   160 measured `python/` files at 100% lines, including both music-player
   GUIs; the 160 non-`__init__.py` files are the number a docstring sweep
   covers). The 160 counts files that carry at least one statement. The
@@ -1024,7 +1024,7 @@ or the correction is half-applied.
 
 ## References
 
-`progress/PROGRESSION.md` is the narrative review of the run from 4 June to 29
+`git_repo_progress/PROGRESSION.md` is the narrative review of the run from 4 June to 29
 September 2026, and of every session since:
 the stages of learning and what evidences each, the corrections and mistakes
 made by both A.I.M and the assistants, and how the AI collaboration was

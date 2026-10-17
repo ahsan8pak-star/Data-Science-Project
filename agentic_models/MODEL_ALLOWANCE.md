@@ -269,7 +269,7 @@ single-file mechanical edits. Popularity does not equal suitability.
 
 | File category | Model class | Prompt features that pay off | Why |
 | --- | --- | --- | --- |
-| Long single-owner docs (AGENTS.md 1,119 lines, NOTES.md 1,098, progress/PROGRESSION.md 1,029, FILE_SCORES.md 2,931) | 1M-window models: Space Bunny, Fledge Alpha, LongCat, Muse Spark | "Long-document reading, research synthesis"; full detail | Four docs total ~6,200 lines of cross-linked state. A 256K model truncates mid-document and misses cross-references. |
+| Long single-owner docs (AGENTS.md 1,119 lines, NOTES.md 1,098, git_repo_progress/PROGRESSION.md 1,029, FILE_SCORES.md 2,931) | 1M-window models: Space Bunny, Fledge Alpha, LongCat, Muse Spark | "Long-document reading, research synthesis"; full detail | Four docs total ~6,200 lines of cross-linked state. A 256K model truncates mid-document and misses cross-references. |
 | Numeric/doc-drift guards (test_repo_doc_numbers.py, test_ranking_docs.py, test_model_rotation_docs.py) | Cheap/fast models: Ling, Nemotron 3.5, MiMo | `Files: tests/test_scripts/` + `Verify: full suite` | Mechanical reconciliation; the model that writes it needs to run the suite, not hold the whole repo. |
 | Big teaching/test lanes (test_math_and_science_calculators.py 305, test_syntax_programs.py 271) | Nemotron 3 Ultra / LongCat; probe-writing also fits Nemotron 3.5 | `Goal` + `Files:` + `Constraints: owner lane byte-frozen` | High case-count but each is small; the constraint block is load-bearing because rule 1/11 freeze the owner's files. |
 | GUI/front-end (CS1OP tkinter screens) | Space Bunny / Fledge | multi-file `Files:` block, `Verify: -q` | Cross-file GUI refactor (the Java-to-Python translation used exactly this shape). |

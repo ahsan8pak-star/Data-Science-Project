@@ -23,6 +23,7 @@ Three things are guarded:
 Nothing here writes to the repository; every check is a read.
 """
 
+import ast
 import math
 import re
 import subprocess
@@ -31,8 +32,8 @@ from pathlib import Path
 import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-SCORES_MD = REPO_ROOT / "file_scores_ranking" / "FILE_SCORES.md"
-GUIDE_MD = REPO_ROOT / "file_scores_ranking" / "FILE_RANKING_GUIDE.md"
+SCORES_MD = REPO_ROOT / "rank_file_scores" / "FILE_SCORES.md"
+GUIDE_MD = REPO_ROOT / "rank_file_scores" / "FILE_RANKING_GUIDE.md"
 AGENTS_MD = REPO_ROOT / "agentic_models" / "AGENTS.md"
 NOTES_MD = REPO_ROOT / "NOTES.md"
 
@@ -668,7 +669,7 @@ class TestRenamedRankingFilesAreReferencedLive:
         text = doc.read_text(encoding="utf-8")
         for name in ("FILE_SCORES.md", "FILE_RANKING_GUIDE.md"):
             if name in text:
-                assert (REPO_ROOT / "file_scores_ranking" / name).is_file(), f"{doc.name} names missing {name}"
+                assert (REPO_ROOT / "rank_file_scores" / name).is_file(), f"{doc.name} names missing {name}"
 
 
 class TestRankingDocsUseLfLineEndings:
@@ -700,4 +701,73 @@ class TestRankingDocsUseLfLineEndings:
         """
         raw = Path(__file__).read_bytes()
         assert b"\r\n" not in raw
+
+
+
+class TestGeneratorWritesToTheTrackedSheet:
+    """
+    The sheet is generated, so the generator and the tracked file have to agree
+    on where it lives.
+
+    [AI-authored fix] The folder was renamed from file_scores_ranking/ to
+    rank_file_scores/ on 17 October 2026, and every guard here was repointed
+    to the new name. scripts/score_ranking.py was not, because nothing tested
+    it: the sheet itself had already moved, so every check in this file passed
+    while the generator would have written a fresh file_scores_ranking/
+    alongside it and left the tracked sheet stale. A guard that only reads the
+    artefact cannot see the tool that produces it.
+
+    The constant is parsed with ast rather than by importing the module, so the
+    check cannot have side effects and does not need the signals JSON to exist.
+    """
+
+    SCRIPT = REPO_ROOT / "scripts" / "score_ranking.py"
+
+    def _out_path(self):
+        """
+        Resolve `OUT = REPO_ROOT / "a" / "b"` without importing the module.
+
+        The chain nests to the left, so it is walked recursively rather than in
+        a loop: `REPO_ROOT / "a" / "b"` parses as
+        `(REPO_ROOT / "a") / "b`, and a one-level loop stops at the inner
+        BinOp and silently returns REPO_ROOT itself.
+        """
+        def flatten(node, segments):
+            if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Div):
+                flatten(node.left, segments)
+                flatten(node.right, segments)
+            elif isinstance(node, ast.Constant):
+                segments.append(node.value)
+            else:
+                segments.append(node)
+
+        tree = ast.parse(self.SCRIPT.read_text(encoding="utf-8"))
+        for node in tree.body:
+            if not isinstance(node, ast.Assign):
+                continue
+            targets = [t.id for t in node.targets if isinstance(t, ast.Name)]
+            if "OUT" not in targets:
+                continue
+            segments = []
+            flatten(node.value, segments)
+            base, *parts = segments
+            assert isinstance(base, ast.Name) and base.id == "REPO_ROOT", (
+                f"{self.SCRIPT.name}: OUT should be built from REPO_ROOT"
+            )
+            return REPO_ROOT.joinpath(*parts)
+        raise AssertionError(f"{self.SCRIPT.name} defines no OUT constant")
+
+    def test_the_generator_targets_the_tracked_sheet(self):
+        assert self._out_path() == SCORES_MD, (
+            f"{self.SCRIPT.name} writes to "
+            f"{self._out_path().relative_to(REPO_ROOT)}, but the tracked sheet "
+            f"is {SCORES_MD.relative_to(REPO_ROOT)}; running it would create a "
+            f"second copy and leave this one stale"
+        )
+
+    def test_the_generator_does_not_name_the_pre_rename_folder(self):
+        assert "file_scores_ranking" not in self.SCRIPT.read_text(encoding="utf-8"), (
+            f"{self.SCRIPT.name} still names the folder the ranking sheet left "
+            f"on 17 October 2026"
+        )
 

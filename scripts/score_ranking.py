@@ -1,5 +1,5 @@
 """
-Score every tracked module from the measured signals, and emit FILE_SCORES.md.
+Score every tracked module from the measured signals, and emit SCORES.md.
 
 [AI] The previous sheet was written by hand across a full pass, which is why
 its numbers were hard to defend: a reader could not tell which marks came from
@@ -30,7 +30,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SIGNALS = Path("/tmp/opencode/ranking_signals.json")
-OUT = REPO_ROOT / "file_scores_ranking" / "FILE_SCORES.md"
+OUT = REPO_ROOT / "rank_file_scores" / "FILE_SCORES.md"
 
 WEIGHTS = {
     "Learning": {

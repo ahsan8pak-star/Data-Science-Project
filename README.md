@@ -388,9 +388,9 @@ Data-Science-Project/
 ├── data/                                   # Storage layer for project datasets and tracking assets
 │   └── sandbox/                            # Raw pipeline source data (e.g. aim.csv)
 │
-├── file_scores_ranking/                    # Generated ranking outputs and the guide explaining their criteria
-│   ├── FILE_RANKING_GUIDE.md               # 0-100 scoring guide: five criteria, weighted per learning or applied tier
-│   └── FILE_SCORES.md                      # Ranking results for all 160 tracked Python files under python/
+├── git_repo_progress/                      # The project's running records, renamed for an action word leading
+│   ├── HISTORY_REVIEW.md                   # 22-week retrospective: contributor register, what went well and wrong, evidence-based improvements
+│   └── PROGRESSION.md                      # Narrative record of learning stages, corrections, and AI use
 │
 ├── htmlcov/                                # Generated pytest HTML coverage report (gitignored build artefact)
 │
@@ -426,6 +426,10 @@ Data-Science-Project/
 │   │   └── syntax_fundamentals/            # Domain models: BankAccount, Car, Order, Point, Worker, dice art
 │   │
 │   └── sandbox/                            # aim.py only - deliberately untested scratch space
+│
+├── rank_file_scores/                        # Generated ranking outputs and the guide explaining their criteria
+│   ├── FILE_RANKING_GUIDE.md               # 0-100 scoring guide: five criteria, weighted per learning or applied tier
+│   └── FILE_SCORES.md                      # Ranking results for all 160 tracked Python files under python/
 │
 ├── requirements/                           # Dependency manifests, the script that synchronises them, and DEPENDENCIES.md (the catalogue of both)
 │
@@ -499,8 +503,7 @@ Data-Science-Project/
 │   └── year3/                              # CS3 briefings (not shown yet)
 │       └── modules                         # Year 3 module briefings
 │
-├── progress/                               # The project's running records: HISTORY_REVIEW.md (22-week retrospective) and PROGRESSION.md (narrative review and session log)
-├── NOTES.md                                # Maintenance journal, study tracks, and current resource status
+└── NOTES.md                                # Maintenance journal, study tracks, and current resource status
 ```
 
 The `university_courseworks/` weeks share one convention, stated once rather than
