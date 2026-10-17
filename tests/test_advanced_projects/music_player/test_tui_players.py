@@ -71,13 +71,22 @@ class TestAudioPlayers:
             assert player.current_song is None
 
     def test_get_files_filters_by_extension(self, players):
+        """
+        [AI] Compares sorted, not raw order. `get_mp3_files()` returns
+        `os.listdir()` filtered, and listdir order is a filesystem artefact,
+        not a contract: NTFS returns alpha before beta, ext4 returns beta
+        before alpha. Asserting the raw list made this case pass on Windows
+        and fail on Linux for a reason that has nothing to do with the
+        filtering it is supposed to check.
+        """
         methods = {"mp3": "get_mp3_files", "wav": "get_wav_files"}
         expected = {
             "mp3": ["alpha.mp3", "beta.mp3"],
             "wav": ["alpha.wav", "beta.wav"],
         }
         for extension, player in players.items():
-            assert getattr(player, methods[extension])() == expected[extension]
+            found = getattr(player, methods[extension])()
+            assert sorted(found) == expected[extension]
 
     def test_get_files_stays_empty_for_nonexistent_folder(self, players, tmp_path):
         methods = {"mp3": "get_mp3_files", "wav": "get_wav_files"}

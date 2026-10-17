@@ -27,6 +27,7 @@ script - these are read-only queries against committed data.
 """
 
 import csv
+import os
 import io
 import json
 import re
@@ -38,6 +39,26 @@ import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 _TRIPLES = ('"""', "'''")
+
+
+"""
+[AI] Repository .py enumeration that prunes rather than post-filters.
+
+`Path.rglob("*.py")` descends into `venv/` and `venv-win/` before any filter
+can discard them, and those two environments hold tens of thousands of
+site-packages modules. On the Windows mount the walk was survivable; on the
+WSL /mnt/c mount it turned a one-second hygiene check into a multi-minute
+one, and the full suite stopped completing at all. `os.walk` with the
+directory list edited in place never enters the skipped trees, which is what
+the SKIP_DIRS were always meant to express.
+"""
+def _walk_python_files(skip_dirs):
+    for base, dirs, files in os.walk(REPO_ROOT):
+        dirs[:] = [d for d in dirs if d not in skip_dirs]
+        for name in files:
+            if name.endswith(".py"):
+                yield Path(base) / name
+
 SYNTAX = REPO_ROOT / "python" / "imperative_programming" / "syntax_exercises"
 
 # fixture filename -> the teaching script that references it by name.
@@ -268,14 +289,11 @@ class TestPythonFilesEndWithOneBlankLine:
     """
 
     EXEMPT = {"scripts/repair_test_numbers_seam.py"}
-    SKIP_DIRS = {".venv", "__pycache__", "htmlcov", ".git", ".pytest_cache",
+    SKIP_DIRS = {"venv-win", "venv", "__pycache__", "htmlcov", ".git", ".pytest_cache",
                  "node_modules"}
 
     def _python_files(self):
-        return [
-            p for p in REPO_ROOT.rglob("*.py")
-            if not self.SKIP_DIRS & set(p.relative_to(REPO_ROOT).parts)
-        ]
+        return list(_walk_python_files(self.SKIP_DIRS))
 
     @staticmethod
     def _trailing_newlines(path):
@@ -324,9 +342,9 @@ class TestPythonSourceHasNoTrailingWhitespace:
     """
 
     EXEMPT_FILES = set()
-    # .venv is the pinned environment itself: its site-packages are third-party
+    # venv-win is the pinned environment itself: its site-packages are third-party
     # code, not this repository's, and are never ours to reformat.
-    SKIP_DIRS = {".venv", "__pycache__", "htmlcov", ".git", ".pytest_cache",
+    SKIP_DIRS = {"venv-win", "venv", "__pycache__", "htmlcov", ".git", ".pytest_cache",
                  "node_modules"}
 
     @staticmethod
@@ -350,10 +368,7 @@ class TestPythonSourceHasNoTrailingWhitespace:
         return inside
 
     def _sources(self):
-        return [
-            p for p in REPO_ROOT.rglob("*.py")
-            if not (self.SKIP_DIRS & set(p.relative_to(REPO_ROOT).parts))
-        ]
+        return list(_walk_python_files(self.SKIP_DIRS))
 
     def test_no_trailing_whitespace_outside_string_literals(self):
         offenders = []
@@ -404,14 +419,11 @@ class TestMultiLineDocstringsUseTheHouseStructure:
     not a docstring and must not be mistaken for one.
     """
 
-    SKIP_DIRS = {".venv", "__pycache__", "htmlcov", ".git", ".pytest_cache",
+    SKIP_DIRS = {"venv-win", "venv", "__pycache__", "htmlcov", ".git", ".pytest_cache",
                  "node_modules"}
 
     def _sources(self):
-        return [
-            p for p in REPO_ROOT.rglob("*.py")
-            if not (self.SKIP_DIRS & set(p.relative_to(REPO_ROOT).parts))
-        ]
+        return list(_walk_python_files(self.SKIP_DIRS))
 
     def _multiline_strings(self, path):
         """Yield the raw text of every multi-line string literal in a file."""

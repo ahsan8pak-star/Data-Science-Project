@@ -619,9 +619,23 @@ class TestFileReader:
     """
     Reading three input formats in file_reader.py, with not-found and
     permission-denied paths reported per format.
+
+    [AI] The three-format read is Windows-only. The script sets `file_dir`
+    to an absolute `C:/Users/A.I.M/...` path, which on Linux is read as a
+    relative directory named `C:` and every read reports File Not Found.
+    That hardcoded path is already a scored weakness of the file
+    (Durability 58, "depends on a hardcoded filesystem path"), so it is
+    recorded here rather than quietly patched - rewriting the script changes
+    the lesson, which is the owner's call. The not-found cases still run
+    everywhere, because they expect that same failure.
     """
     FILE = f"{FOLDER}/file_reader.py"
 
+    @pytest.mark.skipif(
+        sys.platform != "win32",
+        reason="file_reader.py hardcodes an absolute Windows path for input.txt, "
+               "so the three-format read only works on Windows",
+    )
     def test_reads_all_three_input_formats(self):
         _, out = run_script(self.FILE)
         assert "This is being read from file_reader.py" in out

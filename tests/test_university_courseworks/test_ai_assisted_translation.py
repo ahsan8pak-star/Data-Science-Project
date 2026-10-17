@@ -60,10 +60,20 @@ class TestAIMarkerConvention:
         )
 
 
+@pytest.mark.skipif(
+    sys.platform != "win32",
+    reason="options_screen.py imports tkinter, which is not installed in the "
+           "WSL venv (python3-tk on Debian/Ubuntu)",
+)
 class TestCRTSettingsFlow:
     """
     The AI made the CRT settings reachable before the game starts. This flow
     is the one the owner asked for: edit the setting, then play.
+
+    [AI] Windows-only, because the screen layer it exercises imports tkinter.
+    tkinter ships with CPython on Windows but is a separate system package on
+    Debian/Ubuntu, so the Linux run cannot import options_screen.py at all.
+    The same reason makes the coursework package skip in its own conftest.
     """
 
     @pytest.fixture()

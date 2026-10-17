@@ -25,6 +25,7 @@ already-collected pytest session, and cost milliseconds.
 import ast
 import io
 import json
+import os
 import re
 import subprocess
 import tokenize
@@ -128,14 +129,36 @@ def _fails_to_parse(path):
     return False
 
 
+COURSEWORK_TESTS = (
+    REPO_ROOT
+    / "university_courseworks"
+    / "year1"
+    / "semester2"
+    / "cs1op"
+    / "coursework"
+    / "python"
+    / "tests"
+)
+
+
 def _is_full_run(request):
     """
-    True when the current pytest session collected every tests/ subdirectory.
+    True when the current pytest session collected every tests/ subdirectory
+    and the assessed coursework package.
 
     A suite-size claim can only be checked against a whole-suite collection;
     a targeted run of one folder would collect a fraction of it. Rather than
     guess from argv (which a caller controls freely), this looks at what was
     actually collected and asks whether all the areas are present.
+
+    [AI] The coursework package was missing from the original version, which
+    only looked under `tests/`. That works on Windows and quietly breaks on
+    Linux: the coursework conftest sets `collect_ignore_glob` when tkinter is
+    absent, so those 174 cases are never collected, the session total drops,
+    and every "N tests are documented" guard fails on a platform that is not
+    the one the docs describe. The documented count is the canonical
+    full-collection count, so a run that cannot reach the whole collection is
+    not a run these claims can be checked against.
     """
     areas = {
         p.name
@@ -143,16 +166,21 @@ def _is_full_run(request):
         if p.is_dir() and not p.name.startswith(("__", "."))
     }
     collected_areas = set()
+    coursework_collected = False
+    coursework_marker = COURSEWORK_TESTS.name
     for item in request.session.items:
         node = getattr(item, "path", None) or getattr(item, "fspath", None)
         if node is None:
             continue
-        parts = Path(str(node)).parts
+        raw = str(node)
+        if str(COURSEWORK_TESTS) in raw:
+            coursework_collected = True
+        parts = Path(raw).parts
         if "tests" in parts:
             index = parts.index("tests")
             if index + 1 < len(parts):
                 collected_areas.add(parts[index + 1])
-    return areas <= collected_areas
+    return areas <= collected_areas and coursework_collected
 
 
 class TestParadigmFileCounts:
@@ -323,7 +351,7 @@ class TestCoverageClaimsMatchTheReport:
     `coverage report`, so this guards the *doc against the record* and not the
     record against reality. Refreshing them is a manual step:
 
-        .venv/Scripts/python.exe -m pytest --cov --cov-report=term-missing
+        venv-win/Scripts/python.exe -m pytest --cov --cov-report=term-missing
         # read the TOTAL row, update the constants below and the sentence in
         # AGENTS.md together, and commit both in the same change
 
@@ -969,7 +997,7 @@ class TestReadmeArchitectureTree:
     because it is a build artefact rather than architecture.
     """
 
-    SKIP_DIRS = {".git", ".venv", ".pytest_cache", "__pycache__",
+    SKIP_DIRS = {".git", "venv-win", "venv", ".pytest_cache", "__pycache__",
                  ".coverage", "htmlcov", ".ipynb_checkpoints"}
 
     # The tree collapses the eleven CS1IP weeks into one "week1/ ... week12/"
@@ -1015,15 +1043,23 @@ class TestReadmeArchitectureTree:
 
     @classmethod
     def _folders_on_disk(cls):
+        """
+        Every folder in the tree, pruning as it walks.
+
+        [AI] `rglob("*")` enumerated the whole of `venv/` and `venv-win/`
+        before the SKIP_DIRS filter could drop them. The filter was correct
+        and the walk was still the slowest guard in the suite, because
+        pruning after traversal is not pruning. `os.walk` edits its `dirs`
+        list in place, so a skipped tree is never entered.
+        """
         found = set()
-        for top in REPO_ROOT.iterdir():
-            if not top.is_dir() or top.name in cls.SKIP_DIRS:
+        for base, dirs, _files in os.walk(REPO_ROOT):
+            dirs[:] = [d for d in dirs if d not in cls.SKIP_DIRS]
+            folder = Path(base)
+            if folder == REPO_ROOT:
                 continue
-            for folder in [top, *top.rglob("*")]:
-                if folder.is_dir() and not any(
-                    part in cls.SKIP_DIRS for part in folder.relative_to(REPO_ROOT).parts
-                ):
-                    found.add(folder.relative_to(REPO_ROOT).as_posix())
+            if folder.is_dir():
+                found.add(folder.relative_to(REPO_ROOT).as_posix())
         return found
 
     def test_the_tree_block_exists_and_parses(self):

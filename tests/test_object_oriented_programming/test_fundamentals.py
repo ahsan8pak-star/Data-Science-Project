@@ -489,10 +489,23 @@ class TestDuckTyping:
 generator.py
 ---------------------------------------------------------------------------
 """
+@pytest.mark.skipif(
+    sys.platform != "win32",
+    reason="generator.py hardcodes r'C:\\Users\\A.I.M\\C.S\\Data-Science-Project' "
+           "for activity_log.txt, so it only runs on Windows",
+)
 class TestGenerator:
     """
     generator.py - count_to's execution-time reporting, the activity-log
     reader, even/odd square generators and the KeyboardInterrupt report.
+
+    [AI] Skipped off Windows. The script's `read_file_generator` builds its
+    path from a hardcoded absolute Windows path, so on Linux the file lookup
+    raises FileNotFoundError before any generator is yielded and all seven
+    cases fail for a reason that has nothing to do with generators. The hard
+    path is already scored as a real weakness (Durability 58 in
+    FILE_SCORES.md), so it is recorded rather than silently patched here -
+    changing the script is a decision about the lesson, not about the test.
     """
     FILE = f"{FOLDER}/generator.py"
 
