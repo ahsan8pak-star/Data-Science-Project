@@ -231,7 +231,7 @@ guard, because it reads as coverage.
 
 ## Sources
 
-- OpenCode Zen documentation — <https://opencode.ai/docs/zen/> (route
+- OpenCode Zen documentation — <https://opencode.ai/v2/docs/zen/> (route
   availability and the privacy exceptions)
 - `models.dev` registry — <https://models.dev/api.json> (route context and
   output ceilings, per provider; last read 17 October 2026 for Beam Free and

@@ -234,7 +234,7 @@ Nemotron 3.5 Lightning are the right answer for the small, mechanical work
 that filled Big Pickle's column.
 
 **Privacy is not uniform, and this is a public repository.** OpenCode's
-privacy section (<https://opencode.ai/docs/zen/>, checked 7 October 2026)
+privacy section (<https://opencode.ai/v2/docs/zen/>, checked 7 October 2026)
 states a zero-retention default with named exceptions, so
 which model is selected decides what leaves the machine. Space Bunny and
 LongCat follow the zero-retention default. Big Pickle, Fledge Alpha Free,

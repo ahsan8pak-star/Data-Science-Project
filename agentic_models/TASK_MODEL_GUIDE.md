@@ -72,7 +72,7 @@ cite · pros / cons · authentic user note.**
 | 8 | **Boilerplate / docs / commit messages** | MiMo-V2.6-Flash (MiMo-V2.5) | fixed | AGENTS.md "Boilerplate, docs and commit messages only" | *(thin)* | Cheap; ample for mechanical text | 32K output; weak on careful reasoning | In-party only — treat as cheap/default, not proven |
 | 9 | **Agentic / multi-step tool use** | Nemotron 3 Ultra (Muse Spark · Space Bunny) | fixed / `high` | AGENTS.md "Agentic / multi-step tool use" | [Fellipe battery](https://fellipesoares.com.br/en/opencode-stealth-models-benchmarks/) | PinchBench 90, TauBench avg 70.9; 1M window | 128K output caps long patches; NVIDIA trial logs use | "Nemotron 3 Ultra (PinchBench 90)" (AGENTS.md) |
 | 10 | **Long-context retrieval** | Space Bunny (Muse Spark · LongCat) | `high`–`max` | AGENTS.md "Long context (1M)" | [buildfastwithai](https://blog.buildfastwithai.com/space-bunny-review) | Recovered three hidden codes from ~200K input | Not a full benchmark | "Retrieved all three in correct order" |
-| 11 | **Private / confidential work** | Space Bunny (LongCat 2.5 Preview) | `high`–`max` | AGENTS.md privacy override | [OpenCode Zen docs](https://opencode.ai/docs/zen/) | Only two **zero-retention** routes | Everything else may train on data | "The privacy list is unchanged: Space Bunny, LongCat" (AGENTS.md) |
+| 11 | **Private / confidential work** | Space Bunny (LongCat 2.5 Preview) | `high`–`max` | AGENTS.md privacy override | [OpenCode Zen docs](https://opencode.ai/v2/docs/zen/) | Only two **zero-retention** routes | Everything else may train on data | "The privacy list is unchanged: Space Bunny, LongCat" (AGENTS.md) |
 
 ## 4. Choosing the effort level for a task
 
@@ -195,8 +195,8 @@ the workflow rather than claiming a credit for it.
 - `agentic_models/MODEL_ALLOWANCE.md` — route ceilings, recorded usage, largest-context table, allowance.
 
 **Third-party (retrieved 14 October 2026):**
-- [OpenCode Zen docs](https://opencode.ai/docs/zen/) — free-model list, privacy exceptions, pricing.
-- [OpenCode models docs](https://opencode.ai/docs/models/) — variants, effort levels, custom variants.
+- [OpenCode Zen docs](https://opencode.ai/v2/docs/zen/) — free-model list, privacy exceptions, pricing.
+- [OpenCode models docs](https://opencode.ai/v2/docs/models/) — variants, effort levels, custom variants.
 - [Fellipe Soares — OpenCode stealth models battery](https://fellipesoares.com.br/en/opencode-stealth-models-benchmarks/) — Big Pickle / Space Bunny / Fledge Alpha vs two paid references.
 - [Fellipe Soares — Fledge Alpha](https://fellipesoares.com.br/en/fledge-alpha-stealth-model/) — 15/15 bug-fix battery, cost per task.
 - [buildfastwithai — Space Bunny review](https://blog.buildfastwithai.com/space-bunny-review) — 1M context, speed, retrieval test.
