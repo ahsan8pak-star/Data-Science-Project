@@ -173,11 +173,11 @@ the route ceilings, the locally measured token usage and the allowance A.I.M
 states from the console. The tables below stay here, beside the rules that use
 them.
 
-The eleven free OpenCode models rotated are: Big Pickle Free,
+The twelve free OpenCode models rotated are: Big Pickle Free,
 Space Bunny Free, Nemotron 3.5 Lightning Free, Nemotron 3 Ultra
 Free, Ling 3.0 Flash Fin Free, Ling 3.1 Flash Free, Muse Spark 1.3
 Contributor Free, MiMo-V2.6-Flash Free, MiMo-V2.5 Free, LongCat
-2.5 Preview Free and Fledge Alpha Free. Rotation is
+2.5 Preview Free, Fledge Alpha Free and Beam Free. Rotation is
 selected in the OpenCode console, not from inside a conversation — an
 agent cannot switch its own model mid-session.
 
@@ -190,7 +190,7 @@ candidates to verify against the repo rather than ground truth.
 #### What each model is for
 
 The rotation is a habit, not a strategy, unless each model has a job. All
-eleven free models share one endpoint
+twelve free models share one endpoint
 (`https://opencode.ai/zen/v1/chat/completions`, provider
 `@ai-sdk/openai-compatible`), so the choice is about context and strength,
 not access. The limits below are OpenCode's own *route* limits, read from the
@@ -212,6 +212,7 @@ free route is what this project actually gets.
 | MiMo-V2.6-Flash Free | 200,000 | 32,000 | Code generation, boilerplate | Commit messages, documentation |
 | MiMo-V2.5 Free | 200,000 | 32,000 | Code generation, boilerplate | Commit messages, documentation |
 | LongCat 2.5 Preview Free | 1,000,000 | 131,072 | Long-context refactors, image-heavy review | Complex debugging, multi-step reasoning |
+| Beam Free | 1,048,576 | 131,072 | Long-context refactors, long-document reading | Complex debugging, multi-step reads |
 | Fledge Alpha Free | 1,048,576 | 131,072 | Long-context refactors, code generation, multi-file agents | Complex debugging, multi-step reasoning |
 
 Three rules of thumb follow from the table. A 256K model is the right tool for
@@ -285,6 +286,7 @@ share of the 144.879T tokens across the eighteen models that page lists.
 | Nemotron 3 Ultra Free | 1,000,000 | 128,000 | 3.6T | 2.5% |
 | LongCat 2.5 Preview Free | 1,000,000 | 131,072 | 2.1T | 1.4% |
 | Fledge Alpha Free | 1,048,576 | 131,072 | 1.8T | 1.2% |
+| Beam Free | 1,048,576 | 131,072 | not yet used | 0% |
 | MiMo-V2.5 Free | 200,000 | 32,000 | 656B | 0.45% |
 | Nemotron 3.5 Lightning Free | 262,144 | 262,144 | 412B | 0.28% |
 | Ling 3.0 Flash Fin Free | 262,144 | 32,768 | below the published top-18 | unmeasured |
@@ -297,7 +299,7 @@ Three readings of that table matter more than the numbers themselves:
   not a fringe habit — but that figure is dominated by one model. Space Bunny
   alone is 36.6%, and DeepSeek models that are *not* rotated account for a
   further 25.4%, which says the free tier's popular choices are wider than
-  the eleven the rotation uses.
+  the twelve the rotation uses.
 - **Popularity is not suitability.** Big Pickle is unmeasured on the same table
   where it has been the rotation's most-used model, because platform-wide
   traffic and this repo's needs are different questions.
@@ -314,7 +316,7 @@ order, and the third is the one that matters:
 1. **Tokens.** Does the task fit the model's route limits — the context it can
    read and the output it can emit? A patch larger than the output ceiling is
    a truncated patch, so the ceiling decides before the task does. The ceilings
-   for all eleven models are tabulated in
+   for all twelve models are tabulated in
    `agentic_models/MODEL_ALLOWANCE.md`.
 2. **Percentage left.** How much of the day's or month's allowance is
    unspent? **Read `agentic_models/MODEL_ALLOWANCE.md` first.** Token usage is
@@ -356,6 +358,7 @@ stability notes are the verified facts recorded earlier on this page.
 | Muse Spark 1.3 Contributor Free | Root-cause debugging, architecture and trade-off analysis | Largest window in the rotation (1,048,576) alongside Space Bunny, and the model to reach for when the answer is "why does this break"; 21% of published traffic, so it is proven at scale | Explicitly trades prompts and completions for training future Meta models, which is the wrong trade on a public repo; 131,072 output ceiling, under a fifth of Space Bunny's; the least private of the eleven | Root-cause analysis and architecture, accepting the training trade. Corrected from "debugging" alone, which ignored what it costs privacy-wise |
 | MiMo-V2.6-Flash Free | Boilerplate, documentation, commit messages | A 200,000 window is ample for a docs or commit-message task, and it is one of the cheapest routes to hand repetitive generation to | Tied-smallest window and output (200,000 / 32,000) in the rotation, despite the same release being 1,048,576 on paid routes; free-period data may train the model; weak choice for anything needing careful reasoning | Boilerplate, docs and commit messages only. Corrected from "code generation", which invited it onto work its 32,000 output ceiling cannot finish |
 | MiMo-V2.5 Free | Boilerplate, documentation, commit messages | The second-generation MiMo free route, cheaper and older than V2.6; a 200,000 window is still ample for mechanical work | Same tied-smallest window and output (200,000 / 32,000) as V2.6; free-period data may train the model; no distinguishing strength over V2.6 for this repo's needs | Boilerplate, docs and commit messages only. Corrected from a separate niche to "either route does the same jar", so pick on availability, not loyalty |
+| Beam Free | Long-context refactors, long-document reading, multi-step reads | 1,048,576 window and 131,072 output on the free route, the same shape as Fledge Alpha, so it is a wide-context option on the shared free endpoint | No measured usage, no published index and no verified retention default: added to the rotation on 17 October 2026 and not yet exercised, so it is the one row here whose weaknesses are stated as unknowns rather than findings | Corrected use: none yet. Its route limits were read from the models.dev registry entry and nothing about its behaviour has been observed, so it is held as an untested alternative to Space Bunny rather than a replacement for it |
 | LongCat 2.5 Preview Free | Long-context refactors, image-heavy review, complex debugging | 1,000,000 window; zero-retention, so the safer large-window option; released 25 September 2026 | A "Preview" build released 25 September 2026 with no published end date to its free period, so both its behaviour and its availability can change without notice | Long-context work where retention matters. Corrected from "the only zero-retention model", which was wrong — Space Bunny is too |
 | Fledge Alpha Free | Long-context refactors, code generation, multi-file agents | Free on the same endpoint; 1,048,576 context and 131,072 output on the free route; multimodal input (text and image); now documented in OpenCode's pricing and privacy tables, checked 7 October 2026 | Released 1 October 2026 and a free-period data exception, so not zero-retention; has already thrown `Endpoint is unavailable` | Long-context and multi-file agent work, provisional. Corrected from "undocumented" to "documented but not zero-retention" on the 7 October check |
 
@@ -393,6 +396,7 @@ The hand-off table below is the default. Read it as a ranked fallback for
 | **MiMo-V2.6-Flash Free** | 1. Ling 3.0 Flash Fin Free — another cheap route for small mechanical work. 2. Big Pickle Free — when a review, not a rewrite, is wanted. 3. Nemotron 3.5 Lightning Free — when the task needs care rather than boilerplate |
 | **MiMo-V2.5 Free** | 1. MiMo-V2.6-Flash Free — the identical window with one more generation of polish. 2. Ling 3.0 Flash Fin Free — another cheap route for small mechanical work. 3. Nemotron 3.5 Lightning Free — when the task needs care rather than boilerplate |
 | **LongCat 2.5 Preview Free** | 1. Space Bunny Free — the mature alternative in the same 1M, zero-retention class. 2. Nemotron 3 Ultra Free — for reasoning-heavy debugging. 3. Muse Spark 1.3 Contributor Free — for architecture work where the preview build is not trusted |
+| **Beam Free** | 1. Space Bunny Free — the mature 1M alternative with the larger 524,288 output. 2. Fledge Alpha Free — the identical window. 3. Muse Spark 1.3 Contributor Free — for root-cause work. |
 | **Fledge Alpha Free** | 1. Space Bunny Free — the mature 1M alternative. 2. LongCat 2.5 Preview Free — the zero-retention 1M option. 3. Muse Spark 1.3 Contributor Free — for reasoning depth, accepting the Meta training trade |
 
 **Privacy overrides the ranking.** If the prompt contains anything personal,
@@ -1063,7 +1067,7 @@ September 2026, and of every session since:
 the stages of learning and what evidences each, the corrections and mistakes
 made by both A.I.M and the assistants, and how the AI collaboration was
 arranged - including the point where Claude and Gemini were replaced by
-OpenCode for terminal work, and the eleven-model free rotation. Its numeric
+OpenCode for terminal work, and the twelve-model free rotation. Its numeric
 claims are test-guarded by `tests/test_scripts/test_repo_doc_numbers.py`, so a
 stale figure there fails the suite like any other.
 

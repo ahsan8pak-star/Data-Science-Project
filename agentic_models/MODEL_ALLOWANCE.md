@@ -54,6 +54,31 @@ release is 1,048,576 everywhere else and 200,000 on this route.
 | MiMo-V2.5 Free | 200,000 | 32,000 |
 | LongCat 2.5 Preview Free | 1,000,000 | 131,072 |
 | Fledge Alpha Free | 1,048,576 | 131,072 |
+| Beam Free | 1,048,576 | 131,072 |
+
+### Keeping this table current
+
+The catalog moves. On 17 October 2026 the registry listed **44 zero-cost
+models** on the `opencode` provider, against the twelve rotated here, and it
+also listed **Exo Free** — still present, still 1,048,576 / 131,072 — which
+this project removed from its rotation on 11 October 2026. So the removal was
+a decision about *this* rotation, not an upstream discontinuation, and the two
+are worth keeping distinct when the history is read.
+
+Three sources, three different questions:
+
+| Source | Answers | Not authoritative for |
+| --- | --- | --- |
+| `/models` in the OpenCode console | What this console can actually select | Route ceilings for a model you cannot see |
+| `models.dev` registry | Route context and output per provider | Whether the route is served to you today |
+| `AGENTS.md` §Free-tier model rotation | What this project chooses to rotate | Anything current |
+
+Refresh the table and its date together, from the registry, and say which
+figure is a measurement and which is an observation. Nothing here is fetched
+by the test suite: a guard that reaches the network fails for reasons that
+have nothing to do with the repository. The protection is the offline kind —
+the stated ceilings are pinned against this recorded snapshot, so both are
+refreshed together and neither drifts alone.
 
 ## Token usage — measurable locally
 
@@ -209,7 +234,8 @@ guard, because it reads as coverage.
 - OpenCode Zen documentation — <https://opencode.ai/docs/zen/> (route
   availability and the privacy exceptions)
 - `models.dev` registry — <https://models.dev/api.json> (route context and
-  output ceilings, per provider)
+  output ceilings, per provider; last read 17 October 2026 for Beam Free and
+  the 44-model free-set count)
 - Local session database and CLI output — the token usage and largest-context
   tables (re-measured 10 October 2026) and the rate-limit log lines above
   (eleven failures, none since 1 October)

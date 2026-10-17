@@ -104,7 +104,7 @@ of which the free set is: Big Pickle, Cat Jam Free, LongCat 2.5 Preview Free,
 MiMo-V2.6-Flash Free, Muse Spark 1.3 Contributor Free, Nemotron 3.5 Lightning
 Free, Space Bunny Free, Step 5 Preview Free and Jev 1.13 Free.
 
-**Five of the eleven models in the repo's rotation are not in the current Zen
+**Five of the twelve models in the repo's rotation are not in the current Zen
 free list:** `nemotron-3-ultra-free`, `fledge-alpha-free`,
 `ling-3.0-flash-fin-free`, `ling-3.1-flash-free` and `mimo-v2.5-free`. They
 appear in `AGENTS.md` and `MODEL_ALLOWANCE.md` and in the recorded usage
@@ -112,6 +112,16 @@ table, so the rotation docs have drifted from the live catalog. Confirm what
 your console actually offers with `/models` before relying on this guide, and
 treat a missing model as a reason to pick the next-best row in §3, not as a
 reason to force a removed route.
+
+**Refreshed 17 October 2026.** Beam Free was added to the rotation as the
+twelfth model, read from the models.dev registry (`beam-free`, 1,048,576 /
+131,072). Two corrections to the reading above: the registry now carries **44
+zero-cost models**, so "the free list" is far larger than any rotation here
+wants, and **Exo Free is still in it** — the 11 October removal was this
+project's choice, not an upstream discontinuation. The console `/models` list
+above is still the authority on what can actually be selected; the registry is
+the authority on route ceilings. Refresh both, with their dates, rather than
+assuming last month's reading still holds.
 
 ## 7. A worked example: the CS1OP Java-to-Python translation
 
