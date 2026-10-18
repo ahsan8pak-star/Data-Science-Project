@@ -63,7 +63,7 @@ class TestAIMarkerConvention:
 @pytest.mark.skipif(
     sys.platform != "win32",
     reason="options_screen.py imports tkinter, which is not installed in the "
-           "WSL venv (python3-tk on Debian/Ubuntu)",
+           "WSL .venv-wsl (python3-tk on Debian/Ubuntu)",
 )
 class TestCRTSettingsFlow:
     """

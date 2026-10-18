@@ -351,7 +351,7 @@ class TestCoverageClaimsMatchTheReport:
     `coverage report`, so this guards the *doc against the record* and not the
     record against reality. Refreshing them is a manual step:
 
-        venv-win/Scripts/python.exe -m pytest --cov --cov-report=term-missing
+        .venv-win/Scripts/python.exe -m pytest --cov --cov-report=term-missing
         # read the TOTAL row, update the constants below and the sentence in
         # AGENTS.md together, and commit both in the same change
 
@@ -997,7 +997,7 @@ class TestReadmeArchitectureTree:
     because it is a build artefact rather than architecture.
     """
 
-    SKIP_DIRS = {".git", "venv-win", "venv", ".pytest_cache", "__pycache__",
+    SKIP_DIRS = {".git", ".venv-win", ".venv-wsl", ".pytest_cache", "__pycache__",
                  ".coverage", "htmlcov", ".ipynb_checkpoints"}
 
     # The tree collapses the eleven CS1IP weeks into one "week1/ ... week12/"
@@ -1046,7 +1046,7 @@ class TestReadmeArchitectureTree:
         """
         Every folder in the tree, pruning as it walks.
 
-        [AI] `rglob("*")` enumerated the whole of `venv/` and `venv-win/`
+        [AI] `rglob("*")` enumerated the whole of `.venv-wsl/` and `.venv-win/`
         before the SKIP_DIRS filter could drop them. The filter was correct
         and the walk was still the slowest guard in the suite, because
         pruning after traversal is not pruning. `os.walk` edits its `dirs`

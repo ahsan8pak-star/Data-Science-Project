@@ -44,7 +44,7 @@ _TRIPLES = ('"""', "'''")
 """
 [AI] Repository .py enumeration that prunes rather than post-filters.
 
-`Path.rglob("*.py")` descends into `venv/` and `venv-win/` before any filter
+`Path.rglob("*.py")` descends into `.venv-wsl/` and `.venv-win/` before any filter
 can discard them, and those two environments hold tens of thousands of
 site-packages modules. On the Windows mount the walk was survivable; on the
 WSL /mnt/c mount it turned a one-second hygiene check into a multi-minute
@@ -289,7 +289,7 @@ class TestPythonFilesEndWithOneBlankLine:
     """
 
     EXEMPT = {"scripts/repair_test_numbers_seam.py"}
-    SKIP_DIRS = {"venv-win", "venv", "__pycache__", "htmlcov", ".git", ".pytest_cache",
+    SKIP_DIRS = {".venv-win", ".venv-wsl", "__pycache__", "htmlcov", ".git", ".pytest_cache",
                  "node_modules"}
 
     def _python_files(self):
@@ -342,9 +342,9 @@ class TestPythonSourceHasNoTrailingWhitespace:
     """
 
     EXEMPT_FILES = set()
-    # venv-win is the pinned environment itself: its site-packages are third-party
+    # .venv-win is the pinned environment itself: its site-packages are third-party
     # code, not this repository's, and are never ours to reformat.
-    SKIP_DIRS = {"venv-win", "venv", "__pycache__", "htmlcov", ".git", ".pytest_cache",
+    SKIP_DIRS = {".venv-win", ".venv-wsl", "__pycache__", "htmlcov", ".git", ".pytest_cache",
                  "node_modules"}
 
     @staticmethod
@@ -419,7 +419,7 @@ class TestMultiLineDocstringsUseTheHouseStructure:
     not a docstring and must not be mistaken for one.
     """
 
-    SKIP_DIRS = {"venv-win", "venv", "__pycache__", "htmlcov", ".git", ".pytest_cache",
+    SKIP_DIRS = {".venv-win", ".venv-wsl", "__pycache__", "htmlcov", ".git", ".pytest_cache",
                  "node_modules"}
 
     def _sources(self):

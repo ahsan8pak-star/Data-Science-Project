@@ -12,9 +12,9 @@ agent (or future human) working on this project should read this first.
   **A.I.M** (the hardcoded `name = "A.I.M"` in several scripts is that
   personal signature, not placeholder text). The whole repo is his public
   portfolio.
-- Two virtual environments, named per platform: `venv-win/` is the Windows
-  one (Python 3.14, `venv-win/Scripts/python.exe`) and `venv/` is the WSL/Linux
-  one (Python 3.12, `venv/bin/python`). Both are installed and both run the
+- Two virtual environments, named per platform: `.venv-win/` is the Windows
+  one (Python 3.14, `.venv-win/Scripts/python.exe`) and `.venv-wsl/` is the WSL/Linux
+  one (Python 3.12, `.venv-wsl/bin/python`). Both are installed and both run the
   full suite; always invoke the interpreter explicitly rather than a bare
   `python`.
 - All scripts live under `python/<paradigm>/<folder>/`. Tests live under
@@ -132,7 +132,7 @@ Example that mirrors how this repo actually worked:
 Goal: Speed up the test suite without touching any teaching script.
 Files: tests/ (TestModules class especially)
 Constraints: python/ scripts stay frozen; no new comments unless asked
-Verify: venv-win/Scripts/python.exe -m pytest -q
+Verify: .venv-win/Scripts/python.exe -m pytest -q
 
 Capitalisation does not change how the agent reads the prompt - use
 normal sentence case and reserve ALL-CAPS for one or two critical words
@@ -535,18 +535,18 @@ a paid route on agentic work.
 
 | Task | Command |
 | --- | --- |
-| Run the full test suite | `venv-win/Scripts/python.exe -m pytest` |
-| Run one test folder | `venv-win/Scripts/python.exe -m pytest tests/test_imperative_programming/` |
-| Run one test file | `venv-win/Scripts/python.exe -m pytest tests/test_imperative_programming/test_unit_and_format_converters.py` |
-| Coverage report (term + missing lines + branch) | `venv-win/Scripts/python.exe -m pytest --cov --cov-report=term-missing` |
-| Coverage scope limited to `python/` | `venv-win/Scripts/python.exe -m pytest --cov=python` |
-| Coverage for the assessed coursework under `university_courseworks/` | `venv-win/Scripts/python.exe -m pytest --cov=university_courseworks` |
-| Clickable HTML coverage report | `venv-win/Scripts/python.exe -m pytest --cov=python --cov-report=html` (writes to ignored `htmlcov/`) |
-| Interactive project tree + benchmark | `venv-win/Scripts/python.exe scripts/execution_time.py` |
-| Project tree in non-interactive `--all` mode | `venv-win/Scripts/python.exe scripts/execution_time.py --all` |
-| Repo hygiene guards (CWD artefacts stay ignored) | `venv-win/Scripts/python.exe -m pytest tests/test_scripts/test_repo_hygiene.py` |
+| Run the full test suite | `.venv-win/Scripts/python.exe -m pytest` |
+| Run one test folder | `.venv-win/Scripts/python.exe -m pytest tests/test_imperative_programming/` |
+| Run one test file | `.venv-win/Scripts/python.exe -m pytest tests/test_imperative_programming/test_unit_and_format_converters.py` |
+| Coverage report (term + missing lines + branch) | `.venv-win/Scripts/python.exe -m pytest --cov --cov-report=term-missing` |
+| Coverage scope limited to `python/` | `.venv-win/Scripts/python.exe -m pytest --cov=python` |
+| Coverage for the assessed coursework under `university_courseworks/` | `.venv-win/Scripts/python.exe -m pytest --cov=university_courseworks` |
+| Clickable HTML coverage report | `.venv-win/Scripts/python.exe -m pytest --cov=python --cov-report=html` (writes to ignored `htmlcov/`) |
+| Interactive project tree + benchmark | `.venv-win/Scripts/python.exe scripts/execution_time.py` |
+| Project tree in non-interactive `--all` mode | `.venv-win/Scripts/python.exe scripts/execution_time.py --all` |
+| Repo hygiene guards (CWD artefacts stay ignored) | `.venv-win/Scripts/python.exe -m pytest tests/test_scripts/test_repo_hygiene.py` |
 
-> Prefer the Windows venv python (`venv-win/Scripts/python.exe`), NOT a plain
+> Prefer the Windows .venv-wsl python (`.venv-win/Scripts/python.exe`), NOT a plain
 > `python` / `python3` — the repo is pinned to that interpreter.
 
 ### Running the suite on Linux (WSL)
@@ -556,8 +556,8 @@ the suite:
 
 | Platform | Environment | Interpreter | Result |
 | --- | --- | --- | --- |
-| Windows | `venv-win/` | `venv-win/Scripts/python.exe` (3.14.5) | 1990 passed |
-| WSL/Linux | `venv/` | `venv/bin/python` (3.12.3) | 1800 passed, 12 skipped |
+| Windows | `.venv-win/` | `.venv-win/Scripts/python.exe` (3.14.5) | 1990 passed |
+| WSL/Linux | `.venv-wsl/` | `.venv-wsl/bin/python` (3.12.3) | 1800 passed, 12 skipped |
 
 The documented suite size (1990) is the Windows figure. The Linux run is
 smaller because twelve cases name a platform limitation in their `skipif`
@@ -573,7 +573,7 @@ reason rather than failing obscurely:
   scripts is a change to the lesson, not to the test.
 
 If you rename or move either environment, rewrite the absolute shebangs in
-`venv/bin/*` and the `VIRTUAL_ENV` lines in the activate scripts — a moved
+`.venv-wsl/bin/*` and the `VIRTUAL_ENV` lines in the activate scripts — a moved
 virtualenv otherwise keeps working through `bin/python` while every console
 script in it fails.
 
@@ -605,7 +605,7 @@ script in it fails.
    never committed.
 7. **Keep README tree + `TREE_SKIP` in sync** when folders are added/removed.
    `TREE_SKIP` in `scripts/execution_time.py` excludes generated/vendored paths
-   (`.git`, `venv-win`, `venv`, `.pytest_cache`, `__pycache__`, `.coverage`,
+   (`.git`, `.venv-win`, `.venv-wsl`, `.pytest_cache`, `__pycache__`, `.coverage`,
   `htmlcov`).
 8. **Any file type may be staged and committed — `python/` included.**
    Agents follow the Conventional Commit table below for every commit
@@ -1034,7 +1034,7 @@ or the correction is half-applied.
     a real error, currently none — `main.py` was the only one until A.I.M added
     `pass` on 30 Sep 2026, which makes it a `PASS`) and `ERROR` (the harness
     could not launch it, currently none). It benchmarks
-  `sys.executable` rather than a bare `python`, so it measures the pinned venv
+  `sys.executable` rather than a bare `python`, so it measures the pinned .venv-wsl
   interpreter, and derives `PROJECT_ROOT` from `__file__` rather than a baked
   absolute path.
 - `FILE_RANKING_GUIDE.md` and `FILE_SCORES.md`: a 0-100 scoring guide and the

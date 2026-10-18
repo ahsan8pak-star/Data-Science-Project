@@ -675,7 +675,7 @@ class TestRenamedRankingFilesAreReferencedLive:
 class TestRankingDocsUseLfLineEndings:
     """
     .gitattributes pins `* text=auto eol=lf`, so the canonical form of these
-    files is LF. The trap is that a rewrite through the Windows venv
+    files is LF. The trap is that a rewrite through the Windows .venv-wsl
     interpreter re-emits CRLF: pathlib's write_text leaves newline=None, and
     on Windows that translates every \\n to \\r\\n, so a file fixed to LF goes
     back to CRLF the next time a script rewrites it. Git then normalises on

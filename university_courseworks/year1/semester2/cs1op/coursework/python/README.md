@@ -18,15 +18,15 @@ python/
 ## Running it
 
 ```bash
-# from this folder, with the repo venv
-/mnt/c/Users/A.I.M/C.S/Data-Science-Project/venv-win/Scripts/python.exe src/main.py        # GUI version
-/mnt/c/Users/A.I.M/C.S/Data-Science-Project/venv-win/Scripts/python.exe src/main.py --text # terminal version
+# from this folder, with the repo .venv-wsl
+/mnt/c/Users/A.I.M/C.S/Data-Science-Project/.venv-win/Scripts/python.exe src/main.py        # GUI version
+/mnt/c/Users/A.I.M/C.S/Data-Science-Project/.venv-win/Scripts/python.exe src/main.py --text # terminal version
 ```
 
 ## Testing
 
 ```bash
-/mnt/c/Users/A.I.M/C.S/Data-Science-Project/venv-win/Scripts/python.exe -m pytest tests/ -q
+/mnt/c/Users/A.I.M/C.S/Data-Science-Project/.venv-win/Scripts/python.exe -m pytest tests/ -q
 ```
 
 178 tests, all headless: no window and no audio device needed. Every

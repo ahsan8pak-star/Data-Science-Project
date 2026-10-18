@@ -210,7 +210,7 @@ documented figures.
 Ten Dependabot branches per remote (`numpy`, `matplotlib`, `coverage`, `pytest`,
 `psycopg2`, `scikit-learn`, `ipykernel`) — none of which have ever been merged,
 so they are proposals rather than churn. `requirements_sync.py` regenerates the
-frozen manifests offline from the live venv, and a guard keeps
+frozen manifests offline from the live .venv-wsl, and a guard keeps
 `DEPENDENCIES.md` pinned to the compiled files.
 
 ### 2.5 Commit hygiene in the second half
@@ -542,7 +542,7 @@ git log --diff-filter=D --format='%ad %s' --date=short -- tests/test_algorithms.
 git ls-files | awk -F/ '{print $1}' | sort | uniq -c | sort -rn
 
 # the guard share of the suite
-venv-win/Scripts/python.exe -m pytest tests/test_scripts/ -q --collect-only | tail -2
+.venv-win/Scripts/python.exe -m pytest tests/test_scripts/ -q --collect-only | tail -2
 
 # the courseware provenance
 git log --diff-filter=A --format='%ad %s' --date=short -- 'Java-To-Python-Conversion/*'

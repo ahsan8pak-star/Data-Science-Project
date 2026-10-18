@@ -120,7 +120,7 @@ ipython_config.py
 # pixi
 #   Similar to Pipfile.lock, it is generally recommended to include pixi.lock in version control.
 # pixi.lock
-#   Pixi creates a virtual environment in the .pixi directory, just like the venv module
+#   Pixi creates a virtual environment in the .pixi directory, just like the .venv-wsl module
 #   creates one in the project virtual environments. It is recommended not to include this
 #   directory in version control.
 .pixi
@@ -151,10 +151,9 @@ activemq-data/
 # Environments
 .env
 .envrc
-venv-win
-venv
-.venv
+.venv-win
 .venv-wsl
+.venv
 env/
 venv/
 ENV/

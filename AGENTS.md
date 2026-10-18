@@ -6,12 +6,12 @@ miss. Rule 14 (context-first) applies in both Plan and Build mode.
 
 ## Commands
 
-- Windows interpreter: `venv-win/Scripts/python.exe` (3.14.5).
-- WSL/Linux interpreter: `venv/bin/python` (3.12.3).
-- Full suite: `venv-win/Scripts/python.exe -m pytest` (1990 passed).
-- WSL suite: `venv/bin/python -m pytest` (1800 passed, 12 skipped).
+- Windows interpreter: `.venv-win/Scripts/python.exe` (3.14.5).
+- WSL/Linux interpreter: `.venv-wsl/bin/python` (3.12.3).
+- Full suite: `.venv-win/Scripts/python.exe -m pytest` (1990 passed).
+- WSL suite: `.venv-wsl/bin/python -m pytest` (1800 passed, 12 skipped).
 - Never use bare `python`/`python3` — it resolves to the system interpreter.
-- A moved venv keeps working through `bin/python` while its console scripts
+- A moved .venv-wsl keeps working through `bin/python` while its console scripts
   fail; rewrite the shebangs and `VIRTUAL_ENV` lines after any move.
 
 ## Architecture
@@ -22,7 +22,7 @@ miss. Rule 14 (context-first) applies in both Plan and Build mode.
   ceilings. `agentic_models/TASK_MODEL_GUIDE.md` maps tasks to models.
 - `git_repo_progress/PROGRESSION.md` — session log (rule 13, append-only).
 - `git_repo_progress/HISTORY_REVIEW.md` — WWW/EBI retrospective.
-- Two venvs, named per platform: `venv-win/` and `venv/`. Both are ignored.
+- Two venvs, named per platform: `.venv-win/` and `.venv-wsl/`. Both are ignored.
 
 ## Key rules
 

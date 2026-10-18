@@ -19,7 +19,7 @@ import pytest
 """
 [AI] The game screen layer is built on tkinter, which ships with CPython on
 Windows but is a separate system package on Debian/Ubuntu (`python3-tk`) and
-is therefore absent from the WSL `venv/` used for the Linux suite run. Without
+is therefore absent from the WSL `.venv-wsl/` used for the Linux suite run. Without
 this guard the coursework suite fails at collection with
 `ModuleNotFoundError: No module named 'tkinter'`, which reads as a broken
 translation rather than a missing optional system library.

@@ -17,7 +17,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 """
 Benchmark the interpreter that is running the tool, which by the documented
-command is the pinned venv one. Spawning a bare "python" resolved to the
+command is the pinned .venv-wsl one. Spawning a bare "python" resolved to the
 system Python instead, so the report was measuring a different interpreter.
 """
 BENCHMARK_PYTHON = sys.executable
@@ -31,12 +31,12 @@ CHILD_ENV = {**os.environ, "PYTHONIOENCODING": "utf-8"}
 
 # Generated / vendored folders and files skipped in the tree display (and never benchmarked)
 """
-Both virtual environments are skipped: `venv-win` is the Windows (3.14)
-one and `venv` the WSL/Linux (3.12) one. They are large, untracked, and
+Both virtual environments are skipped: `.venv-win` is the Windows (3.14)
+one and `.venv-wsl` the WSL/Linux (3.12) one. They are large, untracked, and
 hold no portfolio code.
 """
 TREE_SKIP = {
-    ".git", "venv-win", "venv", ".pytest_cache",
+    ".git", ".venv-win", ".venv-wsl", ".pytest_cache",
     "__pycache__", ".coverage", "htmlcov",
 }
 
