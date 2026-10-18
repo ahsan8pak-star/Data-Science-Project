@@ -11,6 +11,10 @@ miss. Rule 14 (context-first) applies in both Plan and Build mode.
 - Full suite: `.venv-win/Scripts/python.exe -m pytest` (1990 passed).
 - WSL suite: `.venv-wsl/bin/python -m pytest` (1800 passed, 12 skipped).
 - Never use bare `python`/`python3` — it resolves to the system interpreter.
+- Bare `pytest` now works after activation (launchers were regenerated
+  after the venv rename); still prefer `python -m pytest` for reproducibility.
+- `-rs` is in addopts, so skipped tests print their reason. Warnings show by
+  default; use `-W error` to turn them into failures when triaging.
 - A moved .venv-wsl keeps working through `bin/python` while its console scripts
   fail; rewrite the shebangs and `VIRTUAL_ENV` lines after any move.
 

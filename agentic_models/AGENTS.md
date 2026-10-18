@@ -589,8 +589,10 @@ script in it fails.
   `source .venv-wsl/bin/activate`. A local override file
   `.vscode/settings.local.json` (gitignored) can carry the WSL interpreter
   path; `.vscode/settings.local.json.example` shows the shape.
-- **Never use bare `pytest`**: it resolves to whatever is first on `PATH`.
-  Always use the full interpreter path with `-m pytest`.
+- Bare `pytest` now works after activation (the launchers were regenerated
+  after the venv rename), but still prefer `.venv-win/Scripts/python.exe -m
+  pytest` for reproducibility — a bare `pytest` resolves to whatever is
+  first on `PATH` if the venv is not active.
 
 ## Project Rules (Do NOT break these)
 
