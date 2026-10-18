@@ -22,6 +22,15 @@
                 "cwd": "${workspaceFolder}"
             },
             "problemMatcher": []
+        },
+        {
+            "label": "Sync: Update Requirements (requirements_sync.py) [WSL]",
+            "type": "shell",
+            "command": ".venv-wsl/bin/python requirements/requirements_sync.py",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
         }
     ]
 }

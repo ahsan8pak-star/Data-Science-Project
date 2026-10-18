@@ -1,0 +1,4 @@
+{
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv-wsl/bin/python",
+    "_note": "WSL override. Copy this file to settings.local.json (gitignored) when running under the Linux environment."
+}

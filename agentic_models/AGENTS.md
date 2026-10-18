@@ -577,6 +577,21 @@ If you rename or move either environment, rewrite the absolute shebangs in
 virtualenv otherwise keeps working through `bin/python` while every console
 script in it fails.
 
+### VS Code terminal auto-activation
+
+- **Windows**: VS Code auto-activates `.venv-win` because
+  `python.defaultInterpreterPath` points at it. Verify with
+  `python -c "import sys; print(sys.executable)"` — it must print a path
+  inside `.venv-win/Scripts/`, not the system Python.
+- **WSL**: VS Code does not auto-activate `.venv-wsl` from that single
+  setting. Select it manually: Command Palette → "Python: Select
+  Interpreter" → `.venv-wsl/bin/python`, or source it with
+  `source .venv-wsl/bin/activate`. A local override file
+  `.vscode/settings.local.json` (gitignored) can carry the WSL interpreter
+  path; `.vscode/settings.local.json.example` shows the shape.
+- **Never use bare `pytest`**: it resolves to whatever is first on `PATH`.
+  Always use the full interpreter path with `-m pytest`.
+
 ## Project Rules (Do NOT break these)
 
 1. **The OOP lane is frozen.** `python/object_oriented_programming/` —
