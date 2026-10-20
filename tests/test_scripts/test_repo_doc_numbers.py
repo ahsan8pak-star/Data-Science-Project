@@ -1145,6 +1145,12 @@ class TestReadmeArchitectureTree:
         """
         allowed_files = {
             "NOTES.md",
+            "README.md",
+            "AGENTS.md",
+            "LICENSE",
+            "pyproject.toml",
+            ".gitattributes",
+            ".gitignore",
             "rank_file_scores/FILE_RANKING_GUIDE.md",
             "rank_file_scores/FILE_SCORES.md",
         }
