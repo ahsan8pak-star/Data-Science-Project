@@ -19,7 +19,7 @@ Every library installed in the project virtual environment (`.venv-win`, Python 
 
 ## Tier A — Fundamental / All-Rounder Libraries
 
-Declared in `requirements.in` (15 packages):
+Declared in `requirements.in` (20 packages):
 
 | Library | Pinned | Purpose |
 | --- | --- | --- |
@@ -38,8 +38,13 @@ Declared in `requirements.in` (15 packages):
 | `pytest` | 9.1.1 | Test runner |
 | `pytest-cov` | 7.1.0 | Coverage plugin for pytest |
 | `coverage` | 7.16.2 | `coverage[toml]` measurement engine |
+| `torch` | 2.14.1 | Deep-learning framework (PyTorch) for DS/ML experiments |
+| `beautifulsoup4` | 4.15.0 | HTML/XML parsing for scraping and data collection |
+| `flask` | 3.1.3 | Lightweight web framework for serving models/dashboards |
+| `pillow` | 12.3.0 | Image processing (PIL) for vision/data pipelines |
+| `plotly` | 7.1.0 | Interactive data visualisation |
 
-**Transitive closure** frozen in `requirements.txt`: `certifi`, `charset-normalizer`, `cloudpickle`, `colorama`, `contourpy`, `cycler`, `et-xmlfile`, `fonttools`, `idna`, `iniconfig`, `kiwisolver`, `narwhals`, `packaging`, `pillow`, `pluggy`, `pygments`, `pyparsing`, `python-dateutil`, `six`, `threadpoolctl`, `tzdata`, `urllib3`.
+**Transitive closure** frozen in `requirements.txt`: `certifi`, `charset-normalizer`, `cloudpickle`, `colorama`, `contourpy`, `cycler`, `et-xmlfile`, `fonttools`, `idna`, `iniconfig`, `kiwisolver`, `narwhals`, `packaging`, `pluggy`, `pygments`, `pyparsing`, `python-dateutil`, `six`, `threadpoolctl`, `tzdata`, `urllib3`.
 
 ---
 
