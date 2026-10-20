@@ -1,6 +1,6 @@
 # Dependencies & Environment Catalogue
 
-Every library installed in the project virtual environment (`.venv-win`, Python 3.14), split into **three tiers** so that the cross-platform code libraries stay separate from the Windows-specific development tooling.
+Every library installed in the project's two virtual environments — `.venv-win` (Windows, Python 3.14.5) and `.venv-wsl` (WSL/Linux, Python 3.12.3) — split into **three tiers** so that the cross-platform code libraries stay separate from the Windows-specific development tooling. The two environments share the same Tier A versions wherever a wheel exists for both; the differences are documented in the **WSL / Linux environment** section below.
 
 ## Classification Rule
 
@@ -47,6 +47,27 @@ Declared in `requirements.in` (20 packages):
 **Transitive closure** frozen in `requirements.txt`: `certifi`, `charset-normalizer`, `cloudpickle`, `colorama`, `contourpy`, `cycler`, `et-xmlfile`, `fonttools`, `idna`, `iniconfig`, `kiwisolver`, `narwhals`, `packaging`, `pluggy`, `pygments`, `pyparsing`, `python-dateutil`, `six`, `threadpoolctl`, `tzdata`, `urllib3`.
 
 ---
+
+## WSL / Linux environment (`.venv-wsl`, Python 3.12.3)
+
+The WSL environment mirrors Tier A at the same versions, plus the machine-learning frameworks that do not ship a Python 3.14 wheel. **TensorFlow is WSL-only for this reason.** PyTorch is installed CPU-only on both platforms (the Lenovo IdeaPad Flex 5 carries only integrated AMD Radeon graphics, so CUDA is not applicable).
+
+| Library | Windows (3.14) | WSL (3.12) | Notes |
+| --- | --- | --- | --- |
+| `torch` | 2.14.1+cpu | 2.14.1+cpu | CPU build on both; CUDA not applicable (no NVIDIA GPU) |
+| `tensorflow` / `tensorflow-cpu` | not available | 2.21.0 | No Python 3.14 wheel; WSL-only. Bundles `keras` 3.15.1 |
+| `beautifulsoup4` | 4.15.0 | 4.15.0 | shared |
+| `flask` | 3.1.3 | 3.1.3 | shared |
+| `pillow` | 12.3.0 | 12.3.0 | shared |
+| `plotly` | 7.1.0 | 7.1.0 | shared |
+| `numpy` | 2.5.4 | 2.5.4 | shared |
+| `pandas` | 3.0.6 | 3.0.6 | shared |
+| `scipy` | 1.18.1 | 1.18.1 | shared |
+| `scikit-learn` | 1.9.1 | 1.9.1 | shared |
+| `matplotlib` | 3.11.2 | 3.11.2 | shared |
+| `seaborn` | 0.13.2 | 0.13.2 | shared |
+
+> The WSL environment is **not** driven by `requirements_sync.py` (that script reads `.venv-win`). Its versions are recorded here by hand; re-run `pip list` in the WSL venv after any change and update this table. Tier B (Jupyter/mypy) tooling is Windows-only dev-kit work; the WSL venv reuses the same packages where present but is not required to mirror Tier B.
 
 ## Tier B — Windows Dev Kits
 
