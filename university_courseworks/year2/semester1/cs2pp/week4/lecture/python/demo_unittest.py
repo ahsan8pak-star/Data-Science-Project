@@ -1,4 +1,4 @@
-# For demonstration in a Jupyter Notebook, 
+# For demonstration in a Jupyter Notebook,
 # we have added the arguments to unittest.main().
 
 import unittest
@@ -14,11 +14,11 @@ class TestMathUtils(unittest.TestCase):
     def test_add_positive_values(self):
         self.assertEqual(add_numbers(2, 3), 5)
         self.assertEqual(add_numbers(10, 5), 15)
-    
+
     def test_add_negative_values(self):
         self.assertEqual(add_numbers(-1, -2), -3)
         self.assertEqual(add_numbers(-10, -5), -15)
-    
+
     def test_add_zero(self):
         self.assertEqual(add_numbers(0, 5), 5)
         self.assertEqual(add_numbers(5, 0), 5)

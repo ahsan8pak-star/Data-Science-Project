@@ -85,11 +85,13 @@ therefore requires java/ and python/, and merely allows pdf/ and pptx/. Decided
 create empty folders that git would silently drop.
 """
 OPTIONAL_TYPE_FOLDERS = {"cs1op": {"lecture": {"pdf", "pptx"},
-                                   "practical": {"pdf"}}}
+                                   "practical": {"pdf"}},
+                        "cs2pp": {"lecture": {"python"},
+                                  "practical": {"python"}}}
 
-# CS2PP's python/ folders are empty everywhere and outside its contract: its work
-# is notebook-based, so they are leftovers from before the notebooks were split out.
-STALE_TYPE_FOLDERS = {("cs2pp", "python")}
+# CS2PP's python/ folders are optional: its work is notebook-based, but A.I.M keeps
+# small Python demos (unittest/pytest) beside the notebooks for hands-on practice.
+STALE_TYPE_FOLDERS = set()
 
 """
 [AI-authored fix] The type folders outside a module's shared contract.
@@ -427,6 +429,7 @@ class TestModuleCourseworkFolders:
             for week in week_folders(CS2PP)
             for half in ("lecture", "practical")
             if (week / half / "python").is_dir()
+            and not any((week / half / "python").iterdir())
         ]
         assert stale == [], (
             "cs2pp carries an empty python/ folder in these weeks, which its "
