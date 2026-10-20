@@ -13,5 +13,8 @@ psycopg2
 requests
 pygame-ce
 qrcode
-
-
+torch
+beautifulsoup4
+flask
+pillow
+plotly
