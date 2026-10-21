@@ -631,11 +631,6 @@ class TestFileReader:
     """
     FILE = f"{FOLDER}/file_reader.py"
 
-    @pytest.mark.skipif(
-        sys.platform != "win32",
-        reason="file_reader.py hardcodes an absolute Windows path for input.txt, "
-               "so the three-format read only works on Windows",
-    )
     def test_reads_all_three_input_formats(self):
         _, out = run_script(self.FILE)
         assert "This is being read from file_reader.py" in out

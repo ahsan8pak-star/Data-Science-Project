@@ -489,11 +489,6 @@ class TestDuckTyping:
 generator.py
 ---------------------------------------------------------------------------
 """
-@pytest.mark.skipif(
-    sys.platform != "win32",
-    reason="generator.py hardcodes r'C:\\Users\\A.I.M\\C.S\\Data-Science-Project' "
-           "for activity_log.txt, so it only runs on Windows",
-)
 class TestGenerator:
     """
     generator.py - count_to's execution-time reporting, the activity-log

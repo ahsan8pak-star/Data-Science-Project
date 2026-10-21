@@ -15,6 +15,7 @@ yield -> Drip faucet = Can be paused and resumed
 # -----------------
 
 import time
+from pathlib import Path
 
 def count_to(n):
     count = 1
@@ -67,9 +68,9 @@ def read_file(file_path):
             yield line.strip()
 
 
-file_path = r"C:\Users\A.I.M\C.S\Data-Science-Project\python\imperative_programming\syntax_exercises\\"
+file_path = Path(__file__).resolve().parent.parent.parent / "imperative_programming" / "syntax_exercises"
 file_name = "activity_log.txt"
-file_directory = file_path + file_name
+file_directory = file_path / file_name
 
 for line in read_file(file_directory):
     print(line)
@@ -103,9 +104,9 @@ for n in counter:
 # --- EXAMPLE 2 ---
 # -----------------
 
-file_path = r"C:\Users\A.I.M\C.S\Data-Science-Project\python\imperative_programming\syntax_exercises\\"
+file_path = Path(__file__).resolve().parent.parent.parent / "imperative_programming" / "syntax_exercises"
 file_name = "aim.txt"
-file_directory = file_path + file_name
+file_directory = file_path / file_name
 
 with open(file_directory) as file:
    lines = (line.strip() for line in file)

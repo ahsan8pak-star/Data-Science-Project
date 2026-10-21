@@ -1,8 +1,10 @@
 """ .txt file """
 
-file_dir = "C:/Users/A.I.M/C.S/Data-Science-Project/python/imperative_programming/syntax_exercises/"
+from pathlib import Path
+
+file_dir = Path(__file__).resolve().parent
 file_name = "input.txt"
-file_path = file_dir + file_name
+file_path = file_dir / file_name
 
 try:
     with open(file_path, "r") as file:
@@ -20,9 +22,9 @@ except PermissionError:
 
 import json
 
-file_dir = "C:/Users/A.I.M/C.S/Data-Science-Project/python/imperative_programming/syntax_exercises/"
+file_dir = Path(__file__).resolve().parent
 file_name = "input.json"
-file_path = file_dir + file_name
+file_path = file_dir / file_name
 
 try:
     with open(file_path, "r") as file:
@@ -41,9 +43,9 @@ except PermissionError:
 import csv
 from datetime import datetime
 
-file_dir = "C:/Users/A.I.M/C.S/Data-Science-Project/python/imperative_programming/syntax_exercises/"
+file_dir = Path(__file__).resolve().parent
 file_name = "input.csv"
-file_path = file_dir + file_name
+file_path = file_dir / file_name
 
 try:
     with open(file_path, "r") as file:
