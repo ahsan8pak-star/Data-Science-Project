@@ -377,12 +377,12 @@ This is for extensive and multi-level applications such as machine learning and 
 ```text
 Data-Science-Project/
 │
-├── .github/                                # Dependabot configuration
-├── .vscode/                                # IDE local runtime environment configuration
-│
 ├── .gitattributes                          # LF line-ending pin (* text=auto eol=lf) and binary-file markers
+├── .github/                                # Dependabot configuration
 ├── .gitignore                              # Ignore rules: venvs, caches, artefacts, credentials (see below)
 ├── .opencode/                              # OpenCode CLI settings for this project (shell pinning per launch environment)
+├── .vscode/                                # IDE local runtime environment configuration
+│
 ├── AGENTS.md                               # Compact entrypoint; full rules in agentic_models/AGENTS.md
 ├── LICENSE                                 # MIT terms
 ├── NOTES.md                                # Maintenance journal, study tracks and career direction
@@ -557,6 +557,26 @@ fresh clone. The categories are:
   `*.html` — datasets and generated reports.
 - Root-level generated logs and placeholders: `activity_log.txt`, `aim.txt`,
   `clients.txt`, `system_logs.txt`, `*.txt` — runtime/owner notes.
+
+### Project documentation (markdown files that state the project structure)
+
+The architecture above is the map; these markdown files are the legend. Each is
+tracked and states part of the project's structure, rules or progress:
+
+- `README.md` — this file: the architecture tree, references and project overview.
+- `AGENTS.md` — compact entrypoint: commands, architecture summary, key rules.
+- `agentic_models/AGENTS.md` — single source of truth: full rules, model rotation,
+  conventions and the running instruction set.
+- `agentic_models/MODEL_ALLOWANCE.md` — per-model route ceilings, local token usage
+  and allowance remaining before a switch.
+- `agentic_models/TASK_MODEL_GUIDE.md` — task-to-model mapping with effort levels.
+- `requirements/DEPENDENCIES.md` — dependency catalogue: tiers A/B/C, pinned
+  versions and the sync workflow (Windows + WSL).
+- `rank_file_scores/FILE_RANKING_GUIDE.md` — 0-100 file scoring guide.
+- `rank_file_scores/FILE_SCORES.md` — ranking results for all 160 tracked Python files.
+- `git_repo_progress/PROGRESSION.md` — narrative record of learning stages and sessions.
+- `git_repo_progress/HISTORY_REVIEW.md` — 22-week retrospective (WWW/EBI).
+- `NOTES.md` — maintenance journal, study tracks and career direction.
 
 ---
 
