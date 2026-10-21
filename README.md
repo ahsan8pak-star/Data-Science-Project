@@ -382,6 +382,7 @@ Data-Science-Project/
 │
 ├── .gitattributes                          # LF line-ending pin (* text=auto eol=lf) and binary-file markers
 ├── .gitignore                              # Ignore rules: venvs, caches, artefacts, credentials (see below)
+├── .opencode/                              # OpenCode CLI settings for this project (shell pinning per launch environment)
 ├── AGENTS.md                               # Compact entrypoint; full rules in agentic_models/AGENTS.md
 ├── LICENSE                                 # MIT terms
 ├── NOTES.md                                # Maintenance journal, study tracks and career direction

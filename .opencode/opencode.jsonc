@@ -1,0 +1,19 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  // OpenCode does not have an in-TUI terminal profile picker. The shell used
+  // inside OpenCode's built-in terminal pane is determined by where you
+  // launch `opencode` from, and this project-level setting overrides the
+  // global Windows config (shell = powershell) for this project only.
+  //
+  // WSL / Ubuntu terminals: launch `opencode` from your WSL prompt.
+  //   cd /mnt/c/Users/A.I.M/C.S/Data-Science-Project
+  //   source .venv-wsl/bin/activate
+  //   opencode
+  // -> OpenCode terminals run /bin/bash (WSL)
+  //
+  // Windows PowerShell / CMD terminals: launch `opencode` from PowerShell or
+  // CMD OUTSIDE this project directory, or temporarily move this .opencode/
+  // folder aside. The global config at ~/.config/opencode/opencode.jsonc
+  // (shell = powershell) then applies and OpenCode terminals run PowerShell.
+  "shell": "/bin/bash"
+}
