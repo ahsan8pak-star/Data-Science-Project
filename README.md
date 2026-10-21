@@ -374,21 +374,14 @@ This is for extensive and multi-level applications such as machine learning and 
 
 ## Project Architecture
 
+Folders are listed first (alphabetically), then root-level files (alphabetically). Generated/vendored paths (`.git`, `.venv-win`, `.venv-wsl`, `.pytest_cache`, `__pycache__`, `.coverage`, `htmlcov`, `.mypy_cache`, `.ruff_cache`, `.ipynb_checkpoints`) are omitted, matching `TREE_SKIP` in `scripts/execution_time.py`.
+
 ```text
 Data-Science-Project/
 │
-├── .gitattributes                          # LF line-ending pin (* text=auto eol=lf) and binary-file markers
 ├── .github/                                # Dependabot configuration
-├── .gitignore                              # Ignore rules: venvs, caches, artefacts, credentials (see below)
-├── .opencode/                              # OpenCode CLI settings for this project (shell pinning per launch environment)
+├── .opencode/                              # OpenCode CLI settings for this project (pins /bin/bash for WSL launches; overrides global PowerShell default)
 ├── .vscode/                                # IDE local runtime environment configuration
-│
-├── AGENTS.md                               # Compact entrypoint; full rules in agentic_models/AGENTS.md
-├── LICENSE                                 # MIT terms
-├── NOTES.md                                # Maintenance journal, study tracks and career direction
-├── pyproject.toml                          # pytest, coverage, ruff and black configuration
-├── README.md                               # This file: architecture tree and references
-│
 ├── agentic_models/                         # Free-tier model rotation: what to read before switching models
 │   ├── AGENTS.md                           # Operating rules, project constraints, model rotation, and commit conventions
 │   ├── MODEL_ALLOWANCE.md                  # Per-model route ceilings, local token usage, and the allowance left before a switch
@@ -397,7 +390,7 @@ Data-Science-Project/
 ├── data/                                   # Storage layer for project datasets and tracking assets
 │   └── sandbox/                            # Raw pipeline source data (e.g. aim.csv)
 │
-├── git_repo_progress/                      # The project's running records, renamed for an action word leading
+├── git_repo_progress/                      # Running records of the project (progress log, retrospective, and session history)
 │   ├── HISTORY_REVIEW.md                   # 22-week retrospective: contributor register, what went well and wrong, evidence-based improvements
 │   └── PROGRESSION.md                      # Narrative record of learning stages, corrections, and AI use
 │
@@ -431,7 +424,7 @@ Data-Science-Project/
 │   │   └── unit_and_format_converters/     # Temperature, weight, time, phone, Roman numerals and QR PNG
 │   │
 │   ├── object_oriented_programming/        # Class-based modelling: frozen concept demos plus domain models
-│   │   ├── fundamental_topics/             # One-concept-per-file tour: inheritance, composition, dunders, dataclasses, decorators
+│   │   ├── fundamental_topics/             # One-file demos of the object-oriented toolkit: inheritance, composition, dunders, dataclasses, decorators
 │   │   └── syntax_fundamentals/            # Domain models: BankAccount, Car, Order, Point, Worker, dice art
 │   │
 │   └── sandbox/                            # aim.py only - deliberately untested scratch space
@@ -512,7 +505,13 @@ Data-Science-Project/
 │   └── year3/                              # CS3 briefings (not shown yet)
 │       └── modules                         # Year 3 module briefings
 │
-└── NOTES.md                                # Maintenance journal, study tracks, and current resource status
+├── .gitattributes                          # LF line-ending pin (* text=auto eol=lf) and binary-file markers
+├── .gitignore                              # Ignore rules: venvs, caches, artefacts, credentials (see below)
+├── AGENTS.md                               # Compact entrypoint; full rules in agentic_models/AGENTS.md
+├── LICENSE                                 # MIT terms
+├── NOTES.md                                # Maintenance journal, study tracks and career direction
+├── pyproject.toml                          # pytest, coverage, ruff and black configuration
+└── README.md                               # This file: architecture tree and references
 ```
 
 The `university_courseworks/` weeks share one convention, stated once rather than
