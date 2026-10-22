@@ -36,7 +36,15 @@ public class SortBenchmark {
     public static Integer[] random_list(int n) {
         Integer[] a = new Integer[n];
 
-        // TASK 2: Complete this function so it returns a list of n random integers.
+        // SOLUTION: Fill the array with n random integers.
+        // r.nextInt() returns a pseudorandom int across the full int range.
+        // Using the same Random seed (20241024) before each sort ensures
+        // reproducible benchmarks: every sort algorithm sees the same input.
+        // COMMON MISTAKE: forgetting to re-seed r before each sort run,
+        // which makes timing comparisons meaningless (different inputs).
+        for (int x = 0; x < n; x++) {
+            a[x] = r.nextInt();
+        }
 
         return a;
     }
@@ -59,9 +67,72 @@ public class SortBenchmark {
         // before generating input lists for each sort.
 		r = new Random(20241024);
 
-        // TASKS 3 ONWARDS:
-        // YOUR CODE GOES HERE.
-        System.out.println("Hello world.");
+        // TASK 3: Benchmark insertion sort.
+        // As expected, insertion sort scales very badly.
+        // It cannot even manage an array of 100,000 integers in 10s on my machine.
+        r = new Random(20241024);
+        time = 0;
+        // Start with 10,000, because anything less is too fast to measure.
+        // Keep increasing the input size until the running time for the sort exceeds 10s.
+        // Increasing by 20% each time (n * 12 / 10), rather than by a constant amount,
+        // means that we reach 10s without an excessive number of iterations,
+        // while still getting a good number of datapoints in the 1s-10s range.
+        // If you use non-linear spacing of datapoints like this, make sure you draw an
+        // X-Y scatter graph, not an ordinary line graph.
+        for (int n = 10000; time < 10000000000L; n = (n * 12)/10) {
+            a = random_list(n);
+            start_timer();
+            Insertion.sort(a);
+            time = stop_timer();
+            System.out.printf("insertion,%d,%d%n", n, time/1000000);
+        }
+
+        // TASK 4: Benchmark merge sort.
+        // On my machine, mergesort turns out to be fastest and has a nice, gradual curve.
+        // Note that this implementation of mergesort is bottom-up (hence MergeBU).
+        // This avoids the need for recursion.
+        r = new Random(20241024);
+        time = 0;
+        for (int n = 10000; time < 10000000000L; n = (n * 12)/10) {
+            a = random_list(n);
+            start_timer();
+            MergeBU.sort(a);
+            time = stop_timer();
+            System.out.printf("merge,%d,%d%n", n, time/1000000);
+        }
+
+        // TASK 5: Benchmark quicksort (3-way partition).
+        // Quicksort has a similar curve to mergesort, but is slower on my machine.
+        // This might be surprising, as everyone usually says "quicksort is fastest in practice".
+        // However, that refers to quicksort with all the low-level optimisations.
+        // This implementation includes one optimisation, namely 3-way partition.
+        // This makes it extremely fast on input with many repeated values.
+        // The other sorts also improve somewhat, as this reduces the number of exchanges needed.
+        // This quicksort also uses a random shuffle to avoid worst-case O(n^2) behaviour.
+        r = new Random(20241024);
+        time = 0;
+        for (int n = 10000; time < 10000000000L; n = (n * 12)/10) {
+            a = random_list(n);
+            start_timer();
+            Quick3way.sort(a);
+            time = stop_timer();
+            System.out.printf("quick,%d,%d%n", n, time/1000000);
+        }
+
+        // TASK 6: Benchmark shell sort.
+        // The running time of Shell sort is highly dependent on the stride sequence used.
+        // The sequence in this implementation gives O(n^2/3) complexity.
+        // This is definitely slower than mergesort and quicksort,
+        // but it only takes about twice as long to sort 2,000,000 integers.
+        r = new Random(20241024);
+        time = 0;
+        for (int n = 10000; time < 10000000000L; n = (n * 12)/10) {
+            a = random_list(n);
+            start_timer();
+            Shell.sort(a);
+            time = stop_timer();
+            System.out.printf("shell,%d,%d%n", n, time/1000000);
+        }
 
     }
 

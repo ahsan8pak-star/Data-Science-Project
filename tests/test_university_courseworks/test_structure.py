@@ -104,7 +104,8 @@ same principle rather than renamed into lecture/python/ behind his back.
 """
 EXTRA_TYPE_FOLDERS = {("cs1ip", "week7", "lecture"): {"txt"},
                       ("cs1ip", "week3", "lecture"): {"week_03_lecture_code"},
-                      ("cs2pp", "week1", "practical"): {"images"}}
+                      ("cs2pp", "week1", "practical"): {"images"},
+                      ("cs2pp", "week4", "practical"): {"txt"}}
 
 MODULE_PATHS = {"cs1ip": CS1IP, "cs1db": CS1DB, "cs1op": CS1OP, "cs2pp": CS2PP}
 
