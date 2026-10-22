@@ -57,7 +57,7 @@ decks - nine weeks of `.pptx`, added as the lecture half's real material.
 """
 TYPE_SUFFIXES = {"java": ".java", "python": ".py", "pdf": ".pdf",
                  "sql": ".sql", "txt": ".txt", "data": None, "csv": ".csv",
-                 "jupyter": ".ipynb", "pptx": ".pptx"}
+                 "jupyter": ".ipynb", "pptx": ".pptx", "html": ".html"}
 
 # Modules whose weeks split into lecture/ and practical/, and the type folders
 # each nests: CS1DB carries sql/ and data/, CS2PP carries jupyter/ in both halves.
@@ -87,7 +87,7 @@ create empty folders that git would silently drop.
 OPTIONAL_TYPE_FOLDERS = {"cs1op": {"lecture": {"pdf", "pptx"},
                                    "practical": {"pdf"}},
                         "cs2pp": {"lecture": {"python"},
-                                  "practical": {"python"}}}
+                                  "practical": {"python", "html"}}}
 
 # CS2PP's python/ folders are optional: its work is notebook-based, but A.I.M keeps
 # small Python demos (unittest/pytest) beside the notebooks for hands-on practice.
@@ -103,7 +103,8 @@ counterpart to the week_07_practical_files fixtures, and recorded here on the
 same principle rather than renamed into lecture/python/ behind his back.
 """
 EXTRA_TYPE_FOLDERS = {("cs1ip", "week7", "lecture"): {"txt"},
-                      ("cs1ip", "week3", "lecture"): {"week_03_lecture_code"}}
+                      ("cs1ip", "week3", "lecture"): {"week_03_lecture_code"},
+                      ("cs2pp", "week1", "practical"): {"images"}}
 
 MODULE_PATHS = {"cs1ip": CS1IP, "cs1db": CS1DB, "cs1op": CS1OP, "cs2pp": CS2PP}
 
