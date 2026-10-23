@@ -557,20 +557,18 @@ the suite:
 | Platform | Environment | Interpreter | Result |
 | --- | --- | --- | --- |
 | Windows | `.venv-win/` | `.venv-win/Scripts/python.exe` (3.14.5) | 1990 passed |
-| WSL/Linux | `.venv-wsl/` | `.venv-wsl/bin/python` (3.12.3) | 1800 passed, 12 skipped |
+| WSL/Linux | `.venv-wsl/` | `.venv-wsl/bin/python` (3.12.3) | 1990 passed |
 
-The documented suite size (1990) is the Windows figure. The Linux run is
-smaller because twelve cases name a platform limitation in their `skipif`
-reason rather than failing obscurely:
-
-- **tkinter** is absent from the Linux environment (it is `python3-tk` on
-  Debian/Ubuntu, not a pip package). The CS1OP coursework package sets
-  `collect_ignore_glob` in its conftest, and `TestCRTSettingsFlow` skips, so
-  the coursework runs on Windows only.
-- **`file_reader.py`** hardcodes `C:/Users/A.I.M/...` and **`generator.py`**
-  hardcodes `C:\Users\A.I.M\...`. Both are recorded weaknesses in
-  `FILE_SCORES.md`, so the cases that need them are Windows-only. Fixing the
-  scripts is a change to the lesson, not to the test.
+The documented suite size (1990) is the same on both platforms. Earlier Linux
+runs were smaller because twelve cases skipped for a platform limitation;
+those skips were removed at the root cause rather than tolerated. A minimal
+tkinter stub in `tests/test_university_courseworks/conftest.py` lets modules
+that import tkinter be imported on a machine without it (Debian and Ubuntu
+package it as `python3-tk`, not as a pip dependency), and `file_reader.py`
+and `generator.py` now resolve their data paths relative to the repository,
+so the cases that need them run on Linux too. The coursework package remains
+part of the full collection on both platforms, which is why the same total is
+now quoted for each.
 
 If you rename or move either environment, rewrite the absolute shebangs in
 `.venv-wsl/bin/*` and the `VIRTUAL_ENV` lines in the activate scripts — a moved
