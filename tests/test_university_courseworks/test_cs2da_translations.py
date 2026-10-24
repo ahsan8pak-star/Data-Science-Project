@@ -62,9 +62,9 @@ class _RecordingRoot:
         self.mainloop_called = True
 
 
-# ----------------------------------------------------------------------------
-# dc_convex_hull - Point / split / merge / sorts
-# ----------------------------------------------------------------------------
+"""
+dc_convex_hull - Point / split / merge / sorts
+"""
 
 def test_point_repr_lt_flip() -> None:
     dc = _load_cs2da("week2/python/dc_convex_hull.py")
@@ -290,9 +290,9 @@ def test_convex_hull_plot_paint_and_wiring(monkeypatch) -> None:
     assert root.mainloop_called is True
 
 
-# ----------------------------------------------------------------------------
-# avl_tree_st
-# ----------------------------------------------------------------------------
+"""
+avl_tree_st
+"""
 
 def test_avl_known_sample(capsys, monkeypatch) -> None:
     avl = _load_cs2da("week3/python/avl_tree_st.py")
@@ -466,9 +466,9 @@ def test_avl_invariant_checks_detect_corruption(capsys) -> None:
     assert st._height_node(None) == -1
 
 
-# ----------------------------------------------------------------------------
-# basic_avl_tree_set
-# ----------------------------------------------------------------------------
+"""
+basic_avl_tree_set
+"""
 
 def test_avl_set_empty_and_sentinel() -> None:
     avls = _load_cs2da("week3/python/basic_avl_tree_set.py")
@@ -523,9 +523,9 @@ def test_avl_set_add_remove_invariants() -> None:
     assert s2.contains("a") is True
 
 
-# ----------------------------------------------------------------------------
-# sort_benchmark
-# ----------------------------------------------------------------------------
+"""
+sort_benchmark
+"""
 
 def test_sort_benchmark_timer(monkeypatch) -> None:
     sb = _load_cs2da("week4/python/sort_benchmark.py")

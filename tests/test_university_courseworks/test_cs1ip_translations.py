@@ -80,14 +80,15 @@ class _RecordingRoot:
         pass
 
 
-# ----------------------------------------------------------------------------
-# print_loop
-# ----------------------------------------------------------------------------
+"""
+print_loop
+"""
 
-KNOWN_PRINT_LOOP_OUTPUT = """i=1,j=1
+KNOWN_PRINT_LOOP_OUTPUT = """
+i=1,j=1
 i=1,j=2
 i=2,j=1
-"""
+""".lstrip("\n")
 
 
 def test_print_loop_matches_the_java_output(capsys) -> None:
@@ -97,9 +98,9 @@ def test_print_loop_matches_the_java_output(capsys) -> None:
     assert out == KNOWN_PRINT_LOOP_OUTPUT
 
 
-# ----------------------------------------------------------------------------
-# fall_ball / bounce_ball
-# ----------------------------------------------------------------------------
+"""
+fall_ball / bounce_ball
+"""
 
 FALL_BALL_ERASE = "\033[2J"
 FALL_BALL_HIDE = "\033[?25l"
@@ -175,9 +176,9 @@ def test_bounce_ball_main_bounces_and_stops(monkeypatch) -> None:
     assert sleeps == [pytest.approx(0.06)] * len(heights)
 
 
-# ----------------------------------------------------------------------------
-# snakes_and_ladders
-# ----------------------------------------------------------------------------
+"""
+snakes_and_ladders
+"""
 
 @pytest.mark.parametrize(
     ("pos", "expected"),
@@ -259,9 +260,9 @@ def test_snakes_and_ladders_main_hits_snake(monkeypatch, capsys) -> None:
     assert "Congratulations! You win!" in out
 
 
-# ----------------------------------------------------------------------------
-# doodle
-# ----------------------------------------------------------------------------
+"""
+doodle
+"""
 
 def test_doodle_paint_component_draws_two_circles() -> None:
     mod = _load("week8/lecture/python/doodle.py")
@@ -293,9 +294,9 @@ def test_doodle_gui_wiring_with_doubles(monkeypatch) -> None:
     assert any(c[0] == "oval" for c in canvas.calls)
 
 
-# ----------------------------------------------------------------------------
-# doodle_house
-# ----------------------------------------------------------------------------
+"""
+doodle_house
+"""
 
 def test_draw_window_exact_calls() -> None:
     mod = _load("week8/lecture/python/doodle_house.py")
@@ -349,9 +350,9 @@ def test_doodle_house_gui_wiring(monkeypatch) -> None:
     assert root.mainloop_called is True
 
 
-# ----------------------------------------------------------------------------
-# door_animation
-# ----------------------------------------------------------------------------
+"""
+door_animation
+"""
 
 def test_door_animation_frames_exact_content() -> None:
     mod = _load("week8/practical/week_08_practical_files/door_animation.py")
@@ -380,9 +381,9 @@ def test_door_animation_main_clears_and_prints_all_frames(monkeypatch, capsys) -
     assert sleeps == [0.5] * 5
 
 
-# ----------------------------------------------------------------------------
-# doodle_falling_snow - AffineTransform / Graphics
-# ----------------------------------------------------------------------------
+"""
+doodle_falling_snow - AffineTransform / Graphics
+"""
 
 def test_affine_transform_identity_and_copy() -> None:
     mod = _load("week12/lecture/python/doodle_falling_snow.py")
@@ -442,9 +443,9 @@ def test_graphics_styles_and_shapes() -> None:
     assert c.of("text")[0][2]["font"] == ("Arial", 16)
 
 
-# ----------------------------------------------------------------------------
-# doodle_falling_snow - panel
-# ----------------------------------------------------------------------------
+"""
+doodle_falling_snow - panel
+"""
 
 class _SeqRng:
     def __init__(self, values, default=1):

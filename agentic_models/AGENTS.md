@@ -223,6 +223,19 @@ routes are not the models: MiMo-V2.6-Flash is served at 200,000 here and at
 1,048,576 by every paid provider, so a context figure read off a model card
 will not match what this project can actually use.
 
+#### Simple repo work uses the cheapest adequate model
+
+For mechanical Git and repo-ops work — `git status`, `git add`, `git commit`,
+`git push`, `git pull`, branch syncs, lightweight PR wording, and simple
+update scripts — do not default to the 1M context models. The default should
+be the smallest model that fits the task: **Ling 3.1 Flash Free** or **Ling
+3.0 Flash Fin Free** for the simple commands themselves, and **MiMo-V2.6-Flash
+Free** for short commit-message or PR-summary drafting. Reserve **Space Bunny
+Free**, **LongCat 2.5 Preview Free**, **Nemotron 3 Ultra Free**, and the other
+large-window routes for architecture, multi-file refactors, root-cause
+analysis, or deep repo review. In other words: a `_git add_` / `_git push_`
+workflow is not a long-context problem, and the model should reflect that.
+
 **The rotation has been over-used on two models.** A.I.M reached for Big
 Pickle and Space Bunny by default, so both logged the most sessions without
 earning the widest role. The correct reading of the table is that Big Pickle
@@ -556,10 +569,10 @@ the suite:
 
 | Platform | Environment | Interpreter | Result |
 | --- | --- | --- | --- |
-| Windows | `.venv-win/` | `.venv-win/Scripts/python.exe` (3.14.5) | 1990 passed |
-| WSL/Linux | `.venv-wsl/` | `.venv-wsl/bin/python` (3.12.3) | 1990 passed |
+| Windows | `.venv-win/` | `.venv-win/Scripts/python.exe` (3.14.5) | 2042 passed |
+| WSL/Linux | `.venv-wsl/` | `.venv-wsl/bin/python` (3.12.3) | 2042 passed |
 
-The documented suite size (1990) is the same on both platforms. Earlier Linux
+The documented suite size (2042) is the same on both platforms. Earlier Linux
 runs were smaller because twelve cases skipped for a platform limitation;
 those skips were removed at the root cause rather than tolerated. A minimal
 tkinter stub in `tests/test_university_courseworks/conftest.py` lets modules
@@ -914,6 +927,7 @@ is enforced in the server's `receive-pack` hook, and `--dry-run` is documented
 as "do everything except actually send the updates", so the hook is never
 reached and a dry-run reports success on a protected and an unprotected branch
 alike. Reading the settings, or making a real push, is the only way to know.
+
 - **Additions do not need per-instance approval.** New source files, new tests,
   new documentation sections, new folders, and new remotes or branches may be
   added and committed under the Conventional Commit table above without asking
@@ -973,8 +987,8 @@ or the correction is half-applied.
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- `scripts/test_equity.py` measures test-equity across the portfolio: a composite surface (methods, attributes, command types, input/output points) versus pytest cases plus guard assertions, attributed per module via resolved FILE/FOLDER constants. `tests/test_scripts/test_test_equity.py` guards it: 160 modules, 159 with tests, 1 full-range failure (the deliberate `main.py` stub), density CV 2.22 ratcheted at 2.3, min/max ratio 301 ratcheted at 310.
-- 1990 passing tests, ~99% line coverage and 95% branch coverage (149 of the
+- `scripts/test_equity.py` measures test-equity across the portfolio: a composite surface (methods, attributes, command types, input/output points) versus pytest cases plus guard assertions, attributed per module via resolved FILE/FOLDER constants. `tests/test_scripts/test_test_equity.py` guards it: 160 modules, 159 with tests, 1 full-range failure (the deliberate `main.py` stub), density CV 2.69 ratcheted at 2.7, min/max ratio 447.99 ratcheted at 450.
+- 2042 passing tests, ~99% line coverage and 95% branch coverage (149 of the
   160 measured `python/` files at 100% lines, including both music-player
   GUIs; the 160 non-`__init__.py` files are the number a docstring sweep
   covers). The 160 counts files that carry at least one statement. The
@@ -1169,4 +1183,3 @@ here. Read the relevant briefing before editing anything in it.
 > three years: see `university_courseworks/university_modules/UNIVERSITY_MODULES.md`. Official BSc Computer Science
 > (UCAS G400) course pages: 2025/26, 2026/27 and 2027/28 entry (the 2025 page
 > redirects to 2026/27; the 2027 page is not live yet).
-

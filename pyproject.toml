@@ -36,7 +36,7 @@ testpaths = [
 python_files = "test_*.py"
 python_classes = "Test*"
 python_functions = "test_*"
-addopts = "--strict-markers -rs"
+addopts = "--strict-markers -ra"
 pythonpath = ["python", "requirements"]
 
 [tool.coverage.run]

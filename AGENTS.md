@@ -8,12 +8,12 @@ miss. Rule 14 (context-first) applies in both Plan and Build mode.
 
 - Windows interpreter: `.venv-win/Scripts/python.exe` (3.14.5).
 - WSL/Linux interpreter: `.venv-wsl/bin/python` (3.12.3).
-- Full suite: `.venv-win/Scripts/python.exe -m pytest` (1990 passed).
-- WSL suite: `.venv-wsl/bin/python -m pytest` (1990 passed).
+- Full suite: `.venv-win/Scripts/python.exe -m pytest` (2042 passed).
+- WSL suite: `.venv-wsl/bin/python -m pytest` (2042 passed).
 - One test file: `.venv-win/Scripts/python.exe -m pytest tests/test_scripts/test_repo_doc_numbers.py`
 - Never use bare `python`/`python3` — it resolves to the system interpreter.
 - Bare `pytest` works after activation; still prefer `python -m pytest` for reproducibility.
-- `-rs` is in addopts, so skipped tests print their reason. Use `-W error` to turn warnings into failures when triaging.
+- `-ra` is in addopts, so skipped tests print their reason in the summary alongside other non-passing outcomes. Use `-W error` to turn warnings into failures when triaging.
 
 ## Architecture
 
@@ -38,6 +38,7 @@ miss. Rule 14 (context-first) applies in both Plan and Build mode.
 - Before a long run, or when a model feels wrong, pause and **ask the user** whether to switch to a better free model. Do not silently continue on a suboptimal model.
 - If the task is wrong for the current model (wrong window, wrong variant/effort level, logged route), **decline and recommend three ranked models, best first**, with a one-line reason each. Name what has *not* been done yet. Nothing is edited until A.I.M picks a model.
 - Variants/effort levels (where a model offers them) run `low` → `medium` → `high` → `xhigh` → `max`. Pick the lowest level that solves the task; `max` on a trivial task is waste, not quality. Space Bunny offers the full range; most models in the rotation run at a fixed effort.
+- For simple mechanical repo operations — `git status`, `git add`, `git commit`, `git push`, `git pull`, branch syncs, simple PR text, and sync scripts — prefer the smallest model that can do the job. The default is `Ling 3.1 Flash Free` or `Ling 3.0 Flash Fin Free`; use `MiMo-V2.6-Flash Free` for short commit-message drafting, and keep `Space Bunny`, `LongCat`, and the large reasoning models for the long-context or debugging tasks.
 
 Check the model is correct, reasonable and efficient for the task: token cost, time, and variant/effort level. A larger window is not always better — a 256K model is the right tool for a single-file edit.
 

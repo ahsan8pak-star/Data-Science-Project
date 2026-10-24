@@ -108,7 +108,7 @@ Bands: **A** 90–100, **B** 80–89, **C** 70–79, **D** 60–69, **E** 0–59
 
 ## Verifying a change to the sheet
 
-Regenerate it, then run the suite. Target: the full suite green (1990 passed at the
+Regenerate it, then run the suite. Target: the full suite green (2042 passed at the
 time of writing) and 0 failed. The guards in
 `tests/test_scripts/test_ranking_docs.py` recompute the arithmetic, the band
 labels, the tier weights and the figures quoted in `AGENTS.md`, so a sheet that
@@ -141,4 +141,3 @@ disagrees with itself or with the docs fails rather than misleading quietly.
 | **Final** | | | **80** |
 
 Robustness is held at 57 while Fixability is 96, and the gap is the point of the two-tier scheme. The file runs cleanly and is fully covered, so nothing is broken. But it reads a path from the user and opens an audio file, and neither is checked: a missing directory or an unreadable `.wav` fails somewhere deeper, so the player works on the machine it was written on and not reliably on another. Under the Learning weighting — Readability at 35% — this file would have scored *higher* than it deserves, because its comments and structure are good. Under Applied, where Fixability and Robustness carry 30% each, the gap it cannot close is visible. That is what the tier is for.
-
