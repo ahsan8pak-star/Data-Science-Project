@@ -302,6 +302,7 @@ cmake-build-release/
 *.html
 *.in
 *.ini
+*.png
 
 # Requirements files are source config, not generated artifacts
 !requirements*.txt
