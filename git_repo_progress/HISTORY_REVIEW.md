@@ -1,5 +1,9 @@
 # HISTORY_REVIEW.md — 22 weeks, five identities, one developer
 
+Markdown reference: [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
+
+---
+
 **Span:** 4 June 2026 → 17 October 2026 · **836 commits** · **565 tracked files** ·
 **22 weeks** · 8 merge commits · 43 MB `.git`
 
@@ -486,25 +490,30 @@ problem that neither option fixes.
 ## 7. Standing checklist for the next 22 weeks
 
 **Identity**
+
 - [ ] One git identity, one email, one GitHub handle. `.mailmap` present.
 - [ ] Every commit carries `type(scope):` — the guard exists; use it.
 - [ ] A tool that commits under your account (Copilot, an agent) is named in `PROGRESSION.md` when it first lands, so its contribution is attributable.
 
 **Commits**
+
 - [ ] No commit over ~40 files unless it is mechanical *and* a guard verifies it.
 - [ ] Mass mechanical work is split so each commit is verifiable in one sitting.
 - [ ] A `type(scope):` subject that says what changed, not what was done.
 
 **Decisions**
+
 - [ ] Anything entering the repository from outside it — module sites, other repositories, licensed material — gets one recorded line saying where it came from and why it may be published.
 - [ ] Anything leaving the repository that is assessed, personal or licensed is a decision, not a default.
 
 **Evidence**
+
 - [ ] A new improvement is recorded against the evidence that produced it, as in §4.
 - [ ] `PROGRESSION.md` gains a session row whenever the project moves (rule 13).
 - [ ] A guard is validated by making it fail once before trusting it.
 
 **Direction**
+
 - [ ] The meta-layer (guards, rankings, notes) must not outgrow the coursework it documents. The 14.7% figure in §5.3 is the tripwire.
 
 ---

@@ -1,5 +1,9 @@
 # AGENTS.md — Project Instructions for AI Agents and Collaborators
 
+Markdown reference: [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
+
+---
+
 This file is the single source of truth for how this repository works. Any AI
 agent (or future human) working on this project should read this first.
 

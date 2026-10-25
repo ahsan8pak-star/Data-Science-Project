@@ -1,5 +1,9 @@
 # AGENTS.md — root entrypoint
 
+Markdown reference: [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
+
+---
+
 The full instruction set lives in `agentic_models/AGENTS.md` (read it before
 acting). This file is the compact version: only what an agent is likely to
 miss. Rule 14 (context-first) applies in both Plan and Build mode.

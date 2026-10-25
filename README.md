@@ -2,9 +2,11 @@
 
 A personal project to advance my career in Data Science.
 
+Markdown reference: [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
+
 ---
 
-# Completed Tasks
+## Completed Tasks
 
 - CLI Commands from **Powershell/CMD (mainly used)** and **Ubuntu/Linux (eventually will come later on in main projects)**
 - Git Version Control from **GitHub & GitLab (both of them synchronized with VSC as a 'middle man')** and **Git Bash (rarely used)**
@@ -13,13 +15,13 @@ A personal project to advance my career in Data Science.
 
 ---
 
-# Python Fundamental Topics
+## Python Fundamental Topics
 
 All fundamental and applied topics learnt in their respective folder, known as `fundamental_topics`.
 
 ---
 
-## Imperative Programming
+### Imperative Programming
 
 | Topic Name                    | Descriptions                                                                                                          |
 | ----------------------------- | --------------------------------------------------------------------------------------------------------------------- |
@@ -41,7 +43,7 @@ All fundamental and applied topics learnt in their respective folder, known as `
 
 ---
 
-## Object-Oriented Programming
+### Object-Oriented Programming
 
 | Topic Name                         | Descriptions                                                                                                                                                                             |
 | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -66,7 +68,7 @@ All fundamental and applied topics learnt in their respective folder, known as `
 
 ---
 
-## Functional Programming
+### Functional Programming
 
 | Topic Name            | Descriptions                                                                                                                                                                                                                                                                             |
 | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -90,13 +92,13 @@ All fundamental and applied topics learnt in their respective folder, known as `
 
 ---
 
-# Applied Foundation Projects
+## Applied Foundation Projects
 
 All python files have been made into their respective folders from each programming methods used throughout based on the applications from `fundamental_topics` folder as its reference.
 
 ---
 
-## Imperative Programming
+### Imperative Programming
 
 ---
 
@@ -206,7 +208,7 @@ All python files have been made into their respective folders from each programm
 
 ---
 
-## Object-Oriented Programming
+### Object-Oriented Programming
 
 ---
 

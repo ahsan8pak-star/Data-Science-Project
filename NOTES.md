@@ -1,5 +1,9 @@
 # Data Science Projects
 
+Markdown reference: [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
+
+---
+
 - A list of potential projects to doing after fundamental basics and intermediate levels secured
 
 ---
@@ -12,50 +16,50 @@ items roll into Summer 2027 Block II below.)*
 ### Phase 1: Python Fundamentals & Utility Scripts (Jun 14 – Jun 30)
 
 - [x] **Week 1 — Data literacy & modular scripts** (Windows CMD, VS Code, Git, GitHub): string arrays, input sanitation, conditional branches, dictionary data mapping; three modular scripts kept source-separated; 28–35 h/wk
-    - [x] 50 Terminal Project Ideas — [codedex.io](https://www.codedex.io/projects/50-terminal-project-ideas-using-python)
-    - [x] Roman Numeral Converter — [codedex.io](https://www.codedex.io/projects/convert-roman-numerals-with-python)
-    - [x] Word Guessing Game — [codedex.io](https://www.codedex.io/projects/build-a-word-guessing-game-with-python)
+  - [x] 50 Terminal Project Ideas — [codedex.io](https://www.codedex.io/projects/50-terminal-project-ideas-using-python)
+  - [x] Roman Numeral Converter — [codedex.io](https://www.codedex.io/projects/convert-roman-numerals-with-python)
+  - [x] Word Guessing Game — [codedex.io](https://www.codedex.io/projects/build-a-word-guessing-game-with-python)
 - [ ] **Week 2 — Multidimensional arrays & real-time simulators** (Pygame, Pillow, VS Code, GitLab): image tensors, file I/O matrices, collision/coordinate state machines; 28–35 h/wk
-    - [ ] Create a GIF with Pillow — [codedex.io](https://www.codedex.io/projects/create-a-gif-with-python)
-    - [x] Generate a QR Code — [codedex.io](https://www.codedex.io/projects/generate-a-qr-code-with-python)
-    - [x] Pong with PyGame — [codedex.io](https://www.codedex.io/projects/build-pong-with-pygame)
+  - [ ] Create a GIF with Pillow — [codedex.io](https://www.codedex.io/projects/create-a-gif-with-python)
+  - [x] Generate a QR Code — [codedex.io](https://www.codedex.io/projects/generate-a-qr-code-with-python)
+  - [x] Pong with PyGame — [codedex.io](https://www.codedex.io/projects/build-pong-with-pygame)
 
 ---
 
 ### Phase 2: Production Web Scraping, APIs & Automation (Jul 2 – Jul 23)
 
 - [ ] **Week 3 — Unstructured data ingestion** (Beautiful Soup, requests, VS Code, GitHub): HTML DOM node parsing, extraction selectors, HTTP headers, exception handling; scraper pipeline isolated from CSV storage; 25–32 h/wk
-    - [ ] Web Scrape Amazon with Beautiful Soup — [codedex.io](https://www.codedex.io/projects/web-scrape-amazon-with-beautiful-soup)
+  - [ ] Web Scrape Amazon with Beautiful Soup — [codedex.io](https://www.codedex.io/projects/web-scrape-amazon-with-beautiful-soup)
 - [ ] **Week 4 — Asynchronous operations & MLOps prep** (discord.py, smtplib, dotenv, GitLab): event loops, background task scheduling, `.env` credential isolation; SMTP error-alert dispatch; 28–35 h/wk
-    - [ ] Build a Discord Bot — [codedex.io](https://www.codedex.io/projects/build-a-discord-bot-with-python)
-    - [ ] SMTP Scheduling Alert System — [codedex.io](https://www.codedex.io/projects/automate-secret-santa-emails-with-smtp)
+  - [ ] Build a Discord Bot — [codedex.io](https://www.codedex.io/projects/build-a-discord-bot-with-python)
+  - [ ] SMTP Scheduling Alert System — [codedex.io](https://www.codedex.io/projects/automate-secret-santa-emails-with-smtp)
 - [ ] **Week 5 — Augmented business intelligence** (Pandas, Plotly, OpenAI API, GitHub): vector DataFrames, summary metrics, LLM prompt tuning for EDA; 28–35 h/wk
-    - [x] Spreadsheet analysis with Pandas — [codedex.io](https://www.codedex.io/projects/analyze-spreadsheet-data-with-pandas-chatgpt)
-    - [ ] YouTube visualisation with Plotly — [codedex.io](https://www.codedex.io/projects/visualize-youtube-data-with-plotly)
+  - [x] Spreadsheet analysis with Pandas — [codedex.io](https://www.codedex.io/projects/analyze-spreadsheet-data-with-pandas-chatgpt)
+  - [ ] YouTube visualisation with Plotly — [codedex.io](https://www.codedex.io/projects/visualize-youtube-data-with-plotly)
 
 ---
 
 ### Phase 3: Relational Databases & Advanced Statistical Analytics (Jul 24 – Aug 14)
 
 - [ ] **Week 6 — Enterprise relational storage** (PostgreSQL, psycopg2, SQL Shell, GitLab): schema configuration, normalisation, relational keys, `.groupby()` aggregates; `aim.sql` is still an empty stub — reserved only; 28–35 h/wk
-    - [ ] PostgreSQL Data Analysis — [codedex.io](https://www.codedex.io/projects/analyze-twitch-data-with-sqlite)
+  - [ ] PostgreSQL Data Analysis — [codedex.io](https://www.codedex.io/projects/analyze-twitch-data-with-sqlite)
 - [x] **Week 7 — Scientific & computational mathematics** (SciPy, NumPy, VS Code, GitHub): probability density curves, variance models, dataset transformations over the personal Xbox 360 catalogue; 28–35 h/wk
-    - [x] Custom library analysis with SciPy — [codedex.io](https://www.codedex.io/projects/analyze-us-census-data-with-scipy)
+  - [x] Custom library analysis with SciPy — [codedex.io](https://www.codedex.io/projects/analyze-us-census-data-with-scipy)
 - [x] **Week 8 — Time-series data wrangling** (Pandas, Matplotlib, VS Code, GitLab): multi-index patterns, slicing, moving averages, league sorting; rolling averages and point differentials; 28–35 h/wk
-    - [x] Premier League stats analysis — [codedex.io](https://www.codedex.io/projects/analyze-baseball-stats-with-pandas-and-matplotlib)
+  - [x] Premier League stats analysis — [codedex.io](https://www.codedex.io/projects/analyze-baseball-stats-with-pandas-and-matplotlib)
 
 ---
 
 ### Phase 4: Applied AI & Machine Learning Capstones (Aug 15 – Sep 21)
 
 - [x] **Week 9 — Supervised predictive modelling** (scikit-learn, NumPy, Pandas, GitHub): linear regression, loss calculations, train/split, feature weights; 28–36 h/wk
-    - [x] Predict Home Prices — [codedex.io](https://www.codedex.io/projects/predict-home-prices-with-python-and-linear-regression)
+  - [x] Predict Home Prices — [codedex.io](https://www.codedex.io/projects/predict-home-prices-with-python-and-linear-regression)
 - [ ] **Week 10 — Deep learning inference systems** (Hugging Face Transformers, PyTorch, GitLab): computer vision, tensor objects, pre-trained weight loading; confidence-log output; 28–35 h/wk
-    - [ ] Image Object Detection with Hugging Face — [codedex.io](https://www.codedex.io/projects/detect-hotdog-with-hugging-face)
+  - [ ] Image Object Detection with Hugging Face — [codedex.io](https://www.codedex.io/projects/detect-hotdog-with-hugging-face)
 - [ ] **Week 11 — Semantic vectors & neural indexes** (Exa AI API, requests, VS Code, GitHub): dense embeddings, API payload parsing, vector query logic; credentials isolated from routing; 28–35 h/wk
-    - [ ] Custom Search Engine with Exa AI — [codedex.io](https://www.codedex.io/projects/build-a-custom-search-engine-with-exa-ai)
+  - [ ] Custom Search Engine with Exa AI — [codedex.io](https://www.codedex.io/projects/build-a-custom-search-engine-with-exa-ai)
 - [ ] **Week 12 — Multimodal generative systems** (ElevenLabs API, sounddevice, VS Code, GitLab): audio stream binary parsing, chunk serialisation, speech-to-text loops; 28–35 h/wk
-    - [ ] Voice Virtual Assistant with ElevenLabs — [codedex.io](https://www.codedex.io/projects/create-a-voice-virtual-assistant-with-elevenlabs)
+  - [ ] Voice Virtual Assistant with ElevenLabs — [codedex.io](https://www.codedex.io/projects/create-a-voice-virtual-assistant-with-elevenlabs)
 - [x] **Week 13 — Portfolio consolidation** (Git CLI, GitHub, GitLab Workspace): continuous git workflow, duplicate elimination, all 18 engines organised into a polished portfolio layout; 25–30 h/wk
 
 ---
@@ -564,13 +568,14 @@ predicts the score rises this term.
   2.0 - 2.5 band rather than widening it.
 - Re-score this snapshot after the CS2PP assessment week (Jan 2027), using
   the same Part / +/- 0.5 / Temp rules.
+
 ### Byte-verified freshness stamp (Thu 24 Sep 2026)
 
 Each pending row in the backlog above was re-checked **byte-exact today**
 so it cannot silently age from "planned" to "forgotten":
 
 - **`itertools_module.py` - 14 never-method `itertool` methods
-  + probes** - byte-verified Thu 24 Sep 2026: file
+  - probes** - byte-verified Thu 24 Sep 2026: file
   `python/functional_programming/fundamental_topics/itertools_module.py`
   **exists** and demonstrates **6** itertool methods (`chain`/`count`/
   `cycle`/`islice`/`product`/`repeat`); **8** legitimate itertool
@@ -590,6 +595,7 @@ so it cannot silently age from "planned" to "forgotten":
   every pass-through; byte-verified green Thu 24 Sep 2026 (**1281
   passed**, coverage caps exact, LF invariants clean); hard gate before
   S1 start Mon 28 Sep, pending C-F
+
 ### Byte-verified superseding stamp (Thu 24 Sep 2026, post C-F)
 
 Supersedes the base stamp above after items C-F landed. The base
@@ -765,7 +771,6 @@ is far more than their single `def` needs - kept deliberately, since each
 test demonstrates a boundary case and this is a teaching portfolio. The
 real shortfall was never volume; it was *assertion depth* in the six largest
 branch surfaces, which is what this audit fixed.
-
 
 ## Module docstring sweep (Sat 26 Sep 2026)
 
@@ -1096,4 +1101,3 @@ history.
 Nothing about the four mirrors needed changing to make this work: both `origin`
 and `github` already carry all four push URLs, and `git push origin main`
 already updates every one. Only the documented permission was missing.
-
