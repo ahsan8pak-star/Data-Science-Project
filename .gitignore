@@ -296,13 +296,18 @@ cmake-build-release/
 *.h5
 *.hdf5
 
-# Additional Files while running
+# Document Files
 *.txt
 *.pdf
 *.html
+
+# Desktop Files
 *.in
 *.ini
+
+# Images
 *.png
+*.svg
 
 # Requirements files are source config, not generated artifacts
 !requirements*.txt
