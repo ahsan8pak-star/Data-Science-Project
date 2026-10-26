@@ -86,8 +86,8 @@ create empty folders that git would silently drop.
 """
 OPTIONAL_TYPE_FOLDERS = {"cs1op": {"lecture": {"pdf", "pptx"},
                                    "practical": {"pdf"}},
-                        "cs2pp": {"lecture": {"python"},
-                                  "practical": {"python", "html"}}}
+                        "cs2pp": {"lecture": {"python", "html", "images"},
+                                  "practical": {"python", "html", "images"}}}
 
 # CS2PP's python/ folders are optional: its work is notebook-based, but A.I.M keeps
 # small Python demos (unittest/pytest) beside the notebooks for hands-on practice.
@@ -103,6 +103,8 @@ counterpart to the week_07_practical_files fixtures, and recorded here on the
 same principle rather than renamed into lecture/python/ behind his back.
 """
 EXTRA_TYPE_FOLDERS = {("cs1ip", "week7", "lecture"): {"txt"},
+    ("cs2pp", "week5", "lecture"): {"data", "html", "images"},
+    ("cs2pp", "week5", "practical"): {"data"},
                       ("cs1ip", "week3", "lecture"): {"week_03_lecture_code"},
                       ("cs2pp", "week1", "practical"): {"images"},
                       ("cs2pp", "week4", "practical"): {"txt"}}
