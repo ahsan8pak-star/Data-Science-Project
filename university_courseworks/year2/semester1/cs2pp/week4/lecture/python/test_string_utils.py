@@ -10,7 +10,3 @@ def test_reverse_string_simple():
 def test_reverse_string_palindrome():
     assert reverse_string("racecar") == "racecar"
 
-print(reverse_string)
-print(test_reverse_string_palindrome)
-print(test_reverse_string_simple)
-
