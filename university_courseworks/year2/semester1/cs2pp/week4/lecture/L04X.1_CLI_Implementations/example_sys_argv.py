@@ -3,9 +3,11 @@
 import sys
 import warnings
 
-#  For 3.12 implementation
-# import os
-# _warn_skips = (os.path.dirname(__file__),)
+"""
+ For 3.12 implementation
+ import os
+ _warn_skips = (os.path.dirname(__file__),)
+"""
 
 
 # Initialize default argument values
