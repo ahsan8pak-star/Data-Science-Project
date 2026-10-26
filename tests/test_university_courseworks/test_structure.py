@@ -107,7 +107,9 @@ EXTRA_TYPE_FOLDERS = {("cs1ip", "week7", "lecture"): {"txt"},
     ("cs2pp", "week5", "practical"): {"data"},
                       ("cs1ip", "week3", "lecture"): {"week_03_lecture_code"},
                       ("cs2pp", "week1", "practical"): {"images"},
-                      ("cs2pp", "week4", "practical"): {"txt"}}
+                      ("cs2pp", "week4", "practical"): {"txt"},
+                      ("cs2pp", "week3", "lecture"): {"L03X.2_Modules"},
+                      ("cs2pp", "week4", "lecture"): {"L04X.1_CLI_Implementations"}}
 
 MODULE_PATHS = {"cs1ip": CS1IP, "cs1db": CS1DB, "cs1op": CS1OP, "cs2pp": CS2PP}
 
@@ -474,7 +476,7 @@ class TestCs2ppNotebooks:
         opening it later runs against the same interpreter.
 
         [AI] This was originally a bare `kernelspec.name` assertion, and it
-        failed on week2/lecture/jupyter/basic.ipynb - 132 cells that carry
+        failed on week2/lecture/jupyter/basics.ipynb - 132 cells that carry
         `metadata.language_info.name = python` but no kernelspec. That is a
         real gap in the file, not a strict test: the notebook cannot pick a
         kernel, so opening it silently falls back to the environment default.
