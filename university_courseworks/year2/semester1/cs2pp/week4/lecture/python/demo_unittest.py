@@ -1,5 +1,9 @@
-# For demonstration in a Jupyter Notebook,
-# we have added the arguments to unittest.main().
+"""
+For demonstration in a Jupyter Notebook,
+we have added arguments to unittest.main()
+in the lecture notes.
+These are not needed here.
+"""
 
 import unittest
 
