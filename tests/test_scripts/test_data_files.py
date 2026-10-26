@@ -267,9 +267,8 @@ class TestPythonFilesEndWithOneBlankLine:
     """
     [AI] The house convention is that a file ends with the last line of
     code, then one empty line - that is, exactly two trailing newlines.
-    `scripts/repair_test_numbers_seam.py` documents the same invariant ("LF-only,
-    exactly three trailing LF, no BOM, no trailing whitespace on any line, no
-    CRLF"), so the rule already existed in prose and was not held anywhere.
+    The rule already existed in prose in AGENTS.md and was not held anywhere
+    until this guard landed.
 
     Ten files drifted from it when it was checked: four had no trailing newline
     at all, and six had one or two. The drift is invisible in a review because
@@ -282,13 +281,10 @@ class TestPythonFilesEndWithOneBlankLine:
     churn with no visible effect. `.pytest_cache/` is excluded because it is
     generated and gitignored.
 
-    `scripts/repair_test_numbers_seam.py` is exempt: it is a one-shot repair
-    script whose ending is part of what it was written to produce, and it
-    currently carries an uncommitted edit that is not the author's to normalise
-    from here.
+    No file is exempt now that the broken repair script is gone: every tracked
+    .py file ends with exactly two newlines.
     """
 
-    EXEMPT = {"scripts/repair_test_numbers_seam.py"}
     SKIP_DIRS = {".venv-win", ".venv-wsl", "__pycache__", "htmlcov", ".git", ".pytest_cache",
                  "node_modules"}
 
@@ -308,8 +304,6 @@ class TestPythonFilesEndWithOneBlankLine:
         wrong = []
         for path in self._python_files():
             rel = path.relative_to(REPO_ROOT).as_posix()
-            if rel in self.EXEMPT:
-                continue
             count = self._trailing_newlines(path)
             if count != 2:
                 wrong.append(f"{rel} (has {count})")
@@ -401,7 +395,8 @@ class TestMultiLineDocstringsUseTheHouseStructure:
     [AI] A multi-line docstring opens with the triple quote alone on its own
     line, carries its summary on the next, and closes with the triple quote
     alone on its own line. That is the form in the house reference
-    (scripts/repair_test_numbers_seam.py) and it is what makes a docstring
+    (tests/test_imperative_programming/test_fundamentals.py) and it is what
+    makes a docstring
     read as a block rather than as a paragraph that happens to be quoted.
 
     The failure it prevents is subtle: opening the quotes on the same line as
@@ -463,11 +458,16 @@ class TestMultiLineDocstringsUseTheHouseStructure:
         The file the convention is quoted from has to follow it, or the
         convention is being described rather than followed.
         """
-        path = REPO_ROOT / "scripts" / "repair_test_numbers_seam.py"
-        # [AI] Was a skip: the reference script is tracked, and a convention
-        # whose own reference file can vanish is one nobody is checking.
+        path = REPO_ROOT / "tests" / "test_imperative_programming" / "test_fundamentals.py"
+        # The reference is the TestNumbers probe file: a real consumer of
+        # run_script(), so the convention is demonstrated, not merely described.
         assert path.is_file(), (
-            "scripts/repair_test_numbers_seam.py is tracked and must be present"
+            "tests/test_imperative_programming/test_fundamentals.py is tracked "
+            "and must be present"
+        )
+        assert "run_script(" in path.read_text(encoding="utf-8"), (
+            "the house reference must use run_script() so it stays a real "
+            "example of the harness"
         )
         docstring = next(iter(self._multiline_strings(path)), None)
         assert docstring is not None, "no multi-line docstring found"
@@ -570,12 +570,17 @@ class TestCommentRunsUseHashOrTripleQuoteNotBoth:
 
     def test_the_house_reference_uses_the_block_form(self):
         """
-        scripts/repair_test_numbers_seam.py is quoted as the reference for
-        this rule, so it has to obey it.
+        tests/test_imperative_programming/test_fundamentals.py is quoted as
+        the reference for this rule, so it has to obey it.
         """
-        path = REPO_ROOT / "scripts" / "repair_test_numbers_seam.py"
+        path = REPO_ROOT / "tests" / "test_imperative_programming" / "test_fundamentals.py"
         assert path.is_file(), (
-            "scripts/repair_test_numbers_seam.py is tracked and must be present"
+            "tests/test_imperative_programming/test_fundamentals.py is tracked "
+            "and must be present"
+        )
+        assert "run_script(" in path.read_text(encoding="utf-8"), (
+            "the house reference must use run_script() so it stays a real "
+            "example of the harness"
         )
         assert self._overlong_runs(path) == []
 
