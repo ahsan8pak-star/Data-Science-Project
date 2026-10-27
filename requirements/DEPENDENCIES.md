@@ -24,7 +24,7 @@ Declared in `requirements.in` (20 packages):
 | Library | Pinned | Purpose |
 | --- | --- | --- |
 | `numpy` | 2.5.4 | Numerical array/matrix core beneath the whole data-science stack |
-| `pandas` | 3.0.6 | Tabular `DataFrame`/`Series` analytics |
+| `pandas` | 3.1.0 | Tabular `DataFrame`/`Series` analytics |
 | `scipy` | 1.18.1 | Scientific computing (stats, linear algebra, optimisation) |
 | `scikit-learn` | 1.9.1 | Machine learning (recommenders, `OutlierCapper` transformer, pipelines) |
 | `matplotlib` | 3.11.2 | Plotting and figure generation |
@@ -37,11 +37,11 @@ Declared in `requirements.in` (20 packages):
 | `qrcode` | 8.2 | QR-code generation (NOTES.md project list) |
 | `pytest` | 9.1.1 | Test runner |
 | `pytest-cov` | 7.1.0 | Coverage plugin for pytest |
-| `coverage` | 7.16.2 | `coverage[toml]` measurement engine |
+| `coverage` | 7.17.0 | `coverage[toml]` measurement engine |
 | `torch` | 2.14.1 | Deep-learning framework (PyTorch) for DS/ML experiments |
 | `beautifulsoup4` | 4.15.0 | HTML/XML parsing for scraping and data collection |
 | `flask` | 3.1.3 | Lightweight web framework for serving models/dashboards |
-| `pillow` | 12.3.0 | Image processing (PIL) for vision/data pipelines |
+| `pillow` | 13.0.0 | Image processing (PIL) for vision/data pipelines |
 | `plotly` | 7.1.0 | Interactive data visualisation |
 
 **Transitive closure** frozen in `requirements.txt`: `certifi`, `charset-normalizer`, `cloudpickle`, `colorama`, `contourpy`, `cycler`, `et-xmlfile`, `fonttools`, `idna`, `iniconfig`, `kiwisolver`, `narwhals`, `packaging`, `pluggy`, `pygments`, `pyparsing`, `python-dateutil`, `six`, `threadpoolctl`, `tzdata`, `urllib3`.
@@ -58,10 +58,10 @@ The WSL environment mirrors Tier A at the same versions, plus the machine-learni
 | `tensorflow` / `tensorflow-cpu` | not available | 2.21.0 | No Python 3.14 wheel; WSL-only. Bundles `keras` 3.15.1 |
 | `beautifulsoup4` | 4.15.0 | 4.15.0 | shared |
 | `flask` | 3.1.3 | 3.1.3 | shared |
-| `pillow` | 12.3.0 | 12.3.0 | shared |
+| `pillow` | 13.0.0 | 13.0.0 | shared |
 | `plotly` | 7.1.0 | 7.1.0 | shared |
 | `numpy` | 2.5.4 | 2.5.4 | shared |
-| `pandas` | 3.0.6 | 3.0.6 | shared |
+| `pandas` | 3.1.0 | 3.1.0 | shared |
 | `scipy` | 1.18.1 | 1.18.1 | shared |
 | `scikit-learn` | 1.9.1 | 1.9.1 | shared |
 | `matplotlib` | 3.11.2 | 3.11.2 | shared |

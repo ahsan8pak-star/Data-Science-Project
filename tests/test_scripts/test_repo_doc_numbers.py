@@ -515,6 +515,9 @@ class TestCommitMessagesCarryAScope:
         "941de5d",
         "8e978d9",
         "dc19dbe",
+        "67e42f0",
+        "e715060",
+        "6f56a74",
     })
 
     @staticmethod
