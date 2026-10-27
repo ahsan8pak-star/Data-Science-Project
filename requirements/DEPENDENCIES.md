@@ -78,7 +78,7 @@ Declared in `requirements-win_dev.in` (6 packages):
 | `jupyter` | 1.1.1 | Metapackage: JupyterLab + Notebook + Console + Widgets |
 | `ipykernel` | 7.4.0 | Python kernel that executes `.ipynb` notebooks |
 | `ipython` | 9.17.1 | Rich interactive REPL |
-| `pywinpty` | 3.0.5 | **Windows-only** pseudo-terminal bridge (used by `terminado`/Jupyter) |
+| `pywinpty` | 3.1.0 | **Windows-only** pseudo-terminal bridge (used by `terminado`/Jupyter) |
 | `colorama` | 0.4.6 | ANSI colour codes on the Windows console (IPython + qrcode) |
 | `mypy` | 2.4.0 | Static type checker for editor/LSP workflows |
 
