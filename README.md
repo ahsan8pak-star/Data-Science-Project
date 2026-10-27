@@ -513,7 +513,7 @@ Data-Science-Project/
 ├── LICENSE                                 # MIT terms
 ├── NOTES.md                                # Maintenance journal, study tracks and career direction
 ├── pyproject.toml                          # pytest, coverage, ruff and black configuration
-└── README.md                               # Tasks & Projects, Project Architecture, and References 
+└── README.md                               # Tasks & Projects, Project Architecture, and References
 ```
 
 The `university_courseworks/` weeks share one convention, stated once rather than
