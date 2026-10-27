@@ -15,5 +15,6 @@
   // CMD OUTSIDE this project directory, or temporarily move this .opencode/
   // folder aside. The global config at ~/.config/opencode/opencode.jsonc
   // (shell = powershell) then applies and OpenCode terminals run PowerShell.
-  "shell": "/bin/bash"
+  "shell": "/bin/bash",
+  "update": "auto"
 }
