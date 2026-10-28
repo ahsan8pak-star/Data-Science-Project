@@ -38,3 +38,7 @@ is empty); the knapsack descriptions are the Blackboard supplement. Implement
 against that material, not from memory.
 """
 
+class ClassTournament():
+    def Tournament(self):
+        pass
+
