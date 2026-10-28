@@ -10,8 +10,8 @@ miss. Rule 14 (context-first) applies in both Plan and Build mode.
 
 ## Commands
 
-- .venv-win access: `(Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned) ; (& c:\Users\A.I.M\C.S\Data-Science-Project\.venv-win\Scripts\Activate.ps1)`
-- .venv-wsl access: `source .venv-wsl/bin/activate`
+- `.venv-win` access: `(Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned) ; (& c:\Users\A.I.M\C.S\Data-Science-Project\.venv-win\Scripts\Activate.ps1)`
+- `.venv-wsl` access: `source .venv-wsl/bin/activate`
 - Windows interpreter: `.venv-win/Scripts/python.exe` (3.14.5).
 - WSL/Linux interpreter: `.venv-wsl/bin/python` (3.12.3).
 - Full suite: `.venv-win/Scripts/python.exe -m pytest` (2042 passed).
