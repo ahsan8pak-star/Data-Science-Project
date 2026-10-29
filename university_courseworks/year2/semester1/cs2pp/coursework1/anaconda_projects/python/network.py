@@ -1,21 +1,23 @@
 import csv
-from dataclasses import dataclass
 
+# NetworkDataError: base exception for invalid network data
 class NetworkDataError(Exception):
     """Raised when network data fails validation."""
 
+# NodeNotFoundError: raised when a requested node is not in the network
 class NodeNotFoundError(NetworkDataError):
     """Raised when a requested node is not in the network."""
 
+# file_to_edge_list: reads the citation TSV and returns a list of (int, int) edges
 def file_to_edge_list(*, file_path):
     """Return the citation file contents as a list of (int, int) edges."""
 
     if not isinstance(file_path, str) or not file_path.strip():
-        raise NetworkDataError("file_path must be a non-empty string.")
+        raise NetworkDataError("'file_path' must be a non-empty string.")
 
     try:
-        with open(file_path, 'r') as tsvfile:
-            reader = csv.reader(tsvfile, delimiter='\t')
+        with open(file_path, 'r', encoding = "utf-8") as tsvfile:
+            reader = csv.reader(tsvfile, delimiter = '\t')
             edges = []
 
             for row in reader:
@@ -23,10 +25,10 @@ def file_to_edge_list(*, file_path):
                     continue
 
                 if len(row) != 2:
-                    raise NetworkDataError(f"Expected 2 columns, got {len(row)}: {row}")
+                    raise NetworkDataError(f"Expected 2 columns.\nGot {len(row)}: {row}")
 
                 try:
-                    edges.append((int(row[0]), int(row[1])))
+                    edges.append((int(row[0]), int(row[1]))) # two rows only
 
                 except ValueError as e:
                     raise NetworkDataError(f"Non-integer node id in row: {row}") from e
@@ -36,19 +38,22 @@ def file_to_edge_list(*, file_path):
         raise FileNotFoundError(f"Citation file not found: {file_path}") from e
 
     except PermissionError as e:
-        raise PermissionError(f"Cannot read citation file: {file_path}") from e
+        raise PermissionError(f"Unable to read citation file: {file_path}") from e
 
 
+# edge_to_neighbour_list_my: converts an edge list into a neighbour list dict
 def edge_to_neighbour_list_my(edges, /):
     """Return {node: [distinct sorted neighbours]} from an edge list."""
 
     neighbours = {}
+
     for left, right in edges:
         neighbours.setdefault(left, set()).add(right)
         neighbours.setdefault(right, set()).add(left)
-    return {node: sorted(nbrs) for node, nbrs in neighbours.items()}
+    return {node: sorted(neighbour) for node, neighbour in neighbours.items()}
 
 
+# inspect_node: returns the edges of a node from an edge list, or linked nodes from a neighbour list
 def inspect_node(*, network, node):
     """Return edges containing node (edge list) or its neighbours (neighbour list)."""
 
@@ -62,21 +67,23 @@ def inspect_node(*, network, node):
     return [edge for edge in network if node in edge]
 
 
+# calculate_degree_statistics: returns the maximum, minimum, average and most common degree
 def calculate_degree_statistics(network):
     """Return (maximum, minimum, average, most_common) degree values."""
 
     if not isinstance(network, dict) or not network:
         raise NetworkDataError("network must be a non-empty neighbour dict.")
 
-    degrees = [len(nbrs) for nbrs in network.values()]
+    degrees = [len(neighbour) for neighbour in network.values()]
     maximum = max(degrees)
     minimum = min(degrees)
-    average = sum(degrees) / len(degrees)
+    average = (lambda ds: sum(ds) / len(ds))(degrees)
     most_common = max(set(degrees), key = lambda d: degrees.count(d))
 
     return maximum, minimum, average, most_common
 
 
+# calculate_clustering_coefficient: returns the clustering coefficient as a float for a node
 def calculate_clustering_coefficient(*, network, node):
     """Return the clustering coefficient of node as a single float."""
 
@@ -86,7 +93,10 @@ def calculate_clustering_coefficient(*, network, node):
     if not isinstance(node, int):
         raise TypeError("node must be an integer.")
 
-    neighbours = [n for n in network.get(node, []) if n != node]
+    if node not in network:
+        raise NodeNotFoundError(f"Node {node} not found in network.")
+
+    neighbours = [n for n in network[node] if n != node]
     k = len(neighbours)
 
     if k < 2:
@@ -106,145 +116,28 @@ def calculate_clustering_coefficient(*, network, node):
         return 0.0
 
 
-def edge_to_neighbour_list_a(edges, /):
-    """Candidate A."""
-    neighbours = {}
+# subgraph: returns the node, its linked neighbours, and the edges between them
+def subgraph(*, network, node):
+    """Return the node, its linked neighbours, and the edges between them."""
 
-    for edge in edges:
-        neighbours.setdefault(edge[0], []).append(edge[1])
-        neighbours.setdefault(edge[1], []).append(edge[0])
+    if not isinstance(network, dict):
+        raise TypeError("network must be a neighbour-list dict.")
 
-    return neighbours
+    if not isinstance(node, int):
+        raise TypeError("node must be an integer.")
 
+    if node not in network:
+        raise NodeNotFoundError(f"Node {node} not found in network.")
 
-def edge_to_neighbour_list_b(edges, /):
-    """Candidate B."""
-    neighbours = {}
+    neighbours = sorted({n for n in network[node] if n != node})
+    nodes = [node] + neighbours
 
-    for left, right in edges:
-        neighbours.setdefault(left, []).append(right)
-        neighbours.setdefault(right, [])
+    edges = []
 
-    return neighbours
+    for neighbour in nodes:
+        for linked in nodes:
+            if neighbour < linked and linked in network.get(neighbour, ()):
+                edges.append((neighbour, linked))
 
-
-def edge_to_neighbour_list_c(edges, /):
-    """Candidate C."""
-    nodes = {node for edge in edges for node in edge}
-
-    return {
-        node: [right if left == node else left
-               for left, right in edges
-               if node in (left, right)]
-        for node in nodes
-    }
-
-
-def edge_to_neighbour_list_d(edges, /):
-    """Candidate D."""
-    if not edges:
-        return {}
-
-    largest_node = max(max(edge) for edge in edges)
-    neighbours = {node: [] for node in range(largest_node + 1)}
-
-    for left, right in edges:
-        neighbours[left].append(right)
-        neighbours[right].append(left)
-
-    return neighbours
-
-
-def edge_to_neighbour_list_e(edges, /):
-    """Candidate E."""
-    nodes = {node for edge in edges for node in edge}
-    neighbours = dict.fromkeys(nodes, [])
-
-    for left, right in edges:
-        neighbours[left].append(right)
-        neighbours[right].append(left)
-
-    return neighbours
-
-
-def edge_to_neighbour_list_f(edges, /):
-    """Candidate F."""
-    neighbours = {}
-
-    for left, right in edges:
-        neighbours[left] = neighbours.get(left, []) + [right]
-        neighbours[right] = neighbours.get(right, []) + [left]
-
-    return neighbours
-
-
-def edge_to_neighbour_list_g(edges, /):
-    """Candidate G."""
-    neighbours = {}
-
-    for val in edges:
-        neighbours[val[0]] = set()
-        neighbours[val[1]] = set()
-
-    for val in edges:
-        neighbours[val[0]].add(val[1])
-        neighbours[val[1]].add(val[0])
-
-    return neighbours
-
-
-def edge_to_neighbour_list_h(edges, /):
-    """Candidate H."""
-    neighbours = {}
-
-    for x, y in edges:
-        if isinstance(neighbours.get(x), set):
-            neighbours[x].add(y)
-
-        else:
-            neighbours[x] = {y}
-
-        if isinstance(neighbours.get(y), set):
-            neighbours[y].add(x)
-
-        else:
-            neighbours[y] = {x}
-
-    return neighbours
-
-
-@dataclass(frozen = True, slots = True)
-class _ValidatedEdge:
-    left: int
-    right: int
-
-    def __post_init__(self):
-        if type(self.left) is not int or type(self.right) is not int:
-            raise TypeError("Node identifiers must be integers")
-
-        if self.left == self.right:
-            raise ValueError("Self-loops are not permitted")
-
-
-class _UndirectedAdjacencyBuilder:
-    def __init__(self):
-        self._adjacency = {}
-
-    def ingest(self, edge):
-        self._adjacency.setdefault(edge.left, set()).add(edge.right)
-        self._adjacency.setdefault(edge.right, set()).add(edge.left)
-
-    def export(self):
-        return {
-            node: sorted(connected_nodes)
-            for node, connected_nodes in self._adjacency.items()
-        }
-
-
-def edge_to_neighbour_list_i(edges, /):
-    """Candidate I."""
-    builder = _UndirectedAdjacencyBuilder()
-    for pair in edges:
-        builder.ingest(_ValidatedEdge(*pair))
-    return builder.export()
+    return nodes, edges
 
