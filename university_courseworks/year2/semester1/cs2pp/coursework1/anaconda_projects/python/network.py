@@ -14,7 +14,7 @@ def file_to_edge_list(*, file_path):
         raise NetworkDataError("'file_path' must be a non-empty string.")
 
     try:
-        with open(file_path, 'r') as tsvfile:
+        with open(file_path, 'r', encoding = 'utf-8') as tsvfile:
             reader = csv.reader(tsvfile, delimiter = '\t')
             edges = []
 
@@ -72,7 +72,7 @@ def calculate_degree_statistics(network):
     degrees = [len(neighbour) for neighbour in network.values()]
     maximum = max(degrees)
     minimum = min(degrees)
-    average = sum(degrees) / len(degrees)
+    average = (lambda values: float(sum(values)) / len(values))(degrees)
     most_common = max(set(degrees), key = lambda d: degrees.count(d))
 
     return maximum, minimum, average, most_common
@@ -86,6 +86,9 @@ def calculate_clustering_coefficient(*, network, node):
 
     if not isinstance(node, int):
         raise TypeError("node must be an integer.")
+
+    if node not in network:
+        raise NodeNotFoundError(f"Node {node} not found in network.")
 
     neighbours = [n for n in network.get(node, []) if n != node]
     k = len(neighbours)
