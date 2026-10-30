@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
 
+# edge_to_neighbour_list_a: candidate - converts an edge list into neighbour lists (append style)
 def edge_to_neighbour_list_a(edges, /):
     """Candidate A."""
     neighbours = {}
@@ -11,6 +12,7 @@ def edge_to_neighbour_list_a(edges, /):
     return neighbours
 
 
+# edge_to_neighbour_list_b: candidate - converts an edge list into neighbour lists (one-way style)
 def edge_to_neighbour_list_b(edges, /):
     """Candidate B."""
     neighbours = {}
@@ -21,6 +23,7 @@ def edge_to_neighbour_list_b(edges, /):
     return neighbours
 
 
+# edge_to_neighbour_list_c: candidate - converts an edge list into neighbour sets (set style)
 def edge_to_neighbour_list_c(edges, /):
     """Candidate C."""
     nodes = {node for edge in edges for node in edge}
@@ -33,6 +36,7 @@ def edge_to_neighbour_list_c(edges, /):
     }
 
 
+# edge_to_neighbour_list_d: candidate - converts an edge list into neighbour lists (preallocation style)
 def edge_to_neighbour_list_d(edges, /):
     """Candidate D."""
     if not edges:
@@ -47,6 +51,7 @@ def edge_to_neighbour_list_d(edges, /):
     return neighbours
 
 
+# edge_to_neighbour_list_e: candidate - converts an edge list into neighbour lists (node-set style)
 def edge_to_neighbour_list_e(edges, /):
     """Candidate E."""
 
@@ -59,6 +64,7 @@ def edge_to_neighbour_list_e(edges, /):
     return neighbours
 
 
+# edge_to_neighbour_list_f: candidate - converts an edge list into neighbour lists (concatenation style)
 def edge_to_neighbour_list_f(edges, /):
     """Candidate F."""
     neighbours = {}
@@ -69,6 +75,7 @@ def edge_to_neighbour_list_f(edges, /):
     return neighbours
 
 
+# edge_to_neighbour_list_g: candidate - converts an edge list into neighbour sets (reset-then-fill style)
 def edge_to_neighbour_list_g(edges, /):
     """Candidate G."""
     neighbours = {}
@@ -83,6 +90,7 @@ def edge_to_neighbour_list_g(edges, /):
     return neighbours
 
 
+# edge_to_neighbour_list_h: candidate - converts an edge list into neighbour sets (isinstance style)
 def edge_to_neighbour_list_h(edges, /):
     """Candidate H."""
 
@@ -104,27 +112,34 @@ def edge_to_neighbour_list_h(edges, /):
     return neighbours
 
 
+# _ValidatedEdge: validated (left, right) pair that rejects bad types and self-loops
 @dataclass(frozen=True, slots=True)
 class _ValidatedEdge:
     left: int
     right: int
 
     def __post_init__(self):
+        # raise TypeError when node identifiers are not integers
         if type(self.left) is not int or type(self.right) is not int:
             raise TypeError("Node identifiers must be integers")
 
+        # raise ValueError when a self-loop edge is supplied
         if self.left == self.right:
             raise ValueError("Self-loops are not permitted")
 
 
+# _UndirectedAdjacencyBuilder: internal helper that accumulates undirected edges
 class _UndirectedAdjacencyBuilder:
+    # _adjacency: maps each node to the set of its linked neighbours
     def __init__(self):
         self._adjacency = {}
 
+    # ingest: adds a validated edge to the adjacency sets
     def ingest(self, edge):
         self._adjacency.setdefault(edge.left, set()).add(edge.right)
         self._adjacency.setdefault(edge.right, set()).add(edge.left)
 
+    # export: returns the sorted neighbour list dict from the adjacency sets
     def export(self):
         return {
             node: sorted(connected_nodes)
@@ -132,6 +147,7 @@ class _UndirectedAdjacencyBuilder:
         }
 
 
+# edge_to_neighbour_list_i: candidate - validates each edge then ingests it into the builder
 def edge_to_neighbour_list_i(edges, /):
     """Candidate I."""
     builder = _UndirectedAdjacencyBuilder()
