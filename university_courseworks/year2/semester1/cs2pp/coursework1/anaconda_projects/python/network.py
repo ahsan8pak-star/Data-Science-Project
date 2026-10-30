@@ -1,12 +1,29 @@
+"""
+network.py -- CS2PP Coursework 1, Task 1: Structuring and Analysing Network Data.
+
+Task 1 map
+----------
+1.1  file_to_edge_list: reads the citation TSV and returns a list of (int, int) edges.
+1.2  edge_to_neighbour_list_my: converts an edge list into a neighbour list dict.
+1.3  calculate_degree_statistics: returns the maximum, minimum, average and most common degree.
+1.4  calculate_clustering_coefficient: returns the clustering coefficient as a float for a node.
+
+Note: candidate conversion functions live in candidates.py; subgraph returns the
+node, its linked neighbours and the edges between them.
+"""
+
 import csv
 from dataclasses import dataclass
 
+# NetworkDataError: base exception raised when network data fails validation.
 class NetworkDataError(Exception):
     """Raised when network data fails validation."""
 
+# NodeNotFoundError: raised when a requested node is not in the network.
 class NodeNotFoundError(NetworkDataError):
     """Raised when a requested node is not in the network."""
 
+# file_to_edge_list: reads the citation TSV and returns a list of (int, int) edges.
 def file_to_edge_list(*, file_path):
     """Return the citation file contents as a list of (int, int) edges."""
 
@@ -39,6 +56,7 @@ def file_to_edge_list(*, file_path):
         raise PermissionError(f"Unable to read citation file: {file_path}") from e
 
 
+# edge_to_neighbour_list_my: converts an edge list into a neighbour list dict.
 def edge_to_neighbour_list_my(edges, /):
     """Return {node: [distinct sorted neighbours]} from an edge list."""
 
@@ -50,6 +68,7 @@ def edge_to_neighbour_list_my(edges, /):
     return {node: sorted(neighbour) for node, neighbour in neighbours.items()}
 
 
+# inspect_node: returns the edges of a node from an edge list, or linked nodes from a neighbour list.
 def inspect_node(*, network, node):
     """Return edges containing node (edge list) or its neighbours (neighbour list)."""
 
@@ -63,6 +82,7 @@ def inspect_node(*, network, node):
     return [edge for edge in network if node in edge]
 
 
+# calculate_degree_statistics: returns the maximum, minimum, average and most common degree.
 def calculate_degree_statistics(network):
     """Return (maximum, minimum, average, most_common) degree values."""
 
@@ -78,6 +98,7 @@ def calculate_degree_statistics(network):
     return maximum, minimum, average, most_common
 
 
+# calculate_clustering_coefficient: returns the clustering coefficient as a float for a node.
 def calculate_clustering_coefficient(*, network, node):
     """Return the clustering coefficient of node as a single float."""
 
@@ -110,6 +131,7 @@ def calculate_clustering_coefficient(*, network, node):
         return 0.0
 
 
+# subgraph: returns the node, its linked neighbours and the edges between them.
 def subgraph(*, network, node):
     """Return the node, its linked neighbours, and the edges between them."""
 

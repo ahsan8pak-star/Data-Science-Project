@@ -1,3 +1,14 @@
+"""
+candidates.py -- CS2PP Coursework 1, Task 1: Preformulated candidate conversion functions.
+
+Task 1 map
+----------
+- edge_to_neighbour_list_a ... edge_to_neighbour_list_h: preformulated candidates under test in Task 1.5.
+- _ValidatedEdge / _UndirectedAdjacencyBuilder / edge_to_neighbour_list_i: helper candidates.
+
+Note: the custom converter under test is edge_to_neighbour_list_my in network.py.
+"""
+
 from dataclasses import dataclass
 
 

@@ -38,7 +38,9 @@ is empty); the knapsack descriptions are the Blackboard supplement. Implement
 against that material, not from memory.
 """
 
+# ClassTournament: Task 2 tournament wrapper (stub -- implemented in Task 2).
 class ClassTournament():
+    # Tournament: stub method -- placeholder until Task 2 implements the tournament logic.
     def Tournament(self):
         pass
 
