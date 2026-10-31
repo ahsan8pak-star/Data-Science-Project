@@ -13,7 +13,6 @@ node, its linked neighbours and the edges between them.
 """
 
 import csv
-from dataclasses import dataclass
 
 # NetworkDataError: base exception raised when network data fails validation.
 class NetworkDataError(Exception):
@@ -89,7 +88,7 @@ def calculate_degree_statistics(network):
     if not isinstance(network, dict) or not network:
         raise NetworkDataError("network must be a non-empty neighbour dict.")
 
-    degrees = [len(neighbour) for neighbour in network.values()]
+    degrees = [len(neighbour) + (1 if node in neighbour else 0) for node, neighbour in network.items()]
     maximum = max(degrees)
     minimum = min(degrees)
     average = (lambda values: float(sum(values)) / len(values))(degrees)
