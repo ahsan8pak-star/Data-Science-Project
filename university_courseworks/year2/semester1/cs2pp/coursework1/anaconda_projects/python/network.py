@@ -62,8 +62,20 @@ def edge_to_neighbour_list_my(edges, /):
     neighbours = {}
 
     for left, right in edges:
-        neighbours.setdefault(left, set()).add(right)
-        neighbours.setdefault(right, set()).add(left)
+        left_neighbours = neighbours.get(left)
+
+        if left_neighbours is None:
+            left_neighbours = neighbours[left] = set()
+
+        left_neighbours.add(right)
+
+        right_neighbours = neighbours.get(right)
+
+        if right_neighbours is None:
+            right_neighbours = neighbours[right] = set()
+
+        right_neighbours.add(left)
+
     return {node: sorted(neighbour) for node, neighbour in neighbours.items()}
 
 
