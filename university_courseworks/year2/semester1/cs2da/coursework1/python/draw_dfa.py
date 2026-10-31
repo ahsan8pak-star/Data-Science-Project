@@ -15,10 +15,10 @@ def generate_dot(delta, accepting, symbols=None):
     """
     q_count = len(delta)
     s_count = len(delta[0]) if q_count else 0
-    
+
     if symbols is None:
         symbols = DEFAULT_SYMBOLS[:s_count]
-    
+
     if len(symbols) != s_count:
         raise ValueError("symbols length must match alphabet size")
 
@@ -31,21 +31,21 @@ def generate_dot(delta, accepting, symbols=None):
     lines.append("    start [shape=point];")
     lines.append("    start -> q0;")
     lines.append("")
-    
+
     for q in range(q_count):
         if accepting[q]:
             lines.append(f"    q{q} [shape=doublecircle];")
-    
+
     if any(accepting):
         lines.append("")
-    
+
     for q in range(q_count):
         for a in range(s_count):
             target = delta[q][a]
-    
+
             if target != -1:
                 lines.append(f'    q{q} -> q{target} [label="{symbols[a]}"];')
-    
+
     lines.append("}")
     return "\n".join(lines) + "\n"
 
