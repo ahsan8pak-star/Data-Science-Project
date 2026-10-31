@@ -14,8 +14,8 @@ miss. Rule 14 (context-first) applies in both Plan and Build mode.
 - `.venv-wsl` access: `source .venv-wsl/bin/activate`
 - Windows interpreter: `.venv-win/Scripts/python.exe` (3.14.5).
 - WSL/Linux interpreter: `.venv-wsl/bin/python` (3.12.3).
-- Full suite: `.venv-win/Scripts/python.exe -m pytest` (2042 passed).
-- WSL suite: `.venv-wsl/bin/python -m pytest` (2042 passed).
+- Full suite: `.venv-win/Scripts/python.exe -m pytest` (2046 passed).
+- WSL suite: `.venv-wsl/bin/python -m pytest` (2046 passed).
 - One test file: `.venv-win/Scripts/python.exe -m pytest tests/test_scripts/test_repo_doc_numbers.py`
 - Never use bare `python`/`python3` — it resolves to the system interpreter.
 - Bare `pytest` works after activation; still prefer `python -m pytest` for reproducibility.
