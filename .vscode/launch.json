@@ -18,6 +18,13 @@
             "console": "integratedTerminal",
             "cwd": "${fileDirname}",
             "justMyCode": false
+        },
+        {
+            "type": "java",
+            "name": "Java: Current File",
+            "request": "launch",
+            "mainClass": "${file}",
+            "console": "integratedTerminal"
         }
     ]
 }
