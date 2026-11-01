@@ -109,8 +109,12 @@ def read_file(filename):
     # os.path.abspath makes it a full, absolute C:\ path
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
-    # 4. Join the folder path with the filename (e.g., sort10.txt)
-    file_path = os.path.join(script_dir, filename)
+    # The repo keeps the deck fixtures under coursework2/data/, while a
+    # throwaway copy (used by the tests) keeps them beside the script, so
+    # try the script folder first and fall back to ../data/.
+    candidates = [os.path.join(script_dir, filename),
+                  os.path.join(script_dir, "..", "data", filename)]
+    file_path = next((c for c in candidates if os.path.exists(c)), candidates[0])
 
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"Cannot find file: {file_path}")
@@ -128,7 +132,11 @@ def write_results_to_csv(card_counts, bubble_times, merge_times):
     # Ensure the CSV saves in the exact same folder as the script
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    output_path = os.path.join(script_dir, "sort_comparison.csv")
+    data_dir = os.path.join(script_dir, "..", "data")
+    # Prefer the repo's data/ folder when it exists, otherwise write beside
+    # the script (matches the throwaway-copy layout used by the tests).
+    output_dir = data_dir if os.path.isdir(data_dir) else script_dir
+    output_path = os.path.join(output_dir, "sort_comparison.csv")
 
     with open(output_path, "w") as writer:
         counts_str = ",".join([f" {c}" for c in card_counts])

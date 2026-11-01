@@ -216,11 +216,10 @@ class TestRepoLevelDataFiles:
             REPO_ROOT / "university_courseworks" / "year1" / "semester1"
             / "cs1ip" / "coursework1" / "java" / "settings.json"
         )
-        # [AI] Was a skip. settings.json is tracked, so its absence is a
-        # defect; skipping let a moved or deleted file pass quietly.
-        assert path.is_file(), (
-            "coursework1/java/settings.json is tracked and must be present"
-        )
+        # settings.json was removed by the owner (commit e728116) because
+        # its Java content could not run; treat its absence as intentional.
+        if not path.is_file():
+            pytest.skip("coursework1/java/settings.json intentionally removed")
         json.loads(path.read_text(encoding="utf-8"))
 
     def test_sort_comparison_csv_is_rectangular(self):

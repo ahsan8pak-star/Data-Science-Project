@@ -518,6 +518,7 @@ class TestCommitMessagesCarryAScope:
         "67e42f0",
         "e715060",
         "6f56a74",
+        "e728116",
     })
 
     @staticmethod
@@ -1450,9 +1451,16 @@ class TestPytestSkipSitesAreRegistered:
             "must not fail on it",
         ),
         "tests/test_scripts/test_data_files.py": (
-            1,
+            2,
             "coursework2/data/sort_comparison.csv is a generated results file "
-            "and is not tracked, so it is absent from a fresh clone",
+            "and is not tracked, so it is absent from a fresh clone; plus "
+            "coursework1/java/settings.json, intentionally removed by the "
+            "owner (commit e728116) because its Java content could not run",
+        ),
+        "tests/test_university_courseworks/test_structure.py": (
+            1,
+            "settings.json intentionally removed by the owner "
+            "(commit e728116) because its Java content could not run",
         ),
         "tests/test_scripts/test_repo_doc_numbers.py": (
             5,
