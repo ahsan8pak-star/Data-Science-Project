@@ -1,12 +1,13 @@
 """
-candidates.py -- CS2PP Coursework 1, Task 1: Preformulated candidate conversion functions.
+candidates.py - CS2PP Coursework 1, Task 1: Preformulated candidate conversion functions.
 
-Task 1 map
-----------
-- edge_to_neighbour_list_a ... edge_to_neighbour_list_h: preformulated candidates under test in Task 1.5.
+Task 1 Map:
+
+- edge_to_neighbour_list_a -> edge_to_neighbour_list_h: preformulated candidates under test in Task 1.5.
+
 - _ValidatedEdge / _UndirectedAdjacencyBuilder / edge_to_neighbour_list_i: helper candidates.
 
-Note: the custom converter under test is edge_to_neighbour_list_my in network.py.
+Note: the custom converter under test is 'edge_to_neighbour_list_my' in network.py.
 """
 
 from dataclasses import dataclass
@@ -37,14 +38,24 @@ def edge_to_neighbour_list_b(edges, /):
 # edge_to_neighbour_list_c: candidate - converts an edge list into neighbour sets (set style)
 def edge_to_neighbour_list_c(edges, /):
     """Candidate C."""
-    nodes = {node for edge in edges for node in edge}
+    nodes = set()
 
-    return {
-        node: [right if left == node else left
-               for left, right in edges
-               if node in (left, right)]
-        for node in nodes
-    }
+    for edge in edges:
+        for node in edge:
+            nodes.add(node)
+
+    neighbours = {}
+
+    for node in nodes:
+        linked = []
+
+        for left, right in edges:
+            if node in (left, right):
+                linked.append(right if left == node else left)
+
+        neighbours[node] = linked
+
+    return neighbours
 
 
 # edge_to_neighbour_list_d: candidate - converts an edge list into neighbour lists (preallocation style)
@@ -53,8 +64,18 @@ def edge_to_neighbour_list_d(edges, /):
     if not edges:
         return {}
 
-    largest_node = max(max(edge) for edge in edges)
-    neighbours = {node: [] for node in range(largest_node + 1)}
+    largest_node = 0
+
+    for edge in edges:
+        current_max = max(edge)
+
+        if current_max > largest_node:
+            largest_node = current_max
+
+    neighbours = {}
+
+    for node in range(largest_node + 1):
+        neighbours[node] = []
 
     for left, right in edges:
         neighbours[left].append(right)
@@ -66,7 +87,12 @@ def edge_to_neighbour_list_d(edges, /):
 def edge_to_neighbour_list_e(edges, /):
     """Candidate E."""
 
-    nodes = {node for edge in edges for node in edge}
+    nodes = set()
+
+    for edge in edges:
+        for node in edge:
+            nodes.add(node)
+
     neighbours = dict.fromkeys(nodes, [])
 
     for left, right in edges:
@@ -124,7 +150,7 @@ def edge_to_neighbour_list_h(edges, /):
 
 
 # _ValidatedEdge: validated (left, right) pair that rejects bad types and self-loops
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen = True, slots = True)
 class _ValidatedEdge:
     left: int
     right: int
@@ -152,10 +178,12 @@ class _UndirectedAdjacencyBuilder:
 
     # export: returns the sorted neighbour list dict from the adjacency sets
     def export(self):
-        return {
-            node: sorted(connected_nodes)
-            for node, connected_nodes in self._adjacency.items()
-        }
+        sorted_adjacency = {}
+
+        for node, connected_nodes in self._adjacency.items():
+            sorted_adjacency[node] = sorted(connected_nodes)
+
+        return sorted_adjacency
 
 
 # edge_to_neighbour_list_i: candidate - validates each edge then ingests it into the builder

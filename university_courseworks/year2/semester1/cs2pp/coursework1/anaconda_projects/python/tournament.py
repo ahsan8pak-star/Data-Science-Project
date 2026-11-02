@@ -1,33 +1,48 @@
 """
-tournament.py -- CS2PP Coursework 1, Task 2: Python Classes and Optimisation Algorithms.
+tournament.py - CS2PP Coursework 1, Task 2: Python Classes and Optimisation Algorithms.
 
-Task 2 map
-----------
-2.1  Tournament class (and nested Team class) built from a config JSON.
-2.2  Compare two Tournament instances via the >= operator on champions.
-2.3  Tournament_optimised child class using dynamic programming.
+Task 2:
 
-Requirements (from CS2PP_CW1.ipynb)
------------------------------------
-- Constructed from ./data/configTEST.json: path, name, nteams,
-  default_low, default_high, default_incr, prize.
-- Protective validation on every config value (range, increment, team
-  count, file existence, required CSV columns).
+2.1) Tournament class (and nested Team class) built from a config JSON.
+
+2.2) Compare two Tournament instances via the >= operator on champions.
+
+2.3) Tournament_optimised child class using dynamic programming.
+
+Requirements (from CS2PP_CW1.ipynb):
+
+- Constructed from ./data/configTEST.json: 
+  path, name, nteams, default_low, default_high, default_incr, prize.
+
+- Protective validation on every config value 
+  (range, increment, team count, file existence, required CSV columns).
+
 - Sponsors and funding allocations assigned randomly, without duplication.
+
 - Teams are their own Team class.
-- Inventory acquired with the greedy knapsack: many cars of the sponsor's Make, no duplicates in transaction.
+
+- Inventory acquired with the greedy knapsack: 
+  many cars of the sponsor's Make, no duplicates in transaction.
+
 - Pairwise bracket rounds; only the winner advances.
+
 - Round winner receives prize, added to budget, then buys more inventory.
+
 - New transactions may duplicate existing inventory but not within the transaction.
+
 - Score = sum of MPG-H over inventory; __ge__ compares champions' scores.
 
-Invariants to preserve
-----------------------
-- No duplicate sponsor; no duplicate budget; no duplicate car within a transaction (duplicates across rounds are allowed).
-- configCOMPARE.json keeps the same data source but differing parameters.
-- The greedy-vs-DP comparison in 2.3 must be fair: same sponsors, teams and data, only the algorithm differs.
+Invariants to preserve:
 
-Note: the third-party modules explored in Week 5 may be used for Task 2, but they are not necessary.
+- No duplicate sponsor; no duplicate budget; no duplicate car within a transaction
+  (duplicates across rounds are allowed).
+
+- configCOMPARE.json keeps the same data source but differing parameters.
+
+- The greedy-vs-DP comparison in 2.3 must be fair: 
+  same sponsors, teams and data, only the algorithm differs.
+
+Note: the third-party modules explored in Week 5 may be used for Task 2 (optional).
 """
 
 import csv
@@ -61,14 +76,25 @@ class Team:
         acquired = self._knapsack(cars, budget)
 
         self.inventory.extend(acquired)
-        self.budget = budget - sum(car["Price"] for car in acquired)
+
+        total_spent = 0
+
+        for car in acquired:
+            total_spent += car["Price"]
+
+        self.budget = budget - total_spent
 
         return acquired
 
     def score(self):
         """Return the team's score: the sum of MPG-H ratings over its inventory."""
 
-        return sum(car["MPG-H"] for car in self.inventory)
+        total_score = 0
+
+        for car in self.inventory:
+            total_score += car["MPG-H"]
+
+        return total_score
 
     def _knapsack(self, cars, budget):
         """Return the acquired cars using the team's configured algorithm."""
@@ -116,7 +142,11 @@ class Team:
                 items[key] = car
 
         candidates = sorted(items.values(), key = lambda car: (-car["MPG-H"], car["Price"]))
-        affordable = [car for car in candidates if car["Price"] <= budget]
+        affordable = []
+
+        for car in candidates:
+            if car["Price"] <= budget:
+                affordable.append(car)
 
         pruned = []
         cheapest = None
@@ -126,10 +156,19 @@ class Team:
                 pruned.append(car)
                 cheapest = car["Price"]
 
-        capacity = min(budget, sum(car["Price"] for car in pruned))
+        total_pruned_cost = 0
+
+        for car in pruned:
+            total_pruned_cost += car["Price"]
+
+        capacity = min(budget, total_pruned_cost)
         count = len(pruned)
 
-        table = [[0] * (capacity + 1) for _ in range(count + 1)]
+        table = []
+
+        for _ in range(count + 1):
+            row = [0] * (capacity + 1)
+            table.append(row)
 
         for index in range(1, count + 1):
             car = pruned[index - 1]
