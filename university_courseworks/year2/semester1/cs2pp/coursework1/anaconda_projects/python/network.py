@@ -57,7 +57,7 @@ def file_to_edge_list(*, file_path):
 
                 except ValueError as e:
                     raise NetworkDataError(f"Non-integer node id in row: {row}") from e
-            
+
             return edges
 
     except FileNotFoundError as e:
@@ -104,11 +104,11 @@ def inspect_node(*, network, node):
         raise TypeError("node must be an integer.")
 
     if isinstance(network, dict):
-    
+
         if node not in network:
             raise NodeNotFoundError(f"Node {node} not found in network.")
         return list(network.get(node, []))
-    
+
     matching_edges = []
 
     for edge in network:
@@ -134,10 +134,10 @@ def calculate_degree_statistics(network):
             degree += 1
 
         degrees.append(degree)
-    
+
     maximum = max(degrees)
     minimum = min(degrees)
-    average = (lambda values: float(sum(values)) / len(values))(degrees)
+    average = (lambda values: float(sum(values)) / len(values))(degrees) # average = sum(degrees) / len(degrees) -> values = degrees
     most_common = max(set(degrees), key = lambda d: degrees.count(d)) # d = degree
 
     return maximum, minimum, average, most_common
