@@ -38,6 +38,18 @@ def edge_to_neighbour_list_b(edges, /):
 # edge_to_neighbour_list_c: candidate - converts an edge list into neighbour sets (set style)
 def edge_to_neighbour_list_c(edges, /):
     """Candidate C."""
+    nodes = {node for edge in edges for node in edge}
+
+    return {
+        node: [right if left == node else left
+               for left, right in edges
+               if node in (left, right)]
+               for node in nodes
+    }
+
+    """
+    Result of Comprehension:
+
     nodes = set()
 
     for edge in edges:
@@ -56,11 +68,26 @@ def edge_to_neighbour_list_c(edges, /):
         neighbours[node] = linked
 
     return neighbours
+    """
 
 
 # edge_to_neighbour_list_d: candidate - converts an edge list into neighbour lists (preallocation style)
 def edge_to_neighbour_list_d(edges, /):
     """Candidate D."""
+    if not edges:
+        return {}
+
+    largest_node = max(max(edge) for edge in edges)
+    neighbours = {node: [] for node in range(largest_node + 1)}
+
+    for left, right in edges:
+        neighbours[left].append(right)
+        neighbours[right].append(left)
+    return neighbours
+
+    """
+    Result of Comprehension:
+
     if not edges:
         return {}
 
@@ -81,11 +108,22 @@ def edge_to_neighbour_list_d(edges, /):
         neighbours[left].append(right)
         neighbours[right].append(left)
     return neighbours
+    """
 
 
 # edge_to_neighbour_list_e: candidate - converts an edge list into neighbour lists (node-set style)
 def edge_to_neighbour_list_e(edges, /):
     """Candidate E."""
+    nodes = {node for edge in edges for node in edge}
+    neighbours = dict.fromkeys(nodes, [])
+
+    for left, right in edges:
+        neighbours[left].append(right)
+        neighbours[right].append(left)
+    return neighbours
+
+    """
+    Result of Comprehension:
 
     nodes = set()
 
@@ -99,6 +137,7 @@ def edge_to_neighbour_list_e(edges, /):
         neighbours[left].append(right)
         neighbours[right].append(left)
     return neighbours
+    """
 
 
 # edge_to_neighbour_list_f: candidate - converts an edge list into neighbour lists (concatenation style)
