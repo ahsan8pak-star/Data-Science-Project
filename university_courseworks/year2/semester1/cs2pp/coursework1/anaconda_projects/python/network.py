@@ -1,23 +1,21 @@
 """
-network.py - CS2PP Coursework 1
+Task 1 Functions:
 
-Task 1: Structuring and Analysing Network Data.
+file_to_edge_list - reads the citation TSV and returns a list of (int, int) edges. Relevant to Task 1.1.
 
-1.1) file_to_edge_list: reads the citation TSV and returns a list of (int, int) edges.
+edge_to_neighbour_list_my - converts an edge list into a neighbour list dictionary. Relevant to Task 1.2 first; also relevant to Tasks 1.5, 1.6, and 1.8.
 
-1.2) edge_to_neighbour_list_my: converts an edge list into a neighbour list dictionary.
+calculate_degree_statistics - returns the maximum, minimum, average and most common degree. Relevant to Task 1.2 first; also relevant to Task 1.3.
 
-1.3) calculate_degree_statistics: returns the maximum, minimum, average and most common degree.
+calculate_clustering_coefficient - returns the clustering coefficient as a float for a node. Relevant to Task 1.4.
 
-1.4) calculate_clustering_coefficient: returns the clustering coefficient as a float for a node.
+subgraph - returns the node, its linked neighbours and the edges between them. Relevant to Task 1.4 first; also relevant to Task 1.8.
 
-1.5) subgraph: returns the node, its linked neighbours and the edges between them.
+inspect_node - returns the edges of a node from an edge list, or linked nodes from a neighbour list. Relevant to Task 1.1 first; also relevant to Task 1.2.
 
-1.6) inspect_node: returns the edges of a node from an edge list, or linked nodes from a neighbour list.
+NetworkDataError - base exception raised when network data fails validation. Relevant to Task 1.5 first; also relevant to Tasks 1.7 and 1.8.
 
-1.7) NetworkDataError: base exception raised when network data fails validation.
-
-1.8) NodeNotFoundError: raised when a requested node is not in the network.
+NodeNotFoundError - raised when a requested node is not in the network. Relevant to Task 1.8 first; also relevant to Task 1.7.
 
 Note: candidate conversion functions live in candidates.py; 
 subgraph returns the node, its linked neighbours and the edges between them.
