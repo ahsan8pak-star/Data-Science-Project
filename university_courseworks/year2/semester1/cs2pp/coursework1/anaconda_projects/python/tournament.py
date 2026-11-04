@@ -1,7 +1,5 @@
 """
-tournament.py - CS2PP Coursework 1, Task 2: Python Classes and Optimisation Algorithms.
-
-Task 2:
+Task 2 Objectives:
 
 2.1) Tournament class (and nested Team class) built from a config JSON.
 
@@ -11,17 +9,17 @@ Task 2:
 
 Requirements (from CS2PP_CW1.ipynb):
 
-- Constructed from ./data/configTEST.json: 
+- Constructed from ./data/configTEST.json:
   path, name, nteams, default_low, default_high, default_incr, prize.
 
-- Protective validation on every config value 
+- Protective validation on every config value
   (range, increment, team count, file existence, required CSV columns).
 
 - Sponsors and funding allocations assigned randomly, without duplication.
 
 - Teams are their own Team class.
 
-- Inventory acquired with the greedy knapsack: 
+- Inventory acquired with the greedy knapsack:
   many cars of the sponsor's Make, no duplicates in transaction.
 
 - Pairwise bracket rounds; only the winner advances.
@@ -39,7 +37,7 @@ Invariants to preserve:
 
 - configCOMPARE.json keeps the same data source but differing parameters.
 
-- The greedy-vs-DP comparison in 2.3 must be fair: 
+- The greedy-vs-DP comparison in 2.3 must be fair:
   same sponsors, teams and data, only the algorithm differs.
 
 Note: the third-party modules explored in Week 5 may be used for Task 2 (optional).
@@ -73,7 +71,7 @@ class Team:
     def acquire(self, cars, budget):
         """Acquire inventory within budget, returning the acquired cars."""
 
-        acquired = self._knapsack(cars, budget)
+        acquired = self.knapsack(cars, budget)
 
         self.inventory.extend(acquired)
 
@@ -96,15 +94,15 @@ class Team:
 
         return total_score
 
-    def _knapsack(self, cars, budget):
+    def knapsack(self, cars, budget):
         """Return the acquired cars using the team's configured algorithm."""
 
         if self.algorithm == "dp":
-            return self._dp_knapsack(cars, budget)
+            return self.dp_knapsack(cars, budget)
 
-        return self._greedy_knapsack(cars, budget)
+        return self.greedy_knapsack(cars, budget)
 
-    def _greedy_knapsack(self, cars, budget):
+    def greedy_knapsack(self, cars, budget):
         """Return the greedy acquisition: efficient cars first, within budget, without duplicates."""
 
         acquired = []
@@ -127,7 +125,7 @@ class Team:
 
         return acquired
 
-    def _dp_knapsack(self, cars, budget):
+    def dp_knapsack(self, cars, budget):
         """Return the optimal acquisition: 0/1 dynamic programming within the budget."""
 
         items = {}
@@ -166,7 +164,7 @@ class Team:
 
         table = []
 
-        for _ in range(count + 1):
+        for _ in range(count + 1): # _ = placeholder for row index
             row = [0] * (capacity + 1)
             table.append(row)
 
@@ -269,6 +267,12 @@ class Tournament:
 
         return self._champion
 
+    @champion.setter
+    def champion(self, value):
+        """Set the champion of the tournament."""
+
+        self._champion = value
+
     def _read_cars(self):
         """Return the validated car inventory rows from the configured data path."""
 
@@ -342,7 +346,12 @@ class Tournament:
             for index in range(0, len(current) - 1, 2):
                 left = current[index]
                 right = current[index + 1]
-                winner = left if left.score() >= right.score() else right
+
+                if left.score() >= right.score():
+                    winner = left
+
+                else:
+                    winner = right
 
                 winner.budget += self.prize
                 winner.acquire(self.cars, winner.budget)
@@ -369,7 +378,11 @@ class Tournament:
         print(f"The {self.name} Tournament bracket:")
 
         for round_number, matches in enumerate(self.bracket, start = 1):
-            header = "Final" if round_number == len(self.bracket) else f"Round {round_number}"
+            if round_number == len(self.bracket):
+                header = "Final"
+
+            else:
+                header = f"Round {round_number}"
 
             print()
             print(header)
