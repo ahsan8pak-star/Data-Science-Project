@@ -1002,7 +1002,7 @@ class TestReadmeArchitectureTree:
     """
 
     SKIP_DIRS = {".git", ".venv-win", ".venv-wsl", ".pytest_cache", "__pycache__",
-                 ".coverage", "htmlcov", ".ipynb_checkpoints"}
+                 ".coverage", "htmlcov", ".ipynb_checkpoints", "34001219_CS2PP_CW1"}
 
     # The tree collapses the eleven CS1IP weeks into one "week1/ ... week12/"
     # line, so only the first of a collapsed range is checked for existence.

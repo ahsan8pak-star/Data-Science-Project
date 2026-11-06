@@ -37,7 +37,7 @@ hold no portfolio code.
 """
 TREE_SKIP = {
     ".git", ".venv-win", ".venv-wsl", ".pytest_cache",
-    "__pycache__", ".coverage", "htmlcov",
+    "__pycache__", ".coverage", "htmlcov", "34001219_CS2PP_CW1",
 }
 
 """
