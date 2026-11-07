@@ -46,6 +46,7 @@ Note: the third-party modules explored in Week 5 may be used for Task 2 (optiona
 import csv
 import json
 import random
+from pathlib import Path
 
 
 # TournamentDataError: base exception raised when tournament data or configuration fails validation.
@@ -146,21 +147,8 @@ class Team:
             if car["Price"] <= budget:
                 affordable.append(car)
 
-        pruned = []
-        cheapest = None
-
-        for car in affordable:
-            if cheapest is None or car["Price"] < cheapest:
-                pruned.append(car)
-                cheapest = car["Price"]
-
-        total_pruned_cost = 0
-
-        for car in pruned:
-            total_pruned_cost += car["Price"]
-
-        capacity = min(budget, total_pruned_cost)
-        count = len(pruned)
+        capacity = min(budget, sum(car["Price"] for car in affordable))
+        count = len(affordable)
 
         table = []
 
@@ -169,7 +157,7 @@ class Team:
             table.append(row)
 
         for index in range(1, count + 1):
-            car = pruned[index - 1]
+            car = affordable[index - 1]
             price = car["Price"]
             value = car["MPG-H"]
 
@@ -187,7 +175,7 @@ class Team:
 
         for index in range(count, 0, -1):
             if table[index][weight] != table[index - 1][weight]:
-                car = pruned[index - 1]
+                car = affordable[index - 1]
                 acquired.append(car)
                 weight -= car["Price"]
 
@@ -243,16 +231,29 @@ class Tournament:
         if isinstance(default_incr, bool) or not isinstance(default_incr, int) or default_incr < 1:
             raise TournamentDataError("'default_incr' must be a positive integer.")
 
-        if not isinstance(config.get("path"), str) or not config.get("path").strip():
+        data_path = config.get("path")
+
+        if not isinstance(data_path, str) or not data_path.strip():
             raise TournamentDataError("'path' must be a non-empty string.")
 
-        self.path = config.get("path")
+        if not Path(data_path).exists():
+            raise TournamentDataError(f"Tournament data file not found: {data_path}")
+
+        self.path = data_path
         self.name = config.get("name")
         self.nteams = nteams
         self.default_low = default_low
         self.default_high = default_high
         self.default_incr = default_incr
         self.prize = prize
+
+        if self.default_incr > self.default_high - self.default_low:
+            raise TournamentDataError("'default_incr' must be less than or equal to the funding range.")
+
+        budget_steps = list(range(self.default_low, self.default_high + 1, self.default_incr))
+
+        if self.nteams > len(budget_steps):
+            raise TournamentDataError(f"'nteams' must not exceed the number of available budget steps ({len(budget_steps)}).")
 
         self._rng = random.Random(seed)
         self.teams = []
@@ -373,7 +374,7 @@ class Tournament:
         return self._champion
 
     def show_win_record(self):
-        """Print the tournament bracket, round by round, and the final result."""
+        """Print the tournament bracket as an ASCII tree and the final result."""
 
         print(f"The {self.name} Tournament bracket:")
 
@@ -389,7 +390,11 @@ class Tournament:
             print("-" * len(header))
 
             for index, (left, right, winner) in enumerate(matches, start = 1):
-                print(f"Match {index}: {left} vs {right} -> {winner} wins.")
+                left_label = f"{left.sponsor}----"
+                right_label = f"{right.sponsor}----"
+                winner_label = f"{winner.sponsor}----"
+
+                print(f"Match {index}: {left_label} vs {right_label} -> {winner_label} wins.")
 
         print()
         print(f"The champion of the {self.name} Tournament is the {self._champion}.")
