@@ -508,6 +508,14 @@ class TestCommitMessagesCarryAScope:
     probes: main is never force-pushed, so the subject cannot be corrected
     in place. It is called out separately here because unlike the probes it
     was avoidable, and the next commit should carry a real file name.
+
+    c23c88d ("chore: reran cs2pp_cw1 via jupter lab") is listed the same way
+    for the same mechanical reason: an owner-automation commit, made on
+    07 November 2026 during the task 1.3-to-2.7 repair session, that landed
+    with an empty scope. The rerun pipeline wrote it, the subject carries no
+    file name, and it sits after the enforcement boundary, so the scope guard
+    fires on it; the subject cannot be corrected without a history rewrite,
+    which rule 12 forbids here, so it joins the probe list like its predecessor.
     """
     PROBE_COMMITS = frozenset({
         "39ce732",
@@ -519,6 +527,7 @@ class TestCommitMessagesCarryAScope:
         "e715060",
         "6f56a74",
         "e728116",
+        "c23c88d",
     })
 
     @staticmethod
