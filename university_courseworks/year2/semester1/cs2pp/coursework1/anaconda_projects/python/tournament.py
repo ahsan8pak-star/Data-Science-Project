@@ -186,8 +186,11 @@ class Team:
 
 # Tournament: a competition between sponsored teams of car efficiency enthusiasts.
 class Tournament:
-    def __init__(self, config_path, *, seed = None):
+    def __init__(self, config_path, *, seed = 42):
         """Initialise the tournament from a JSON configuration file."""
+
+        # Fixed seed (42): reproducible sponsor and team draws, so the greedy
+        # versus optimised comparison always runs on identical inputs.
 
         if not isinstance(config_path, str) or not config_path.strip():
             raise TournamentDataError("'config_path' must be a non-empty string.")
@@ -414,8 +417,11 @@ class Tournament:
 class Tournament_optimised(Tournament):
     """Tournament that computes inventory acquisitions with dynamic programming instead of the greedy method."""
 
-    def __init__(self, config_path, *, seed = None):
+    def __init__(self, config_path, *, seed = 42):
         """Initialise the optimised tournament, inheriting the configuration before switching strategy."""
+
+        # Fixed seed (42): reproducible sponsor and team draws, so the greedy
+        # versus optimised comparison always runs on identical inputs.
 
         super().__init__(config_path, seed = seed)
         self.algorithm = "dp"
