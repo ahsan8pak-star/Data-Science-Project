@@ -136,7 +136,6 @@ def calculate_degree_statistics(network):
     maximum = max(degrees)
     minimum = min(degrees)
     average = (lambda values: float(sum(values)) / len(values))(degrees) # average = sum(degrees) / len(degrees) -> values = degrees
-    
     if isinstance(average, float) and average.is_integer():
         average = int(average) # whole averages stay whole; floats only when necessary
 
