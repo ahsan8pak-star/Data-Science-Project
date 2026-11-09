@@ -109,7 +109,9 @@ EXTRA_TYPE_FOLDERS = {("cs1ip", "week7", "lecture"): {"txt"},
                       ("cs2pp", "week1", "practical"): {"images"},
                       ("cs2pp", "week4", "practical"): {"txt"},
                       ("cs2pp", "week3", "lecture"): {"L03X.2_Modules"},
-                      ("cs2pp", "week4", "lecture"): {"L04X.1_CLI_Implementations"}}
+                      ("cs2pp", "week4", "lecture"): {"L04X.1_CLI_Implementations"},
+                      ("cs2pp", "week7", "lecture"): {"data"},
+                      ("cs2pp", "week7", "practical"): {"data"}}
 
 MODULE_PATHS = {"cs1ip": CS1IP, "cs1db": CS1DB, "cs1op": CS1OP, "cs2pp": CS2PP}
 
