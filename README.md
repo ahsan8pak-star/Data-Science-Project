@@ -261,6 +261,8 @@ This is where university modules and its coursework goes under for the applicati
 
 ## CS1IP
 
+Imperative Programming: first started as `Java` and then translated to `python` for ease.
+
 ---
 
 **Coursework 1 -> 1st half of Semester 1 at Year 1**
@@ -280,6 +282,35 @@ This is where university modules and its coursework goes under for the applicati
 | File Name       | Topics Covered                                                                                                                                                                                   |
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Sort Comparison | **`Python Fundamental Topics` -> `Imperative Programming` -> `Lists & Matrices`, `Loops & State Control`, `Conditions & Control Flow`, `Functions`, `Modules` and `Main`** |
+
+---
+
+## CS1OP
+
+Object - Oriented Programming: first started as `Java` and then translated to `python` for ease despite the complexity.
+
+---
+
+**Project -> Semester 2 at Year 1**
+
+| File Name | Topics Covered |
+| --- | --- |
+| Space Mission | **`Python Fundamental Topics` -> `Object-Oriented Programming` -> `Classes`, `Constructors`, `Inheritance`, `Abstract Classes`, `Polymorphism`, `Singleton`, `Factory` and `Observer`; `Swing GUI`, `Event Handling` and `File I/O`** |
+
+---
+
+## CS2PP
+
+Dedicated for python and its third libraries to be assessed
+
+---
+
+**Coursework 1 -> Semester 1 at Year 2**
+
+| File Name | Topics Covered |
+| --- | --- |
+| Network Analysis | **`Python Fundamental Topics` -> `Imperative Programming` -> `Functions`, `Lists & Matrices`, `Tuples & Dictionaries`, `Loops & State Control`, `Exceptions`, `Modules`, `CSV File I/O` and `Graph Theory`** |
+| Car Tournament | **`Python Fundamental Topics` -> `Object-Oriented Programming` -> `Classes`, `Constructors`, `Methods` and `Operator Overloading`; `JSON & CSV File I/O`, `Greedy Algorithms` and `Dynamic Programming`** |
 
 ---
 
@@ -525,7 +556,11 @@ splits by language without a lecture/practical level. In year 1 (`cs1ip/`),
 year 2 (`cs2da/`) and the year 1 semester 2 OOP module (`cs1op/`), the
 `java/` folder holds the primary lecture material and `python/` holds
 line-by-line translations for syntax comparison; the remaining modules
-carry both languages as parallel peer submissions. The exact shape is
+carry both languages as parallel peer submissions. Each half may also carry a
+`solution/` subfolder that holds the week's answer material, kept apart from
+the teaching material beside it; it is optional rather than required - like an
+empty `pdf/` half for CS1OP - because git cannot commit an empty folder, and a
+solution that has not been written yet is legitimately empty. The exact shape is
 asserted by `tests/test_university_courseworks/test_structure.py`, so the
 tree above cannot drift from the folders on disk without the suite failing.
 Architecture comments state each entry's purpose or meaning first; a framework
