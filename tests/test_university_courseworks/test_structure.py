@@ -83,11 +83,21 @@ requirement would pass on the owner's disk and fail on a fresh clone. CS1OP
 therefore requires java/ and python/, and merely allows pdf/ and pptx/. Decided
 8 October 2026, on A.I.M's instruction to split required from allowed rather than
 create empty folders that git would silently drop.
+
+`solution/` joined on 9 November 2026, when A.I.M asked for a solution
+subfolder beneath each lecture/practical pair so answer material can sit apart
+from the teaching material. A half may now carry it without being required to:
+like pdf/ for CS1OP, a solution/ that holds nothing yet is uncommittable, so the
+split stays required-from-allowed rather than demanded.
 """
-OPTIONAL_TYPE_FOLDERS = {"cs1op": {"lecture": {"pdf", "pptx"},
-                                   "practical": {"pdf"}},
-                        "cs2pp": {"lecture": {"python", "html", "images"},
-                                  "practical": {"python", "html", "images"}}}
+OPTIONAL_TYPE_FOLDERS = {"cs1ip": {"lecture": {"solution"},
+                                  "practical": {"solution"}},
+                         "cs1db": {"lecture": {"solution"},
+                                  "practical": {"solution"}},
+                         "cs1op": {"lecture": {"pdf", "pptx", "solution"},
+                                  "practical": {"pdf", "solution"}},
+                         "cs2pp": {"lecture": {"python", "html", "images", "solution"},
+                                  "practical": {"python", "html", "images", "solution"}}}
 
 # CS2PP's python/ folders are optional: its work is notebook-based, but A.I.M keeps
 # small Python demos (unittest/pytest) beside the notebooks for hands-on practice.
