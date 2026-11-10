@@ -610,7 +610,7 @@ tracked and states part of the project's structure, rules or progress:
   versions and the sync workflow (Windows + WSL).
 - `rank_file_scores/FILE_RANKING_GUIDE.md` — 0-100 file scoring guide.
 - `rank_file_scores/FILE_SCORES.md` — ranking results for all 160 tracked Python files.
-- `git_repo_progress/PROGRESSION.md` — narrative record of learning stages and sessions.
+- `git_repo_progress/PROGRESSION.md` — narrative record of learning stages; session log now lives in `git_repo_progress/YYYY/YYYY-MM_SESSIONS.md`.
 - `git_repo_progress/HISTORY_REVIEW.md` — 22-week retrospective (WWW/EBI).
 - `NOTES.md` — maintenance journal, study tracks and career direction.
 

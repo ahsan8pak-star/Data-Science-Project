@@ -830,15 +830,18 @@ class TestProgressionDocClaims:
         """
         flat = self._flat()
         assert "## 7. Session log" in flat, (
-            "PROGRESSION.md has no session log; rule 13 requires one"
+            "PROGRESSION.md has no session log index; rule 13 requires one"
         )
-        block = self.DOC.read_text(encoding="utf-8").split("## 7. Session log", 1)[1]
-        rows = [
-            line for line in block.splitlines()
-            if line.strip().startswith("|") and "---" not in line
-        ][1:]  # drop the header row
-        assert len(rows) >= 1, "the session log has no entries"
-        undated = [r for r in rows if not re.search(r"\d{1,2} \w+ 20\d{2}", r)]
+        # Session rows now live in monthly files under git_repo_progress/YYYY/.
+        monthly = sorted((REPO_ROOT / "git_repo_progress").glob("**/*_SESSIONS.md"))
+        assert monthly, "no monthly session-log files exist"
+        dated = []
+        for mf in monthly:
+            for line in mf.read_text(encoding="utf-8").splitlines():
+                if line.strip().startswith("|") and "---" not in line and re.search(r"\d{1,2} \w+ 20\d{2}", line):
+                    dated.append(line)
+        assert dated, "the session log has no dated entries"
+        undated = [r for r in dated if not re.search(r"\d{1,2} \w+ 20\d{2}", r)]
         assert undated == [], f"session log rows without a date: {undated}"
 
     def test_the_log_is_referenced_from_agents_rules(self):

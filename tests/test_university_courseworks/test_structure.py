@@ -11,16 +11,16 @@ assume.
 
 Three kinds of assertion appear here, and the distinction matters:
 
-  - **Invariants** that hold everywhere and are cheap to break — every week
+  - **Invariants** that hold everywhere and are cheap to break â€” every week
     splits into lecture and practical, a type folder carries one extension,
     every marked script has both language twins.
   - **Named exemptions** for the parts of the migration still in flight.
     A.I.M was still moving files while these tests were written, so three
     CS1IP weeks still hold files loose above their type folders. Naming
     those weeks here means finishing the migration is a one-line edit to
-    this file, and the guard tightens as a result — rather than the
+    this file, and the guard tightens as a result â€” rather than the
     convention being quietly dropped to match the tree.
-  - **Deliberate non-uniformity** — CS2DA splits by language without a
+  - **Deliberate non-uniformity** â€” CS2DA splits by language without a
     lecture/practical level, and CS1DB uses `sql/` where the others use
     `java/`. Both are facts about the modules, not oversights.
 
@@ -57,7 +57,7 @@ decks - nine weeks of `.pptx`, added as the lecture half's real material.
 """
 TYPE_SUFFIXES = {"java": ".java", "python": ".py", "pdf": ".pdf",
                  "sql": ".sql", "txt": ".txt", "data": None, "csv": ".csv",
-                 "jupyter": ".ipynb", "pptx": ".pptx", "html": ".html"}
+                 "jupyter": ".ipynb", "pptx": ".pptx", "html": ".html", "md": ".md"}
 
 # Modules whose weeks split into lecture/ and practical/, and the type folders
 # each nests: CS1DB carries sql/ and data/, CS2PP carries jupyter/ in both halves.
@@ -70,6 +70,8 @@ SPLIT_MODULES = {
               "practical": {"java", "python", "pdf"}},
     "cs2pp": {"lecture": {"jupyter", "pdf"},
               "practical": {"jupyter", "pdf"}},
+    "cs2da": {"lecture": set(),
+              "practical": {"java", "python"}},
 }
 
 """
@@ -97,7 +99,9 @@ OPTIONAL_TYPE_FOLDERS = {"cs1ip": {"lecture": {"solution"},
                          "cs1op": {"lecture": {"pdf", "pptx", "solution"},
                                   "practical": {"pdf", "solution"}},
                          "cs2pp": {"lecture": {"python", "html", "images", "solution"},
-                                  "practical": {"python", "html", "images", "solution"}}}
+                                  "practical": {"python", "html", "images", "solution"}},
+                         "cs2da": {"lecture": {"html", "pdf"},
+                                   "practical": {"md", "pdf", "pseudocode", "images"}}}
 
 # CS2PP's python/ folders are optional: its work is notebook-based, but A.I.M keeps
 # small Python demos (unittest/pytest) beside the notebooks for hands-on practice.
@@ -123,11 +127,11 @@ EXTRA_TYPE_FOLDERS = {("cs1ip", "week7", "lecture"): {"txt"},
                       ("cs2pp", "week7", "lecture"): {"data"},
                       ("cs2pp", "week7", "practical"): {"data"}}
 
-MODULE_PATHS = {"cs1ip": CS1IP, "cs1db": CS1DB, "cs1op": CS1OP, "cs2pp": CS2PP}
+MODULE_PATHS = {"cs1ip": CS1IP, "cs1db": CS1DB, "cs1op": CS1OP, "cs2pp": CS2PP, "cs2da": CS2DA}
 
 # Every module folder, including CS2DA which is deliberately absent from
 # SPLIT_MODULES; the "only module without the split" check needs all of them.
-ALL_MODULE_PATHS = dict(MODULE_PATHS, cs2da=CS2DA)
+ALL_MODULE_PATHS = dict(MODULE_PATHS)
 
 # CS1IP weeks still holding files loose above their type folders mid-migration;
 # delete an entry as its week is finished rather than relaxing the check.
@@ -526,20 +530,6 @@ class TestYearTwoLayout:
     CS2DA is the last module that does not, and semester 2 is still empty.
     """
 
-    def test_cs2da_weeks_split_by_language(self):
-        """
-        CS2DA is the one module left without a lecture/practical level: its
-        weeks carry java/ and python/ directly. Recorded as the open case, so
-        closing it means editing this test rather than leaving it to drift.
-        """
-        weeks = week_folders(CS2DA)
-        assert len(weeks) >= 10, "cs2da lost its week folders"
-        offenders = {
-            week.name: subfolders(week) for week in weeks
-            if not {"java", "python"} <= set(subfolders(week))
-        }
-        assert offenders == {}, f"cs2da weeks missing java/python: {offenders}"
-
     def test_cs2da_is_the_only_module_without_the_split(self):
         """
         One assertion that names the exception, so adding the split to CS2DA
@@ -549,13 +539,13 @@ class TestYearTwoLayout:
         earlier version read SPLIT_MODULES, which excluded CS2DA and so
         passed without inspecting anything at all.
         """
-        assert set(ALL_MODULE_PATHS) == set(SPLIT_MODULES) | {"cs2da"}
+        assert set(ALL_MODULE_PATHS) == set(SPLIT_MODULES)
 
         without_split = sorted(
             name for name, path in ALL_MODULE_PATHS.items()
             if any("lecture" not in subfolders(week) for week in week_folders(path))
         )
-        assert without_split == ["cs2da"], (
+        assert without_split == [], (
             "expected cs2da to be the only module without a lecture/ half; if "
             "one has been migrated, update SPLIT_MODULES and this list "
             f"together: {without_split}"

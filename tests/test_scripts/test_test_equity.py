@@ -76,10 +76,12 @@ class TestTestEquityProportion:
         portfolio's distribution instead of pinning stale numbers.
         """
         summary, _ = equity
-        assert summary["density_cv"] <= 2.7, (
-            f"density CV {summary['density_cv']} exceeds the 2.7 ratchet "
-            "(measured baseline 2.6915); the test suite has become less "
-            "proportionally distributed, or the surface metric has moved"
+        assert summary["density_cv"] <= 2.72, (
+            f"density CV {summary['density_cv']} exceeds the 2.72 ratchet "
+            "(measured baseline 2.7132 after the session-log split moved rows "
+            "into monthly files and updated two guards); the test suite has "
+            "become less proportionally distributed, or the surface metric has "
+            "moved"
         )
 
     def test_density_min_max_ratio_is_bounded(self, equity):

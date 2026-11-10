@@ -67,7 +67,7 @@ dc_convex_hull - Point / split / merge / sorts
 """
 
 def test_point_repr_lt_flip() -> None:
-    dc = _load_cs2da("week2/python/dc_convex_hull.py")
+    dc = _load_cs2da("week2/practical/python/dc_convex_hull.py")
     p = dc.Point(1.0, 5.0)
     assert repr(p) == "(1.0,5.0)"
     assert dc.Point(1, 5) < dc.Point(2, 1)
@@ -80,7 +80,7 @@ def test_point_repr_lt_flip() -> None:
 
 
 def test_split_known_and_new_edges() -> None:
-    dc = _load_cs2da("week2/python/dc_convex_hull.py")
+    dc = _load_cs2da("week2/practical/python/dc_convex_hull.py")
     xs = list(range(1, 6))
     left = dc.split(xs)
     assert left == [1, 2]
@@ -100,7 +100,7 @@ def test_split_known_and_new_edges() -> None:
 
 
 def test_merge_known_fixtures_and_stability() -> None:
-    dc = _load_cs2da("week2/python/dc_convex_hull.py")
+    dc = _load_cs2da("week2/practical/python/dc_convex_hull.py")
     # known
     xs = [0]
     ys = []
@@ -119,7 +119,7 @@ def test_merge_known_fixtures_and_stability() -> None:
 
 
 def test_merge_sort_known_and_random() -> None:
-    dc = _load_cs2da("week2/python/dc_convex_hull.py")
+    dc = _load_cs2da("week2/practical/python/dc_convex_hull.py")
     # known java cases; base cases return the same list unchanged
     for xs in [[], [0], [1, 2], [2, 1], [3, 2, 1]]:
         xs2 = list(xs)
@@ -146,7 +146,7 @@ def test_merge_sort_known_and_random() -> None:
 
 
 def test_cheat_sort_leaves_original_unchanged() -> None:
-    dc = _load_cs2da("week2/python/dc_convex_hull.py")
+    dc = _load_cs2da("week2/practical/python/dc_convex_hull.py")
     xs = [3, 1, 2]
     zs = dc.cheat_sort(xs)
     assert zs == [1, 2, 3]
@@ -155,7 +155,7 @@ def test_cheat_sort_leaves_original_unchanged() -> None:
 
 
 def test_clockwise_and_cross() -> None:
-    dc = _load_cs2da("week2/python/dc_convex_hull.py")
+    dc = _load_cs2da("week2/practical/python/dc_convex_hull.py")
     p1 = dc.Point(0, 0)
     p2 = dc.Point(1, 1)
     p3 = dc.Point(2, 0)
@@ -175,7 +175,7 @@ def test_clockwise_and_cross() -> None:
 
 
 def test_lower_hull_and_merge_disjoint_known_fixtures() -> None:
-    dc = _load_cs2da("week2/python/dc_convex_hull.py")
+    dc = _load_cs2da("week2/practical/python/dc_convex_hull.py")
     # known Java fixture: line(...) builds Points, and list str adds the
     # outer comma-space exactly as LinkedList.toString does.
     xs = dc.line([1.0, 5.0, 2.0, 1.0])
@@ -205,7 +205,7 @@ def test_lower_hull_and_merge_disjoint_known_fixtures() -> None:
 
 
 def test_upper_lower_hull_merge_hull_square() -> None:
-    dc = _load_cs2da("week2/python/dc_convex_hull.py")
+    dc = _load_cs2da("week2/practical/python/dc_convex_hull.py")
     pts = [dc.Point(0, 0), dc.Point(1, 0), dc.Point(1, 1), dc.Point(0, 1)]
     h = dc.upper_lower_hull(pts)
     # square hull has 4 points
@@ -217,7 +217,7 @@ def test_upper_lower_hull_merge_hull_square() -> None:
 
 
 def test_java_test_functions_pass_and_failure_paths(capsys) -> None:
-    dc = _load_cs2da("week2/python/dc_convex_hull.py")
+    dc = _load_cs2da("week2/practical/python/dc_convex_hull.py")
     dc.test_merge()
     out = capsys.readouterr().out
     assert "FAIL" not in out
@@ -260,7 +260,7 @@ def test_java_test_functions_pass_and_failure_paths(capsys) -> None:
 
 
 def test_convex_hull_plot_paint_and_wiring(monkeypatch) -> None:
-    dc = _load_cs2da("week2/python/dc_convex_hull.py")
+    dc = _load_cs2da("week2/practical/python/dc_convex_hull.py")
     plot = object.__new__(dc.ConvexHullPlot)
     plot.all = [dc.Point(0, 0), dc.Point(2, 1)]
     plot.hull = [dc.Point(0, 0), dc.Point(2, 1)]
@@ -295,7 +295,7 @@ avl_tree_st
 """
 
 def test_avl_known_sample(capsys, monkeypatch) -> None:
-    avl = _load_cs2da("week3/python/avl_tree_st.py")
+    avl = _load_cs2da("week3/practical/python/avl_tree_st.py")
     monkeypatch.setattr(sys, "stdin", io.StringIO("S E A R C H E X A M P L E\n"))
     avl.main()
     out = capsys.readouterr().out
@@ -318,7 +318,7 @@ def test_avl_known_sample(capsys, monkeypatch) -> None:
 
 
 def test_avl_put_get_delete_and_statistics() -> None:
-    avl = _load_cs2da("week3/python/avl_tree_st.py")
+    avl = _load_cs2da("week3/practical/python/avl_tree_st.py")
     st = avl.AVLTreeST()
     keys = [5, 3, 7, 1, 4, 6, 9, 2, 8]
     for k in keys:
@@ -363,7 +363,7 @@ def test_avl_put_get_delete_and_statistics() -> None:
 
 
 def test_avl_exception_messages_exact() -> None:
-    avl = _load_cs2da("week3/python/avl_tree_st.py")
+    avl = _load_cs2da("week3/practical/python/avl_tree_st.py")
     st = avl.AVLTreeST()
     with pytest.raises(IndexError, match="called min\\(\\) with empty symbol table"):
         st.min()
@@ -406,7 +406,7 @@ def test_avl_exception_messages_exact() -> None:
 
 
 def test_avl_invariant_checks_detect_corruption(capsys) -> None:
-    avl = _load_cs2da("week3/python/avl_tree_st.py")
+    avl = _load_cs2da("week3/practical/python/avl_tree_st.py")
     st = avl.AVLTreeST()
     for k in [3, 1, 4, 2, 5]:
         st.put(k, k)
@@ -471,7 +471,7 @@ basic_avl_tree_set
 """
 
 def test_avl_set_empty_and_sentinel() -> None:
-    avls = _load_cs2da("week3/python/basic_avl_tree_set.py")
+    avls = _load_cs2da("week3/practical/python/basic_avl_tree_set.py")
     s = avls.BasicAvlTreeSet()
     assert s.contains(5) is False
     s.remove(5)  # no-op
@@ -483,7 +483,7 @@ def test_avl_set_empty_and_sentinel() -> None:
 
 
 def test_avl_set_add_remove_invariants() -> None:
-    avls = _load_cs2da("week3/python/basic_avl_tree_set.py")
+    avls = _load_cs2da("week3/practical/python/basic_avl_tree_set.py")
     s = avls.BasicAvlTreeSet()
     # duplicates
     for _ in range(3):
@@ -528,7 +528,7 @@ sort_benchmark
 """
 
 def test_sort_benchmark_timer(monkeypatch) -> None:
-    sb = _load_cs2da("week4/python/sort_benchmark.py")
+    sb = _load_cs2da("week4/practical/python/sort_benchmark.py")
     sb._timer_start = -1
     now = [1000]
 
@@ -555,7 +555,7 @@ def test_sort_benchmark_timer(monkeypatch) -> None:
 
 
 def test_random_list_and_print_array() -> None:
-    sb = _load_cs2da("week4/python/sort_benchmark.py")
+    sb = _load_cs2da("week4/practical/python/sort_benchmark.py")
     sb._rng = random.Random(1)
     r = sb.random_list(5)
     assert len(r) == 5
@@ -589,7 +589,7 @@ def test_random_list_and_print_array() -> None:
 
 
 def test_all_sorts_match_sorted_with_stability(capsys) -> None:
-    sb = _load_cs2da("week4/python/sort_benchmark.py")
+    sb = _load_cs2da("week4/practical/python/sort_benchmark.py")
     fixtures = [[], [1], [2, 1], [3, 1, 2], [5, 5, 5], [4, 3, 2, 1]]
     for cls in [sb.Insertion, sb.Shell, sb.MergeBU, sb.Quick3way]:
         for xs in fixtures:
@@ -637,7 +637,7 @@ def test_all_sorts_match_sorted_with_stability(capsys) -> None:
 
 
 def test_sort_benchmark_main_wiring(capsys, monkeypatch) -> None:
-    sb = _load_cs2da("week4/python/sort_benchmark.py")
+    sb = _load_cs2da("week4/practical/python/sort_benchmark.py")
     sb._timer_start = -1
     sb._rng = random.Random(123)
     monkeypatch.setattr(sb, "TIME_LIMIT_NANOSECONDS", 2)

@@ -178,7 +178,7 @@ Java original, then make the sound effects audible at a consistent level.
 
 | Check | Command | Result |
 | --- | --- | --- |
-| Full suite | `.venv-win/Scripts/python.exe -m pytest -q` | 2046 passed |
+| Full suite | `.venv-win/Scripts/python.exe -m pytest -q` | 2053 passed |
 | Java suite (unchanged, at its committed 26) | `java -jar junit-platform-console-standalone.jar --class-path <build> --scan-class-path` | 26 tests successful |
 | Sound levels | `.venv-win/Scripts/python.exe scripts/normalize_sound_volumes.py --report-only` | floor at 20.0% of the loudest, 0 clips below target |
 | Parity cases | `.venv-win/Scripts/python.exe -m pytest tests/test_university_courseworks/test_ai_parity.py -q` | 58 passed |

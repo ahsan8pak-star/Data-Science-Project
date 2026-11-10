@@ -22,6 +22,12 @@ AGENTS_MD = REPO_ROOT / "agentic_models" / "AGENTS.md"
 PROGRESSION_MD = REPO_ROOT / "git_repo_progress" / "PROGRESSION.md"
 ALLOWANCE_MD = REPO_ROOT / "agentic_models" / "MODEL_ALLOWANCE.md"
 
+def _progression_sources():
+    sources = [PROGRESSION_MD]
+    for monthly in sorted((REPO_ROOT / "git_repo_progress").glob("**/*_SESSIONS.md")):
+        sources.append(monthly)
+    return sources
+
 MODELS = [
     "Big Pickle Free",
     "Space Bunny Free",
@@ -100,7 +106,7 @@ def agents_text():
 
 @pytest.fixture(scope="module")
 def progression_text():
-    return PROGRESSION_MD.read_text(encoding="utf-8")
+    return "\n".join(p.read_text(encoding="utf-8") for p in _progression_sources())
 
 
 class TestRotationTables:

@@ -14,8 +14,8 @@ miss. Rule 14 (context-first) applies in both Plan and Build mode.
 - `.venv-wsl` access: `source .venv-wsl/bin/activate`
 - Windows interpreter: `.venv-win/Scripts/python.exe` (3.14.5).
 - WSL/Linux interpreter: `.venv-wsl/bin/python` (3.12.3).
-- Full suite: `.venv-win/Scripts/python.exe -m pytest` (2046 passed).
-- WSL suite: `.venv-wsl/bin/python -m pytest` (2046 passed).
+- Full suite: `.venv-win/Scripts/python.exe -m pytest` (2053 passed).
+- WSL suite: `.venv-wsl/bin/python -m pytest` (2053 passed).
 - One test file: `.venv-win/Scripts/python.exe -m pytest tests/test_scripts/test_repo_doc_numbers.py`
 - Never use bare `python`/`python3` — it resolves to the system interpreter.
 - Bare `pytest` works after activation; still prefer `python -m pytest` for reproducibility.
@@ -25,14 +25,14 @@ miss. Rule 14 (context-first) applies in both Plan and Build mode.
 
 - Python is primary. Java is checked statically from `university_courseworks/.../cs1op/coursework/ai_parity_cases.json`.
 - `agentic_models/AGENTS.md` holds the rules, rotation tables and model ceilings. `agentic_models/TASK_MODEL_GUIDE.md` maps tasks to models and effort levels.
-- `git_repo_progress/PROGRESSION.md` — session log (rule 13, append-only).
+- `git_repo_progress/PROGRESSION.md` — narrative record; session log now lives in `git_repo_progress/YYYY/YYYY-MM_SESSIONS.md` (rule 13, append-only).
 - `git_repo_progress/HISTORY_REVIEW.md` — WWW/EBI retrospective.
 - Two venvs, named per platform: `.venv-win/` and `.venv-wsl/`. Both are ignored by git.
 
 ## Key rules
 
 - **Rule 12** — conventional `type(scope):` commit subjects (every commit carries a scope naming the file or folder touched).
-- **Rule 13** — a session-log row per session in `git_repo_progress/PROGRESSION.md`; historical rows append-only.
+- **Rule 13** — a session-log row per session, appended to the current month's file under `git_repo_progress/YYYY/YYYY-MM_SESSIONS.md`; historical rows append-only. `PROGRESSION.md` keeps sections 1-6 (narrative) plus an index to the monthly files.
 - **Rule 14** — read relevant context before acting (Plan and Build). Ask when the fit is suboptimal.
 - Coverage: `branch = true`, `source = python`, 99% lines / 95% branch.
 - Docs and guards must agree: test counts, coverage figures, README tree, file scores. A stale number must fail the suite.
