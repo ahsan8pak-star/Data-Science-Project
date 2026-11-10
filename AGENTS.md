@@ -65,8 +65,25 @@ If a model is missing from the Zen `/models` list, treat it as a reason to pick 
 
 ## Commit conventions
 
-- Standard prefixes: `feat`, `fix`, `docs`, `refactor`, `test`, `style`, `chore`, `ci`.
+Full reference (with task-to-keyword table and footer phrases): `agentic_models/COMMIT_KEYWORDS.md`.
+
+| Prefix | Task it covers | Example |
+| --- | --- | --- |
+| `feat` | New feature / source file / script | `feat(generator.py): add QR-code entry point` |
+| `fix` | Bug fix / runtime error | `fix(clock.py): resolve timing drift` |
+| `docs` | Documentation only | `docs(README.md): update setup commands` |
+| `style` | Formatting only, no logic | `style(imports): sort imports` |
+| `refactor` | Restructure / move, no behaviour change | `refactor(alarm_clock.py): move to syntax_exercises` |
+| `perf` | Performance improvement | `perf(search.py): cache lookups` |
+| `test` | Add / modify tests | `test(test_ranking_docs.py): guard heading drift` |
+| `build` | Build system / dependencies | `build(requirements.txt): pin coverage` |
+| `ci` | CI / pipeline workflow | `ci(workflow): add pytest run` |
+| `chore` | Maintenance / housekeeping | `chore(.gitignore): ignore .env` |
+| `revert` | Undo a previous commit | `revert: revert "feat: add X"` |
+
 - Every commit carries a scope naming the file or folder touched: `fix(generator.py): resolve import error`, not `fix: resolve import error`.
+- Breaking changes: append `!` (`feat(api)!: ...`) and/or a `BREAKING CHANGE:` footer.
+- Footer phrases: `Closes #N`/`Fixes #N`/`Resolves #N` (close issue), `Refs #N` (reference), `Co-authored-by:` (attribution).
 - Non-standard prefixes like `file(...)` break commitlint, changelogs and Semantic Release.
 
 ## WWW / EBI (What Went Well / Evidence-Based Improvements)

@@ -769,6 +769,9 @@ script in it fails.
 
 ## Commit Conventions (Conventional Commits)
 
+Full reference (task-to-keyword table, scopes, breaking-change markers, footer
+phrases): `agentic_models/COMMIT_KEYWORDS.md`.
+
 Standard prefixes give automated tools (release pipelines, linters, changelogs)
 structured history and keep the log scannable:
 
