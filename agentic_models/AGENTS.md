@@ -994,7 +994,7 @@ or the correction is half-applied.
 
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
-- `scripts/test_equity.py` measures test-equity across the portfolio: a composite surface (methods, attributes, command types, input/output points) versus pytest cases plus guard assertions, attributed per module via resolved FILE/FOLDER constants. `tests/test_scripts/test_test_equity.py` guards it: 160 modules, 159 with tests, 1 full-range failure (the deliberate `main.py` stub), density CV 2.69 ratcheted at 2.7, min/max ratio 447.99 ratcheted at 450.
+- `scripts/test_equity.py` measures test-equity across the portfolio: a composite surface (methods, attributes, command types, input/output points) versus pytest cases plus guard assertions, attributed per module via resolved FILE/FOLDER constants. `tests/test_scripts/test_test_equity.py` guards it: 160 modules, 159 with tests, 1 full-range failure (the deliberate `main.py` stub), density CV 2.72 ratcheted at 2.72 (measured baseline 2.7132), min/max ratio 450 ratcheted at 450 (measured 432.67).
 - 2053 passing tests, ~99% line coverage and 95% branch coverage (149 of the
   160 measured `python/` files at 100% lines, including both music-player
   GUIs; the 160 non-`__init__.py` files are the number a docstring sweep
