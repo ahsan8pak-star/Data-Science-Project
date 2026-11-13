@@ -67,9 +67,9 @@ class TestTestEquityProportion:
 
     def test_density_coefficient_of_variation_is_bounded(self, equity):
         """
-        Ratchet, not a target. The live measurement is 2.6915, and the ratchet
-        is set just above it so ordinary work does not trip the guard while
-        still enforcing a real ceiling.
+        Ratchet, not a target. The live measurement is 2.7132, and the ratchet
+        is set just above it (2.72) so ordinary work does not trip the guard
+        while still enforcing a real ceiling.
 
         This guard is intentionally looser than the measured value only by a
         small headroom; lowering it remains the mechanism for improving the
