@@ -36,11 +36,12 @@ def generate(student_id: int):
 
 
 def print_table(delta, accepting):
-    print("  q |  a |  b |  c")
-    print("-------------------")
+    print("---------------------")
+    print("|  q |  a |  b |  c |")
+    print("---------------------")
 
     for q in range(len(delta)):
-        print(f" q{q}", end="")
+        print(f"| q{q}", end="")
 
         for a in range(len(delta[0])):
             if delta[q][a] == -1:
@@ -50,7 +51,9 @@ def print_table(delta, accepting):
                 print(f" | q{delta[q][a]}", end="")
         print()
 
-    print("Accepting states: " + "".join(f" q{q}" for q in range(len(accepting)) if accepting[q]))
+    print("---------------------")
+
+    print("\nAccepting states: " + "".join(f" q{q}" for q in range(len(accepting)) if accepting[q]))
 
 
 def main():
