@@ -115,6 +115,11 @@ files. CS1IP week3's lecture carries week_03_lecture_code/, which holds that
 week's lecture code as A.I.M placed it on 8 October 2026 - the lecture half's
 counterpart to the week_07_practical_files fixtures, and recorded here on the
 same principle rather than renamed into lecture/python/ behind his back.
+
+CS2PP week3's lecture now groups its bonus folders under
+L03_X#_Extra_Content/, the wrapper the week3 extras move created, and
+CS2PP week8's lecture carries data/ for that week's run logs, the same
+local-only material class as weeks 5 and 7.
 """
 EXTRA_TYPE_FOLDERS = {("cs1ip", "week7", "lecture"): {"txt"},
     ("cs2pp", "week5", "lecture"): {"data", "html", "images"},
@@ -122,10 +127,11 @@ EXTRA_TYPE_FOLDERS = {("cs1ip", "week7", "lecture"): {"txt"},
                       ("cs1ip", "week3", "lecture"): {"week_03_lecture_code"},
                       ("cs2pp", "week1", "practical"): {"images"},
                       ("cs2pp", "week4", "practical"): {"txt"},
-                      ("cs2pp", "week3", "lecture"): {"L03X.2_Modules"},
+                      ("cs2pp", "week3", "lecture"): {"L03_X#_Extra_Content"},
                       ("cs2pp", "week4", "lecture"): {"L04X.1_CLI_Implementations"},
                       ("cs2pp", "week7", "lecture"): {"data"},
-                      ("cs2pp", "week7", "practical"): {"data"}}
+                      ("cs2pp", "week7", "practical"): {"data"},
+                      ("cs2pp", "week8", "lecture"): {"data"}}
 
 MODULE_PATHS = {"cs1ip": CS1IP, "cs1db": CS1DB, "cs1op": CS1OP, "cs2pp": CS2PP, "cs2da": CS2DA}
 
