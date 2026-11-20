@@ -24,7 +24,7 @@ def generate_dot(delta, accepting, symbols=None):
 
     lines = []
     lines.append("digraph DFA {")
-    lines.append("    rankdir=LR;")
+    lines.append("    rankdir = TB;")
     lines.append("    node [shape=circle, fontname=\"Helvetica\"];")
     lines.append("    edge [fontname=\"Helvetica\"];")
     lines.append("")
