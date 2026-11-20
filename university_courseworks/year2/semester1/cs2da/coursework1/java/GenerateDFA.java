@@ -4,6 +4,7 @@ public class GenerateDFA {
 
         // Student ID for this coursework.
         long id = 34001219;
+        String sid = Long.toString(id); // convert student id to string for format check
 
         // djb2 hash function
         // Based on: https://compile7.org/hashing/how-to-use-bernsteins-hash-djb2-in-java/
@@ -47,42 +48,38 @@ public class GenerateDFA {
 
         // End compute graph from hash.
 
-        if (id == 1234567890) {
+        if (sid.length() != 8 || !sid.startsWith("34")) { // check student id format: 8 digits starting with 34
             System.out.println("WARNING: YOU NEED TO PUT YOUR STUDENT ID IN THE PROGRAM SOURCE CODE.");
         }
         
         System.out.println("Student ID: " + id);
         System.out.println();
 
-        // Print table:
-        System.out.println("  q |  a |  b |  c");
-        System.out.println("-------------------");
-        
+        System.out.println("---------------------"); // print table top border
+        System.out.println("|  q |  a |  b |  c |"); // print table header
+        System.out.println("---------------------"); // print table bottom border before rows
+
         for (int q = 0; q < delta.length; q++) {
-            System.out.print(" q" + q);
-            
+            String row = "| q" + q; // build table row for state q
             for (int a = 0; a < delta[0].length; a++) {
                 if (delta[q][a] == -1) {
-                    System.out.print(" | --");
+                    row = row + " | --"; // missing transition
+                } else {
+                    row = row + " | q" + delta[q][a]; // transition to state
                 }
-                
-                else {
-                    System.out.print(" | q" + delta[q][a]);
-                }
-            }    
-            System.out.println();
+            }
+            System.out.println(row); // print table row
         }
 
-        // Print list of states:
-        System.out.print("Accepting states: ");
-        
+        System.out.println("---------------------"); // print table bottom border after rows
+        System.out.println();
+        StringBuilder acceptingLine = new StringBuilder("Accepting states: "); // build accepting states line
         for (int q = 0; q < delta.length; q++) {
             if (accepting[q]) {
-                System.out.print(" q" + q);
+                acceptingLine.append(" q").append(q); // append accepting state
             }
-        
         }
-        System.out.println();
+        System.out.println(acceptingLine.toString()); // print accepting states line
     }
 
 }
