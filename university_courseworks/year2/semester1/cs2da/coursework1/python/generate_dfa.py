@@ -63,7 +63,7 @@ def main():
     if sid[:2] != "34" or len(sid) != 8:
         print("WARNING: YOU NEED TO PUT YOUR STUDENT ID IN THE PROGRAM SOURCE CODE.")
 
-    print(f"Student ID: {student_id}")
+    print("Student ID: " + str(student_id))
 
     print()
 
