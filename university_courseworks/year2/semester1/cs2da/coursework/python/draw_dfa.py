@@ -6,6 +6,7 @@ DEFAULT_SYMBOLS = "abcdefghijklmnopqrstuvwxyz"
 
 
 def generate_dot(delta, accepting, symbols=None):
+    
     """
     Return the .dot source for the DFA described by delta/accepting.
 
@@ -13,6 +14,7 @@ def generate_dot(delta, accepting, symbols=None):
     accepting: list of Q bools.
     symbols: optional string of length S; defaults to first S letters.
     """
+    
     q_count = len(delta)
     s_count = len(delta[0]) if q_count else 0
 
@@ -22,15 +24,17 @@ def generate_dot(delta, accepting, symbols=None):
     if len(symbols) != s_count:
         raise ValueError("symbols length must match alphabet size")
 
+    # Similar code structure at dot folder at dfa.dot below:
+
     lines = []
     lines.append("digraph DFA {")
     lines.append("    rankdir = TB;")
-    lines.append("    node [shape=circle, fontname=\"Helvetica\"];")
-    lines.append("    edge [fontname=\"Helvetica\"];")
-    lines.append("")
-    lines.append("    start [shape=point];")
+    lines.append("    node [shape = circle, fontname = \"Helvetica\"];")
+    lines.append("    edge [fontname = \"Helvetica\"];")
+    lines.append("") # 
+    lines.append("    start [shape = point];")
     lines.append("    start -> q0;")
-    lines.append("")
+    lines.append("") # 
 
     for q in range(q_count):
         if accepting[q]:
@@ -47,6 +51,7 @@ def generate_dot(delta, accepting, symbols=None):
                 lines.append(f'    q{q} -> q{target} [label="{symbols[a]}"];')
 
     lines.append("}")
+    
     return "\n".join(lines) + "\n"
 
 def main():
@@ -56,8 +61,9 @@ def main():
         [2, 1, 0],
         [-1, 0, 0],
     ]
+
     accepting = [False, False, True]
-    print(generate_dot(delta, accepting), end="")
+    print(generate_dot(delta, accepting), end = "")
 
 if __name__ == "__main__":
     main()

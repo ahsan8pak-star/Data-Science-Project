@@ -1,12 +1,14 @@
 digraph DFA {
-    rankdir = TB;
+
+    rankdir = TB; // force Graphviz to do top-down i.e., vertical if autmatically generates left to right i.e., horizontal
+
     node [shape = circle; fontname = "Helvetica";];
     edge [fontname = "Helvetica";];
     
     start [shape = point;];
-    start -> q0;
+    start -> q0; // define where we begin (self - explanitory)
     
-    q2 [shape = doublecircle;];
+    q2 [shape = doublecircle;]; // correct node / state automata position
     
     q0 -> q1 [label = "a";];
     q1 -> q2 [label = "a";];
@@ -14,4 +16,6 @@ digraph DFA {
     q1 -> q0 [label = "c";];
     q2 -> q0 [label = "b";];
     q2 -> q0 [label = "c";];
+
 }
+
