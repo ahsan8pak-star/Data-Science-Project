@@ -573,10 +573,10 @@ the suite:
 
 | Platform | Environment | Interpreter | Result |
 | --- | --- | --- | --- |
-| Windows | `.venv-win/` | `.venv-win/Scripts/python.exe` (3.14.5) | 2058 passed |
-| WSL/Linux | `.venv-wsl/` | `.venv-wsl/bin/python` (3.12.3) | 2058 passed |
+| Windows | `.venv-win/` | `.venv-win/Scripts/python.exe` (3.14.5) | 2062 passed |
+| WSL/Linux | `.venv-wsl/` | `.venv-wsl/bin/python` (3.12.3) | 2062 passed |
 
-The documented suite size (2058) is the same on both platforms. Earlier Linux
+The documented suite size (2062) is the same on both platforms. Earlier Linux
 runs were smaller because twelve cases skipped for a platform limitation;
 those skips were removed at the root cause rather than tolerated. A minimal
 tkinter stub in `tests/test_university_courseworks/conftest.py` lets modules
@@ -995,7 +995,7 @@ or the correction is half-applied.
 - 92 imperative scripts, 21 functional, 41 OOP, plus `advanced_projects`
   (machine_learning notebooks, transactions xlsx pipeline, music player).
 - `scripts/test_equity.py` measures test-equity across the portfolio: a composite surface (methods, attributes, command types, input/output points) versus pytest cases plus guard assertions, attributed per module via resolved FILE/FOLDER constants. `tests/test_scripts/test_test_equity.py` guards it: 160 modules, 159 with tests, 1 full-range failure (the deliberate `main.py` stub), density CV 2.72 ratcheted at 2.72 (measured baseline 2.7132), min/max ratio 450 ratcheted at 450 (measured 432.67).
-- 2058 passing tests, ~99% line coverage and 95% branch coverage (149 of the
+- 2062 passing tests, ~99% line coverage and 95% branch coverage (149 of the
   160 measured `python/` files at 100% lines, including both music-player
   GUIs; the 160 non-`__init__.py` files are the number a docstring sweep
   covers). The 160 counts files that carry at least one statement. The
