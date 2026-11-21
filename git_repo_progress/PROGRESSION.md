@@ -36,7 +36,7 @@ Where a number is an estimate rather than a measurement, it says so.
 | Commits | 714 at the end of the run (historical — see the note below) |
 | Peak effort | 28–36 h/week recorded across most weeks |
 | Source modules | 160 non-`__init__` files under `python/` |
-| Test suite | 2053 tests, all passing |
+| Test suite | 2058 tests, all passing |
 | Coverage | 99% line, 95% branch |
 | Quality mean | 84.6/100 across 160 ranked files |
 | Mirrors | 4 (GitHub project + backup, GitLab project + backup) |
@@ -914,7 +914,7 @@ mirrors were found lagging at an older commit.
 
 | | |
 | --- | --- |
-| Tests | 2053 passing, 0 failing |
+| Tests | 2058 passing, 0 failing |
 | Coverage | 99% line, 95% branch |
 | Quality mean | 84.6/100 over 160 files |
 | Document drift | 0 known — all numeric claims test-guarded |
