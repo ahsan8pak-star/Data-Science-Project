@@ -6,7 +6,7 @@ DEFAULT_SYMBOLS = "abcdefghijklmnopqrstuvwxyz"
 
 
 def generate_dot(delta, accepting, symbols=None):
-    
+
     """
     Return the .dot source for the DFA described by delta/accepting.
 
@@ -14,7 +14,7 @@ def generate_dot(delta, accepting, symbols=None):
     accepting: list of Q bools.
     symbols: optional string of length S; defaults to first S letters.
     """
-    
+
     q_count = len(delta)
     s_count = len(delta[0]) if q_count else 0
 
@@ -31,10 +31,10 @@ def generate_dot(delta, accepting, symbols=None):
     lines.append("    rankdir = TB;")
     lines.append("    node [shape = circle, fontname = \"Helvetica\"];")
     lines.append("    edge [fontname = \"Helvetica\"];")
-    lines.append("") # 
+    lines.append("") #
     lines.append("    start [shape = point];")
     lines.append("    start -> q0;")
-    lines.append("") # 
+    lines.append("") #
 
     for q in range(q_count):
         if accepting[q]:
@@ -51,7 +51,7 @@ def generate_dot(delta, accepting, symbols=None):
                 lines.append(f'    q{q} -> q{target} [label="{symbols[a]}"];')
 
     lines.append("}")
-    
+
     return "\n".join(lines) + "\n"
 
 def main():
