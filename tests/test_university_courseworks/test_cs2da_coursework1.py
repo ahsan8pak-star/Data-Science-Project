@@ -13,7 +13,7 @@ def _load(relative):
 
 
 def test_generate_dfa_personalised_table():
-    gd = _load("coursework1/python/generate_dfa.py")
+    gd = _load("coursework/python/generate_dfa.py")
     delta, accepting, initial = gd.generate(34001219)
     assert initial == 0
     assert delta == [
@@ -25,7 +25,7 @@ def test_generate_dfa_personalised_table():
 
 
 def test_generate_dfa_print_table(capsys):
-    gd = _load("coursework1/python/generate_dfa.py")
+    gd = _load("coursework/python/generate_dfa.py")
     delta, accepting, _ = gd.generate(34001219)
     gd.print_table(delta, accepting)
     out = capsys.readouterr().out
@@ -34,7 +34,7 @@ def test_generate_dfa_print_table(capsys):
 
 
 def test_draw_dfa_dot():
-    dd = _load("coursework1/python/draw_dfa.py")
+    dd = _load("coursework/python/draw_dfa.py")
     delta = [[1, -1, -1], [2, 1, 0], [-1, 0, 0]]
     accepting = [False, False, True]
     text = dd.generate_dot(delta, accepting)
@@ -46,7 +46,7 @@ def test_draw_dfa_dot():
 
 
 def test_draw_dfa_symbol_count_mismatch():
-    dd = _load("coursework1/python/draw_dfa.py")
+    dd = _load("coursework/python/draw_dfa.py")
     with pytest.raises(ValueError):
         dd.generate_dot([[0]], [True], symbols="ab")
 
