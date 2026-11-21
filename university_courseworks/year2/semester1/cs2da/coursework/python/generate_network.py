@@ -5,6 +5,7 @@ Replicates the logic of ``java/GenerateNetwork.java`` for student number
 34001219, so the coursework can be reproduced without a Java toolchain.
 """
 
+import heapq
 import math
 
 STUDENT_ID = 34001219
@@ -120,6 +121,42 @@ def to_travel_times(distances):
     return [[travel_time(distance) for distance in row] for row in distances]
 
 
+def dijkstra(graph, start: int = 0):
+    """
+    Return the shortest-path costs from `start` over the adjacency matrix
+    `graph` (miles for the distances matrix, hours for the travel-time matrix;
+    NaN marks a missing road).
+
+    Dijkstra's algorithm extracts the minimum-cost node from a priority queue,
+    relaxes its edges, and repeats. The standard-library priority queue has no
+    decrease-key operation, so the decrease-key step is implemented here as lazy
+    deletion: a new queue entry is pushed whenever a shorter path is found, and
+    stale entries are skipped when they are extracted.
+
+    Returns a list of shortest-path costs from `start` to each location, with
+    NaN for locations that cannot be reached from `start`.
+    """
+    n = len(graph)
+    dist = [math.inf] * n
+    dist[start] = 0
+    heap = [(0, start)]
+    while heap:
+        cost, u = heapq.heappop(heap)
+        if cost > dist[u]:
+            continue  # stale entry: the decrease-key was applied when it was pushed
+        for v in range(n):
+            if u == v:
+                continue
+            weight = graph[u][v]
+            if math.isnan(weight):
+                continue
+            candidate = cost + weight
+            if candidate < dist[v]:
+                dist[v] = candidate
+                heapq.heappush(heap, (candidate, v))
+    return [float("nan") if math.isinf(value) else value for value in dist]
+
+
 def _format_cell(value: float) -> str:
     if math.isnan(value):
         return "NaN".rjust(8)
@@ -161,7 +198,25 @@ def main():
 
     print("Student ID: " + str(student_id))
     distances = generate(student_id)
-    print_matrix(distances, to_travel_times(distances))
+    times = to_travel_times(distances)
+    print_matrix(distances, times)
+
+    shortest_distances = dijkstra(distances, 0)
+    shortest_times = dijkstra(times, 0)
+
+    print()
+    print("The shortest distances (miles) from " + LOCATIONS.split(", ")[0] + " are:")
+    for i, location in enumerate(LOCATIONS.split(", ")):
+        value = shortest_distances[i]
+        value_str = "NaN" if math.isnan(value) else f"{value:.0f}"
+        print(f"Shortest distance from {location}: {value_str}")
+
+    print()
+    print("The shortest travel times (hours) from " + LOCATIONS.split(", ")[0] + " are:")
+    for i, location in enumerate(LOCATIONS.split(", ")):
+        value = shortest_times[i]
+        value_str = "NaN" if math.isnan(value) else f"{value:.2f}"
+        print(f"Shortest travel time from {location}: {value_str}")
 
 
 if __name__ == "__main__":
