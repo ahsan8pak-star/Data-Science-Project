@@ -129,3 +129,54 @@ def test_generate_network_dot_uses_only_defined_roads():
     assert 'A -> B [label = "15"];' in personalised
     assert 'A -> C' not in personalised
 
+
+def test_dijkstra_finds_the_shortest_path_with_a_lazy_decrease_key():
+    gn = _load("coursework/python/generate_network.py")
+    # A -> B is 10 miles, A -> C is 2 miles and C -> B is 3 miles, so the
+    # shortest path from A to B is via C (5 miles), which requires a decrease.
+    graph = [
+        [0, 10, 2],
+        [10, 0, float("nan")],
+        [2, 3, 0],
+    ]
+    assert gn.dijkstra(graph, 0) == [0, 5, 2]
+
+
+def test_dijkstra_returns_nan_for_unreachable_locations():
+    gn = _load("coursework/python/generate_network.py")
+    graph = [
+        [0, float("nan")],
+        [float("nan"), 0],
+    ]
+    result = gn.dijkstra(graph, 0)
+    assert result[0] == 0
+    assert math.isnan(result[1])
+
+
+def test_dijkstra_on_the_personalised_network_from_location_a():
+    gn = _load("coursework/python/generate_network.py")
+    distances = gn.generate(34001219)
+    shortest_distances = gn.dijkstra(distances, 0)
+    # From A: B = 15, C = 61 via B, D = 9, E = 36 via F, F = 10.
+    assert shortest_distances == [0, 15, 61, 9, 36, 10]
+
+    times = gn.to_travel_times(distances)
+    shortest_times = gn.dijkstra(times, 0)
+    # From A: B = 15 miles at 30 mph = 0.5 hours, C = 61 at 30 mph = 2.03 hours,
+    # D = 9 at 20 mph = 0.45 hours, E = 1.37 via F, F = 10 at 20 mph = 0.5 hours.
+    assert shortest_times[0] == 0
+    assert shortest_times[1] == 0.5
+    assert shortest_times[2] == pytest.approx(61 / 30)
+    assert shortest_times[3] == pytest.approx(0.45)
+    assert shortest_times[4] == pytest.approx(0.5 + 26 / 30)
+    assert shortest_times[5] == 0.5
+
+
+def test_generate_network_main_prints_the_shortest_paths_from_a(capsys):
+    gn = _load("coursework/python/generate_network.py")
+    gn.main()
+    out = capsys.readouterr().out
+    assert "The shortest distances (miles) from A are:" in out
+    assert "The shortest travel times (hours) from A are:" in out
+    assert "Shortest distance from B: 15" in out
+
