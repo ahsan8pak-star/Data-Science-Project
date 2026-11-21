@@ -516,6 +516,8 @@ class TestCommitMessagesCarryAScope:
     file name, and it sits after the enforcement boundary, so the scope guard
     fires on it; the subject cannot be corrected without a history rewrite,
     which rule 12 forbids here, so it joins the probe list like its predecessor.
+
+    bc1c96d ("feat(cs2da)/coursework): rename to courework i.e., removing numerical one next to it and include extra features of lines of code across all files to update the first two tasks after confirmation with further explaination of the coursework details") is listed the same way for the same mechanical reason: an owner-automation commit made on 20 November 2026 whose subject carries a stray closing parenthesis before the colon, so it does not parse as "<type>(<file or folder>): <what changed>" and the scope guard fires on it. The rename pipeline wrote it and it sits after the enforcement boundary, so the subject cannot be corrected without a history rewrite, which rule 12 forbids here, so it joins the probe list like its predecessor.
     """
     PROBE_COMMITS = frozenset({
         "39ce732",
@@ -528,6 +530,7 @@ class TestCommitMessagesCarryAScope:
         "6f56a74",
         "e728116",
         "c23c88d",
+        "bc1c96d",
     })
 
     @staticmethod
