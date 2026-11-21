@@ -4,8 +4,9 @@ public class GenerateNetwork {
 
     public static void main(String args[]) {
 
-        // Replace this with your student ID.
-        long studentNumber = 1234567890;
+        // Student ID for this coursework.
+        long studentNumber = 34001219;
+        String sid = Long.toString(studentNumber); // convert student id to string for format check
 
         int n = 6;
         double[][] distances = new double[n][n];
@@ -39,7 +40,7 @@ public class GenerateNetwork {
             distances[i][i] = 0;
         }
 
-        if (studentNumber == 1234567890) {
+        if (sid.length() != 8 || !sid.startsWith("34")) { // check student id format: 8 digits starting with 34
             System.out.println("WARNING: YOU NEED TO PUT YOUR STUDENT ID IN THE PROGRAM SOURCE CODE.");
         }
         System.out.println("Student ID: " + studentNumber);

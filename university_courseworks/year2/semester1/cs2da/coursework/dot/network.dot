@@ -1,0 +1,38 @@
+digraph Network {
+
+    rankdir = TB; // force Graphviz to do top-down i.e., vertical if autmatically generates left to right i.e., horizontal
+
+    node [shape = circle, fontname = "Helvetica"];
+    edge [fontname = "Helvetica"];
+
+    // Locations A, B, C, D, E, F. NaN in the adjacency matrix marks a missing road, so no edge is drawn for it.
+
+    A [label = "A"];
+    B [label = "B"];
+    C [label = "C"];
+    D [label = "D"];
+    E [label = "E"];
+    F [label = "F"];
+
+    A -> B [label = "15"];
+    A -> D [label = "9"];
+    A -> E [label = "42"];
+    A -> F [label = "10"];
+    B -> A [label = "15"];
+    B -> C [label = "46"];
+    B -> D [label = "37"];
+    C -> A [label = "26"];
+    C -> D [label = "24"];
+    C -> F [label = "32"];
+    D -> A [label = "9"];
+    D -> B [label = "37"];
+    D -> E [label = "38"];
+    D -> F [label = "84"];
+    E -> A [label = "42"];
+    E -> C [label = "28"];
+    E -> D [label = "38"];
+    F -> A [label = "10"];
+    F -> D [label = "84"];
+    F -> E [label = "26"];
+
+}
