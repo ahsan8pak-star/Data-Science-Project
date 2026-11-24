@@ -63,7 +63,13 @@ If a model is missing from the Zen `/models` list, treat it as a reason to pick 
 - **Entry points are content-named, not `def main()`.** Only `imperative_programming/fundamental_topics/main.py` keeps `def main()` by design.
 - **Text files are LF**, enforced by `.gitattributes` (`* text=auto eol=lf`, with `.joblib` / `.xlsx` / `.pdf` marked binary).
 
-## Commit conventions
+
+## GitHub repository URL convention
+
+- Every Git action update must explicitly include the canonical repository URL: `https://github.com/ahsan8pak-star/Data-Science-Project`.
+- Every commit message body must include a line: Repository: https://github.com/ahsan8pak-star/Data-Science-Project.
+- Preserve the existing Conventional Commit subject and co-author trailer conventions.
+`r`n## Commit conventions
 
 Full reference (with task-to-keyword table and footer phrases): `agentic_models/COMMIT_KEYWORDS.md`.
 
