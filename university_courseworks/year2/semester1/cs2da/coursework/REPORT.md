@@ -64,7 +64,7 @@ represented as an array, and an array of whether each state is accepting.
 **Output:** a GraphViz `.dot` file, from which a diagram of the automaton can be
 generated.
 
-The implemented algorithm (`generate_dfa_dot` in `coursework/pseudocode/draw_dfa.txt`)
+The implemented algorithm (`generate_dot` in `coursework/pseudocode/draw_dfa.txt`)
 emits the boilerplate, the start-state marker, the accepting-state decorations
 and one labelled edge per defined transition, skipping undefined transitions
 (`delta[q][a] = -1`).
