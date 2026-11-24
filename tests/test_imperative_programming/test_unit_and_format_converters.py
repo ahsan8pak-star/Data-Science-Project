@@ -1,5 +1,6 @@
 """
-Pytest suite for every script under python/unit_and_format_converters/.
+Pytest suite for the unit and format converters under
+python/imperative_programming/unit_and_format_converters/.
 
 Each script is executed for real via run_script() (see tests/conftest.py) with
 scripted input, so these tests exercise the actual coursework code rather
