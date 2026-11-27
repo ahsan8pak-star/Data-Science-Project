@@ -98,13 +98,17 @@ OPTIONAL_TYPE_FOLDERS = {"cs1ip": {"lecture": {"solution"},
                                   "practical": {"solution"}},
                          "cs1op": {"lecture": {"pdf", "pptx", "solution"},
                                   "practical": {"pdf", "solution"}},
-                         "cs2pp": {"lecture": {"python", "html", "images", "solution"},
-                                  "practical": {"python", "html", "images", "solution"}},
+                         "cs2pp": {"lecture": {"jupyter", "python", "html", "images", "solution"},
+                                  "practical": {"jupyter", "python", "html", "images", "solution"}},
                          "cs2da": {"lecture": {"html", "pdf"},
                                    "practical": {"md", "pdf", "pseudocode", "images"}}}
 
 # CS2PP's python/ folders are optional: its work is notebook-based, but A.I.M keeps
 # small Python demos (unittest/pytest) beside the notebooks for hands-on practice.
+
+# CS2PP's jupyter/ folders joined that optional set from week9 on, when that
+# week's material arrived as python demos rather than notebooks.
+
 STALE_TYPE_FOLDERS = set()
 
 """
@@ -120,6 +124,11 @@ CS2PP week3's lecture now groups its bonus folders under
 L03_X#_Extra_Content/, the wrapper the week3 extras move created, and
 CS2PP week8's lecture carries data/ for that week's run logs, the same
 local-only material class as weeks 5 and 7.
+
+CS2DA week9's lecture carries pptx/ for that week's slide deck, and CS2PP
+week9's lecture carries requirements/ for that week's pip install - both are
+the owner's deliberate additions, recorded here on the same principle rather
+than letting an unrecorded folder fail the build.
 """
 EXTRA_TYPE_FOLDERS = {("cs1ip", "week7", "lecture"): {"txt"},
     ("cs2pp", "week5", "lecture"): {"data", "html", "images"},
@@ -131,7 +140,9 @@ EXTRA_TYPE_FOLDERS = {("cs1ip", "week7", "lecture"): {"txt"},
                       ("cs2pp", "week4", "lecture"): {"L04X.1_CLI_Implementations"},
                       ("cs2pp", "week7", "lecture"): {"data"},
                       ("cs2pp", "week7", "practical"): {"data"},
-                      ("cs2pp", "week8", "lecture"): {"data"}}
+                      ("cs2pp", "week8", "lecture"): {"data"},
+                      ("cs2da", "week9", "lecture"): {"pptx"},
+                      ("cs2pp", "week9", "lecture"): {"requirements"}}
 
 MODULE_PATHS = {"cs1ip": CS1IP, "cs1db": CS1DB, "cs1op": CS1OP, "cs2pp": CS2PP, "cs2da": CS2DA}
 
