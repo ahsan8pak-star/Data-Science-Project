@@ -14,9 +14,9 @@ float(capacity) = m
 i = 0
 for (int(i) < x.length):
     i += 1
-    
+
     if (int(i) < (x.length - 1)):
-        x[i] = capacity / w[i]    
+        x[i] = capacity / w[i]
 
     if (w[i] > capacity):
         break
