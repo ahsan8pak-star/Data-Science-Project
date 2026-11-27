@@ -16,10 +16,10 @@ class MainWindow(QMainWindow):
 
         self.setCentralWidget(self.b)
 
-    # No need to connect this, as the superclass is set up to receive the event.        
+    # No need to connect this, as the superclass is set up to receive the event.
     def mouseReleaseEvent(self, e):
-        self.b.setText(str(random.randint(1,6)))        
-        
+        self.b.setText(str(random.randint(1,6)))
+
 app = QApplication(sys.argv)
 
 window = MainWindow()

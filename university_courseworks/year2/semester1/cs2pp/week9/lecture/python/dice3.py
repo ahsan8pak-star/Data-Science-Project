@@ -38,7 +38,7 @@ class MainWindow(QMainWindow):
         input_layout.addWidget(self.dice_size)
         input_widget = QWidget()
         input_widget.setLayout(input_layout)
-        
+
         layout = QVBoxLayout()
         layout.addWidget(input_widget)
         layout.addWidget(self.b)
@@ -49,7 +49,7 @@ class MainWindow(QMainWindow):
         w = QWidget()
         w.setLayout(layout)
         self.setCentralWidget(w)
-        
+
         # Add a menu bar to provide an alternative way of accessing different functions.
         # First, get the menu bar from the window.
         menus = self.menuBar()
@@ -63,7 +63,7 @@ class MainWindow(QMainWindow):
         quit_action.setShortcut(QKeySequence("Ctrl+q"))
         # Actually add the action to the menu.
         file_menu.addAction(quit_action)
-        
+
     def roll(self):
         number = int(self.dice_number.text())
         size = int(self.dice_size.text())
@@ -82,7 +82,7 @@ class MainWindow(QMainWindow):
         if really == QMessageBox.StandardButton.Yes:
             self.close()
 
-        
+
 app = QApplication(sys.argv)
 
 window = MainWindow()

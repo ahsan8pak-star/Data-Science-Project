@@ -18,10 +18,13 @@ class Othello:
     EMPTY = 0
     OOB = 2  # Out Of Bounds
 
-    # Width and height of a new board.
-    # These are only used when creating a new board,
-    # so if you want to adapt the game to a different board size,
-    # you just need to pass the constructor an initial board of the size you want.
+    """
+    Width and height of a new board.
+
+    These are only used when creating a new board, so if you want to adapt the
+    game to a different board size, you just need to pass the constructor an
+    initial board of the size you want.
+    """
     WIDTH = 8
     HEIGHT = 8
 
@@ -37,7 +40,7 @@ class Othello:
             self.board[4][4] = Othello.WHITE
             self.board[3][4] = Othello.BLACK
             self.board[4][3] = Othello.BLACK
-        
+
         else:
             # Copy the existing board.
             # Must use deepcopy() to avoid aliasing.
@@ -63,10 +66,10 @@ class Othello:
     def player_name(self, p=None):
         if p is None:
             p = self.player
-        
+
         if p == Othello.BLACK:
             return "Black"
-        
+
         else:
             return "White"
 
@@ -74,10 +77,13 @@ class Othello:
     def legal_move(self, x, y):
         return self.clone().move(x, y)
 
-    # Attempt to place a disc on (x,y) and flip discs as appropriate.
-    # Returns True if move was legal and successful.
-    # Returns False if move was illegal, in which case board is unchanged.
-    # This never changes the current player.
+    """
+    Attempt to place a disc on (x,y) and flip discs as appropriate.
+
+    Returns True if move was legal and successful; returns False if move was
+    illegal, in which case board is unchanged. This never changes the current
+    player.
+    """
     def move(self, x, y):
         flipped = False  # Was the move successful?
 
@@ -122,11 +128,14 @@ class Othello:
                     self.set_cell(tryx, tryy, self.player)
                     (tryx, tryy) = (tryx - dx, tryy - dy)
 
-        # Now we have looked at all directions.
-        # If at least one counter was flipped, the move was legal.
-        # So finally we can fill the target grid cell.
-        # (This is subtly different from the algorithm you might derive directly from
-        # the rules, where you would place the disc in the target cell before flipping.)
+        """
+        Now we have looked at all directions.
+
+        If at least one counter was flipped, the move was legal. So finally we can
+        fill the target grid cell. (This is subtly different from the algorithm you
+        might derive directly from the rules, where you would place the disc in the
+        target cell before flipping.)
+        """
         if flipped:
             self.set_cell(x, y, self.player)
         # Note that this method does not flip the player.
@@ -138,7 +147,7 @@ class Othello:
     def can_move(self):
         for x in range(0, self.width()):
             for y in range(0, self.height()):
-        
+
                 if self.legal_move(x, y):
                     return True
         return False
@@ -155,7 +164,7 @@ class Othello:
         net = self.net_score(self.player)
         if net > 0:
             return self.player
-        
+
         if net < 0:
             return self.opponent()
         return Othello.EMPTY
@@ -174,19 +183,22 @@ class Othello:
         for x in range(0, self.width()):
             for y in range(0, self.height()):
                 o = self.clone()
-                
+
                 if not o.move(x, y):
                     continue
 
                 # Count pieces flipped.
                 gain = current_score - o.score(self.opponent())
 
-                # If move is on row/column next to an edge, halve score gain.
-                # (Rationale: This space is likely to be flipped by an edge move,
-                # after which it will be difficult to flip back.)
+                """
+                If move is on row/column next to an edge, halve score gain.
+
+                (Rationale: This space is likely to be flipped by an edge move, after
+                which it will be difficult to flip back.)
+                """
                 if x == 1 or y == 1 or x == self.width() - 2 or y == self.height() - 2:
                     gain = gain / 2
-                
+
                 # Otherwise, if move is on row/column on an edge, double score gain.
                 # (Rationale: This space is unlikely to be flipped.)
                 elif (
@@ -200,10 +212,10 @@ class Othello:
         all_scores = list(self.heuristic_moves())
         if not all_scores:
             return None
-    
+
         max_score = max(all_scores, key=lambda m: m[0])[0]
         max_scores = [m for m in all_scores if m[0] == max_score]
-    
+
         return random.choice(max_scores)[1]
 
     # Primitive accessor method to set contents of board cell (x,y) to player p.
@@ -215,7 +227,7 @@ class Othello:
     def get_cell(self, x, y):
         if x < 0 or y < 0:
             return Othello.OOB
-    
+
         if x >= self.width() or y >= self.height():
             return Othello.OOB
         return self.board[x][y]
@@ -238,19 +250,19 @@ if __name__ == "__main__":
         for x in range(0, o.width()):
             print(chr(ord("A") + x), end="")
         print()
-    
+
         for y in range(0, o.height()):
             print(y + 1, end="")
-    
+
             for x in range(0, o.width()):
                 c = o.get_cell(x, y)
-    
+
                 if c == o.WHITE:
                     print("@", end="")
-    
+
                 elif c == o.BLACK:
                     print("O", end="")
-    
+
                 else:
                     print(" ", end="")
             print()
@@ -273,27 +285,27 @@ if __name__ == "__main__":
 
         while True:
             trymove = input("Enter your move. ").rstrip()
-    
+
             if len(trymove) != 2:
                 print("Enter a letter followed by a number.")
                 continue
-    
+
             x = ord(trymove[0:1].upper()) - ord("A")
-    
+
             if x < 0 or x >= o.width():
                 print("Invalid column.")
                 continue
-    
+
             y = ord(trymove[1:2]) - ord("1")
-    
+
             if y < 0 or y >= o.height():
                 print("Invalid row.")
                 continue
-    
+
             if not o.legal_move(x, y):
                 print("Illegal move.")
                 continue
-    
+
             o.move(x, y)
             o.flip_player()
             break
@@ -305,12 +317,13 @@ if __name__ == "__main__":
     print()
 
     winner = o.winner()
-    
+
     if winner == Othello.BLACK:
         print("Black wins.")
-    
+
     elif winner == Othello.WHITE:
         print("White wins.")
-    
+
     else:
         print("It is a tie!")
+

@@ -12,7 +12,7 @@ class DiceButton(QPushButton):
         # If we ignore the event, it will bubble up to the parent,
         # triggering another event handler.
         e.ignore()
-    
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -25,8 +25,8 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.b)
 
     # def mouseReleaseEvent(self, e):
-    #     self.setWindowTitle(str(random.randint(1,6)))        
-        
+    #     self.setWindowTitle(str(random.randint(1,6)))
+
 app = QApplication(sys.argv)
 
 window = MainWindow()

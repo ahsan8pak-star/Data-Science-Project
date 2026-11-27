@@ -58,7 +58,7 @@ class MainWindow(QMainWindow):
         logo.setPixmap(dice_pic)
         logo.setMinimumSize(dice_pic.width(), dice_pic.height())
         logo.setAlignment(Qt.AlignHCenter)
-        
+
         layout = QVBoxLayout()
         layout.addWidget(logo)
         layout.addWidget(input_widget)
@@ -70,13 +70,13 @@ class MainWindow(QMainWindow):
         w = QWidget()
         w.setLayout(layout)
         self.setCentralWidget(w)
-        
+
         menus = self.menuBar()
         file_menu = menus.addMenu("&File")
         file_menu.addAction(roll_action)
         file_menu.addAction(reset_action)
         file_menu.addAction(quit_action)
-        
+
     def roll(self):
         number = int(self.dice_number.text())
         size = int(self.dice_size.text())
@@ -98,7 +98,7 @@ class MainWindow(QMainWindow):
         if really == QMessageBox.StandardButton.Yes:
             self.close()
 
-        
+
 app = QApplication(sys.argv)
 
 

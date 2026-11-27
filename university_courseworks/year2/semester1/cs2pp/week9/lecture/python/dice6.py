@@ -12,7 +12,7 @@ class MainWindow(QMainWindow):
         self.b = QPushButton("Let's Roll!")
         self.b.setFixedSize(200,100)
         self.setCentralWidget(self.b)
-        
+
 app = QApplication(sys.argv)
 
 window = MainWindow()

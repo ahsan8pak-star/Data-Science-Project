@@ -16,3 +16,4 @@ class GridCell(QPushButton):
         self.y = y  # Row index for the cell
         if 0 <= x < 8 and 0 <= y < 8:
             self.setText(f"{chr(65 + x)}{y + 1}")  # Label the cell as column letter + row number
+

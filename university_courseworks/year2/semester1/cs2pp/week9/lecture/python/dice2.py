@@ -25,7 +25,7 @@ class MainWindow(QMainWindow):
         input_layout.addWidget(self.dice_size)
         input_widget = QWidget()
         input_widget.setLayout(input_layout)
-        
+
         layout = QVBoxLayout()
         layout.addWidget(input_widget)
         layout.addWidget(self.b)
@@ -36,15 +36,15 @@ class MainWindow(QMainWindow):
         w.setLayout(layout)
         # Then we can put the wrapper widget as the central widget of the window.
         self.setCentralWidget(w)
-        
+
     def roll(self):
         number = int(self.dice_number.text())
         size = int(self.dice_size.text())
         total = 0
         for n in range(number):
             total = total + random.randint(1, size)
-        self.res.setText("You rolled:" + str(total))        
-        
+        self.res.setText("You rolled:" + str(total))
+
 app = QApplication(sys.argv)
 
 window = MainWindow()

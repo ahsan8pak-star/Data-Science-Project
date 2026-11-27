@@ -14,3 +14,4 @@ class OthelloGUI4(QWidget):
     def __init__(self, parent=None):
         """Initialise the board container."""
         super().__init__(parent)
+

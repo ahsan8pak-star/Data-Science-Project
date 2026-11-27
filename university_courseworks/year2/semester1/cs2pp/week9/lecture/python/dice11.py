@@ -25,9 +25,12 @@ class MainWindow(QMainWindow):
         # (Widgets can also be docked around the edges.)
         self.setCentralWidget(x)
 
-# Instantiate the Qt event loop class.
-# Passing on command-line arguments lets the application process them, if you want.
-# (You can just use an empty list.)
+"""
+Instantiate the Qt event loop class.
+
+Passing on command-line arguments lets the application process them, if you want.
+(You can just use an empty list.)
+"""
 app = QApplication(sys.argv)
 
 # Instantiate the main window.

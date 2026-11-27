@@ -35,7 +35,7 @@ class MainWindow(QMainWindow):
         input_layout.addWidget(self.dice_size)
         input_widget = QWidget()
         input_widget.setLayout(input_layout)
-        
+
         layout = QVBoxLayout()
         layout.addWidget(input_widget)
         layout.addWidget(self.b)
@@ -45,7 +45,7 @@ class MainWindow(QMainWindow):
         w = QWidget()
         w.setLayout(layout)
         self.setCentralWidget(w)
-        
+
     def roll(self):
         number = int(self.dice_number.text())
         size = int(self.dice_size.text())
@@ -56,7 +56,7 @@ class MainWindow(QMainWindow):
 
     def dice_changed(self):
         self.max.setText("Maximum possible:" + str(int(self.dice_number.text()) * int(self.dice_size.text())))
-        
+
 app = QApplication(sys.argv)
 
 window = MainWindow()

@@ -16,7 +16,7 @@ class MainWindow(QMainWindow):
         # What if we want to put multiple widgets in a single window?
         # For example, show the result of rolling as a separate text label.
         self.res = QLabel("Result.")
-        
+
         # To do this, we need to create a layout manager to control widget positions.
         layout = QVBoxLayout()
         # Add the widgets to the layout.
@@ -28,10 +28,10 @@ class MainWindow(QMainWindow):
         w.setLayout(layout)
         # Then we can put the wrapper widget as the central widget of the window.
         self.setCentralWidget(w)
-        
+
     def roll(self):
-        self.res.setText("You rolled:" + str(random.randint(1,6)))        
-        
+        self.res.setText("You rolled:" + str(random.randint(1,6)))
+
 app = QApplication(sys.argv)
 
 window = MainWindow()

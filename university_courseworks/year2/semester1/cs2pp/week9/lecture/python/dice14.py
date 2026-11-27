@@ -21,3 +21,4 @@ class MainWindow(QMainWindow):
 # Instantiate the main window.
 window = MainWindow()
 window.show()
+

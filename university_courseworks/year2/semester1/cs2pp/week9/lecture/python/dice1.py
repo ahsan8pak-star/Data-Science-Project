@@ -28,16 +28,19 @@ class MainWindow(QMainWindow):
         # Text alignment can be set directly on the label.
         x.setAlignment(Qt.AlignCenter)
 
-        # To change the font, we have to get a font object...        
+        # To change the font, we have to get a font object...
         f = x.font()
         # ...modify the font...
         f.setPointSize(72)
         # ...then set it back on the label.
         x.setFont(f)
 
-# Instantiate the Qt event loop class.
-# Passing on command-line arguments lets the application process them, if you want.
-# (You can just use an empty list.)
+"""
+Instantiate the Qt event loop class.
+
+Passing on command-line arguments lets the application process them, if you want.
+(You can just use an empty list.)
+"""
 app = QApplication(sys.argv)
 
 # Instantiate the main window.

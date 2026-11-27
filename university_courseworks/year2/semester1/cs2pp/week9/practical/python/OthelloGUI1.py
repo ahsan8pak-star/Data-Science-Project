@@ -26,3 +26,4 @@ if __name__ == "__main__":  # Standard Python guard: runs the Othello GUI main w
     window.show()
 
     sys.exit(app.exec_())
+

@@ -18,12 +18,12 @@ class MainWindow(QMainWindow):
         self.b.setFixedSize(200,100)
 
         self.setCentralWidget(self.b)
-        
+
     def roll(self):
         # Self here is the MainWindow class...
         # ...which contains the pointer to the button.
-        self.b.setText(str(random.randint(1,6)))        
-        
+        self.b.setText(str(random.randint(1,6)))
+
 app = QApplication(sys.argv)
 
 window = MainWindow()
