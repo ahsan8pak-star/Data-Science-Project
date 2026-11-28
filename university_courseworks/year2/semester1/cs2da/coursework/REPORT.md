@@ -6,7 +6,7 @@
 
 **Student Number:** 34001219
 
-**Actual hours spent:** to be confirmed by the student
+**Actual hours spent:** 16
 
 **Other learning aids used (please list):** CS2DA lecture slides and practical materials (Weeks 7 - 9)
 
@@ -115,17 +115,11 @@ A: With a true decrease-key the heap-based implementation runs in `O((V + E) log
 Illustration from `A` (shortest distance, personalised network), step by step:
 
 1. Initialise `dist[A] = 0` and all other nodes at infinity; queue = `[(0, A)]`.
-
 2. Extract `A` (cost 0); relax edges: `B = 15`, `D = 9`, `E = 42`, `F = 10. Queue: `[(9, D), (10, F), (15, B), (42, E)]`.
-
 3. Extract `D` (cost 9); relax: no improvement (B via D = 46 > 15, E via D = 47 > 42, F via D = 93 > 10).
-
 4. Extract `F` (cost 10); relax: `E = 36` (via F) improves `E` from 42; others unchanged.
-
 5. Extract `B` (cost 15); relax: `C = 61` (via B); others unchanged.
-
 6. Extract `E` (cost 36); relax: `C` via E = 64 does not improve `C` (61).
-
 7. Extract `C` (cost 61); relax: no improvements.
 
 Final shortest distances from `A`: `B = 15`, `C = 61`, `D = 9`, `E = 36`, `F = 10`.
@@ -135,4 +129,3 @@ Final shortest distances from `A`: `B = 15`, `C = 61`, `D = 9`, `E = 36`, `F = 1
 ## 6. Presentation
 
 Ten marks will be for the presentation of the report. Headings are included for each section and formatting is consistent throughout; the front page carries the module code, assignment title, student number, hours and learning aids as the submission requirements specify.
-
