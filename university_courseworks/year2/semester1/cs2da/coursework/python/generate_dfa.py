@@ -41,15 +41,15 @@ def print_table(delta, accepting):
     print("---------------------")
 
     for q in range(len(delta)):
-        print(f"| q{q}", end="")
+        row = f"| q{q}"
 
         for a in range(len(delta[0])):
             if delta[q][a] == -1:
-                print(" | --", end="")
-
+                row += " | --"
             else:
-                print(f" | q{delta[q][a]}", end="")
-        print()
+                row += f" | q{delta[q][a]}"
+
+        print(row + " |")
 
     print("---------------------")
 

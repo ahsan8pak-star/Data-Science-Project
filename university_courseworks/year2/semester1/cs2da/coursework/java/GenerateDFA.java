@@ -68,7 +68,7 @@ public class GenerateDFA {
                     row = row + " | q" + delta[q][a]; // transition to state
                 }
             }
-            System.out.println(row); // print table row
+            System.out.println(row + " |"); // print table row
         }
 
         System.out.println("---------------------"); // print table bottom border after rows
