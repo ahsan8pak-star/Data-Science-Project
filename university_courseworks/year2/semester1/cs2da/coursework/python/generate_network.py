@@ -1,8 +1,8 @@
 """
 Generate the personalised road-network adjacency matrices for CS2DA coursework.
 
-Replicates the logic of ``java/GenerateNetwork.java`` for student number
-34001219, so the coursework can be reproduced without a Java toolchain.
+Replicates the logic of ``java/GenerateNetwork.java``, 
+so the coursework can be reproduced without a Java toolchain.
 """
 
 import heapq
@@ -16,7 +16,7 @@ SPEED_MID = 20.0   # miles per hour: pairwise distance between 5 and 10 miles
 SPEED_HIGH = 30.0  # miles per hour: pairwise distance above 10 miles
 
 
-class _JavaRandom:
+class _Random:
     """
     Python twin of ``java.util.Random`` for the network data generation.
 
@@ -69,7 +69,7 @@ def generate(student_id: int, n: int = 6):
     Return the n x n adjacency matrix of direct distances (miles) for the
     student number, with NaN marking a missing road.
     """
-    random = _JavaRandom(student_id)
+    random = _Random(student_id)
     offset = (student_id % 5) / 5.0
 
     distances = [[float("nan")] * n for _ in range(n)]
@@ -105,12 +105,16 @@ def travel_time(distance: float):
     """
     if math.isnan(distance):
         return float("nan")
+    
     if distance < 5:
         speed = SPEED_LOW
+    
     elif distance <= 10:
         speed = SPEED_MID
+    
     else:
         speed = SPEED_HIGH
+    
     return distance / speed
 
 
@@ -140,20 +144,28 @@ def dijkstra(graph, start: int = 0):
     dist = [math.inf] * n
     dist[start] = 0
     heap = [(0, start)]
+    
     while heap:
         cost, u = heapq.heappop(heap)
+    
         if cost > dist[u]:
             continue  # stale entry: the decrease-key was applied when it was pushed
+    
         for v in range(n):
             if u == v:
                 continue
+    
             weight = graph[u][v]
+    
             if math.isnan(weight):
                 continue
+    
             candidate = cost + weight
+    
             if candidate < dist[v]:
                 dist[v] = candidate
                 heapq.heappush(heap, (candidate, v))
+    
     return [float("nan") if math.isinf(value) else value for value in dist]
 
 
@@ -177,6 +189,7 @@ def print_matrix(distances, times=None):
     print("The adjacency matrix showing direct distances (miles)")
     print("amongst " + LOCATIONS + " is given by:")
     print()
+    
     for row in distances:
         print("".join(_format_cell(value) for value in row))
 
@@ -185,6 +198,7 @@ def print_matrix(distances, times=None):
         print("The adjacency matrix showing direct travel times (hours)")
         print("amongst " + LOCATIONS + " is given by:")
         print()
+    
         for row in times:
             print("".join(_format_time_cell(value) for value in row))
 
@@ -197,22 +211,28 @@ def main():
         print("WARNING: YOU NEED TO PUT YOUR STUDENT ID IN THE PROGRAM SOURCE CODE.")
 
     print("Student ID: " + str(student_id))
+    
     distances = generate(student_id)
     times = to_travel_times(distances)
+    
     print_matrix(distances, times)
 
     shortest_distances = dijkstra(distances, 0)
     shortest_times = dijkstra(times, 0)
 
     print()
+    
     print("The shortest distances (miles) from " + LOCATIONS.split(", ")[0] + " are:")
+    
     for i, location in enumerate(LOCATIONS.split(", ")):
         value = shortest_distances[i]
         value_str = "NaN" if math.isnan(value) else f"{value:.0f}"
         print(f"Shortest distance from {location}: {value_str}")
 
     print()
+    
     print("The shortest travel times (hours) from " + LOCATIONS.split(", ")[0] + " are:")
+    
     for i, location in enumerate(LOCATIONS.split(", ")):
         value = shortest_times[i]
         value_str = "NaN" if math.isnan(value) else f"{value:.2f}"

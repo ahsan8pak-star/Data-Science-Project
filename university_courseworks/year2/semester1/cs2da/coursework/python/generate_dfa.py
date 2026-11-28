@@ -1,8 +1,9 @@
 """
 Generate the personalised DFA transition table for CS2DA coursework 1.
 
-Replicates the logic of ``java/GenerateDFA.java`` for student number
-34001219, so the coursework can be reproduced without a Java toolchain.
+Replicates the logic of ``java/GenerateDFA.java``, 
+so the coursework can be reproduced without a Java toolchain.
+
 """
 
 MASK = (1 << 64) - 1
@@ -10,6 +11,7 @@ MASK = (1 << 64) - 1
 
 def generate(student_id: int):
     """Return (delta, accepting, initial) for the given student number."""
+
     id_value = student_id
     hash_value = 5381
 
@@ -18,6 +20,7 @@ def generate(student_id: int):
         id_value = id_value >> 8
 
     delta = [[-1, -1, -1] for _ in range(3)]
+
     for q in range(3):
         for a in range(3):
             delta[q][a] = (hash_value & 3) - 1
@@ -32,6 +35,7 @@ def generate(student_id: int):
 
     accepting = [False, False, True]
     initial = 0
+    
     return delta, accepting, initial
 
 
@@ -46,6 +50,7 @@ def print_table(delta, accepting):
         for a in range(len(delta[0])):
             if delta[q][a] == -1:
                 row += " | --"
+    
             else:
                 row += f" | q{delta[q][a]}"
 

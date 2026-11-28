@@ -2,7 +2,7 @@
 Generate a GraphViz .dot file from a DFA transition function (Task 2).
 """
 
-DEFAULT_SYMBOLS = "abcdefghijklmnopqrstuvwxyz"
+DEFAULT_SYMBOLS = "abcdefghijklmnopqrstuvwxyz" # alphabets
 
 
 def generate_dot(delta, accepting, symbols=None):
@@ -11,7 +11,9 @@ def generate_dot(delta, accepting, symbols=None):
     Return the .dot source for the DFA described by delta/accepting.
 
     delta: list of Q rows, each a list of S ints (-1 means undefined).
+    
     accepting: list of Q bools.
+    
     symbols: optional string of length S; defaults to first S letters.
     """
 
@@ -24,21 +26,21 @@ def generate_dot(delta, accepting, symbols=None):
     if len(symbols) != s_count:
         raise ValueError("symbols length must match alphabet size")
 
-    # Similar code structure at dot folder at dfa.dot below:
+    # Similar code structure at `dot/dfa.dot` below:
 
     lines = []
     lines.append("digraph DFA {")
     lines.append("    rankdir = TB;")
     lines.append("    node [shape = circle, fontname = \"Helvetica\"];")
     lines.append("    edge [fontname = \"Helvetica\"];")
-    lines.append("") #
+    lines.append("") # newline
     lines.append("    start [shape = point];")
     lines.append("    start -> q0;")
-    lines.append("") #
+    lines.append("") # same comment in line 36
 
     for q in range(q_count):
         if accepting[q]:
-            lines.append(f"    q{q} [shape=doublecircle];")
+            lines.append(f"    q{q} [shape = doublecircle];")
 
     if any(accepting):
         lines.append("")
@@ -48,14 +50,14 @@ def generate_dot(delta, accepting, symbols=None):
             target = delta[q][a]
 
             if target != -1:
-                lines.append(f'    q{q} -> q{target} [label="{symbols[a]}"];')
-
+                lines.append(f'    q{q} -> q{target} [label = "{symbols[a]}"];')
+    
     lines.append("}")
 
     return "\n".join(lines) + "\n"
 
 def main():
-    # Personalised DFA for student number 34001219.
+    # Personalised DFA -> StudentID : 34001219 .
     delta = [
         [1, -1, -1],
         [2, 1, 0],

@@ -14,20 +14,26 @@ def generate_dot(distances):
     distances: list of n rows, each a list of n floats (NaN marks a missing road).
     """
     n = len(distances)
+
     lines = []
     lines.append("digraph Network {")
     lines.append("    rankdir = TB;")
     lines.append("    node [shape = circle, fontname = \"Helvetica\"];")
     lines.append("    edge [fontname = \"Helvetica\"];")
     lines.append("")
+    
     for i in range(n):
         lines.append(f"    {LOCATIONS[i]} [label = \"{LOCATIONS[i]}\"];")
     lines.append("")
+    
     for i in range(n):
         for j in range(n):
+            
             if i == j or math.isnan(distances[i][j]):
                 continue
+            
             lines.append(f'    {LOCATIONS[i]} -> {LOCATIONS[j]} [label = "{int(distances[i][j])}"];')
+    
     lines.append("}")
 
     return "\n".join(lines) + "\n"
@@ -43,6 +49,7 @@ def main():
         [42.0, float("nan"), 28.0, 38.0, 0.0, float("nan")],
         [10.0, float("nan"), float("nan"), 84.0, 26.0, 0.0],
     ]
+    
     print(generate_dot(distances), end="")
 
 
